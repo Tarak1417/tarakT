@@ -7,7 +7,7 @@ import {
     AppBar,
     Box,
     Stack,
-    Drawer,
+    Drawer as MuiDrawer,
     IconButton,
     List,
     ListItem,
@@ -27,6 +27,8 @@ import {
     useTheme as useMuiTheme,
     Skeleton,
     LinearProgress,
+    styled,
+    useMediaQuery,
 } from '@mui/material';
 
 //mui icons
@@ -60,6 +62,50 @@ import MicrophoneIcon from './MicrophoneIcon';
 
 const drawerWidth = 260;
 const appsWidth = 54;
+const miniDrawerWidth = 72;
+
+const openedMixin = theme => ({
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+    }),
+    overflowX: 'hidden',
+    backgroundColor: theme.palette.background.default,
+    borderRight: 'none',
+});
+
+const closedMixin = theme => ({
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    backgroundColor: theme.palette.background.default,
+    overflowX: 'hidden',
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up('sm')]: {
+        width: `calc(${theme.spacing(8)} + 1px)`,
+    },
+    borderRight: 'none',
+});
+
+const Drawer = styled(MuiDrawer, {
+    shouldForwardProp: prop => prop !== 'open',
+})(({ theme, open }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    ...(open && {
+        ...openedMixin(theme),
+        '& .MuiDrawer-paper': openedMixin(theme),
+    }),
+    ...(!open && {
+        ...closedMixin(theme),
+        '& .MuiDrawer-paper': closedMixin(theme),
+    }),
+}));
 
 export default function Navbar(props) {
     const { children } = props;
@@ -68,6 +114,8 @@ export default function Navbar(props) {
     const [isOrderChanged, setIsOrderChanged] = useState(false);
     const [editable, setEditable] = useState(false);
     const [user, setUser] = useState(null);
+    const [collapseDrawer, setCollapseDrawer] = useState(true);
+    const [drawerHover, setDrawerHover] = useState(false);
     const {
         modalState: feedbackState,
         openModal: openFeedback,
@@ -76,6 +124,7 @@ export default function Navbar(props) {
     const { showError, showResponse } = useMessage();
     const location = useLocation();
     const platformUser = useUser();
+    const matches = useMediaQuery('(min-width:1024px)', { noSsr: true });
 
     const { toggleTheme, mode } = useTheme();
     const theme = useMuiTheme();
@@ -97,6 +146,10 @@ export default function Navbar(props) {
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
+    };
+
+    const handleDrawerOpen = () => {
+        setCollapseDrawer(!collapseDrawer);
     };
 
     const onDragEnd = result => {
@@ -371,7 +424,86 @@ export default function Navbar(props) {
             </Box>
         </Box>
     );
+    const miniDrawer = (
+        <Box minHeight='100dvh' color='text.secondary' display='flex' flexDirection='column'>
+            <Box
+                display='flex'
+                alignItems='center'
+                justifyContent='center'
+                component={Link}
+                mb={1.5}
+                to='/'
+                sx={{ textDecoration: 'none', color: 'text.primary', py: 1 }}>
+                <Image cdn='files/logo/2023/files.png' sx={{ height: '50px' }} />
+            </Box>
 
+            <Box
+                sx={{
+                    overflowY: 'auto',
+                    overflowX: 'hidden',
+                    height: 'calc(100dvh - 90px)',
+                    flexGrow: 1,
+                }}>
+                <List sx={{ px: 1 }}>
+                    {fileManager.map(link => (
+                        <NavLink
+                            to={link.to}
+                            key={link.name}
+                            style={{ textDecoration: 'none', color: 'inherit' }}>
+                            {({ isActive }) => (
+                                <ListItem disablePadding>
+                                    <ListItemButton
+                                        selected={isActive}
+                                        disableRipple
+                                        disableTouchRipple
+                                        variant='sidebarButton'
+                                        sx={{ height: '45px' }}>
+                                        <ListItemIcon
+                                            sx={{
+                                                // minWidth: '35px',
+                                                color: 'text.secondary',
+                                            }}>
+                                            {link.icon}
+                                        </ListItemIcon>
+                                    </ListItemButton>
+                                </ListItem>
+                            )}
+                        </NavLink>
+                    ))}
+                </List>
+                <Divider variant='middle' />
+                <List sx={{ px: 1 }}>
+                    {sharedFile.map(link => (
+                        <NavLink
+                            to={link.to}
+                            key={link.name}
+                            style={{ textDecoration: 'none', color: 'inherit' }}>
+                            {({ isActive }) => (
+                                <ListItem disablePadding>
+                                    <ListItemButton
+                                        selected={isActive}
+                                        disableRipple
+                                        disableTouchRipple
+                                        variant='sidebarButton'
+                                        sx={{ height: '36px' }}>
+                                        <ListItemIcon
+                                            sx={{
+                                                minWidth: '35px',
+                                                color: 'text.secondary',
+                                            }}>
+                                            {link.icon}
+                                        </ListItemIcon>
+                                    </ListItemButton>
+                                </ListItem>
+                            )}
+                        </NavLink>
+                    ))}
+                </List>
+            </Box>
+        </Box>
+    );
+
+    console.log({ drawerHover });
     return (
         <Box
             sx={{
@@ -385,13 +517,25 @@ export default function Navbar(props) {
                 component={Box}
                 position='sticky'
                 sx={{
-                    width: { xm: `calc(100% - ${drawerWidth}px)` },
-                    ml: { xm: `${drawerWidth}px` },
+                    width: {
+                        xs: '100%',
+                        xm:
+                            collapseDrawer && !drawerHover
+                                ? `calc(100% - ${drawerWidth}px)`
+                                : `calc(100% - ${miniDrawerWidth}px )`,
+                    },
+                    ml: {
+                        xm:
+                            collapseDrawer && !drawerHover
+                                ? `${drawerWidth}px`
+                                : `${miniDrawerWidth}px`,
+                    },
                     backgroundColor: 'background.default',
 
                     borderBottom: '1px solid custom.border',
                     // borderBottomColor: 'custom.border',
                     color: 'text.primary',
+                    transition: 'ease-in-out 225ms, background-color 0s',
                 }}>
                 <Toolbar
                     sx={{
@@ -406,9 +550,13 @@ export default function Navbar(props) {
                     <Grid container alignItems='center' columnSpacing={1}>
                         <Grid item>
                             <IconButton
-                                onClick={handleDrawerToggle}
-                                sx={{ p: 0, display: { xm: 'none' } }}>
-                                <MenuIcon sx={{ fontSize: '27px' }} />
+                                onClick={matches ? handleDrawerOpen : handleDrawerToggle}
+                                edge='start'
+                                sx={{
+                                    ml: 0.2,
+                                    mr: 1,
+                                }}>
+                                <MenuIcon sx={{ fontSize: '30px' }} />
                             </IconButton>
                         </Grid>
 
@@ -718,7 +866,7 @@ export default function Navbar(props) {
                     bgcolor: 'custom.menu',
                 }}>
                 {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                <Drawer
+                <MuiDrawer
                     variant='temporary'
                     open={mobileOpen}
                     onClose={handleDrawerToggle}
@@ -734,27 +882,52 @@ export default function Navbar(props) {
                         },
                     }}>
                     {drawer}
-                </Drawer>
+                </MuiDrawer>
                 <Drawer
                     variant='permanent'
+                    open={collapseDrawer}
+                    hover={drawerHover}
+                    onMouseOver={() => {
+                        if (!collapseDrawer) {
+                            setCollapseDrawer(true);
+                            setDrawerHover(true);
+                        }
+                    }}
+                    onMouseLeave={() => {
+                        if (drawerHover) {
+                            setCollapseDrawer(false);
+                            setDrawerHover(false);
+                        }
+                    }}
                     sx={{
                         display: { xs: 'none', xm: 'block' },
+                        p: 0,
                         '& .MuiDrawer-paper': {
-                            boxSizing: 'border-box',
-                            width: drawerWidth,
-                            backgroundColor: 'background.default',
-                            borderRight: 'none',
+                            boxShadow: drawerHover
+                                ? 'rgba(149, 157, 165, 0.2) 0px 8px 24px'
+                                : 'none',
                         },
                     }}>
-                    {drawer}
+                    {collapseDrawer ? drawer : miniDrawer}
                 </Drawer>
             </Box>
 
             <Box
                 component='main'
                 sx={{
-                    width: { xs: '100%', xm: `calc(100% - ${drawerWidth + appsWidth}px)` },
-                    ml: { xm: `${drawerWidth}px` },
+                    width: {
+                        xs: '100%',
+                        xm:
+                            collapseDrawer && !drawerHover
+                                ? `calc(100% - ${drawerWidth + appsWidth}px)`
+                                : `calc(100% - ${appsWidth + miniDrawerWidth}px )`,
+                    },
+                    ml: {
+                        xm:
+                            collapseDrawer && !drawerHover
+                                ? `${drawerWidth}px`
+                                : `${miniDrawerWidth}px`,
+                    },
                     mt: 1,
                     height: { xs: 'calc(100dvh - 90px)' },
                     backgroundColor: 'background.paper',
