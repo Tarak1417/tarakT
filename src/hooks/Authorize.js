@@ -1,20 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import Loading from '../components/Loading';
-import { getCookie } from '../utilities/cookies';
 import { env, handleAxiosError } from '../utilities/function';
-import axios from 'axios';
-// import Setup from '../components/Setup';
+//import axios from 'axios';
 import { useMessage } from '../components/Header';
 
 const authorizeContext = createContext();
-
-const authServer = axios.create({
-    baseURL: env('AUTHENTICATION_SERVER'),
-});
-
-const accessToken = getCookie('accessToken');
-authServer.defaults.withCredentials = false;
-authServer.defaults.headers.Authorization = `Bearer ${accessToken}`;
 
 const AuthorizationProvider = ({ children }) => {
     const [content, setContent] = useState(<Loading message='Please wait, logging you in...' />);
@@ -42,12 +32,10 @@ const AuthorizationProvider = ({ children }) => {
     useEffect(() => {
         (async () => {
             try {
-                const role = getCookie('role');
-                if (!role) throw new Error('role not found');
-                const response = await authServer.get(`/${role}/profile`);
-                const user = response.data.user;
-
-                authorize(true, setUser => setUser(user));
+                // Simulate fetching user data from server
+                const dummyUser = { id: 123, name: 'Test', email: 'test@test.com', role: 'user' };
+                setUser(dummyUser);
+                authorize(true, setUser => setUser(dummyUser));
             } catch (err) {
                 console.log(err);
                 handleAxiosError(err, showError);
