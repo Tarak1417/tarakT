@@ -1,21 +1,13 @@
-import { Box, Grid, IconButton, Typography } from '@mui/material';
-import InfoIcon from '@mui/icons-material/InfoOutlined';
+import { Box, Grid } from '@mui/material';
 import React from 'react';
+import Dashboard from './Dashboard';
 
 const Home = () => {
     return (
         <Box p={2}>
             <Grid container alignItems='center' width='100%'>
                 <Grid item xs>
-                    <Typography variant='h5' color='text.primary'>
-                        Home
-                    </Typography>
-                </Grid>
-
-                <Grid item>
-                    <IconButton sx={{ display: { xs: 'none', sm: 'block' } }}>
-                        <InfoIcon />
-                    </IconButton>
+                    <Dashboard/>
                 </Grid>
             </Grid>
         </Box>

@@ -28,6 +28,7 @@ import {
     Skeleton,
     LinearProgress,
     styled,
+    Collapse,
     useMediaQuery,
 } from '@mui/material';
 
@@ -38,8 +39,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
-import { fileManager, sharedFile } from '../services/sidebarLinks';
-
+import {menuItems  } from '../services/sidebarLinks';
+import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import If from './If';
 //react component
 import Image from '../components/Image';
 
@@ -59,6 +62,9 @@ import { env, handleAxiosError } from '../utilities/function';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Feedback from './Feedback';
 import MicrophoneIcon from './MicrophoneIcon';
+//logos
+import hrlogo from './images/hr-text.png';
+
 
 const drawerWidth = 260;
 const appsWidth = 54;
@@ -116,6 +122,15 @@ export default function Navbar(props) {
     const [user, setUser] = useState(null);
     const [collapseDrawer, setCollapseDrawer] = useState(true);
     const [drawerHover, setDrawerHover] = useState(false);
+
+    const [collapsesState, setCollapsesState] = useState({});
+    const modifyCollapsesState = (label) => {
+        setCollapsesState(prevState => ({
+        ...prevState,
+        [label]: !prevState[label]
+        }));
+    };
+ 
     const {
         modalState: feedbackState,
         openModal: openFeedback,
@@ -277,78 +292,124 @@ export default function Navbar(props) {
                 component={Link}
                 to='/'
                 sx={{ textDecoration: 'none', color: 'text.primary', py: 1 }}>
-                <Image cdn='files/logo/2023/files-text.png' sx={{ height: '50px' }} />
+                <Image src={hrlogo} sx={{ height: '47px' }} />
                 <Typography
                     color='text.secondary'
                     variant='body2'
                     fontWeight='bold'
-                    sx={{ position: 'absolute', bottom: 2, left: '37%' }}>
+                    sx={{ position: 'absolute', bottom: 2, left: '43%' }}>
                     Beta
                 </Typography>
             </Box>
 
             <Box sx={{ overflowY: 'auto', height: 'calc(100dvh - 90px)', flexGrow: 1 }}>
-                <Typography variant='body2' pl={3} mt={1.5} fontSize='14px' fontWeight={500}>
-                    File Manager
+                <Typography variant='body2' pl={3} mt={1.5} fontSize='18px' fontWeight={500}>
+                    Dashboard
                 </Typography>
-                <List sx={{ px: 3 }}>
-                    {fileManager.map(link => (
-                        <NavLink
+                <List sx={{ px: 3, py: 1 }}>
+                        {menuItems.map(link => (
+                            <NavLink
                             to={link.to}
-                            key={link.name}
-                            style={{ textDecoration: 'none', color: 'inherit' }}>
+                            key={link.label}
+                            style={{
+                                textDecoration: 'none',
+                                color: 'inherit',
+                            }}>
                             {({ isActive }) => (
-                                <ListItem disablePadding>
-                                    <ListItemButton
-                                        selected={isActive}
-                                        disableRipple
-                                        disableTouchRipple
-                                        variant='sidebarButton'>
-                                        <ListItemIcon
-                                            sx={{
-                                                minWidth: '35px',
-                                                color: 'text.secondary',
+                                <>
+                                <ListItemButton
+                                    disableRipple
+                                    disableTouchRipple
+                                    variant='sidebarButton'
+                                    {...(Array.isArray(link.to)
+                                    ? {
+                                        selected: collapsesState[link.label],
+                                        variant: 'sidebarDropDown',
+                                        onClick: () => modifyCollapsesState(link.label),
+                                        sx: { pr: 0 },
+                                    }
+                                    : {
+                                        to: link.to,
+                                        selected: isActive,
+                                    })}>
+                                    <ListItemIcon
+                                    sx={{
+                                        minWidth: '35px',
+                                        color: 'text.secondary',
+                                    }}>
+                                    {link.icon}
+                                    </ListItemIcon>
+                                    <ListItemText primary={link.label} />
+                                    <If
+                                    condition={Array.isArray(link.to)}
+                                    so={
+                                        <If
+                                        condition={collapsesState[link.label]}
+                                        so={<ExpandMore fontSize='small' />}
+                                        otherwise={
+                                            <ChevronRightOutlinedIcon fontSize='small' />
+                                        }
+                                        />
+                                    }
+                                    otherwise
+                                    />
+                                </ListItemButton>
+                                {Array.isArray(link.to) && collapsesState[link.label] && (
+                                    <Collapse
+                                    in={collapsesState[link.label]}
+                                    timeout='auto'
+                                    unmountOnExit>
+                                    <List
+                                        sx={{
+                                        p: '10px',
+                                        ml: 2,
+                                        py: 0,
+                                        }}>
+                                        {link.to.map(subLink => (
+                                        <NavLink
+                                            to={subLink.to}
+                                            key={subLink.name}
+                                            style={{
+                                            textDecoration: 'none',
+                                            color: 'inherit',
                                             }}>
-                                            {link.icon}
-                                        </ListItemIcon>
-                                        <ListItemText primary={link.name} />
-                                    </ListItemButton>
-                                </ListItem>
+                                            {({ isActive }) => (
+                                            <ListItem disablePadding>
+                                                <ListItemButton
+                                                selected={isActive}
+                                                disableRipple
+                                                disableTouchRipple
+                                                variant='sidebarButton'
+                                                sx={{ overflow: 'hidden' }}>
+                                                <ListItemIcon
+                                                    sx={{
+                                                    minWidth: '35px',
+                                                    color: 'text.secondary',
+                                                    }}>
+                                                    {subLink.icon}
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={subLink.label}
+                                                    primaryTypographyProps={{
+                                                    overflow: 'hidden',
+                                                    textOverflow: 'ellipsis',
+                                                    whiteSpace: 'nowrap',
+                                                    }}
+                                                />
+                                                </ListItemButton>
+                                            </ListItem>
+                                            )}
+                                        </NavLink>
+                                        ))}
+                                    </List>
+                                    </Collapse>
+                                )}
+                                </>
                             )}
                         </NavLink>
                     ))}
                 </List>
-                <Divider variant='middle' />
-                <Typography variant='body2' pl={3} mt={1.5} fontSize='14px' fontWeight={500}>
-                    Shared File
-                </Typography>
-                <List sx={{ px: 3 }}>
-                    {sharedFile.map(link => (
-                        <NavLink
-                            to={link.to}
-                            key={link.name}
-                            style={{ textDecoration: 'none', color: 'inherit' }}>
-                            {({ isActive }) => (
-                                <ListItem disablePadding>
-                                    <ListItemButton
-                                        selected={isActive}
-                                        disableRipple
-                                        disableTouchRipple
-                                        variant='sidebarButton'>
-                                        <ListItemIcon
-                                            sx={{
-                                                minWidth: '35px',
-                                                color: 'text.secondary',
-                                            }}>
-                                            {link.icon}
-                                        </ListItemIcon>
-                                        <ListItemText primary={link.name} />
-                                    </ListItemButton>
-                                </ListItem>
-                            )}
-                        </NavLink>
-                    ))}
-                </List>
+               
             </Box>
 
             <Box>
@@ -438,68 +499,52 @@ export default function Navbar(props) {
             </Box>
 
             <Box
-                sx={{
-                    overflowY: 'auto',
-                    overflowX: 'hidden',
-                    height: 'calc(100dvh - 90px)',
-                    flexGrow: 1,
-                }}>
-                <List sx={{ px: 1 }}>
-                    {fileManager.map(link => (
-                        <NavLink
-                            to={link.to}
-                            key={link.name}
-                            style={{ textDecoration: 'none', color: 'inherit' }}>
-                            {({ isActive }) => (
-                                <ListItem disablePadding>
-                                    <ListItemButton
-                                        selected={isActive}
-                                        disableRipple
-                                        disableTouchRipple
-                                        variant='sidebarButton'
-                                        sx={{ height: '45px' }}>
-                                        <ListItemIcon
-                                            sx={{
-                                                // minWidth: '35px',
-                                                color: 'text.secondary',
-                                            }}>
-                                            {link.icon}
-                                        </ListItemIcon>
-                                    </ListItemButton>
-                                </ListItem>
-                            )}
-                        </NavLink>
-                    ))}
-                </List>
-                <Divider variant='middle' />
-                <List sx={{ px: 1 }}>
-                    {sharedFile.map(link => (
-                        <NavLink
-                            to={link.to}
-                            key={link.name}
-                            style={{ textDecoration: 'none', color: 'inherit' }}>
-                            {({ isActive }) => (
-                                <ListItem disablePadding>
-                                    <ListItemButton
-                                        selected={isActive}
-                                        disableRipple
-                                        disableTouchRipple
-                                        variant='sidebarButton'
-                                        sx={{ height: '36px' }}>
-                                        <ListItemIcon
-                                            sx={{
-                                                minWidth: '35px',
-                                                color: 'text.secondary',
-                                            }}>
-                                            {link.icon}
-                                        </ListItemIcon>
-                                    </ListItemButton>
-                                </ListItem>
-                            )}
-                        </NavLink>
-                    ))}
-                </List>
-            </Box>
+				sx={{
+					overflowY: 'auto',
+					overflowX: 'hidden',
+					height: 'calc(100dvh - 90px)',
+					flexGrow: 1,
+				}}
+			>
+				<List sx={{ px: 1 }}>
+					{menuItems.map((link) => (
+						<NavLink
+							to={link.to}
+							key={link.to}
+							style={{ textDecoration: 'none', color: 'inherit' }}
+						>
+							{({ isActive }) => (
+								<ListItem disablePadding>
+									<ListItemButton
+										disableRipple
+										disableTouchRipple
+										variant='sidebarButton'
+										{...(Array.isArray(link.to)
+											? {
+												selected: collapsesState[link.name],
+												onClick: () => modifyCollapsesState(link.name),
+											}
+											: {
+												to: link.to,
+												selected: isActive,
+											})}
+										sx={{ height: '45px', my: '2px' }}
+									>
+										<ListItemIcon
+											sx={{
+												// minWidth: '35px',
+												color: 'text.secondary',
+											}}
+										>
+											{link.icon}
+										</ListItemIcon>
+									</ListItemButton>
+								</ListItem>
+							)}
+						</NavLink>
+					))}
+				</List>
+			</Box>
         </Box>
     );
 

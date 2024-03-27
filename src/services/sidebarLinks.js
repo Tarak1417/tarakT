@@ -1,44 +1,90 @@
-import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
-import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import PeopleIcon from '@mui/icons-material/People';
-import PersonIcon from '@mui/icons-material/Person';
-import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
+import {
+    DashboardOutlined,
+} from '@mui/icons-material';
+import HomeIcon from '@mui/icons-material/Home';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import ListIcon from '@mui/icons-material/List';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import MarkunreadMailboxIcon from '@mui/icons-material/MarkunreadMailbox';
+import GroupsIcon from '@mui/icons-material/Groups';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import AssignmentReturnedIcon from '@mui/icons-material/AssignmentReturned';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
 
-const fileManager = [
+
+
+
+const menuItems = [
     {
-        name: 'My Files',
-        icon: <FolderOutlinedIcon fontSize='small' />,
-        to: '/',
+        icon: <HomeIcon fontSize='small' />,
+        label: 'Dashboard',
+        to: [
+            {
+                label: 'Dashboard',
+                icon: <HomeIcon fontSize='small' />,
+                to: '/',
+            },
+            {
+                label: 'Job Listing',
+                icon: <FormatListBulletedIcon fontSize='small' />,
+                to: '/contacts/all',
+            },
+            {
+                label: 'Interview Question',
+                icon: <ListIcon fontSize='small' />,
+                to: '/contacts/signup-forms',
+            },
+            {
+                label: 'Department',
+                icon: <ApartmentIcon fontSize='small' />,
+                to: '/contacts/tags',
+            },
+            {
+                label: 'Received Applications',
+                icon: <MarkunreadMailboxIcon  fontSize='small' />,
+                to: '/contacts/segments',
+            },
+        ],
     },
     {
-        name: 'Recent',
-        icon: <AccessTimeOutlinedIcon fontSize='small' />,
-        to: '/recent',
+        icon: <GroupsIcon fontSize='small' />,
+        label: 'Employees',
+        to: [],
     },
     {
-        name: 'Favorite',
-        icon: <GradeOutlinedIcon fontSize='small' />,
-        to: '/favorite',
+        label: 'Attendance',
+        icon: <DashboardOutlined fontSize='small' />,
+        to: [
+            {
+                label: 'Attendance View',
+                icon: <CalendarMonthIcon fontSize='small' />,
+                to: '/employees/award',
+            },
+            {
+                label: 'Leave Setting',
+                icon: <WorkHistoryIcon fontSize='small' />,
+                to: '/employees/award',
+            },
+            {
+                label: 'Attendance By User',
+                icon: <AssignmentReturnedIcon fontSize='small' />,
+                to: '/employees/award',
+            },
+           
+        ],
     },
     {
-        name: 'Trash',
-        icon: <DeleteOutlinedIcon fontSize='small' />,
-        to: '/trash',
+        label: 'Award',
+        icon: <EmojiEventsIcon fontSize='small' />,
+        to: '/employees/award',
+    },
+    {
+        label: 'Holiday',
+        icon: <HolidayVillageIcon fontSize='small' />,
+        to: '/employees/holiday',
     },
 ];
 
-const sharedFile = [
-    {
-        name: 'Shared with me',
-        icon: <PeopleIcon fontSize='small' />,
-        to: '/shared-with-me',
-    },
-    {
-        name: 'Shared by me',
-        icon: <PersonIcon fontSize='small' />,
-        to: '/shared-by-me',
-    },
-];
-
-export { fileManager, sharedFile };
+export { menuItems };
