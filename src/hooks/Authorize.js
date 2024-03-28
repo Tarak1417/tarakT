@@ -31,16 +31,64 @@ const AuthorizationProvider = ({ children }) => {
 
     useEffect(() => {
         (async () => {
+            // try {
+            //     // Simulate fetching user data from server
+            //     const dummyUser = { id: 123, name: 'Test', email: 'test@test.com', role: 'user' };
+            //     setUser(dummyUser);
+            //     authorize(true, setUser => setUser(dummyUser));
+            // } catch (err) {
+            //     console.log(err);
+            //     handleAxiosError(err, showError);
+            //     authorize(false);
+            // }
             try {
-                // Simulate fetching user data from server
-                const dummyUser = { id: 123, name: 'Test', email: 'test@test.com', role: 'user' };
-                setUser(dummyUser);
-                authorize(true, setUser => setUser(dummyUser));
-            } catch (err) {
-                console.log(err);
-                handleAxiosError(err, showError);
-                authorize(false);
-            }
+                    //  const loggedInUserEmail = getCookie('loggedInUserEmail');
+                    const queryParameters = new URLSearchParams(window.location.search)
+                    const userId = queryParameters.get("userId")
+                    console.log(userId);
+
+                    if (userId) {
+
+                        var formData = new FormData();
+                        formData.append("id", userId);
+
+                        const response = await fetch(
+                            "https://accounts.clikkle.com:5000/api/auth/get_user_profile",
+                            // "https://api.campaigns.clikkle.com/get_user_profile",
+                            // "http://localhost:8000/get_user_profile",
+                            {
+                                method: "POST",
+                                body: formData
+                            },
+
+                        );
+
+                        if (response.ok) {
+                            console.log('user found ...')
+
+                            const responseData = await response.json();
+                            const { user } = responseData;
+                            console.log(user)
+                            localStorage.setItem("user", JSON.stringify(user));
+                            authorize(true, (setUser) => setUser(user));
+
+                        } else {
+                            console.log('user not found')
+                        }
+
+
+                    }else if(localStorage.getItem("user")){
+                        let user = JSON.parse(localStorage.getItem("user"));
+                        authorize(true, (setUser) => setUser(user)); 
+                    } else {
+                        authorize(false);
+                    }
+
+                } catch (err) {
+                    console.log(err);
+                    // handleAxiosError(err, showError);
+                    authorize(false);
+                }
         })();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
