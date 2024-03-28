@@ -1,15 +1,15 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import Loading from '../components/Loading';
-import { env, handleAxiosError } from '../utilities/function';
+import { env } from '../utilities/function';
 //import axios from 'axios';
-import { useMessage } from '../components/Header';
+//import { useMessage } from '../components/Header';
 
 const authorizeContext = createContext();
 
 const AuthorizationProvider = ({ children }) => {
     const [content, setContent] = useState(<Loading message='Please wait, logging you in...' />);
     const [user, setUser] = useState({});
-    const { showError } = useMessage();
+   // const { showError } = useMessage();
 
     const authorize = async (loggedIn, cb) => {
         if (loggedIn) {
