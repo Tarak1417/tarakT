@@ -1,16 +1,16 @@
-import { Box, Grid } from '@mui/material';
 import React from 'react';
+import {  Grid } from '@mui/material';
 import Dashboard from './Dashboard';
 
 const Home = () => {
     return (
-        <Box p={2}>
-            <Grid container alignItems='center' width='100%'>
-                <Grid item xs>
-                    <Dashboard/>
+        <div className="overflow-y-auto  min-h-screen md:h-screen absolute bg-black">
+            <Grid container alignItems='center' justifyContent='center' height='100%'>
+                <Grid item xs={11}>
+                    <Dashboard />
                 </Grid>
             </Grid>
-        </Box>
+        </div>
     );
 };
 

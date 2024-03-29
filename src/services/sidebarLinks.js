@@ -29,7 +29,7 @@ const menuItems = [
             {
                 label: 'Job Listing',
                 icon: <FormatListBulletedIcon fontSize='small' />,
-                to: '/contacts/all',
+                to: '/joblisting',
             },
             {
                 label: 'Interview Question',

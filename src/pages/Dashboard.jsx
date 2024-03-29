@@ -11,6 +11,7 @@ import Bars from './DashComponents/bars';
 import RecentActivity from './DashComponents/recent';
 import GenderChart from './DashComponents/GenderChart';
 import RecentJobs from './DashComponents/recentJobs';
+import Attendance from './DashComponents/attend';
 
 const Dashboard = () => {
     const data = [
@@ -51,8 +52,8 @@ const Dashboard = () => {
     ];
     
     return (
-        <div className='bg-black'>
-       <div className="p-4 overflow-y-auto">
+        <div className=''>
+       <div className="p-2 overflow-y-auto">
             <Typography variant="h4" className="text-zinc-400" gutterBottom>
                 HR DASHBOARD
             </Typography>
@@ -82,22 +83,22 @@ const Dashboard = () => {
             </div>
         </div>
             <div className='w-full  flex flex-col md:flex-row p-2'>
-                <div className='w-full md:w-1/3 mx-2 mb-2 md:mb-0'>
+                <div className='w-full md:w-1/3 mx-1 mb-2 md:mb-0'>
                     <Bars barsData={barsData}/>
                 </div>
-                <div className='w-full md:w-1/3 mx-2 mb-2 md:mb-0'>
+                <div className='w-full md:w-1/3 mx-1 mb-2 md:mb-0'>
                     <RecentActivity/>
                 </div>
-                <div className='w-full md:w-1/3 mx-2'>
+                <div className='w-full md:w-1/3 mx-1'>
                    <GenderChart/> 
                 </div>
             </div>
             <div className='w-full  flex flex-col md:flex-row p-2'>
-                <div className='w-full md:w-1/2 mx-2 mb-2 md:mb-0'>
+                <div className='w-full md:w-1/2 mx-1 mb-2 md:mb-0'>
                 <RecentJobs/>
                 </div>
-                <div className='w-full md:w-1/2 mx-2 mb-2 md:mb-0'>
-                <RecentJobs/> 
+                <div className='w-full md:w-1/2 mx-1 mb-2 md:mb-0'>
+                <Attendance/>
                 </div>
             </div>
         </div>
