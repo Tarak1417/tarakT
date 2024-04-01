@@ -1,13 +1,13 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+
 
 const UpcomingEvents = () => {
     return (
-        <div className="rounded-lg  mb-4 shadow-md h-40">
-            <Typography variant="h5" className="text-white mb-4" gutterBottom>
+        <div className="rounded-lg  mb-4 shadow-md h-39">
+            <p  className="text-gray-500 mb-4 text-[22px] " gutterBottom>
                 Upcoming Events
-            </Typography>
-            <div className='bg-gray-900 w-full p-3'>
+            </p>
+            <div className='bg-neutral-900 w-full p-3'>
                     <div className="mb-4">
                         <div className="flex gap-4 justify-center items-center">
                             <div className="w-1/4 h-[60px] flex items-center justify-center text-white rounded-lg bg-green-500">

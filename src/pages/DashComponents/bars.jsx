@@ -29,8 +29,8 @@ const Bars = ({ barsData }) => {
     }, []);
 
     return (
-        <div className="relative">
-            <div className="bg-neutral-900 rounded-lg p-4 mb-4">
+        <div className="">
+            <div className="bg-neutral-900 rounded-lg pt-4 pb-4 pr-4 mb-4">
                 <div className="flex flex-col md:flex-row gap-4 mb-4 items-start md:items-center justify-between">
                     <Typography variant='h5' className="w-1/3 border-l-4 border-blue-500 pl-2 whitespace-nowrap" gutterBottom>
                         Project Overview
@@ -72,7 +72,7 @@ const Bars = ({ barsData }) => {
                         </div>
                     </div>
                 </div>
-                <ResponsiveContainer width="100%" height={330}>
+                <ResponsiveContainer width="100%" height={267}>
                     <BarChart data={barsData}>
                         <XAxis dataKey="name" />
                         <YAxis tickFormatter={(value) => `${value}%`} />

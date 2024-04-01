@@ -19,9 +19,9 @@ const Charts = ({ data }) => {
 
    
 
-    return (
-        <div className="relative">
-            <div className="bg-neutral-900 p-4 mb-4">
+    return ( 
+        <div className="">
+            <div className="bg-neutral-900 pt-5 pr-4 pb-4 mb-4">
                 <div className="flex flex-col md:flex-row gap-4 mb-4">
                     <Typography variant="h5" className="w-full md:w-1/3 border-l-4 border-blue-500 pl-2 mb-4 md:mb-0 md:mr-4" gutterBottom>
                         Overview
@@ -35,7 +35,7 @@ const Charts = ({ data }) => {
                         <Typography variant="h7">Budget</Typography>
                     </div>
                     <div className="w-full md:w-1/6 flex items-center justify-between border border-gray-600 rounded-lg p-2">
-                        <div className="flex items-center relative">
+                        <div className="flex items-center justify-between relative">
                             <Typography variant="h7">Year</Typography>
                             {dropdownOpen && (
                                 <div className="absolute top-10 right-0 mt-1 w-20 bg-neutral-900 rounded-lg border border-gray-600 z-10">
@@ -65,7 +65,7 @@ const Charts = ({ data }) => {
                         </div>
                     </div>
                 </div>
-                <ResponsiveContainer width="100%" height={300}>
+                <ResponsiveContainer width="100%" height={300} className='md:mt-8'>
                     <BarChart data={data}>
                         <XAxis dataKey="name" />
                         <YAxis />

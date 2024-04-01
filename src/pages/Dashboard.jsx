@@ -40,9 +40,9 @@ const Dashboard = () => {
     
 
     const boxesData = [
-        { icon: <GroupIcon fontSize='large' className="text-white  bg-blue-500 p-2 rounded-lg" />, title: 'Total Employees',  value: <Typography variant="body1" style={{ color: '#00FF00', fontSize: '1.2em' }}>7,738</Typography>, description: '124 for last month', trendIcon: <TrendingUp className="text-green-500" /> },
-        { icon: <ApartmentIcon fontSize='large' className="text-white bg-red-500 p-2 rounded-lg" />, title: 'Department', value: <Typography variant="body1" style={{ color: '#FF0000', fontSize: '1.2em' }}>130</Typography>, description: '124 for last month,', trendIcon: <TrendingDown className="text-red-500" /> },
-        { icon: <AttachMoneyIcon fontSize='large' className="text-white bg-red-500 p-2 rounded-lg" />, title: 'Expenses', value: <Typography variant="body1" style={{ color: '#FF0000', fontSize: '1.2em' }}>$ 30,476</Typography>, description: '124 for last month', trendIcon: <TrendingDown className="text-red-500" /> }
+        { icon: <GroupIcon fontSize='large' className="text-white  bg-sky-400 p-2 rounded-lg" />, title: 'Total Employees',  value: <Typography variant="body1" style={{ color: '#00FF00', fontSize: '1.2em' }}>7,738</Typography>, description: '124 for last month', trendIcon: <TrendingUp className="text-green-500" /> },
+        { icon: <ApartmentIcon fontSize='large' className="text-white bg-rose-500 p-2 rounded-lg" />, title: 'Department', value: <Typography variant="body1" style={{ color: '#FF0000', fontSize: '1.2em' }}>130</Typography>, description: '124 for last month,', trendIcon: <TrendingDown className="text-red-500" /> },
+        { icon: <AttachMoneyIcon fontSize='large' className="text-white bg-blue-500 p-2 rounded-lg" />, title: 'Expenses', value: <Typography variant="body1" style={{ color: '#FF0000', fontSize: '1.2em' }}>$ 30,476</Typography>, description: '124 for last month', trendIcon: <TrendingDown className="text-red-500" /> }
     ];
     const eventData = [
         { date: '5 Mar', title: 'Board Meeting', description: 'Attend board meeting with company manager.', backgroundColor: '#fbbf24' },
@@ -52,36 +52,36 @@ const Dashboard = () => {
     ];
     
     return (
-        <div className=''>
-       <div className="p-2 overflow-y-auto">
-            <Typography variant="h4" className="text-zinc-400" gutterBottom>
-                HR DASHBOARD
-            </Typography>
-            <div className="flex flex-col md:flex-row gap-4">
-                <div className="w-full md:w-3/4">
-                    <div className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
-                        {boxesData.map((box, index) => (
-                            <div key={index} className="bg-neutral-900 rounded-lg p-4 shadow-md text-white md:w-1/3">
-                                <Typography className='text-xl'>{box.title}</Typography>
-                                <div className="flex items-center mb-2">
-                                    <Typography className="w-5/6 text-xl">{box.value}</Typography>
-                                    <div className="w-1/6">{box.icon}</div>
+        <div className='flex flex-col'>
+            <div className="p-2">
+                <Typography variant="h4" className="text-neutral-500" gutterBottom>
+                    HR DASHBOARD
+                </Typography>
+                <div className="flex flex-col md:flex-row gap-4">
+                    <div className="w-full md:w-3/4">
+                        <div className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
+                            {boxesData.map((box, index) => (
+                                <div key={index} className=" light:bg-neutral-900 rounded-lg p-4 shadow-md text-white md:w-1/3">
+                                    <Typography className='text-xl'>{box.title}</Typography>
+                                    <div className="flex items-center mb-2">
+                                        <Typography className="w-5/6 text-xl">{box.value}</Typography>
+                                        <div className="w-1/6">{box.icon}</div>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        {box.trendIcon}
+                                        <Typography variant="body2" className="ml-2">{box.description}</Typography>
+                                    </div>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    {box.trendIcon}
-                                    <Typography variant="body2" className="ml-2">{box.description}</Typography>
-                                </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
+                        <Charts data={data} />
                     </div>
-                    <Charts data={data} />
-                </div>
-                <div className="w-full md:w-1/4">
-                    <NoticeBoard eventData={eventData} />
-                    <UpcomingEvents />
+                    <div className="w-full md:w-1/4">
+                        <NoticeBoard eventData={eventData} />
+                        <UpcomingEvents />
+                    </div>
                 </div>
             </div>
-        </div>
             <div className='w-full  flex flex-col md:flex-row p-2'>
                 <div className='w-full md:w-1/3 mx-1 mb-2 md:mb-0'>
                     <Bars barsData={barsData}/>
@@ -90,17 +90,18 @@ const Dashboard = () => {
                     <RecentActivity/>
                 </div>
                 <div className='w-full md:w-1/3 mx-1'>
-                   <GenderChart/> 
+                    <GenderChart/> 
                 </div>
             </div>
             <div className='w-full  flex flex-col md:flex-row p-2'>
                 <div className='w-full md:w-1/2 mx-1 mb-2 md:mb-0'>
-                <RecentJobs/>
+                    <RecentJobs/>
                 </div>
                 <div className='w-full md:w-1/2 mx-1 mb-2 md:mb-0'>
-                <Attendance/>
+                    <Attendance/>
                 </div>
             </div>
+            
         </div>
     );
 };

@@ -36,7 +36,7 @@ const RecentJobs = () => {
     ];
 
     return (
-        <div className='bg-neutral-900 rounded-lg mb-4 shadow-md p-4'>
+        <div className='bg-neutral-900 rounded-lg mb-4 shadow-md pt-4 pr-4 pb-4 '>
             <div className="flex flex-col md:flex-row gap-4 mb-4 items-center">
                 <div className=' w-full md:w-1/2 flex justify-left'>
                     <Typography className="w-full md:w-1/3 border-l-4 border-blue-500 pl-2 whitespace-nowrap text-xl">

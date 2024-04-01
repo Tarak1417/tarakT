@@ -303,8 +303,8 @@ export default function Navbar(props) {
             </Box>
 
             <Box sx={{ overflowY: 'auto', height: 'calc(100dvh - 90px)', flexGrow: 1 }}>
-                <Typography variant='body2' pl={3} mt={1.5} fontSize='18px' fontWeight={500}>
-                    Dashboard
+                <Typography variant='body2' pl={3} mt={1.5} fontSize='16px' fontWeight={500}>
+                    Hr Manager
                 </Typography>
                 <List sx={{ px: 3, py: 1 }}>
                         {menuItems.map(link => (

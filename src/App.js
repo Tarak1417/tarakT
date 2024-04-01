@@ -4,14 +4,16 @@ import './utilities/axios';
 
 import Header from './components/Header';
 import Home from './pages/Home';
-import JobListing from './pages/JobListing/jobListing';
+import JobListingHome from './pages/JobListing/JobListingHome';
+import ReceivedApp from './pages/ReceivedApp/ReceivedApp';
 
 const App = () => {
     return (
         <Header>
             <Routes>
                 <Route path='/' element={<Home />} />
-                <Route path='/joblisting' element={<JobListing/>} />
+                <Route path='/joblisting' element={<JobListingHome/>} />
+                <Route path='/receivedapplications' element={<ReceivedApp/>} />
 
             </Routes>
         </Header>

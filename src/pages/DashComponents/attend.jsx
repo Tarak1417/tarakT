@@ -35,7 +35,7 @@ const Attendance = () => {
     ];
 
     return (
-        <div className='bg-neutral-900 rounded-lg mb-4 shadow-md p-4 h-[350px]'>
+        <div className='bg-neutral-900 rounded-lg mb-4 shadow-md pt-4 pr-4 pb-4 h-[350px] '>
             <div className="flex flex-row gap-4 mb-4 items-center justify-between">
                 <div className=' w-full md:w-1/2 flex justify-left'>
                     <Typography className="w-full md:w-1/3 border-l-4 border-blue-500 pl-2 whitespace-nowrap text-xl">
@@ -67,7 +67,7 @@ const Attendance = () => {
                         </div>
                 
             </div>
-            <div className='w-full'>
+            <div className='w-full '>
         
                 <div  className="flex flex-row mb-4 gap-1 md:gap-0">
 
