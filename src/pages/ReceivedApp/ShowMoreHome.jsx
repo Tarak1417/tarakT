@@ -1,14 +1,15 @@
 import React from 'react';
 import { Grid } from '@mui/material';
-import Applications from './Applications';
+import ShowMorePage from './ShowMore';
 
-const ReceivedApp = () => {
+
+const ShowMoreHome = () => {
     return (
         <div className="h-full overflow-hidden bg-black">
             <div className="h-full" style={{ overflowY: 'scroll', paddingRight: '1px' }}>
-                <Grid container alignItems='center' justifyContent='start' height='100%'>
+                <Grid container alignItems='center' justifyContent='center' height='100%'>
                     <Grid item xs={12}>
-                        <Applications/>
+                       <ShowMorePage/>
                     </Grid>
                 </Grid>
             </div>
@@ -16,4 +17,4 @@ const ReceivedApp = () => {
     );
 };
 
-export default ReceivedApp;
+export default ShowMoreHome;

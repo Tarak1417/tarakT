@@ -63,6 +63,7 @@ const JobCards = ({ currentScreen }) => {
                 <div className='flex flex-col md:flex-row items-center w-full gap-4 md:gap-0' key={job.id}>
                     <div className=" w-[90%] md:w-[88%] flex flex-col md:flex-row text-white md:gap-0 gap-2 bg-neutral-800 rounded-lg p-4">
                         <div className=' w-full md:w-1/5'>
+
                             <h2 className="text-sm font-semibold">{job.title}</h2>
                         </div>
                         <div className='w-full md:w-1/5 flex justify-start md:justify-center items-center gap-2'>

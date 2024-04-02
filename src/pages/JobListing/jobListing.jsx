@@ -36,9 +36,9 @@ const JobListing = () => {
             </div>
             <div className="flex items-center justify-between md:w-[92%] mx-4 md:pt-10">
                 <div className="bg-neutral-900 p-2 rounded-lg">
-                    <div className="flex items-center">
+                    <div className="flex items-center gap-6">
                         <input
-                            className="outline-none bg-transparent"
+                            className="outline-none bg-transparent pl-5"
                             type="text"
                             placeholder="Search your listing here"
                         />

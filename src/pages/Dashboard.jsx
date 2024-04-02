@@ -61,7 +61,7 @@ const Dashboard = () => {
                     <div className="w-full md:w-3/4">
                         <div className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
                             {boxesData.map((box, index) => (
-                                <div key={index} className=" light:bg-neutral-900 rounded-lg p-4 shadow-md text-white md:w-1/3">
+                                <div key={index} className="bg-neutral-900 rounded-lg p-4 shadow-md text-white md:w-1/3">
                                     <Typography className='text-xl'>{box.title}</Typography>
                                     <div className="flex items-center mb-2">
                                         <Typography className="w-5/6 text-xl">{box.value}</Typography>
