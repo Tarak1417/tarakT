@@ -24,25 +24,25 @@ const JobListing = () => {
     };
 
     return (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between md:w-full p-4">
                 <div className="p-2">
-                    <h1 className="text-3xl text-zinc-200">Job Listing</h1>
+                    <h1 className="text-2xl text-neutral-500">Job Listing</h1>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
                     <Button variant="contained">Add Job</Button>
                     <InfoOutlinedIcon />
                 </div>
             </div>
-            <div className="flex items-center justify-between md:w-[92%] mx-4 md:pt-10">
-                <div className="bg-neutral-900 p-2 rounded-lg">
-                    <div className="flex items-center gap-6">
+            <div className='flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10'>
+                <div className="p-2 rounded-lg bg-neutral-900">
+                    <div className="flex items-center bg-neutral-900 gap-0 md:gap-6">
                         <input
-                            className="outline-none bg-transparent pl-5"
-                            type="text"
-                            placeholder="Search your listing here"
+                        className="outline-none bg-transparent md:pl-5"
+                        type="text"
+                        placeholder="search your listing here"
                         />
-                        <SearchOutlinedIcon className="outline-none text-zinc-300" />
+                        <SearchOutlinedIcon className="outline-none text-zinc-300 " />
                     </div>
                 </div>
                 <div className="flex flex-row gap-4">

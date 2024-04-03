@@ -495,7 +495,7 @@ export default function Navbar(props) {
                 mb={1.5}
                 to='/'
                 sx={{ textDecoration: 'none', color: 'text.primary', py: 1 }}>
-                <Image cdn='files/logo/2023/files.png' sx={{ height: '50px' }} />
+                <Image cdn='hr/logo/2023/hr.png' sx={{ height: '50px' }} />
             </Box>
 
             <Box

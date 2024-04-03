@@ -6,123 +6,150 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import profile from './profile.png';
 import view from './viewicon.png';
 import Calendar from './Calender';
+import CustomTimePicker from './TimePicker';
+
+
+
 
 
 const ShowMorePage = () => {
     const [showPopup, setShowPopup] = useState(false);
-    //const [ setSelectedDate] = useState(new Date());
+    const [scheduleDisabled, setScheduleDisabled] = useState(false); 
 
-   // const handleMonthChange = (date) => {
-       // setSelectedDate(date);
-    //};
+    const toggleButtonText = () => {
+        setScheduleDisabled(true); 
+        setShowPopup(true); 
+    };
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto overscroll-auto overflow-hidden">
             <div className="flex items-center justify-between p-4">
                 <div>
-                    <h1 className="text-lg md:text-3xl text-zinc-400">Job Application Details</h1>
+                    <h1 className="text-sm md:text-3xl text-zinc-400">Job Application Details</h1>
                 </div>
                 <div className="flex items-center gap-4">
-                    <Button variant="contained" onClick={() => setShowPopup(true)}>Schedule Interview</Button>
-                    <InfoOutlinedIcon />
+                   {/*<Button variant="contained" onClick={() => setShowPopup(true)}>Schedule Interview</Button> */}
+                   <button
+                        disabled={scheduleDisabled}
+                        onClick={toggleButtonText}
+                        className={`${
+                            scheduleDisabled
+                                ? 'bg-neutral-700 cursor-not-allowed text-stone-400'
+                                : 'bg-sky-500 hover:bg-sky-700'
+                        } text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded`}
+                    >
+                        Schedule Interview
+                    </button>
+                   <InfoOutlinedIcon />
                 </div>
             </div>
             <div className="flex flex-col md:flex-row p-4 items-start justify-start">
-                <div className="md:w-1/3 flex flex-col gap-2 p-4">
-                    <div className="flex justify-center md:justify-start">
+                <div className="w-full md:w-1/3 flex flex-col gap-2 p-4">
+                    <div className="flex justify-start md:justify-start">
                         <img src={profile} alt="Profile" className=" w-[50%] md:w-full max-w-[200px] h-auto" />
                     </div>
                     <div className="w-full">
-                        <h1 className="text-blue-500 text-[22px]">George Kepner</h1>
-                        <p className="text-zinc-50 text-[16px]">Full Stack Developer</p>
+                        <h1 className="text-blue-500 text-xs md:text-[22px]">George Kepner</h1>
+                        <p className="text-zinc-50 text-[10px] md:text-[16px]">Full Stack Developer</p>
                     </div>
                 </div>
-                <div className="flex flex-col gap-2 md:w-2/3">
-                    <div className="flex flex-row items-center justify-start gap-10">
+                <div className="flex flex-col gap-4 md:gap-2 w-full md:w-2/3">
+                    <div className="w-full flex flex-row items-center justify-start gap-10">
                         <div className="w-1/2">
-                            <h1 className="text-neutral-500 text-[20px]">Full Name:</h1>
+                            <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Full Name:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-zinc-50 text-[20px]">George Kepner</p>
+                            <p className="text-zinc-50 text-[12px] md:text-[20px]">George Kepner</p>
+                        </div>
+                    </div>
+                    <div className="w-full flex flex-row items-center justify-start gap-10">
+                        <div className="w-1/2">
+                            <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Resume:</h1>
+                        </div>
+                        <div className="w-1/2">
+                        <button className="flex items-center text-blue-500 font-semibold text-[8px] md:text-[10px] py-1 md:py-1 px-2 md:px-3 border border-blue-500 rounded hover:bg-blue-100">
+                            <SaveAltIcon className="w-2 h-2 md:w-4 md:h-4 mr-2"/>
+                            Download
+                        </button>
+
                         </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
                         <div className="w-1/2">
-                            <h1 className="text-neutral-500 text-[20px]">Resume:</h1>
+                            <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Job Title:</h1>
                         </div>
                         <div className="w-1/2">
-                            <Button variant="outlined"><SaveAltIcon className="pr-2"/> Download</Button>
-                        </div>
-                    </div>
-                    <div className="flex flex-row items-center justify-start gap-10">
-                        <div className="w-1/2">
-                            <h1 className="text-neutral-500 text-[20px]">Job Title:</h1>
-                        </div>
-                        <div className="w-1/2">
-                            <p className="text-zinc-50 text-[20px]">Full Stack Developer</p>
+                            <p className="text-zinc-50 text-[12px] md:text-[20px]">Full Stack Developer</p>
                         </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
                         <div className="w-1/2">
-                            <h1 className="text-neutral-500 text-[20px]">Years of Experience:</h1>
+                            <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Years of Experience:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-zinc-50 text-[20px]">3</p>
+                            <p className="text-zinc-50 text-[12px] md:text-[20px]">3</p>
                         </div>
                     </div>
-                    <div className="flex flex-row items-center justify-start gap-10">
+                    <div className="w-full flex flex-row items-center justify-start gap-10">
                         <div className="w-1/2">
-                            <h1 className="text-neutral-500 text-[20px]">Email:</h1>
+                            <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Email:</h1>
                         </div>
                          <div className="w-1/2">
-                            <p className="text-zinc-50 text-[20px]">georgekepner@gmail.com</p>
+                            <p className="text-zinc-50 text-[10px] md:text-[20px]">georgekepner@gmail.com</p>
                          </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
                         <div className="w-1/2">
-                            <h1 className="text-neutral-500 text-[20px]">Phone:</h1>
+                            <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Phone:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-zinc-50 text-[20px]">+234 245 952 3219</p>
-                        </div>
-                    </div>
-                    <div className="flex flex-row items-center justify-start gap-10">
-                        <div className="w-1/2">
-                            <h1 className="text-neutral-500 text-[20px]">LinkedIn Account:</h1>
-                        </div>
-                        <div className="w-1/2">
-                            <Button variant="contained"><LinkedInIcon className="pr-2"/> LinkedIn Profile</Button>
+                            <p className="text-zinc-50 text-[12px] md:text-[20px]">+234 245 952 3219</p>
                         </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
                         <div className="w-1/2">
-                            <h1 className="text-neutral-500 text-[20px]">Documents:</h1>
+                            <h1 className="text-neutral-500 text-[12px] md:text-[20px]">LinkedIn Account:</h1>
                         </div>
                         <div className="w-1/2">
-                            <Button variant="outlined"><img src={view} alt="view" className="w-[18px] h-[15px] pr-2"/> View</Button>
+                            <button className='flex  items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                                <LinkedInIcon fontSize='small' className="text-white mr-2"/>
+                                LinkedIn Profile
+                            </button>
+                        </div>
+
+                    </div>
+                    <div className="flex flex-row items-center justify-start gap-10">
+                        <div className="w-1/2">
+                            <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Documents:</h1>
+                        </div>
+                        <div className="w-1/2">
+                        <button className="flex items-center text-blue-500 font-semibold text-[9px] md:text-[10px] py-1 md:py-2 px-2 md:px-4 border border-blue-500 rounded hover:bg-blue-100">
+                            <img src={view} alt="view" className="w-4 h-4 mr-2"/>
+                            View
+                        </button>
                         </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
                         <div className="w-1/2">  
-                            <h1 className="text-neutral-500 text-[20px]">Applied at:</h1>
+                            <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Applied at:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-zinc-50 text-[20px]">23/10/2023, 15:39:16</p>
+                            <p className="text-zinc-50 text-[12px] md:text-[20px]">23/10/2023, 15:39:16</p>
                         </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
                         <div className="w-1/2">                            
-                            <h1 className="text-neutral-500 text-[20px]">Candidate Sign:</h1>
+                            <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Candidate Sign:</h1>
                         </div>
                          <div className="w-1/2">
-                            <p className="text-zinc-50 text-[20px]">George Kepner</p>
+                            <p className="text-zinc-50 text-[12px] md:text-[20px]">George Kepner</p>
                          </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
                         <div className="w-1/2">
-                            <h1 className="text-neutral-500 text-[20px]">Interview Score:</h1>
+                            <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Interview Score:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-blue-500 text-[20px]">0%</p>
+                            <p className="text-blue-500 text-[12px] md:text-[20px]">0%</p>
                         </div>
                     </div>
                 </div>
@@ -130,45 +157,24 @@ const ShowMorePage = () => {
             {showPopup && (
                 <div className="fixed inset-0 flex items-center justify-center z-50">
                     <div className="bg-neutral-900 bg-opacity-50 absolute inset-0"></div>
-                    <div className=" w-full bg-neutral-900 p-8 w-[45%] h-auto relative z-10 border border-zinc-100 rounded-lg">
-                       <div className='w-full flex flex-col gap-10'>
+                    <div className="bg-neutral-900 p-8 w-[45%] h-auto relative z-10 border border-zinc-100 rounded-lg">
+                        <div className='w-full flex flex-col gap-10'>
                             <div className='flex flex-col items-center justify-center'>
                                 <h1 className='text-zinc-50 text-xl'>Select Your Preferred Time and Date</h1>
                                 <p className='text-zinc-500 text-lg'>When do you want your Interview to be conducted? Select a date.</p>
                             </div>
                             <div className='flex flex-row w-full gap-10'>
-                                    <div className='w-2/3'>
-                                        <Calendar/>
-                                    </div>
-                                    <div className='w-1/3 flex flex-col gap-4 mt-8'>
-                                        <h1 className='text-zinc-500 text-[20px]'>Schedule at</h1>
-                                        <form>
-                                            <input type="radio" id="1" name="fav_language" value="9:00AM" className="mr-2" />
-                                            <label htmlFor="1" className="inline-block">9:00AM</label><br />
-                                            <input type="radio" id="2" name="fav_language" value="10:00AM" className="mr-2" />
-                                            <label htmlFor="2" className="inline-block">10:00AM</label><br />
-                                            <input type="radio" id="3" name="fav_language" value="11:00AM" className="mr-2" />
-                                            <label htmlFor="3" className="inline-block">11:00AM</label><br />
-                                            <input type="radio" id="4" name="fav_language" value="12:00PM" className="mr-2" />
-                                            <label htmlFor="4" className="inline-block">12:00PM</label><br />
-                                            <input type="radio" id="5" name="fav_language" value="1:00PM" className="mr-2" />
-                                            <label htmlFor="5" className="inline-block">1:00PM</label><br />
-                                            <input type="radio" id="6" name="fav_language" value="2:00PM" className="mr-2" />
-                                            <label htmlFor="6" className="inline-block">2:00PM</label><br />
-                                            <input type="radio" id="7" name="fav_language" value="3:00PM" className="mr-2" />
-                                            <label htmlFor="7" className="inline-block">3:00PM</label><br />
-                                            <input type="radio" id="8" name="fav_language" value="4:00PM" className="mr-2" />
-                                            <label htmlFor="8" className="inline-block">4:00PM</label><br />
-                                        </form>
-                                        </div>
-
-
+                                <div className='w-2/3'>
+                                    <Calendar />
+                                </div>
+                                <div className='w-1/3 flex flex-col gap-4 mt-8'>
+                                    <h1 className='text-zinc-500 text-[20px]'>Schedule at</h1>
+                                    <CustomTimePicker/>
+                                </div>
                             </div>
-
-                       </div>
-                        
+                        </div>
                         <div className="flex justify-end pt-5">
-                            <Button variant="contained" onClick={() => setShowPopup(false)}>Schedule</Button>
+                        <Button variant="contained" onClick={() => { toggleButtonText(); setShowPopup(false); }}>Schedule</Button>
                         </div>
                     </div>
                 </div>

@@ -11,21 +11,21 @@ const Applications = () => {
         <div className="bg-black rounded-lg overscroll-auto overflow-hidden">
             <div className='flex items-center justify-between md:w-full p-2'>
                 <div className='p-2'>
-                    <h1 className='text-3xl text-neutral-400'>Received Applications</h1>
+                    <h1 className='text-2xl text-neutral-500'>Received Applications</h1>
                 </div>
                 <div className='flex flex-row items-center justify-center gap-4'>
                     <InfoOutlinedIcon/>
                 </div>
             </div>
             <div className='md:w-[98%] p-4 flex flex-col gap-4 bg-neutral-900 rounded-lg mx-4'>
-                <h1 className='text-xl text-zinc-400'>Job Application Overview</h1>
+                <h1 className='text-sm md:text-lg text-zinc-400'>Job Application Overview</h1>
                 <Overview/>
             </div>
-            <div className='flex items-center justify-between md:w-[92%] mx-4 md:pt-10'>
-                <div className=" p-2 rounded-lg bg-neutral-900">
-                    <div className="flex items-center bg-neutral-900 gap-6">
+            <div className='flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10'>
+                <div className="p-2 rounded-lg bg-neutral-900">
+                    <div className="flex items-center bg-neutral-900 gap-0 md:gap-6">
                         <input
-                        className="outline-none bg-transparent pl-5"
+                        className="outline-none bg-transparent md:pl-5"
                         type="text"
                         placeholder="search by job title"
                         />
