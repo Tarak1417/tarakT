@@ -1,14 +1,14 @@
 import React from 'react';
 import { Grid } from '@mui/material';
-import JobListing from './jobListing';
+import DeptPage from './DeptPage';
 
-const Home = () => {
+const DeptHome = () => {
     return (
         <div className="h-full overflow-hidden bg-black">
             <div className="h-full" style={{ overflowY: 'auto', paddingRight: '1px' }}>
                 <Grid container alignItems='center' justifyContent='center' height='100%'>
                     <Grid item xs={12}>
-                        <JobListing />
+                        <DeptPage />
                     </Grid>
                 </Grid>
             </div>
@@ -18,7 +18,7 @@ const Home = () => {
                     display: none;
                 }
 
-                
+               
                 .h-full {
                     scrollbar-width: none;
                 }
@@ -27,4 +27,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default DeptHome;

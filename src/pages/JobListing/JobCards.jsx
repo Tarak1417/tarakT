@@ -88,7 +88,8 @@ const JobCards = ({ currentScreen }) => {
                         </div>
                     </div>
                     <div className='w-5/6 md:w-[12%] flex flex-row gap-2 items-center justify-end md:justify-center'>
-                        <IconButton onClick={() => handleEdit(job.id)}><EditOutlinedIcon className='text-blue-700' /></IconButton>
+                        <Link to="/joblisting/edit">
+                        <IconButton onClick={() => handleEdit(job.id)}><EditOutlinedIcon className='text-blue-700' /></IconButton></Link>
                         <IconButton onClick={() => handleCopy(job.id)}><FilterOutlinedIcon /></IconButton>
                         <IconButton onClick={() => handleDelete(job.id)}><DeleteOutlineOutlinedIcon className='text-red-700' /></IconButton>
                     </div>

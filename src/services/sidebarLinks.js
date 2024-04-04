@@ -46,12 +46,12 @@ const menuItems = [
             {
                 label: 'Interview Question',
                 icon:  <InterviewQuestionIcon />,
-                to: '/contacts/signup-forms',
+                to: '/interviewquestions',
             },
             {
                 label: 'Department',
                 icon: <Office/>,
-                to: '/contacts/tags',
+                to: '/department',
             },
             {
                 label: 'Received Applications',

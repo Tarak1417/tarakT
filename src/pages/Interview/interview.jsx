@@ -1,12 +1,11 @@
-// JobListing.jsx
 import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
-import JobCards from './JobCards';
+import InterviewCards from './InterviewCards';
 
-const JobListing = () => {
+const Interview = () => {
     const [currentScreen, setCurrentScreen] = useState(1);
 
     const handlePrevScreen = () => {
@@ -26,15 +25,17 @@ const JobListing = () => {
         <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between md:w-full p-4">
                 <div className="p-2">
-                    <h1 className="text-2xl text-neutral-500">Job Listing</h1>
+                    <h1 className="text-2xl text-neutral-500">Interview Questions</h1>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
-                    <Button variant="contained">Add Job</Button>
+                    <button className='flex  items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                        Add Question
+                    </button>
                     <InfoOutlinedIcon />
                 </div>
             </div>
             <div className="overflow-y-auto">
-                <JobCards currentScreen={currentScreen} />
+                <InterviewCards currentScreen={currentScreen} />
             </div>
             <div className='flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10'>
                 <div className="p-2 rounded-lg bg-neutral-900">
@@ -66,4 +67,4 @@ const JobListing = () => {
     );
 };
 
-export default JobListing;
+export default Interview;

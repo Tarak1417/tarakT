@@ -1,6 +1,5 @@
 import React from 'react';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import Overview from './Overview';
 import OverviewCards from './JobCards';
@@ -21,15 +20,11 @@ const Applications = () => {
                 <h1 className='text-sm md:text-lg text-zinc-400'>Job Application Overview</h1>
                 <Overview/>
             </div>
-            <div className='flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10'>
+            <OverviewCards/>
+            <div className='flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-2'>
                 <div className="p-2 rounded-lg bg-neutral-900">
                     <div className="flex items-center bg-neutral-900 gap-0 md:gap-6">
-                        <input
-                        className="outline-none bg-transparent md:pl-5"
-                        type="text"
-                        placeholder="search by job title"
-                        />
-                        <SearchOutlinedIcon className="outline-none text-zinc-300 " />
+                        
                     </div>
                 </div>
                 <div className='flex flex-row gap-4'>
@@ -38,7 +33,7 @@ const Applications = () => {
                     <p className='text-zinc-300 bg-blue-500 w-[20px] h-[20px] flex items-center justify-center p-1 rounded-full'>2</p>
                 </div>
             </div>
-            <OverviewCards/>
+           
         </div>
     );
 };

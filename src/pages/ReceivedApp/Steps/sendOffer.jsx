@@ -1,24 +1,23 @@
 import React, { useState }  from 'react';
-import { Button} from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import profile from './profile.png';
-import view from './viewicon.png';
-import Calendar from './Calender';
-import CustomTimePicker from './TimePicker';
+import profile from '../profile.png';
+import view from '../viewicon.png';
+import { Link } from 'react-router-dom';
 
 
 
 
 
-const ShowMorePage = () => {
-    const [showPopup, setShowPopup] = useState(false);
+
+const SendOfferPage = () => {
+    
     const [scheduleDisabled, setScheduleDisabled] = useState(false); 
 
     const toggleButtonText = () => {
         setScheduleDisabled(true); 
-        setShowPopup(true); 
+         
     };
     return (
         <div className="container mx-auto overscroll-auto overflow-hidden">
@@ -37,9 +36,12 @@ const ShowMorePage = () => {
                                 : 'bg-sky-500 hover:bg-sky-700'
                         } text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded`}
                     >
-                        Schedule Interview
+                        Send Offer Letter
                     </button>
+                    <Link to="/showmore:id/sendofferletter">
+
                    <InfoOutlinedIcon />
+                    </Link>
                 </div>
             </div>
             <div className="flex flex-col md:flex-row p-4 items-start justify-start">
@@ -149,35 +151,14 @@ const ShowMorePage = () => {
                             <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Interview Score:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-blue-500 text-[12px] md:text-[20px]">0%</p>
+                            <p className="text-blue-500 text-[12px] md:text-[20px]">96%</p>
                         </div>
                     </div>
                 </div>
             </div>
-            {showPopup && (
-               
-                <div className="fixed inset-0 flex items-center justify-center z-50">
-                    <div className="bg-neutral-900 bg-opacity-50 absolute inset-0"></div>
-                    <div className="bg-neutral-900 p-4 md:p-8 w-[85%] md:w-1/3  h-auto relative z-10 border border-zinc-100 rounded-lg">
-                    <div className="w-full flex flex-col gap-4 md:gap-10">
-                        <div className="flex flex-col items-center justify-center">
-                        <h1 className="text-zinc-50 text-sm md:text-lg text-center">Select Your Preferred Time and Date</h1>
-                        <p className="text-zinc-500 text-xs md:text-sm text-center">When do you want your Interview to be conducted? Select a date.</p>
-                        </div>
-                        <div className="flex justify-center items-center w-full gap-4 md:gap-10">
-                        <Calendar />
-                        </div>
-                    </div>
-                    <div className="flex justify-end pt-3 md:pt-5">
-                        <Button variant="contained" size="small" onClick={() => { toggleButtonText(); setShowPopup(false); }}>Schedule</Button>
-                    </div>
-                    </div>
-                </div>
-
-
-            )}
+            
         </div>
     );
 };
 
-export default ShowMorePage;
+export default SendOfferPage;

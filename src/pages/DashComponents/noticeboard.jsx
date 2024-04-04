@@ -2,12 +2,12 @@ import React from 'react';
 
 const NoticeBoard = ({ eventData }) => {
     return (
-        <div className="bg-neutral-900 rounded-lg pt-4 mb-4 shadow-md h-96 overflow-y-auto relative">
+        <div className="bg-neutral-900 rounded-lg pt-4 mb-4 shadow-md h-96 overflow-hidden relative">
             <p className="text-white mb-4 border-l-4 border-blue-500 pl-2 text-2xl" gutterBottom>
                 Notice Board
             </p>
-            <div className="px-1 p-4">
-                <div className='overflow-y-auto' >
+            <div className="px-1 p-4 overflow-y-auto">
+                <div className=''>
                     {eventData.map((event, index) => (
                         <div key={index} className="mb-4">
                             <div className="flex gap-4 justify-center items-center">
@@ -25,6 +25,17 @@ const NoticeBoard = ({ eventData }) => {
                     ))}
                 </div>
             </div>
+            <style jsx>{`
+                
+                .overflow-y-auto::-webkit-scrollbar {
+                    display: none;
+                }
+
+                
+                .overflow-y-auto {
+                    scrollbar-width: none;
+                }
+            `}</style>
         </div>
     );
 };

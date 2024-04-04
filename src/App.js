@@ -7,6 +7,10 @@ import Home from './pages/Home';
 import JobListingHome from './pages/JobListing/JobListingHome';
 import ReceivedApp from './pages/ReceivedApp/ReceivedApp';
 import ShowMoreHome from './pages/ReceivedApp/ShowMoreHome';
+import SendOfferHome from './pages/ReceivedApp/Steps/sendOfferHome';
+import DeptHome from './pages/Departments/DeptHome';
+import InterviewHome from './pages/Interview/interviewHome';
+
 
 const App = () => {
     return (
@@ -14,8 +18,12 @@ const App = () => {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/joblisting' element={<JobListingHome/>} />
+                <Route path='/department' element={<DeptHome/>} />
+                <Route path='/interviewquestions' element={<InterviewHome/>} />
                 <Route path='/receivedapplications' element={<ReceivedApp/>} />
                 <Route path='/showmore:id' element={<ShowMoreHome/>} />
+                
+                <Route path='/showmore:id/sendofferletter' element={<SendOfferHome/>} />
 
             </Routes>
         </Header>

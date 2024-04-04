@@ -33,7 +33,7 @@ const JobCards = () => {
   
 
   return (
-    <div className="w-full flex flex-wrap justify-between mx-4 pt-10 gap-1 pr-6">
+    <div className="w-full flex flex-wrap justify-between mx-4 pt-4 gap-1 pr-6">
     {data.map((item, index) => (
         <div key={index} className="w-full md:w-[48%] lg:w-[32%] xl:w-[24%] h-auto p-2 gap-4 bg-neutral-900 rounded-lg mb-4">
             <div className="flex flex-row justify-between items-center">
