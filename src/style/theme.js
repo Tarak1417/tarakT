@@ -32,8 +32,10 @@ const ThemeContextProvider = props => {
     const light = useMemo(
         () => ({
             background: {
+                main: '#FFFFFF',
                 paper: '#FFFFFF',
                 default: '#F7F9FC',
+                box: '#F7F9FC',
             },
             divider: '#e7e3e3',
             custom: {
@@ -42,21 +44,9 @@ const ThemeContextProvider = props => {
                     focus: 'white',
                 },
                 border: '#e7e3e3',
-                hoverColor: '#45B5E8',
                 common: 'white',
-                color: 'rgba(0, 0, 0, 0.87)',
-                appsHover: 'rgb(232, 240, 254)',
+                paper: '#F7F9FC',
                 menu: '#FFFFFF',
-                cardHover: '#E1E5EA',
-                trashCaption: '#E3E3E3',
-                selectedCard: '#c2e7ff',
-                selectedMove: '#c2e7ff',
-                selectedPanel: '#f2f6fc',
-                response: '#2f2e2e',
-                selectedHover: '#B3D7EF',
-                shareHover: 'rgb(140 140 140 / 15%)',
-                uploadButton: '#FFF',
-                uploadButtonHover: '#EDF2FA',
             },
         }),
         []
@@ -65,8 +55,10 @@ const ThemeContextProvider = props => {
     const dark = useMemo(
         () => ({
             background: {
-                paper: '#000000',
+                main: '#000000',
+                paper: '#141414',
                 default: '#141414',
+                box: '#000000',
             },
             text: {
                 secondary: '#818991',
@@ -78,20 +70,9 @@ const ThemeContextProvider = props => {
                     focus: '#2F2F2F',
                 },
                 border: '#616161',
-                hoverColor: '#fff',
                 common: 'black',
-                appsHover: 'rgb(39, 46, 58)',
+                paper: '#141414',
                 menu: '#000000',
-                cardHover: '#2F2F2F',
-                trashCaption: '#2f2e2e',
-                selectedCard: '#2f2e2e',
-                selectedPanel: '#2f2e2e',
-                selectedMove: '#44b5e899',
-                response: 'white',
-                selectedHover: 'rgba(255, 255, 255, 0.08)',
-                shareHover: 'rgba(255, 255, 255, 0.08)',
-                uploadButton: '#2F2F2F',
-                uploadButtonHover: '#141414',
             },
         }),
         []
@@ -103,7 +84,6 @@ const ThemeContextProvider = props => {
                 palette: {
                     mode,
                     primary: {
-                        // main: '#2F2F2F',
                         main: '#3B84D9',
                     },
 
@@ -149,7 +129,29 @@ const ThemeContextProvider = props => {
                             },
                         }),
                     },
-
+                    MuiIconButton: {
+                        variants: [
+                            {
+                                props: {
+                                    disableRipple: true,
+                                    variant: 'navIcon',
+                                },
+                                style: ({ theme }) => ({
+                                    marginRight: theme.spacing(2),
+                                    padding: '10px',
+                                    borderRadius: '8px',
+                                }),
+                            },
+                        ],
+                        styleOverrides: {
+                            root: ({ theme }) => ({
+                                backgroundColor: theme.palette.background.paper,
+                                '&:hover': {
+                                    backgroundColor: theme.palette.custom.background,
+                                },
+                            }),
+                        },
+                    },
                     MuiDivider: {
                         styleOverrides: {
                             light: {
@@ -163,7 +165,7 @@ const ThemeContextProvider = props => {
                             {
                                 props: { variant: 'sidebarButton' },
                                 style: ({ theme }) => ({
-                                    padding: '2px 15px',
+                                    padding: '2px 12px',
                                     cursor: 'pointer',
                                     color: theme.palette.text.secondary,
                                     '&:hover': {
@@ -181,6 +183,37 @@ const ThemeContextProvider = props => {
                                         '.MuiListItemText-root': {
                                             color: 'white',
                                         },
+                                        '.MuiSvgIcon-root': {
+                                            color: 'white',
+                                        },
+                                    },
+                                }),
+                            },
+                            {
+                                props: { variant: 'sidebarDropDown' },
+                                style: ({ theme }) => ({
+                                    padding: '2px 0px 2px 12px',
+                                    cursor: 'pointer',
+                                    color: theme.palette.text.secondary,
+
+                                    '&:hover': {
+                                        backgroundColor: 'transparent',
+                                    },
+
+                                    '&.Mui-selected': {
+                                        backgroundColor: 'transparent',
+                                        '&:hover': {
+                                            backgroundColor: 'transparent',
+                                        },
+                                        '.MuiListItemIcon-root': {
+                                            color: theme.palette.primary.main,
+                                        },
+                                        '.MuiListItemText-root': {
+                                            color: theme.palette.primary.main,
+                                        },
+                                        '.MuiSvgIcon-root': {
+                                            color: theme.palette.primary.main,
+                                        },
                                     },
                                 }),
                             },
@@ -190,7 +223,9 @@ const ThemeContextProvider = props => {
                         variants: [
                             {
                                 props: { variant: 'contained' },
-                                style: ({ theme }) => ({ color: theme.palette.common.white }),
+                                style: ({ theme }) => ({
+                                    color: theme.palette.common.white,
+                                }),
                             },
                         ],
                         styleOverrides: {
@@ -221,7 +256,16 @@ const ThemeContextProvider = props => {
                             },
                         },
                     },
-
+                    MuiSelect: {
+                        styleOverrides: {
+                            root: {
+                                borderRadius: '8px',
+                                fontSize: '14px',
+                                fontWeight: 500,
+                                cursor: 'pointer',
+                            },
+                        },
+                    },
                     MuiTab: {
                         styleOverrides: {
                             root: {
@@ -243,7 +287,6 @@ const ThemeContextProvider = props => {
         </ThemeContext.Provider>
     );
 };
-
 export default ThemeContextProvider;
 
 const useTheme = () => {

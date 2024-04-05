@@ -27,6 +27,7 @@ const SendOfferPage = () => {
                 </div>
                 <div className="flex items-center gap-4">
                    {/*<Button variant="contained" onClick={() => setShowPopup(true)}>Schedule Interview</Button> */}
+                   <Link to="/showmore:id/offerletter">
                    <button
                         disabled={scheduleDisabled}
                         onClick={toggleButtonText}
@@ -37,7 +38,7 @@ const SendOfferPage = () => {
                         } text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded`}
                     >
                         Send Offer Letter
-                    </button>
+                    </button></Link>
                     <Link to="/showmore:id/sendofferletter">
 
                    <InfoOutlinedIcon />

@@ -53,7 +53,7 @@ const JobCards = () => {
                 <div className="flex items-center border-b border-solid border-zinc-50 w-[96%] ">
                     <div className="w-full relative ">
                         <select
-                            className="outline-none border-none w-full bg-neutral-900 text-zinc-50 text-[12px] pr-6 appearance-none"
+                            className="outline-none border-none w-full bg-neutral-900 light:text-zinc-50 text-[12px] pr-6 appearance-none"
                         >
                             <option value="" >Add Label</option>
                             <option value="option1">Option 1</option>

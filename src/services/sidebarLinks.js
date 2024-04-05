@@ -35,7 +35,7 @@ const menuItems = [
         to: [
             {
                 label: 'Dashboard',
-                icon: <HomeOutlinedIcon fontSize='small' className='text-blue-500' />,
+                icon: <HomeOutlinedIcon fontSize='small' className='text-zinc-500' />,
                 to: '/',
             },
             {

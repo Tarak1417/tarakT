@@ -7,7 +7,7 @@ import OverviewCards from './JobCards';
 
 const Applications = () => {
     return (
-        <div className="bg-black rounded-lg overscroll-auto overflow-hidden">
+        <div className=" rounded-lg overscroll-auto overflow-hidden">
             <div className='flex items-center justify-between md:w-full p-2'>
                 <div className='p-2'>
                     <h1 className='text-2xl text-neutral-500'>Received Applications</h1>

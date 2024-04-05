@@ -54,7 +54,7 @@ const Dashboard = () => {
     return (
         <div className='flex flex-col'>
             <div className="p-2">
-                <Typography variant="h4" className="text-neutral-500" gutterBottom>
+                <Typography variant="h5" className="text-neutral-500" gutterBottom>
                     HR DASHBOARD
                 </Typography>
                 <div className="flex flex-col md:flex-row gap-4">

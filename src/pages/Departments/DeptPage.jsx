@@ -29,7 +29,7 @@ const DeptPage = () => {
                     <InfoOutlinedIcon />
                 </div>
             </div>
-            <div className="w-[95%] ml-2 md:ml-5   bg-neutral-900 pt-4 rounded-lg mb-4">
+            <div className="w-[95%] ml-2 md:ml-5 bg-neutral-900 pt-4 rounded-lg mb-4">
                 <p className="text-white mb-4 border-l-4 border-blue-500 pl-4 text-xl" gutterBottom>
                     Department Summary
                 </p>

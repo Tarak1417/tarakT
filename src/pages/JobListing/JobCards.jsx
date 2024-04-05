@@ -42,10 +42,10 @@ const JobCards = ({ currentScreen }) => {
     const endIndex = startIndex + jobsPerPage;
     const jobsForCurrentScreen = jobs.slice(startIndex, endIndex);
 
-    const handleEdit = (jobId) => {
+    //const handleEdit = (jobId) => {
         
-        console.log(`Editing job with ID: ${jobId}`);
-    };
+       // console.log(`Editing job with ID: ${jobId}`);
+    //};
 
     const handleDelete = (jobId) => {
         
@@ -89,7 +89,7 @@ const JobCards = ({ currentScreen }) => {
                     </div>
                     <div className='w-5/6 md:w-[12%] flex flex-row gap-2 items-center justify-end md:justify-center'>
                         <Link to="/joblisting/edit">
-                        <IconButton onClick={() => handleEdit(job.id)}><EditOutlinedIcon className='text-blue-700' /></IconButton></Link>
+                        <IconButton><EditOutlinedIcon className='text-blue-700' /></IconButton></Link>
                         <IconButton onClick={() => handleCopy(job.id)}><FilterOutlinedIcon /></IconButton>
                         <IconButton onClick={() => handleDelete(job.id)}><DeleteOutlineOutlinedIcon className='text-red-700' /></IconButton>
                     </div>

@@ -1,6 +1,4 @@
-
 import React from 'react';
-import { Button } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import EditSection from './EditSections';
 
@@ -12,16 +10,18 @@ const EditCards = () => {
         <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between md:w-full p-4">
                 <div className="p-2">
-                    <h1 className="text-2xl text-neutral-500">Edit/Create Job Details</h1>
+                    <h1 className="text-lg md:text-2xl text-neutral-500">Edit/Create Job Details</h1>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
-                    <Button variant="contained">Add Details</Button>
+                            <button className='flex  items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                                Add Details
+                            </button>
                     <InfoOutlinedIcon />
                 </div>
             </div>
-            <div className="overflow-y-auto">
-              <EditSection/>  
-            </div>            
+            <EditSection/>
+                
+                      
         </div>
     );
 };
