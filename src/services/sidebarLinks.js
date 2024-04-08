@@ -63,7 +63,18 @@ const menuItems = [
     {
         icon: <GroupsIcon fontSize='small' />,
         label: 'Employees',
-        to: [],
+        to: [
+            {
+                label: 'Employee List',
+                icon: <Person/>,
+                to: '/employees/award',
+            },
+            {
+                label: 'Employee View',
+                icon: <Person/>,
+                to: '/employees/award',
+            },
+        ],
     },
     {
         label: 'Attendance',
@@ -93,6 +104,70 @@ const menuItems = [
         ],
     },
     {
+        label: 'Projects',
+        icon: <DashboardOutlined fontSize='small' />,
+        to: [
+            {
+                label: 'Dashboard',
+                icon: <Attend />,
+                to: '/employees/award',
+            },
+            {
+                label: 'Project List',
+                icon: <Leave/>,
+                to: '/employees/award',
+            },
+            {
+                label: 'View Project',
+                icon: <Download/>,
+                to: '/employees/award',
+            },
+            {
+                label: 'Overview Calendar',
+                icon: <Person/>,
+                to: '/employees/award',
+            },
+            {
+                label: 'New Project',
+                icon: <Person/>,
+                to: '/employees/award',
+            },
+           
+        ],
+    },
+    {
+        icon: <GroupsIcon fontSize='small' />,
+        label: 'Notice Board',
+        to: '',
+    },
+    {
+        icon: <GroupsIcon fontSize='small' />,
+        label: 'Expenses',
+        to: '',
+    },
+    {
+        label: 'Payroll',
+        icon: <DashboardOutlined fontSize='small' />,
+        to: [
+            {
+                label: 'Employee Salary',
+                icon: <Attend />,
+                to: '/employees/award',
+            },
+            {
+                label: 'Add Payroll',
+                icon: <Leave/>,
+                to: '/employees/award',
+            },
+            {
+                label: 'Edit Payroll',
+                icon: <Download/>,
+                to: '/employees/award',
+            },
+           
+        ],
+    },
+    {
         label: 'Award',
         icon: <EmojiEventsIcon fontSize='small' />,
         to: '/employees/award',
@@ -101,6 +176,48 @@ const menuItems = [
         label: 'Holiday',
         icon: <HolidayVillageIcon fontSize='small' />,
         to: '/employees/holiday',
+    },
+    {
+        icon: <GroupsIcon fontSize='small' />,
+        label: 'Memos',
+        to: '',
+    },
+    {
+        icon: <GroupsIcon fontSize='small' />,
+        label: 'Rules & Regulations',
+        to: '',
+    },
+    {
+        icon: <GroupsIcon fontSize='small' />,
+        label: 'Support System',
+        to: '',
+    },
+    {
+        icon: <GroupsIcon fontSize='small' />,
+        label: 'Chat',
+        to: '',
+    },
+    {
+        label: 'Admin',
+        icon: <DashboardOutlined fontSize='small' />,
+        to: [
+            {
+                label: 'General Settings',
+                icon: <Attend />,
+                to: '/employees/award',
+            },
+            {
+                label: 'API Settings',
+                icon: <Leave/>,
+                to: '/employees/award',
+            },
+            {
+                label: 'Role Access',
+                icon: <Download/>,
+                to: '/employees/award',
+            },
+           
+        ],
     },
 ];
 

@@ -11,10 +11,13 @@ import DeptHome from './pages/Departments/DeptHome';
 import InterviewHome from './pages/Interview/interviewHome';
 import EditHome from './pages/JobListing/EditHome';
 import OfferHome from './pages/ReceivedApp/Steps/OfferHome';
+import Footer from './pages/Footer';
+import AgreementHome from './pages/ReceivedApp/Steps/agreements/AgreementHome';
 
 
 const App = () => {
     return (
+        <>
         <Header>
             <Routes>
                 <Route path='/' element={<Home />} />
@@ -26,9 +29,11 @@ const App = () => {
                 <Route path='/joblisting/edit' element={<EditHome/>} />
                 <Route path='/showmore:id/sendofferletter' element={<SendOfferHome/>} />
                 <Route path='/showmore:id/offerletter' element={<OfferHome/>} />
-
+                <Route path='/showmore:id/sendagreement' element={<AgreementHome/>} />
             </Routes>
         </Header>
+        <Footer/>
+        </>
     );
 };
 

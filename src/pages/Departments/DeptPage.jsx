@@ -63,7 +63,7 @@ const DeptPage = () => {
                         </div>
                     ))}
                 </div>
-                <div className='w-[95%] ml-2  md:ml-9 mt-2 flex justify-between items-center pb-2'>
+                <div className='w-[95%] ml-2  md:ml-9 mt-2 flex justify-between items-center pb-2 mb-20 md:mb-0'>
                     <p className='text-sm md:text-base text-zinc-300 '>Showing Rows: 1-10 of 20</p>
                     <div className='flex flex-row gap-4'>
                     <KeyboardArrowLeftOutlinedIcon className='text-zinc-300'/>

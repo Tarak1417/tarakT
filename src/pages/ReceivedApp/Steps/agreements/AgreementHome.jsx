@@ -1,14 +1,14 @@
 import React from 'react';
 import { Grid } from '@mui/material';
-import SendOfferPage from './sendOffer';
+import AgreementPage from './Agreement';
 
-const SendOfferHome = () => {
+const AgreementHome = () => {
     return (
         <div className="h-full overflow-hidden bg-black">
             <div className="h-full" style={{ overflowY: 'auto', paddingRight: '1px' }}>
                 <Grid container alignItems='center' justifyContent='center' height='100%'>
                     <Grid item xs={11}>
-                        <SendOfferPage/>
+                        <AgreementPage/>
                     </Grid>
                 </Grid>
             </div>
@@ -27,4 +27,4 @@ const SendOfferHome = () => {
     );
 };
 
-export default SendOfferHome;
+export default AgreementHome;

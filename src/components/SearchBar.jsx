@@ -82,7 +82,7 @@ const SearchBar = () => {
                         sx={{
                             flex: 1,
                         }}
-                        placeholder='Search in Files'
+                        placeholder='Search in Hr'
                     />
                 </FormControl>
                 <IconWrapperRight>

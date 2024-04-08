@@ -61,37 +61,41 @@ const JobCards = ({ currentScreen }) => {
         <div className="flex flex-col gap-4 w-full pl-4 overscroll-y-auto">
             {jobsForCurrentScreen.map((job) => (
                 <div className='flex flex-col md:flex-row items-center w-full gap-4 md:gap-0' key={job.id}>
-                    <div className=" w-[90%] md:w-[88%] flex flex-col md:flex-row text-white md:gap-0 gap-2 bg-neutral-800 rounded-lg p-4">
-                        <div className=' w-full md:w-1/5'>
-
-                            <h2 className="text-sm font-semibold">{job.title}</h2>
+                    <div className=" w-[90%] md:w-[88%] flex flex-col mr-4 md:mr-0 md:flex-row text-white md:gap-0 gap-2 bg-neutral-800 rounded-lg p-4">
+                        <div className=' w-full flex flex-col md:w-5/6 gap-2'>
+                            <div className='w-ful'>
+                                <h2 className="text-sm font-semibold">{job.title}</h2>
+                            </div>
+                            <div className='w-full flex flex-col md:flex-row gap-2'>
+                                <div className='flex justify-start md:justify-center items-center gap-2'>
+                                    <AccountBalanceWalletOutlinedIcon fontSize='small' className='text-blue-500' />
+                                    <p className="text-blue-500 md:text-sm">{job.salary}</p>
+                                </div>
+                                <div className='flex justify-start md:justify-center items-center gap-2'>
+                                    <WorkOutlineIcon fontSize='small' className='text-blue-500' />
+                                    <p className="text-blue-500 md:text-sm">{job.experience}</p>
+                                </div>
+                                <div className='flex justify-start md:justify-center items-center gap-2'>
+                                    <LocationOnOutlinedIcon fontSize='small' className='text-blue-500' />
+                                    <p className="text-blue-500 md:text-sm">{job.location}</p>
+                                </div>
+                                <div className='flex justify-start items-center'>
+                                    <FontAwesomeIcon icon={faLayerGroup} className="text-blue-500 mr-2" />
+                                    <p className="text-blue-500 md:text-sm">{job.category}</p>
+                                </div>
+                            </div>
                         </div>
-                        <div className='w-full md:w-1/5 flex justify-start md:justify-center items-center gap-2'>
-                            <AccountBalanceWalletOutlinedIcon fontSize='small' className='text-zinc-400' />
-                            <p className="text-zinc-300 md:text-sm">{job.salary}</p>
-                        </div>
-                        <div className='w-full md:w-1/5 flex justify-start md:justify-center items-center gap-2'>
-                            <WorkOutlineIcon fontSize='small' className='text-zinc-400' />
-                            <p className="text-zinc-300 md:text-sm">{job.experience}</p>
-                        </div>
-                        <div className='w-full md:w-1/4 flex justify-start md:justify-center items-center gap-2'>
-                            <LocationOnOutlinedIcon fontSize='small' className='text-zinc-400' />
-                            <p className="text-zinc-300 md:text-sm">{job.location}</p>
-                        </div>
-                        <div className='w-full md:w-1/6 flex justify-start items-center'>
-                            <FontAwesomeIcon icon={faLayerGroup} className="text-zinc-500 mr-2" />
-                            <p className="text-zinc-300 md:text-sm">{job.category}</p>
-                        </div>
+                        
                         <div className='w-full md:w-1/6 flex justify-end items-center gap-2'>
                             <Link to={job.moreDetails} className="text-blue-500">Show Details</Link>
                             <KeyboardArrowDownOutlinedIcon fontSize='medium' className="text-blue-500" />
                         </div>
                     </div>
-                    <div className='w-5/6 md:w-[12%] flex flex-row gap-2 items-center justify-end md:justify-center'>
+                    <div className='w-5/6 md:w-[12%] flex flex-row gap-1 items-center justify-end md:justify-center'>
                         <Link to="/joblisting/edit">
-                        <IconButton><EditOutlinedIcon className='text-blue-700' /></IconButton></Link>
+                        <IconButton><EditOutlinedIcon /></IconButton></Link>
                         <IconButton onClick={() => handleCopy(job.id)}><FilterOutlinedIcon /></IconButton>
-                        <IconButton onClick={() => handleDelete(job.id)}><DeleteOutlineOutlinedIcon className='text-red-700' /></IconButton>
+                        <IconButton onClick={() => handleDelete(job.id)}><DeleteOutlineOutlinedIcon /></IconButton>
                     </div>
                 </div>
             ))}
