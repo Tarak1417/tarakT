@@ -36,7 +36,6 @@ const IntellectualProperty = () => {
                         The prior inventions of the Employee are enlisted below:
                     </p>
                     <p className='text-[14px] text-white pt-4 pl-6'>1._______________________</p>
-                    <p className='text-[14px] text-white  pl-6'>1._______________________</p>
                     <p className='text-[14px] text-white  pl-6'>2._______________________</p>
                     <p className='text-[14px] text-white  pl-6'>3._______________________</p>
                     <p className='text-[14px] text-white  pl-6'>4._______________________</p>

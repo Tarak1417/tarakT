@@ -138,12 +138,12 @@ const menuItems = [
     {
         icon: <GroupsIcon fontSize='small' />,
         label: 'Notice Board',
-        to: '',
+        to: '/noticeboard',
     },
     {
         icon: <GroupsIcon fontSize='small' />,
         label: 'Expenses',
-        to: '',
+        to: '/expenses',
     },
     {
         label: 'Payroll',
@@ -180,22 +180,22 @@ const menuItems = [
     {
         icon: <GroupsIcon fontSize='small' />,
         label: 'Memos',
-        to: '',
+        to: '/memos',
     },
     {
         icon: <GroupsIcon fontSize='small' />,
         label: 'Rules & Regulations',
-        to: '',
+        to: '/rulesandregulations',
     },
     {
         icon: <GroupsIcon fontSize='small' />,
         label: 'Support System',
-        to: '',
+        to: 'supportsystems',
     },
     {
         icon: <GroupsIcon fontSize='small' />,
         label: 'Chat',
-        to: '',
+        to: 'chat',
     },
     {
         label: 'Admin',

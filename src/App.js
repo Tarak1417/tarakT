@@ -13,6 +13,7 @@ import EditHome from './pages/JobListing/EditHome';
 import OfferHome from './pages/ReceivedApp/Steps/OfferHome';
 import Footer from './pages/Footer';
 import AgreementHome from './pages/ReceivedApp/Steps/agreements/AgreementHome';
+import NoticeHome from './pages/NoticeBoard/NoticeHome';
 
 
 const App = () => {
@@ -30,6 +31,9 @@ const App = () => {
                 <Route path='/showmore:id/sendofferletter' element={<SendOfferHome/>} />
                 <Route path='/showmore:id/offerletter' element={<OfferHome/>} />
                 <Route path='/showmore:id/sendagreement' element={<AgreementHome/>} />
+
+
+                <Route path='/noticeboard' element={<NoticeHome/>} />
             </Routes>
         </Header>
         <Footer/>

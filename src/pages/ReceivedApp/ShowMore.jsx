@@ -9,16 +9,15 @@ import Calendar from './Calender';
 
 
 
-
-
-
 const ShowMorePage = () => {
     const [showPopup, setShowPopup] = useState(false);
+    const [scheduleButtonText, setScheduleButtonText] = useState('Schedule Interview');
     const [scheduleDisabled, setScheduleDisabled] = useState(false); 
 
     const toggleButtonText = () => {
         setScheduleDisabled(true); 
         setShowPopup(true); 
+        setScheduleButtonText('Send Offer Letter');
     };
     return (
         <div className="container mx-auto overscroll-auto overflow-hidden">
@@ -31,13 +30,9 @@ const ShowMorePage = () => {
                    <button
                         disabled={scheduleDisabled}
                         onClick={toggleButtonText}
-                        className={`${
-                            scheduleDisabled
-                                ? 'bg-neutral-700 cursor-not-allowed text-stone-400'
-                                : 'bg-sky-500 hover:bg-sky-700'
-                        } text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded`}
+                        className="text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded bg-sky-500 hover:bg-sky-700"
                     >
-                        Schedule Interview
+                        {scheduleButtonText}
                     </button>
                    <InfoOutlinedIcon />
                 </div>
