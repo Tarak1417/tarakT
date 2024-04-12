@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 const SendOfferPage = () => {
     
     const [scheduleDisabled, setScheduleDisabled] = useState(false); 
+   
 
     const toggleButtonText = () => {
         setScheduleDisabled(true); 
@@ -157,6 +158,7 @@ const SendOfferPage = () => {
                     </div>
                 </div>
             </div>
+            
             
         </div>
     );

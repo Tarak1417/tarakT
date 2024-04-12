@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
-import MarkunreadMailboxOutlinedIcon from '@mui/icons-material/MarkunreadMailboxOutlined';
+import TaskOutlinedIcon from '@mui/icons-material/TaskOutlined';
 import VideoChatOutlinedIcon from '@mui/icons-material/VideoChatOutlined';
 import { Link } from 'react-router-dom';
+import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
+import ContactMailOutlinedIcon from '@mui/icons-material/ContactMailOutlined';
 
 const Footer = () => {
     const [activeIcon, setActiveIcon] = useState(null);
@@ -13,37 +14,45 @@ const Footer = () => {
     };
 
     return (
-        <div className='fixed bottom-0 left-0 w-full bg-neutral-900 p-4 flex justify-around items-center md:hidden'>
+        <div className='fixed bottom-0 w-full bg-neutral-900 p-2 flex flex-row gap-4 items-center justify-center md:hidden'>
             <Link to="/">
-                <div className="flex flex-col items-center" onClick={() => handleIconClick('home')}>
-                    <div className={`${activeIcon === 'home' && 'text-white rounded-lg bg-sky-500 w-full flex justify-center px-4 py-1'}`}>
+                <div className="flex flex-col items-center justify-center  w-[50px]" onClick={() => handleIconClick('home')}>
+                    <div className={`${activeIcon === 'home' && 'text-white rounded-lg bg-blue-700 w-[90%] flex justify-center px-2 py-1'}`}>
                         <HomeOutlinedIcon />
                     </div>
-                    <p className='text-[12px] text-zinc-400'>Home</p>
+                    <p className={`${activeIcon === 'home' && 'text-sky-500 text-[10px]'}`}>Home</p>
                 </div>
             </Link>
             <Link to="/receivedapplications">
-                <div className="flex flex-col items-center" onClick={() => handleIconClick('ats')}>
-                    <div className={`${activeIcon === 'ats' && 'text-white rounded-lg bg-sky-500 w-full flex justify-center px-4 py-1'}`}>
-                        <MarkunreadMailboxOutlinedIcon  />
+                <div className="flex flex-col items-center justify-center  w-[50px]" onClick={() => handleIconClick('ats')}>
+                    <div className={`${activeIcon === 'ats' && 'text-white rounded-lg bg-blue-700 w-full flex justify-center px-2 py-1'}`}>
+                        <ContactMailOutlinedIcon/>
                     </div>
-                    <p className='text-[12px] text-zinc-400'>ATS</p>
+                    <p className={`${activeIcon === 'ats' && 'text-sky-500 text-[10px]'}`}>ATS</p>
                 </div>
             </Link>
-            <Link to="/attendance">
-                <div className="flex flex-col items-center" onClick={() => handleIconClick('attendance')}>
-                     <div className={`${activeIcon === 'attendance' && 'text-white rounded-lg bg-sky-500 w-full flex justify-center px-4 py-1'}`}>
-                        <GroupOutlinedIcon  />
+            <Link to="/apps">
+                <div className="flex flex-col items-center justify-center  w-[70px]" onClick={() => handleIconClick('app')}>
+                     <div className={`${activeIcon === 'app' && 'text-white rounded-lg bg-blue-700 w-full flex justify-center px-2 py-1'}`}>
+                        <AppsOutlinedIcon fontSize='large'/>
                     </div>
-                    <p className='text-[12px] text-zinc-400'>Attendance</p>
+                   
+                </div>
+                </Link>
+            <Link to="/attendance">
+                <div className="flex flex-col items-center justify-center w-[50px]" onClick={() => handleIconClick('attendance')}>
+                     <div className={`${activeIcon === 'attendance' && 'text-white rounded-lg bg-blue-700 w-full flex justify-center px-2 py-1'}`}>
+                        <TaskOutlinedIcon/>
+                    </div>
+                    <p className={`${activeIcon === 'attendance' && 'text-sky-500 text-[10px]'}`}>Projects</p>
                 </div>
             </Link>
             <Link to="/chat">
-                <div className="flex flex-col items-center" onClick={() => handleIconClick('chat')}>
-                    <div className={`${activeIcon === 'chat' && 'text-white rounded-lg bg-sky-500 w-full flex justify-center px-4 py-1'}`}>
+                <div className="flex flex-col justify-center items-center w-[50px]" onClick={() => handleIconClick('chat')}>
+                    <div className={`${activeIcon === 'chat' && 'text-white rounded-lg bg-blue-700 w-full flex justify-center px-2 py-1'}`}>
                         <VideoChatOutlinedIcon  />
                     </div>
-                    <p className='text-[12px] text-zinc-400'>Chat</p>
+                    <p className={`${activeIcon === 'chat' && 'text-sky-500 text-[10px]'}`}>Chat</p>
                 </div>
             </Link>
         </div>

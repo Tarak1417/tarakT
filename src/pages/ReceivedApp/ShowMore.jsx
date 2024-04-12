@@ -5,7 +5,8 @@ import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import profile from './profile.png';
 import view from './viewicon.png';
-import Calendar from './Calender';
+//import Calendar from './Calender';
+import UserTime from './UserTime';
 
 
 
@@ -160,7 +161,7 @@ const ShowMorePage = () => {
                         <p className="text-zinc-500 text-xs md:text-sm text-center">When do you want your Interview to be conducted? Select a date.</p>
                         </div>
                         <div className="flex justify-center items-center w-full gap-4 md:gap-10">
-                        <Calendar />
+                       <UserTime/>
                         </div>
                     </div>
                     <div className="flex justify-end pt-3 md:pt-5">
