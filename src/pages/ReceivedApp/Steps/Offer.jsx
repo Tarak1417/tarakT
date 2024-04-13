@@ -3,17 +3,30 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquare, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { Button} from '@mui/material';
+import img1 from './image1.png'
+import img2 from './image2.png';
+import { useNavigate } from 'react-router-dom';
+
 
 const OfferPage = () => {
     const [showPopup, setShowPopup] = useState(false);
-    const [scheduleDisabled, setScheduleDisabled] = useState(false); 
+    const [scheduleButtonText, setScheduleButtonText] = useState('Send Offer Letter');
+    const [scheduleDisabled, setScheduleDisabled] = useState(false);
+    const navigate = useNavigate();
 
-    const toggleButtonText = () => { 
+    const toggleButtonText = () => {
+        setScheduleDisabled(true);
         setShowPopup(true);
-        setScheduleDisabled(true); 
-         
+        if (scheduleButtonText === 'Send Offer Letter') {
+            setScheduleButtonText('Send Agreement');
+        }
     };
-    
+
+    const handleSendOfferLetter = () => {
+        if (scheduleButtonText === 'Send Agreement') {
+            navigate(`/showmore:id/sendagreement`);
+        }
+    };
     
     return (
         <div className="container mx-auto overscroll-auto overflow-hidden">
@@ -25,13 +38,9 @@ const OfferPage = () => {
                 <button
                         disabled={scheduleDisabled}
                         onClick={toggleButtonText}
-                        className={`${
-                            scheduleDisabled
-                                ? 'bg-neutral-700 cursor-not-allowed text-stone-400'
-                                : 'bg-sky-500 hover:bg-sky-700'
-                        } text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded`}
+                        className="text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded bg-sky-500 hover:bg-sky-700"
                     >
-                        Send Offer Letter
+                        {scheduleButtonText}
                     </button>
                    <InfoOutlinedIcon />
                 </div>
@@ -45,19 +54,28 @@ const OfferPage = () => {
                         <h1 className='text-[10px] md:text-[16px] text-white text-start pl-3 md:pl-0'>LETTER</h1>
                 </div>
             </div>
-            <div className='flex flex-col md:flex-row gap-4 w-full mt-28 h-auto md:h-[300px]'>
-                <div className='w-full md:w-1/3 ml-8 flex flex-col'>
-                    <h1 className='text-2xl text-white text-start font-bold'>SENIOR</h1>
-                    <h1 className='text-2xl text-sky-500 text-start font-bold'>UX/UI DESIGNER</h1>
-                    <h1 className='text-center text-[10px] md:text-lg text-white pt-14'><FontAwesomeIcon icon={faSquare} className='text-[10px] mr-2' />JOIN OUR TEAM OF PROFESSIONAL</h1>
+            <div className='flex flex-col md:flex-row gap-4 w-full mt-28 h-auto md:h-[350px] md:justify-center items-center'>
+                <div className='w-full md:w-1/3 ml-8 flex flex-col md:mb-0'>
+                    <div>
+                        <h1 className='text-2xl text-white text-start font-bold'>SENIOR</h1>
+                        <h1 className='text-2xl text-sky-500 text-start font-bold'>UX/UI DESIGNER</h1>
+                    </div>
+                    <div className='flex flex-row gap-2 w-full md:gap-8'>
+                        <div className='w-[25px] mt-20'>
+                            <p className='text-zinc-500 font-bold fa-rotate-270 text-nowrap text-xl'>JOB TITLE</p>
+                        </div>
+                        <div className='w-4/5 mt-10'>
+                            <h1 className='text-center text-[10px] md:text-lg text-white pt-14'><FontAwesomeIcon icon={faSquare} className='text-[10px] mr-2' />JOIN OUR TEAM OF PROFESSIONAL</h1>
+                        </div>
+                    </div>
                 </div>
-                <div className='w-full md:w-2/3'>
-
+                <div className='w-full md:w-2/3 flex flex justify-center'>
+                    <img src={img1} alt='image1'/>
                 </div>
-                <div className='w-full md:w-1/3 ml-5 md:ml-0'>
+                <div className='w-full md:w-1/3 ml-5 md:ml-0 md:mb-0'>
                     <h1 className='text-2xl text-white text-start font-bold'>Job</h1>
                     <h1 className="text-2xl text-sky-500 text-start font-bold">Description.</h1>
-                    <p className='text-[12px] text-white text-left pr-12'>
+                    <p className='text-[12px] text-white text-left pr-12 pt-5'>
                         We are seeking a highly skilled freelance
                         UI/UX Designer to design a user-based
                         dashboard experience that is intuitive,
@@ -68,7 +86,7 @@ const OfferPage = () => {
                     </p>
                 </div>
             </div>
-            <div className='w-full flex justify-center items-center h-[300px]'>
+            <div className='w-full flex justify-center items-center h-[300px] md:mt-10'>
             <div className='w-full  md:w-[75%] mt-10 flex flex-col'>
                 <h1 className='text-blue-500 text-sm text-center'>Greetings [Name],</h1>
                 <h1 className='text-white text-[10px] p-5 md:p-0 md:text-sm text-left md:text-center'>
@@ -87,7 +105,7 @@ const OfferPage = () => {
             </div>
             </div>
             <div className='w-full flex flex-col gap-4 h-[450px] md:h-[600px] mt-32'>
-                <div className='w-full mx-4 md:mx-8 flex flex-col md:flex-row gap-4'>
+                <div className='w-full h-[420px] md:h-[400px] mx-4 md:mx-8 flex flex-col md:flex-row gap-4'>
                     <div className='w-[90%] md:w-1/2 flex flex-col'>
                         <h1 className='text-3xl text-white'>About <span className='text-3xl text-blue-500'>Company</span></h1>
                         <p className='text-sm text-left text-white pt-10'>
@@ -100,10 +118,10 @@ const OfferPage = () => {
                         </p>
                     </div>
                     <div className='w-full md:w-1/2'>
-
+                            <img src={img2} alt="image2"/>
                     </div>
                 </div>
-                <div className='w-full flex justify-between p-4 mt-10 md:mt-32'>
+                <div className='w-full flex justify-between p-4 mt-32 md:mt-2'>
                     <div className='w-1/2 mx-4'>
                         <h1 className='text-[14px] md:text-5xl text-white text-start'>MORE <span className='text-[14px] md:text-2xl text-start text-white'>INFORMATION</span></h1>
                     </div>
@@ -113,7 +131,7 @@ const OfferPage = () => {
                     </div>
                 </div>
             </div>
-            <div className='flex flex-col md:flex-row md:justify-between w-full gap-4 md:gap-0'>
+            <div className='flex flex-col md:flex-row md:justify-between w-full gap-4 md:gap-0 mt-48 md:mt-4'>
                 <div className='flex flex-col  justify-start w-full md:w-1/3 mx-8'>
                     <h1 className='text-[24px] text-white'>Reporting</h1>
                     <h1 className='text-[24px] text-blue-500'>Relationship</h1>
@@ -350,7 +368,7 @@ const OfferPage = () => {
                         </div>
                     </div>
                     <div className="flex justify-end pt-3 md:pt-5">
-                        <Button variant="contained" size="small" onClick={() => { toggleButtonText(); setShowPopup(false); }}>Send Offer Letter</Button>
+                        <Button variant="contained" size="small" onClick={() => {toggleButtonText(); setShowPopup(false); handleSendOfferLetter(); }}>Send Offer Letter</Button>
                     </div>
                     </div>
                 </div>

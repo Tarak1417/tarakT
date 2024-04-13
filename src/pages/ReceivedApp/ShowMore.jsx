@@ -7,18 +7,28 @@ import profile from './profile.png';
 import view from './viewicon.png';
 //import Calendar from './Calender';
 import UserTime from './UserTime';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const ShowMorePage = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [scheduleButtonText, setScheduleButtonText] = useState('Schedule Interview');
-    const [scheduleDisabled, setScheduleDisabled] = useState(false); 
+    const [scheduleDisabled, setScheduleDisabled] = useState(false);
+    const navigate = useNavigate();
 
     const toggleButtonText = () => {
-        setScheduleDisabled(true); 
-        setShowPopup(true); 
-        setScheduleButtonText('Send Offer Letter');
+        setScheduleDisabled(true);
+        setShowPopup(true);
+        if (scheduleButtonText === 'Schedule Interview') {
+            setScheduleButtonText('Send Offer Letter');
+        }
+    };
+
+    const handleSendOfferLetter = () => {
+        if (scheduleButtonText === 'Send Offer Letter') {
+            navigate(`/showmore:id/sendofferletter`);
+        }
     };
     return (
         <div className="container mx-auto overscroll-auto overflow-hidden">
@@ -27,8 +37,7 @@ const ShowMorePage = () => {
                     <h1 className="text-sm md:text-3xl text-zinc-400">Job Application Details</h1>
                 </div>
                 <div className="flex items-center gap-4">
-                   {/*<Button variant="contained" onClick={() => setShowPopup(true)}>Schedule Interview</Button> */}
-                   <button
+                <button
                         disabled={scheduleDisabled}
                         onClick={toggleButtonText}
                         className="text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded bg-sky-500 hover:bg-sky-700"
@@ -165,7 +174,7 @@ const ShowMorePage = () => {
                         </div>
                     </div>
                     <div className="flex justify-end pt-3 md:pt-5">
-                        <Button variant="contained" size="small" onClick={() => { toggleButtonText(); setShowPopup(false); }}>Schedule</Button>
+                        <Button variant="contained" size="small" onClick={() => {toggleButtonText(); setShowPopup(false); handleSendOfferLetter(); }}>Schedule</Button>
                     </div>
                     </div>
                 </div>

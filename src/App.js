@@ -23,16 +23,19 @@ const App = () => {
         <Header>
             <Routes>
                 <Route path='/' element={<Home />} />
+                
                 <Route path='/joblisting' element={<JobListingHome/>} />
                 <Route path='/department' element={<DeptHome/>} />
                 <Route path='/interviewquestions' element={<InterviewHome/>} />
                 <Route path='/receivedapplications' element={<ReceivedApp/>} />
+
                 <Route path='/showmore:id' element={<ShowMoreHome/>} />
                 <Route path='/joblisting/edit' element={<EditHome/>} />
+
                 <Route path='/showmore:id/sendofferletter' element={<SendOfferHome/>} />
                 <Route path='/showmore:id/offerletter' element={<OfferHome/>} />
-                <Route path='/showmore:id/sendagreement' element={<AgreementHome/>} />
 
+                <Route path='/showmore:id/sendagreement' element={<AgreementHome/>} />
 
                 <Route path='/noticeboard' element={<NoticeHome/>} />
                 <Route path='/apps' element={<Apps/>} />

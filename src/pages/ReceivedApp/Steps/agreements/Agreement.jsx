@@ -7,14 +7,22 @@ import EmployeeContract from './EC';
 
 const AgreementPage = () => {
     const [scheduleDisabled, setScheduleDisabled] = useState(false); 
+    const [scheduleButtonText, setScheduleButtonText] = useState('Send Agreement');
     const [activeContent, setActiveContent] = useState('content1');
     const [showPopup, setShowPopup] = useState(false);
 
     const toggleButtonText = () => {
-        setScheduleDisabled(true);
-        setShowPopup(true);
+        setScheduleDisabled(true); 
+        setShowPopup(true); 
+        setScheduleButtonText('Add Employee');
+        handleSendOfferLetter(true);
     };
-
+    
+    const handleSendOfferLetter = () => {
+        if (scheduleButtonText === 'Add Employee') {
+            window.location.href = `/showmore:id/addemployee`;
+        }
+    };
     const handleButtonClick = (content) => {
         setActiveContent(content); 
     };
@@ -26,17 +34,14 @@ const AgreementPage = () => {
                     <h1 className="text-sm md:text-3xl text-zinc-400">Job Application Details</h1>
                 </div>
                 <div className="flex items-center gap-4">
-                    <button
-                        disabled={scheduleDisabled}
-                        onClick={toggleButtonText}
-                        className={`${
-                            scheduleDisabled
-                                ? 'bg-neutral-700 cursor-not-allowed text-stone-400'
-                                : 'bg-sky-500 hover:bg-sky-700'
-                        } text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded`}
-                    >
-                        Send Agreement
-                    </button>
+                <button
+                    disabled={scheduleDisabled}
+                    onClick={toggleButtonText}
+                    onClick1={handleSendOfferLetter}
+                    className="text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded bg-sky-500 hover:bg-sky-700"
+                >
+                    {scheduleButtonText}
+                </button>
                     <InfoOutlinedIcon />
                 </div>
             </div>
