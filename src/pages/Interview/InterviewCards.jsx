@@ -4,7 +4,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 //import { KeyboardArrowLeftOutlined, KeyboardArrowRightOutlined } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 
 const InterviewCards = ({ currentScreen }) => {
 
@@ -52,7 +52,7 @@ const InterviewCards = ({ currentScreen }) => {
         <div className="flex flex-col gap-4 w-full pl-4 overscroll-y-auto">
             {jobsForCurrentScreen.map((job) => (
                 <div className='flex flex-col md:flex-row items-center w-full gap-4 md:gap-0' key={job.id}>
-                    <div className=" w-[90%] md:w-[88%] flex  md:justify-between text-white md:gap-0 gap-2 bg-neutral-800 rounded-lg p-4">
+                    <Box className=" w-[90%] md:w-[88%] flex  md:justify-between md:gap-0 gap-2 rounded-lg p-4" sx={{ backgroundColor: 'background.view', }}>
                         <div className=' w-full md:w-1/5 flex flex-col'>
 
                             <h2 className="text-sm font-semibold">{job.title}</h2>
@@ -63,7 +63,7 @@ const InterviewCards = ({ currentScreen }) => {
                             <KeyboardArrowDownOutlinedIcon fontSize='medium' className="text-blue-500" />
                         </div>
                        
-                    </div>
+                    </Box>
                     <div className='w-5/6 md:w-[12%] flex flex-row gap-2 items-center justify-end md:justify-center'>
                         <IconButton onClick={() => handleEdit(job.id)}><EditOutlinedIcon className='text-blue-700' /></IconButton>
                         <IconButton onClick={() => handleDelete(job.id)}><DeleteOutlineOutlinedIcon className='text-red-700' /></IconButton>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
@@ -29,8 +29,8 @@ const Bars = ({ barsData }) => {
     }, []);
 
     return (
-        <div className="">
-            <div className="bg-neutral-900 rounded-lg pt-4 pb-4 pr-4 mb-4">
+        <Box  sx ={{ backgroundColor: 'background.view',}} className= 'rounded-lg'>
+            <div className="rounded-lg pt-4 pb-4 pr-4 mb-4">
                 <div className="flex flex-col md:flex-row gap-4 mb-4 items-start md:items-center justify-between">
                     <Typography variant='h5' className="w-1/3 border-l-4 border-blue-500 pl-2 whitespace-nowrap" gutterBottom>
                         Project Overview
@@ -86,7 +86,7 @@ const Bars = ({ barsData }) => {
                     </BarChart>
                 </ResponsiveContainer>
             </div>
-        </div>
+        </Box>
     );
 };
 

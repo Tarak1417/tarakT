@@ -9,7 +9,7 @@ import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalance
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import FilterOutlinedIcon from '@mui/icons-material/FilterOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-
+import { Box } from '@mui/material';
 
 const JobCards = ({ currentScreen }) => {
 
@@ -56,26 +56,26 @@ const JobCards = ({ currentScreen }) => {
         <div className="flex flex-col gap-4 w-full pl-4 overscroll-y-auto">
             {jobsForCurrentScreen.map((job) => (
                 <div className='flex flex-col md:flex-row items-center w-full gap-4 md:gap-0' key={job.id}>
-                    <div className=" w-[90%] md:w-[98%] flex flex-col md:flex-row text-white md:gap-0 gap-2 mr-4 md:mr-0 bg-neutral-800 rounded-lg p-4">
+                    <Box className=" w-[90%] md:w-[98%] flex flex-col md:flex-row  md:gap-0 gap-2 mr-4 md:mr-0 rounded-lg p-4" sx={{ backgroundColor: 'background.view', }}>
                         <div className=' w-full md:w-1/5'>
 
                             <h2 className="text-sm font-semibold">{job.title}</h2>
                         </div>
                         <div className='w-full md:w-1/5 flex justify-start md:justify-center items-center gap-2'>
                             <AccountBalanceWalletOutlinedIcon fontSize='small' className='text-zinc-400' />
-                            <p className="text-zinc-300 md:text-sm">{job.salary}</p>
+                            <p className="text-zinc-400 md:text-sm">{job.salary}</p>
                         </div>
                         <div className='w-full md:w-1/5 flex justify-start md:justify-center items-center gap-2'>
                             <WorkOutlineIcon fontSize='small' className='text-zinc-400' />
-                            <p className="text-zinc-300 md:text-sm">{job.experience}</p>
+                            <p className="text-zinc-400 md:text-sm">{job.experience}</p>
                         </div>
                         <div className='w-full md:w-1/4 flex justify-start md:justify-center items-center gap-2'>
                             <LocationOnOutlinedIcon fontSize='small' className='text-zinc-400' />
-                            <p className="text-zinc-300 md:text-sm">{job.location}</p>
+                            <p className="text-zinc-400 md:text-sm">{job.location}</p>
                         </div>
                         <div className='w-full md:w-1/6 flex justify-start items-center'>
                             <FontAwesomeIcon icon={faLayerGroup} className="text-zinc-500 mr-2" />
-                            <p className="text-zinc-300 md:text-sm">{job.category}</p>
+                            <p className="text-zinc-400 md:text-sm">{job.category}</p>
                         </div>
                         <div className='w-full md:w-1/6 flex justify-end items-center gap-2'>
                             <Link to={job.moreDetails} className="text-blue-500">Show Details</Link>
@@ -88,7 +88,7 @@ const JobCards = ({ currentScreen }) => {
                             <FilterOutlinedIcon onClick={() => handleCopy(job.id)}/>
                             <DeleteOutlineOutlinedIcon onClick={() => handleDelete(job.id)} />
                         </div>
-                    </div>
+                    </Box>
                 </div>
             ))}
         </div>

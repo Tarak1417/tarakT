@@ -31,7 +31,7 @@ const UserTime = () => {
                         selected={date} 
                         onChange={handleDateChange} 
                         dateFormat="dd/MM/yyyy" 
-                        className="bg-neutral-900 rounded p-2 text-white"
+                        className="bg-neutral-900 rounded p-2 text-white" 
                     />
                 </div>
                 <div className="mb-4">

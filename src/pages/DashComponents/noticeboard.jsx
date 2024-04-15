@@ -1,9 +1,14 @@
+import { Box } from '@mui/material';
 import React from 'react';
 
 const NoticeBoard = ({ eventData }) => {
     return (
-        <div className="bg-neutral-900 rounded-lg pt-4 mb-4 shadow-md h-96 overflow-hidden relative">
-            <p className="text-white mb-4 border-l-4 border-blue-500 pl-2 text-2xl" gutterBottom>
+        <Box sx={{
+            backgroundColor: 'background.view', 
+           
+           }} className="rounded-lg">
+        <div className="rounded-lg pt-4 mb-4 shadow-md h-96 overflow-hidden relative">
+            <p className=" mb-4 border-l-4 border-blue-500 pl-2 text-2xl" gutterBottom>
                 Notice Board
             </p>
             <div className="px-1 p-4 overflow-y-auto">
@@ -37,6 +42,7 @@ const NoticeBoard = ({ eventData }) => {
                 }
             `}</style>
         </div>
+        </Box>
     );
 };
 

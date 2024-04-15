@@ -37,8 +37,8 @@ const Interview = () => {
                 <InterviewCards currentScreen={currentScreen} />
             </div>
             <div className='flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10'>
-                <div className="p-2 rounded-lg bg-neutral-900">
-                    <div className="flex items-center bg-neutral-900 gap-0 md:gap-6">
+                <div className="p-2 rounded-lg">
+                    <div className="flex items-center  gap-0 md:gap-6">
                         
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import CallIcon from '@mui/icons-material/Call';
 import EmailIcon from '@mui/icons-material/Email';
@@ -35,7 +35,7 @@ const Attendance = () => {
     ];
 
     return (
-        <div className='bg-neutral-900 rounded-lg mb-4 shadow-md pt-4 pr-4 pb-4 h-[350px] '>
+        <Box className='rounded-lg mb-4 shadow-md pt-4 pr-4 pb-4 h-[350px]' sx={{backgroundColor: 'background.view',}}>
             <div className="flex flex-row gap-4 mb-4 items-center justify-between">
                 <div className=' w-full md:w-1/2 flex justify-left'>
                     <Typography className="w-full md:w-1/3 border-l-4 border-blue-500 pl-2 whitespace-nowrap text-xl">
@@ -72,41 +72,41 @@ const Attendance = () => {
                 <div  className="flex flex-row mb-4 gap-1 md:gap-0">
 
                     <div className='w-1/6 md:w-1/6 flex items-center justify-center'>
-                        <p1 className='text-xs md:text-sm text-zinc-300'>S/N</p1>
+                        <p1 className='text-xs md:text-sm'>S/N</p1>
                     </div>
                     <div className='w-1/4 md:w-1/4 flex items-center justify-start'>
-                        <h1 className='text-xs md:text-sm text-zinc-300'>Employee</h1>
+                        <h1 className='text-xs md:text-sm '>Employee</h1>
                     </div>
                     <div className='w-1/5 md:w-1/5 flex items-center justify-start'>
-                        <p1 className='text-xs md:text-sm text-zinc-300'>Status</p1>
+                        <p1 className='text-xs md:text-sm '>Status</p1>
                     </div>
                     <div className='w-1/3 md:w-1/3 flex items-center justify-start md:justify-center'>
-                        <p1 className='text-xs md:text-sm text-zinc-300'>ClockIn</p1> 
+                        <p1 className='text-xs md:text-sm'>ClockIn</p1> 
                     </div>
                     <div className='w-1/3 md:w-1/3 flex items-center justify-start md:justify-center'>
-                        <p1 className='text-xs md:text-sm text-zinc-300'>ClockOut</p1>
+                        <p1 className='text-xs md:text-sm'>ClockOut</p1>
                     </div>
                     <div className='w-1/4 md:w-1/3 flex items-center justify-start md:justify-center'>
-                        <p1 className='text-xs md:text-sm text-zinc-300'>Actions</p1>
+                        <p1 className='text-xs md:text-sm'>Actions</p1>
                     </div>
                     
                 </div>
                 {items.map(item => (
                     <div key={item.id} className="flex flex-row mb-4 gap-1 md:gap-0">
-                        <div className='w-1/6 md:w-1/6 flex items-center justify-center'>
-                            <p1 className='text-xs md:text-sm text-zinc-400'>{item.id}</p1>
+                        <div className='w-1/6 md:w-1/6 flex items-center justify-center' >
+                            <p1 className='text-xs md:text-sm text-gray-500'>{item.id}</p1> 
                         </div>
                         <div className='w-1/4 md:w-1/4 flex items-center justify-start'>
-                            <h1 className='text-xs md:text-sm text-zinc-400'>{item.name}</h1>
+                            <h1 className='text-xs md:text-sm text-gray-500'>{item.name}</h1>
                         </div>
                         <div className='w-1/5 md:w-1/5 flex items-center justify-start'>
-                            <p1 className='text-xs md:text-sm text-zinc-400'>{item.status}</p1>
+                            <p1 className='text-xs md:text-sm text-gray-500'>{item.status}</p1>
                         </div>
                         <div className='w-1/3 md:w-1/3 flex items-center justify-start'>
-                            <p1 className='text-xs md:text-sm text-zinc-400'>{item.clockin}</p1> 
+                            <p1 className='text-xs md:text-sm text-gray-500'>{item.clockin}</p1> 
                         </div>
                         <div className='w-1/3 md:w-1/3 flex items-center justify-start'>
-                            <p1 className='text-xs md:text-sm text-zinc-400'>{item.clockout}</p1>
+                            <p1 className='text-xs md:text-sm text-gray-500'>{item.clockout}</p1>
                         </div>
                         <div className='w-1/4 md:w-1/4 flex items-center justify-start gap-2'>
                             <CallIcon className='text-green-700'/>
@@ -116,7 +116,7 @@ const Attendance = () => {
                 ))}
             </div>
 
-        </div>
+        </Box>
     );
 };
 

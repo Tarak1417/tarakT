@@ -1,13 +1,17 @@
 import React from 'react';
-
+import {Box, Grid} from '@mui/material'
 
 const UpcomingEvents = () => {
     return (
-        <div className="rounded-lg  mb-4 shadow-md h-39">
+        <Box >
+        <div className="rounded-lg mb-4 shadow-md h-39">
             <p  className="text-gray-500 mb-4 text-[22px] " gutterBottom>
                 Upcoming Events
             </p>
-            <div className='bg-neutral-900 w-full p-3'>
+            <Grid className='w-full p-3 rounded-lg' sx={{
+            backgroundColor: 'background.view', 
+           
+           }}>
                     <div className="mb-4">
                         <div className="flex gap-4 justify-center items-center">
                             <div className="w-1/4 h-[60px] flex items-center justify-center text-white rounded-lg bg-green-500">
@@ -21,8 +25,9 @@ const UpcomingEvents = () => {
                             </div>
                         </div>
                     </div>
-            </div>
+            </Grid>
         </div>
+        </Box>
     );
 };
 

@@ -37,17 +37,17 @@ const JobListing = () => {
                 <JobCards currentScreen={currentScreen} />
             </div>
             <div className='flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10'>
-                <div className="p-2 rounded-lg bg-neutral-900">
-                    <div className="flex items-center bg-neutral-900 gap-0 md:gap-6">
+                <div className="p-2 rounded-lg ">
+                    <div className="flex items-center gap-0 md:gap-6">
                         
                     </div>
                 </div>
                 <div className="flex flex-row gap-4">
                     <KeyboardArrowLeftOutlinedIcon
-                        className="text-zinc-300 cursor-pointer"
+                        className="text-zinc-400 cursor-pointer"
                         onClick={handlePrevScreen}
                     />
-                    <p className="text-zinc-300">1</p>
+                    <p className="text-zinc-400">1</p>
                     {currentScreen === 1 ? (
                         <KeyboardArrowRightOutlinedIcon
                             className="text-zinc-300 cursor-pointer"

@@ -8,7 +8,7 @@ import view from './viewicon.png';
 //import Calendar from './Calender';
 import UserTime from './UserTime';
 import { useNavigate } from 'react-router-dom';
-
+import {Box} from '@mui/material';
 
 
 const ShowMorePage = () => {
@@ -54,7 +54,7 @@ const ShowMorePage = () => {
                     </div>
                     <div className="w-full">
                         <h1 className="text-blue-500 text-xs md:text-[22px]">George Kepner</h1>
-                        <p className="text-zinc-50 text-[10px] md:text-[16px]">Full Stack Developer</p>
+                        <p className="text-[10px] md:text-[16px]">Full Stack Developer</p>
                     </div>
                 </div>
                 <div className="flex flex-col gap-4 md:gap-2 w-full md:w-2/3">
@@ -63,7 +63,7 @@ const ShowMorePage = () => {
                             <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Full Name:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-zinc-50 text-[12px] md:text-[20px]">George Kepner</p>
+                            <p className="text-[12px] md:text-[20px]">George Kepner</p>
                         </div>
                     </div>
                     <div className="w-full flex flex-row items-center justify-start gap-10">
@@ -83,7 +83,7 @@ const ShowMorePage = () => {
                             <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Job Title:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-zinc-50 text-[12px] md:text-[20px]">Full Stack Developer</p>
+                            <p className="text-[12px] md:text-[20px]">Full Stack Developer</p>
                         </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
@@ -91,7 +91,7 @@ const ShowMorePage = () => {
                             <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Years of Experience:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-zinc-50 text-[12px] md:text-[20px]">3</p>
+                            <p className="text-[12px] md:text-[20px]">3</p>
                         </div>
                     </div>
                     <div className="w-full flex flex-row items-center justify-start gap-10">
@@ -99,7 +99,7 @@ const ShowMorePage = () => {
                             <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Email:</h1>
                         </div>
                          <div className="w-1/2">
-                            <p className="text-zinc-50 text-[10px] md:text-[20px]">georgekepner@gmail.com</p>
+                            <p className="text-[10px] md:text-[20px]">georgekepner@gmail.com</p>
                          </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
@@ -107,7 +107,7 @@ const ShowMorePage = () => {
                             <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Phone:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-zinc-50 text-[12px] md:text-[20px]">+234 245 952 3219</p>
+                            <p className="text-[12px] md:text-[20px]">+234 245 952 3219</p>
                         </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
@@ -138,7 +138,7 @@ const ShowMorePage = () => {
                             <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Applied at:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-zinc-50 text-[12px] md:text-[20px]">23/10/2023, 15:39:16</p>
+                            <p className="text-[12px] md:text-[20px]">23/10/2023, 15:39:16</p>
                         </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
@@ -146,7 +146,7 @@ const ShowMorePage = () => {
                             <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Candidate Sign:</h1>
                         </div>
                          <div className="w-1/2">
-                            <p className="text-zinc-50 text-[12px] md:text-[20px]">George Kepner</p>
+                            <p className="text-[12px] md:text-[20px]">George Kepner</p>
                          </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
@@ -163,10 +163,10 @@ const ShowMorePage = () => {
                
                 <div className="fixed inset-0 flex items-center justify-center z-50">
                     <div className="bg-neutral-900 bg-opacity-50 absolute inset-0"></div>
-                    <div className="bg-neutral-900 p-4 md:p-8 w-[85%] md:w-1/3  h-auto relative z-10 border border-zinc-100 rounded-lg">
+                    <Box className="p-4 md:p-8 w-[85%] md:w-1/3  h-auto relative z-10 border border-zinc-100 rounded-lg" sx={{ backgroundColor: 'background.view', }}>
                     <div className="w-full flex flex-col gap-4 md:gap-10">
                         <div className="flex flex-col items-center justify-center">
-                        <h1 className="text-zinc-50 text-sm md:text-lg text-center">Select Your Preferred Time and Date</h1>
+                        <h1 className="text-sm md:text-lg text-center">Select Your Preferred Time and Date</h1>
                         <p className="text-zinc-500 text-xs md:text-sm text-center">When do you want your Interview to be conducted? Select a date.</p>
                         </div>
                         <div className="flex justify-center items-center w-full gap-4 md:gap-10">
@@ -176,7 +176,7 @@ const ShowMorePage = () => {
                     <div className="flex justify-end pt-3 md:pt-5">
                         <Button variant="contained" size="small" onClick={() => {toggleButtonText(); setShowPopup(false); handleSendOfferLetter(); }}>Schedule</Button>
                     </div>
-                    </div>
+                    </Box>
                 </div>
 
 

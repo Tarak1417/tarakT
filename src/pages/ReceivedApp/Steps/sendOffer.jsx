@@ -53,7 +53,7 @@ const SendOfferPage = () => {
                     </div>
                     <div className="w-full">
                         <h1 className="text-blue-500 text-xs md:text-[22px]">George Kepner</h1>
-                        <p className="text-zinc-50 text-[10px] md:text-[16px]">Full Stack Developer</p>
+                        <p className="text-[10px] md:text-[16px]">Full Stack Developer</p>
                     </div>
                 </div>
                 <div className="flex flex-col gap-4 md:gap-2 w-full md:w-2/3">
@@ -62,7 +62,7 @@ const SendOfferPage = () => {
                             <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Full Name:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-zinc-50 text-[12px] md:text-[20px]">George Kepner</p>
+                            <p className="text-[12px] md:text-[20px]">George Kepner</p>
                         </div>
                     </div>
                     <div className="w-full flex flex-row items-center justify-start gap-10">
@@ -82,7 +82,7 @@ const SendOfferPage = () => {
                             <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Job Title:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-zinc-50 text-[12px] md:text-[20px]">Full Stack Developer</p>
+                            <p className="text-[12px] md:text-[20px]">Full Stack Developer</p>
                         </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
@@ -90,7 +90,7 @@ const SendOfferPage = () => {
                             <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Years of Experience:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-zinc-50 text-[12px] md:text-[20px]">3</p>
+                            <p className="text-[12px] md:text-[20px]">3</p>
                         </div>
                     </div>
                     <div className="w-full flex flex-row items-center justify-start gap-10">
@@ -98,7 +98,7 @@ const SendOfferPage = () => {
                             <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Email:</h1>
                         </div>
                          <div className="w-1/2">
-                            <p className="text-zinc-50 text-[10px] md:text-[20px]">georgekepner@gmail.com</p>
+                            <p className="text-[10px] md:text-[20px]">georgekepner@gmail.com</p>
                          </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
@@ -106,7 +106,7 @@ const SendOfferPage = () => {
                             <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Phone:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-zinc-50 text-[12px] md:text-[20px]">+234 245 952 3219</p>
+                            <p className="text-[12px] md:text-[20px]">+234 245 952 3219</p>
                         </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
@@ -137,7 +137,7 @@ const SendOfferPage = () => {
                             <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Applied at:</h1>
                         </div>
                         <div className="w-1/2">
-                            <p className="text-zinc-50 text-[12px] md:text-[20px]">23/10/2023, 15:39:16</p>
+                            <p className="text-[12px] md:text-[20px]">23/10/2023, 15:39:16</p>
                         </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">
@@ -145,7 +145,7 @@ const SendOfferPage = () => {
                             <h1 className="text-neutral-500 text-[12px] md:text-[20px]">Candidate Sign:</h1>
                         </div>
                          <div className="w-1/2">
-                            <p className="text-zinc-50 text-[12px] md:text-[20px]">George Kepner</p>
+                            <p className="text-[12px] md:text-[20px]">George Kepner</p>
                          </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-10">

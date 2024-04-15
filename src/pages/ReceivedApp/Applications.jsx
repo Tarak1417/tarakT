@@ -3,6 +3,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import Overview from './Overview';
 import OverviewCards from './JobCards';
+import { Box } from '@mui/material';
 
 
 const Applications = () => {
@@ -16,14 +17,14 @@ const Applications = () => {
                     <InfoOutlinedIcon/>
                 </div>
             </div>
-            <div className='md:w-[98%] p-4 flex flex-col gap-4 bg-neutral-900 rounded-lg mx-4'>
+            <Box className='md:w-[98%] p-4 flex flex-col gap-4  rounded-lg mx-4' sx={{ backgroundColor: 'background.view', }}>
                 <h1 className='text-sm md:text-lg text-zinc-400'>Job Application Overview</h1>
                 <Overview/>
-            </div>
+            </Box>
             <OverviewCards/>
             <div className='flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-2'>
-                <div className="p-2 rounded-lg bg-neutral-900">
-                    <div className="flex items-center bg-neutral-900 gap-0 md:gap-6">
+                <div className="p-2 rounded-lg ">
+                    <div className="flex items-center  gap-0 md:gap-6">
                         
                     </div>
                 </div>

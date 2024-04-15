@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import Crop54Icon from '@mui/icons-material/Crop54';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
+import {Box, Grid} from '@mui/material';
 const Charts = ({ data }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [ setSelectedYear] = useState('2024');
@@ -20,8 +20,11 @@ const Charts = ({ data }) => {
    
 
     return ( 
-        <div className="">
-            <div className="bg-neutral-900 pt-5 pr-4 pb-4 mb-4">
+        <Box>
+            <Grid sx={{
+                 backgroundColor: 'background.view', 
+                
+                }} className=" pt-5 pr-4 pb-4 mb-4 rounded-lg">
                 <div className="flex flex-col md:flex-row gap-4 mb-4">
                     <Typography variant="h5" className="w-full md:w-1/3 border-l-4 border-blue-500 pl-2 mb-4 md:mb-0 md:mr-4" gutterBottom>
                         Overview
@@ -74,8 +77,8 @@ const Charts = ({ data }) => {
                         <Bar dataKey="budget" fill="#1d4ed8" barSize={10} />
                     </BarChart>
                 </ResponsiveContainer>
-            </div>
-        </div>
+            </Grid>
+        </Box>
     );
 };
 

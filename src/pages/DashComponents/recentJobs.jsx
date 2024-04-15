@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SwipeDownAltIcon from '@mui/icons-material/SwipeDownAlt';
 import CallIcon from '@mui/icons-material/Call';
@@ -36,7 +36,10 @@ const RecentJobs = () => {
     ];
 
     return (
-        <div className='bg-neutral-900 rounded-lg mb-4 shadow-md pt-4 pr-4 pb-4 '>
+        <Box className='rounded-lg mb-4 shadow-md pt-4 pr-4 pb-4 ' sx={{
+            backgroundColor: 'background.view', 
+           
+           }}>
             <div className="flex flex-col md:flex-row gap-4 mb-4 items-center">
                 <div className=' w-full md:w-1/2 flex justify-left'>
                     <Typography className="w-full md:w-1/3 border-l-4 border-blue-500 pl-2 whitespace-nowrap text-xl">
@@ -97,14 +100,14 @@ const RecentJobs = () => {
                         <AccountCircleIcon fontSize='large'/>
                         </div>
                         <div className='w-1/3 md:w-1/3'>
-                                <h1 className='text-sm md:text-lg text-zinc-300'>{item.name}</h1>
+                                <h1 className='text-sm md:text-lg text-gray-400'>{item.name}</h1>
                                 <p1 className='text-sm text-zinc-500'>{item.role}</p1>
                         </div>
                         <div className=' w-1/5 md:w-1/5 flex items-center justify-start md:items-center md:justify-center'>
-                        <p className='text-sm text-zinc-400'>{item.years}</p> 
+                        <p className='text-sm text-zinc-500'>{item.years}</p> 
                         </div>
                         <div className='w-1/3 md:w-1/5 flex items-center justify-start md:items-center md:justify-center'>
-                        <p className='text-sm text-zinc-400'><SwipeDownAltIcon/> {item.country}</p>
+                        <p className='text-sm text-zinc-500'><SwipeDownAltIcon/> {item.country}</p>
                         </div>
                         <div className='w-1/4 md:w-1/4 gap-2 flex items-center justify-start md:items-center md:justify-center whitespace-nowrap'>
                             <CallIcon className='text-green-700'/>
@@ -115,7 +118,7 @@ const RecentJobs = () => {
                         ))}
 
             </div>
-        </div>
+        </Box>
     );
 };
 

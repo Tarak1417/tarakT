@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { TrendingUp, TrendingDown } from '@mui/icons-material';
 import GroupIcon from '@mui/icons-material/Group';
 import ApartmentIcon from '@mui/icons-material/Apartment';
@@ -12,6 +12,7 @@ import RecentActivity from './DashComponents/recent';
 import GenderChart from './DashComponents/GenderChart';
 import RecentJobs from './DashComponents/recentJobs';
 import Attendance from './DashComponents/attend';
+import {Box} from '@mui/material'
 
 const Dashboard = () => {
     const data = [
@@ -52,26 +53,27 @@ const Dashboard = () => {
     ];
     
     return (
+        <Box sx={{backgroundColor: 'background.main',}}>
         <div className='flex flex-col'>
             <div className="p-2">
-                <Typography variant="h5" className="text-neutral-500" gutterBottom>
+                <Typography variant="h5"  className='text-gray-500' gutterBottom>
                     HR DASHBOARD
                 </Typography>
                 <div className="flex flex-col md:flex-row gap-4">
                     <div className="w-full md:w-3/4">
-                        <div className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
+                        <div  className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
                             {boxesData.map((box, index) => (
-                                <div key={index} className="bg-neutral-900 rounded-lg p-4 shadow-md text-white md:w-1/3">
-                                    <Typography className='text-xl'>{box.title}</Typography>
+                                <Grid sx={{backgroundColor: 'background.view',}}  key={index} className="rounded-lg p-4 shadow-md md:w-1/3">
+                                    <p className='text-xl'>{box.title}</p>
                                     <div className="flex items-center mb-2">
-                                        <Typography className="w-5/6 text-xl">{box.value}</Typography>
+                                        <p className="w-5/6 text-xl">{box.value}</p>
                                         <div className="w-1/6">{box.icon}</div>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         {box.trendIcon}
-                                        <Typography variant="body2" className="ml-2">{box.description}</Typography>
+                                        <p variant="body2" className="ml-2">{box.description}</p>
                                     </div>
-                                </div>
+                                </Grid>
                             ))}
                         </div>
                         <Charts data={data} />
@@ -103,6 +105,7 @@ const Dashboard = () => {
             </div>
             
         </div>
+        </Box>
     );
 };
 

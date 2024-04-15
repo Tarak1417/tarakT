@@ -67,12 +67,12 @@ const menuItems = [
             {
                 label: 'Employee List',
                 icon: <Person/>,
-                to: '/employees/award',
+                to: '/employees',
             },
             {
                 label: 'Employee View',
                 icon: <Person/>,
-                to: '/employees/award',
+                to: '/employees/performance',
             },
         ],
     },

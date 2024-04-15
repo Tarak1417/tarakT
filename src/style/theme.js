@@ -36,6 +36,13 @@ const ThemeContextProvider = props => {
                 paper: '#FFFFFF',
                 default: '#F7F9FC',
                 box: '#F7F9FC',
+                view: '#f4f4f5',
+                rec:'#fff'
+               
+            },
+            text: {
+               
+                one: '#1d1d1e'
             },
             divider: '#e7e3e3',
             custom: {
@@ -59,9 +66,12 @@ const ThemeContextProvider = props => {
                 paper: '#141414',
                 default: '#141414',
                 box: '#000000',
+                view: '#171717',
+                rec:'#000'
             },
             text: {
                 secondary: '#818991',
+                one: '#57534e'
             },
             divider: '#424242',
             custom: {

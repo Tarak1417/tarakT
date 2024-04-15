@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { PieChart, Pie, Tooltip, Cell } from 'recharts';
 
 const GenderChart = () => {
@@ -14,8 +14,11 @@ const GenderChart = () => {
     const totalCount = data.reduce((acc, cur) => acc + cur.value, 0);
 
     return (
-        <div className="">
-            <div className="bg-neutral-900 rounded-lg pt-4 pr-4 pb-4">
+        <Box className="">
+            <Grid className="rounded-lg pt-4 pr-4 pb-4" sx={{
+            backgroundColor: 'background.view', 
+           
+           }}>
                 <div className="flex flex-col gap-4 items-start">
                     <Typography variant='h5' className="border-l-4 border-blue-500 pl-2 whitespace-nowrap" gutterBottom>
                         Gender Chart
@@ -39,7 +42,7 @@ const GenderChart = () => {
                             
                         </PieChart>
                     </div>
-                    <div className="text-white flex flex-row gap-2 pl-4 items-center">
+                    <div className="flex flex-row gap-2 pl-4 items-center">
                         <div style={{ width: '16px', height: '16px', backgroundColor: colors[0] }}></div>
                         <Typography variant="body1" className='text-[10px]'>Male</Typography>
                         <div style={{ width: '16px',height: '16px', backgroundColor: colors[1] }} className='ml-5'></div>
@@ -47,8 +50,8 @@ const GenderChart = () => {
                     </div>
                         <Typography variant="body1" className='pl-4 text-[10px]'>Total: {totalCount}</Typography>
                 </div>
-            </div>
-        </div>
+            </Grid>
+        </Box>
     );
 };
 

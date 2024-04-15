@@ -15,6 +15,8 @@ import Footer from './pages/Footer';
 import AgreementHome from './pages/ReceivedApp/Steps/agreements/AgreementHome';
 import NoticeHome from './pages/NoticeBoard/NoticeHome';
 import Apps from './pages/Apps';
+import EmployeeHome from './pages/Employee/EmployeeHome';
+import PerformanceHome from './pages/Employee/PerformanceHome';
 
 
 const App = () => {
@@ -39,6 +41,9 @@ const App = () => {
 
                 <Route path='/noticeboard' element={<NoticeHome/>} />
                 <Route path='/apps' element={<Apps/>} />
+
+                <Route path='/employees' element={<EmployeeHome/>} />
+                <Route path='/employees/performance' element={<PerformanceHome/>} />
             </Routes>
         </Header>
         <Footer/>

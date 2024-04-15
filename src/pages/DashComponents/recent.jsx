@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const RecentActivity = () => {
@@ -29,7 +29,10 @@ const RecentActivity = () => {
     ];
 
     return (
-        <div className='bg-neutral-900 rounded-lg mb-4 shadow-md pr-4 pt-4 pb-4'>
+        <Box  className='rounded-lg mb-4 shadow-md pr-4 pt-4 pb-4' sx={{
+            backgroundColor: 'background.view', 
+           
+           }}>
             <div className="flex flex-col md:flex-row gap-4 mb-4 items-center justify-between">
                 <Typography variant="h5" className="w-full md:w-1/3 border-l-4 border-blue-500 pl-2 whitespace-nowrap" gutterBottom>
                     Recent Activities
@@ -85,7 +88,7 @@ const RecentActivity = () => {
                     </div>
                 ))}
             </div>
-        </div>
+        </Box>
     );
 };
 

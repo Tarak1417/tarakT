@@ -2,7 +2,7 @@ import React from "react";
 import PersonIcon from '@mui/icons-material/Person';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Link } from "react-router-dom";
-
+import { Box } from "@mui/material";
 
 
 const JobCards = () => {
@@ -35,7 +35,7 @@ const JobCards = () => {
   return (
     <div className="w-full flex flex-wrap justify-between mx-4 pt-4 gap-1 pr-6">
     {data.map((item, index) => (
-        <div key={index} className="w-full md:w-[48%] lg:w-[32%] xl:w-[24%] h-auto p-2 gap-4 bg-neutral-900 rounded-lg mb-4">
+        <Box key={index} className="w-full md:w-[48%] lg:w-[32%] xl:w-[24%] h-auto p-2 gap-4  rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
             <div className="flex flex-row justify-between items-center">
                 <h1 className="text-[14px]">{item.title}</h1>
                 <p className="text-[8px] text-zinc-500">{item.date}</p>
@@ -53,7 +53,7 @@ const JobCards = () => {
                 <div className="flex items-center border-b border-solid border-zinc-50 w-[96%] ">
                     <div className="w-full relative ">
                         <select
-                            className="outline-none border-none w-full bg-neutral-900 light:text-zinc-50 text-[12px] pr-6 appearance-none"
+                            className="outline-none border-none w-full  light:text-zinc-50 text-[12px] pr-6 appearance-none"
                         >
                             <option value="" >Add Label</option>
                             <option value="option1">Option 1</option>
@@ -71,7 +71,7 @@ const JobCards = () => {
                 <button className="flex text-zinc-300 p-1 bg-neutral-800 text-[8px]">Interviewed</button>
                 <button className="flex text-zinc-300 p-1 bg-neutral-800 text-[8px]">Offer Letter Sent</button>
             </div>
-        </div>
+        </Box>
     ))}
 </div>
   );

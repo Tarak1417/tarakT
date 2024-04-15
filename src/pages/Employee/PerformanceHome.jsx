@@ -1,14 +1,15 @@
 import React from 'react';
-import { Grid, Box } from '@mui/material';
-import DeptPage from './DeptPage';
+import { Box, Grid } from '@mui/material';
+import PerformancePage from './Performance';
 
-const DeptHome = () => {
+
+const PerformanceHome = () => {
     return (
-        <Box className="h-full overflow-hidden" sx={{ backgroundColor: 'background.main', }}>
+        <Box sx={{ backgroundColor: 'background.main', }} className="h-full overflow-hidden ">
             <div className="h-full" style={{ overflowY: 'auto', paddingRight: '1px' }}>
                 <Grid container alignItems='center' justifyContent='center' height='100%'>
-                    <Grid item xs={12}>
-                        <DeptPage />
+                    <Grid item xs={11}>
+                       <PerformancePage/>
                     </Grid>
                 </Grid>
             </div>
@@ -17,14 +18,13 @@ const DeptHome = () => {
                 .h-full::-webkit-scrollbar {
                     display: none;
                 }
-
-               
                 .h-full {
                     scrollbar-width: none;
                 }
             `}</style>
+
         </Box>
     );
 };
 
-export default DeptHome;
+export default PerformanceHome;

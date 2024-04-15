@@ -1,10 +1,10 @@
 import React from 'react';
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import Applications from './Applications';
 
 const ReceivedApp = () => {
     return (
-        <div className="h-full overflow-hidden bg-black">
+        <Box className="h-full overflow-hidden" sx={{ backgroundColor: 'background.main', }}>
             <div className="h-full" style={{ overflowY: 'auto', paddingRight: '1px' }}>
                 <Grid container alignItems='center' justifyContent='start' height='100%'>
                     <Grid item xs={12}>
@@ -22,7 +22,7 @@ const ReceivedApp = () => {
                     scrollbar-width: none;
                 }
             `}</style>
-        </div>
+        </Box>
     );
 };
 

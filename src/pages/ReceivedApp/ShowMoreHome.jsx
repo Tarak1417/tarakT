@@ -1,10 +1,10 @@
 import React from 'react';
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import ShowMorePage from './ShowMore';
 
 const ShowMoreHome = () => {
     return (
-        <div className="h-full overflow-hidden bg-black">
+        <Box className="h-full overflow-hidden" sx={{ backgroundColor: 'background.main', }}>
             <div className="h-full" style={{ overflowY: 'auto', paddingRight: '1px' }}>
                 <Grid container alignItems='center' justifyContent='center' height='100%'>
                     <Grid item xs={11}>
@@ -23,7 +23,7 @@ const ShowMoreHome = () => {
                     scrollbar-width: none;
                 }
             `}</style>
-        </div>
+        </Box>
     );
 };
 
