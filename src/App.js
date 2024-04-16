@@ -17,6 +17,7 @@ import NoticeHome from './pages/NoticeBoard/NoticeHome';
 import Apps from './pages/Apps';
 import EmployeeHome from './pages/Employee/EmployeeHome';
 import PerformanceHome from './pages/Employee/PerformanceHome';
+import EmpDetailsHome from './pages/Employee/EmployeeDetails/EmpDetailsHome';
 
 
 const App = () => {
@@ -43,7 +44,8 @@ const App = () => {
                 <Route path='/apps' element={<Apps/>} />
 
                 <Route path='/employees' element={<EmployeeHome/>} />
-                <Route path='/employees/performance' element={<PerformanceHome/>} />
+                <Route path='/performance' element={<PerformanceHome/>} />
+                <Route path='/viewemployee' element={<EmpDetailsHome/>} />
             </Routes>
         </Header>
         <Footer/>

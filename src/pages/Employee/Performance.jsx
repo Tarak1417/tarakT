@@ -4,6 +4,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import profile from '../ReceivedApp/profile.png';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import { Link } from 'react-router-dom';
 
 const ProgressCircle = ({ percentage, color }) => {
     const circleStyle = {
@@ -60,9 +61,11 @@ const PerformancePage = () => {
                         <h1 className="text-2xl text-neutral-500">Employee</h1>
                     </div>
                     <div className="flex flex-row items-center justify-center gap-4">
-                        <button className='flex items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
-                            Add New Employee
-                        </button>
+                        <Link to="/viewemployee">
+                            <button className='flex items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                                Add New Employee
+                            </button>
+                        </Link>
                         <InfoOutlinedIcon />
                     </div>
                 </div>
@@ -92,7 +95,7 @@ const PerformancePage = () => {
                     <p className='text-[12px] text-zinc-400 text-center'>Leaves</p>
                 </div>
             </div>
-            <Box className="w-full ml-2 md:ml-0 pt-4 rounded-lg mb-4 mt-10" sx={{ backgroundColor: 'background.view' }}>
+            <Box className="w-full ml-2 md:ml-0 pt-4 rounded-lg mb-4 mt-10 mb-30" sx={{ backgroundColor: 'background.view' }}>
                 <div className='flex items-center justify-between md:w-full'>
                     <div>
                         <p className="mb-4 border-l-4 border-blue-500 pl-3 text-xl" gutterBottom>
