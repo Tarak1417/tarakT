@@ -83,7 +83,7 @@ const menuItems = [
             {
                 label: 'Attendance View',
                 icon: <Attend />,
-                to: '/employees/award',
+                to: '/attendance',
             },
             {
                 label: 'Leave Setting',

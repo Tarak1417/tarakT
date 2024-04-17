@@ -18,6 +18,7 @@ import Apps from './pages/Apps';
 import EmployeeHome from './pages/Employee/EmployeeHome';
 import PerformanceHome from './pages/Employee/PerformanceHome';
 import EmpDetailsHome from './pages/Employee/EmployeeDetails/EmpDetailsHome';
+import AttendHome from './pages/Attendance/AttendHome';
 
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
                 <Route path='/employees' element={<EmployeeHome/>} />
                 <Route path='/performance' element={<PerformanceHome/>} />
                 <Route path='/viewemployee' element={<EmpDetailsHome/>} />
+                <Route path='/attendance' element={<AttendHome/>} />
             </Routes>
         </Header>
         <Footer/>
