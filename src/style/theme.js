@@ -37,11 +37,13 @@ const ThemeContextProvider = props => {
                 default: '#F7F9FC',
                 box: '#F7F9FC',
                 view: '#f4f4f5',
-                rec:'#fff'
+                rec:'#fff',
+                bond:'#f8fafc'
                
             },
             text: {
-               
+
+               two:'#3f3f46',
                 one: '#1d1d1e'
             },
             divider: '#e7e3e3',
@@ -67,11 +69,13 @@ const ThemeContextProvider = props => {
                 default: '#141414',
                 box: '#000000',
                 view: '#171717',
-                rec:'#000'
+                rec:'#000',
+                bond:'#262626'
             },
             text: {
                 secondary: '#818991',
-                one: '#57534e'
+                one: '#57534e',
+                two:'#d1d5db'
             },
             divider: '#424242',
             custom: {

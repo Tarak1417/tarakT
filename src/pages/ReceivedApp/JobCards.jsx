@@ -53,7 +53,7 @@ const JobCards = () => {
                 <div className="flex items-center border-b border-solid border-zinc-50 w-[96%] ">
                     <div className="w-full relative ">
                         <select
-                            className="outline-none border-none w-full  light:text-zinc-50 text-[12px] pr-6 appearance-none"
+                            className="outline-none border-none w-full bg-transparent  light:text-zinc-50 text-[12px] pr-6 appearance-none"
                         >
                             <option value="" >Add Label</option>
                             <option value="option1">Option 1</option>
@@ -66,10 +66,10 @@ const JobCards = () => {
                 <p className="text-[14px] text-zinc-500 flex items-bottom justify-bottom">+</p>
             </div>
             <div className="flex flex-row gap-2 pt-2">
-                <button className="flex text-zinc-300 p-1 bg-neutral-800 text-[8px]">Applied</button>
-                <button className="flex text-zinc-300 p-1 bg-neutral-800 text-[8px]">Interview Sent</button>
-                <button className="flex text-zinc-300 p-1 bg-neutral-800 text-[8px]">Interviewed</button>
-                <button className="flex text-zinc-300 p-1 bg-neutral-800 text-[8px]">Offer Letter Sent</button>
+                <Box sx={{backgroundColor: 'background.bond', color:'text.two'}} className="flex p-1 bg-neutral-800 text-[8px]">Applied</Box>
+                <Box sx={{backgroundColor: 'background.bond', color:'text.two'}} className="flex p-1 bg-neutral-800 text-[8px]">Interview Sent</Box>
+                <Box sx={{backgroundColor: 'background.bond', color:'text.two'}} className="flex p-1 bg-neutral-800 text-[8px]">Interviewed</Box>
+                <Box sx={{backgroundColor: 'background.bond', color:'text.two'}} className="flex p-1 bg-neutral-800 text-[8px]">Offer Letter Sent</Box>
             </div>
         </Box>
     ))}
