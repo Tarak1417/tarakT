@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, IconButton } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
@@ -27,24 +27,24 @@ const AttendPage = () => {
     const userData = [
         { date: '2024-04-18', day: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action:  <img src={view} alt="view" className="w-4 h-4"/>},
         { date: '2024-04-18', day: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Holiday', action: <img src={view} alt="view" className="w-4 h-4"/> },
-        { date: '2024-04-18', day: 'Monday', status: 'Holiday', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present & Late', action: <img src={view} alt="view" className="w-4 h-4"/>},
+        { date: '2024-04-18', day: 'Monday', status: 'Holiday', clockIn: '-- -- --', clockOut: '-- -- --', progress: 'Present & Late', action: <img src={view} alt="view" className="w-4 h-4"/>},
         { date: '2024-04-18', day: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action: <img src={view} alt="view" className="w-4 h-4"/>},
-        { date: '2024-04-18', day: 'Monday', status: 'Late', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Holiday', action: <img src={view} alt="view" className="w-4 h-4"/> },
+        { date: '2024-04-18', day: 'Monday', status: 'Late', clockIn: '09:50 AM', clockOut: '05:00 PM', progress: 'Holiday', action: <img src={view} alt="view" className="w-4 h-4"/> },
         { date: '2024-04-18', day: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action: <img src={view} alt="view" className="w-4 h-4"/> },
         { date: '2024-04-18', day: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Holiday', action: <img src={view} alt="view" className="w-4 h-4"/> },
-        { date: '2024-04-18', day: 'Monday', status: 'Holiday', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present & Late', action: <img src={view} alt="view" className="w-4 h-4"/> },
+        { date: '2024-04-18', day: 'Monday', status: 'Holiday', clockIn: '-- -- --', clockOut: '-- -- --', progress: 'Present & Late', action: <img src={view} alt="view" className="w-4 h-4"/> },
         { date: '2024-04-18', day: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action: <img src={view} alt="view" className="w-4 h-4"/> },
-        { date: '2024-04-18', day: 'Monday', status: 'Late', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Holiday', action: <img src={view} alt="view" className="w-4 h-4"/> },
+        { date: '2024-04-18', day: 'Monday', status: 'Late', clockIn: '09:50 AM', clockOut: '05:00 PM', progress: 'Holiday', action: <img src={view} alt="view" className="w-4 h-4"/> },
         { date: '2024-04-18', day: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action: <img src={view} alt="view" className="w-4 h-4"/> },
         { date: '2024-04-18', day: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Holiday', action:  <img src={view} alt="view" className="w-4 h-4"/> },
-        { date: '2024-04-18', day: 'Monday', status: 'Holiday', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present & Late', action:  <img src={view} alt="view" className="w-4 h-4"/>},
+        { date: '2024-04-18', day: 'Monday', status: 'Holiday', clockIn: '-- -- --', clockOut: '-- -- --', progress: 'Present & Late', action:  <img src={view} alt="view" className="w-4 h-4"/>},
         { date: '2024-04-18', day: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action:  <img src={view} alt="view" className="w-4 h-4"/> },
         { date: '2024-04-18', day: 'Monday', status: 'Late', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Holiday', action:  <img src={view} alt="view" className="w-4 h-4"/> },
         { date: '2024-04-18', day: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action:  <img src={view} alt="view" className="w-4 h-4"/> },
         { date: '2024-04-18', day: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Holiday', action:  <img src={view} alt="view" className="w-4 h-4"/> },
-        { date: '2024-04-18', day: 'Monday', status: 'Holiday', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present & Late', action:  <img src={view} alt="view" className="w-4 h-4"/> },
+        { date: '2024-04-18', day: 'Monday', status: 'Holiday', clockIn: '-- -- --', clockOut: '-- -- --', progress: 'Present & Late', action:  <img src={view} alt="view" className="w-4 h-4"/> },
         { date: '2024-04-18', day: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action:  <img src={view} alt="view" className="w-4 h-4"/> },
-        { date: '2024-04-18', day: 'Monday', status: 'Late', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Holiday', action:  <img src={view} alt="view" className="w-4 h-4"/> },
+        { date: '2024-04-18', day: 'Monday', status: 'Late', clockIn: '09:09 AM', clockOut: '05:00 PM', progress: 'Holiday', action:  <img src={view} alt="view" className="w-4 h-4"/> },
    
     ];    
 
@@ -82,10 +82,10 @@ const AttendPage = () => {
         <div className='flex flex-col'>
                 <div className="flex items-center justify-between md:w-full p-4">
                         <div className="p-2">
-                            <h1 className="text-2xl text-neutral-500">Attendance By User</h1>
+                            <h1 className="text-xs md:text-2xl text-neutral-500">Attendance By User</h1>
                         </div>
                         <div className="flex flex-row items-center justify-center gap-4">
-                            <button className='flex  items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                            <button className='flex  items-center text-white font-bold text-[8px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
                                 Mark Attendance
                             </button>
                             <InfoOutlinedIcon />
@@ -187,36 +187,33 @@ const AttendPage = () => {
                 >
                     <Grid
                         className='flex flex-row border-b border-zinc-500'
-                        sx={{
-                            backgroundColor: 'background.bond',
-                            overflowY: 'scroll'
-                        }}
+                        
                     >
-                        <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
+                        <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold'>
                             Date
                         </div>
-                        <div className='w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs font-bold'>
+                        <div className='w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold'>
                             Day
                         </div>
-                        <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs font-bold'>
+                        <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold'>
                             Status
                         </div>
-                        <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
+                        <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold'>
                             Clock In
                         </div>
-                        <div className='w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs font-bold'>
+                        <div className='w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold'>
                             Clock Out
                         </div>
-                        <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs font-bold'>
+                        <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold'>
                             Progress
                         </div>
-                        <div className='w-[25%] md:w-[14.6%] p-2  text-left text-sm md:text-xs font-bold'>
+                        <div className='w-[25%] md:w-[14.6%] p-2  text-left text-sm md:text-[16px] font-bold'>
                             Action
                         </div>
                     </Grid>
                     {userData.map((user, index) => (
                         <Grid key={index} className='flex flex-row border-b border-zinc-500' currentScreen={currentScreen}>
-                            <div className='w-[25%] md:w-[14.4%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center'>
+                            <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center'>
                                 {user.date}
                             </div>
                             <div className='w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center'>
@@ -231,13 +228,13 @@ const AttendPage = () => {
                                     {user.status}
                                 </div>
                             </div>
-                            <div className='w-[25%] md:w-[14.3%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center'>
+                            <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center'>
                                 {user.clockIn}
                             </div>
-                            <div className='w-[50%] md:w-[14.3%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center'>
+                            <div className='w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center'>
                                 {user.clockOut}
                             </div>
-                            <div className='w-[25%] md:w-[14.3%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center'>
+                            <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center'>
                                 <div className='h-2 flex justify-between w-full'>
                                     <div
                                         className='h-full rounded-lg'
@@ -255,7 +252,7 @@ const AttendPage = () => {
                                 </div>
                             </div>
                             <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 flex justify-center items-center text-sm md:text-xs'>
-                                {user.action}
+                               <IconButton> {user.action}</IconButton>
                             </div>
                         </Grid>
                     ))}

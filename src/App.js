@@ -19,6 +19,8 @@ import EmployeeHome from './pages/Employee/EmployeeHome';
 import PerformanceHome from './pages/Employee/PerformanceHome';
 import EmpDetailsHome from './pages/Employee/EmployeeDetails/EmpDetailsHome';
 import AttendHome from './pages/Attendance/AttendHome';
+import AttendViewHome from './pages/Attendance/AttendView/AttendViewHome';
+import LeaveSettingsHome from './pages/Attendance/AttendView/LeaveSetting/LeaveSettingHome';
 
 
 const App = () => {
@@ -48,6 +50,8 @@ const App = () => {
                 <Route path='/performance' element={<PerformanceHome/>} />
                 <Route path='/viewemployee' element={<EmpDetailsHome/>} />
                 <Route path='/attendance' element={<AttendHome/>} />
+                <Route path='/attendanceview' element={<AttendViewHome/>} />
+                <Route path='/leavesettings' element={<LeaveSettingsHome/>} />
             </Routes>
         </Header>
         <Footer/>

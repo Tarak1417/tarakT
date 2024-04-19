@@ -88,7 +88,7 @@ const menuItems = [
             {
                 label: 'Leave Setting',
                 icon: <Leave/>,
-                to: '/employees/award',
+                to: '/leavesettings',
             },
             {
                 label: 'Leave Application',
