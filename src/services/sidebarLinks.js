@@ -83,7 +83,7 @@ const menuItems = [
             {
                 label: 'Attendance View',
                 icon: <Attend />,
-                to: '/attendance',
+                to: '/attendanceview',
             },
             {
                 label: 'Leave Setting',
@@ -93,12 +93,12 @@ const menuItems = [
             {
                 label: 'Leave Application',
                 icon: <Download/>,
-                to: '/employees/award',
+                to: '/leaveapplication',
             },
             {
                 label: 'Attendance By User',
                 icon: <Person/>,
-                to: '/employees/award',
+                to: '/attendance',
             },
            
         ],

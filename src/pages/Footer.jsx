@@ -5,6 +5,7 @@ import VideoChatOutlinedIcon from '@mui/icons-material/VideoChatOutlined';
 import { Link } from 'react-router-dom';
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import ContactMailOutlinedIcon from '@mui/icons-material/ContactMailOutlined';
+import { Box } from '@mui/material';
 
 const Footer = () => {
     const [activeIcon, setActiveIcon] = useState(null);
@@ -14,7 +15,7 @@ const Footer = () => {
     };
 
     return (
-        <div className='fixed bottom-0 w-full bg-neutral-900 p-2 flex flex-row gap-4 items-center justify-center md:hidden'>
+        <Box className='fixed bottom-0 w-full  p-2 flex flex-row gap-4 items-center justify-center md:hidden' sx={{ backgroundColor: 'background.view' }}>
             <Link to="/">
                 <div className="flex flex-col items-center justify-center  w-[50px]" onClick={() => handleIconClick('home')}>
                     <div className={`${activeIcon === 'home' && 'text-white rounded-lg bg-blue-700 w-[90%] flex justify-center px-2 py-1'}`}>
@@ -55,7 +56,7 @@ const Footer = () => {
                     <p className={`${activeIcon === 'chat' && 'text-sky-500 text-[10px]'}`}>Chat</p>
                 </div>
             </Link>
-        </div>
+        </Box>
     );
 };
 

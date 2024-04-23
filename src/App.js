@@ -21,6 +21,9 @@ import EmpDetailsHome from './pages/Employee/EmployeeDetails/EmpDetailsHome';
 import AttendHome from './pages/Attendance/AttendHome';
 import AttendViewHome from './pages/Attendance/AttendView/AttendViewHome';
 import LeaveSettingsHome from './pages/Attendance/AttendView/LeaveSetting/LeaveSettingHome';
+import LeaveAppHome from './pages/Attendance/AttendView/LeaveAppPage.jsx/LeaveAppHome';
+import LeaveViewHome from './pages/Attendance/AttendView/LeaveAppPage.jsx/LeaveViewHome';
+import ExpensesHome from './pages/Expenses/ExpensesHome';
 
 
 const App = () => {
@@ -45,6 +48,7 @@ const App = () => {
 
                 <Route path='/noticeboard' element={<NoticeHome/>} />
                 <Route path='/apps' element={<Apps/>} />
+                <Route path='/expenses' element={<ExpensesHome/>} />
 
                 <Route path='/employees' element={<EmployeeHome/>} />
                 <Route path='/performance' element={<PerformanceHome/>} />
@@ -52,6 +56,8 @@ const App = () => {
                 <Route path='/attendance' element={<AttendHome/>} />
                 <Route path='/attendanceview' element={<AttendViewHome/>} />
                 <Route path='/leavesettings' element={<LeaveSettingsHome/>} />
+                <Route path='/leaveapplication' element={<LeaveAppHome/>} />
+                <Route path='/leaveapplication/view' element={<LeaveViewHome/>} />
             </Routes>
         </Header>
         <Footer/>
