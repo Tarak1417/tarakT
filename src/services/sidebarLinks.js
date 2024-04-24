@@ -157,7 +157,7 @@ const menuItems = [
             {
                 label: 'Add Payroll',
                 icon: <Leave/>,
-                to: '/employees/award',
+                to: '/addpayroll',
             },
             {
                 label: 'Edit Payroll',
@@ -170,12 +170,12 @@ const menuItems = [
     {
         label: 'Award',
         icon: <EmojiEventsIcon fontSize='small' />,
-        to: '/employees/award',
+        to: '/award',
     },
     {
         label: 'Holiday',
         icon: <HolidayVillageIcon fontSize='small' />,
-        to: '/employees/holiday',
+        to: '/holidays',
     },
     {
         icon: <GroupsIcon fontSize='small' />,
