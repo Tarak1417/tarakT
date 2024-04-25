@@ -152,7 +152,7 @@ const menuItems = [
             {
                 label: 'Employee Salary',
                 icon: <Attend />,
-                to: '/employees/award',
+                to: '/employeesalary',
             },
             {
                 label: 'Add Payroll',
@@ -162,7 +162,7 @@ const menuItems = [
             {
                 label: 'Edit Payroll',
                 icon: <Download/>,
-                to: '/employees/award',
+                to: '/editpayroll',
             },
            
         ],

@@ -7,7 +7,6 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 
 const HolidayPage = () => {
-    
     const userData = [
         {no:1, day:'Tuesday', date:'25-12-2024', holiday:'Christmas'},
         {no:2, day:'Tuesday', date:'25-12-2024', holiday:'Christmas'},

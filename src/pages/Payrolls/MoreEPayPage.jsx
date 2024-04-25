@@ -3,7 +3,7 @@ import {Box} from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 
-const MorePayrollPage = () => {
+const MoreEditPayrollPage = () => {
     
     
     
@@ -12,7 +12,7 @@ const MorePayrollPage = () => {
         <div className='flex flex-col justify-start'>
                 <div className="flex items-center justify-between md:w-full p-4">
                         <div className="p-2">
-                            <h1 className="text-2xl text-neutral-500">Add Payroll</h1>
+                            <h1 className="text-2xl text-neutral-500">Edit Payroll</h1>
                         </div>
                         <div className="flex flex-row items-center justify-center gap-4">
                             <InfoOutlinedIcon />
@@ -109,4 +109,4 @@ const MorePayrollPage = () => {
     );
 };
 
-export default MorePayrollPage;
+export default MoreEditPayrollPage;

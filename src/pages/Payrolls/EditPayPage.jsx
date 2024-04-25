@@ -5,13 +5,13 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Link } from 'react-router-dom';
 
 
-const AddPayrollPage = () => {
+const EditPayrollPage = () => {
     return (
         <Box sx={{backgroundColor: 'background.main',}}>
         <div className='flex flex-col justify-start'>
                 <div className="flex items-center justify-between md:w-full p-4">
                         <div className="p-2">
-                            <h1 className="text-2xl text-neutral-500">Add Payroll</h1>
+                            <h1 className="text-2xl text-neutral-500">Edit Payroll</h1>
                         </div>
                         <div className="flex flex-row items-center justify-center gap-4">
                             <InfoOutlinedIcon />
@@ -145,7 +145,7 @@ const AddPayrollPage = () => {
                     </div>
                     <div className='flex flex-row w-full md:w-[18%] justify-end'>
                             <button className='flex items-center text-white font-bold text-[10px] md:text-[14px] py-1 md:py-1 px-2 md:px-10 rounded bg-sky-500 hover:bg-sky-700'>
-                        <Link to="/addpayrolls">
+                        <Link to="/editpayrolls">
                                 <span className='text-[18px] pr-4'>+</span>Add
                         </Link>
                             </button>
@@ -161,4 +161,4 @@ const AddPayrollPage = () => {
     );
 };
 
-export default AddPayrollPage;
+export default EditPayrollPage;

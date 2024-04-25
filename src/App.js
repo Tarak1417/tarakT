@@ -11,7 +11,6 @@ import DeptHome from './pages/Departments/DeptHome';
 import InterviewHome from './pages/Interview/interviewHome';
 import EditHome from './pages/JobListing/EditHome';
 import OfferHome from './pages/ReceivedApp/Steps/OfferHome';
-import Footer from './pages/Footer';
 import AgreementHome from './pages/ReceivedApp/Steps/agreements/AgreementHome';
 import NoticeHome from './pages/NoticeBoard/NoticeHome';
 import Apps from './pages/Apps';
@@ -28,6 +27,10 @@ import AwardHome from './pages/Award/AwardHome';
 import HolidayHome from './pages/Holiday/HolidayHome';
 import AddPayrollHome from './pages/Payrolls/AddPayHome';
 import MorePayrollHome from './pages/Payrolls/MorePayHome';
+import Footer from './pages/Footer';
+import EditPayrollHome from './pages/Payrolls/EditPayHome';
+import MoreEditPayrollHome from './pages/Payrolls/MoreEPayHome';
+import SalaryHome from './pages/Payrolls/SalaryHome';
 
 
 const App = () => {
@@ -58,6 +61,10 @@ const App = () => {
 
                 <Route path='/addpayroll' element={<AddPayrollHome/>} />
                 <Route path='/addpayrolls' element={<MorePayrollHome/>} />
+                <Route path='/editpayroll' element={<EditPayrollHome/>} />
+                <Route path='/editpayrolls' element={<MoreEditPayrollHome/>} />
+                <Route path='/employeesalary' element={<SalaryHome/>} />
+
 
                 <Route path='/employees' element={<EmployeeHome/>} />
                 <Route path='/performance' element={<PerformanceHome/>} />
