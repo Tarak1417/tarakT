@@ -1,11 +1,15 @@
-import React from 'react';
-import {Box,} from '@mui/material';
+import React, { useCallback, useEffect, useState } from 'react';
+import {Box, Modal,} from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import PersonIcon from '@mui/icons-material/Person';
 import './award.css';
+import useErrorHandler from '../../hooks/useErrorHandler';
+import useModal from '../../hooks/useModal';
+import axios from 'axios';
+import AddAward from '../../components/AddAward';
 
 
 const AwardPage = () => {
@@ -24,6 +28,48 @@ const AwardPage = () => {
         
         
     ];
+
+    const errorHandler = useErrorHandler();
+    const { modalState, openModal, closeModal } = useModal();
+
+    const [awards, setAwards] = useState(null);
+    const [award, setAward] = useState(null);
+
+    const [page, setPage] = React.useState(1);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = event => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
+
+    const fetchAwards = useCallback(async () => {
+        try {
+            const params = {
+                page,
+            };
+
+            const response = await axios.get('/hr/awards', { params });
+
+            setAwards(response.data);
+        } catch (e) {
+            errorHandler(e);
+        }
+    }, [errorHandler, page]);
+
+    const editAward = id => {
+        setAward(id);
+        openModal();
+    };
+
+    useEffect(() => {
+        fetchAwards();
+    }, [fetchAwards]);
+    console.log(awards)
     const getColor = (profile) => {
         switch (profile) {
             case 'Cash':
@@ -37,9 +83,6 @@ const AwardPage = () => {
     };
     
 
-    
-   
-    
     return (
         <Box sx={{backgroundColor: 'background.main',}}>
         <div className='flex flex-col'>
@@ -48,7 +91,10 @@ const AwardPage = () => {
                             <h1 className="text-2xl text-neutral-500">Award</h1>
                         </div>
                         <div className="flex flex-row items-center justify-center gap-4">
-                            <button className='flex items-center text-white font-bold text-xs md:text-base py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                            <button onClick={() => {
+                                    setAward(null);
+                                    openModal();
+                                }} className='flex items-center text-white font-bold text-xs md:text-base py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
                                 Add New Award
                             </button>
                             <InfoOutlinedIcon />
@@ -73,9 +119,9 @@ const AwardPage = () => {
                         <div className='w-[25%] md:w-[14.2%] p-3 border-r border-zinc-500 text-sm md:text-xs font-bold'>
                             Designation
                         </div>
-                        <div className='w-[25%] md:w-[14.2%] p-3 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
+                        {/* <div className='w-[25%] md:w-[14.2%] p-3 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
                            Attendance
-                        </div>
+                        </div> */}
                         <div className='w-[25%] md:w-[14.2%] p-3 border-r border-zinc-500 text-sm md:text-xs font-bold'>
                             Award Type
                         </div>
@@ -86,37 +132,37 @@ const AwardPage = () => {
                         
                         
                     </div>
-                    {userData.map((user) => (
-                        <div key={user.id} className='flex flex-row border-b border-zinc-500'>
+                    {awards?.awards?.map((user,index) => (
+                        <div key={index} className='flex flex-row border-b border-zinc-500'>
                         <div className='w-[50%] md:w-[14.2%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
-                            {user.no}
+                            {index+1}
                         </div>
                        <div className='w-[25%] md:w-[14.2%] p-3 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                            #{user.id}
+                            {user.employeeId}
                         </div>
                         <div className='w-[50%] md:w-[14.2%] p-1 border-r border-zinc-500 text-sm md:text-[10px] flex flex-row gap-2 flex items-center'>
                             <div className='flex justify-center items-center pl-2'>
                                 <PersonIcon style={{ fontSize: '16px' }} className="text-zinc-300"/>
                             </div>
                             <div className=''>
-                                {user.name}
+                                {user.employee.firstName}
                                 
                             </div>
                         </div>
                         <div className='w-[25%] md:w-[14.2%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
-                            {user.des}
+                            {user.employee.designation}
                         </div>
-                        <div className='w-[25%] md:w-[14.2%] p-3 border-r border-zinc-500 flex justify-center items-center text-sm md:text-[10px]'>
+                        {/* <div className='w-[25%] md:w-[14.2%] p-3 border-r border-zinc-500 flex justify-center items-center text-sm md:text-[10px]'>
                         <div
                             className={`attendance-border ${getColor(user.profile).bgColor === 'bg-green-950' ? 'attendance-border-green' : 'attendance-border-sky'} ${getColor(user.profile).textColor}`}
                             style={{ color: getColor(user.profile).textColor }}
                         >
                             {user.attend}%
                         </div>
-                    </div>
+                    </div> */}
 
                         <div className='w-[50%] md:w-[14.2%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
-                             {user.type}
+                             {user.name}
                         </div>
                         
                         
@@ -126,7 +172,7 @@ const AwardPage = () => {
                                         getColor(user.profile).bgColor
                                     } ${getColor(user.profile).textColor}`}
                                 >
-                                    {user.profile}
+                                    {user.gift}
                                 </div>
                         </div>
                         
@@ -142,6 +188,9 @@ const AwardPage = () => {
                 </div>
                 </div>
             </Box>
+            <Modal open={modalState} onClose={closeModal}>
+                <AddAward handleClose={closeModal} refetch={fetchAwards} award={award} />
+            </Modal>
         </div>
         </Box>
     );
