@@ -1,36 +1,68 @@
-import React from 'react';
-import {Box, IconButton} from '@mui/material';
+import React, { useCallback, useEffect, useState } from 'react';
+import {Box, IconButton, Modal} from '@mui/material';
 import view from '../ReceivedApp/viewicon.png';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import useModal from '../../hooks/useModal';
+import { useMessage } from '../../components/Header';
+import axios from 'axios';
+import { handleAxiosError } from '../../utilities/function';
+import CreateNotice from '../../components/CreateNotice';
+import useLoader from '../../hooks/useLoader';
+import useErrorHandler from '../../hooks/useErrorHandler';
 
 
 
 const NoticePage = () => {
     
-    const userData = [
-        {id:1, title:'Updated Company Policy', desc:'some changes & add the terms & conditions.', to:'Employees', created:'12-24-2021'},
-        {id:2, title:'Board Meeting Completed', desc:'some changes & add the terms & conditions.', to:'Employees', created:'12-24-2021'},
-        {id:3, title:'Office Time Adjusted', desc:'some changes & add the terms & conditions.', to:'Employees', created:'12-24-2021'},
-        {id:4, title:'Payment Amount Updated', desc:'some changes & add the terms & conditions.', to:'Employees', created:'12-24-2021'},
-        {id:5, title:'Engineering Team Meeting', desc:'some changes & add the terms & conditions.', to:'Employees', created:'12-24-2021'},
-        {id:6, title:'Client Meeting Completed', desc:'some changes & add the terms & conditions.', to:'Employees', created:'12-24-2021'},
-        {id:7, title:'Tech Conference updated', desc:'some changes & add the terms & conditions.', to:'Employees', created:'12-24-2021'},
-        {id:8, title:'Seminar Location Updated', desc:'some changes & add the terms & conditions.', to:'Employees', created:'12-24-2021'},
-        {id:9, title:'Update Agreement Policy', desc:'some changes & add the terms & conditions.', to:'Employees', created:'12-24-2021'},
-        {id:10, title:'New Recruit Brief', desc:'some changes & add the terms & conditions.', to:'Employees', created:'12-24-2021'},
+    const [notices, setNotices] = useState(null);
+    const { modalState: noticeState, openModal: openNotice, closeModal: closeNotice } = useModal();
+    const { showError, showSuccess } = useMessage();
+    const [notice, setNotice] = useState(null);
+    const { loaderState, start, end } = useLoader();
+    const errorHandler = useErrorHandler();
 
-        
-        
-    ];
-       
+    const fetchNotice = useCallback(async () => {
+        try {
+            const response = await axios.get('/hr/notice');
 
-    
-   
-    
+            setNotices(response.data.notices);
+        } catch (e) {
+            handleAxiosError(e, showError);
+        }
+    }, [showError]);
+
+    const editNotice = id => {
+        setNotice(id);
+        openNotice();
+    };
+
+    useEffect(() => {
+        fetchNotice();
+    }, [fetchNotice]);
+
+    async function deleteNotice(id) {
+        start();
+        try {
+            const res = await axios.delete(`/hr/notice/${id}`);
+            const { success, message } = res.data;
+            if (success) {
+                showSuccess('Notice deleted');
+            } else {
+                showError(message);
+            }
+        } catch (e) {
+            errorHandler(e);
+        } finally {
+            end();
+            fetchNotice();
+        }
+    }
+
+    console.log(notices)
     return (
         <Box sx={{backgroundColor: 'background.main',}}>
         <div className='flex flex-col'>
@@ -39,7 +71,10 @@ const NoticePage = () => {
                             <h1 className="text-2xl text-neutral-500">Notice Board</h1>
                         </div>
                         <div className="flex flex-row items-center justify-center gap-4">
-                        <button className='flex items-center text-white font-bold text-xs md:text-base py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                        <button onClick={() => {
+                                    setNotice(null);
+                                    openNotice();
+                                }} className='flex items-center text-white font-bold text-xs md:text-base py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
                             Add New Notice
                         </button>
                             <InfoOutlinedIcon />
@@ -64,9 +99,9 @@ const NoticePage = () => {
                         <div className='w-[25%] md:w-[34%] p-3 border-r border-zinc-500 text-sm md:text-xs font-bold'>
                             Description
                         </div>
-                        <div className='w-[25%] md:w-[10%] p-3 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
+                        {/* <div className='w-[25%] md:w-[10%] p-3 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
                            To
-                        </div>
+                        </div> */}
                         <div className='w-[50%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-xs font-bold'>
                            Created On
                         </div>
@@ -77,32 +112,32 @@ const NoticePage = () => {
                             Action
                         </div>                        
                     </div>
-                    {userData.map((user) => (
-                        <div key={user.id} className='flex flex-row border-b border-zinc-500'>
+                    {notices?.map((user,index) => (
+                        <div key={index} className='flex flex-row border-b border-zinc-500'>
                         <div className='w-[25%] md:w-[8%] p-3 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                            {user.id}
+                            #{index+1}
                         </div>
                         <div className='w-[25%] md:w-[18%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
                             {user.title}
                         </div>
                         <div className='w-[25%] md:w-[34%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
-                            {user.desc}
+                            {user.content}
                         </div>
                         <div className='w-[25%] md:w-[10%] p-3 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                             {user.to}
+                        {new Date(user.createdAt).toDateString()}
                         </div>
-                        <div className='w-[50%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
+                        {/* <div className='w-[50%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
                              {user.created}
-                        </div>
+                        </div> */}
                         <div className='w-[50%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-[10px] flex justify-center items-center'>
                                 <button className='flex  items-center text-white text-[8px] md:text-[10px] py-1 md:py-0 px-2 md:px-4 rounded bg-sky-500 hover:bg-sky-900'>
-                                    Active
+                                    {user.status}
                                 </button>
                         </div>
                                                 
                             <div className='w-[25%] md:w-[10%] flex flex-row gap-2 justify-center items-center'>
                                 <IconButton><img src={view} alt="view" className="w-4 h-4"/></IconButton>
-                                <IconButton><DeleteOutlineOutlinedIcon style={{ fontSize: '14px' }} className='text-blue-500 rounded-sm'/></IconButton>
+                                <IconButton onClick={() => deleteNotice(user._id)}><DeleteOutlineOutlinedIcon style={{ fontSize: '14px' }} className='text-blue-500 rounded-sm'/></IconButton>
                             </div>
                         </div>
                     ))}
@@ -116,6 +151,19 @@ const NoticePage = () => {
                 </div>
                 </div>
             </Box>
+            <Modal
+                sx={{
+                    overflowY: 'scroll',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+                open={noticeState}
+                onClose={closeNotice}>
+                <>
+                    <CreateNotice closeModal={closeNotice} refresh={fetchNotice} notice={notice} />
+                </>
+            </Modal>
         </div>
         </Box>
     );
