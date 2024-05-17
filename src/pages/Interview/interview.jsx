@@ -1,12 +1,32 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState,useEffect } from 'react';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
-import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
-import InterviewCards from './InterviewCards';
+import axios from 'axios';
+import { useMessage } from '../../components/Header';
+import useModal from '../../hooks/useModal';
+import { Box, Button, CircularProgress, Grid, IconButton, Modal, Pagination, Skeleton, Stack, Tooltip, Typography } from '@mui/material';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import AddQuestion from '../../components/AddQuestuion';
+import QuestionCard from '../../components/QuestionCard';
+import { Search } from '@mui/icons-material';
+
+const getOrders = jobs =>
+    jobs.map((job, i) => ({
+        id: job._id,
+        index: i,
+    }));
 
 const Interview = () => {
     const [currentScreen, setCurrentScreen] = useState(1);
-
+    const { modalState, closeModal, openModal } = useModal();
+    const [selectedQuestion, setSelectedQuestion] = useState({});
+    const [questions, setQuestions] = useState(null);
+    const [originalOrder, setOriginalOrders] = useState(null);
+    const [isOrderChanged, setIsOrderChanged] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const { showError, showSuccess } = useMessage();
+    const [offset, setOffset] = useState(0);
+    const [pageNo, setPageNo] = useState(1);
+    const [pageLimit, setPageLimit] = useState(0);
     const handlePrevScreen = () => {
         if (currentScreen > 1) {
             setCurrentScreen(currentScreen - 1);
@@ -19,50 +39,195 @@ const Interview = () => {
             setCurrentScreen(currentScreen + 1);
         }
     };
+    const fetchInterviewQuestions = useCallback(
+        async (search = '') => {
+            setQuestions(null);
+            try {
+                const response = await axios.get(
+                    `/hr/question?searchBy=title&search=${search}&sortBy=order&direction=-1&page=${pageNo}`
+                );
+                const body = response.data;
+                const { questions, pageData } = body;
+                const { currentPage, pageSize } = pageData;
+                setQuestions(questions);
+                setOffset((currentPage - 1) * pageSize);
+                setPageLimit(response.data.pageData.totalPages);
+                setOriginalOrders(getOrders(questions));
+            } catch (e) {
+                console.warn(e);
+            }
+        },
+        [setQuestions, pageNo]
+    );
+
+    useEffect(() => {
+        fetchInterviewQuestions();
+    }, [fetchInterviewQuestions]);
+
+    const editQuestion = id => {
+        openModal();
+        setSelectedQuestion({ id, action: 'edit' });
+    };
+
+    const saveOrder = async () => {
+        setLoading(true);
+        const newOrder = getOrders(questions);
+        const effOrder = newOrder
+            .filter((order, i) => order.id !== originalOrder[i].id)
+            .map(order => ({
+                ...order,
+                index: order.index + offset,
+            }));
+
+        const res = await axios.patch('/hr/job-listing/order', {
+            newOrders: effOrder,
+        });
+
+        const { success } = res.data;
+
+        if (success) {
+            showSuccess('Order saved successfully');
+        } else {
+            showError('Cannot save order');
+        }
+
+        setIsOrderChanged(false);
+        setLoading(false);
+    };
+
+    const onDragEnd = result => {
+        const { source, destination } = result;
+
+        if (!destination) return;
+
+        if (source.droppableId === destination.droppableId && source.index === destination.index)
+            return;
+
+        setIsOrderChanged(true);
+
+        const draggingJob = questions[source.index];
+        questions.splice(source.index, 1);
+
+        questions.splice(destination.index, 0, draggingJob);
+
+        setQuestions([...questions]);
+    };
+    console.log(questions)
 
     return (
-        <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-between md:w-full p-4">
-                <div className="p-2">
-                    <h1 className="text-2xl text-neutral-500">Interview Questions</h1>
-                </div>
-                <div className="flex flex-row items-center justify-center gap-4">
-                    <button className='flex  items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
-                        Add Question
-                    </button>
-                    <InfoOutlinedIcon />
-                </div>
-            </div>
-            <div className="overflow-y-auto">
-                <InterviewCards currentScreen={currentScreen} />
-            </div>
-            <div className='flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10'>
-                <div className="p-2 rounded-lg">
-                    <div className="flex items-center  gap-0 md:gap-6">
-                        
-                    </div>
-                </div>
-                <div className="flex flex-row gap-4">
-                    <KeyboardArrowLeftOutlinedIcon
-                        className="text-zinc-300 cursor-pointer"
-                        onClick={handlePrevScreen}
-                    />
-                    <p className="text-zinc-300">1</p>
-                    {currentScreen === 1 ? (
-                        <KeyboardArrowRightOutlinedIcon
-                            className="text-zinc-300 cursor-pointer"
-                            onClick={handleNextScreen}
-                        />
-                    ) : (
-                        <div className="bg-blue-500 w-[20px] h-[20px] flex items-center justify-center p-1 rounded-full">
-                            2
-                        </div>
-                    )}
-                </div>
-            </div>
+        <>
+            <Box mt={3}>
+                <Grid container spacing={4} display='flex' alignItems='center'>
+                    <Grid item xs>
+                        <Typography variant='h5'>Interview Question</Typography>
+                    </Grid>
+                    <Grid item display='flex' alignItems='center'>
+                        <Box>
+                            <Button onClick={openModal} variant='contained'>
+                                Add Question
+                            </Button>
+                        </Box>
 
-            
-        </div>
+                        <Box sx={{ ml: 2 }}>
+                            <Tooltip title='info' placement='top'>
+                                <IconButton disableRipple variant='navIcon' sx={{ mr: 0 }}>
+                                    <InfoOutlinedIcon fontSize='small' />
+                                </IconButton>
+                            </Tooltip>
+                        </Box>
+                    </Grid>
+                </Grid>
+            </Box>
+
+            <Box>
+                <Modal sx={{ overflowY: 'scroll' }} open={modalState} onClose={closeModal}>
+                    <AddQuestion
+                        selectedQuestion={selectedQuestion}
+                        setSelectedQuestion={setSelectedQuestion}
+                        refresh={fetchInterviewQuestions}
+                        handleClose={closeModal}
+                        questions={questions}
+                    />
+                </Modal>
+                <Stack direction='row' justifyContent='space-between' my={4}>
+                    <Search
+                        placeholder='Search Your Job Category questions'
+                        onChange={e => {
+                            const { value } = e.target;
+                            !(value.trim() === ' ') && fetchInterviewQuestions(value);
+                        }}
+                    />
+                    <Pagination
+                        page={pageNo}
+                        onChange={(_, newPage) => setPageNo(newPage)}
+                        color='primary'
+                        count={pageLimit}
+                        sx={{ float: 'right' }}
+                    />
+                    {isOrderChanged && (
+                        <Button
+                            variant='contained'
+                            onClick={saveOrder}
+                            endIcon={
+                                loading && (
+                                    <CircularProgress size={20} color='secondary' thickness={7} />
+                                )
+                            }>
+                            Save Order
+                        </Button>
+                    )}
+                </Stack>
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId='list'>
+                        {provided => (
+                            <div ref={provided.innerRef} {...provided.droppableProps}>
+                                {questions
+                                    ? questions?.map((question, i) => (
+                                          <Draggable
+                                              key={question._id}
+                                              draggableId={question._id}
+                                              index={i}>
+                                              {provided => (
+                                                  <div
+                                                      ref={provided.innerRef}
+                                                      {...provided.draggableProps}
+                                                      {...provided.dragHandleProps}>
+                                                    <QuestionCard
+                                                          ref={provided.innerRef}
+                                                          draggableProps={provided.draggableProps}
+                                                          dragHandleProps={provided.dragHandleProps}
+                                                          title={question.title}
+                                                          questions={question.questions}
+                                                          refresh={fetchInterviewQuestions}
+                                                          id={question.jobId}
+                                                          editQuestion={editQuestion}
+                                                      />
+                                                  </div>
+                                              )}
+                                          </Draggable>
+                                      ))
+                                    : Array(5)
+                                          ?.fill(0)
+                                          .map((el, i) => (
+                                              <Skeleton
+                                                  variant='rounded'
+                                                  key={i}
+                                                  width='100%'
+                                                  height='136px'
+                                                  animation='wave'
+                                                  sx={{
+                                                      borderRadius: '20px',
+                                                      my: 2,
+                                                  }}
+                                              />
+                                          ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+            </Box>
+        </>
     );
 };
 

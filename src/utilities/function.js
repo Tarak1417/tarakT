@@ -24,5 +24,44 @@ const handleAxiosError = (e, showError) => {
         showError('Something went wrong');
     }
 };
+const isEmpty = obj => Object.keys(obj).length === 0;
+const isObject = obj => typeof obj === 'object' && !Array.isArray(obj) && obj !== null;
 
-export { link, env, handleAxiosError };
+function dirname(filePath) {
+    if (typeof filePath !== 'string') {
+        throw new TypeError('Path must be a string');
+    }
+
+    const separator = '/';
+    const lastIndex = filePath.lastIndexOf(separator);
+    if (lastIndex === -1) {
+        return '.';
+    }
+
+    return filePath.slice(0, lastIndex);
+}
+function escapeDanger(content) {
+    const regex = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gim;
+
+    if (regex.test(content)) return null;
+    return content;
+}
+
+function basename(filePath, ext = '') {
+    if (typeof filePath !== 'string') {
+        throw new TypeError('Path must be a string');
+    }
+
+    const separator = '/';
+    const lastIndex = filePath.lastIndexOf(separator);
+    let baseName = filePath.slice(lastIndex + 1);
+
+    if (ext && baseName.endsWith(ext)) {
+        baseName = baseName.slice(0, -ext.length);
+    }
+
+    return baseName;
+}
+
+
+export { link, env, handleAxiosError,dirname,isEmpty,isObject,escapeDanger,basename };

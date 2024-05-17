@@ -4,7 +4,7 @@ import Applications from './Applications';
 
 const ReceivedApp = () => {
     return (
-        <Box className="h-full overflow-hidden" sx={{ backgroundColor: 'background.main', }}>
+        <Box className="h-full overflow-hidden" sx={{ backgroundColor: 'background.main', }} >
             <div className="h-full" style={{ overflowY: 'auto', paddingRight: '1px' }}>
                 <Grid container alignItems='center' justifyContent='start' height='100%'>
                     <Grid item xs={12}>

@@ -1,29 +1,72 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
-import { Box, IconButton } from '@mui/material';
-
-const departmentData = [
-    { id: 1, name: 'Marketing Department' },
-    { id: 2, name: 'Designing Department' },
-    { id: 3, name: 'Human Resource Department' },
-    { id: 4, name: 'Development' },
-    { id: 5, name: 'IT Department' },
-    { id: 6, name: 'Managers Department' },
-    { id: 7, name: 'Technical Department' },
-];
+import { Box, Button, Card, CardActions, CardContent, CircularProgress, Divider, IconButton, Modal, Typography } from '@mui/material';
+import axios from 'axios';
+import DeparmentModal from '../../components/DeparmentModal';
+import useModal from '../../hooks/useModal';
+import { useMessage } from '../../components/Header';
 
 const DeptPage = () => {
+    const [id, setId] = useState();
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const [departments, setDepartments] = useState();
+    const [selectDepartment, setSelectDepartment] = useState({});
+
+    const EditDepartment = id => {
+        handleOpen();
+        setId(id);
+    };
+
+    const fetchDepartment = useCallback(
+        async (search = '') => {
+            try {
+                const response = await axios.get(
+                    `/hr/department?searchBy=name&search=${search}&sortBy=order`
+                );
+                setDepartments(response.data.departments);
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        [setDepartments]
+    );
+    const { showSuccess, showError } = useMessage();
+    const { modalState: deleteState, openModal: openDelete, closeModal: closeDelete } = useModal();
+
+    async function deleteDepartment(id) {
+        try {
+            const res = await axios.delete(`/hr/department/${id}`);
+            const { success, message } = res.data;
+            if (success) {
+                showSuccess('Department deleted');
+            } else {
+                showError(message);
+            }
+        } catch (e) {
+            console.log(e)
+        } finally {
+            closeDelete();
+            fetchDepartment();
+        }
+    }
+
+    useEffect(() => {
+        fetchDepartment();
+    }, [fetchDepartment]);
+    console.log(departments)
     return (
         <div className="container mx-auto overscroll-auto overflow-hidden">
             <div className="flex flex-row items-center justify-between p-4">
                 <h1 className="text-2xl md:text-3xl text-zinc-400 mb-4">Department</h1>
                 <div className="flex items-center gap-4">
-                    <button className='flex items-center text-white font-bold text-xs md:text-base py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                    <button onClick={handleOpen} className='flex items-center text-white font-bold text-xs md:text-base py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
                         Add Department
                     </button>
                     <InfoOutlinedIcon />
@@ -48,17 +91,20 @@ const DeptPage = () => {
                             Actions
                         </div>
                     </div>
-                    {departmentData.map((dept) => (
-                        <div key={dept.id} className='flex flex-row border-b border-zinc-500'>
+                    {departments?.map((dept,index) => (
+                        <div key={index} className='flex flex-row border-b border-zinc-500'>
                             <div className='w-[25%] md:w-[5%] p-2 md:p-4 border-r border-zinc-500 text-left text-sm md:text-[16px]'>
-                                #{dept.id}
+                                #{index+1}
                             </div>
                             <div className='w-[50%] md:w-[85%] p-2 md:p-4 border-r border-zinc-500 text-sm md:text-[18px]'>
                                 {dept.name}
                             </div>
                             <div className='w-[25%] md:w-[10%] p-2 flex flex-row gap-2 items-center'>
-                                <IconButton><EditOutlinedIcon fontSize='medium' className='p-1 rounded-sm'/></IconButton>
-                                <IconButton><DeleteOutlineOutlinedIcon fontSize='medium' className='p-1  rounded-sm'/></IconButton>
+                                <IconButton onClick={() => EditDepartment(dept._id)}><EditOutlinedIcon fontSize='medium' className='p-1 rounded-sm'/></IconButton>
+                                <IconButton onClick={() => {
+                                                    setSelectDepartment(dept);
+                                                    openDelete();
+                                                }}><DeleteOutlineOutlinedIcon fontSize='medium' className='p-1  rounded-sm'/></IconButton>
                             </div>
                         </div>
                     ))}
@@ -72,6 +118,41 @@ const DeptPage = () => {
                 </div>
                 </div>
             </Box>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby='modal-modal-title'
+                aria-describedby='modal-modal-description'>
+                <DeparmentModal fetchDepartment={fetchDepartment} handleClose={handleClose} />
+            </Modal>
+            <Modal
+                open={deleteState}
+                onClose={closeDelete}
+                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Card sx={{ maxWidth: '548px', width: '100%' }}>
+                    <CardContent>
+                        <Typography variant='h5' fontWeight={500}>
+                            Delete {selectDepartment.name}
+                        </Typography>
+                        <Divider sx={{ my: 1.5 }} />
+                        <Typography variant='subtitle01'>
+                            Do you really want to delete the {selectDepartment.name} ?
+                        </Typography>
+                    </CardContent>
+                    <CardActions sx={{ mt: 3, justifyContent: 'flex-end', p: 2 }}>
+                        <Button variant='outlined' onClick={closeDelete}>
+                            Cancel
+                        </Button>
+                        <Button
+                            variant='contained'
+                            color='warning'
+                            onClick={() => deleteDepartment(selectDepartment._id)}
+                            >
+                            Delete
+                        </Button>
+                    </CardActions>
+                </Card>
+            </Modal>
         </div>
     );
 };

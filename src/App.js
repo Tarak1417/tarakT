@@ -31,6 +31,9 @@ import Footer from './pages/Footer';
 import EditPayrollHome from './pages/Payrolls/EditPayHome';
 import MoreEditPayrollHome from './pages/Payrolls/MoreEPayHome';
 import SalaryHome from './pages/Payrolls/SalaryHome';
+import JobApplicationDetail from './pages/JobApplicationDetail';
+import Agreements from './pages/Agreements';
+import OfferLetter from './pages/OfferLatter';
 
 
 const App = () => {
@@ -47,6 +50,11 @@ const App = () => {
 
                 <Route path='/showmore:id' element={<ShowMoreHome/>} />
                 <Route path='/joblisting/edit' element={<EditHome/>} />
+                <Route path='/jobApplicationDetail'>
+                        <Route path=':id' element={<JobApplicationDetail />} />
+                        <Route path='offer-letter/:id' element={<OfferLetter />} />
+                        <Route path='agreements/:id' element={<Agreements />} />
+                </Route>
 
                 <Route path='/showmore:id/sendofferletter' element={<SendOfferHome/>} />
                 <Route path='/showmore:id/offerletter' element={<OfferHome/>} />

@@ -3,6 +3,7 @@ import { Grid, Box } from '@mui/material';
 import DeptPage from './DeptPage';
 
 const DeptHome = () => {
+    
     return (
         <Box className="h-full overflow-hidden" sx={{ backgroundColor: 'background.main', }}>
             <div className="h-full" style={{ overflowY: 'auto', paddingRight: '1px' }}>
