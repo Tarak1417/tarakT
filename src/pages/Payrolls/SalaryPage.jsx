@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, IconButton} from '@mui/material';
+import {Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, FormControlLabel, Grid, IconButton, Modal, Radio, RadioGroup, TextField, Typography} from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
@@ -12,18 +12,33 @@ import SaveAltOutlinedIcon from '@mui/icons-material/SaveAltOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { Link } from 'react-router-dom';
+import useModal from '../../hooks/useModal';
+import useErrorHandler from '../../hooks/useErrorHandler';
+import { useMessage } from '../../components/Header';
+import axios from 'axios';
+import useLoader from '../../hooks/useLoader';
+import { isEmpty } from '../../utilities/function';
+import moment from 'moment';
+import { Form, Submit, useForm } from '../../hooks/useForm/useForm';
+import { Input } from '../../hooks/useForm/inputs';
+import CircularProgress from '../../hooks/useForm/components/CircularProgress';
+
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
 const SalaryPage = () => {
-    
-    const userData = [
-        {id:'1003', name:'Derek Wonder', year:'January-2021', des:'General Manager', salary:'32,000', date:'01-11-2023', profile:'Paid'},
-        {id:'1749', name:'Tony Cooke', year:'March-2020', des:'Tester', salary:'19,035', date:'11-12-2020', profile:'Paid'},
-        {id:'1946', name:'Aisha Malik', year:'February-2022', des:'Frontend Development', salary:'29,000', date:'02-05-2022', profile:'Unpaid'},
-        {id:'1444', name:'Darnell Rowland', year:'August-2021', des:'Digital Marketer', salary:'12,000', date:'06-02-2021', profile:'Paid'},
-        {id:'1900', name:'Emma Stone', year:'March-2020', des:'HR Manager', salary:'20,290', date:'19-04-2020', profile:'Unpaid'},
-        {id:'1283', name:'raymond Emodi', year:'January-2019', des:'UX Designer', salary:'32,320', date:'14-08-2019', profile:'Unpaid'},
-        {id:'1288', name:'Emily Styles', year:'March-2021', des:'PHP Developer', salary:'20,500', date:'07-04-2020', profile:'Paid'},
-    ];
+
     const getColor = (profile) => {
         switch (profile) {
             case 'Paid':
@@ -35,10 +50,112 @@ const SalaryPage = () => {
                 return { bgColor: 'bg-gray-900', textColor: 'text-gray-500' };
         }
     };
-    
 
-    
-   
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [pageNo, setPageNo] = React.useState(1);
+    const [pageLimit, setPageLimit] = React.useState(0);
+    const [payrollUpdateData, setPayrollUpdateData] = React.useState({});
+    const [payroll, setPayroll] = React.useState(null);
+    const [selectedPayroll, setSelectedPayroll] = React.useState({});
+    const { modalState, openModal, closeModal } = useModal();
+    const { modalState: deleteState, openModal: openDelete, closeModal: closeDelete } = useModal();
+    const { loaderState, start, end } = useLoader();
+    const errorHandler = useErrorHandler();
+    const { showSuccess, showError } = useMessage();
+    const componentRef = React.useRef();
+    // const handlePrint = useReactToPrint({
+    //     content: () => componentRef.current,
+    // });
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = data => {
+        setOpen(true);
+        setPayrollUpdateData(data);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = event => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
+
+    const fetchEmployeeSalary = React.useCallback(
+        async function () {
+            try {
+                const response = await axios.get(
+                    `/hr/payslip/?sortBy=createdAt&direction=-1&page=${pageNo}`
+                );
+                const body = response.data;
+                const { payslips } = body;
+                setPayroll(payslips);
+                setPageLimit(response.data.pageData.totalPages);
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        [setPayroll, pageNo]
+    );
+
+    const totalAllowance = React.useMemo(
+        () =>
+            isEmpty(selectedPayroll)
+                ? 0
+                : [
+                      selectedPayroll.hraAllowance,
+                      selectedPayroll.conveyance,
+                      selectedPayroll.medicalAllowance,
+                      selectedPayroll.bonusAllowance,
+                  ].reduce((total, el) => {
+                      return total + parseInt(el);
+                  }, 0),
+        [selectedPayroll]
+    );
+
+    const totalDeduction = React.useMemo(
+        () =>
+            isEmpty(selectedPayroll)
+                ? 0
+                : [
+                      selectedPayroll.tds,
+                      selectedPayroll.pf,
+                      selectedPayroll.professionalTax,
+                      selectedPayroll.loanAndOthers,
+                  ].reduce((total, el) => {
+                      return total + parseInt(el);
+                  }, 0),
+        [selectedPayroll]
+    );
+
+    async function deletePayroll(id) {
+        start();
+        try {
+            const res = await axios.delete(`/hr/payslip/${id}`);
+            const { success, message } = res.data;
+            if (success) {
+                showSuccess('Payroll deleted');
+            } else {
+                showError(message);
+            }
+        } catch (e) {
+            errorHandler(e);
+        } finally {
+            closeDelete();
+            end();
+            fetchEmployeeSalary();
+        }
+    }
+
+    React.useEffect(() => {
+        fetchEmployeeSalary();
+    }, [fetchEmployeeSalary]);
+    console.log(payroll)
     
     return (
         <Box sx={{backgroundColor: 'background.main',}}>
@@ -51,9 +168,11 @@ const SalaryPage = () => {
                         <button className='flex items-center text-amber-500  text-xs md:text-sm py-1 md:py-1 px-2 md:px-3 rounded border border-amber-500 hover:bg-orange-700'>
                             Download Monthly Report
                         </button>
+                        <Link to={'/addpayroll'}>
                         <button className='flex items-center text-white text-xs md:text-sm py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
                             Add New Payroll
                         </button>
+                        </Link>
                             <InfoOutlinedIcon />
                         </div>
                     </div>
@@ -81,22 +200,19 @@ const SalaryPage = () => {
                 <div className='w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm '>
                     <div className='flex flex-row border-b border-zinc-500'>
                         <div className='w-[25%] md:w-[8%] p-3 border-r border-zinc-500 text-left text-sm md:text-sm  flex items-center font-bold'>
-                            Emp ID
+                            SR. No
                         </div>
                         <div className='w-[50%] md:w-[15%] p-3 border-r border-zinc-500 text-sm md:text-xsm  flex items-center font-bold'>
                             Emp Name
                         </div>
                         <div className='w-[25%] md:w-[11%] p-3 border-r border-zinc-500 text-sm md:text-sm  flex items-center font-bold'>
-                            Month-Year
+                            From
                         </div>
                         <div className='w-[25%] md:w-[13%] p-3 border-r border-zinc-500 text-left text-sm md:text-sm  flex items-center font-bold'>
-                           Designation
+                           To
                         </div>
                         <div className='w-[50%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-sm  flex items-center font-bold'>
                            ($) Salary
-                        </div>
-                        <div className='w-[25%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-sm flex items-center font-bold'>
-                            Generated Date
                         </div>
                         <div className='w-[25%] md:w-[10%] p-3 border-r border-zinc-500 text-left text-sm md:text-sm flex items-center font-bold'>
                             Status
@@ -106,50 +222,48 @@ const SalaryPage = () => {
                         </div>
                         
                     </div>
-                    {userData.map((user) => (
-                        <div key={user.id} className='flex flex-row border-b border-zinc-500'>
+                    {payroll?.map((user,index) => (
+                        <div key={index} className='flex flex-row border-b border-zinc-500'>
                         <div className='w-[25%] md:w-[8%] p-3 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                            #{user.id}
+                            #{index+1}
                         </div>
                         <div className='w-[50%] md:w-[15%] p-1 border-r border-zinc-500 text-sm md:text-[10px] flex flex-row gap-2 flex items-center'>
                             <div className='flex justify-center items-center pl-2'>
                                 <PersonIcon style={{ fontSize: '16px' }} className="text-zinc-300"/>
                             </div>
                             <div className=''>
-                                {user.name}
+                            {user.employee.firstName +
+                                                ' ' +
+                                                user.employee.lastName}
                                 
                             </div>
                         </div>
                         <div className='w-[25%] md:w-[11%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
-                            {user.year}
+                        {new Date(user.from).toDateString()}
                         </div>
                         <div className='w-[25%] md:w-[13%] p-3 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                             {user.des}
+                        {new Date(user.to).toDateString()}
                         </div>
                         <div className='w-[50%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
                              ${user.salary}
                         </div>
                         <div className='w-[25%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
-                             {user.date}
-                        </div>
-                        
-                        <div className='w-[25%] md:w-[10%] p-3 border-r border-zinc-500'>
-                        <div
-                                    className={`px-0 py-0 rounded-lg text-sm md:text-[8px] flex justify-center items-center ${
-                                        getColor(user.profile).bgColor
-                                    } ${getColor(user.profile).textColor}`}
-                                >
-                                    {user.profile}
-                                </div>
+                        {user.status}
                         </div>
                         
                             <div className='w-[25%] md:w-[24%] flex flex-row gap-1 justify-center items-center'>
-                                <IconButton><img src={view} alt="view" className="w-4 h-4"/></IconButton>
-                                <IconButton><EditOutlinedIcon style={{ fontSize: '12px' }}  className=' rounded-sm'/></IconButton>
+                                <IconButton onClick={() => {
+                                                setSelectedPayroll(payroll);
+                                                openModal();
+                                            }}><img src={view} alt="view" className="w-4 h-4"/></IconButton>
+                                <IconButton onClick={() => handleOpen(payroll)}><EditOutlinedIcon style={{ fontSize: '12px' }}  className=' rounded-sm'/></IconButton>
                                 <IconButton><SaveAltOutlinedIcon style={{ fontSize: '14px' }}  className=' rounded-sm text-blue-500'/></IconButton>
                                 <IconButton><ShareOutlinedIcon style={{ fontSize: '14px' }}  className=' rounded-sm text-amber-500'/></IconButton>
                                 <IconButton><PrintOutlinedIcon style={{ fontSize: '14px' }}  className=' rounded-sm text-green-500'/></IconButton>
-                                <IconButton><CloseOutlinedIcon style={{ fontSize: '14px' }}  className=' rounded-sm text-red-500'/></IconButton>
+                                <IconButton onClick={() => {
+                                                setSelectedPayroll(payroll);
+                                                openDelete();
+                                            }}><CloseOutlinedIcon style={{ fontSize: '14px' }}  className=' rounded-sm text-red-500'/></IconButton>
                              </div>
                         </div>
                     ))}
@@ -163,7 +277,171 @@ const SalaryPage = () => {
                 </div>
                 </div>
             </Box>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby='modal-modal-title'
+                aria-describedby='modal-modal-description'>
+                <UpdatePaySlip
+                    payrollUpdateData={payrollUpdateData}
+                    handleClose={handleClose}
+                    fetchEmployeeSalary={fetchEmployeeSalary}
+                />
+            </Modal>
+            <Dialog open={deleteState} onClose={closeDelete}>
+                <DialogTitle id='alert-dialog-title'>Confirm Delete</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id='alert-dialog-description'>
+                        Are you sure you want to delete the Payroll of{' '}
+                        {selectedPayroll.employee?.firstName +
+                            ' ' +
+                            selectedPayroll.employee?.lastName || 'this Employee'}
+                        ?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={closeDelete} color='primary' style={{ color: 'white' }}>
+                        Cancel
+                    </Button>
+
+                    <Button
+                        variant='contained'
+                        onClick={() => deletePayroll(selectedPayroll._id)}
+                        disabled={loaderState}
+                        endIcon={
+                            loaderState && (
+                                <CircularProgress size='20px' sx={{ color: 'inherit' }} />
+                            )
+                        }
+                        style={{ backgroundColor: '#ff2121' }}
+                        autoFocus>
+                        Delete
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
+        </Box>
+    );
+};
+
+const UpdatePaySlip = ({ payrollUpdateData, handleClose, fetchEmployeeSalary }) => {
+    const from = moment(payrollUpdateData.from).utc().format('YYYY-MM-DD');
+    const to = moment(payrollUpdateData.to).utc().format('YYYY-MM-DD');
+    const handlers = useForm(
+        React.useMemo(
+            () => ({
+                from: { value: from },
+                to: { value: to },
+                salary: { value: payrollUpdateData.salary },
+            }),
+            [from, to, payrollUpdateData.salary]
+        ),
+        { Input: TextField }
+    );
+    const [selectEmployee, setSelectEmployee] = React.useState({
+        status: payrollUpdateData.status,
+    });
+    const handleChange = e => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setSelectEmployee({ ...selectEmployee, [name]: value });
+    };
+    const { showSuccess, showError } = useMessage();
+    const submit = res => {
+        const { success, message } = res.data;
+        if (!success) return showError('payroll not added');
+        showSuccess(message);
+        fetchEmployeeSalary();
+        handleClose();
+    };
+    return (
+        <Box sx={style}>
+            <Form
+                handlers={handlers}
+                onSubmit={submit}
+                action={`/hr/payslip/${payrollUpdateData._id}`}
+                method='patch'
+                final={values => ({
+                    ...values,
+                    ...selectEmployee,
+                })}
+                onError={console.log}>
+                {/* salary */}
+                <Typography variant='h6'>Update Payslip</Typography>
+                <Grid container spacing={1} mt={3} display='flex' alignItems='center'>
+                    <Grid item xs={12}>
+                        <Typography variant='body2'>Salary</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Input size='small' placeholder='0' name='salary' fullWidth required />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant='body2'>From</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Input size='small' name='from' type='date' fullWidth required />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant='body2'>To</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Input size='small' name='to' type='date' fullWidth required />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant='body2'>Status :</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormControl sx={{ display: 'flex' }}>
+                            <RadioGroup
+                                row
+                                aria-labelledby='demo-radio-buttons-group-label'
+                                defaultValue='female'
+                                name='status'
+                                onChange={handleChange}
+                                value={selectEmployee.status}>
+                                <FormControlLabel value='paid' control={<Radio />} label='Paid' />
+                                <FormControlLabel
+                                    value='unPaid'
+                                    control={<Radio />}
+                                    label='UnPaid'
+                                />
+                            </RadioGroup>
+                        </FormControl>
+                    </Grid>
+                </Grid>
+                <Box mt={2} textAlign='right'>
+                    <Button
+                        onClick={handleClose}
+                        variant='contained'
+                        sx={{
+                            background: '#F91A3F',
+                            '$:hover': {
+                                background: '#F91A3F',
+                            },
+                        }}>
+                        Cancel
+                    </Button>
+                    <Submit>
+                        {loader => (
+                            <Button
+                                type='submit'
+                                disabled={Boolean(loader)}
+                                endIcon={loader}
+                                variant='contained'
+                                sx={{
+                                    mx: 2,
+
+                                    background: '#4674FF',
+                                    '$:hover': {
+                                        background: '#4674FF',
+                                    },
+                                }}>
+                                Save
+                            </Button>
+                        )}
+                    </Submit>
+                </Box>
+            </Form>
         </Box>
     );
 };
