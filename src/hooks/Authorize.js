@@ -103,6 +103,7 @@ const useAuthorize = () => useContext(authorizeContext).authorize;
 const useUser = () => useContext(authorizeContext)?.user;
 const useSetUser = () => useContext(authorizeContext).setUser;
 const useSetContent = () => useContext(authorizeContext).setContent;
+const useEmployees = () => useContext(authorizeContext)?.employees;
 
 export default AuthorizationProvider;
-export { useAuthorize, useUser, useSetUser, useSetContent };
+export { useAuthorize, useUser, useSetUser, useSetContent,useEmployees };

@@ -17,13 +17,10 @@ import axios from 'axios';
 
 const Dashboard = () => {
     const [overview, setOverview] = useState({});
-    const [totalExpanse,setTotalExpanse] = useState(0);
     const fetchOverview = useCallback(async () => {
         try {
             const response = await axios.get(`/hr/dashboard`);
             setOverview(response.data.overview);
-            const totalCount = response.data.overview.expenses.reduce((acc, cur) => acc + cur.value, 0);
-            setTotalExpanse(totalCount)
         } catch (e) {
             console.log(e);
         }

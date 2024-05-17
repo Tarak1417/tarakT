@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Grid, Typography } from '@mui/material';
 import { TrendingUp, TrendingDown } from '@mui/icons-material';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
@@ -13,32 +13,81 @@ import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeft
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import PersonIcon from '@mui/icons-material/Person';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
+import axios from 'axios';
+import { useEmployees } from '../../hooks/Authorize';
+import moment from 'moment';
+import { data } from 'autoprefixer';
 
 const EmployeePage = () => {
+
+    const [employLists, setEmployLists] = useState(null);
+    const [department, setDepartment] = useState(null);
+    const [maleEmployee,setMaleEmployee] = useState(0);
+    const [newEmployee,setNewEmployee] = useState(0);
+    const [pageLimit, setPageLimit] = useState(0);
+    const [totalEmployee, setTotalEmployee] = useState(0);
+
+    const [page, setPage] = useState(1);
+    const [status, setStatus] = useState('Active');
+    const employees = useEmployees();
+
+    console.log(employees);
+
+    const fetchEmploees = useCallback(
+        async (search = '') => {
+            try {
+                const response = await axios.get(
+                    `/hr/employee?searchBy=firstName&search=${search}&sortBy=order&status=${status}&page=${page}`
+                );
+                setEmployLists(response.data.employees);
+                setPageLimit(response.data.pageData.totalPages);
+                setTotalEmployee(response.data.pageData.totalData);
+                const filteredFruits = response.data.employees.filter(male => male.gender==='male');
+                setMaleEmployee(filteredFruits.length)
+                // const newEmployeeFilter =  response.data.employees.filter(jod => jod.dateOfJoining === Date.now());
+                // setNewEmployee(newEmployeeFilter)
+                // console.log(Date.now())
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        [setEmployLists, page, status]
+    );
+
+    const fetchDepartment = useCallback(
+        async function () {
+            try {
+                const response = await axios.get(`/hr/department`);
+                setDepartment(response.data.departments);
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        [setDepartment]
+    );
+    // const { modalState, closeModal, openModal } = useModal();
+
+    // const handleChangeTermination = id => {
+    //     setSuspendId(id);
+    //     openModal();
+    // };
+    const convertToTwoDigits = number => number.toString().padStart(2, '0');
+
+    useEffect(() => {
+        fetchEmploees();
+        fetchDepartment();
+    }, [fetchEmploees, fetchDepartment]);
     
-    const EmployeeData = [
-        {id:1, name:'Derek wonder', mail:'derek@clikkmail.com', empid:'#1003', dept:'HR', desig:'General Manager', phone:'+961849321', joind:'20 Nov 2020', work:'4Y 2M 3D', profile:'' },
-        {id:2, name:'Tony Cooke', mail:'tony@clikkmail.com', empid:'#1003', dept:'HR', desig:'General Manager', phone:'+961849321', joind:'20 Nov 2020', work:'4Y 2M 3D', profile:'' },
-        {id:3, name:'Aisha Malik', mail:'aisha@clikkmail.com', empid:'#1003', dept:'HR', desig:'General Manager', phone:'+961849321', joind:'20 Nov 2020', work:'4Y 2M 3D', profile:'' },
-        {id:4, name:'Darnell Rowland', mail:'darnel@clikkmail.com', empid:'#1003', dept:'HR', desig:'General Manager', phone:'+961849321', joind:'20 Nov 2020', work:'4Y 2M 3D', profile:'' },
-        {id:5, name:'Emma Stone', mail:'emma@clikkmail.com', empid:'#1003', dept:'HR', desig:'General Manager', phone:'+961849321', joind:'20 Nov 2020', work:'4Y 2M 3D', profile:'' },
-        {id:6, name:'Raymond Emodi', mail:'raymond@clikkmail.com', empid:'#1003', dept:'HR', desig:'General Manager', phone:'+961849321', joind:'20 Nov 2020', work:'4Y 2M 3D', profile:'' },
-        {id:7, name:'Emily Styles', mail:'emily@clikkmail.com', empid:'#1003', dept:'HR', desig:'General Manager', phone:'+961849321', joind:'20 Nov 2020', work:'4Y 2M 3D', profile:'' },
-        {id:8, name:'Paige Campbell', mail:'paige@clikkmail.com', empid:'#1003', dept:'HR', desig:'General Manager', phone:'+961849321', joind:'20 Nov 2020', work:'4Y 2M 3D', profile:'' },
-        {id:9, name:'Daniel Sullivan', mail:'daniel@clikkmail.com', empid:'#1003', dept:'HR', desig:'General Manager', phone:'+961849321', joind:'20 Nov 2020', work:'4Y 2M 3D', profile:'' },
-        {id:10, name:'Antonia Gavor', mail:'antonia@clikkmail.com', empid:'#1003', dept:'HR', desig:'General Manager', phone:'+961849321', joind:'20 Nov 2020', work:'4Y 2M 3D', profile:'' },
-        
-        
-    ];
     
 
     const boxesData = [
-        { icon: <GroupOutlinedIcon fontSize='large' className="text-white  bg-green-600 p-2 rounded-lg" />, title: 'Total Employees',  value: <Typography variant="body1" style={{ color: '#00FF00', fontSize: '1.2em' }}>8,400</Typography>, description: '124 for last month', trendIcon: <TrendingUp className="text-green-500" /> },
-        { icon: <MaleOutlinedIcon fontSize='large' className="text-white bg-teal-700 p-2 rounded-lg" />, title: 'Total Male Employees', value: <Typography variant="body1" style={{ color: '#5eead4', fontSize: '1.2em' }}>5,267</Typography>, description: '124 for last month,', trendIcon: <TrendingDown className="text-red-500" /> },
-        { icon: <FemaleOutlinedIcon fontSize='large' className="text-white bg-teal-950 p-2 rounded-lg" />, title: 'Total Female Employees', value: <Typography variant="body1" style={{ color: '#f472b6', fontSize: '1.2em' }}>2,947</Typography>, description: '124 for last month', trendIcon: <TrendingDown className="text-red-500" /> },
-        { icon: <GroupsOutlinedIcon  fontSize='large' className="text-white bg-red-800 p-2 rounded-lg" />, title: 'Total New Employees', value: <Typography variant="body1" style={{ color: '#FF0000', fontSize: '1.2em' }}>186</Typography>, description: '124 for last month', trendIcon: <TrendingDown className="text-red-500" /> }
+        { icon: <GroupOutlinedIcon fontSize='large' className="text-white  bg-green-600 p-2 rounded-lg" />, title: 'Total Employees',  value: <Typography variant="body1" style={{ color: '#00FF00', fontSize: '1.2em' }}>{employLists?.length}</Typography>, description: '124 for last month', trendIcon: <TrendingUp className="text-green-500" /> },
+        { icon: <MaleOutlinedIcon fontSize='large' className="text-white bg-teal-700 p-2 rounded-lg" />, title: 'Total Male Employees', value: <Typography variant="body1" style={{ color: '#5eead4', fontSize: '1.2em' }}>{maleEmployee}</Typography>, description: '124 for last month,', trendIcon: <TrendingDown className="text-red-500" /> },
+        { icon: <FemaleOutlinedIcon fontSize='large' className="text-white bg-teal-950 p-2 rounded-lg" />, title: 'Total Female Employees', value: <Typography variant="body1" style={{ color: '#f472b6', fontSize: '1.2em' }}>{employLists?.length - maleEmployee}</Typography>, description: '124 for last month', trendIcon: <TrendingDown className="text-red-500" /> },
+        { icon: <GroupsOutlinedIcon  fontSize='large' className="text-white bg-red-800 p-2 rounded-lg" />, title: 'Total New Employees', value: <Typography variant="body1" style={{ color: '#FF0000', fontSize: '1.2em' }}>{newEmployee}</Typography>, description: '124 for last month', trendIcon: <TrendingDown className="text-red-500" /> }
     ];
-   
+   console.log(employLists)
+   console.log(department)
     
     return (
         <Box sx={{backgroundColor: 'background.main',}}>
@@ -114,41 +163,43 @@ const EmployeePage = () => {
                         </div>
                         
                     </div>
-                    {EmployeeData.map((employee) => (
-                        <div key={employee.id} className='flex flex-row border-b border-zinc-500'>
+                    {employLists?.map((employee,index) => (
+                        <div key={index} className='flex flex-row border-b border-zinc-500'>
                         <div className='w-[25%] md:w-[5%] p-2 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                            {employee.id}
+                            {index+1}
                         </div>
                         <div className='w-[50%] md:w-[15%] p-0 border-r border-zinc-500 text-sm md:text-[10px] flex flex-row gap-2 flex items-center'>
                             <div className='flex justify-center items-center pl-4'>
                                 <PersonIcon style={{ fontSize: '16px' }} className="text-zinc-300"/>
                             </div>
                             <div className='flex flex-col gap-0'>
-                                {employee.name}
+                                {employee.firstName} {employee.lastName}{' '}
                                 <p className='text-[6px]'>{employee.mail}</p>
                             </div>
                         </div>
                         <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
-                            {employee.empid}
+                            {employee._id}
                         </div>
                         <div className='w-[25%] md:w-[8%] p-2 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                             {employee.dept}
+                             {employee?.dept}
                         </div>
                         <div className='w-[50%] md:w-[12%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
-                             {employee.desig}
+                             {employee.designation}
                         </div>
                         <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
-                             {employee.phone}
+                        {employee.phone.countryCode} {employee.phone.phone}
                         </div>
                         <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                            {employee.joind}
+                        {moment(employee.dateOfJoining)
+                                                    .utc()
+                                                    .format('MM-DD-YYYY')}
                         </div>
                         <div className='w-[50%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
-                            {employee.work}
+                            {employee?.work}
                         </div>
                         <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-xs'>
                         <button className='flex  items-center text-white font-bold text-[6px] md:text-[8px] py-0 md:py-0 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
-                                Active
+                        {employee.status}
                             </button>
                         </div>
                         
