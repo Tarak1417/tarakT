@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { Box, Grid, IconButton } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -7,10 +7,12 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import view from '../../ReceivedApp/viewicon.png';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
+import { useMenu } from '../../../hooks/useMenu';
+import axios from 'axios';
 
 
 
-const AttendViewPage = () => {
+const AttendViewPage = ({ month, year }) => {
 
     const [currentScreen, setCurrentScreen] = useState(1);
 
@@ -26,25 +28,47 @@ const AttendViewPage = () => {
             setCurrentScreen(currentScreen + 1);
         }
     };
+    const [date, setDate] = useState({
+        employeeId: '',
+        month: new Date().getMonth() + 1,
+        year: new Date().getFullYear(),
+    });
 
-    const data = [
-        { id: 1, empId: '2945', empName: 'Paige Campbell', lastAbsent: '6 Days', leaves: [0, 0, 0, 0, 0, 3, 1, 0, 21], status: 'Active' },
-        { id: 2, empId: '9502', empName: 'Daniel Sullivan', lastAbsent: '3 Days', leaves: [0, 0, 2, 0, 0, 0, 1, 0, 21], status: 'Active' },
-        { id: 3, empId: '1003', empName: 'Derek Wonder', lastAbsent: 'Never', leaves: [0, 4, 0, 0, 1, 0, 0, 0, 21], status: 'Active' },
-        { id: 4, empId: '1749', empName: 'Tony Cookie', lastAbsent: '1 Day', leaves: [0, 0, 0, 0, 0, 3, 1, 0, 21], status: 'Active' },
-        { id: 5, empId: '1948', empName: 'Aisha Malik', lastAbsent: 'Never', leaves: [0, 0, 0, 0, 0, 3, 1, 0, 21], status: 'Active' },
-        { id: 6, empId: '1444', empName: 'Darnell Rowland', lastAbsent: '1 Day', leaves: [0, 0, 0, 0, 0, 3, 1, 0, 21], status: 'Active' },
-        { id: 7, empId: '1900', empName: 'Emma Stone', lastAbsent: 'Never', leaves: [0, 0, 0, 0, 0, 3, 1, 0, 21], status: 'Active' },
-        { id: 8, empId: '2183', empName: 'Raymond Emodi', lastAbsent: '2 Days', leaves: [0, 0, 0, 0, 0, 3, 1, 0, 21], status: 'Active' },
-        { id: 9, empId: '2945', empName: 'Paige Campbell', lastAbsent: '6 Days', leaves: [0, 0, 0, 0, 0, 3, 1, 0, 21], status: 'Active' },
-        { id: 10, empId: '9502', empName: 'Daniel Sullivan', lastAbsent: '3 Days', leaves: [0, 0, 2, 0, 0, 0, 1, 0, 21], status: 'Active' },
-        { id: 11, empId: '1003', empName: 'Derek Wonder', lastAbsent: 'Never', leaves: [0, 4, 0, 0, 1, 0, 0, 0, 21], status: 'Active' },
-        { id: 12, empId: '1749', empName: 'Tony Cookie', lastAbsent: '1 Day', leaves: [0, 0, 0, 0, 0, 3, 1, 0, 21], status: 'Active' },
-        { id: 13, empId: '1948', empName: 'Aisha Malik', lastAbsent: 'Never', leaves: [0, 0, 0, 0, 0, 3, 1, 0, 21], status: 'Active' },
-        { id: 14, empId: '1444', empName: 'Darnell Rowland', lastAbsent: '1 Day', leaves: [0, 0, 0, 0, 0, 3, 1, 0, 21], status: 'Active' },
-        { id: 15, empId: '1900', empName: 'Emma Stone', lastAbsent: 'Never', leaves: [0, 0, 0, 0, 0, 3, 1, 0, 21], status: 'Active' },
-        { id: 16, empId: '2183', empName: 'Raymond Emodi', lastAbsent: '2 Days', leaves: [0, 0, 0, 0, 0, 3, 1, 0, 21], status: 'Active' },
-    ];
+    const handleChangeQuery = e => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setDate({ ...date, [name]: value });
+    };
+
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [attendance, setAttendance] = useState(null);
+
+
+    const { anchorEl: detailAnchorEl, openMenu: openDetail, closeMenu: closeDetail } = useMenu();
+
+
+
+    const fetchAttendance = useCallback(
+        async function () {
+            try {
+                if (year && month) {
+                    const response = await axios.get(
+                        '/hr/attendance?year=' + year + '&month=' + month
+                    );
+                    setAttendance(response.data.attendance);
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        [year, month]
+    );
+
+    useEffect(() => {
+        fetchAttendance();
+    }, [fetchAttendance]);
+    console.log(attendance)
 
     const getColor = (lastAbsent) => {
         switch (lastAbsent) {
@@ -55,7 +79,6 @@ const AttendViewPage = () => {
         }
     };
    
-    
     return (
         <Box sx={{backgroundColor: 'background.main',}}>
         <div className='flex flex-col'>
@@ -222,14 +245,13 @@ const AttendViewPage = () => {
                             Action
                         </div>
                     </Grid>
-                    {data.map((item) => (
+                    {attendance?.map((item,index) => (
                     <Grid
-                    key={item.id}
+                    key={index}
                         className='flex flex-row border-b border-zinc-500'
-                        
                     >
                         <div className='w-[25%] md:w-[6.2%] p-2 border-r border-zinc-500 flex items-center text-sm md:text-[12px] '>
-                                #{item.empId}
+                                #{item._id}
                             </div>
                             <div className='w-[50%] md:w-[18.6%] p-2 border-r border-zinc-500 flex flex-row gap-4 items-center text-sm md:text-[8px] '>
                                 <AccountCircleOutlinedIcon style={{ fontSize: '14px'}} />
