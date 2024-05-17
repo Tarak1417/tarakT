@@ -1,11 +1,15 @@
-import { Box } from '@mui/material';
-import React, {useState} from 'react';
+import { Box, TextField } from '@mui/material';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import ToggleOffOutlinedIcon from '@mui/icons-material/ToggleOffOutlined';
 import HelpOutlinedIcon from '@mui/icons-material/HelpOutlined';
+import moment from 'moment';
+import axios from 'axios';
+import { useForm } from '../../../hooks/useForm/useForm';
+import { Input } from 'postcss';
 
-const CompanyDetails = () => {
+const CompanyDetails = ({ id, department, designation, jobType, amount, dateOfJoining }) => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const nextPage = () => {
@@ -16,6 +20,50 @@ const CompanyDetails = () => {
         setCurrentPage(currentPage - 1);
     };
 
+    const dateJoining = moment(dateOfJoining).utc().format('YYYY-MM-DD');
+
+    const handlers = useForm(
+        useMemo(
+            () => ({
+                userId: { value: id },
+                dateOfJoining: { value: dateJoining },
+                resignationDate: '',
+                terminationDate: '',
+                creditLeaves: '',
+                department: { value: department },
+                designation: { value: designation },
+                salary: { value: amount },
+            }),
+            [id, department, designation, amount, dateJoining]
+        ),
+        { Input: TextField }
+    );
+    const [employee, setEmployee] = useState({
+        jobType: jobType,
+        department: department,
+    });
+    const [departments, setDepartments] = useState(null);
+    const handleChange = e => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setEmployee({ ...employee, [name]: value });
+    };
+
+    const fetchDepartment = useCallback(
+        async function () {
+            try {
+                const response = await axios.get(`/hr/department?sortBy=order`);
+                setDepartments(response.data.departments);
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        [setDepartments]
+    );
+
+    useEffect(() => {
+        fetchDepartment();
+    }, [fetchDepartment]);
     return(
         <Box className="w-full ml-2 md:ml-0 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
         {currentPage === 1 && (
@@ -26,7 +74,7 @@ const CompanyDetails = () => {
                                 <p className='text-[16px]'>Employee ID</p>
                             </div>
                             <div className='w-full border border-gray-300 rounded-lg flex items-center'>
-                                <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='ID'/>
+                                <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='ID' value={id}/>
                             </div>
                         </div> 
                     </div>
@@ -36,7 +84,7 @@ const CompanyDetails = () => {
                                 <p className='text-[16px]'>Department</p>
                             </div>
                             <div className='w-full border border-gray-300 rounded-lg flex items-center'>
-                                <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='Department'/>
+                                <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='Department' value={department}/>
                             </div>
                         </div> 
                     </div>
@@ -46,7 +94,7 @@ const CompanyDetails = () => {
                                 <p className='text-[16px]'>Designation</p>
                             </div>
                             <div className='w-full border border-gray-300 rounded-lg flex items-center'>
-                                <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='Designation'/>
+                                <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='Designation' value={designation}/>
                             </div>
                         </div> 
                     </div>
@@ -56,7 +104,7 @@ const CompanyDetails = () => {
                                 <p className='text-[16px]'>Date Of Joining</p>
                             </div>
                             <div className='w-full border border-gray-300 rounded-lg flex items-center'>
-                                <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='DD-MM-YYYY'/>
+                                <input type="date" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='DD-MM-YYYY' value={dateJoining}/>
                             </div>
                         </div> 
                     </div>
@@ -66,7 +114,7 @@ const CompanyDetails = () => {
                                 <p className='text-[16px]'>Resignation Date</p>
                             </div>
                             <div className='w-full border border-gray-300 rounded-lg flex items-center'>
-                                <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='DD-MM-YYYY'/>
+                                <input type="date" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='DD-MM-YYYY'/>
                             </div>
                         </div> 
                     </div>

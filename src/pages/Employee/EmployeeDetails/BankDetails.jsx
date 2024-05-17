@@ -2,7 +2,17 @@ import { Box } from '@mui/material';
 import React from 'react';
 import HelpOutlinedIcon from '@mui/icons-material/HelpOutlined';
 
-const BankDetails = () => {
+const BankDetails = ({
+    pan,
+    ifsc,
+    bankName,
+    branch,
+    accountNumber,
+    accountHolder,
+    city,
+    state,
+    country,
+}) => {
     return(
         <Box className="w-full ml-2 md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
             <div className='w-[99%]  p-2 flex flex-col gap-6'>

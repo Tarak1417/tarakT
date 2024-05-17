@@ -11,7 +11,7 @@ const UploadDetails = () => {
                             <p className='text-[16px]'>Resume</p>
                         </div>
                         <div className='w-full border border-gray-300 rounded-lg flex items-center'>
-                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2"/>
+                            <input type="file" className="w-full rounded-lg bg-transparent focus:outline-none p-2"/>
                         </div>
                     </div>
                     <div className='flex flex-row w-full md:w-[14%] justify-end'>
@@ -26,7 +26,7 @@ const UploadDetails = () => {
                             <p className='text-[16px]'>ID Proof</p>
                         </div>
                         <div className='w-full border border-gray-300 rounded-lg flex items-center'>
-                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2"/>
+                            <input type="file" className="w-full rounded-lg bg-transparent focus:outline-none p-2"/>
                         </div>
                     </div>
                     <div className='flex flex-row w-full md:w-[14%] justify-end'>
@@ -41,7 +41,7 @@ const UploadDetails = () => {
                             <p className='text-[16px]'>Offer Letter</p>
                         </div>
                         <div className='w-full border border-gray-300 rounded-lg flex items-center'>
-                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2"/>
+                            <input type="file" className="w-full rounded-lg bg-transparent focus:outline-none p-2"/>
                         </div>
                     </div>
                     <div className='flex flex-row w-full md:w-[14%] justify-end'>
@@ -56,7 +56,7 @@ const UploadDetails = () => {
                             <p className='text-[16px]'>Joining</p>
                         </div>
                         <div className='w-full border border-gray-300 rounded-lg flex items-center'>
-                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2"/>
+                            <input type="file" className="w-full rounded-lg bg-transparent focus:outline-none p-2"/>
                         </div>
                     </div>
                     <div className='flex flex-row w-full md:w-[14%] justify-end'>
@@ -71,7 +71,7 @@ const UploadDetails = () => {
                             <p className='text-[16px]'>Agreement Letter</p>
                         </div>
                         <div className='w-full border border-gray-300 rounded-lg flex items-center'>
-                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2"/>
+                            <input type="file" className="w-full rounded-lg bg-transparent focus:outline-none p-2"/>
                         </div>
                     </div>
                     <div className='flex flex-row w-full md:w-[14%] justify-end'>
@@ -86,7 +86,7 @@ const UploadDetails = () => {
                             <p className='text-[16px]'>Experience Letter</p>
                         </div>
                         <div className='w-full border border-gray-300 rounded-lg flex items-center'>
-                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2"/>
+                            <input type="file" className="w-full rounded-lg bg-transparent focus:outline-none p-2"/>
                         </div>
                     </div>
                     <div className='flex flex-row w-full md:w-[14%] justify-end'>

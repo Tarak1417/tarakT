@@ -3,8 +3,10 @@ import React, {useState} from 'react';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import ToggleOffOutlinedIcon from '@mui/icons-material/ToggleOffOutlined';
+import moment from 'moment';
+import { Email } from '@mui/icons-material';
 
-const PersonalDetails = () => {
+const PersonalDetails = ({employeeDetails}) => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const nextPage = () => {
@@ -26,12 +28,12 @@ const PersonalDetails = () => {
                             <p className='text-[16px]'>Full Name</p>
                         </div>
                         <div className='w-4/5 border border-gray-300 rounded-lg flex items-center'>
-                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='first name'/>
+                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='first name' value={employeeDetails?.firstName}/>
                         </div>
                     </div>
                     <div className='flex flex-row gap-2 w-full md:w-1/2 flex items-center '>
                         <div className='w-full border border-gray-300 rounded-lg'>
-                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='last name'/>
+                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='last name' value={employeeDetails?.lastname}/>
                         </div>
                     </div>
                 </div>
@@ -49,7 +51,7 @@ const PersonalDetails = () => {
                            <p className='text-[16px['>Contact Number</p>
                         </div>
                         <div className='w-4/5 border border-gray-300 rounded-lg flex items-center'>
-                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='enter contact number'/>
+                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='enter contact number' value={employeeDetails?.phone?.phone}/>
                         </div>
                     </div>
                 </div>
@@ -59,7 +61,7 @@ const PersonalDetails = () => {
                             <p className='text-[16px]'>Emergency Contact No 1</p>
                         </div>
                         <div className='w-4/5 border border-gray-300 rounded-lg flex items-center'>
-                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='enter emergency contact 1'/>
+                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='enter emergency contact 1' value={employeeDetails?.phone?.phone}/>
                         </div>
                     </div>
                     <div className='flex flex-row gap-2 w-full md:w-1/2 '>
@@ -67,7 +69,7 @@ const PersonalDetails = () => {
                         <p className='text-[16px]'>Emergency Contact No 2</p>
                         </div>
                         <div className='w-4/5 border border-gray-300 rounded-lg flex items-center'>
-                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='enter emergency contact 2'/>
+                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='enter emergency contact 2' value={employeeDetails?.phone?.phone}/>
                         </div>
                     </div>
                 </div>
@@ -77,7 +79,9 @@ const PersonalDetails = () => {
                             <p className='text-[16px]'>Date of Birth</p>
                         </div>
                         <div className='w-4/5 border border-gray-300 rounded-lg flex items-center'>
-                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='enter date of birth'/>
+                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='enter date of birth' value={moment(employeeDetails?.dob)
+                                                    .utc()
+                                                    .format('MM-DD-YYYY')}/>
                         </div>
                     </div>
                     <div className='flex flex-row gap-2 w-full md:w-1/2 '>
@@ -95,7 +99,7 @@ const PersonalDetails = () => {
                             <p className='text-[16px]'>Email</p>
                         </div>
                         <div className='w-full border border-gray-300 rounded-lg flex items-center'>
-                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='enter email address'/>
+                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2" placeholder='enter email address' value={employeeDetails?.email}/>
                         </div>
                     </div>
                 </div>
@@ -151,7 +155,7 @@ const PersonalDetails = () => {
                             <p className='text-[16px]'>Upload Photo</p>
                         </div>
                         <div className='w-full border border-gray-300 rounded-lg flex items-center'>
-                            <input type="text" className="w-full rounded-lg bg-transparent focus:outline-none p-2"/>
+                            <input type="file" className="w-full rounded-lg bg-transparent focus:outline-none p-2"/>
                         </div>
                     </div>
                     <div className='flex flex-row w-full md:w-[14%] justify-end'>

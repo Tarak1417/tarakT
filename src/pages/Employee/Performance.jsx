@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import profile from '../ReceivedApp/profile.png';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const ProgressCircle = ({ percentage, color }) => {
     const circleStyle = {
@@ -53,6 +54,31 @@ const ProgressBar = ({ percentage, color }) => {
 };
 
 const PerformancePage = () => {
+
+    const id = useParams().id;
+    const [value, setValue] = useState(0);
+    const [employeeDetail, setEmployeeDetail] = useState(null);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+    const fetchEmployeeDetails = useCallback(
+        async function () {
+            try {
+                const response = await axios.get(`/hr/employee/${id}`);
+                console.log(response);
+                setEmployeeDetail(response.data.employee);
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        [setEmployeeDetail, id]
+    );
+    useEffect(() => {
+        fetchEmployeeDetails();
+    }, [fetchEmployeeDetails]);
+
+    console.log(employeeDetail);
     return (
         <Box sx={{ backgroundColor: 'background.main' }}>
             <div className='flex flex-col'>
@@ -61,9 +87,9 @@ const PerformancePage = () => {
                         <h1 className="text-2xl text-neutral-500">Employee</h1>
                     </div>
                     <div className="flex flex-row items-center justify-center gap-4">
-                        <Link to="/viewemployee">
+                        <Link to={`/viewemployee/${id}`}>
                             <button className='flex items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
-                                Add New Employee
+                                Edit Employee
                             </button>
                         </Link>
                         <InfoOutlinedIcon />
@@ -72,8 +98,8 @@ const PerformancePage = () => {
             </div>
             <div className='flex flex-col justify-center gap-1 items-center'>
                 <img src={profile} alt="Profile" className="w-[20%] md:w-full max-w-[100px] h-auto" />
-                <h1 className='text-[18px] text-center font-bold'>Daniel Sillivan</h1>
-                <p className='text-[12px] text-zinc-400 text-center'>QA Tester</p>
+                <h1 className='text-[18px] text-center font-bold'>{employeeDetail?.firstName} {employeeDetail?.lastName}{' '}</h1>
+                <p className='text-[12px] text-zinc-400 text-center'>{employeeDetail?.designation}</p>
                 <div className='flex flex-row gap-1 justify-center'>
                     <StarIcon style={{ fontSize: '12px' }} className='text-yellow-400' /><StarIcon style={{ fontSize: '12px' }} className='text-yellow-400' /><StarIcon style={{ fontSize: '12px' }} className='text-yellow-400' /> <StarBorderOutlinedIcon style={{ fontSize: '12px' }} /> <StarBorderOutlinedIcon style={{ fontSize: '12px' }} />
                 </div>

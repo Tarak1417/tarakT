@@ -17,6 +17,7 @@ import axios from 'axios';
 import { useEmployees } from '../../hooks/Authorize';
 import moment from 'moment';
 import { data } from 'autoprefixer';
+import { Link } from 'react-router-dom';
 
 const EmployeePage = () => {
 
@@ -97,9 +98,9 @@ const EmployeePage = () => {
                             <h1 className="text-2xl text-neutral-500">Employees</h1>
                         </div>
                         <div className="flex flex-row items-center justify-center gap-4">
-                            <button className='flex  items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                            {/* <button className='flex  items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
                                 Add New Employee
-                            </button>
+                            </button> */}
                             <InfoOutlinedIcon />
                         </div>
                     </div>
@@ -204,7 +205,10 @@ const EmployeePage = () => {
                         </div>
                         
                             <div className='w-[25%] md:w-[10%] flex flex-row gap-2 justify-center items-center'>
+                                <Link to={`/performance/${employee._id}`}>
                                 <IconButton><EditOutlinedIcon style={{ fontSize: '12px' }}  className=' rounded-sm'/></IconButton>
+                                </Link>
+                                
                                 <IconButton><DeleteOutlineOutlinedIcon style={{ fontSize: '12px' }} className='text-blue-500 rounded-sm'/></IconButton>
                             </div>
                         </div>

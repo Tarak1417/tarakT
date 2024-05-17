@@ -67,8 +67,8 @@ const App = () => {
 
 
                 <Route path='/employees' element={<EmployeeHome/>} />
-                <Route path='/performance' element={<PerformanceHome/>} />
-                <Route path='/viewemployee' element={<EmpDetailsHome/>} />
+                <Route path='/performance/:id' element={<PerformanceHome/>} />
+                <Route path='/viewemployee/:id' element={<EmpDetailsHome/>} />
                 <Route path='/attendance' element={<AttendHome/>} />
                 <Route path='/attendanceview' element={<AttendViewHome/>} />
                 <Route path='/leavesettings' element={<LeaveSettingsHome/>} />
