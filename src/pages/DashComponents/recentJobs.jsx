@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import SwipeDownAltIcon from '@mui/icons-material/SwipeDownAlt';
+// import SwipeDownAltIcon from '@mui/icons-material/SwipeDownAlt';
 import CallIcon from '@mui/icons-material/Call';
 import EmailIcon from '@mui/icons-material/Email';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-const RecentJobs = () => {
+const RecentJobs = ({items}) => {
     const [dropdown1Open, setDropdown1Open] = useState(false);
     const [dropdown2Open, setDropdown2Open] = useState(false);
     const [ setSelectedYear] = useState('2024');
@@ -27,13 +27,13 @@ const RecentJobs = () => {
     };
     
 
-    const items = [
-        { id: 1, name: 'John Doe', role: 'Developer', years: '2 years', country: 'USA' },
-        { id: 2, name: 'Jane Smith', role: 'Designer', years: '3 years', country: 'Canada' },
-        { id: 1, name: 'John Doe', role: 'Developer', years: '2 years', country: 'USA' },
-        { id: 2, name: 'Jane Smith', role: 'Designer', years: '3 years', country: 'Canada' },
+    // const items = [
+    //     { id: 1, name: 'John Doe', role: 'Developer', years: '2 years', country: 'USA' },
+    //     { id: 2, name: 'Jane Smith', role: 'Designer', years: '3 years', country: 'Canada' },
+    //     { id: 1, name: 'John Doe', role: 'Developer', years: '2 years', country: 'USA' },
+    //     { id: 2, name: 'Jane Smith', role: 'Designer', years: '3 years', country: 'Canada' },
     
-    ];
+    // ];
 
     return (
         <Box className='rounded-lg mb-4 shadow-md pt-4 pr-4 pb-4 ' sx={{
@@ -94,25 +94,26 @@ const RecentJobs = () => {
                 </div>
             </div>
             <div className='w-full'>
-            {items.map(item => (
-                <div key={item.id} className="flex flex-row mb-4 gap-1 md:gap-0">
+            {items?.map((item,index) => (
+                <div key={index} className="flex flex-row mb-4 gap-1 md:gap-0">
                         <div className='w-1/6 md:w-1/6 flex items-center justify-center'>
                         <AccountCircleIcon fontSize='large'/>
                         </div>
                         <div className='w-1/3 md:w-1/3'>
-                                <h1 className='text-sm md:text-lg text-gray-400'>{item.name}</h1>
-                                <p1 className='text-sm text-zinc-500'>{item.role}</p1>
+                                <h1 className='text-sm md:text-lg text-gray-400'>{item.fullName}</h1>
+                                <p1 className='text-sm text-zinc-500'>{item.email}</p1>
                         </div>
                         <div className=' w-1/5 md:w-1/5 flex items-center justify-start md:items-center md:justify-center'>
-                        <p className='text-sm text-zinc-500'>{item.years}</p> 
+                        <p className='text-sm text-zinc-500'>{item.experience}</p> 
                         </div>
                         <div className='w-1/3 md:w-1/5 flex items-center justify-start md:items-center md:justify-center'>
-                        <p className='text-sm text-zinc-500'><SwipeDownAltIcon/> {item.country}</p>
+                        {/* <p className='text-sm text-zinc-500'><SwipeDownAltIcon/> {item.country}</p> */}
                         </div>
                         <div className='w-1/4 md:w-1/4 gap-2 flex items-center justify-start md:items-center md:justify-center whitespace-nowrap'>
-                            <CallIcon className='text-green-700'/>
+                        <p className='text-sm text-zinc-500'>{item.jobTitle}</p> 
+                            {/* <CallIcon className='text-green-700'/>
                            <EmailIcon className='text-green-700'/>
-                           <DeleteIcon className='text-red-700 '/>
+                           <DeleteIcon className='text-red-700 '/> */}
                         </div>
                     </div>
                         ))}

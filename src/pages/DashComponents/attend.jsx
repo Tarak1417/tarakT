@@ -6,7 +6,7 @@ import EmailIcon from '@mui/icons-material/Email';
 
 
 
-const Attendance = () => {
+const Attendance = ({items}) => {
     const [dropdown1Open, setDropdown1Open] = useState(false);
     const [ setSelectedYear] = useState('2024');
 
@@ -21,18 +21,18 @@ const Attendance = () => {
     };
     
 
-    const items = [
-        { id: 1, name: 'John Doe', status: 'Present', clockin: '09:07:00AM', clockout: '05:00:17PM' },
-        { id: 2, name: 'Smith', status: 'Absent', clockin: '09:07:00AM', clockout: '05:00:17PM' },
-        { id: 3, name: 'Steve', status: 'Present', clockin: '09:07:00AM', clockout: '05:00:17PM' },
-        { id: 4, name: 'John Doe', status: 'Present', clockin: '09:07:00AM', clockout: '05:00:17PM' },
-        { id: 5, name: 'Smith', status: 'Absent', clockin: '09:07:00AM', clockout: '05:00:17PM' },
+    // const items = [
+    //     { id: 1, name: 'John Doe', status: 'Present', clockin: '09:07:00AM', clockout: '05:00:17PM' },
+    //     { id: 2, name: 'Smith', status: 'Absent', clockin: '09:07:00AM', clockout: '05:00:17PM' },
+    //     { id: 3, name: 'Steve', status: 'Present', clockin: '09:07:00AM', clockout: '05:00:17PM' },
+    //     { id: 4, name: 'John Doe', status: 'Present', clockin: '09:07:00AM', clockout: '05:00:17PM' },
+    //     { id: 5, name: 'Smith', status: 'Absent', clockin: '09:07:00AM', clockout: '05:00:17PM' },
 
         
         
        
     
-    ];
+    // ];
 
     return (
         <Box className='rounded-lg mb-4 shadow-md pt-4 pr-4 pb-4 h-[350px]' sx={{backgroundColor: 'background.view',}}>
@@ -91,13 +91,15 @@ const Attendance = () => {
                     </div>
                     
                 </div>
-                {items.map(item => (
-                    <div key={item.id} className="flex flex-row mb-4 gap-1 md:gap-0">
+                {items?.map((item,index )=> (
+                    <div key={index} className="flex flex-row mb-4 gap-1 md:gap-0">
                         <div className='w-1/6 md:w-1/6 flex items-center justify-center' >
-                            <p1 className='text-xs md:text-sm text-gray-500'>{item.id}</p1> 
+                            <p1 className='text-xs md:text-sm text-gray-500'>{item._id}</p1> 
                         </div>
                         <div className='w-1/4 md:w-1/4 flex items-center justify-start'>
-                            <h1 className='text-xs md:text-sm text-gray-500'>{item.name}</h1>
+                            <h1 className='text-xs md:text-sm text-gray-500'>{item.employeeData?.firstName +
+                                                      ' ' +
+                                                      item.employeeData?.lastName}</h1>
                         </div>
                         <div className='w-1/5 md:w-1/5 flex items-center justify-start'>
                             <p1 className='text-xs md:text-sm text-gray-500'>{item.status}</p1>
@@ -109,8 +111,9 @@ const Attendance = () => {
                             <p1 className='text-xs md:text-sm text-gray-500'>{item.clockout}</p1>
                         </div>
                         <div className='w-1/4 md:w-1/4 flex items-center justify-start gap-2'>
-                            <CallIcon className='text-green-700'/>
-                            <EmailIcon className='text-blue-700'/>
+                            {new Date(item.clockInTime).toLocaleTimeString()}
+                            {/* <CallIcon className='text-green-700'/>
+                            <EmailIcon className='text-blue-700'/> */}
                         </div>
                     </div>
                 ))}

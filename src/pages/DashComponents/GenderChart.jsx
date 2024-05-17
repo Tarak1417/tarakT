@@ -2,11 +2,11 @@ import React from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { PieChart, Pie, Tooltip, Cell } from 'recharts';
 
-const GenderChart = () => {
+const GenderChart = ({items}) => {
     
     const data = [
-        { name: 'Male', value: 40 },
-        { name: 'Female', value: 60 },
+        { name: 'Male', value: items?.male },
+        { name: 'Female', value: items?.female },
     ];
 
     const colors = [ '#3b82f6','#dc2626'];
