@@ -34,6 +34,7 @@ import SalaryHome from './pages/Payrolls/SalaryHome';
 import JobApplicationDetail from './pages/JobApplicationDetail';
 import Agreements from './pages/Agreements';
 import OfferLetter from './pages/OfferLatter';
+import RuleAndRegulations from './pages/Rules&Regulations';
 
 
 const App = () => {
@@ -82,6 +83,7 @@ const App = () => {
                 <Route path='/leavesettings' element={<LeaveSettingsHome/>} />
                 <Route path='/leaveapplication' element={<LeaveAppHome/>} />
                 <Route path='/leaveapplication/view' element={<LeaveViewHome/>} />
+                <Route path='rulesandregulations' element={<RuleAndRegulations/>}/>
             </Routes>
         </Header>
         <Footer/>
