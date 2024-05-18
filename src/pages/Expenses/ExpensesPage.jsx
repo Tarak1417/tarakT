@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import {Box, IconButton} from '@mui/material';
+import {Box, IconButton, MenuItem} from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,6 +8,10 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import PersonIcon from '@mui/icons-material/Person';
+import useErrorHandler from '../../hooks/useErrorHandler';
+import { useMessage } from '../../components/Header';
+import axios from 'axios';
+import { Select } from '../../components/Select';
 
 
 const ExpensesPage = () => {
@@ -38,11 +42,69 @@ const ExpensesPage = () => {
                 return { bgColor: 'bg-gray-900', textColor: 'text-gray-500' };
         }
     };
-    
+    const [rows, setRows] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const errorHandler = useErrorHandler();
+    const { showSuccess } = useMessage();
 
-    
-   
-    
+    const [paginationModel, setPaginationModel] = useState({
+        pageSize: 5,
+        page: 0,
+    });
+    const [rowCount, setRowCount] = useState(0);
+
+    const fetchExpenses = useCallback(async () => {
+        setLoading(true);
+
+        console.log('fetching....');
+        // setRows([]);
+
+        try {
+            const response = await axios.get(
+                `/hr/expenses/?page=${paginationModel.page + 1 || 1}&pageSize=${
+                    paginationModel.pageSize
+                }`
+            );
+            const { expenses, pageData } = response.data;
+
+            const rows = expenses.map((expense, index) => ({
+                ...expense,
+                id: index,
+                amount: expense.price.amount,
+                currency: expense.price.currency,
+            }));
+
+            setRows(rows);
+            setRowCount(pageData.totalData || 0);
+        } catch (e) {
+            console.warn(e);
+        } finally {
+            setLoading(false);
+        }
+    }, [setRows, paginationModel]);
+
+    const changeStatus = useCallback(
+        async (id, status) => {
+            try {
+                const response = await axios.patch(`/hr/expenses/${id}`, { status });
+
+                const { success } = response.data;
+
+                if (success) {
+                    showSuccess('Status changed');
+                    fetchExpenses();
+                }
+            } catch (e) {
+                errorHandler(e);
+            }
+        },
+        [errorHandler, fetchExpenses, showSuccess]
+    );
+    useEffect(() => {
+        fetchExpenses();
+    }, [fetchExpenses]);
+
+    console.log(rows)
     return (
         <Box sx={{backgroundColor: 'background.main',}}>
         <div className='flex flex-col'>
@@ -70,9 +132,9 @@ const ExpensesPage = () => {
                         <div className='w-[25%] md:w-[5%] p-3 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
                             ID
                         </div>
-                        <div className='w-[50%] md:w-[15%] p-3 border-r border-zinc-500 text-sm md:text-xs font-bold'>
+                        {/* <div className='w-[50%] md:w-[15%] p-3 border-r border-zinc-500 text-sm md:text-xs font-bold'>
                             Employee
-                        </div>
+                        </div> */}
                         <div className='w-[25%] md:w-[15%] p-3 border-r border-zinc-500 text-sm md:text-xs font-bold'>
                             Title
                         </div>
@@ -85,23 +147,23 @@ const ExpensesPage = () => {
                         <div className='w-[25%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-xs font-bold'>
                             Amount($)
                         </div>
-                        <div className='w-[25%] md:w-[10%] p-3 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
+                        {/* <div className='w-[25%] md:w-[10%] p-3 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
                             Paid By
-                        </div>
+                        </div> */}
                         <div className='w-[25%] md:w-[8%] p-3 border-r border-zinc-500 text-sm md:text-xs font-bold'>
-                            Status
+                            Currency
                         </div>
                         <div className='w-[25%] md:w-[12%] p-3  text-left text-sm md:text-xs font-bold'>
                             Action
                         </div>
                         
                     </div>
-                    {userData.map((user) => (
-                        <div key={user.id} className='flex flex-row border-b border-zinc-500'>
+                    {rows?.map((user,index) => (
+                        <div key={index} className='flex flex-row border-b border-zinc-500'>
                         <div className='w-[25%] md:w-[5%] p-3 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                            #{user.id}
+                            #{index+1}
                         </div>
-                        <div className='w-[50%] md:w-[15%] p-1 border-r border-zinc-500 text-sm md:text-[10px] flex flex-row gap-2 flex items-center'>
+                        {/* <div className='w-[50%] md:w-[15%] p-1 border-r border-zinc-500 text-sm md:text-[10px] flex flex-row gap-2 flex items-center'>
                             <div className='flex justify-center items-center pl-2'>
                                 <PersonIcon style={{ fontSize: '16px' }} className="text-zinc-300"/>
                             </div>
@@ -109,23 +171,23 @@ const ExpensesPage = () => {
                                 {user.emp}
                                 
                             </div>
-                        </div>
+                        </div> */}
                         <div className='w-[25%] md:w-[15%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
                             {user.title}
                         </div>
                         <div className='w-[25%] md:w-[15%] p-3 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                             {user.pur}
+                             {user.purchasePlace}
                         </div>
                         <div className='w-[50%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
-                             {user.date}
+                             {`${user.dateOfPurchase.day}/${user.dateOfPurchase.month}/${user.dateOfPurchase.year}`}
                         </div>
                         <div className='w-[25%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
-                             {user.amount}
+                             {user.price.amount}
                         </div>
                         <div className='w-[25%] md:w-[10%] p-3 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                            {user.paid}
+                            {user.price.currency}
                         </div>
-                        <div className='w-[25%] md:w-[8%] p-3 border-r border-zinc-500'>
+                        {/* <div className='w-[25%] md:w-[8%] p-3 border-r border-zinc-500'>
                         <div
                                     className={`px-0 py-0 rounded-lg text-sm md:text-[8px] flex justify-center items-center ${
                                         getColor(user.profile).bgColor
@@ -133,11 +195,19 @@ const ExpensesPage = () => {
                                 >
                                     {user.profile}
                                 </div>
-                        </div>
+                        </div> */}
                         
                             <div className='w-[25%] md:w-[12%] flex flex-row gap-2 justify-center items-center'>
-                                <IconButton><EditOutlinedIcon style={{ fontSize: '12px' }}  className=' rounded-sm'/></IconButton>
-                                <IconButton><DeleteOutlineOutlinedIcon style={{ fontSize: '12px' }} className='text-blue-500 rounded-sm'/></IconButton>
+                            <Select
+                                value={user.status}
+                                size='small'
+                                fullWidth
+                                onChange={e => changeStatus(user._id, e.target.value)}
+                                >
+                                <MenuItem value='Approved'>Approved</MenuItem>
+                                <MenuItem value='Rejected'>Rejected</MenuItem>
+                                <MenuItem value='Pending'>Pending</MenuItem>
+                            </Select>
                             </div>
                         </div>
                     ))}
