@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import './utilities/axios';
 import Header from './components/Header';
 import Home from './pages/Home';
@@ -35,58 +35,77 @@ import JobApplicationDetail from './pages/JobApplicationDetail';
 import Agreements from './pages/Agreements';
 import OfferLetter from './pages/OfferLatter';
 import RuleAndRegulations from './pages/Rules&Regulations';
+import WalkoverHeader from './pages/Walkover/Walkover';
 
 
 const App = () => {
+    const location = useLocation();
+
+    const hideHeaderPaths = ['/walkover']; // Add the paths where you want to hide the header
+
+    const shouldHideHeader = hideHeaderPaths.includes(location.pathname);
+
+    if (shouldHideHeader) {
+
+        return (
+            <Routes>
+                <Route path='/walkover' element={<WalkoverHeader />} />
+            </Routes>
+        )
+    }
+
+
     return (
         <>
-        <Header>
-            <Routes>
-                <Route path='/' element={<Home />} />
-                
-                <Route path='/joblisting' element={<JobListingHome/>} />
-                <Route path='/department' element={<DeptHome/>} />
-                <Route path='/interviewquestions' element={<InterviewHome/>} />
-                <Route path='/receivedapplications' element={<ReceivedApp/>} />
+            <Header>
+                <Routes>
+                    <Route path='/' element={<Home />} />
 
-                <Route path='/showmore:id' element={<ShowMoreHome/>} />
-                <Route path='/joblisting/edit' element={<EditHome/>} />
-                <Route path='/jobApplicationDetail'>
+                    <Route path='/joblisting' element={<JobListingHome />} />
+                    <Route path='/department' element={<DeptHome />} />
+                    <Route path='/interviewquestions' element={<InterviewHome />} />
+                    <Route path='/receivedapplications' element={<ReceivedApp />} />
+
+                    <Route path='/showmore:id' element={<ShowMoreHome />} />
+                    <Route path='/joblisting/edit' element={<EditHome />} />
+                    <Route path='/jobApplicationDetail'>
                         <Route path=':id' element={<JobApplicationDetail />} />
                         <Route path='offer-letter/:id' element={<OfferLetter />} />
                         <Route path='agreements/:id' element={<Agreements />} />
-                </Route>
+                    </Route>
 
-                <Route path='/showmore:id/sendofferletter' element={<SendOfferHome/>} />
-                <Route path='/showmore:id/offerletter' element={<OfferHome/>} />
+                    <Route path='/showmore:id/sendofferletter' element={<SendOfferHome />} />
+                    <Route path='/showmore:id/offerletter' element={<OfferHome />} />
 
-                <Route path='/showmore:id/sendagreement' element={<AgreementHome/>} />
+                    <Route path='/showmore:id/sendagreement' element={<AgreementHome />} />
 
-                <Route path='/noticeboard' element={<NoticeHome/>} />
-                <Route path='/apps' element={<Apps/>} />
-                <Route path='/expenses' element={<ExpensesHome/>} />
-                <Route path='/award' element={<AwardHome/>} />
-                <Route path='/holidays' element={<HolidayHome/>} />
+                    <Route path='/noticeboard' element={<NoticeHome />} />
+                    <Route path='/apps' element={<Apps />} />
+                    <Route path='/expenses' element={<ExpensesHome />} />
+                    <Route path='/award' element={<AwardHome />} />
+                    <Route path='/holidays' element={<HolidayHome />} />
 
-                <Route path='/addpayroll' element={<AddPayrollHome/>} />
-                <Route path='/addpayrolls' element={<MorePayrollHome/>} />
-                <Route path='/editpayroll' element={<EditPayrollHome/>} />
-                <Route path='/editpayrolls' element={<MoreEditPayrollHome/>} />
-                <Route path='/employeesalary' element={<SalaryHome/>} />
+                    <Route path='/addpayroll' element={<AddPayrollHome />} />
+                    <Route path='/addpayrolls' element={<MorePayrollHome />} />
+                    <Route path='/editpayroll' element={<EditPayrollHome />} />
+                    <Route path='/editpayrolls' element={<MoreEditPayrollHome />} />
+                    <Route path='/employeesalary' element={<SalaryHome />} />
 
 
-                <Route path='/employees' element={<EmployeeHome/>} />
-                <Route path='/performance/:id' element={<PerformanceHome/>} />
-                <Route path='/viewemployee/:id' element={<EmpDetailsHome/>} />
-                <Route path='/attendance' element={<AttendHome/>} />
-                <Route path='/attendanceview' element={<AttendViewHome/>} />
-                <Route path='/leavesettings' element={<LeaveSettingsHome/>} />
-                <Route path='/leaveapplication' element={<LeaveAppHome/>} />
-                <Route path='/leaveapplication/view' element={<LeaveViewHome/>} />
-                <Route path='rulesandregulations' element={<RuleAndRegulations/>}/>
-            </Routes>
-        </Header>
-        <Footer/>
+                    <Route path='/employees' element={<EmployeeHome />} />
+                    <Route path='/performance/:id' element={<PerformanceHome />} />
+                    <Route path='/viewemployee/:id' element={<EmpDetailsHome />} />
+                    <Route path='/attendance' element={<AttendHome />} />
+                    <Route path='/attendanceview' element={<AttendViewHome />} />
+                    <Route path='/leavesettings' element={<LeaveSettingsHome />} />
+                    <Route path='/leaveapplication' element={<LeaveAppHome />} />
+                    <Route path='/leaveapplication/view' element={<LeaveViewHome />} />
+                    <Route path='rulesandregulations' element={<RuleAndRegulations />} />
+
+
+                </Routes>
+            </Header>
+            <Footer />
         </>
     );
 };
