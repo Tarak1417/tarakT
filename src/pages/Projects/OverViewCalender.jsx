@@ -184,6 +184,14 @@ const OverViewCalender = () => {
                         <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-orange-950 text-[16px] text-orange-500'>6</div>
                         <p className='text-[16px] text-gray-400'>Holidays</p>
                     </div>
+                    <div className='flex flex-col justify-center items-center gap-2 '>
+                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-orange-950 text-[16px] text-orange-500'>6</div>
+                        <p className='text-[16px] text-gray-400'>Holidays</p>
+                    </div>
+                    <div className='flex flex-col justify-center items-center gap-2 '>
+                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-orange-950 text-[16px] text-orange-500'>6</div>
+                        <p className='text-[16px] text-gray-400'>Holidays</p>
+                    </div>
                 </div>
                     </Grid>
             </div>
