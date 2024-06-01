@@ -4,9 +4,11 @@ import { PieChart, Pie, Tooltip, Cell } from 'recharts';
 
 const GenderChart = ({items}) => {
     
+  
+
     const data = [
-        { name: 'Male', value: items?.male },
-        { name: 'Female', value: items?.female },
+        { name: 'Male', value: items?.male?items.male:40 },
+        { name: 'Female', value: items?.female?items.female:60 },
     ];
 
     const colors = [ '#3b82f6','#dc2626'];

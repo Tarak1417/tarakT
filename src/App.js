@@ -35,7 +35,6 @@ import JobApplicationDetail from './pages/JobApplicationDetail';
 import Agreements from './pages/Agreements';
 import OfferLetter from './pages/OfferLatter';
 import RuleAndRegulations from './pages/Rules&Regulations';
-import WalkoverHeader from './pages/Walkover/Walkover';
 
 
 const App = () => {
@@ -92,20 +91,18 @@ const App = () => {
                     <Route path='/employeesalary' element={<SalaryHome />} />
 
 
-                    <Route path='/employees' element={<EmployeeHome />} />
-                    <Route path='/performance/:id' element={<PerformanceHome />} />
-                    <Route path='/viewemployee/:id' element={<EmpDetailsHome />} />
-                    <Route path='/attendance' element={<AttendHome />} />
-                    <Route path='/attendanceview' element={<AttendViewHome />} />
-                    <Route path='/leavesettings' element={<LeaveSettingsHome />} />
-                    <Route path='/leaveapplication' element={<LeaveAppHome />} />
-                    <Route path='/leaveapplication/view' element={<LeaveViewHome />} />
-                    <Route path='rulesandregulations' element={<RuleAndRegulations />} />
-
-
-                </Routes>
-            </Header>
-            <Footer />
+                <Route path='/employees' element={<EmployeeHome/>} />
+                <Route path='/performance/:id' element={<PerformanceHome/>} />
+                <Route path='/viewemployee/:id' element={<EmpDetailsHome/>} />
+                <Route path='/attendance' element={<AttendHome/>} />
+                <Route path='/attendanceview' element={<AttendViewHome/>} />
+                <Route path='/leavesettings' element={<LeaveSettingsHome/>} />
+                <Route path='/leaveapplication' element={<LeaveAppHome/>} />
+                <Route path='/leaveapplication/view' element={<LeaveViewHome/>} />
+                <Route path='rulesandregulations' element={<RuleAndRegulations/>}/>
+            </Routes>
+        </Header>
+        <Footer/>
         </>
     );
 };
