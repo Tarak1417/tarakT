@@ -35,6 +35,13 @@ import JobApplicationDetail from './pages/JobApplicationDetail';
 import Agreements from './pages/Agreements';
 import OfferLetter from './pages/OfferLatter';
 import RuleAndRegulations from './pages/Rules&Regulations';
+import WalkoverHeader from './pages/Walkover/Walkover'
+import Dashboard from './pages/Projects/Dashboard';
+import NewProject from './pages/Projects/NewProject';
+import OverTime from './pages/Projects/OverTimeCalender';
+import OverViewCalender from './pages/Projects/OverViewCalender';
+import ViewProject from './pages/Projects/ViewProject';
+import Calender from './pages/Projects/Calender';
 
 
 const App = () => {
@@ -91,17 +98,27 @@ const App = () => {
                     <Route path='/employeesalary' element={<SalaryHome />} />
 
 
-                <Route path='/employees' element={<EmployeeHome/>} />
-                <Route path='/performance/:id' element={<PerformanceHome/>} />
-                <Route path='/viewemployee/:id' element={<EmpDetailsHome/>} />
-                <Route path='/attendance' element={<AttendHome/>} />
-                <Route path='/attendanceview' element={<AttendViewHome/>} />
-                <Route path='/leavesettings' element={<LeaveSettingsHome/>} />
-                <Route path='/leaveapplication' element={<LeaveAppHome/>} />
-                <Route path='/leaveapplication/view' element={<LeaveViewHome/>} />
-                <Route path='rulesandregulations' element={<RuleAndRegulations/>}/>
-            </Routes>
-        </Header>
+                    <Route path='/employees' element={<EmployeeHome />} />
+                    <Route path='/performance/:id' element={<PerformanceHome />} />
+                    <Route path='/viewemployee/:id' element={<EmpDetailsHome />} />
+                    <Route path='/attendance' element={<AttendHome />} />
+                    <Route path='/attendanceview' element={<AttendViewHome />} />
+                    <Route path='/leavesettings' element={<LeaveSettingsHome />} />
+                    <Route path='/leaveapplication' element={<LeaveAppHome />} />
+                    <Route path='/leaveapplication/view' element={<LeaveViewHome />} />
+                    <Route path='rulesandregulations' element={<RuleAndRegulations />} />
+
+                    <Route path='/dashboardproject' element={<Dashboard/>} />
+                <Route path='/newProject' element={<NewProject/>} />
+                <Route path='/OverTime' element={<OverTime/>} />
+                <Route path='/OverViewCalender' element={<OverViewCalender/>} />
+                <Route path='/ViewProject' element={<ViewProject/>} />
+                <Route path='/calender' element={<Calender/>} />
+                </Routes>
+            </Header>
+            <Footer />
+            
+            
         <Footer/>
         </>
     );
