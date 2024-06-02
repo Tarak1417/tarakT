@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
@@ -41,6 +41,7 @@ let walkover = [
 
 const WalkoverHeader = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   let logoSrc = "https://cdn.clikkle.com/images/hr/logo/2023/hr.png",
     name = "Clikkle",
@@ -56,14 +57,29 @@ const WalkoverHeader = () => {
     setCurrentIndex((prevIndex) => prevIndex + 1);
   };
 
+  const handleGoToCheckout = () => {
+    navigate("/checkout");
+  };
+
   return (
-    <Box className="w-screen h-screen flex items-center justify-center relative overflow-hidden bg-white">
-      <Box className="absolute w-full h-full flex items-center justify-center">
+    <Box className="w-screen h-screen flex items-center justify-center overflow-x-hidden relative  bg-white">
+      <Box className="hidden sm:flex absolute w-full h-full flex items-center justify-center">
         <div className="absolute right-0 w-full h-full scale-125 bg-[#ebfbff] rounded-full transform translate-x-[76%]"></div>
       </Box>
-      <div className="z-10 flex  w-full h-full justify-between ">
-        <div className="w-1/2 pl-16 py-10">
-          <div className="flex items-center ">
+      <div className="z-10 flex sm:flex-row-reverse flex-col w-full h-full sm:justify-between">
+        <div className="py-10 px-6 text-right block  sm:hidden   ">Skip</div>
+        <div className="w-full h-1/3 sm:h-full sm:w-1/2 flex items-center justify-center">
+          <div className="w-4/6  sm:w-auto">
+            <img
+              className=" origin-center"
+              style={{ width: walkover[currentIndex].width }}
+              src={"/images/ASSETS/" + walkover[currentIndex].image}
+              alt={name}
+            />
+          </div>
+        </div>
+        <div className=" w-full h-1/2  sm:h-full sm:w-1/2 sm:pl-16 py-10">
+          <div className="hidden sm:flex items-center">
             <img className={`w-14 `} src={logoSrc} alt={name} />
             <h1
               className={`text-gray-400 mx-2 dark:text-white text-center align-middle sm:text-xl md:text-xl lg:text-xl font-normal text-sm`}
@@ -72,72 +88,78 @@ const WalkoverHeader = () => {
               Platform
             </h1>
           </div>
-          <div className="h-3/4   flex flex-col justify-end " >
-            <div className="">
-              <Typography variant="h3" gutterBottom>
-                {walkover[currentIndex].title}
-              </Typography>
+          <div className="h-[65%] sm:mt-0 mt-3 w-4/6 sm:w-full sm:text-left sm:pr-2 m-auto text-center flex flex-col sm:justify-end justify-center">
+            <div className="text-2xl sm:text-5xl">
+              {walkover[currentIndex].title}
             </div>
             <div className="my-5">
-              <div className="font-medium text-gray-500 text-xl">
+              <div className="font-medium text-gray-500 text-xs sm:text-xl">
                 {walkover[currentIndex].descriptions}
               </div>
             </div>
-            <div className="my-4">
-            {currentIndex === 3 && (
-              <Button
-                variant="contained"
-                sx={{ borderRadius: 3, px: 3, py: 1.5 }}
-              >
-                Get Started
-              </Button>
+
+          </div>  
+          {currentIndex === 3 && (
+              <div className=" flex justify-center mb-4 sm:hidden">
+                <Button
+                  className=" w-5/6  sm:w-2/6"
+                  onClick={handleGoToCheckout}
+                  variant="contained"
+                  sx={{ borderRadius: 3, px: 3, py: 1.5 }}
+                >
+                  Get Started
+                </Button>
+              </div>
             )}
-          </div>
-          </div>
-
-
-          <div className="flex mt-2 gap-4">
-            <div className="p-px w-fit h-fit rounded-full bg-gray-300">
-              <IconButton
-                onClick={handlePrev}
-                disabled={currentIndex === 0}
-                color="primary"
-                className="rounded-full"
-              >
-                <ArrowBackIos />
-              </IconButton>
+         
+          <div className="h-[30%] flex flex-row-reverse sm:flex-col justify-between ">
+            {currentIndex === 3 && (
+              <div className="hidden sm:block">
+                <Button
+                  className="mb-2 w-2/6"
+                  onClick={handleGoToCheckout}
+                  variant="contained"
+                  sx={{ borderRadius: 3, px: 3, py: 1.5 }}
+                >
+                  Get Started
+                </Button>
+              </div>
+            )}
+            <div className="flex mt-2 gap-4">
+              <div className="p-px w-fit h-fit rounded-full bg-gray-300">
+                <IconButton
+                  onClick={handlePrev}
+                  disabled={currentIndex === 0}
+                  color="primary"
+                  className="rounded-full"
+                >
+                  <ArrowBackIos />
+                </IconButton>
+              </div>
+              <div className="p-px w-fit h-fit rounded-full bg-gray-300">
+                <IconButton
+                  disabled={currentIndex === 3}
+                  onClick={handleNext}
+                  color="primary"
+                  className="rounded-full"
+                >
+                  <ArrowForwardIos />
+                </IconButton>
+              </div>
             </div>
-            <div className="p-px w-fit h-fit rounded-full bg-gray-300">
-              <IconButton
-                disabled={currentIndex === 3}
-                onClick={handleNext}
-                color="primary"
-                className="rounded-full"
-              >
-                <ArrowForwardIos />
-              </IconButton>
-            </div>
+            <Box className="flex mt-10">
+              {[0, 1, 2, 3].map((_, index) => (
+                <Box
+                  key={index}
+                  className={`mx-1 transition-all h-3 duration-300 ${
+                    currentIndex === index
+                      ? "w-8  bg-blue-500"
+                      : "w-3  bg-gray-300"
+                  } rounded-full`}
+                ></Box>
+              ))}
+            </Box>
           </div>
-          <Box className="flex mt-10">
-            {[0, 1, 2, 3].map((_, index) => (
-              <Box
-                key={index}
-                className={`mx-1 transition-all h-3 duration-300 ${
-                  currentIndex === index
-                    ? "w-8  bg-blue-500"
-                    : "w-3  bg-gray-300"
-                } rounded-full`}
-              ></Box>
-            ))}
-          </Box>
-        </div>
-        <div className="w-1/2 flex items-center justify-center">
-          <img
-            className={`my-auto origin-center`}
-            style={{ width: walkover[currentIndex].width }}
-            src={"/images/ASSETS/" + walkover[currentIndex].image}
-            alt={name}
-          />
         </div>
       </div>
     </Box>

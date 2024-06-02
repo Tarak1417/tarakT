@@ -48,14 +48,12 @@ import OnBoarding from './pages/Adarsh/OnBoarding';
 const App = () => {
     const location = useLocation();
 
-    const hideHeaderPaths = ['/walkover' ,'checkout']; // Add the paths where you want to hide the header
+    const hideHeaderPaths = ['/walkover' ,'/checkout']; // Add the paths where you want to hide the header
 
     const shouldHideHeader = hideHeaderPaths.includes(location.pathname);
 
     if (shouldHideHeader) {
-
         return (
-            
             <Routes>
                   <Route path='/walkover' element={<WalkoverHeader />} />
                 <Route path='/checkout' element={<OnBoarding />} />
