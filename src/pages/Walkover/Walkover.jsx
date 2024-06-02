@@ -13,30 +13,30 @@ let walkover = [
     title: "Effortless application Management",
     descriptions:
       "Track the progress of job applications from the issuance of offer letters to interview invitations ensuring a streamlined and organized hiring process",
-      width :500
-    },
+    width: 500,
+  },
 
   {
     image: "walkover2.png",
     title: "Precise Attendance Tracking",
     descriptions:
       "Clikkle HR allows you to effortlessly record daily attendance with detailed notes providing a comprehensive overview of employee activities",
-      width :500
-    },
+    width: 500,
+  },
   {
     image: "walkover3.png",
     title: "Dynamic Job List Creation and Editing",
     descriptions:
       "Create and edit job details effortlessly, ensuring that your team has access to the most up-to-date information for effective collaboration",
-      width :600
-    },
+    width: 600,
+  },
   {
     image: "walkover4.png",
     title: "  Recognition and Rewards",
     descriptions:
       " Recognize outstanding contributions and motivate your Workforce with a dedicated platform for acknowledging accomplishments",
-      width :600
-    },
+    width: 600,
+  },
 ];
 
 const WalkoverHeader = () => {
@@ -57,7 +57,7 @@ const WalkoverHeader = () => {
   };
 
   return (
-    <Box className="w-screen  flex items-center justify-center relative overflow-hidden bg-white">
+    <Box className="w-screen h-screen flex items-center justify-center relative overflow-hidden bg-white">
       <Box className="absolute w-full h-full flex items-center justify-center">
         <div className="absolute right-0 w-full h-full scale-125 bg-[#ebfbff] rounded-full transform translate-x-[76%]"></div>
       </Box>
@@ -65,7 +65,6 @@ const WalkoverHeader = () => {
         <div className="w-1/2 pl-16 py-10">
           <div className="flex items-center ">
             <img className={`w-14 `} src={logoSrc} alt={name} />
-
             <h1
               className={`text-gray-400 mx-2 dark:text-white text-center align-middle sm:text-xl md:text-xl lg:text-xl font-normal text-sm`}
             >
@@ -73,14 +72,18 @@ const WalkoverHeader = () => {
               Platform
             </h1>
           </div>
-
-          <div className="mt-44">
-            <Typography variant="h3" gutterBottom>{walkover[currentIndex].title}</Typography>
-          </div>
-          <div className="my-5">
-            <div className="font-medium text-gray-500 text-xl">{walkover[currentIndex].descriptions}</div>
-          </div>
-          <div className="my-8">
+          <div className="h-3/4   flex flex-col justify-end " >
+            <div className="">
+              <Typography variant="h3" gutterBottom>
+                {walkover[currentIndex].title}
+              </Typography>
+            </div>
+            <div className="my-5">
+              <div className="font-medium text-gray-500 text-xl">
+                {walkover[currentIndex].descriptions}
+              </div>
+            </div>
+            <div className="my-4">
             {currentIndex === 3 && (
               <Button
                 variant="contained"
@@ -90,6 +93,8 @@ const WalkoverHeader = () => {
               </Button>
             )}
           </div>
+          </div>
+
 
           <div className="flex mt-2 gap-4">
             <div className="p-px w-fit h-fit rounded-full bg-gray-300">
@@ -129,8 +134,8 @@ const WalkoverHeader = () => {
         <div className="w-1/2 flex items-center justify-center">
           <img
             className={`my-auto origin-center`}
-            style={{ width :walkover[currentIndex].width }}
-            src= {"/images/ASSETS/" + walkover[currentIndex].image}
+            style={{ width: walkover[currentIndex].width }}
+            src={"/images/ASSETS/" + walkover[currentIndex].image}
             alt={name}
           />
         </div>
