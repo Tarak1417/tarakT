@@ -42,20 +42,23 @@ import OverTime from './pages/Projects/OverTimeCalender';
 import OverViewCalender from './pages/Projects/OverViewCalender';
 import ViewProject from './pages/Projects/ViewProject';
 import Calender from './pages/Projects/Calender';
+import OnBoarding from './pages/Adarsh/OnBoarding';
 
 
 const App = () => {
     const location = useLocation();
 
-    const hideHeaderPaths = ['/walkover']; // Add the paths where you want to hide the header
+    const hideHeaderPaths = ['/walkover' ,'checkout']; // Add the paths where you want to hide the header
 
     const shouldHideHeader = hideHeaderPaths.includes(location.pathname);
 
     if (shouldHideHeader) {
 
         return (
+            
             <Routes>
-                <Route path='/walkover' element={<WalkoverHeader />} />
+                  <Route path='/walkover' element={<WalkoverHeader />} />
+                <Route path='/checkout' element={<OnBoarding />} />
             </Routes>
         )
     }
