@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Card,
@@ -14,48 +14,87 @@ import {
   ListItemText,
   Divider,
   Grid,
+  Alert,
+  AlertTitle,
+  Stack,
+  Snackbar,
 } from "@mui/material";
 
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import MoreTimeIcon from "@mui/icons-material/MoreTime";
+import { loadStripe } from "@stripe/stripe-js";
+import {
+  CardCvcElement,
+  CardElement,
+  CardExpiryElement,
+  CardNumberElement,
+  Elements,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
+import axios from "axios";
+import useSnack from "../../hooks/useSnack";
 // import TaskAltIcon from '@mui/icons-material/CheckCircleOutline';
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     // maxWidth: 300,
-//     padding: "1rem",
-//   },
-//   title: {
-//     fontSize: "1rem",
-//     fontWeight: "900",
-//     marginTop: "1rem",
-//     marginBottom: ".3rem",
-//   },
-//   actionArea: {
-//     backgroundColor: theme.palette.primary.main,
-//     borderRadius: "0 0 4px 4px",
-//     padding: theme.spacing(2),
-//   },
-//   textField: {
-//     "& .MuiOutlinedInput-root": {
-//       borderRadius: 4,
-//       // border: "0.5px solid black",
-//     },
-//   },
-//   buttonContainer: {
-//     display: "flex",
-//     justifyContent: "flex-end",
-//     marginTop: theme.spacing(2),
-//   },
-//   listItem: {
-//     padding: "0 0 30px 0",
-//   },
-// }));
 
 const CardSection = () => {
   // const classes = useStyles();
+  // const { SnackBar, showMessage } = useSnack();
+  const [name, setName] = useState("");
+  const [showMessage, setShowMessage] = useState({ show: true, message :"" ,  severity:""});
+
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // showMessage(`Offer letter successfully send to ${handlers.values.nameOfEmployee}`);
+    if (!stripe || !elements) {
+      return;
+    }
+
+    const cardElement = elements.getElement(CardNumberElement);
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: cardElement,
+      billing_details: {
+        name: "Name ",
+        address: {
+          postal_code: "Zip",
+        },
+      },
+    });
+
+    if (error) {
+      setShowMessage({show: true, message :"Error creating payment " ,  severity:"error"}) 
+      console.error("Error creating payment method:", error);
+    } else {
+      try {
+        const response = await axios.post(`/hr/payment/subscriptions`, {
+          name,
+          email: "yogeshPawar123@gmail.com",
+          paymentMethod: paymentMethod.id,
+        });
+
+        if (response.ok) {
+          let data = response.json();
+          setShowMessage({show: true, message :"Subscribe Successfully" ,  severity:"success"}) 
+          console.log("Payment method created:", data);
+        }
+      } catch (e) {
+        console.log("Payment method created:", e);
+        setShowMessage({ show: true, message :"Error creating Subscriptions " ,  severity:"error"}) 
+      }
+      console.log("Payment method created:", paymentMethod);
+      // You can use paymentMethod.id to complete the payment
+    }
+  };
+  const handleClose = (event, ) => {
+    setShowMessage({ show: false, message :" " ,  severity:""})
+
+  };
 
   return (
     <Box
@@ -65,6 +104,17 @@ const CardSection = () => {
         margin: "2rem",
       }}
     >
+      <Snackbar open={showMessage.show} autoHideDuration={4000}  onClose={handleClose}>
+        <Alert severity={showMessage.severity}   
+        variant="filled"
+        sx={{ width: '100%' }}
+        anchorOrigin={{vertical: 'top', horizontal: 'left' }}
+        >
+          <AlertTitle>  {showMessage.severity}</AlertTitle>
+         {showMessage.message}
+        </Alert>
+      </Snackbar>
+
       <Grid
         container
         sx={{
@@ -104,10 +154,7 @@ const CardSection = () => {
                   }}
                 />
               </Box>
-              <div 
-               className="text-base font-black mt-4 mb-1"
-              
-              >
+              <div className="text-base font-black mt-4 mb-1">
                 <Typography variant="h6" component="h2">
                   Current Plan
                 </Typography>
@@ -251,6 +298,7 @@ const CardSection = () => {
           </Card>
         </Grid>
         {/* card two */}
+
         <Grid item md={4} lg={4}>
           <Card
             className="p-4"
@@ -260,8 +308,10 @@ const CardSection = () => {
             }}
           >
             <CardContent>
-              <Typography variant="h6" component="h2" 
-               className="text-base font-black mt-4 mb-1"
+              <Typography
+                variant="h6"
+                component="h2"
+                className="text-base font-black mt-4 mb-1"
               >
                 Billing Information
               </Typography>
@@ -275,6 +325,7 @@ const CardSection = () => {
                     Full Name on card
                     <TextField
                       // label="Full Name"
+                      onChange={(e) => setName(e.target.value)}
                       placeholder="Full Name"
                       fullWidth
                       variant="outlined"
@@ -283,30 +334,33 @@ const CardSection = () => {
                   </Grid>
                   <Grid item xs={12}>
                     Card Number
-                    <TextField
+                    <CardNumberElement className="border border-zinc-300 p-4 hover:border-2 hover:border-blue-500" />
+                    {/* <TextField
                       placeholder="Card Number"
                       fullWidth
                       variant="outlined"
                       className=""
-                    />
+                    /> */}
                   </Grid>
                   <Grid item xs={4}>
                     Expiration Date
-                    <TextField
+                    <CardExpiryElement className="border border-zinc-300 p-4 hover:border-2 hover:border-blue-500 " />
+                    {/* <TextField
                       placeholder="01/09"
                       fullWidth
                       variant="outlined"
                       className=""
-                    />
+                    /> */}
                   </Grid>
                   <Grid item xs={4}>
                     CVV
-                    <TextField
+                    <CardCvcElement className=" leading-3 border border-zinc-300 p-4 hover:border-2 hover:border-blue-500" />
+                    {/* <TextField
                       placeholder="123"
                       fullWidth
                       variant="outlined"
                       className=""
-                    />
+                    /> */}
                   </Grid>
                   <Grid item xs={4}>
                     Billing Zip Code
@@ -333,8 +387,9 @@ const CardSection = () => {
                   textAlign: "center",
                 }}
               >
-                <Button  
-                className="bg-[#fff]"
+                <Button
+                  onClick={handleSubmit}
+                  className="bg-[#fff]"
                   sx={{
                     color: "custom.menu",
                     width: "100%",
@@ -347,6 +402,7 @@ const CardSection = () => {
             </CardContent>
           </Card>
         </Grid>
+
         {/* card three */}
         <Grid item md={4} lg={4}>
           <Card
@@ -357,8 +413,10 @@ const CardSection = () => {
             }}
           >
             <CardContent>
-              <Typography variant="h6" component="h2" 
-               className="text-base font-black mt-4 mb-1"
+              <Typography
+                variant="h6"
+                component="h2"
+                className="text-base font-black mt-4 mb-1"
               >
                 How your free trial works
               </Typography>
@@ -368,10 +426,7 @@ const CardSection = () => {
                 }}
               >
                 <List>
-                  <ListItem
-                     className="pb-7"
-                    sx={{ marginBottom: "10px" }}
-                  >
+                  <ListItem className="pb-7" sx={{ marginBottom: "10px" }}>
                     <ListItemIcon>
                       <TaskAltIcon sx={{ fontSize: "2rem" }} color="primary" />
                     </ListItemIcon>
@@ -381,10 +436,7 @@ const CardSection = () => {
                       secondary="You successfully created your free account."
                     />
                   </ListItem>
-                  <ListItem
-                     className="pb-7"
-                    sx={{ marginBottom: "10px" }}
-                  >
+                  <ListItem className="pb-7" sx={{ marginBottom: "10px" }}>
                     <ListItemIcon>
                       <VpnKeyOutlinedIcon
                         sx={{ fontSize: "2rem" }}
@@ -396,10 +448,7 @@ const CardSection = () => {
                       secondary="Get instant access to all our packages and enjoy the seamless flows and interactions."
                     />
                   </ListItem>
-                  <ListItem
-                     className="pb-7"
-                    sx={{ marginBottom: "10px" }}
-                  >
+                  <ListItem className="pb-7" sx={{ marginBottom: "10px" }}>
                     <ListItemIcon>
                       <MoreTimeIcon sx={{ fontSize: "2rem" }} color="primary" />
                     </ListItemIcon>
@@ -408,10 +457,7 @@ const CardSection = () => {
                       secondary="We'll send you an email/notification 3 days before billing. Cancel anytime :)"
                     />
                   </ListItem>
-                  <ListItem
-                     className="pb-7"
-                    sx={{ marginBottom: "10px" }}
-                  >
+                  <ListItem className="pb-7" sx={{ marginBottom: "10px" }}>
                     <ListItemIcon>
                       <AutoAwesomeIcon
                         sx={{ fontSize: "2rem" }}
