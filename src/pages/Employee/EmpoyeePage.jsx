@@ -98,9 +98,9 @@ const EmployeePage = () => {
                             <h1 className="text-2xl text-neutral-500">Employees</h1>
                         </div>
                         <div className="flex flex-row items-center justify-center gap-4">
-                            {/* <button className='flex  items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                            <button className='flex  items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
                                 Add New Employee
-                            </button> */}
+                            </button>
                             <InfoOutlinedIcon />
                         </div>
                     </div>

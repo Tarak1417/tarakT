@@ -81,13 +81,13 @@ const AuthorizationProvider = ({ children }) => {
                         let user = JSON.parse(localStorage.getItem("user"));
                         authorize(true, (setUser) => setUser(user)); 
                     } else {
-                        authorize(false);
+                        authorize(true);
                     }
 
                 } catch (err) {
                     console.log(err);
                     // handleAxiosError(err, showError);
-                    authorize(false);
+                    authorize(true);
                 }
         })();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps

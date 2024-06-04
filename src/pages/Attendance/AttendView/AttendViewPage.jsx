@@ -81,23 +81,9 @@ const AttendViewPage = ({ month, year }) => {
    
     return (
         <Box sx={{backgroundColor: 'background.main',}}>
-        <div className='flex flex-col'>
-                <div className="flex items-center justify-between md:w-full p-4">
-                        <div className="p-2">
-                            <h1 className="text-xs md:text-2xl text-neutral-500">Attendance View</h1>
-                        </div>
-                        <div className="flex flex-row items-center justify-center gap-4">
-                            <button className='flex  items-center text-white font-bold text-[8px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
-                                Mark Attendance
-                            </button>
-                            <InfoOutlinedIcon />
-                        </div>
-                    </div>
-            </div>
+     
             <Box className="w-full ml-2 md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
-                        <p className=" mb-4 border-l-4 border-blue-500 pl-4 text-xl" gutterBottom>
-                            Days Overview This Month
-                        </p>
+                        
                 <div className='flex flex-col md:flex-row items-center justify-start ml-10 gap-14 md:pt-4 md:w-full pb-10'>
                     <div className='flex flex-col justify-center items-center gap-2'>
                         <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-neutral-800 text-[16px] text-blue-700'>31</div>
