@@ -18,6 +18,8 @@ import {
   AlertTitle,
   Stack,
   Snackbar,
+  ToggleButtonGroup,
+  ToggleButton,
 } from "@mui/material";
 
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
@@ -36,18 +38,33 @@ import {
 } from "@stripe/react-stripe-js";
 import axios from "axios";
 import useSnack from "../../hooks/useSnack";
+import { useNavigate } from "react-router-dom";
 // import TaskAltIcon from '@mui/icons-material/CheckCircleOutline';
 
 const CardSection = () => {
   // const classes = useStyles();
   // const { SnackBar, showMessage } = useSnack();
+  const [plan, setPlan] = React.useState('Private Plan');
   const [name, setName] = useState("");
-  const [showMessage, setShowMessage] = useState({ show: true, message :"" ,  severity:""});
+  const [showMessage, setShowMessage] = useState({
+    show: true,
+    message: "",
+    severity: "",
+  });
+  const navigate = useNavigate();
 
   const stripe = useStripe();
   const elements = useElements();
 
   const handleSubmit = async (event) => {
+    setShowMessage({
+      show: true,
+      message: "Subscribe Successfully",
+      severity: "success",
+    });
+    setTimeout(()=>{
+      navigate("/");
+    },[4000])
     event.preventDefault();
     // showMessage(`Offer letter successfully send to ${handlers.values.nameOfEmployee}`);
     if (!stripe || !elements) {
@@ -67,8 +84,13 @@ const CardSection = () => {
       },
     });
 
+
     if (error) {
-      setShowMessage({show: true, message :"Error creating payment " ,  severity:"error"}) 
+      setShowMessage({
+        show: true,
+        message: "Error creating payment ",
+        severity: "error",
+      });
       console.error("Error creating payment method:", error);
     } else {
       try {
@@ -80,20 +102,30 @@ const CardSection = () => {
 
         if (response.ok) {
           let data = response.json();
-          setShowMessage({show: true, message :"Subscribe Successfully" ,  severity:"success"}) 
+          setShowMessage({
+            show: true,
+            message: "Subscribe Successfully",
+            severity: "success",
+          });
           console.log("Payment method created:", data);
         }
       } catch (e) {
         console.log("Payment method created:", e);
-        setShowMessage({ show: true, message :"Error creating Subscriptions " ,  severity:"error"}) 
+        setShowMessage({
+          show: true,
+          message: "Error creating Subscriptions ",
+          severity: "error",
+        });
       }
       console.log("Payment method created:", paymentMethod);
       // You can use paymentMethod.id to complete the payment
     }
   };
-  const handleClose = (event, ) => {
-    setShowMessage({ show: false, message :" " ,  severity:""})
-
+  const handleClose = (event) => {
+    setShowMessage({ show: false, message: " ", severity: "" });
+  };
+  const handlePlanChange = (event, newPlan) => {
+    setPlan(newPlan);
   };
 
   return (
@@ -104,14 +136,19 @@ const CardSection = () => {
         margin: "2rem",
       }}
     >
-      <Snackbar open={showMessage.show} autoHideDuration={4000}  onClose={handleClose}>
-        <Alert severity={showMessage.severity}   
-        variant="filled"
-        sx={{ width: '100%' }}
-        anchorOrigin={{vertical: 'top', horizontal: 'left' }}
+      <Snackbar
+        open={showMessage.show}
+        autoHideDuration={4000}
+        onClose={handleClose}
+      >
+        <Alert
+          severity={showMessage.severity}
+          variant="filled"
+          sx={{ width: "100%" }}
+          anchorOrigin={{ vertical: "top", horizontal: "left" }}
         >
-          <AlertTitle>  {showMessage.severity}</AlertTitle>
-         {showMessage.message}
+          <AlertTitle> {showMessage.severity}</AlertTitle>
+          {showMessage.message}
         </Alert>
       </Snackbar>
 
@@ -134,33 +171,32 @@ const CardSection = () => {
             }}
           >
             <CardContent>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  width: "100%",
-                }}
+              <ToggleButtonGroup
+                orientation="vertical"
+                color="primary"
+                value={plan}
+                exclusive
+                aria-label="Platform"
+                onChange={handlePlanChange}
               >
-                <Tab
-                  label="current Plan"
-                  sx={{
-                    border: "1px solid #000",
-                  }}
-                />
-                <Tab
-                  label="clikkle Plus"
-                  sx={{
-                    border: "1px solid #000",
-                  }}
-                />
-              </Box>
+                <div>
+                  <ToggleButton value="Current Plan">Current </ToggleButton>
+                  <ToggleButton value="Private Plan">Private </ToggleButton>
+                  <ToggleButton value="Business Plan">Business </ToggleButton>
+                </div>
+                <div>
+                  <ToggleButton value="Enterprise Plan"> Enterprise  </ToggleButton>
+                  <ToggleButton value="clikkle Plus">clikkle Plus</ToggleButton>
+                </div>
+              </ToggleButtonGroup>
+
               <div className="text-base font-black mt-4 mb-1">
                 <Typography variant="h6" component="h2">
-                  Current Plan
+                Private Plan
                 </Typography>
               </div>
               <Typography variant="body2" color="textSecondary" gutterBottom>
-                7 days free trial, then $50/month
+                7 days free trial, then $49/month
               </Typography>
               <Typography
                 variant="body1"
@@ -342,7 +378,7 @@ const CardSection = () => {
                       className=""
                     /> */}
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={6} md={4}>
                     Expiration Date
                     <CardExpiryElement className="border border-zinc-300 p-4 hover:border-2 hover:border-blue-500 " />
                     {/* <TextField
@@ -352,7 +388,7 @@ const CardSection = () => {
                       className=""
                     /> */}
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={6} md={4}>
                     CVV
                     <CardCvcElement className=" leading-3 border border-zinc-300 p-4 hover:border-2 hover:border-blue-500" />
                     {/* <TextField
@@ -362,7 +398,7 @@ const CardSection = () => {
                       className=""
                     /> */}
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid item xs={12} md={4}>
                     Billing Zip Code
                     <TextField
                       placeholder="411047"

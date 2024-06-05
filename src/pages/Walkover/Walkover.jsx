@@ -62,16 +62,16 @@ const WalkoverHeader = () => {
   };
 
   return (
-    <Box className="w-screen h-screen flex items-center justify-center overflow-x-hidden relative  bg-white">
+    <Box sx={{ backgroundColor: 'background.main', }} className="w-screen h-screen flex items-center justify-center overflow-x-hidden relative  ">
       <Box className="hidden sm:flex absolute w-full h-full flex items-center justify-center">
         <div className="absolute right-0 w-full h-full scale-125 bg-[#ebfbff] rounded-full transform translate-x-[76%]"></div>
       </Box>
       <div className="z-10 flex sm:flex-row-reverse flex-col w-full h-full sm:justify-between">
-        <div className="py-10 px-6 text-right block  sm:hidden   ">Skip</div>
+        <div className="py-10 px-6 text-right block sm:hidden">Skip</div>
         <div className="w-full h-1/3 sm:h-full sm:w-1/2 flex items-center justify-center">
-          <div className="w-4/6  sm:w-auto">
+          <div className="w-4/6 sm:w-auto">
             <img
-              className=" origin-center"
+              className="origin-center"
               style={{ width: walkover[currentIndex].width }}
               src={"/images/ASSETS/" + walkover[currentIndex].image}
               alt={name}

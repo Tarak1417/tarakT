@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import './utilities/axios';
 import Header from './components/Header';
 import Home from './pages/Home';
@@ -43,21 +43,49 @@ import OverViewCalender from './pages/Projects/OverViewCalender';
 import ViewProject from './pages/Projects/ViewProject';
 import Calender from './pages/Projects/Calender';
 import OnBoarding from './pages/Adarsh/OnBoarding';
+import AuthorizationProvider from './hooks/Authorize';
+import ThemeContextProvider, { useTheme } from './style/theme';
+
 
 
 const App = () => {
     const location = useLocation();
+    const navigate = useNavigate();
+    const { toggleTheme } = useTheme();
 
-    const hideHeaderPaths = ['/walkover' ,'/checkout']; // Add the paths where you want to hide the header
+    const hideHeaderPaths = ['/walkover', '/checkout']; // Add the paths where you want to hide the header
 
-    const shouldHideHeader = hideHeaderPaths.includes(location.pathname);
+    let shouldHideHeader = hideHeaderPaths.includes(location.pathname);
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const data = {
+            amount: queryParams.get('amount'),
+            period: queryParams.get('period'),
+            theme: queryParams.get('theme'),
+        };
+        console.log(data)
+
+        if (data.theme === 'dark') {
+           toggleTheme();
+        }
+        if (data.amount !== null || data.period !== null) {
+            shouldHideHeader = true;
+            navigate("/walkover");
+        }
+
+    }, []);
 
     if (shouldHideHeader) {
         return (
-            <Routes>
-                  <Route path='/walkover' element={<WalkoverHeader />} />
-                <Route path='/checkout' element={<OnBoarding />} />
-            </Routes>
+            <ThemeContextProvider>
+                <AuthorizationProvider>
+                    <Routes>
+                        <Route path='/walkover' element={<WalkoverHeader />} />
+                        <Route path='/checkout' element={<OnBoarding />} />
+                    </Routes>
+                </AuthorizationProvider>
+            </ThemeContextProvider>
         )
     }
 
@@ -109,18 +137,18 @@ const App = () => {
                     <Route path='/leaveapplication/view' element={<LeaveViewHome />} />
                     <Route path='rulesandregulations' element={<RuleAndRegulations />} />
 
-                    <Route path='/dashboardproject' element={<Dashboard/>} />
-                <Route path='/newProject' element={<NewProject/>} />
-                <Route path='/OverTime' element={<OverTime/>} />
-                <Route path='/OverViewCalender' element={<OverViewCalender/>} />
-                <Route path='/ViewProject' element={<ViewProject/>} />
-                <Route path='/calender' element={<Calender/>} />
+                    <Route path='/dashboardproject' element={<Dashboard />} />
+                    <Route path='/newProject' element={<NewProject />} />
+                    <Route path='/OverTime' element={<OverTime />} />
+                    <Route path='/OverViewCalender' element={<OverViewCalender />} />
+                    <Route path='/ViewProject' element={<ViewProject />} />
+                    <Route path='/calender' element={<Calender />} />
                 </Routes>
             </Header>
             <Footer />
-            
-            
-        <Footer/>
+
+
+            <Footer />
         </>
     );
 };
