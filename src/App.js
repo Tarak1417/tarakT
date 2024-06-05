@@ -81,7 +81,6 @@ const App = () => {
             <ThemeContextProvider>
                 <AuthorizationProvider>
                     <Routes>
-                        <Route path='/' element={<WalkoverHeader />} />
                         <Route path='/walkover' element={<WalkoverHeader />} />
                         <Route path='/checkout' element={<OnBoarding />} />
                     </Routes>
