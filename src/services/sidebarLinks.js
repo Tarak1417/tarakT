@@ -110,27 +110,27 @@ const menuItems = [
             {
                 label: 'Dashboard',
                 icon: <Attend />,
-                to: '/dashboardproject',
+                to: '/employees/award',
             },
             {
                 label: 'Project List',
                 icon: <Leave/>,
-                to: '/OverViewCalender',
+                to: '/employees/award',
             },
             {
                 label: 'View Project',
                 icon: <Download/>,
-                to: '/ViewProject',
+                to: '/employees/award',
             },
             {
                 label: 'Overview Calendar',
                 icon: <Person/>,
-                to: '/OverTime',
+                to: '/employees/award',
             },
             {
                 label: 'New Project',
                 icon: <Person/>,
-                to: '/newProject',
+                to: '/employees/award',
             },
            
         ],
