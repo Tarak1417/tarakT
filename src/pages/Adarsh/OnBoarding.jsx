@@ -7,11 +7,11 @@ import { CssBaseline } from "@mui/material";
 
 const OnBoarding = () => {
   return (
-    <ThemeContextProvider>
+    <>
       <CssBaseline />
       <Nav />
       <TabsSection />
-    </ThemeContextProvider>
+    </>
   );
 };
 

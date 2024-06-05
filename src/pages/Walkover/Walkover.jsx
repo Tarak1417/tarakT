@@ -62,7 +62,7 @@ const WalkoverHeader = () => {
   };
 
   return (
-    <Box className="w-screen h-screen flex items-center justify-center overflow-x-hidden relative  bg-white">
+    <Box className="w-screen h-screen flex items-center justify-center overflow-x-hidden relative  bg-white ">
       <Box className="hidden sm:flex absolute w-full h-full flex items-center justify-center">
         <div className="absolute right-0 w-full h-full scale-125 bg-[#ebfbff] rounded-full transform translate-x-[76%]"></div>
       </Box>
