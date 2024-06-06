@@ -38,8 +38,11 @@ const ThemeContextProvider = props => {
                 box: '#F7F9FC',
                 view: '#f4f4f5',
                 rec:'#fff',
-                bond:'#f8fafc'
+                bond:'#f8fafc',
+                card: "#fff",
                
+                cardView: "#e3f2fd",
+                activeTab: "#bbdefb",
             },
             text: {
 
@@ -70,7 +73,11 @@ const ThemeContextProvider = props => {
                 box: '#000000',
                 view: '#171717',
                 rec:'#000',
-                bond:'#262626'
+                bond:'#262626',
+                card: "#1976d2",
+
+                cardView: "#171717",
+                activeTab: "#171717",
             },
             text: {
                 secondary: '#818991',
