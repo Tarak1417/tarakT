@@ -85,7 +85,6 @@ const WalkoverHeader = () => {
               className={`text-gray-400 mx-2 dark:text-white text-center align-middle sm:text-xl md:text-xl lg:text-xl font-normal text-sm`}
             >
               <span className="text-gray-500 font-medium"> Clikkle </span> Hr
-              Platform
             </h1>
           </div>
           <div className="h-[65%] sm:mt-0 mt-3 w-4/6 sm:w-full sm:text-left sm:pr-2 m-auto text-center flex flex-col sm:justify-end justify-center">

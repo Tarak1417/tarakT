@@ -1,40 +1,39 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
+import * as React from "react";
+import PropTypes from "prop-types";
 import {
-    AppBar,
-    Box,
-    CssBaseline,
-    Divider,
-    Drawer,
-    IconButton,
-    List,
-    Stack,
-    Grid,
-    ListItem,
-    ListItemButton,
-    ListItemText,
-    Toolbar,
-    Typography,
-    Button,
-    Tooltip,
-    Avatar,
-    Menu,
-    MenuItem,
-    ListItemIcon,
-
-} from '@mui/material';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import AppsIcon from '@mui/icons-material/Apps';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import MenuIcon from '@mui/icons-material/Menu';
-import { useMenu } from '../../hooks/useMenu';
-import { useTheme } from '../../style/theme';
-import SettingsIcon from '@mui/icons-material/SettingsOutlined';
-
+  AppBar,
+  Box,
+  CssBaseline,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  Stack,
+  Grid,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Toolbar,
+  Typography,
+  Button,
+  Tooltip,
+  Avatar,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+} from "@mui/material";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import AppsIcon from "@mui/icons-material/Apps";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useMenu } from "../../hooks/useMenu";
+import { useTheme } from "../../style/theme";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import HelpCenterOutlinedIcon from "@mui/icons-material/HelpCenterOutlined";
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Contact'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const navItems = ["Home", "About", "Contact"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 function Nav(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -60,18 +59,21 @@ function Nav(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const { anchorEl: anchorElApps, openMenu: openAppsMenu, closeMenu: closeAppsMenu } = useMenu();
-
+  const {
+    anchorEl: anchorElApps,
+    openMenu: openAppsMenu,
+    closeMenu: closeAppsMenu,
+  } = useMenu();
 
   const {
     anchorEl: anchorElSettings,
     openMenu: openSettingsMenu,
     closeMenu: closeSettingsMenu,
-} = useMenu();
-const { toggleTheme, mode } = useTheme();
+  } = useMenu();
+  const { toggleTheme, mode } = useTheme();
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', }}>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
         MUI
       </Typography>
@@ -79,7 +81,7 @@ const { toggleTheme, mode } = useTheme();
       <List>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
+            <ListItemButton sx={{ textAlign: "center" }}>
               <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
@@ -88,80 +90,96 @@ const { toggleTheme, mode } = useTheme();
     </Box>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' ,}}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar component="nav"
-      sx={{
-        backgroundColor: 'background.view', 
-      }}
+      <AppBar
+        className="px-0 sm:px-12"
+        component="nav"
+        sx={{ backgroundColor: "background.default" }}
       >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Box
+            sx={{
+              display: "flex",
+            }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } ,color:"text.secondary"}}
+            <div className="flex items-center">
+              <img
+                className={`w-10 sm:w-14 `}
+                src="https://cdn.clikkle.com/images/hr/logo/2023/hr.png"
+                alt="clikkle"
+              />
+              <h1
+                className={`text-gray-400 mx-2 dark:text-white text-center align-middle sm:text-xl md:text-xl lg:text-xl font-normal text-sm`}
+              >
+                <span className="text-gray-500 font-medium"> Clikkle </span> Hr
+              </h1>
+            </div>
+          </Box>
+          <Box
+            sx={{
+              display:"flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
           >
-            LOGO
-          </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' }, }}>
             {/* {navItems.map((item) => (
               <Button key={item} sx={{ color: '#000' }}>
                 {item}
               </Button>
             ))} */}
-             <IconButton onClick={openSettingsMenu}
-             sx={{
-              margin:".7rem"
-             }}
-             >
-                                    <SettingsIcon />
-                                </IconButton>
-                                <Menu
-                                    anchorEl={anchorElSettings}
-                                    open={Boolean(anchorElSettings)}
-                                    onClose={closeSettingsMenu}>
-                                    <MenuItem onClick={toggleTheme}>
-                                        <ListItemIcon>
-                                            {mode === 'dark' ? (
-                                                <LightModeIcon fontSize='small' />
-                                            ) : (
-                                                <DarkModeIcon fontSize='small' />
-                                            )}
-                                        </ListItemIcon>
-                                        Appearance
-                                    </MenuItem>
-                                </Menu>
+
+            <AppsIcon
+              sx={{  display : { xs: 'block' , sm:'none'}   }}
+              className="mx-1"
+              fontSize="large"
+              color="action"
+            />
 
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu}  sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="../../components/images/hr-text.png" />
-            
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar
+                  alt="Remy Sharp"
+                  src="../../components/images/hr-text.png"
+                />
               </IconButton>
             </Tooltip>
+
+
+
+            <Typography
+              sx={{  display : { xs: 'none' , sm:'block'} , color: "text.secondary", marginLeft: 1 , color:"#424242"  }}
+              textAlign="center"
+            >
+              Remy Sharp
+            </Typography>
+            <ArrowForwardIosIcon
+              sx={{  display : { xs: 'none' , sm:'block'}   }}
+
+              className="mx-4"
+              fontSize="small"
+              color="action"
+            />
+
+            <HelpCenterOutlinedIcon  
+              sx={{  display : { xs: 'none' , sm:'block'}   }}
+            color="action" />
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
@@ -185,14 +203,16 @@ const { toggleTheme, mode } = useTheme();
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
           }}
         >
           {drawer}
         </Drawer>
       </nav>
-     
     </Box>
   );
 }

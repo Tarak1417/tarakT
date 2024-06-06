@@ -31,7 +31,8 @@ const TabSection = () => {
           sx={{
             display: "flex",
             justifyContent: "center",
-            width: "100%",
+            width: { xs: "60%"  ,  sm:"100%" }  ,
+            margin:"auto"
           }}
         >
           <Tab
@@ -58,7 +59,7 @@ const TabSection = () => {
           />
         </Box>
         <Box sx={{ textAlign: "center", marginTop: ".7rem" }}>
-          <Typography sx={{ fontWeight: "600", fontSize: "1.1rem" }}>
+          <Typography sx={{ fontWeight: "400", fontSize: { xs: "0.8rem"    ,  sm:"1.2rem" } ,  paddingX :{ xs: 4  ,  sm:0 }  , color:"#616161" }}>
             Kindly add your payment details to begin the free trial. <br /> You
             can cancel anytime before the free trial ends to avoid being
             charged.

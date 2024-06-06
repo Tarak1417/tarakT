@@ -44,7 +44,7 @@ import { useNavigate } from "react-router-dom";
 const CardSection = () => {
   // const classes = useStyles();
   // const { SnackBar, showMessage } = useSnack();
-  const [plan, setPlan] = React.useState('Private Plan');
+  const [plan, setPlan] = React.useState("Current Plan");
   const [name, setName] = useState("");
   const [showMessage, setShowMessage] = useState({
     show: true,
@@ -62,9 +62,9 @@ const CardSection = () => {
       message: "Subscribe Successfully",
       severity: "success",
     });
-    setTimeout(()=>{
+    setTimeout(() => {
       navigate("/");
-    },[4000])
+    }, [4000]);
     event.preventDefault();
     // showMessage(`Offer letter successfully send to ${handlers.values.nameOfEmployee}`);
     if (!stripe || !elements) {
@@ -83,7 +83,6 @@ const CardSection = () => {
         },
       },
     });
-
 
     if (error) {
       setShowMessage({
@@ -172,27 +171,19 @@ const CardSection = () => {
           >
             <CardContent>
               <ToggleButtonGroup
-                orientation="vertical"
                 color="primary"
                 value={plan}
                 exclusive
                 aria-label="Platform"
                 onChange={handlePlanChange}
               >
-                <div>
-                  <ToggleButton value="Current Plan">Current </ToggleButton>
-                  <ToggleButton value="Private Plan">Private </ToggleButton>
-                  <ToggleButton value="Business Plan">Business </ToggleButton>
-                </div>
-                <div>
-                  <ToggleButton value="Enterprise Plan"> Enterprise  </ToggleButton>
-                  <ToggleButton value="clikkle Plus">clikkle Plus</ToggleButton>
-                </div>
+                <ToggleButton className="py-3" value="Current Plan">Current </ToggleButton>
+                <ToggleButton className="py-3" value="Clikkle Plus">clikkle Plus</ToggleButton>
               </ToggleButtonGroup>
 
               <div className="text-base font-black mt-4 mb-1">
                 <Typography variant="h6" component="h2">
-                Private Plan
+                  {plan}
                 </Typography>
               </div>
               <Typography variant="body2" color="textSecondary" gutterBottom>
