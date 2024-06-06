@@ -110,27 +110,27 @@ const menuItems = [
             {
                 label: 'Dashboard',
                 icon: <Attend />,
-                to: '/employees/award',
+                to: '/dashboardproject',
             },
             {
                 label: 'Project List',
                 icon: <Leave/>,
-                to: '/employees/award',
+                to: '/OverViewCalender',
             },
             {
                 label: 'View Project',
                 icon: <Download/>,
-                to: '/employees/award',
+                to: '/ViewProject',
             },
             {
                 label: 'Overview Calendar',
                 icon: <Person/>,
-                to: '/employees/award',
+                to: '/OverTime',
             },
             {
                 label: 'New Project',
                 icon: <Person/>,
-                to: '/employees/award',
+                to: '/newProject',
             },
            
         ],
@@ -190,8 +190,32 @@ const menuItems = [
     {
         icon: <GroupsIcon fontSize='small' />,
         label: 'Support System',
-        to: 'supportsystems',
+        to: [
+            {
+                label: 'Landing Pages',
+                icon: <Attend />,
+                to: [
+                    {
+                        label: 'Landing Pages',
+                        icon: <Attend />,
+                        to: '',
+                    },
+                    {
+                        label: 'Knowledge Pages',
+                        icon: <Leave />,
+                        to: '',
+                    },
+                    {
+                        label: 'Knowledge View',
+                        icon: <Leave />,
+                        to: '',
+                    },
+                ],
+            },
+         
+        ],
     },
+    
     {
         icon: <GroupsIcon fontSize='small' />,
         label: 'Chat',

@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./utilities/axios";
 import Header from "./components/Header";
 import Home from "./pages/Home";
@@ -35,29 +35,34 @@ import JobApplicationDetail from "./pages/JobApplicationDetail";
 import Agreements from "./pages/Agreements";
 import OfferLetter from "./pages/OfferLatter";
 import RuleAndRegulations from "./pages/Rules&Regulations";
+import WalkoverHeader from "./pages/Walkover/Walkover";
 import Dashboard from "./pages/Projects/Dashboard";
 import NewProject from "./pages/Projects/NewProject";
 import OverTime from "./pages/Projects/OverTimeCalender";
 import OverViewCalender from "./pages/Projects/OverViewCalender";
 import ViewProject from "./pages/Projects/ViewProject";
-
-import Theme from "./pages/admin/Theme";
-import Ticket from "./pages/admin/Ticket";
-import Chat from "./pages/admin/Chat";
-import Emailsetting from "./pages/admin/Emailsetting";
-import Fileupload from "./pages/admin/Fileupload";
-import Customcssjs from "./pages/admin/Customcssjs";
-import Captcha from "./pages/admin/Captcha";
-import Notifications from "./pages/admin/Notifications";
-
-import Generalsettings from "./pages/admin/Generalsettings";
-import Paymentsetting from "./pages/admin/Paymentsetting";
-import Othersetting from "./pages/admin/Othersetting";
-import Apisetting from "./pages/admin/Apisetting";
-import Generalsettinghome from "./pages/admin/Generalsettinghome";
-import Rollaccess from "./pages/admin/Rollaccess";
+import Calender from "./pages/Projects/Calender";
+import TicketList from "./pages/Support_System/UserPage/Tikects/TicketList";
+import Profile from "./pages/Support_System/UserPage/profile/Profile";
+import DashBoard from "./pages/Support_System/UserPage/Dashboard/DashBoard";
+import Knowledgepage from "./pages/Support_System/LandingPages/Knowledgepage";
+import Knowledgeview from "./pages/Support_System/LandingPages/Knowledgeview";
 
 const App = () => {
+  const location = useLocation();
+
+  const hideHeaderPaths = ["/walkover"]; // Add the paths where you want to hide the header
+
+  const shouldHideHeader = hideHeaderPaths.includes(location.pathname);
+
+  if (shouldHideHeader) {
+    return (
+      <Routes>
+        <Route path="/walkover" element={<WalkoverHeader />} />
+      </Routes>
+    );
+  }
+
   return (
     <>
       <Header>
@@ -109,17 +114,22 @@ const App = () => {
           <Route path="/leaveapplication" element={<LeaveAppHome />} />
           <Route path="/leaveapplication/view" element={<LeaveViewHome />} />
           <Route path="rulesandregulations" element={<RuleAndRegulations />} />
+
           <Route path="/dashboardproject" element={<Dashboard />} />
           <Route path="/newProject" element={<NewProject />} />
           <Route path="/OverTime" element={<OverTime />} />
           <Route path="/OverViewCalender" element={<OverViewCalender />} />
           <Route path="/ViewProject" element={<ViewProject />} />
-
-          <Route path="/generalsettinghome" element={<Generalsettinghome />} />
-          <Route path="/rollaccess" element={<Rollaccess />} />
-          <Route path="/apisetting" element={<Apisetting />} />
+          <Route path="/calender" element={<Calender />} />
+          <Route path="/support/ticketlist" element={<TicketList />} />
+          <Route path="/support/profile" element={<Profile />} />
+          <Route path="/support/Dashboard" element={<DashBoard />} />
+          <Route path="/support/knowledgepage" element={<Knowledgepage />} />
+          <Route path="/support/knowledgeview" element={<Knowledgeview />} />
         </Routes>
       </Header>
+      <Footer />
+
       <Footer />
     </>
   );
