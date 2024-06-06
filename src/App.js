@@ -42,6 +42,11 @@ import OverTime from './pages/Projects/OverTimeCalender';
 import OverViewCalender from './pages/Projects/OverViewCalender';
 import ViewProject from './pages/Projects/ViewProject';
 import Calender from './pages/Projects/Calender';
+import DashBoard from './pages/Support_System/UserPage/Dashboard/DashBoard';
+import TicketList  from './pages/Support_System/UserPage/Tikects/TicketList';
+import Profile from './pages/Support_System/UserPage/profile/Profile'
+import Knowledgepage from './pages/Support_System/LandingPages/Knowledgepage';
+import Knowledgeview from './pages/Support_System/LandingPages/Knowledgeview';
 
 
 const App = () => {
@@ -122,6 +127,7 @@ const App = () => {
           <Route path="/support/ticketlist" element={<TicketList />} />
           <Route path="/support/profile" element={<Profile />} />
           <Route path="/support/Dashboard" element={<DashBoard />} />
+          
           <Route path="/support/knowledgepage" element={<Knowledgepage />} />
           <Route path="/support/knowledgeview" element={<Knowledgeview />} />
         </Routes>
