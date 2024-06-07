@@ -192,24 +192,31 @@ const menuItems = [
         label: 'Support System',
         to: [
             {
-                label: 'Landing Pages',
-                icon: <Attend />,
+                icon: <GroupsIcon fontSize='small' />,
+                label: 'Support System',
                 to: [
                     {
                         label: 'Landing Pages',
                         icon: <Attend />,
-                        to: '',
+                        to: [
+                            {
+                                label: 'Landing Pages',
+                                icon: <Attend />,
+                                to: '',
+                            },
+                            {
+                                label: 'Knowledge Pages',
+                                icon: <Leave />,
+                                to: '',
+                            },
+                            {
+                                label: 'Knowledge View',
+                                icon: <Leave />,
+                                to: '',
+                            },
+                        ],
                     },
-                    {
-                        label: 'Knowledge Pages',
-                        icon: <Leave />,
-                        to: '',
-                    },
-                    {
-                        label: 'Knowledge View',
-                        icon: <Leave />,
-                        to: '',
-                    },
+                 
                 ],
             },
          
