@@ -45,6 +45,8 @@ import Calender from './pages/Projects/Calender';
 import OnBoarding from './pages/Adarsh/OnBoarding';
 import AuthorizationProvider from './hooks/Authorize';
 import ThemeContextProvider, { useTheme } from './style/theme';
+import CreateOrganization from './pages/Organization/CreateOrganization';
+import ListOrganization from './pages/Organization/ListOrganization';
 
 
 
@@ -53,7 +55,7 @@ const App = () => {
     const navigate = useNavigate();
     const { toggleTheme } = useTheme();
 
-    const hideHeaderPaths = ['/walkover', '/checkout']; // Add the paths where you want to hide the header
+    const hideHeaderPaths = ['/walkover', '/checkout' ,'/createOrganization' ,'/listOrganization']; // Add the paths where you want to hide the header
 
     let shouldHideHeader = hideHeaderPaths.includes(location.pathname);
 
@@ -83,6 +85,8 @@ const App = () => {
                     <Routes>
                         <Route path='/walkover' element={<WalkoverHeader />} />
                         <Route path='/checkout' element={<OnBoarding />} />
+                        <Route path='/createOrganization' element={<CreateOrganization />} />
+                        <Route path='/listOrganization' element={<ListOrganization />} />
                     </Routes>
                 </AuthorizationProvider>
             </ThemeContextProvider>

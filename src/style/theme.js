@@ -82,7 +82,8 @@ const ThemeContextProvider = props => {
             text: {
                 secondary: '#818991',
                 one: '#57534e',
-                two:'#d1d5db'
+                two:'#d1d5db',
+                three : "#a8a29e"
             },
             divider: '#424242',
             custom: {
