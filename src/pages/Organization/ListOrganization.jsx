@@ -31,7 +31,7 @@ const ListOrganization = () => {
     return { name, calories, fat, carbs, protein };
   }
 
-  const rows = [];
+  const rows = [createData("test" , "Active" , "edit ")];
 
   return (
     <Box
@@ -53,17 +53,16 @@ const ListOrganization = () => {
           variant="h4"
           sx={{ marginTop: ".2rem", marginBottom: 5, color: "text.three" }}
         >
-          0
+          {rows.length}
         </Typography>
       </Box>
       <TableContainer
         component={Paper}
-        sx={{ backgroundColor: "background.main" }}
+        sx={{ backgroundColor: "background.main" ,  minHeight: 330,}}
       >
         <Table
           sx={{
             minWidth: 650,
-            minHeight: 330,
             backgroundColor: "background.main",
           }}
           aria-label="simple table"

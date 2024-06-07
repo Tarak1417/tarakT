@@ -12,14 +12,21 @@ import {
   Input,
   TextField,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 // Tabs Section
 const CreateOrganization = () => {
-  const [activeTab, setActiveTab] = useState(1); // Start with the second tab active
+  const [organizationName, setOrganizationName] = useState(''); // Start with the second tab active
+  const navigate = useNavigate();
 
-  const handleTabChange = (event, newValue) => {
-    setActiveTab(newValue);
+  const handleOrganizationChange = (event, newValue) => {
+    setOrganizationName(newValue);
   };
+
+
+  const handelSubmit = ()=>{
+    navigate("/listOrganization");
+  }
 
   return (
     <Box sx={{ backgroundColor: "background.main", p: 10 }}>
@@ -46,8 +53,9 @@ const CreateOrganization = () => {
         <TextField
           name="question"
           size="small"
+          value={organizationName}
           variant="outlined"
-          onChange={(e) => handleTabChange(e, 0)}
+          onChange={handleOrganizationChange}
           placeholder="Create Organization"
           fullWidth
         />
@@ -55,6 +63,7 @@ const CreateOrganization = () => {
           <Button
             className="mb-2 ml-auto"
             variant="contained"
+            onClick={handelSubmit}
             sx={{ px: 5, py: 1 }}
           >
             Create

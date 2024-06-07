@@ -79,14 +79,14 @@ const WalkoverHeader = () => {
           </div>
         </div>
         <div className=" w-full h-1/2  sm:h-full sm:w-1/2 sm:pl-16 py-10">
-          <div className="hidden sm:flex items-center">
+          {/* <div className="hidden sm:flex items-center">
             <img className={`w-14 `} src={logoSrc} alt={name} />
             <h1
               className={`text-gray-400 mx-2 dark:text-white text-center align-middle sm:text-xl md:text-xl lg:text-xl font-normal text-sm`}
             >
               <span className="text-gray-500 font-medium"> Clikkle </span> Hr
             </h1>
-          </div>
+          </div> */}
           <div className="h-[65%] sm:mt-0 mt-3 w-4/6 sm:w-full sm:text-left sm:pr-2 m-auto text-center flex flex-col sm:justify-end justify-center">
             <div className="text-2xl sm:text-5xl">
               {walkover[currentIndex].title}
