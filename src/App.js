@@ -47,6 +47,8 @@ import TicketList  from './pages/Support_System/UserPage/Tikects/TicketList';
 import Profile from './pages/Support_System/UserPage/profile/Profile'
 import Knowledgepage from './pages/Support_System/LandingPages/Knowledgepage';
 import Knowledgeview from './pages/Support_System/LandingPages/Knowledgeview';
+import Memo from './pages/Memo/Memo';
+import MemoEdit from './pages/Memo/MemoEdit';
 
 
 const App = () => {
@@ -130,6 +132,10 @@ const App = () => {
           
           <Route path="/support/knowledgepage" element={<Knowledgepage />} />
           <Route path="/support/knowledgeview" element={<Knowledgeview />} />
+          <Route path="/memo" element={<Memo />} />
+          <Route path="/memoEdit" element={<MemoEdit/>} />
+
+
         </Routes>
       </Header>
       <Footer />

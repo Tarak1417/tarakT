@@ -180,7 +180,7 @@ const menuItems = [
     {
         icon: <GroupsIcon fontSize='small' />,
         label: 'Memos',
-        to: '/memos',
+        to: '/memo',
     },
     {
         icon: <GroupsIcon fontSize='small' />,
