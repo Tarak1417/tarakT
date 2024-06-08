@@ -7,7 +7,7 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -19,8 +19,19 @@ import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import DownloadIcon from "@mui/icons-material/Download";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import MapsUgcIcon from "@mui/icons-material/MapsUgc";
+import ReplyIcon from "@mui/icons-material/Reply";
 const Knowledgeview = () => {
+  const [messageTab, setMessageTab] = useState(false);
+  const [messageTab1, setMessageTab1] = useState(false);
+
+  const showMessageTab = () => {
+    setMessageTab(!messageTab);
+  };
+  const showMessageTab1 = () => {
+    setMessageTab1(!messageTab1);
+  };
   return (
     <Box
       sx={{ backgroundColor: "background.main" }}
@@ -42,7 +53,7 @@ const Knowledgeview = () => {
         </div>
       </div>
       <Box
-        sx={{ backgroundColor: "#141414" }}
+        sx={{ backgroundColor: "background.view" }}
         className="mt-4  overflow-y-scroll overflow-hidden rounded-[15px] mx-8  py-4 "
       >
         <div className=" md:flex          md:justify-between         md:items-center">
@@ -148,9 +159,251 @@ const Knowledgeview = () => {
             <div>Views:50</div>
           </div>
         </Box>
+        <Box
+          sx={{
+            marginX: "27px",
+            border: "1px solid gray",
+            borderRadius: "15px",
+            marginY: "30px",
+            padding: "20px",
+          }}
+        >
+          <div className=" md:flex gap-2">
+            <div className="md:w-[5%]">
+              <img
+                className="h-[50px] w-[50px] rounded-[50%]"
+                src="https://images.unsplash.com/photo-1716724854567-9ec995836d19?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8"
+                alt=""
+              />
+            </div>
+            <div className="">
+              <h2 className="text-lg">Mobile App Developement</h2>
+              <p>
+                <span className="text-xs text-gray-400 mr-2">
+                  <CalendarTodayIcon sx={{ fontSize: "12px" }} /> Mar 11, 2024
+                </span>
+                <span className="text-xs text-gray-400 mr-2">
+                  <AvTimerIcon sx={{ fontSize: "14px" }} /> 10:00AM
+                </span>
+              </p>
+              <p className="mt-5 text-xs md:w-[75%]">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Asperiores eos qui eius molestiae architecto, ullam autem
+                laborum labore earum id iure ad impedit voluptate deserunt
+                facilis quidem.
+              </p>
+              <div className="mt-5">
+                <Button
+                  onClick={showMessageTab}
+                  sx={{
+                    backgroundColor: "#222222",
+                    color: "gray",
+                    fontSize: "12px",
+                    marginRight: "25px",
+                    borderRadius: "8px",
+                    padding: "7px 10px",
+                  }}
+                >
+                  <MapsUgcIcon sx={{ marginRight: "4px" }} /> Comment
+                </Button>
+                <Button
+                  sx={{
+                    padding: "7px 10px ",
+
+                    backgroundColor: "#222222",
+                    color: "gray",
+                    fontSize: "12px",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <ReplyIcon sx={{ marginRight: "4px" }} /> Reply
+                </Button>
+              </div>
+              {messageTab && (
+                <div className="p-5 bg-[#222222] mt-[30px] rounded-[15px] md:w-[87%]">
+                  {" "}
+                  <div className="md:flex gap-2">
+                    <div className="md:w-[8%]">
+                      <img
+                        className="h-[50px] w-[50px] rounded-[50%]"
+                        src="https://images.unsplash.com/photo-1716724854567-9ec995836d19?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8"
+                        alt=""
+                      />
+                    </div>
+                    <div className="">
+                      <h2 className="text-base">Mobile App Developement</h2>
+                      <p>
+                        <span className="text-[12px] text-gray-400 mr-2">
+                          <CalendarTodayIcon sx={{ fontSize: "12px" }} /> Mar
+                          11, 2024
+                        </span>
+                        <span className="text-[12px] text-gray-400 ">
+                          <AvTimerIcon sx={{ fontSize: "12px" }} /> 10:00AM
+                        </span>
+                      </p>
+                      <p className="mt-5 text-xs ">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Asperiores eos qui eius molestiae architecto,
+                        ullam autem laborum labore earum id iure ad impedit
+                        voluptate deserunt facilis quidem.
+                      </p>
+                      <div className="mt-5">
+                        <Button
+                          sx={{
+                            backgroundColor: "#121212",
+                            color: "gray",
+                            fontSize: "10px",
+                            marginRight: "25px",
+                            borderRadius: "8px",
+                            padding: "5px 8px",
+                          }}
+                        >
+                          <MapsUgcIcon sx={{ marginRight: "4px" }} /> Comment
+                        </Button>
+                        <Button
+                          sx={{
+                            padding: "5px 8px",
+
+                            backgroundColor: "#121212",
+                            color: "gray",
+                            fontSize: "10px",
+                            borderRadius: "8px",
+                          }}
+                        >
+                          <ReplyIcon sx={{ marginRight: "4px" }} /> Reply
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </Box>
+        <Box
+          sx={{
+            marginX: "27px",
+            border: "1px solid gray",
+            borderRadius: "15px",
+            marginY: "30px",
+            padding: "20px",
+          }}
+        >
+          <div className=" md:flex gap-2">
+            <div className="md:w-[5%]">
+              <img
+                className="h-[50px] w-[50px] rounded-[50%]"
+                src="https://images.unsplash.com/photo-1716724854567-9ec995836d19?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8"
+                alt=""
+              />
+            </div>
+            <div className="">
+              <h2 className="text-lg">Mobile App Developement</h2>
+              <p>
+                <span className="text-xs text-gray-400 mr-2">
+                  <CalendarTodayIcon sx={{ fontSize: "12px" }} /> Mar 11, 2024
+                </span>
+                <span className="text-xs text-gray-400 mr-2">
+                  <AvTimerIcon sx={{ fontSize: "14px" }} /> 10:00AM
+                </span>
+              </p>
+              <p className="mt-5 text-xs md:w-[75%]">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Asperiores eos qui eius molestiae architecto, ullam autem
+                laborum labore earum id iure ad impedit voluptate deserunt
+                facilis quidem.
+              </p>
+              <div className="mt-5">
+                <Button
+                  onClick={showMessageTab1}
+                  sx={{
+                    backgroundColor: "#222222",
+                    color: "gray",
+                    fontSize: "12px",
+                    marginRight: "25px",
+                    borderRadius: "8px",
+                    padding: "7px 10px",
+                  }}
+                >
+                  <MapsUgcIcon sx={{ marginRight: "4px" }} /> Comment
+                </Button>
+                <Button
+                  sx={{
+                    padding: "7px 10px ",
+
+                    backgroundColor: "#222222",
+                    color: "gray",
+                    fontSize: "12px",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <ReplyIcon sx={{ marginRight: "4px" }} /> Reply
+                </Button>
+              </div>
+              {messageTab1 && (
+                <div className="p-5 bg-[#222222]  mt-[30px] rounded-[15px] md:w-[87%]">
+                  {" "}
+                  <div className="md:flex gap-2">
+                    <div className="md:w-[8%]">
+                      <img
+                        className="h-[50px] w-[50px] rounded-[50%]"
+                        src="https://images.unsplash.com/photo-1716724854567-9ec995836d19?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8"
+                        alt=""
+                      />
+                    </div>
+                    <div className="">
+                      <h2 className="text-base">Mobile App Developement</h2>
+                      <p>
+                        <span className="text-[12px] text-gray-400 mr-2">
+                          <CalendarTodayIcon sx={{ fontSize: "12px" }} /> Mar
+                          11, 2024
+                        </span>
+                        <span className="text-[12px] text-gray-400 ">
+                          <AvTimerIcon sx={{ fontSize: "12px" }} /> 10:00AM
+                        </span>
+                      </p>
+                      <p className="mt-5 text-xs ">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Asperiores eos qui eius molestiae architecto,
+                        ullam autem laborum labore earum id iure ad impedit
+                        voluptate deserunt facilis quidem.
+                      </p>
+                      <div className="mt-5">
+                        <Button
+                          sx={{
+                            backgroundColor: "#121212",
+                            color: "gray",
+                            fontSize: "10px",
+                            marginRight: "25px",
+                            borderRadius: "8px",
+                            padding: "5px 8px",
+                          }}
+                        >
+                          <MapsUgcIcon sx={{ marginRight: "4px" }} /> Comment
+                        </Button>
+                        <Button
+                          sx={{
+                            padding: "5px 8px",
+
+                            backgroundColor: "#121212",
+                            color: "gray",
+                            fontSize: "10px",
+                            borderRadius: "8px",
+                          }}
+                        >
+                          <ReplyIcon sx={{ marginRight: "4px" }} /> Reply
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </Box>
       </Box>
       <Box
-        sx={{ backgroundColor: "#141414" }}
+        sx={{ backgroundColor: "background.view" }}
         className="mt-4 sm:h-[87vh] mb-4 md:h-[73vh] overflow-y-scroll overflow-hidden rounded-[15px] mx-8  py-4 "
       >
         <h1 className="pl-5 border-l-4 py-2 border-l-orange-400 text-[27px]">

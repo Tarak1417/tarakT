@@ -49,6 +49,11 @@ import Knowledgepage from './pages/Support_System/LandingPages/Knowledgepage';
 import Knowledgeview from './pages/Support_System/LandingPages/Knowledgeview';
 import Memo from './pages/Memo/Memo';
 import MemoEdit from './pages/Memo/MemoEdit';
+import LandingPage from './pages/Support_System/LandingPages/LandingPage';
+import ActiveList from './pages/Support_System/UserPage/Tikects/ActiveTicket';
+import CreateTicket from './pages/Support_System/UserPage/Tikects/CreateTicket';
+import CloseTicket from './pages/Support_System/UserPage/Tikects/CloseTickt';
+import Chat from './pages/Chat/Chat';
 
 
 const App = () => {
@@ -127,13 +132,21 @@ const App = () => {
           <Route path="/ViewProject" element={<ViewProject />} />
           <Route path="/calender" element={<Calender />} />
           <Route path="/support/ticketlist" element={<TicketList />} />
+          <Route path="/support/activeticket" element={<ActiveList />} />
+
+          <Route path="/support/createtiket" element={<CreateTicket />} />
+
+          <Route path="/support/closeticket" element={<CloseTicket />} />
+
           <Route path="/support/profile" element={<Profile />} />
           <Route path="/support/Dashboard" element={<DashBoard />} />
-          
+          <Route path="/support/landing" element={<LandingPage />} />
           <Route path="/support/knowledgepage" element={<Knowledgepage />} />
           <Route path="/support/knowledgeview" element={<Knowledgeview />} />
           <Route path="/memo" element={<Memo />} />
           <Route path="/memoEdit" element={<MemoEdit/>} />
+          <Route path="/chat" element={<Chat/>} />
+
 
 
         </Routes>

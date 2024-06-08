@@ -28,7 +28,7 @@ const Knowledgepage = () => {
           </div>
         </div>
         <Box
-          sx={{ backgroundColor: "#141414" }}
+          sx={{ backgroundColor: "background.view" }}
           className="mt-4 md:h-[73vh] overflow-y-scroll overflow-hidden rounded-[15px] mx-8  py-4 "
         >
           <h1 className="pl-5 border-l-4 py-2 border-l-orange-400 text-[27px]">
