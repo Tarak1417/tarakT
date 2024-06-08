@@ -192,33 +192,132 @@ const menuItems = [
         label: 'Support System',
         to: [
             {
-                icon: <GroupsIcon fontSize='small' />,
-                label: 'Support System',
+                label: 'Landing Pages',
+                icon: <Attend />,
                 to: [
                     {
                         label: 'Landing Pages',
                         icon: <Attend />,
-                        to: [
-                            {
-                                label: 'Landing Pages',
-                                icon: <Attend />,
-                                to: '',
-                            },
-                            {
-                                label: 'Knowledge Pages',
-                                icon: <Leave />,
-                                to: '',
-                            },
-                            {
-                                label: 'Knowledge View',
-                                icon: <Leave />,
-                                to: '',
-                            },
-                        ],
+                        to: '',
                     },
-                 
+                    {
+                        label: 'Knowledge Pages',
+                        icon: <Leave />,
+                        to: '/support/knowledgepage',
+                    },
+                    {
+                        label: 'Knowledge View',
+                        icon: <Leave />,
+                        to: '/support/knowledgeview',
+                    },
                 ],
             },
+            {
+                label: 'User Pages',
+                icon: <Attend />,
+                to: [
+                    {
+                        label: 'Dashboard',
+                        icon: <Attend />,
+                        to: '/userpages/dashboard',
+                    },
+                    {
+                        label: 'Profile',
+                        icon: <Attend />,
+                        to: '/userpages/profile',
+                    },
+                    {
+                        label: 'Tickets',
+                        icon: <Attend />,
+                        to: [
+                            {
+                                label: 'Ticket List',
+                                icon: <Attend />,
+                                to: '/userpages/dashboard',
+                            },
+                            {
+                                label: 'Active Tickets',
+                                icon: <Attend />,
+                                to: '/userpages/profile',
+                            },
+                            {
+                                label: 'Closed Tickets',
+                                icon: <Attend />,
+                                to: '/userpages/profile',
+                            },
+                            {
+                                label: 'Create Tickets',
+                                icon: <Attend />,
+                                to: '/userpages/profile',
+                            },
+                            {
+                                label: 'View Tickets',
+                                icon: <Attend />,
+                                to: '/userpages/profile',
+                            }  
+                        ] ,
+                    },
+                   
+                ],
+            },
+            {
+                label: 'ADMIN',
+                icon: <Attend />,
+                to: [
+                    {
+                        label: 'Dashboard',
+                        icon: <Attend />,
+                        to: '/admin/dashboard',
+                    },
+                    {
+                        label: 'Edit Profile',
+                        icon: <Attend />,
+                        to: '/admin/editprofile',
+                    },
+                    {
+                        label: 'Tickets',
+                        icon: <Attend />,
+                        to: '/admin/tickets',
+                    },
+                    {
+                        label: 'Customers',
+                        icon: <Attend />,
+                        to: '/admin/customers',
+                    },
+                    {
+                        label: 'categories',
+                        icon: <Attend />,
+                        to: '/admin/categories',
+                    },
+                    {
+                        label: 'Articles',
+                        icon: <Attend />,
+                        to: '/admin/articles',
+                    }
+                ],
+            },
+            {
+                label: 'Agent',
+                icon: <Attend />,
+                to: [
+                    {
+                        label: 'Dashboard',
+                        icon: <Attend />,
+                        to: '/agent/dashboard',
+                    },
+                    {
+                        label: 'Tickets',
+                        icon: <Attend />,
+                        to: '/admin/tickets',
+                    },
+                    {
+                        label: 'Assigned Categories',
+                        icon: <Attend />,
+                        to: '/admin/assignedcategories',
+                    }
+                ],
+            },
+         
          
         ],
     },
