@@ -63,7 +63,7 @@ const CardSection = () => {
       severity: "success",
     });
     setTimeout(() => {
-      navigate("/");
+      navigate("/createOrganization");
     }, [4000]);
     event.preventDefault();
     // showMessage(`Offer letter successfully send to ${handlers.values.nameOfEmployee}`);
