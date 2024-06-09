@@ -42,7 +42,18 @@ import OverTime from './pages/Projects/OverTimeCalender';
 import OverViewCalender from './pages/Projects/OverViewCalender';
 import ViewProject from './pages/Projects/ViewProject';
 import Calender from './pages/Projects/Calender';
-import OnBoarding from './pages/Adarsh/OnBoarding';
+import DashBoard from './pages/Support_System/UserPage/Dashboard/DashBoard';
+import TicketList  from './pages/Support_System/UserPage/Tikects/TicketList';
+import Profile from './pages/Support_System/UserPage/profile/Profile'
+import Knowledgepage from './pages/Support_System/LandingPages/Knowledgepage';
+import Knowledgeview from './pages/Support_System/LandingPages/Knowledgeview';
+import Memo from './pages/Memo/Memo';
+import MemoEdit from './pages/Memo/MemoEdit';
+import LandingPage from './pages/Support_System/LandingPages/LandingPage';
+import ActiveList from './pages/Support_System/UserPage/Tikects/ActiveTicket';
+import CreateTicket from './pages/Support_System/UserPage/Tikects/CreateTicket';
+import CloseTicket from './pages/Support_System/UserPage/Tikects/CloseTickt';
+import Chat from './pages/Chat/Chat';
 import AuthorizationProvider from './hooks/Authorize';
 import ThemeContextProvider, { useTheme } from './style/theme';
 import CreateOrganization from './pages/Organization/CreateOrganization';
@@ -94,52 +105,81 @@ const App = () => {
     }
 
 
-    return (
-        <>
-            <Header>
-                <Routes>
-                    <Route path='/' element={<Home />} />
+  return (
+    <>
+      <Header>
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-                    <Route path='/joblisting' element={<JobListingHome />} />
-                    <Route path='/department' element={<DeptHome />} />
-                    <Route path='/interviewquestions' element={<InterviewHome />} />
-                    <Route path='/receivedapplications' element={<ReceivedApp />} />
+          <Route path="/joblisting" element={<JobListingHome />} />
+          <Route path="/department" element={<DeptHome />} />
+          <Route path="/interviewquestions" element={<InterviewHome />} />
+          <Route path="/receivedapplications" element={<ReceivedApp />} />
 
-                    <Route path='/showmore:id' element={<ShowMoreHome />} />
-                    <Route path='/joblisting/edit' element={<EditHome />} />
-                    <Route path='/jobApplicationDetail'>
-                        <Route path=':id' element={<JobApplicationDetail />} />
-                        <Route path='offer-letter/:id' element={<OfferLetter />} />
-                        <Route path='agreements/:id' element={<Agreements />} />
-                    </Route>
+          <Route path="/showmore:id" element={<ShowMoreHome />} />
+          <Route path="/joblisting/edit" element={<EditHome />} />
+          <Route path="/jobApplicationDetail">
+            <Route path=":id" element={<JobApplicationDetail />} />
+            <Route path="offer-letter/:id" element={<OfferLetter />} />
+            <Route path="agreements/:id" element={<Agreements />} />
+          </Route>
 
-                    <Route path='/showmore:id/sendofferletter' element={<SendOfferHome />} />
-                    <Route path='/showmore:id/offerletter' element={<OfferHome />} />
+          <Route
+            path="/showmore:id/sendofferletter"
+            element={<SendOfferHome />}
+          />
+          <Route path="/showmore:id/offerletter" element={<OfferHome />} />
 
-                    <Route path='/showmore:id/sendagreement' element={<AgreementHome />} />
+          <Route
+            path="/showmore:id/sendagreement"
+            element={<AgreementHome />}
+          />
 
-                    <Route path='/noticeboard' element={<NoticeHome />} />
-                    <Route path='/apps' element={<Apps />} />
-                    <Route path='/expenses' element={<ExpensesHome />} />
-                    <Route path='/award' element={<AwardHome />} />
-                    <Route path='/holidays' element={<HolidayHome />} />
+          <Route path="/noticeboard" element={<NoticeHome />} />
+          <Route path="/apps" element={<Apps />} />
+          <Route path="/expenses" element={<ExpensesHome />} />
+          <Route path="/award" element={<AwardHome />} />
+          <Route path="/holidays" element={<HolidayHome />} />
 
-                    <Route path='/addpayroll' element={<AddPayrollHome />} />
-                    <Route path='/addpayrolls' element={<MorePayrollHome />} />
-                    <Route path='/editpayroll' element={<EditPayrollHome />} />
-                    <Route path='/editpayrolls' element={<MoreEditPayrollHome />} />
-                    <Route path='/employeesalary' element={<SalaryHome />} />
+          <Route path="/addpayroll" element={<AddPayrollHome />} />
+          <Route path="/addpayrolls" element={<MorePayrollHome />} />
+          <Route path="/editpayroll" element={<EditPayrollHome />} />
+          <Route path="/editpayrolls" element={<MoreEditPayrollHome />} />
+          <Route path="/employeesalary" element={<SalaryHome />} />
+
+          <Route path="/employees" element={<EmployeeHome />} />
+          <Route path="/performance/:id" element={<PerformanceHome />} />
+          <Route path="/viewemployee/:id" element={<EmpDetailsHome />} />
+          <Route path="/attendance" element={<AttendHome />} />
+          <Route path="/attendanceview" element={<AttendViewHome />} />
+          <Route path="/leavesettings" element={<LeaveSettingsHome />} />
+          <Route path="/leaveapplication" element={<LeaveAppHome />} />
+          <Route path="/leaveapplication/view" element={<LeaveViewHome />} />
+          <Route path="rulesandregulations" element={<RuleAndRegulations />} />
+
+          <Route path="/dashboardproject" element={<Dashboard />} />
+          <Route path="/newProject" element={<NewProject />} />
+          <Route path="/OverTime" element={<OverTime />} />
+          <Route path="/OverViewCalender" element={<OverViewCalender />} />
+          <Route path="/ViewProject" element={<ViewProject />} />
+          <Route path="/calender" element={<Calender />} />
+          <Route path="/support/ticketlist" element={<TicketList />} />
+          <Route path="/support/activeticket" element={<ActiveList />} />
+
+          <Route path="/support/createtiket" element={<CreateTicket />} />
+
+          <Route path="/support/closeticket" element={<CloseTicket />} />
+
+          <Route path="/support/profile" element={<Profile />} />
+          <Route path="/support/Dashboard" element={<DashBoard />} />
+          <Route path="/support/landing" element={<LandingPage />} />
+          <Route path="/support/knowledgepage" element={<Knowledgepage />} />
+          <Route path="/support/knowledgeview" element={<Knowledgeview />} />
+          <Route path="/memo" element={<Memo />} />
+          <Route path="/memoEdit" element={<MemoEdit/>} />
+          <Route path="/chat" element={<Chat/>} />
 
 
-                    <Route path='/employees' element={<EmployeeHome />} />
-                    <Route path='/performance/:id' element={<PerformanceHome />} />
-                    <Route path='/viewemployee/:id' element={<EmpDetailsHome />} />
-                    <Route path='/attendance' element={<AttendHome />} />
-                    <Route path='/attendanceview' element={<AttendViewHome />} />
-                    <Route path='/leavesettings' element={<LeaveSettingsHome />} />
-                    <Route path='/leaveapplication' element={<LeaveAppHome />} />
-                    <Route path='/leaveapplication/view' element={<LeaveViewHome />} />
-                    <Route path='rulesandregulations' element={<RuleAndRegulations />} />
 
                     <Route path='/dashboardproject' element={<Dashboard />} />
                     <Route path='/newProject' element={<NewProject />} />

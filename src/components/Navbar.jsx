@@ -282,6 +282,85 @@ export default function Navbar(props) {
         user && getPlatforms();
     }, [user, getPlatforms]);
 
+
+    const SideBarLinkButton = ({ menus }) => {
+      return (
+        <>
+          {menus.map((link) => (
+            <NavLink
+              to={link.to}
+              key={link.label}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+              }}
+            >
+              {({ isActive }) => (
+                <>
+                  <ListItemButton
+                    disableRipple
+                    disableTouchRipple
+                    variant="sidebarButton"
+                    {...(Array.isArray(link.to)
+                      ? {
+                          selected: collapsesState[link.label],
+                          variant: "sidebarDropDown",
+                          onClick: () => modifyCollapsesState(link.label),
+                          sx: { pr: 0 },
+                        }
+                      : {
+                          to: link.to,
+                          selected: isActive,
+                        })}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: "35px",
+                        color: "text.secondary",
+                      }}
+                    >
+                      {link.icon}
+                    </ListItemIcon>
+                    <ListItemText primary={link.label} />
+                    <If
+                      condition={Array.isArray(link.to)}
+                      so={
+                        <If
+                          condition={collapsesState[link.label]}
+                          so={<ExpandMore fontSize="small" />}
+                          otherwise={
+                            <ChevronRightOutlinedIcon fontSize="small" />
+                          }
+                        />
+                      }
+                      otherwise
+                    />
+                  </ListItemButton>
+                  {Array.isArray(link.to) && collapsesState[link.label] && (
+                    <Collapse
+                      in={collapsesState[link.label]}
+                      timeout="auto"
+                      unmountOnExit
+                    >
+                      <List
+                        sx={{
+                          p: "10px",
+                          ml: 1,
+                          py: 0,
+                        }}
+                      >
+                        <SideBarLinkButton key={link.label} menus={link.to}  />
+                      </List>
+                    </Collapse>
+                  )}
+                </>
+              )}
+            </NavLink>
+          ))}
+        </>
+      );
+    };
+
     const drawer = (
         <Box minHeight='100dvh' color='text.secondary' display='flex' flexDirection='column'>
             <Box
@@ -307,111 +386,9 @@ export default function Navbar(props) {
                     Hr Manager
                 </Typography>
                 <List sx={{ px: 3, py: 1 }}>
-                        {menuItems.map(link => (
-                            <NavLink
-                            to={link.to}
-                            key={link.label}
-                            style={{
-                                textDecoration: 'none',
-                                color: 'inherit',
-                            }}>
-                            {({ isActive }) => (
-                                <>
-                                <ListItemButton
-                                    disableRipple
-                                    disableTouchRipple
-                                    variant='sidebarButton'
-                                    {...(Array.isArray(link.to)
-                                    ? {
-                                        selected: collapsesState[link.label],
-                                        variant: 'sidebarDropDown',
-                                        onClick: () => modifyCollapsesState(link.label),
-                                        sx: { pr: 0 },
-                                    }
-                                    : {
-                                        to: link.to,
-                                        selected: isActive,
-                                    })}>
-                                    <ListItemIcon
-                                    sx={{
-                                        minWidth: '35px',
-                                        color: 'text.secondary',
-                                    }}>
-                                    {link.icon}
-                                    </ListItemIcon>
-                                    <ListItemText primary={link.label} />
-                                    <If
-                                    condition={Array.isArray(link.to)}
-                                    so={
-                                        <If
-                                        condition={collapsesState[link.label]}
-                                        so={<ExpandMore fontSize='small' />}
-                                        otherwise={
-                                            <ChevronRightOutlinedIcon fontSize='small' />
-                                        }
-                                        />
-                                    }
-                                    otherwise
-                                    />
-                                </ListItemButton>
-                                {Array.isArray(link.to) && collapsesState[link.label] && (
-                                    <Collapse
-                                    in={collapsesState[link.label]}
-                                    timeout='auto'
-                                    unmountOnExit>
-                                    <List
-                                        sx={{
-                                        p: '10px',
-                                        ml: 2,
-                                        py: 0,
-                                        }}>
-                                        {link.to.map(subLink => (
-                                        <NavLink
-                                            to={subLink.to}
-                                            key={subLink.name}
-                                            style={{
-                                            textDecoration: 'none',
-                                            color: 'inherit',
-                                            }}>
-                                            {({ isActive }) => (
-                                            <ListItem disablePadding>
-                                                <ListItemButton
-                                                selected={isActive}
-                                                disableRipple
-                                                disableTouchRipple
-                                                variant='sidebarButton'
-                                                sx={{ overflow: 'hidden' }}>
-                                                <ListItemIcon
-                                                    sx={{
-                                                    minWidth: '35px',
-                                                    color: 'text.secondary',
-                                                    }}>
-                                                    {subLink.icon}
-                                                </ListItemIcon>
-                                                <ListItemText
-                                                    primary={subLink.label}
-                                                    primaryTypographyProps={{
-                                                    overflow: 'hidden',
-                                                    textOverflow: 'ellipsis',
-                                                    whiteSpace: 'nowrap',
-                                                    }}
-                                                />
-                                                </ListItemButton>
-                                            </ListItem>
-                                            )}
-                                        </NavLink>
-                                        ))}
-                                    </List>
-                                    </Collapse>
-                                )}
-                                </>
-                            )}
-                        </NavLink>
-                    ))}
-                </List>
-               
+                <SideBarLinkButton  menus={menuItems}  />
+                </List>  
             </Box>
-
             <Box>
                 <Divider variant='middle' />
                 <Typography variant='body2' pl={3} mt={1.5} fontSize='14px' fontWeight={500}>
