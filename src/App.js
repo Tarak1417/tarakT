@@ -47,6 +47,7 @@ import AuthorizationProvider from './hooks/Authorize';
 import ThemeContextProvider, { useTheme } from './style/theme';
 import CreateOrganization from './pages/Organization/CreateOrganization';
 import ListOrganization from './pages/Organization/ListOrganization';
+import { setCookie } from './utilities/cookies';
 
 
 
@@ -69,13 +70,15 @@ const App = () => {
         console.log(data)
 
         if (data.theme === 'dark') {
-           toggleTheme();
+          setCookie('P13N', "dark");
+        }else {
+            setCookie('P13N', "light");
         }
-        if (data.amount !== null || data.period !== null) {
+
+        if(data.amount !== null || data.period !== null) {
             shouldHideHeader = true;
             navigate("/walkover");
         }
-
     }, []);
 
     if (shouldHideHeader) {
