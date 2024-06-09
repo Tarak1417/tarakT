@@ -22,9 +22,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import MapsUgcIcon from "@mui/icons-material/MapsUgc";
 import ReplyIcon from "@mui/icons-material/Reply";
+import { useTheme } from '../../../style/theme';
+
 const Knowledgeview = () => {
   const [messageTab, setMessageTab] = useState(false);
   const [messageTab1, setMessageTab1] = useState(false);
+  const { toggleTheme, mode } = useTheme();
+  console.log(mode);
 
   const showMessageTab = () => {
     setMessageTab(!messageTab);
@@ -139,11 +143,12 @@ const Knowledgeview = () => {
             document.pdf (30kb)
           </div>
           <div className="absolute top-[46px] md:text-[20px] right-[3px] md:right-11">
-            <span className="bg-gray-800 p-1 rounded mr-2">
+            <span className={`${mode === "dark" ? "bg-[#202021]" : ""} p-1 rounded mr-2`}>
               {" "}
               <DownloadIcon sx={{ color: "blue", fontSize: "30px" }} />{" "}
             </span>
-            <span className="bg-gray-800 p-1 rounded">
+            <span className={`${mode === "dark" ? "bg-[#202021]" : ""} p-1 rounded `}>
+
               {" "}
               <DeleteIcon sx={{ fontSize: "30px", color: "red" }} />{" "}
             </span>
@@ -176,7 +181,7 @@ const Knowledgeview = () => {
                 alt=""
               />
             </div>
-            <div className="">
+            <div className="" style={{}}>
               <h2 className="text-lg">Mobile App Developement</h2>
               <p>
                 <span className="text-xs text-gray-400 mr-2">
@@ -192,35 +197,37 @@ const Knowledgeview = () => {
                 laborum labore earum id iure ad impedit voluptate deserunt
                 facilis quidem.
               </p>
-              <div className="mt-5">
+              <div  className={`mt-5`}>
                 <Button
                   onClick={showMessageTab}
                   sx={{
-                    backgroundColor: "#222222",
+                    backgroundColor: mode === "dark" ? "#202021" : "#e2e0e0",
                     color: "gray",
                     fontSize: "12px",
                     marginRight: "25px",
                     borderRadius: "8px",
                     padding: "7px 10px",
+                    border:'1px',
                   }}
                 >
                   <MapsUgcIcon sx={{ marginRight: "4px" }} /> Comment
                 </Button>
                 <Button
                   sx={{
-                    padding: "7px 10px ",
-
-                    backgroundColor: "#222222",
+                    backgroundColor: mode === "dark" ? "#202021" : "#e2e0e0",
                     color: "gray",
                     fontSize: "12px",
+                    marginRight: "25px",
                     borderRadius: "8px",
+                    padding: "7px 10px",
+                    border:'1px',
                   }}
                 >
                   <ReplyIcon sx={{ marginRight: "4px" }} /> Reply
                 </Button>
               </div>
               {messageTab && (
-                <div className="p-5 bg-[#222222] mt-[30px] rounded-[15px] md:w-[87%]">
+                <div className={`  ${mode === "dark" ? "bg-[#202021]" : "e2e0e0"}, p-5  mt-[30px] rounded-[15px] md:w-[87%] rounded-lg border border-zinc-500`}>
                   {" "}
                   <div className="md:flex gap-2">
                     <div className="md:w-[8%]">
@@ -250,7 +257,7 @@ const Knowledgeview = () => {
                       <div className="mt-5">
                         <Button
                           sx={{
-                            backgroundColor: "#121212",
+                            backgroundColor: mode === "dark" ? "#202021" : "#e2e0e0",
                             color: "gray",
                             fontSize: "10px",
                             marginRight: "25px",
@@ -264,7 +271,7 @@ const Knowledgeview = () => {
                           sx={{
                             padding: "5px 8px",
 
-                            backgroundColor: "#121212",
+                            backgroundColor: mode === "dark" ? "#202021" : "#e2e0e0",
                             color: "gray",
                             fontSize: "10px",
                             borderRadius: "8px",
@@ -317,7 +324,7 @@ const Knowledgeview = () => {
                 <Button
                   onClick={showMessageTab1}
                   sx={{
-                    backgroundColor: "#222222",
+                    backgroundColor: mode === "dark" ? "#202021" : "#e2e0e0",
                     color: "gray",
                     fontSize: "12px",
                     marginRight: "25px",
@@ -331,7 +338,7 @@ const Knowledgeview = () => {
                   sx={{
                     padding: "7px 10px ",
 
-                    backgroundColor: "#222222",
+                    backgroundColor: mode === "dark" ? "#202021" : "#e2e0e0",
                     color: "gray",
                     fontSize: "12px",
                     borderRadius: "8px",
@@ -341,7 +348,8 @@ const Knowledgeview = () => {
                 </Button>
               </div>
               {messageTab1 && (
-                <div className="p-5 bg-[#222222]  mt-[30px] rounded-[15px] md:w-[87%]">
+                <div className={`  ${mode === "dark" ? "bg-[#202021]" : "e2e0e0"}, p-5  mt-[30px] rounded-[15px] md:w-[87%] rounded-lg border border-zinc-500`}
+                >
                   {" "}
                   <div className="md:flex gap-2">
                     <div className="md:w-[8%]">
@@ -371,7 +379,7 @@ const Knowledgeview = () => {
                       <div className="mt-5">
                         <Button
                           sx={{
-                            backgroundColor: "#121212",
+                            backgroundColor: mode === "dark" ? "#202021" : "#e2e0e0",
                             color: "gray",
                             fontSize: "10px",
                             marginRight: "25px",
@@ -385,7 +393,7 @@ const Knowledgeview = () => {
                           sx={{
                             padding: "5px 8px",
 
-                            backgroundColor: "#121212",
+                            backgroundColor: mode === "dark" ? "#202021" : "#e2e0e0",
                             color: "gray",
                             fontSize: "10px",
                             borderRadius: "8px",

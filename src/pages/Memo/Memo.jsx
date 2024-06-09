@@ -17,7 +17,7 @@ import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeft
 import SearchIcon from '@mui/icons-material/Search';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-
+import { Link } from 'react-router-dom';
 function Memo() {
     const userData = [
         {no:1, day:'Tuesday', date:'25-12-2024', holiday:'Christmas'},
@@ -195,7 +195,7 @@ function Memo() {
                 </Box>
                 <div>
                 <div className='ml-[8px] mt-[15px] flex flex-row gap-2 justify-center items-center'>
-                                <IconButton><EditOutlinedIcon style={{ fontSize: '12px' , color:"blue" }}  className=' rounded-sm'/></IconButton>
+                             <Link to='/memoEdit'> <IconButton><EditOutlinedIcon style={{ fontSize: '12px' , color:"blue" }}  className=' rounded-sm'/></IconButton></Link>  
                                 <IconButton><ContentCopyIcon style={{ fontSize: '12px' , color:"blue" }}  className=' rounded-sm'/></IconButton>
 
                                 <IconButton><DeleteOutlineOutlinedIcon style={{ fontSize: '12px' , color:'red' }} className='text-blue-500 rounded-sm'/></IconButton>
@@ -216,8 +216,7 @@ function Memo() {
                 </Box>
                 <div>
                 <div className='ml-[8px] mt-[15px] flex flex-row gap-2 justify-center items-center'>
-                                <IconButton><EditOutlinedIcon style={{ fontSize: '12px' , color:"blue" }}  className=' rounded-sm'/></IconButton>
-                                <IconButton><ContentCopyIcon style={{ fontSize: '12px' , color:"blue" }}  className=' rounded-sm'/></IconButton>
+                <IconButton><EditOutlinedIcon style={{ fontSize: '12px' , color:"blue" }}  className=' rounded-sm'/></IconButton>                                <IconButton><ContentCopyIcon style={{ fontSize: '12px' , color:"blue" }}  className=' rounded-sm'/></IconButton>
 
                                 <IconButton><DeleteOutlineOutlinedIcon style={{ fontSize: '12px' , color:'red' }} className='text-blue-500 rounded-sm'/></IconButton>
                             </div>
@@ -237,8 +236,7 @@ function Memo() {
                 </Box>
                 <div>
                 <div className='ml-[8px] mt-[15px] flex flex-row gap-2 justify-center items-center'>
-                                <IconButton><EditOutlinedIcon style={{ fontSize: '12px' , color:"blue" }}  className=' rounded-sm'/></IconButton>
-                                <IconButton><ContentCopyIcon style={{ fontSize: '12px' , color:"blue" }}  className=' rounded-sm'/></IconButton>
+                <IconButton><EditOutlinedIcon style={{ fontSize: '12px' , color:"blue" }}  className=' rounded-sm'/></IconButton>                                <IconButton><ContentCopyIcon style={{ fontSize: '12px' , color:"blue" }}  className=' rounded-sm'/></IconButton>
 
                                 <IconButton><DeleteOutlineOutlinedIcon style={{ fontSize: '12px' , color:'red' }} className='text-blue-500 rounded-sm'/></IconButton>
                             </div>
