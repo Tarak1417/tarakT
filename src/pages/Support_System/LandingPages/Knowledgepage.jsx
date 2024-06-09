@@ -3,8 +3,11 @@ import React from "react";
 
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { useTheme } from "../../../style/theme";
 
 const Knowledgepage = () => {
+  const { toggleTheme, mode } = useTheme();
+  console.log(mode);
   return (
     <div>
       {" "}
@@ -36,11 +39,12 @@ const Knowledgepage = () => {
           </h1>
 
           <div className="mt-8 md:flex justify-between   mx-7">
-            <div className="py-[25px] my-3 px-[40px] rounded-[30px] bg-[#292828]">
-              <h3 className="text-white bold text-[22px]">Recent Articles</h3>
+            <Box      sx={{ backgroundColor: mode === "dark" ? "#202021" : "#e2e0e0" }}
+               className={` py-[25px] my-3 px-[40px] rounded-[30px] `}>
+              <h3 className=" bold text-[22px]">Recent Articles</h3>
               <p className="h-[3px] rounded w-[85px] bg-orange-400"></p>
               <div>
-                <ul className="mt-7 text-xs text-white">
+                <ul className="mt-7 text-xs ">
                   <li className="my-[5px]  flex items-center">
                     <div>
                       {" "}
@@ -127,12 +131,15 @@ const Knowledgepage = () => {
                   </li>
                 </ul>
               </div>
-            </div>{" "}
-            <div className="py-[25px] my-3 px-[40px] rounded-[30px] bg-[#292828]">
-              <h3 className="text-white bold text-[22px]">Popular Articles</h3>
+            </Box>{" "}
+            <Box 
+               sx={{ backgroundColor: mode === "dark" ? "#202021" : "#e2e0e0" }}
+               className={` py-[25px] my-3 px-[40px] rounded-[30px] `}
+            >
+              <h3 className=" bold text-[22px]">Popular Articles</h3>
               <p className="h-[3px] rounded w-[85px] bg-orange-400"></p>
               <div>
-                <ul className="mt-7 text-xs text-white">
+                <ul className="mt-7 text-xs ">
                   <li className="my-[5px]  flex items-center">
                     <div>
                       {" "}
@@ -219,14 +226,15 @@ const Knowledgepage = () => {
                   </li>
                 </ul>
               </div>
-            </div>
-            <div className="py-[25px] my-3 px-[40px] rounded-[30px] bg-[#292828]">
-              <h3 className="text-white bold text-[22px]">
-                Most Helpul Articles
-              </h3>
+            </Box>
+            <Box
+              sx={{ backgroundColor: mode === "dark" ? "#202021" : "#e2e0e0" }}
+              className={` py-[25px] my-3 px-[40px] rounded-[30px] `}
+            >
+              <h3 className=" bold text-[22px]">Most Helpul Articles</h3>
               <p className="h-[3px] rounded w-[85px] bg-orange-400"></p>
               <div>
-                <ul className="mt-7 text-xs text-white">
+                <ul className="mt-7 text-xs ">
                   <li className="my-[5px]  flex items-center">
                     <div>
                       {" "}
@@ -313,7 +321,7 @@ const Knowledgepage = () => {
                   </li>
                 </ul>
               </div>
-            </div>
+            </Box>
           </div>
         </Box>
       </Box>

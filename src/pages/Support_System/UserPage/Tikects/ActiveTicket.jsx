@@ -5,9 +5,11 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 import view from '../../../ReceivedApp/viewicon.png'
  import HomeIcon from '@mui/icons-material/Home';
+ import { useTheme } from "../../../../style/theme";
+
 
 const ActiveList = () => {
-
+  const { toggleTheme, mode } = useTheme();
     const [currentScreen, setCurrentScreen] = useState(1);
     const [TitckPage , setTicketePage] = useState('activeticket');
 
@@ -165,23 +167,32 @@ const ActiveList = () => {
 
     <Box className="w-full md:w-3/4 p-5 rounded-lg border border-zinc-500" sx={{ backgroundColor: 'background.view' }}>
     <div className="flex flex-wrap md:flex-nowrap space-between gap-4 mb-5" style={{ justifyContent: 'space-between' }}>
-      <div className="flex flex-wrap md:flex-nowrap">
-        <div className="flex flex-col mx-2  ml-[20px]">
-          <label className="text-gray-400">Select priority</label>
-          <select className="p-2 rounded text-white " style={{ fontSize:"12px" , border: '1px solid gray', backgroundColor: '#171717' }}>
-            <option>High</option>
+      <div className={`  flex flex-wrap md:flex-nowrap`}>
+        <Box className={` flex flex-col mx-2  ml-[20px]`} sx={{ backgroundColor: 'background.view' }} >
+        <label >
+  Select priority
+</label>
+
+          <select  className={`${mode === "dark" ? "bg-[#202021]" : ""} , "p-2 rounded" ,  border border-zinc-500 rounded-sm`} style={{ fontSize:"12px" , height:'36px' }}>
+            <option className={`${`${mode === "dark" ? "text-[red]" : "blue"},`} `}>High</option>
             <option>Medium</option>
             <option>Low</option>
           </select>
-        </div>
-        <div className="flex flex-col mx-2  ml-[20px]">
-          <label className="text-gray-400">From</label>
-          <input className="p-2 rounded text-white" type='date' style={{fontSize:"12px" , border: '1px solid gray', backgroundColor: '#171717', height: '39px' }} />
-        </div>
-        <div className="flex flex-col mx-2  ml-[20px]">
-          <label className="text-gray-400">To</label>
-          <input className="p-2 rounded text-white" type='date' style={{fontSize:"12px" , border: '1px solid gray', backgroundColor: '#171717', height: '39px' }} />
-        </div>
+        </Box>
+        <Box className="flex flex-col mx-2  ml-[20px] " sx={{ backgroundColor: 'background.view' }}>
+          <label className="">From</label>
+          <input
+  className={`${mode === "dark" ? "bg-[#202021]" : ""} p-2 rounded-sm border border-zinc-500`}
+  type="date"
+  style={{ fontSize: "12px", height: "36px" }}
+/>        </Box>
+<Box className="flex flex-col mx-2  ml-[20px] " sx={{ backgroundColor: 'background.view' }}>
+          <label className="">To</label>
+          <input
+  className={`${mode === "dark" ? "bg-[#202021]" : ""} p-2 rounded-sm border border-zinc-500`}
+  type="date"
+  style={{ fontSize: "12px", height: "36px" }}
+/>        </Box>
       </div>
       <div className='mt-2 md:mt-[15px]'>
         <button className="p-2 bg-blue-600 text-white rounded">Search</button>
