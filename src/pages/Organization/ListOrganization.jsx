@@ -24,21 +24,22 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { useNavigate } from "react-router-dom";
 // Tabs Section
 const ListOrganization = () => {
-  const [activeTab, setActiveTab] = useState(1); // Start with the second tab active
-  const handleTabChange = (event, newValue) => {
-    setActiveTab(newValue);
-  };
-
+  const navigate = useNavigate();
   const [organizations, setOrganization] = useState([{ ide: 1 }]);
 
   function handleDelete() {
-    return { name: "Dipesh" };
+    return { name: "" };
   }
 
   function handleEdit() {
-    return { name: "Dipesh" };
+    return { name: "" };
+  }
+
+  function handleSelect() {
+    navigate("/");
   }
 
   const getColor = (status) => {
@@ -54,7 +55,6 @@ const ListOrganization = () => {
 
    useEffect(()=>{
     getOrganizations();
-
    },[])
 
    const getOrganizations = async ()=>{
@@ -114,7 +114,9 @@ const ListOrganization = () => {
         {organizations.map((org, index) => (
           <Grid container sx={{ p: 1 , minWidth : 525  }}>
             <Grid item  xs={8} >
-             {org.name}
+              <div onClick={handleSelect} >
+              {org.name}
+              </div>
             </Grid>
             <Grid item  xs={2} >
               <div className={`px-3 py-1 rounded-lg w-fit ${getColor(org.state)} `}  >

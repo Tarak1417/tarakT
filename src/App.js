@@ -59,6 +59,7 @@ import ThemeContextProvider, { useTheme } from './style/theme';
 import CreateOrganization from './pages/Organization/CreateOrganization';
 import ListOrganization from './pages/Organization/ListOrganization';
 import { setCookie } from './utilities/cookies';
+import OnBoarding from './pages/Adarsh/OnBoarding';
 
 
 
