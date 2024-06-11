@@ -61,6 +61,20 @@ import ListOrganization from './pages/Organization/ListOrganization';
 import { setCookie } from './utilities/cookies';
 import OnBoarding from './pages/Adarsh/OnBoarding';
 
+import Theme from "./pages/admin/Theme";
+import Ticket from "./pages/admin/Ticket";
+import Chat from "./pages/admin/Chat";
+import Emailsetting from "./pages/admin/Emailsetting";
+import Fileupload from "./pages/admin/Fileupload";
+import Customcssjs from "./pages/admin/Customcssjs";
+import Captcha from "./pages/admin/Captcha";
+import Notifications from "./pages/admin/Notifications";
+import Generalsettings from "./pages/admin/Generalsettings";
+import Paymentsetting from "./pages/admin/Paymentsetting";
+import Othersetting from "./pages/admin/Othersetting";
+import Apisetting from "./pages/admin/Apisetting";
+import Generalsettinghome from "./pages/admin/Generalsettinghome";
+import Rollaccess from "./pages/admin/Rollaccess";
 
 
 const App = () => {
@@ -160,7 +174,6 @@ const App = () => {
           <Route path="/leaveapplication" element={<LeaveAppHome />} />
           <Route path="/leaveapplication/view" element={<LeaveViewHome />} />
           <Route path="rulesandregulations" element={<RuleAndRegulations />} />
-
           <Route path="/dashboardproject" element={<Dashboard />} />
           <Route path="/newProject" element={<NewProject />} />
           <Route path="/OverTime" element={<OverTime />} />
@@ -191,6 +204,9 @@ const App = () => {
                     <Route path='/OverViewCalender' element={<OverViewCalender />} />
                     <Route path='/ViewProject' element={<ViewProject />} />
                     <Route path='/calender' element={<Calender />} />
+                    <Route path="/generalsettinghome" element={<Generalsettinghome />} />
+          <Route path="/rollaccess" element={<Rollaccess />} />
+          <Route path="/apisetting" element={<Apisetting />} />
                 </Routes>
             </Header>
             <Footer />
