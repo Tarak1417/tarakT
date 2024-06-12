@@ -11,7 +11,7 @@ import view from '../ReceivedApp/viewicon.png';
 import AttendViewPage from '../Attendance/AttendView/AttendViewPage';
 
 
-const OverViewCalender = () => {
+const ProjectList = () => {
 
     const [currentScreen, setCurrentScreen] = useState(1);
 
@@ -410,4 +410,4 @@ const OverViewCalender = () => {
     );
 };
 
-export default OverViewCalender;
+export default ProjectList;

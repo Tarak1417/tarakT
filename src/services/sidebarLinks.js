@@ -129,27 +129,27 @@ const menuItems = [
             {
                 label: 'Dashboard',
                 icon: <Attend />,
-                to: '/employees/award',
+                to: '/dashboardproject',
             },
             {
                 label: 'Project List',
                 icon: <Leave/>,
-                to: '/employees/award',
+                to: '/projectlist',
             },
             {
                 label: 'View Project',
                 icon: <Download/>,
-                to: '/employees/award',
+                to: '/viewproject',
             },
             {
                 label: 'Overview Calendar',
                 icon: <Person/>,
-                to: '/employees/award',
+                to: '/overviewcalender',
             },
             {
                 label: 'New Project',
                 icon: <Person/>,
-                to: '/employees/award',
+                to: '/newproject',
             },
            
         ],
@@ -353,17 +353,17 @@ const menuItems = [
             {
                 label: 'General Settings',
                 icon: <Attend />,
-                to: '/employees/award',
+                to: '/generalsetting',
             },
             {
                 label: 'API Settings',
                 icon: <Leave/>,
-                to: '/employees/award',
+                to: '/apisetting',
             },
             {
                 label: 'Role Access',
                 icon: <Download/>,
-                to: '/employees/award',
+                to: '/rollaccess',
             },
            
         ],
