@@ -80,7 +80,6 @@ import ViewProject from './pages/Projects/ViewProject';
 const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { toggleTheme } = useTheme();
 
   const hideHeaderPaths = ['/walkover', '/checkout', '/createOrganization', '/listOrganization']; // Add the paths where you want to hide the header
 
