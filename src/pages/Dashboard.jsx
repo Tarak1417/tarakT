@@ -60,7 +60,7 @@ const Dashboard = () => {
         { icon: <GroupIcon fontSize='large' className="text-white  bg-sky-400 p-2 rounded-lg" />, title: 'Total Employees',  value: <Typography variant="body1" style={{ color: '#00FF00', fontSize: '1.2em' }}>{overview?.employees?.total}</Typography>, description: '124 for last month', trendIcon: <TrendingUp className="text-green-500" /> },
         { icon: <ApartmentIcon fontSize='large' className="text-white bg-rose-500 p-2 rounded-lg" />, title: 'Department', value: <Typography variant="body1" style={{ color: '#FF0000', fontSize: '1.2em' }}>{overview?.departments}</Typography>, description: '124 for last month,', trendIcon: <TrendingDown className="text-red-500" /> },
         { icon: <AttachMoneyIcon fontSize='large' className="text-white bg-blue-500 p-2 rounded-lg" />, title: 'Expenses', value: <Typography variant="body1" style={{ color: '#FF0000', fontSize: '1.2em' }}>$ {
-            overview.expenses
+            overview?.expenses
                 ? overview.expenses.reduce(
                       (total, el) => total + el.price,
                       0
