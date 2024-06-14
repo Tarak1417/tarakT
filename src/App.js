@@ -39,11 +39,10 @@ import WalkoverHeader from './pages/Walkover/Walkover'
 import Dashboard from './pages/Projects/Dashboard';
 import NewProject from './pages/Projects/NewProject';
 import OverTime from './pages/Projects/OverTimeCalender';
-import OverViewCalender from './pages/Projects/OverViewCalender';
-import ViewProject from './pages/Projects/ViewProject';
-import Calender from './pages/Projects/Calender';
+import ProjectList from './pages/Projects/ProjectList';
+import OverViewCalender from './pages/Projects/Calender';
 import DashBoard from './pages/Support_System/UserPage/Dashboard/DashBoard';
-import TicketList  from './pages/Support_System/UserPage/Tikects/TicketList';
+import TicketList from './pages/Support_System/UserPage/Tikects/TicketList';
 import Profile from './pages/Support_System/UserPage/profile/Profile'
 import Knowledgepage from './pages/Support_System/LandingPages/Knowledgepage';
 import Knowledgeview from './pages/Support_System/LandingPages/Knowledgeview';
@@ -61,52 +60,66 @@ import ListOrganization from './pages/Organization/ListOrganization';
 import { setCookie } from './utilities/cookies';
 import OnBoarding from './pages/Adarsh/OnBoarding';
 
+import Theme from "./pages/admin/Theme";
+import Ticket from "./pages/admin/Ticket";
+import ChatSetting from "./pages/admin/Chat";
+import Emailsetting from "./pages/admin/Emailsetting";
+import Fileupload from "./pages/admin/Fileupload";
+import Customcssjs from "./pages/admin/Customcssjs";
+import Captcha from "./pages/admin/Captcha";
+import Notifications from "./pages/admin/Notifications";
+import Generalsettings from "./pages/admin/Generalsettings";
+import Paymentsetting from "./pages/admin/Paymentsetting";
+import Othersetting from "./pages/admin/Othersetting";
+import Apisetting from "./pages/admin/Apisetting";
+import Generalsettinghome from "./pages/admin/Generalsettinghome";
+import Rollaccess from "./pages/admin/Rollaccess";
+import ViewProject from './pages/Projects/ViewProject';
 
 
 const App = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const { toggleTheme } = useTheme();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    const hideHeaderPaths = ['/walkover', '/checkout' ,'/createOrganization' ,'/listOrganization']; // Add the paths where you want to hide the header
+  const hideHeaderPaths = ['/walkover', '/checkout', '/createOrganization', '/listOrganization']; // Add the paths where you want to hide the header
 
-    let shouldHideHeader = hideHeaderPaths.includes(location.pathname);
+  let shouldHideHeader = hideHeaderPaths.includes(location.pathname);
 
-    useEffect(() => {
-        const queryParams = new URLSearchParams(location.search);
-        const data = {
-            amount: queryParams.get('amount'),
-            period: queryParams.get('period'),
-            theme: queryParams.get('theme'),
-        };
-        console.log(data)
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const data = {
+      amount: queryParams.get('amount'),
+      period: queryParams.get('period'),
+      theme: queryParams.get('theme'),
+    };
+    console.log(data)
 
-        if (data.theme === 'dark') {
-          setCookie('P13N', "dark");
-        }else {
-            setCookie('P13N', "light");
-        }
-
-        if(data.amount !== null || data.period !== null) {
-            shouldHideHeader = true;
-            navigate("/walkover");
-        }
-    }, []);
-
-    if (shouldHideHeader) {
-        return (
-            <ThemeContextProvider>
-                <AuthorizationProvider>
-                    <Routes>
-                        <Route path='/walkover' element={<WalkoverHeader />} />
-                        <Route path='/checkout' element={<OnBoarding />} />
-                        <Route path='/createOrganization' element={<CreateOrganization />} />
-                        <Route path='/listOrganization' element={<ListOrganization />} />
-                    </Routes>
-                </AuthorizationProvider>
-            </ThemeContextProvider>
-        )
+    if (data.theme === 'dark') {
+      setCookie('P13N', "dark");
+    } else {
+      setCookie('P13N', "light");
     }
+
+    if (data.amount !== null || data.period !== null) {
+      shouldHideHeader = true;
+      navigate("/walkover");
+    }
+  }, []);
+
+  if (shouldHideHeader) {
+    return (
+      <ThemeContextProvider>
+        <AuthorizationProvider>
+          <Routes>
+            <Route path='/walkover' element={<WalkoverHeader />} />
+            <Route path='/checkout' element={<OnBoarding />} />
+            <Route path='/createOrganization' element={<CreateOrganization />} />
+            <Route path='/listOrganization' element={<ListOrganization />} />
+          </Routes>
+        </AuthorizationProvider>
+      </ThemeContextProvider>
+    )
+  }
 
 
   return (
@@ -154,51 +167,45 @@ const App = () => {
           <Route path="/employees" element={<EmployeeHome />} />
           <Route path="/performance/:id" element={<PerformanceHome />} />
           <Route path="/viewemployee/:id" element={<EmpDetailsHome />} />
+        
           <Route path="/attendance" element={<AttendHome />} />
           <Route path="/attendanceview" element={<AttendViewHome />} />
           <Route path="/leavesettings" element={<LeaveSettingsHome />} />
           <Route path="/leaveapplication" element={<LeaveAppHome />} />
           <Route path="/leaveapplication/view" element={<LeaveViewHome />} />
+         
           <Route path="rulesandregulations" element={<RuleAndRegulations />} />
 
-          <Route path="/dashboardproject" element={<Dashboard />} />
-          <Route path="/newProject" element={<NewProject />} />
-          <Route path="/OverTime" element={<OverTime />} />
-          <Route path="/OverViewCalender" element={<OverViewCalender />} />
-          <Route path="/ViewProject" element={<ViewProject />} />
-          <Route path="/calender" element={<Calender />} />
+          <Route path='/dashboardproject' element={<Dashboard />} />
+          <Route path='/projectlist' element={<ProjectList />} />
+          <Route path='/newproject' element={<NewProject />} />
+          <Route path='/overTime' element={<OverTime />} />
+
+          <Route path='/overviewcalender' element={ <OverTime />} />
+          <Route path='/viewproject' element={<ViewProject />} />
+
           <Route path="/support/ticketlist" element={<TicketList />} />
           <Route path="/support/activeticket" element={<ActiveList />} />
-
           <Route path="/support/createtiket" element={<CreateTicket />} />
-
           <Route path="/support/closeticket" element={<CloseTicket />} />
-
           <Route path="/support/profile" element={<Profile />} />
           <Route path="/support/Dashboard" element={<DashBoard />} />
           <Route path="/support/landing" element={<LandingPage />} />
           <Route path="/support/knowledgepage" element={<Knowledgepage />} />
           <Route path="/support/knowledgeview" element={<Knowledgeview />} />
           <Route path="/memo" element={<Memo />} />
-          <Route path="/memoEdit" element={<MemoEdit/>} />
-          <Route path="/chat" element={<Chat/>} />
+          <Route path="/memoEdit" element={<MemoEdit />} />
+          <Route path="/chat" element={<Chat />} />
 
-
-
-                    <Route path='/dashboardproject' element={<Dashboard />} />
-                    <Route path='/newProject' element={<NewProject />} />
-                    <Route path='/OverTime' element={<OverTime />} />
-                    <Route path='/OverViewCalender' element={<OverViewCalender />} />
-                    <Route path='/ViewProject' element={<ViewProject />} />
-                    <Route path='/calender' element={<Calender />} />
-                </Routes>
-            </Header>
-            <Footer />
-
-
-            <Footer />
-        </>
-    );
+          <Route path="/generalsetting" element={<Generalsettinghome />} />
+          <Route path="/rollaccess" element={<Rollaccess />} />
+          <Route path="/apisetting" element={<Apisetting />} />
+        </Routes>
+      </Header>
+      <Footer />
+      {/* <Footer /> */}
+    </>
+  );
 };
 
 export default App;

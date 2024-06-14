@@ -134,22 +134,22 @@ const menuItems = [
             {
                 label: 'Project List',
                 icon: <Leave/>,
-                to: '/OverViewCalender',
+                to: '/projectlist',
             },
             {
                 label: 'View Project',
                 icon: <Download/>,
-                to: '/ViewProject',
+                to: '/viewproject',
             },
             {
                 label: 'Overview Calendar',
                 icon: <Person/>,
-                to: '/OverTime',
+                to: '/overviewcalender',
             },
             {
                 label: 'New Project',
                 icon: <Person/>,
-                to: '/newProject',
+                to: '/newproject',
             },
            
         ],
@@ -341,7 +341,6 @@ const menuItems = [
          
         ],
     },
-    
     {
         icon: <GroupsIcon fontSize='small' />,
         label: 'Chat',
@@ -354,17 +353,17 @@ const menuItems = [
             {
                 label: 'General Settings',
                 icon: <Attend />,
-                to: '/employees/award',
+                to: '/generalsetting',
             },
             {
                 label: 'API Settings',
                 icon: <Leave/>,
-                to: '/employees/award',
+                to: '/apisetting',
             },
             {
                 label: 'Role Access',
                 icon: <Download/>,
-                to: '/employees/award',
+                to: '/rollaccess',
             },
            
         ],

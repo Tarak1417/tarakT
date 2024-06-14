@@ -64,6 +64,57 @@ import Feedback from './Feedback';
 import MicrophoneIcon from './MicrophoneIcon';
 //logos
 import hrlogo from './images/hr-text.png';
+import ClikkleAds from '../assets/ClikkleFavicons/Clikkle Ads favicon.png'
+import  ClikkleMail  from '../assets/ClikkleFavicons/Clikkle Mail-01.png';
+import  ClikkleCampaigns  from '../assets/ClikkleFavicons/Clikkle Campaigns favicon.png';
+import  ClikkleEsign  from '../assets/ClikkleFavicons/Clikkle E-sign-favicon.png';
+import  ClikkleFiles  from '../assets/ClikkleFavicons/Clikkle Files favicon.png';
+import  ClikkleHost  from '../assets/ClikkleFavicons/Clikkle Host-favicon.png';
+import  ClikklePitch  from '../assets/ClikkleFavicons/Clikkle Pitch-favicon.png';
+import  ClikkleProject  from '../assets/ClikkleFavicons/Clikkle Products favicon.png';
+import  ClikkleLaunch  from '../assets/ClikkleFavicons/Clikkle Launch favicon.png';
+
+const clikkleApps = [{ 
+    name : "Ads",
+    url :"https://ads.clikkle.com/",
+    logo :ClikkleAds
+},
+{ 
+   name : "C-Mail",
+   url :"https://mail.clikkle.com/",
+   logo :ClikkleMail
+},{ 
+   name : "Campaigns",
+   url :"https://campaigns.clikkle.com/",
+   logo :ClikkleCampaigns
+},{ 
+   name : "E-Sign",
+   url :"https://esign.clikkle.com/",
+   logo :ClikkleEsign
+},{ 
+   name : "Files",
+   url :"https://files.clikkle.com/",
+   logo :ClikkleFiles
+},{ 
+   name : "Host",
+   url :"https://host.clikkle.com/",
+   logo :ClikkleHost
+},
+{ 
+   name : "Pitch",
+   url :"https://pitch.clikkle.com/",
+   logo :ClikklePitch
+},
+{ 
+   name : "Projects",
+   url :"https://projects.clikkle.com/",
+   logo :ClikkleProject
+},{ 
+   name : "Launch",
+   url :"https://launch.clikkle.com/",
+   logo :ClikkleLaunch
+}
+]
 
 
 const drawerWidth = 260;
@@ -116,7 +167,7 @@ const Drawer = styled(MuiDrawer, {
 export default function Navbar(props) {
     const { children } = props;
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [sidebarApps, setSidebarApps] = useState(null);
+    const [sidebarApps, setSidebarApps] = useState(clikkleApps);
     const [isOrderChanged, setIsOrderChanged] = useState(false);
     const [editable, setEditable] = useState(false);
     const [user, setUser] = useState(null);
