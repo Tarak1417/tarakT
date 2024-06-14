@@ -1,7 +1,5 @@
 import React from "react";
 import Nav from "./Nav";
-import ThemeContextProvider from "../../style/theme";
-
 import TabsSection from "./TabSection";
 import { CssBaseline } from "@mui/material";
 

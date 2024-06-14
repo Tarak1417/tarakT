@@ -37,6 +37,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 function Nav(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [userName, setUserName] = React.useState("");
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -59,18 +60,6 @@ function Nav(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const {
-    anchorEl: anchorElApps,
-    openMenu: openAppsMenu,
-    closeMenu: closeAppsMenu,
-  } = useMenu();
-
-  const {
-    anchorEl: anchorElSettings,
-    openMenu: openSettingsMenu,
-    closeMenu: closeSettingsMenu,
-  } = useMenu();
-  const { toggleTheme, mode } = useTheme();
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -89,6 +78,14 @@ function Nav(props) {
       </List>
     </Box>
   );
+
+  React.useEffect(() => {
+    let user = localStorage.getItem("user");
+    if (user) {
+      user = JSON.parse(user);
+      setUserName(user.firstName + " " + user.lastName);
+    }
+  }, []);
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
@@ -122,7 +119,7 @@ function Nav(props) {
           </Box>
           <Box
             sx={{
-              display:"flex",
+              display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
             }}
@@ -134,40 +131,43 @@ function Nav(props) {
             ))} */}
 
             <AppsIcon
-              sx={{  display : { xs: 'block' , sm:'none'}   }}
+              sx={{ display: { xs: "block", sm: "none" } }}
               className="mx-1"
               fontSize="large"
               color="action"
             />
 
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <Tooltip title={userName}>
+              <IconButton sx={{ p: 0 }}>
                 <Avatar
-                  alt="Remy Sharp"
+                  alt={userName}
                   src="../../components/images/hr-text.png"
                 />
               </IconButton>
             </Tooltip>
 
-
-
             <Typography
-              sx={{  display : { xs: 'none' , sm:'block'} , color: "text.secondary", marginLeft: 1 , color:"#424242"  }}
+              sx={{
+                display: { xs: "none", sm: "block" },
+                color: "text.secondary",
+                marginLeft: 1,
+                color: "#424242",
+              }}
               textAlign="center"
             >
-              Remy Sharp
+             {userName}
             </Typography>
             <ArrowForwardIosIcon
-              sx={{  display : { xs: 'none' , sm:'block'}   }}
-
+              sx={{ display: { xs: "none", sm: "block" } }}
               className="mx-4"
               fontSize="small"
               color="action"
             />
 
-            <HelpCenterOutlinedIcon  
-              sx={{  display : { xs: 'none' , sm:'block'}   }}
-            color="action" />
+            <HelpCenterOutlinedIcon
+              sx={{ display: { xs: "none", sm: "block" } }}
+              color="action"
+            />
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
