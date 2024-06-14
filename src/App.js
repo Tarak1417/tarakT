@@ -80,9 +80,7 @@ import ViewProject from './pages/Projects/ViewProject';
 const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
   const hideHeaderPaths = ['/walkover', '/checkout', '/createOrganization', '/listOrganization']; // Add the paths where you want to hide the header
-
   let shouldHideHeader = hideHeaderPaths.includes(location.pathname);
 
   useEffect(() => {
@@ -101,6 +99,7 @@ const App = () => {
     }
 
     if (data.amount !== null || data.period !== null) {
+      localStorage.setItem("planData", JSON.stringify(data));
       shouldHideHeader = true;
       navigate("/walkover");
     }

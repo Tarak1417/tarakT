@@ -40,19 +40,45 @@ import axios from "axios";
 import useSnack from "../../hooks/useSnack";
 import { useNavigate } from "react-router-dom";
 // import TaskAltIcon from '@mui/icons-material/CheckCircleOutline';
+let ClikklePlan = [
+  "All features in Current Plan",
+  "Access to all Clikkle Products",
+  "Customizable Reports and Analytics",
+  "Real Time Notifications and Alerts",
+  "Document Management System",
+  "Mobile App Access",
+  "Automated Payroll Processing",
+  "Employee Self-Service Portal",
+  "AI Powered Candidate Matching",
+  "Integrated Video Interviewing",
+  "Project Management Tools",
+];
+
+let CurrentPlan = [
+  "Full HR platform",
+  "Recruiting / ATS",
+  "Time off Management",
+  "HR Analytics",
+  "Time and Attendance Tracking",
+  "Performance Management",
+  "New Hire Onboarding",
+  "Job Offers",
+  "Surveys and Training",
+  "24/7 Customer Support",
+];
 
 const CardSection = () => {
   // const classes = useStyles();
   // const { SnackBar, showMessage } = useSnack();
   const [plan, setPlan] = React.useState("Current Plan");
   const [name, setName] = useState("");
+  const [planData, setPlanData] = useState({ amount : 49 , period : "mon"});
   const [showMessage, setShowMessage] = useState({
     show: true,
     message: "",
     severity: "",
   });
   const navigate = useNavigate();
-
   const stripe = useStripe();
   const elements = useElements();
 
@@ -126,6 +152,13 @@ const CardSection = () => {
   const handlePlanChange = (event, newPlan) => {
     setPlan(newPlan);
   };
+  React.useEffect(() => {
+    let tempPlanData = localStorage.getItem("planData");
+    if (tempPlanData) {
+      tempPlanData = JSON.parse(tempPlanData);
+      setPlanData(tempPlanData)
+    }
+  }, []);
 
   return (
     <Box
@@ -177,8 +210,12 @@ const CardSection = () => {
                 aria-label="Platform"
                 onChange={handlePlanChange}
               >
-                <ToggleButton className="py-3" value="Current Plan">Current </ToggleButton>
-                <ToggleButton className="py-3" value="Clikkle Plus">clikkle Plus</ToggleButton>
+                <ToggleButton className="py-3" value="Current Plan">
+                  Current{" "}
+                </ToggleButton>
+                <ToggleButton className="py-3" value="Clikkle Plus">
+                  clikkle Plus
+                </ToggleButton>
               </ToggleButtonGroup>
 
               <div className="text-base font-black mt-4 mb-1">
@@ -187,7 +224,7 @@ const CardSection = () => {
                 </Typography>
               </div>
               <Typography variant="body2" color="textSecondary" gutterBottom>
-                7 days free trial, then $49/month
+                7 days free trial, then ${(plan =="Current Plan" ? planData.amount : "99")}/month
               </Typography>
               <Typography
                 variant="body1"
@@ -200,126 +237,20 @@ const CardSection = () => {
                 All Features Included:
               </Typography>
               <List dense>
-                <ListItem className="d-flex justify-between">
-                  <TaskAltIcon
-                    color="primary"
-                    sx={{
-                      fontSize: "18px",
-                    }}
-                  ></TaskAltIcon>
-                  <ListItemText
-                    className="ps-2"
-                    primary="Document Management System"
-                  />
-                </ListItem>
-                <ListItem className="d-flex">
-                  <TaskAltIcon
-                    color="primary"
-                    sx={{
-                      fontSize: "18px",
-                    }}
-                  ></TaskAltIcon>
-                  <ListItemText
-                    className="ps-2"
-                    primary="Compliance Management"
-                  />
-                </ListItem>
-                <ListItem className="d-flex  ">
-                  <TaskAltIcon
-                    color="primary"
-                    sx={{
-                      fontSize: "18px",
-                    }}
-                  ></TaskAltIcon>
-                  <ListItemText
-                    className="ps-2"
-                    primary="Employee Self-Service Portal"
-                  />
-                </ListItem>
-                <ListItem className="d-flex justify-between ">
-                  <TaskAltIcon
-                    color="primary"
-                    sx={{
-                      fontSize: "18px",
-                    }}
-                  ></TaskAltIcon>
-                  <ListItemText
-                    className="ps-2"
-                    primary="Automated Payroll Processing"
-                  />
-                </ListItem>
-                <ListItem className="d-flex  ">
-                  <TaskAltIcon
-                    color="primary"
-                    sx={{
-                      fontSize: "18px",
-                    }}
-                  ></TaskAltIcon>
-                  <ListItemText
-                    className="ps-2"
-                    primary="Time and Attendance Tracking"
-                  />
-                </ListItem>
-                <ListItem className="d-flex  ">
-                  <TaskAltIcon
-                    color="primary"
-                    sx={{
-                      fontSize: "18px",
-                    }}
-                  ></TaskAltIcon>
-                  <ListItemText
-                    className="ps-2"
-                    primary="Performance Management"
-                  />
-                </ListItem>
-                <ListItem className="d-flex  ">
-                  <TaskAltIcon
-                    color="primary"
-                    sx={{
-                      fontSize: "18px",
-                    }}
-                  ></TaskAltIcon>
-                  <ListItemText
-                    className="ps-2"
-                    primary="Recruitment and Onboarding"
-                  />
-                </ListItem>
-                <ListItem className="d-flex justify-between ">
-                  <TaskAltIcon
-                    color="primary"
-                    sx={{
-                      fontSize: "18px",
-                    }}
-                  ></TaskAltIcon>
-                  <ListItemText
-                    className="ps-2"
-                    primary="Customizable Reports and Analytics"
-                  />
-                </ListItem>
-                <ListItem className="d-flex justify-between ">
-                  <TaskAltIcon
-                    color="primary"
-                    sx={{
-                      fontSize: "18px",
-                    }}
-                  ></TaskAltIcon>
-                  <ListItemText
-                    className="ps-2"
-                    primary="Real-Time Notifications and Alerts on Desktop and Mobile Device."
-                  />
-                </ListItem>
-                <ListItem className="d-flex justify-between ">
-                  <TaskAltIcon
-                    color="primary"
-                    sx={{
-                      fontSize: "18px",
-                    }}
-                  ></TaskAltIcon>
-                  <ListItemText
-                    className="ps-2"
-                    primary="24/7 Customer Support"
-                  />
-                </ListItem>
+                {(plan =="Current Plan" ? CurrentPlan : ClikklePlan).map((item , index) =>(
+                <ListItem key={index} className="d-flex justify-between">
+                <TaskAltIcon
+                  color="primary"
+                  sx={{
+                    fontSize: "18px",
+                  }}
+                ></TaskAltIcon>
+                <ListItemText
+                  className="ps-2"
+                  primary={item}
+                />
+              </ListItem>
+              ))}
               </List>
             </CardContent>
           </Card>
