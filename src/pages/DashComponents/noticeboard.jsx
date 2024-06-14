@@ -40,7 +40,7 @@ const NoticeBoard = ({ eventData }) => {
             </p>
             <div className="px-1 p-4 overflow-y-auto">
                 <div className=''>
-                    {eventData?eventData:demoEvent.map((event, index) => (
+                    {(eventData ? eventData:demoEvent).map((event, index) => (
                         <div key={index} className="mb-4">
                             <div className="flex gap-4 justify-center items-center">
                                 <div className="w-1/4 h-[60px] flex items-center justify-center text-white rounded-lg" style={{ backgroundColor: event.backgroundColor }}>
