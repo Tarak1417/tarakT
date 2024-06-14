@@ -71,7 +71,7 @@ import  ClikkleEsign  from '../assets/ClikkleFavicons/Clikkle E-sign-favicon.png
 import  ClikkleFiles  from '../assets/ClikkleFavicons/Clikkle Files favicon.png';
 import  ClikkleHost  from '../assets/ClikkleFavicons/Clikkle Host-favicon.png';
 import  ClikklePitch  from '../assets/ClikkleFavicons/Clikkle Pitch-favicon.png';
-import  ClikkleProject  from '../assets/ClikkleFavicons/Clikkle Products favicon.png';
+import  ClikkleProject  from '../assets/ClikkleFavicons/Clikkle Projects-01.png';
 import  ClikkleLaunch  from '../assets/ClikkleFavicons/Clikkle Launch favicon.png';
 
 const clikkleApps = [{ 
@@ -80,14 +80,11 @@ const clikkleApps = [{
     logo :ClikkleAds
 },
 { 
-   name : "C-Mail",
-   url :"https://mail.clikkle.com/",
-   logo :ClikkleMail
-},{ 
-   name : "Campaigns",
-   url :"https://campaigns.clikkle.com/",
-   logo :ClikkleCampaigns
-},{ 
+    name : "Campaigns",
+    url :"https://campaigns.clikkle.com/",
+    logo :ClikkleCampaigns
+ },
+{ 
    name : "E-Sign",
    url :"https://esign.clikkle.com/",
    logo :ClikkleEsign
@@ -100,19 +97,26 @@ const clikkleApps = [{
    url :"https://host.clikkle.com/",
    logo :ClikkleHost
 },
+,{ 
+    name : "Launch",
+    url :"https://launch.clikkle.com/",
+    logo :ClikkleLaunch
+ },
+{ 
+    name : "C-Mail",
+    url :"https://mail.clikkle.com/",
+    logo :ClikkleMail
+ },
 { 
    name : "Pitch",
    url :"https://pitch.clikkle.com/",
    logo :ClikklePitch
 },
+
 { 
    name : "Projects",
    url :"https://projects.clikkle.com/",
    logo :ClikkleProject
-},{ 
-   name : "Launch",
-   url :"https://launch.clikkle.com/",
-   logo :ClikkleLaunch
 }
 ]
 
@@ -661,11 +665,11 @@ export default function Navbar(props) {
                                     </MenuItem>
                                 </Menu>
 
-                                <IconButton onClick={openAppsMenu}>
+                                <IconButton target='_blank' href={"https://apps.clikkle.com/"} >
                                     <AppsIcon />
                                 </IconButton>
 
-                                <Menu
+                                {/* <Menu
                                     anchorEl={anchorElApps}
                                     open={Boolean(anchorElApps)}
                                     onClose={closeAppsMenu}
@@ -742,7 +746,7 @@ export default function Navbar(props) {
                                                       </Grid>
                                                   ))}
                                     </Grid>
-                                </Menu>
+                                </Menu> */}
                             </Stack>
                         </Grid>
                         <Grid item>
