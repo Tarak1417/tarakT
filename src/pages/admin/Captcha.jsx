@@ -96,7 +96,7 @@ const Captcha = () => {
           <div className="flex flex-col md:flex-row w-full gap-8">
             <div className="flex flex-col w-full md:w-full  gap-2 ">
               <div className="w-full flex items-center">
-                <p className="text-[16px]">Captcha Length</p>
+                <p className="text-[16px]">Select Length</p>
               </div>
               <div className="w-full md:w-full border border-gray-500 rounded-lg flex flex-row justify-between items-center">
                 <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">

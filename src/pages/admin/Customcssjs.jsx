@@ -53,7 +53,7 @@ const Customcssjs = () => {
                 <div>
                   <TextField
                     id="outlined-multiline-static"
-                    label=""
+                    label="type in css style "
                     multiline
                     rows={4}
                     sx={{ color: "gray" }}
@@ -82,7 +82,7 @@ const Customcssjs = () => {
                 <div>
                   <TextField
                     id="outlined-multiline-static"
-                    label=""
+                    label="type in javascript style"
                     multiline
                     rows={4}
                     sx={{ color: "gray" }}

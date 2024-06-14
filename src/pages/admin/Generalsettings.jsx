@@ -79,13 +79,13 @@ const Generalsettings = ({ subheading }) => {
           <div className="flex flex-col md:flex-row w-full gap-8">
             <div className="flex flex-col w-full md:w-full  gap-2 ">
               <div className="w-[13%] flex items-center">
-                <p className="text-[16px] whitespace-nowrap">Base Salary</p>
+                <p className="text-[16px] whitespace-nowrap">App Title</p>
               </div>
               <div className="w-full border border-gray-300 rounded-lg flex items-center">
                 <input
                   type="text"
                   className="w-full rounded-lg bg-transparent focus:outline-none p-2"
-                  placeholder="O"
+                  placeholder="Name"
                 />
               </div>
             </div>
@@ -99,7 +99,7 @@ const Generalsettings = ({ subheading }) => {
                 <input
                   type="text"
                   className="w-full rounded-lg bg-transparent focus:outline-none p-2"
-                  placeholder="O"
+                  placeholder="Name"
                 />
               </div>
             </div>
@@ -111,7 +111,7 @@ const Generalsettings = ({ subheading }) => {
               </div>
               <div className="w-full md:w-full border border-gray-500 rounded-lg flex flex-row justify-between items-center">
                 <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
-                  <option>Employee Name</option>
+                  <option>Choose Language</option>
                   <option>name1</option>
                   <option>name2</option>
                   <option>name3</option>
@@ -130,7 +130,7 @@ const Generalsettings = ({ subheading }) => {
               </div>
               <div className="w-full md:w-full border border-gray-500 rounded-lg flex flex-row justify-between items-center">
                 <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
-                  <option>Employee Name</option>
+                <option>Choose Language</option>
                   <option>name1</option>
                   <option>name2</option>
                   <option>name3</option>
@@ -147,11 +147,24 @@ const Generalsettings = ({ subheading }) => {
               <div className="w-full flex items-center">
                 <p className="text-[16px]">Select Date Format</p>
               </div>
-              <div className="w-full md:w-full border border-gray-500 rounded-lg flex flex-row justify-between items-center">
+              {/* <div className="w-full md:w-full border border-gray-500 rounded-lg flex flex-row justify-between items-center">
                 <input
-                  type=""
+                   placeholder="Choose Formate"
                   className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500"
+                  label="Choose Formate"
+               />
+                <ArrowDropDownIcon
+                  style={{ fontSize: "28px" }}
+                  className="text-zinc-500"
                 />
+              </div> */}
+              <div className="w-full md:w-full border border-gray-500 rounded-lg flex flex-row justify-between items-center">
+                <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
+                <option>Choose Formate</option>
+                  <option>name1</option>
+                  <option>name2</option>
+                  <option>name3</option>
+                </select>
                 <ArrowDropDownIcon
                   style={{ fontSize: "28px" }}
                   className="text-zinc-500"
@@ -164,11 +177,26 @@ const Generalsettings = ({ subheading }) => {
               <div className="w-full flex items-center">
                 <p className="text-[16px]">Select Time Format</p>
               </div>
-              <div className="w-full md:w-full border border-gray-500 rounded-lg flex flex-row justify-between items-center">
+              {/* <div className="w-full md:w-full border border-gray-500 rounded-lg flex flex-row justify-between items-center">
                 <input
+               
+                placeholder="Choose Formate"
                   type=""
                   className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500"
                 />
+                <ArrowDropDownIcon
+                  style={{ fontSize: "28px" }}
+                  className="text-zinc-500"
+                />
+              </div> */}
+
+              <div className="w-full md:w-full border border-gray-500 rounded-lg flex flex-row justify-between items-center">
+                <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
+                <option>Choose Formate</option>
+                  <option>name1</option>
+                  <option>name2</option>
+                  <option>name3</option>
+                </select>
                 <ArrowDropDownIcon
                   style={{ fontSize: "28px" }}
                   className="text-zinc-500"

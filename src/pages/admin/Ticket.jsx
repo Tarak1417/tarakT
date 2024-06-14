@@ -126,7 +126,7 @@ const Ticket = () => {
                 <input
                   type="text"
                   className="w-full rounded-lg bg-transparent focus:outline-none p-2"
-                  placeholder="Name"
+                  placeholder="text"
                 />
               </div>
             </div>
@@ -160,7 +160,7 @@ const Ticket = () => {
                 <input
                   type="text"
                   className="w-full border-r border-gray-500  bg-transparent focus:outline-none p-2"
-                  placeholder="Name"
+                  placeholder="text"
                 />
                 <button className="px-5 text-gray-500">Hours</button>
               </div>
@@ -189,7 +189,7 @@ const Ticket = () => {
           <div className="flex flex-col md:flex-row w-full gap-8">
             <div className="flex flex-col w-full md:w-full  gap-2 ">
               <div className="w-full flex items-center">
-                <p className="text-[16px]">Offline Text </p>
+                <p className="text-[16px]">Positive Message </p>
               </div>
               <Box
                 component="form"
@@ -206,7 +206,7 @@ const Ticket = () => {
                 <div>
                   <TextField
                     id="outlined-multiline-static"
-                    label=""
+                    label="Enter message here"
                     multiline
                     rows={4}
                     sx={{ color: "gray" }}
@@ -218,7 +218,7 @@ const Ticket = () => {
           <div className="flex flex-col md:flex-row w-full gap-8">
             <div className="flex flex-col w-full md:w-full  gap-2 ">
               <div className="w-full flex items-center">
-                <p className="text-[16px]">Agent Welcome Text </p>
+                <p className="text-[16px]">Negative Message</p>
               </div>
               <Box
                 component="form"
@@ -235,7 +235,7 @@ const Ticket = () => {
                 <div>
                   <TextField
                     id="outlined-multiline-static"
-                    label=""
+                    label="Enter message here"
                     multiline
                     rows={4}
                     sx={{ color: "gray" }}

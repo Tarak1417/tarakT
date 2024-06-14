@@ -133,7 +133,7 @@ const Chat = () => {
                 <div>
                   <TextField
                     id="outlined-multiline-static"
-                    label=""
+                    label="type in text"
                     multiline
                     rows={4}
                     sx={{ color: "gray" }}
@@ -162,7 +162,7 @@ const Chat = () => {
                 <div>
                   <TextField
                     id="outlined-multiline-static"
-                    label=""
+                    label="type in text"
                     multiline
                     rows={4}
                     sx={{ color: "gray" }}

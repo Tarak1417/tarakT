@@ -111,7 +111,7 @@ const Emailsetting = () => {
           <div className="flex flex-col md:flex-row w-full gap-8">
             <div className="flex flex-col w-full md:w-full  gap-2 ">
               <div className="w-[13%] flex items-center">
-                <p className="text-[16px] whitespace-nowrap">Send Email Path</p>
+                <p className="text-[16px] whitespace-nowrap">Sendmail Path</p>
               </div>
               <div className="w-full border border-gray-300 rounded-lg flex items-center">
                 <input

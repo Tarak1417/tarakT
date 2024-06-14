@@ -70,10 +70,11 @@ const Theme = () => {
               <div className="w-full flex items-center">
                 <p className="text-[16px]">Theme Color</p>
               </div>
-              <div className="w-[10%] md:w-[8%] border border-gray-500 rounded-lg flex flex-row justify-between items-center">
+              <div className="w-[12%] md:w-[10%] border border-gray-500 rounded-lg flex flex-row justify-between items-center">
                 <input
                   type="color"
-                  className=" bg-transparent w-[90%] text-gray-700 p-2 h-[60px] rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500"
+                  value="#00C8FA"
+                  className=" bg-transparent w-full text-gray-700 pl-2 py-2 h-14 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500"
                 />
                 <ArrowDropDownIcon
                   style={{ fontSize: "28px" }}
@@ -87,10 +88,11 @@ const Theme = () => {
               <div className="w-full flex items-center">
                 <p className="text-[16px]">Text Color</p>
               </div>
-              <div className="w-[10%] md:w-[8%] border border-gray-500 rounded-lg flex flex-row justify-between items-center">
+              <div className="w-[12%] md:w-[10%] border border-gray-500 rounded-lg flex flex-row justify-between items-center">
                 <input
                   type="color"
-                  className=" bg-transparent w-[90%] text-gray-700 p-2 h-[60px] rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500"
+                  value="#ffffff"
+                  className=" bg-transparent w-full text-gray-700 pl-2 py-2 h-14 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500"
                 />
                 <ArrowDropDownIcon
                   style={{ fontSize: "28px" }}

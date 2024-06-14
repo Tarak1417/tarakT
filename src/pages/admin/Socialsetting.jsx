@@ -61,7 +61,7 @@ const Socialsetting = () => {
                 <input
                   type="text"
                   className="w-full rounded-lg bg-transparent focus:outline-none p-2"
-                  placeholder="O"
+                  placeholder="enter url"
                 />
               </div>
             </div>
@@ -86,7 +86,7 @@ const Socialsetting = () => {
                 <div>
                   <TextField
                     id="outlined-multiline-static"
-                    label=""
+                    label="enter text"
                     multiline
                     rows={4}
                     sx={{ color: "gray" }}
@@ -115,7 +115,7 @@ const Socialsetting = () => {
                 <div>
                   <TextField
                     id="outlined-multiline-static"
-                    label=""
+                    label="enter text"
                     multiline
                     rows={4}
                     sx={{ color: "gray" }}
@@ -131,7 +131,7 @@ const Socialsetting = () => {
               className=" mb-4 ml-[-18px] border-l-4  border-blue-500 pl-4 "
               gutterBottom
             >
-              Google Login
+              Facebook Login
             </p>{" "}
             <FormGroup>
               <FormControlLabel
@@ -151,7 +151,7 @@ const Socialsetting = () => {
                 <input
                   type="text"
                   className="w-full rounded-lg bg-transparent focus:outline-none p-2"
-                  placeholder="O"
+                  placeholder="enter url"
                 />
               </div>
             </div>
@@ -176,7 +176,7 @@ const Socialsetting = () => {
                 <div>
                   <TextField
                     id="outlined-multiline-static"
-                    label=""
+                    label="enter text"
                     multiline
                     rows={4}
                     sx={{ color: "gray" }}
@@ -205,7 +205,7 @@ const Socialsetting = () => {
                 <div>
                   <TextField
                     id="outlined-multiline-static"
-                    label=""
+                    label="enter text"
                     multiline
                     rows={4}
                     sx={{ color: "gray" }}
