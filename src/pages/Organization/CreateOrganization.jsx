@@ -11,32 +11,110 @@ import {
   Button,
   Input,
   TextField,
+  Snackbar,
+  Alert,
+  AlertTitle,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // Tabs Section
 const CreateOrganization = () => {
-  const [organizationName, setOrganizationName] = useState(''); // Start with the second tab active
+  const [organizationName, setOrganizationName] = useState(""); // Start with the second tab active
   const navigate = useNavigate();
+  const [showMessage, setShowMessage] = useState({
+    show: true,
+    message: "",
+    severity: "",
+  });
 
   const handleOrganizationChange = (event) => {
     setOrganizationName(event.target.value);
   };
 
+  const handelSubmit = async () => {
+    // localStorage.setItem("tempOrganization" ,organizationName )
+    let subscriptionId = localStorage.getItem("subscriptionId");
 
-  const handelSubmit = ()=>{
-    localStorage.setItem("tempOrganization" ,organizationName )
-    navigate("/listOrganization");
-  }
+    if (subscriptionId) {
+      try {
+        const response = await axios.post(`/hr/organization`, {
+          name: organizationName,
+          subscription: subscriptionId,
+        });
+
+        let data = response.data;
+
+        if(data.success){
+          setShowMessage({
+            show: true,
+            message: "organization Created Successfully",
+            severity: "success",
+          });
+          setTimeout(()=>{
+            navigate("/listOrganization");
+          },[2500])
+          
+        }
+      } catch (e) {
+        console.log("organization method created:", e);
+        setShowMessage({
+          show: true,
+          message:  e.response.data.error ,
+          severity: "error",
+        });
+      }
+    } else {
+      navigate("/checkout");
+    }
+  };
+
+  const handleClose = (event) => {
+    setShowMessage({ show: false, message: " ", severity: "" });
+  };
 
   return (
-    <Box sx={{ backgroundColor: "background.main", p: {   xs : 3 , sm:10  } ,width: '100vw', height: '100vh' }}>
-      <Box sx={{ marginTop:  {   xs : "2.7rem", sm: ".7rem"  } ,  textAlign :{   xs : "center" , sm: "start"  }}}>
-        <Typography  sx={{  fontSize :  {   xs : "1.6rem" , sm: "2.5rem"  }}} >
+    <Box
+      sx={{
+        backgroundColor: "background.main",
+        p: { xs: 3, sm: 10 },
+        width: "100vw",
+        height: "100vh",
+      }}
+    >
+      <Snackbar
+        open={showMessage.show}
+        autoHideDuration={4000}
+        onClose={handleClose}
+      >
+        <Alert
+          severity={showMessage.severity}
+          variant="filled"
+          sx={{ width: "100%" }}
+          anchorOrigin={{ vertical: "top", horizontal: "left" }}
+        >
+          <AlertTitle> {showMessage.severity}</AlertTitle>
+          {showMessage.message}
+        </Alert>
+      </Snackbar>
+      <Box
+        sx={{
+          marginTop: { xs: "2.7rem", sm: ".7rem" },
+          textAlign: { xs: "center", sm: "start" },
+        }}
+      >
+        <Typography sx={{ fontSize: { xs: "1.6rem", sm: "2.5rem" } }}>
           Create an Organization to track the status of your employees
         </Typography>
 
-        <Typography sx={{ marginTop: ".7rem" , paddingX: {   xs :2, sm:0  },   marginRight:{   xs : 0, sm:36  } , fontSize :  {   xs : "0.7rem" , sm: "1rem"  } }}>
+        <Typography
+          sx={{
+            marginTop: ".7rem",
+            paddingX: { xs: 2, sm: 0 },
+            marginRight: { xs: 0, sm: 36 },
+            fontSize: { xs: "0.7rem", sm: "1rem" },
+          }}
+        >
           HR organization refers to the style of coordination, communication and
           management, a team or an employee uses through out his/her contract
           with the organization.

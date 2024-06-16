@@ -134,7 +134,7 @@ const CardSection = () => {
       } else {
         // Save token and process payment
         try {
-          const response = await axios.post(`/hr/payment/subscriptions`, {
+          const response = await axios.post(`/hr/payment/subscribe`, {
             name,
             email: "yogeshPawar123@gmail.com",
             paymentMethod: paymentMethod.id,
@@ -145,15 +145,15 @@ const CardSection = () => {
 
           if (response.status === 200) {
             let data = response.data;
+            localStorage.setItem("subscriptionId" ,data.subscriptionId)
             setShowMessage({
               show: true,
               message: "Subscribe Successfully",
               severity: "success",
             });
-            console.log("Payment method created:", data);
             setTimeout(() => {
               navigate("/createOrganization");
-            }, [4000]);
+            }, [2500]);
           }
         } catch (e) {
           console.log("Payment method created:", e);
