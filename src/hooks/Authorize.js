@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import Loading from '../components/Loading';
 import { env } from '../utilities/function';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 //import axios from 'axios';
 //import { useMessage } from '../components/Header';
 
@@ -9,6 +11,7 @@ const authorizeContext = createContext();
 const AuthorizationProvider = ({ children }) => {
     const [content, setContent] = useState(<Loading message='Please wait, logging you in...' />);
     const [user, setUser] = useState({});
+    const navigate = useNavigate();
    // const { showError } = useMessage();
 
     const authorize = async (loggedIn, cb) => {
@@ -29,8 +32,17 @@ const AuthorizationProvider = ({ children }) => {
         if (typeof cb === 'function') cb(setUser);
     };
 
-    const checkUserSubscription  =()=>{
-        
+    const checkUserSubscription  =async (userId)=>{
+        try {
+            const response = await axios.post(`/hr/subscription/check`, { userId : userId});
+              let data = response.data;
+               if(!data.success){
+                navigate("/walkover");
+               }
+          } catch (e) {
+            console.log("subscription/check Error:", e);
+            navigate("/walkover");
+          }
     }
  
     useEffect(() => {
@@ -69,9 +81,10 @@ const AuthorizationProvider = ({ children }) => {
 
                         if (response.ok) {
                             console.log('user found ...')
-
+                          
                             const responseData = await response.json();
                             const { user } = responseData;
+                             await checkUserSubscription(user.id)
                             console.log(user)
                             localStorage.setItem("user", JSON.stringify(user));
                             authorize(true, (setUser) => setUser(user));
@@ -83,6 +96,7 @@ const AuthorizationProvider = ({ children }) => {
 
                     }else if(localStorage.getItem("user")){
                         let user = JSON.parse(localStorage.getItem("user"));
+                        await checkUserSubscription(user.id)
                         authorize(true, (setUser) => setUser(user)); 
                     } else {
                         authorize(false);
