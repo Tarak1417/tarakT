@@ -72,7 +72,8 @@ const CardSection = () => {
   // const { SnackBar, showMessage } = useSnack();
   const [plan, setPlan] = React.useState("Current Plan");
   const [name, setName] = useState("");
-  const [planData, setPlanData] = useState({ amount : 49 , period : "mon"});
+  const [zip, setZip] = useState(0);
+  const [planData, setPlanData] = useState({ amount: 49, period: "mon" });
   const [showMessage, setShowMessage] = useState({
     show: true,
     message: "",
@@ -83,14 +84,14 @@ const CardSection = () => {
   const elements = useElements();
 
   const handleSubmit = async (event) => {
-    setShowMessage({
-      show: true,
-      message: "Subscribe Successfully",
-      severity: "success",
-    });
-    setTimeout(() => {
-      navigate("/createOrganization");
-    }, [4000]);
+    // setShowMessage({
+    //   show: true,
+    //   message: "Subscribe Successfully",
+    //   severity: "success",
+    // });
+    // setTimeout(() => {
+    //   navigate("/createOrganization");
+    // }, [4000]);
     event.preventDefault();
     // showMessage(`Offer letter successfully send to ${handlers.values.nameOfEmployee}`);
     if (!stripe || !elements) {
@@ -103,9 +104,9 @@ const CardSection = () => {
       type: "card",
       card: cardElement,
       billing_details: {
-        name: "Name ",
+        name: name,
         address: {
-          postal_code: "Zip",
+          postal_code: zip,
         },
       },
     });
@@ -118,32 +119,53 @@ const CardSection = () => {
       });
       console.error("Error creating payment method:", error);
     } else {
-      try {
-        const response = await axios.post(`/hr/payment/subscriptions`, {
-          name,
-          email: "yogeshPawar123@gmail.com",
-          paymentMethod: paymentMethod.id,
-        });
+      const { token, error } = await stripe.createToken(cardElement, {
+        name,
+        address_zip: zip,
+      });
 
-        if (response.ok) {
-          let data = response.json();
-          setShowMessage({
-            show: true,
-            message: "Subscribe Successfully",
-            severity: "success",
-          });
-          console.log("Payment method created:", data);
-        }
-      } catch (e) {
-        console.log("Payment method created:", e);
+      if (error) {
         setShowMessage({
           show: true,
           message: "Error creating Subscriptions ",
           severity: "error",
         });
+        console.error(error.message);
+      } else {
+        // Save token and process payment
+        try {
+          const response = await axios.post(`/hr/payment/subscriptions`, {
+            name,
+            email: "yogeshPawar123@gmail.com",
+            paymentMethod: paymentMethod.id,
+            tokenId: token.id,
+            card: token.card,
+            plan: "private",
+          });
+
+          if (response.status === 200) {
+            let data = response.data;
+            setShowMessage({
+              show: true,
+              message: "Subscribe Successfully",
+              severity: "success",
+            });
+            console.log("Payment method created:", data);
+            setTimeout(() => {
+              navigate("/createOrganization");
+            }, [4000]);
+          }
+        } catch (e) {
+          console.log("Payment method created:", e);
+          setShowMessage({
+            show: true,
+            message: "Error creating Subscriptions ",
+            severity: "error",
+          });
+        }
+        console.log("Payment method created:", paymentMethod);
+        // You can use paymentMethod.id to complete the payment
       }
-      console.log("Payment method created:", paymentMethod);
-      // You can use paymentMethod.id to complete the payment
     }
   };
   const handleClose = (event) => {
@@ -152,13 +174,37 @@ const CardSection = () => {
   const handlePlanChange = (event, newPlan) => {
     setPlan(newPlan);
   };
+
+  const [cardNumberComplete, setCardNumberComplete] = useState(false);
+  const [cardExpiryComplete, setCardExpiryComplete] = useState(false);
+  const [cardCvcComplete, setCardCvcComplete] = useState(false);
+
+  const handleCardNumberChange = (event) => {
+    setCardNumberComplete(event.complete);
+  };
+
+  const handleCardExpiryChange = (event) => {
+    setCardExpiryComplete(event.complete);
+  };
+
+  const handleCardCvcChange = (event) => {
+    setCardCvcComplete(event.complete);
+  };
+
   React.useEffect(() => {
     let tempPlanData = localStorage.getItem("planData");
     if (tempPlanData) {
       tempPlanData = JSON.parse(tempPlanData);
-      setPlanData(tempPlanData)
+      setPlanData(tempPlanData);
     }
   }, []);
+
+  const isButtonDisabled =
+    name === "" ||
+    zip.length !== 6 ||
+    !cardNumberComplete ||
+    !cardExpiryComplete ||
+    !cardCvcComplete;
 
   return (
     <Box
@@ -224,7 +270,8 @@ const CardSection = () => {
                 </Typography>
               </div>
               <Typography variant="body2" color="textSecondary" gutterBottom>
-                7 days free trial, then ${(plan =="Current Plan" ? planData.amount : "99")}/month
+                7 days free trial, then $
+                {plan == "Current Plan" ? planData.amount : "99"}/month
               </Typography>
               <Typography
                 variant="body1"
@@ -237,20 +284,19 @@ const CardSection = () => {
                 All Features Included:
               </Typography>
               <List dense>
-                {(plan =="Current Plan" ? CurrentPlan : ClikklePlan).map((item , index) =>(
-                <ListItem key={index} className="d-flex justify-between">
-                <TaskAltIcon
-                  color="primary"
-                  sx={{
-                    fontSize: "18px",
-                  }}
-                ></TaskAltIcon>
-                <ListItemText
-                  className="ps-2"
-                  primary={item}
-                />
-              </ListItem>
-              ))}
+                {(plan == "Current Plan" ? CurrentPlan : ClikklePlan).map(
+                  (item, index) => (
+                    <ListItem key={index} className="d-flex justify-between">
+                      <TaskAltIcon
+                        color="primary"
+                        sx={{
+                          fontSize: "18px",
+                        }}
+                      ></TaskAltIcon>
+                      <ListItemText className="ps-2" primary={item} />
+                    </ListItem>
+                  )
+                )}
               </List>
             </CardContent>
           </Card>
@@ -284,6 +330,7 @@ const CardSection = () => {
                     <TextField
                       // label="Full Name"
                       onChange={(e) => setName(e.target.value)}
+                      value={name}
                       placeholder="Full Name"
                       fullWidth
                       variant="outlined"
@@ -292,7 +339,10 @@ const CardSection = () => {
                   </Grid>
                   <Grid item xs={12}>
                     Card Number
-                    <CardNumberElement className="border border-zinc-300 p-4 hover:border-2 hover:border-blue-500" />
+                    <CardNumberElement
+                      className="border border-zinc-300 p-4 hover:border-2 hover:border-blue-500"
+                      onChange={handleCardNumberChange}
+                    />
                     {/* <TextField
                       placeholder="Card Number"
                       fullWidth
@@ -302,7 +352,10 @@ const CardSection = () => {
                   </Grid>
                   <Grid item xs={6} md={4}>
                     Expiration Date
-                    <CardExpiryElement className="border border-zinc-300 p-4 hover:border-2 hover:border-blue-500 " />
+                    <CardExpiryElement
+                      className="border border-zinc-300 p-4 hover:border-2 hover:border-blue-500 "
+                      onChange={handleCardExpiryChange}
+                    />
                     {/* <TextField
                       placeholder="01/09"
                       fullWidth
@@ -312,7 +365,10 @@ const CardSection = () => {
                   </Grid>
                   <Grid item xs={6} md={4}>
                     CVV
-                    <CardCvcElement className=" leading-3 border border-zinc-300 p-4 hover:border-2 hover:border-blue-500" />
+                    <CardCvcElement
+                      className="leading-3 border border-zinc-300 p-4 hover:border-2 hover:border-blue-500"
+                      onChange={handleCardCvcChange}
+                    />
                     {/* <TextField
                       placeholder="123"
                       fullWidth
@@ -323,10 +379,11 @@ const CardSection = () => {
                   <Grid item xs={12} md={4}>
                     Billing Zip Code
                     <TextField
-                      placeholder="411047"
+                      placeholder="Zip Code"
+                      onChange={(e) => setZip(e.target.value)}
+                      value={zip}
                       fullWidth
                       variant="outlined"
-                      className=""
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -353,6 +410,7 @@ const CardSection = () => {
                     width: "100%",
                   }}
                   variant="contained"
+                  disabled={isButtonDisabled}
                 >
                   Start my 7-day trial
                 </Button>

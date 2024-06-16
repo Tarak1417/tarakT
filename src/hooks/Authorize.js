@@ -29,6 +29,10 @@ const AuthorizationProvider = ({ children }) => {
         if (typeof cb === 'function') cb(setUser);
     };
 
+    const checkUserSubscription  =()=>{
+        
+    }
+ 
     useEffect(() => {
         (async () => {
             // try {
