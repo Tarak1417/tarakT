@@ -73,6 +73,7 @@ import  ClikkleHost  from '../assets/ClikkleFavicons/Clikkle Host-favicon.png';
 import  ClikklePitch  from '../assets/ClikkleFavicons/Clikkle Pitch-favicon.png';
 import  ClikkleProject  from '../assets/ClikkleFavicons/Clikkle Projects-01.png';
 import  ClikkleLaunch  from '../assets/ClikkleFavicons/Clikkle Launch favicon.png';
+import OrganizationDropDown from '../pages/Organization/OrganizationDropDown';
 
 const clikkleApps = [{ 
     name : "Ads",
@@ -437,9 +438,15 @@ export default function Navbar(props) {
             </Box>
 
             <Box sx={{ overflowY: 'auto', height: 'calc(100dvh - 90px)', flexGrow: 1 }}>
-                <Typography variant='body2' pl={3} mt={1.5} fontSize='16px' fontWeight={500}>
+                {/* <Typography variant='body2' pl={3} mt={1.5} fontSize='16px' fontWeight={500}>
                     Hr Manager
-                </Typography>
+                </Typography> */}
+               <Box sx={{ px: 3 }}>
+               < OrganizationDropDown   />
+               </Box>
+
+              
+             
                 <List sx={{ px: 3, py: 1 }}>
                 <SideBarLinkButton  menus={menuItems}  />
                 </List>  
