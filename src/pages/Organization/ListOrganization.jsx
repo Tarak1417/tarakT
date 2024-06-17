@@ -59,7 +59,8 @@ const ListOrganization = () => {
     return { name: "" };
   }
 
-  function handleSelect() {
+  function handleSelect(org) {
+    localStorage.setItem("org" ,  JSON.stringify(org))
     navigate("/");
   }
 
@@ -133,7 +134,7 @@ const ListOrganization = () => {
           {organizations.map((org, index) => (
             <Grid container sx={{ p: 1, minWidth: 525 }}>
               <Grid item xs={8}>
-                <div onClick={handleSelect}>{org.name}</div>
+                <div onClick={() => handleSelect(org)}>{org.name}</div>
               </Grid>
               <Grid item xs={2}>
                 <div
