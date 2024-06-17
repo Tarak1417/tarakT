@@ -31,10 +31,13 @@ import { Input } from "../../hooks/useForm/inputs";
 import { DateCalendar, LocalizationProvider } from "@mui/x-date-pickers";
 import view from "../ReceivedApp/viewicon.png";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import Calendar from "react-calendar";
+import './projectStyle.css'
 
 const OverTime = () => {
   const [employees, setEmployees] = useState({});
   const [currentScreen, setCurrentScreen] = useState(1);
+  const [value, onChange] = useState(new Date());
 
   const handlePrevScreen = () => {
     if (currentScreen > 1) {
@@ -466,11 +469,18 @@ const OverTime = () => {
           </Grid>
         </Box>
 
+        <div className="px-24 py-4">
+      <Calendar defaultView="month" onChange={onChange} value={value} />
+    </div>
+
         <div>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar slotProps={{ textField: { size: "big" } }} />
-          </LocalizationProvider>
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateCalendar  views={['day']} slotProps={{ textField: { size: "big" } }} />
+          </LocalizationProvider> */}
+
+
         </div>
+
         <div
           className="h-full"
           style={{ overflowY: "auto", paddingRight: "1px" }}
