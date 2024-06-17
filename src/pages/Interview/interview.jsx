@@ -115,11 +115,14 @@ const Interview = () => {
     console.log(questions)
 
     return (
-        <>
+        <div className="flex flex-col h-screen gap-4 px-4">
             <Box mt={3}>
                 <Grid container spacing={4} display='flex' alignItems='center'>
                     <Grid item xs>
-                        <Typography variant='h5'>Interview Question</Typography>
+
+                    <h1 className="text-2xl text-neutral-500">Interview Questions</h1>
+          
+                        {/* <Typography variant='h5'>Interview Question</Typography> */}
                     </Grid>
                     <Grid item display='flex' alignItems='center'>
                         <Box>
@@ -139,7 +142,7 @@ const Interview = () => {
                 </Grid>
             </Box>
 
-            <Box>
+            <Box className="flex flex-col h-[75%] justify-between" >
                 <Modal sx={{ overflowY: 'scroll' }} open={modalState} onClose={closeModal}>
                     <AddQuestion
                         selectedQuestion={selectedQuestion}
@@ -149,34 +152,7 @@ const Interview = () => {
                         questions={questions}
                     />
                 </Modal>
-                <Stack direction='row' justifyContent='space-between' my={4}>
-                    <Search
-                        placeholder='Search Your Job Category questions'
-                        onChange={e => {
-                            const { value } = e.target;
-                            !(value.trim() === ' ') && fetchInterviewQuestions(value);
-                        }}
-                    />
-                    <Pagination
-                        page={pageNo}
-                        onChange={(_, newPage) => setPageNo(newPage)}
-                        color='primary'
-                        count={pageLimit}
-                        sx={{ float: 'right' }}
-                    />
-                    {isOrderChanged && (
-                        <Button
-                            variant='contained'
-                            onClick={saveOrder}
-                            endIcon={
-                                loading && (
-                                    <CircularProgress size={20} color='secondary' thickness={7} />
-                                )
-                            }>
-                            Save Order
-                        </Button>
-                    )}
-                </Stack>
+
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId='list'>
                         {provided => (
@@ -226,8 +202,36 @@ const Interview = () => {
                         )}
                     </Droppable>
                 </DragDropContext>
+                <Stack direction='row' justifyContent='flex-end' my={4}>
+                    {/* <Search
+                        placeholder='Search Your Job Category questions'
+                        onChange={e => {
+                            const { value } = e.target;
+                            !(value.trim() === ' ') && fetchInterviewQuestions(value);
+                        }}
+                    /> */}
+                    <Pagination
+                        page={pageNo}
+                        onChange={(_, newPage) => setPageNo(newPage)}
+                        color='primary'
+                        count={pageLimit}
+                        sx={{ float: 'right' }}
+                    />
+                    {isOrderChanged && (
+                        <Button
+                            variant='contained'
+                            onClick={saveOrder}
+                            endIcon={
+                                loading && (
+                                    <CircularProgress size={20} color='secondary' thickness={7} />
+                                )
+                            }>
+                            Save Order
+                        </Button>
+                    )}
+                </Stack>
             </Box>
-        </>
+        </div>
     );
 };
 

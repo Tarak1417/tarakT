@@ -46,12 +46,14 @@ const QuestionCard = props => {
     const handleClose = () => setOpen(false);
 
     return (
-        <Box my={2}>
+        <Box  my={2} >
             <Card
                 elevation={0}
                 sx={{
                     borderRadius: '20px',
                     p: 2,
+
+                    backgroundColor: 'background.view'
                     // boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
                 }}>
                 <Typography variant='h6' fontWeight='bold'>
