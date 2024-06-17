@@ -68,9 +68,13 @@ const Newsidebar = ({ setSharedData }) => {
           <div className="flex gap-8 my-4 px-[20px] justify-center ">
             <Button
               onClick={() => setTabs("chat")}
-              sx={{ padding: "5px 35px" }}
+              sx={{ padding: "5px 35px" ,
+              backgroundColor: tabs =="chat" ?"": 'background.view',
+              border: "1px solid ",
+              color : "text.two",
+             }}
               variant="contained"
-              // color="primary"
+           
             >
               Chat
             </Button>
@@ -78,7 +82,8 @@ const Newsidebar = ({ setSharedData }) => {
               onClick={() => setTabs("contacts")}
               sx={{
                 padding: "5px 25px",
-                backgroundColor: "black",
+                color : "text.two",
+                backgroundColor:  tabs =="contacts" ?"": 'background.view',
                 border: "1px solid ",
               }}
               variant="contained"
