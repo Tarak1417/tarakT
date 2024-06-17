@@ -3,6 +3,7 @@ import { Box, Grid } from '@mui/material';
 import ShowMorePage from './ShowMore';
 
 const ShowMoreHome = () => {
+    
     return (
         <Box className="h-full overflow-hidden" sx={{ backgroundColor: 'background.main', }}>
             <div className="h-full" style={{ overflowY: 'auto', paddingRight: '1px' }}>

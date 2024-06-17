@@ -6,6 +6,7 @@ import OverviewCards from "./JobCards";
 import { Box } from "@mui/material";
 
 const Newreceivedapplication = () => {
+  
   return (
     <div className=" rounded-lg overscroll-auto overflow-hidden">
       <div className="flex items-center justify-between md:w-full p-2">

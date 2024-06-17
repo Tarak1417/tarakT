@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState , useEffect , useCallback } from "react";
 import icon1 from './icons/1.png';
 import icon2 from './icons/2.png';
 import icon3 from './icons/3.png';
@@ -13,11 +13,27 @@ import { Box } from "@mui/material";
 
 
 const Overview = () => {
+  const [applicationMetrics , setApplicationMetrics] = useState([]);
+    const fetchMatrics = useCallback(
+        async function () {
+            try {
+                const res = await axios.get('/hr/job-application/metrics');
+                setApplicationMetrics(res.data.metrics);
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        [setApplicationMetrics]
+    );
+    useEffect(() => {
+        fetchMatrics();
+    }, [fetchMatrics]);
+
     return (
         <div className="md:w-full flex flex-col md:flex-row gap-2">
             <Box className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between rounded-lg p-2 gap-10 overflow-hidden" sx={{ backgroundColor: 'background.rec', }}>
                 <div className="flex-shrink-0">
-                    <h1 className="text-[10px]">300</h1>
+                    <h1 className="text-[10px]">30000</h1>
                     <p className='text-[8px]'>Applied</p>
                 </div>
                 <div className="flex-shrink-0">

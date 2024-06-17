@@ -246,7 +246,7 @@ const Applications = () => {
 
         <Grid item>
           <Search
-            placeholder="Search in Received Applications..."
+            placeholder="sashank"
             onChange={(e) => {
               const value = e.target.value;
               !(value.trim() === " ") && setFilters("search", value);

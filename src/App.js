@@ -132,7 +132,7 @@ const App = () => {
           <Route path="/joblisting" element={<JobListingHome />} />
           <Route path="/department" element={<DeptHome />} />
           <Route path="/interviewquestions" element={<InterviewHome />} />
-          <Route path="/receivedapplications" element={<ReceivedApp />} />
+          <Route path="/receivedapplications" element={<Newreceivedapplication />} />
           <Route
             path="/new/receivedapplications"
             element={<Newreceivedapplication />}
@@ -160,8 +160,8 @@ const App = () => {
           <Route path="/noticeboard" element={<NoticeHome />} />
           <Route path="/apps" element={<Apps />} />
           <Route path="/expenses" element={<ExpensesHome />} />
-          <Route path="/award" element={<AwardHome />} />
-          <Route path="/new/awards" element={<Newawardpage />} />
+          <Route path="/award" element={<Newawardpage />} />
+          {/* <Route path="/new/awards" element={<Newawardpage />} /> */}
 
           <Route path="/holidays" element={<HolidayHome />} />
 

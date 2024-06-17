@@ -238,12 +238,15 @@ const JobApplicationDetail = () => {
             <div className="flex justify-start md:justify-start">
               {jobApplication.photo ? (
                 <img
-                  src={jobApplication.photo}
+                  src={profile}
                   alt="Profile"
                   className=" w-[50%] md:w-full max-w-[200px] h-auto"
                 />
               ) : (
-                <CircularProgress />
+                <img
+                src={profile}
+                className=" w-[50%] md:w-full max-w-[200px] h-auto"
+              />
               )}
             </div>
             <div className="w-full">
