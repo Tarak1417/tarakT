@@ -10,12 +10,12 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
 import InterviewIcon from './icons/interview.png';
 import JobListIcon from './icons/joblisting.png'
-import OfficeIcon from './icons/office.png'
-import ReceivedIcon from './icons/recieved.png';
-import AttendIcon from './icons/attend.png';
-import LeaveIcon from './icons/leave.png';
+import OfficeIcon from './icons/office.svg'
+import ReceivedIcon from './icons/recieved.svg';
+import AttendIcon from './icons/attend.svg';
+import LeaveIcon from './icons/leave.svg';
 import PersonIcon from './icons/person.png';
-import DownloadIcon from './icons/download.png';
+import DownloadIcon from './icons/download.svg';
 import SettingsIcon from '@mui/icons-material/Settings';
 import TripOriginIcon from '@mui/icons-material/TripOrigin';
 
@@ -59,12 +59,12 @@ const menuItems = [
             },
             {
                 label: 'Job Listing',
-                icon:<JobList/>,
+                icon:<JobList  className='text-zinc-500'/>,
                 to: '/joblisting',
             },
             {
                 label: 'Interview Question',
-                icon:  <InterviewQuestionIcon />,
+                icon:  <InterviewQuestionIcon  className='text-zinc-500' />,
                 to: '/interviewquestions',
             },
             {
