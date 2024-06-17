@@ -58,8 +58,8 @@ const AuthorizationProvider = ({ children }) => {
                     organizationId: selectedOrg._id,
                 });
                 let data = response.data;
-                if (data.success) {
-                    navigate("/");
+                if (!data.success) {
+                    navigate("/listOrganization");
                 }
             } catch (e) {
                 console.log("Error select of Organization", e);
