@@ -119,7 +119,7 @@ const AttendPage = () => {
                         <p className='text-[16px] text-gray-400'>Holidays</p>
                     </div>
                 </div>
-                <Box className="flex flex-col md:flex-row justify-center gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
+                {/* <Box className="flex flex-col md:flex-row justify-center gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
                    <div className='w-full md:w-[21%] flex justify-start items-center'>
                     <p className='text-[12px] ml-3'>Show</p>
                         <select className="appearance-none bg-transparent pl-1 rounded leading-tight focus:outline-none focus:border-gray-500 text-[12px]">
@@ -172,7 +172,7 @@ const AttendPage = () => {
                    <button className="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button>
 
                    </div>
-                </Box>
+                </Box> */}
 
                 <Box
                     className='w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm mt-10 h-[380px]'

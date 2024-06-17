@@ -109,7 +109,7 @@ const EmployeePage = () => {
                         <div  className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
                             {boxesData.map((box, index) => (
                                 <Grid sx={{backgroundColor: 'background.view',}}  key={index} className="rounded-lg p-4 shadow-md md:w-1/4">
-                                    <p className='text-lg'>{box.title}</p>
+                                    <p className='text-base'>{box.title}</p>
                                     <div className="flex items-center mb-2">
                                         <p className="w-5/6 text-xl">{box.value}</p>
                                         <div className="w-1/6">{box.icon}</div>
@@ -178,7 +178,7 @@ const EmployeePage = () => {
                                 <p className='text-[6px]'>{employee.mail}</p>
                             </div>
                         </div>
-                        <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
+                        <div className='w-[25%] truncate  md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
                             {employee._id}
                         </div>
                         <div className='w-[25%] md:w-[8%] p-2 border-r border-zinc-500 text-left text-sm md:text-[10px]'>

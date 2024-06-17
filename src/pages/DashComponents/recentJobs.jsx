@@ -131,10 +131,10 @@ const RecentJobs = ({ items }) => {
               <AccountCircleIcon fontSize="large" />
             </div>
             <div className="w-1/3 md:w-1/3">
-              <h1 className="text-sm md:text-lg text-gray-400">
+              <h1 className="text-sm truncate  md:text-lg text-gray-400">
                 {item.fullName}
               </h1>
-              <p1 className="text-sm text-zinc-500">{item.email}</p1>
+              <p1 className="w-1/3 md:w-1/3 text-sm truncate  text-zinc-500">{item.email}</p1>
             </div>
             <div className=" w-1/5 md:w-1/5 flex items-center justify-start md:items-center md:justify-center">
               <p className="text-sm text-zinc-500">{item.experience}</p>

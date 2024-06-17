@@ -138,11 +138,11 @@ const AttendHome = () => {
     }, [query.employeeId, fetchAttendence]);
 
     return (
-        <>
+        <div className='p-4'>
             <Box sx={{ mt: 3 }}>
                 <Grid container spacing={2} display='flex' alignItems='center'>
                     <Grid item xs>
-                        <Typography variant='h5'>User's attendance</Typography>
+                        <Typography color='text.secondary' variant='h5'>User's attendance</Typography>
                     </Grid>
 
                     <Grid item>
@@ -195,7 +195,7 @@ const AttendHome = () => {
                 </Grid>
             </Box>
 
-            {attendanceDetail ? (
+            {attendanceDetail && (
                 <Stack direction='row' justifyContent='space-between' alignItems='center' mt={2}>
                     <Typography variant='body1' color='text.secondary' mb={2}>
                         Choose an employee to access their attendance records.
@@ -245,82 +245,84 @@ const AttendHome = () => {
                         </SelectWithSearch>
                     </FormControl>
                 </Stack>
-            ) : null}
+            ) }
 
             {attendanceDetail && metrics ? (
-                <>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <Card sx={{ minHeight: 200 }} elevation={0}>
-                                <CardContent>
-                                    <Typography variant='body1' sx={{ mb: 4 }}>
-                                        Days insights of this month.
-                                    </Typography>
-                                    <Grid container spacing={2}>
-                                        <Grid item lg={2} md={6} xs={12} textAlign='center'>
-                                            <MetricIcon
-                                                metrics={metrics}
-                                                background='#D6E0FF'
-                                                color='#4271FF'
-                                                name='total'
-                                            />
+                // <>
+                //     <Grid container spacing={2}>
+                //         <Grid item xs={12}>
+                //             <Card sx={{ minHeight: 200 }} elevation={0}>
+                //                 <CardContent>
+                //                     <Typography variant='body1' sx={{ mb: 4 }}>
+                //                         Days insights of this month.
+                //                     </Typography>
+                //                     <Grid container spacing={2}>
+                //                         <Grid item lg={2} md={6} xs={12} textAlign='center'>
+                //                             <MetricIcon
+                //                                 metrics={metrics}
+                //                                 background='#D6E0FF'
+                //                                 color='#4271FF'
+                //                                 name='total'
+                //                             />
 
-                                            <Typography variant='body2'>Total Days</Typography>
-                                        </Grid>
-                                        <Grid item lg={2} md={6} xs={12} textAlign='center'>
-                                            <MetricIcon
-                                                metrics={metrics}
-                                                color='#0DCD94'
-                                                background='#E6FAF4'
-                                                name='Present'
-                                            />
-                                            <Typography variant='body2'>Present Days</Typography>
-                                        </Grid>
-                                        <Grid item lg={2} md={6} xs={12} textAlign='center'>
-                                            <MetricIcon
-                                                metrics={metrics}
-                                                color='#F7284A'
-                                                background='#FFE9EC'
-                                                name='Absent'
-                                            />
-                                            <Typography variant='body2'>Absent Days</Typography>
-                                        </Grid>
-                                        <Grid item lg={2} md={6} xs={12} textAlign='center'>
-                                            <MetricIcon
-                                                metrics={metrics}
-                                                color='#E3B113'
-                                                background='#FFF9E7'
-                                                name='HalfDay'
-                                            />
-                                            <Typography variant='body2'>Half Days</Typography>
-                                        </Grid>
-                                        <Grid item lg={2} md={6} xs={12} textAlign='center'>
-                                            <MetricIcon
-                                                metrics={metrics}
-                                                color='#F34932'
-                                                background='#FEECEA'
-                                                name='Late'
-                                            />
-                                            <Typography variant='body2'>Late Days</Typography>
-                                        </Grid>
-                                        <Grid item lg={2} md={6} xs={12} textAlign='center'>
-                                            <MetricIcon
-                                                metrics={metrics}
-                                                color='#EF5CB8'
-                                                background='#FEEDF8'
-                                                name='Holiday'
-                                            />
-                                            <Typography variant='body2'>Holidays</Typography>
-                                        </Grid>
-                                    </Grid>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-                    </Grid>
-                    <Divider sx={{ mb: 4 }} />
+                //                             <Typography variant='body2'>Total Days</Typography>
+                //                         </Grid>
+                //                         <Grid item lg={2} md={6} xs={12} textAlign='center'>
+                //                             <MetricIcon
+                //                                 metrics={metrics}
+                //                                 color='#0DCD94'
+                //                                 background='#E6FAF4'
+                //                                 name='Present'
+                //                             />
+                //                             <Typography variant='body2'>Present Days</Typography>
+                //                         </Grid>
+                //                         <Grid item lg={2} md={6} xs={12} textAlign='center'>
+                //                             <MetricIcon
+                //                                 metrics={metrics}
+                //                                 color='#F7284A'
+                //                                 background='#FFE9EC'
+                //                                 name='Absent'
+                //                             />
+                //                             <Typography variant='body2'>Absent Days</Typography>
+                //                         </Grid>
+                //                         <Grid item lg={2} md={6} xs={12} textAlign='center'>
+                //                             <MetricIcon
+                //                                 metrics={metrics}
+                //                                 color='#E3B113'
+                //                                 background='#FFF9E7'
+                //                                 name='HalfDay'
+                //                             />
+                //                             <Typography variant='body2'>Half Days</Typography>
+                //                         </Grid>
+                //                         <Grid item lg={2} md={6} xs={12} textAlign='center'>
+                //                             <MetricIcon
+                //                                 metrics={metrics}
+                //                                 color='#F34932'
+                //                                 background='#FEECEA'
+                //                                 name='Late'
+                //                             />
+                //                             <Typography variant='body2'>Late Days</Typography>
+                //                         </Grid>
+                //                         <Grid item lg={2} md={6} xs={12} textAlign='center'>
+                //                             <MetricIcon
+                //                                 metrics={metrics}
+                //                                 color='#EF5CB8'
+                //                                 background='#FEEDF8'
+                //                                 name='Holiday'
+                //                             />
+                //                             <Typography variant='body2'>Holidays</Typography>
+                //                         </Grid>
+                //                     </Grid>
+                //                 </CardContent>
+                //             </Card>
+                //         </Grid>
+                //     </Grid>
+                //     <Divider sx={{ mb: 4 }} />
 
-                    <AttendanceByUserTable attendanceDetail={attendanceDetail} />
-                </>
+                //     <AttendanceByUserTable attendanceDetail={attendanceDetail} />
+                // </>
+
+                <AttendPage />
             ) : (
                 <Box
                     display='flex'
@@ -377,7 +379,7 @@ const AttendHome = () => {
                     </FormControl>
                 </Box>
             )}
-        </>
+        </div>
     );
 };
 
