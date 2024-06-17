@@ -9,7 +9,10 @@ import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeft
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import view from '../ReceivedApp/viewicon.png';
 import AttendViewPage from '../Attendance/AttendView/AttendViewPage';
-
+import SearchIcon from '@mui/icons-material/Search';
+import EditIcon from '@mui/icons-material/Edit';
+import EditImg from '../../../src/assets/Icons/ic_baseline-edit.png'
+import Delete from '../../../src/assets/Icons/memory_trash.png'
 
 const ProjectList = () => {
 
@@ -142,7 +145,7 @@ const ProjectList = () => {
                             <h1 className="text-xs md:text-2xl text-neutral-500">Project List</h1>
                         </div>
                         <div className="flex flex-row items-center justify-center gap-4">
-                            <button className='flex  items-center text-white font-bold text-[8px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                            <button className='flex  items-center text-white font-bold text-[8px] md:text-[16px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
                               Create New Project
                             </button>
                             <InfoOutlinedIcon />
@@ -153,57 +156,68 @@ const ProjectList = () => {
          
             
            
-            <Box className="w-[96%]  mr-[20px] md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view',marginLeft:'22px' }}>
-            <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
-                  
-            
-            <div className="h-full" style={{  paddingRight: '1px' }}>
-            <Grid item xs={11}>
-                    <div className='flex flex-col md:flex-row items-center justify-start ml-10 gap-14 md:pt-4 md:w-full pb-10'>
-                    <div className='flex flex-col justify-center items-center gap-2'>
-                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-neutral-800 text-[16px] text-blue-700'>31</div>
-                        <p className='text-[16px] text-gray-400'>Total Working Days</p>
-                    </div>
-                    <div className='flex flex-col justify-center items-center gap-2'>
-                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-green-950 text-[16px] text-green-500'>20</div>
-                        <p className='text-[16px] text-gray-400'>Present Days</p>
-                    </div>
-                    <div className='flex flex-col justify-center items-center gap-2'>
-                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-amber-950 text-[16px] text-amber-500'>3</div>
-                        <p className='text-[16px] text-gray-400'>Absent Days</p>
-                    </div>
-                    <div className='flex flex-col justify-center items-center gap-2'>
-                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-teal-950 text-[16px] text-teal-500'>0</div>
-                        <p className='text-[16px] text-gray-400'>Half Days</p>
-                    </div>
-                    <div className='flex flex-col justify-center items-center gap-2'>
-                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-red-950 text-[16px] text-red-500'>5</div>
-                        <p className='text-[16px] text-gray-400'>Late Days</p>
-                    </div>
-                    <div className='flex flex-col justify-center items-center gap-2 '>
-                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-orange-950 text-[16px] text-orange-500'>6</div>
-                        <p className='text-[16px] text-gray-400'>Holidays</p>
-                    </div>
-                </div>
-                    </Grid>
+            <Box
+    className="w-full md:w-[96%] pt-4 rounded-lg mb-4"
+    sx={{
+      backgroundColor: 'background.view',
+      marginLeft: { xs: '0', md: '22px' },
+      marginRight: { xs: '0', md: '20px' },
+    }}
+  >
+    <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-full md:w-[97%] mx-0 md:ml-4 md:mr-2">
+      <div className="h-full pr-[1px]">
+        <Grid item xs={11}>
+          <div className="flex flex-col md:flex-row items-center justify-between ml-2 gap-14 md:pt-4 w-full pb-10">
+            <div className="flex flex-col justify-center items-center gap-2">
+              <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-neutral-800 text-[16px] text-blue-700">
+                31
+              </div>
+              <p className="text-[16px] text-gray-400 text-center">Total Projects</p>
             </div>
-         
-
-                   
-                  
-                         
-                      
-                </Box>
-           
-               
-
-           
-
-
-           
-           
-            </Box>
-            <Box className="w-[96%]  mr-[20px] md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view',marginLeft:'22px' }}>
+            <div className="flex flex-col justify-center items-center gap-2">
+              <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-green-950 text-[16px] text-green-500">
+                20
+              </div>
+              <p className="text-[16px] text-gray-400 text-center">Completed Projects</p>
+            </div>
+            <div className="flex flex-col justify-center items-center gap-2">
+              <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-amber-950 text-[16px] text-amber-500">
+                3
+              </div>
+              <p className="text-[16px] text-gray-400 text-center">Pending Projects</p>
+            </div>
+            <div className="flex flex-col justify-center items-center gap-2">
+              <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-teal-950 text-[16px] text-teal-500">
+                0
+              </div>
+              <p className="text-[16px] text-gray-400 text-center">Ongoing Projects</p>
+            </div>
+            <div className="flex flex-col justify-center items-center gap-2">
+              <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-red-950 text-[16px] text-red-500">
+                5
+              </div>
+              <p className="text-[16px] text-gray-400 text-center">Canceled Projects</p>
+            </div>
+            <div className="flex flex-col justify-center items-center gap-2">
+              <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-red-950 text-[16px] text-red-500">
+                5
+              </div>
+              <p className="text-[16px] text-gray-400 text-center">Not Started Projects</p>
+            </div>
+          </div>
+        </Grid>
+      </div>
+    </Box>
+  </Box>
+            <Box 
+            className="w-full md:w-[96%] pt-4 rounded-lg mb-4"
+            sx={{
+              backgroundColor: 'background.view',
+              marginLeft: { xs: '0', md: '22px' },
+              marginRight: { xs: '0', md: '20px' },
+            }}
+            
+            >
             <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
                    <div className='w-full md:w-[21%] flex justify-start items-center'>
                     <p className='text-[18px] ml-3'>Recent Project Summery</p>
@@ -216,10 +230,14 @@ const ProjectList = () => {
                          
                       
                 </Box>
-            <Box className="flex flex-col md:flex-row md:flex-row justify-center gap-4 mt-4 w-[67%] mr-2 md:mr-4">
-    <div className='w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center'>
+                <Box
+    className="flex flex-col md:flex-row justify-end gap-4 mt-4 mr-2 ml-auto md:mr-4"
+    sx={{
+      width: { xs: '95%', md: '70%' },
+    }}
+  >                       <div className='w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center'>
         <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
-            <option>Select Date</option>
+            <option>From</option>
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -228,16 +246,16 @@ const ProjectList = () => {
     </div>
     <div className='w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center'>
         <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
-            <option>Month</option>
+            <option>To</option>
             <option>January</option>
             <option>February</option>
             <option>March</option>
         </select>
-        <ArrowDropDownIcon style={{fontSize:'28px'}} className="text-zinc-500"/>
+        <CalendarTodayOutlinedIcon style={{fontSize:'24px'}} className="text-zinc-500 pr-2"/>
     </div>
     <div className='w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center'>
         <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
-            <option>Year</option>
+            <option>Select Priority</option>
             <option>2022</option>
             <option>2023</option>
             <option>2024</option>
@@ -245,12 +263,12 @@ const ProjectList = () => {
         <ArrowDropDownIcon style={{fontSize:'28px'}} className="text-zinc-500"/>
     </div>
     <div className='w-full md:w-[11%] flex justify-end md:justify-center items-center '>
-        <button className="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button>
+        <button  style={{fontSize:'12px'}} className="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " >Search</button>
     </div>
 </Box>
-                <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
+                <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 mt-[35px]">
                    <div className='w-full md:w-[21%] flex justify-start items-center'>
-                    <p className='text-[12px] ml-3'>Show</p>
+                    <p className='text-[12px] ml-3'>Rows per page</p>
                         <select className="appearance-none bg-transparent pl-1 rounded leading-tight focus:outline-none focus:border-gray-500 text-[12px]">
                             <option>10</option>
                             <option>20</option>
@@ -258,7 +276,6 @@ const ProjectList = () => {
                             <option>40</option>
                         </select>
                         <ArrowDropDownIcon fontSize='medium' className="text-zinc-500"/>
-                        <p className='text-[12px]'>entries</p>
                    </div>
                  
                    
@@ -268,120 +285,124 @@ const ProjectList = () => {
                      />
                          
                       
-                        <ArrowDropDownIcon style={{fontSize:'28px'}} className="text-zinc-500"/>
+                        <SearchIcon style={{fontSize:'18px' , marginLeft:'18px'}} className="text-zinc-500"/>
                    </div>
                 </Box>
 
                 <Box
-                    className='w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm mt-10 h-[380px]'
-                    sx={{
-                        overflowY: 'scroll',
-                        '&::-webkit-scrollbar': {
-                            display: 'none'
-                        },
-                        '-ms-overflow-style': 'none',
-                        'scrollbar-width': 'none'
-                    }}
-                >
-                    <Grid
-                        className='flex flex-row border-b border-zinc-500'
-                        
-                    >
-                        <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold'>
-                            ID
-                        </div>
-                        <div className='w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold'>
-                        Project Title
-                        </div>
-                        <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold'>
-                            Client
-                        </div>
-                        <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold'>
-                            Team
-                        </div>
-                        <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold'>
-                            Status
-                        </div>
-                        <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold'>
-                            Start Date
-                        </div>
-                        <div className='w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold'>
-                            Deadline
-                        </div>
-                        <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold'>
-                            Progress
-                        </div>
-                        <div className='w-[25%] md:w-[14.6%] p-2  text-left text-sm md:text-[16px] font-bold'>
-                            Action
-                        </div>
-                    </Grid>
-                    {userData.map((user, index) => (
-                        <Grid key={index} className='flex flex-row border-b border-zinc-500' currentScreen={currentScreen}>
-                            <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center'>
-                                {user.Id}
-                            </div>
-                            <div className='w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center'>
-                                {user.Project}
-                            </div>
-                            <div className='w-[20%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center'>
-                                {user.Project}
-                            </div>
-                            <div className='w-[20%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center'>
-                            <div style={{display:'flex' , flexDirection:'row'}}>
-                                        {
-                                            avatarData.map((item)=>(
-                                                <>
-                                                                                <div class="MuiAvatar-root MuiAvatar-circular css-1m7vhif-MuiAvatar-root" style={{width: "15px" ,  height:"16px"}}><img alt="Remy Sharp" src={item.src} /></div>   
-    
-                                                </>
-                                            ))
-                                        }
-                                                                    
-
-                                        </div> 
-                            </div>
-                            <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center'>
-                                <div
-                                    className={`px-1 py-1 rounded-lg w-3/5 flex justify-center items-center ${
-                                        getColor(user.status).bgColor
-                                    } ${getColor(user.status).textColor}`}
-                                >
-                                    {user.status}
-                                </div>
-                            </div>
-                            <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center'>
-                                {user.clockIn}
-                            </div>
-                            <div className='w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center'>
-                                {user.clockOut}
-                            </div>
-                            <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center'>
-                                <div className='h-2 flex justify-between w-full'>
-                                    <div
-                                        className='h-full rounded-lg'
-                                        style={{
-                                            width: getProgressBarStyle(user.status).width,
-                                            backgroundColor: getProgressBarStyle(user.status).backgroundColor
-                                        }}
-                                    ></div>
-                                    {user.status === 'Late' && (
-                                        <div
-                                            className='h-full rounded-lg'
-                                            style={{ width: '25%', backgroundColor: '#EF4444' }}
-                                        ></div>
-                                    )}
-                                </div>
-                            </div>
-                            <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 flex justify-center items-center text-sm md:text-xs'>
-                               <IconButton> {user.action}</IconButton>
-                            </div>
-                        </Grid>
-                    ))}
-                </Box>
+            className="h-[45vh] w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm mt-10 h-[380px]"
+            sx={{
+              overflowY: "scroll",
+              "&::-webkit-scrollbar": {
+                display: "none",
+              },
+              "-ms-overflow-style": "none",
+              "scrollbar-width": "none",
+            }}
+          >
+            <Grid className="flex flex-row border-b border-zinc-500">
+              <div className="w-auto min-w-[50px] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+                No
+              </div>
+              <div className="w-auto min-w-[150px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
+                Task
+              </div>
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
+                Client
+              </div>
+              <div className="w-auto min-w-[100px] md:w-[14.6%] text-nowrap p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
+                Assigned To
+              </div>
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[16px] font-bold">
+                Priority
+              </div>
+              <div className="w-auto min-w-[100px] md:w-[14.6%] text-nowrap p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+                Start Date
+              </div>
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[16px] font-bold">
+                Deadline
+              </div>
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[16px] font-bold">
+                Status
+              </div>
+              <div className="w-auto min-w-[100px] md:w-[14.6%] border-b  md:border-b-0 border-zinc-500 p-2 text-left text-sm md:text-[16px] font-bold">
+                Action
+              </div>
+            </Grid>
+            {userData.map((user, index) => (
+              <Grid
+                key={index}
+                className="flex flex-row border-b border-zinc-500"
+                currentScreen={currentScreen}
+              >
+                <div className="w-auto min-w-[50px] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                  {user.Id}
+                </div>
+                <div className="w-auto min-w-[150px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
+                  {user.Project}
+                </div>
+                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
+                  {user.Client}
+                </div>
+                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
+                  <div style={{ display: "flex", flexDirection: "row" }}>
+                    <div>
+                      <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s"
+                        alt="Assigned To"
+                        style={{ height: "20px", borderRadius: "50%" }}
+                      />
+                    </div>
+                    <div style={{ marginLeft: "3px", marginTop: "1px" }}>
+                      <p>Emma Stone</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center">
+                  <div
+                    className={`px-1 py-1 rounded-lg w-3/5 flex justify-center items-center ${
+                      getColor(user.status).bgColor
+                    } ${getColor(user.status).textColor}`}
+                  >
+                    {user.status}
+                  </div>
+                </div>
+                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                  {user.clockIn}
+                </div>
+                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center">
+                  {user.clockOut}
+                </div>
+                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center">
+                  <div className="h-2 flex justify-between w-full">
+                    <div
+                      className="h-full rounded-lg"
+                      style={{
+                        width: getProgressBarStyle(user.status).width,
+                        backgroundColor: getProgressBarStyle(user.status)
+                          .backgroundColor,
+                      }}
+                    ></div>
+                    {user.status === "Late" && (
+                      <div
+                        className="h-full rounded-lg"
+                        style={{ width: "25%", backgroundColor: "#EF4444" }}
+                      ></div>
+                    )}
+                  </div>
+                </div>
+                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 flex justify-center text-sm md:text-xs">
+                  <IconButton> {user.action}</IconButton>
+                  <IconButton> {user.action}</IconButton>
+                  <IconButton> {user.action}</IconButton>
+                </div>
+              </Grid>
+            ))}
+          </Box>
 
 
            
-            <div className='flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10'>
+            <div className='flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10 '>
                 <div className="p-2 rounded-lg ">
                     <div className="flex items-center gap-0 md:gap-6">
                         <p className='text-[12px] text-gray-400'>Show Rows: 1-10 of 20</p>
