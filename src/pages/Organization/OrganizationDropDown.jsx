@@ -14,8 +14,8 @@ const OrganizationDropDown = () => {
       const response = await axios.get(`/hr/organization`);
       let data = response.data;
       if (data.success) {
-        setOrganization(data.data);
-
+        let tempData = data.data.filter((item) => item.status);
+        setOrganization(tempData);
         let currentOrg = localStorage.getItem("org");
         if (currentOrg) {
           currentOrg = JSON.parse(currentOrg);
@@ -29,18 +29,38 @@ const OrganizationDropDown = () => {
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
+    let selectedOrg = organizations.find(
+      (item) => item._id === event.target.value
+    );
+    handleSelect(selectedOrg);
   };
+
+  async function handleSelect(org) {
+    if (org.status) {
+      try {
+        const response = await axios.post(`/hr/organization/select`, {
+          organizationId: org._id,
+        });
+        let data = response.data;
+        if (data.success) {
+          localStorage.setItem("org", JSON.stringify(org));
+        }
+      } catch (e) {
+        console.log("Error select of Organization", e);
+      }
+    }
+  }
   return (
     <div className="relative flex justify-between">
       <select
-        className="appearance-none bg-transparent text-xl  text-gray-700 w-full focus:outline-none focus:outline-none  focus:border-none  border-none"
+        className="appearance-none bg-transparent text-xl  text-gray-500 w-full focus:outline-none focus:outline-none  focus:border-none  border-none"
         value={selectedValue}
         onChange={handleChange}
       >
         {organizations.map((item, index) => (
           <option
             key={index}
-            className=" bg-transparent mx-2 text-base text-gray-700"
+            className=" bg-transparent mx-2 text-base text-gray-400"
             value={item._id}
           >
             {item.name}

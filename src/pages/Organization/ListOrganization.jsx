@@ -59,9 +59,21 @@ const ListOrganization = () => {
     return { name: "" };
   }
 
-  function handleSelect(org) {
-    localStorage.setItem("org" ,  JSON.stringify(org))
-    navigate("/");
+  async function handleSelect(org) {
+    if (org.status) {
+      try {
+        const response = await axios.post(`/hr/organization/select`, {
+          organizationId: org._id,
+        });
+        let data = response.data;
+        if (data.success) {
+          localStorage.setItem("org", JSON.stringify(org));
+          navigate("/");
+        }
+      } catch (e) {
+        console.log("Error select of Organization", e);
+      }
+    }
   }
 
   const getColor = (status = false) => {

@@ -12,7 +12,7 @@ const AuthorizationProvider = ({ children }) => {
     const [content, setContent] = useState(<Loading message='Please wait, logging you in...' />);
     const [user, setUser] = useState({});
     const navigate = useNavigate();
-   // const { showError } = useMessage();
+    // const { showError } = useMessage();
 
     const authorize = async (loggedIn, cb) => {
         if (loggedIn) {
@@ -32,19 +32,46 @@ const AuthorizationProvider = ({ children }) => {
         if (typeof cb === 'function') cb(setUser);
     };
 
-    const checkUserSubscription  =async (userId)=>{
+    const checkUserSubscription = async (userId) => {
         try {
-            const response = await axios.post(`/hr/subscription/check`, { userId : userId});
-              let data = response.data;
-               if(!data.success){
+            const response = await axios.post(`/hr/subscription/check`, { userId: userId });
+            let data = response.data;
+            if (data.success) {
+                await checkOrganization();
+            } else {
                 navigate("/walkover");
-               }
-          } catch (e) {
+            }
+
+        } catch (e) {
             console.log("subscription/check Error:", e);
             navigate("/walkover");
-          }
+        }
     }
- 
+
+
+    const checkOrganization = async () => {
+        let selectedOrg = localStorage.getItem("org");
+        if (selectedOrg) {
+            try {
+                selectedOrg =  JSON.parse(selectedOrg);
+                const response = await axios.post(`/hr/organization/select`, {
+                    organizationId: selectedOrg._id,
+                });
+                let data = response.data;
+                if (data.success) {
+                    navigate("/");
+                }
+            } catch (e) {
+                console.log("Error select of Organization", e);
+                navigate("/listOrganization");
+            }
+
+        } else {
+            navigate("/listOrganization");
+        }
+
+    }
+
     useEffect(() => {
         (async () => {
             // try {
@@ -58,55 +85,55 @@ const AuthorizationProvider = ({ children }) => {
             //     authorize(false);
             // }
             try {
-                    //  const loggedInUserEmail = getCookie('loggedInUserEmail');
-                    const queryParameters = new URLSearchParams(window.location.search)
-                    const userId = queryParameters.get("userId")
-                    console.log(userId);
+                //  const loggedInUserEmail = getCookie('loggedInUserEmail');
+                const queryParameters = new URLSearchParams(window.location.search)
+                const userId = queryParameters.get("userId")
+                console.log(userId);
 
-                    if (userId) {
+                if (userId) {
 
-                        var formData = new FormData();
-                        formData.append("id", userId);
+                    var formData = new FormData();
+                    formData.append("id", userId);
 
-                        const response = await fetch(
-                            "https://accounts.clikkle.com:5000/api/auth/get_user_profile",
-                            // "https://api.campaigns.clikkle.com/get_user_profile",
-                            // "http://localhost:8000/get_user_profile",
-                            {
-                                method: "POST",
-                                body: formData
-                            },
+                    const response = await fetch(
+                        "https://accounts.clikkle.com:5000/api/auth/get_user_profile",
+                        // "https://api.campaigns.clikkle.com/get_user_profile",
+                        // "http://localhost:8000/get_user_profile",
+                        {
+                            method: "POST",
+                            body: formData
+                        },
 
-                        );
+                    );
 
-                        if (response.ok) {
-                            console.log('user found ...')
-                          
-                            const responseData = await response.json();
-                            const { user } = responseData;
-                             await checkUserSubscription(user.id)
-                            console.log(user)
-                            localStorage.setItem("user", JSON.stringify(user));
-                            authorize(true, (setUser) => setUser(user));
+                    if (response.ok) {
+                        console.log('user found ...')
 
-                        } else {
-                            console.log('user not found')
-                        }
-
-
-                    }else if(localStorage.getItem("user")){
-                        let user = JSON.parse(localStorage.getItem("user"));
+                        const responseData = await response.json();
+                        const { user } = responseData;
                         await checkUserSubscription(user.id)
-                        authorize(true, (setUser) => setUser(user)); 
+                        console.log(user)
+                        localStorage.setItem("user", JSON.stringify(user));
+                        authorize(true, (setUser) => setUser(user));
+
                     } else {
-                        authorize(false);
+                        console.log('user not found')
                     }
 
-                } catch (err) {
-                    console.log(err);
-                    // handleAxiosError(err, showError);
+
+                } else if (localStorage.getItem("user")) {
+                    let user = JSON.parse(localStorage.getItem("user"));
+                    await checkUserSubscription(user.id)
+                    authorize(true, (setUser) => setUser(user));
+                } else {
                     authorize(false);
                 }
+
+            } catch (err) {
+                console.log(err);
+                // handleAxiosError(err, showError);
+                authorize(false);
+            }
         })();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -124,4 +151,4 @@ const useSetContent = () => useContext(authorizeContext).setContent;
 const useEmployees = () => useContext(authorizeContext)?.employees;
 
 export default AuthorizationProvider;
-export { useAuthorize, useUser, useSetUser, useSetContent,useEmployees };
+export { useAuthorize, useUser, useSetUser, useSetContent, useEmployees };
