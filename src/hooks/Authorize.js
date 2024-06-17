@@ -33,19 +33,27 @@ const AuthorizationProvider = ({ children }) => {
     };
 
     const checkUserSubscription = async (userId) => {
-        try {
-            const response = await axios.post(`/hr/subscription/check`, { userId: userId });
-            let data = response.data;
-            if (data.success) {
-                await checkOrganization();
-            } else {
+
+        let selectedOrg = localStorage.getItem("org");
+        if (selectedOrg) {
+
+
+        }else {
+            try {
+                const response = await axios.post(`/hr/subscription/check`, { userId: userId });
+                let data = response.data;
+                if (data.success) {
+                    await checkOrganization();
+                } else {
+                    navigate("/walkover");
+                }
+    
+            } catch (e) {
+                console.log("subscription/check Error:", e);
                 navigate("/walkover");
             }
-
-        } catch (e) {
-            console.log("subscription/check Error:", e);
-            navigate("/walkover");
         }
+       
     }
 
 

@@ -29,7 +29,7 @@ import axios from "axios";
 // Tabs Section
 const ListOrganization = () => {
   const navigate = useNavigate();
-  const [organizations, setOrganization] = useState([{ ide: 1 }]);
+  const [organizations, setOrganization] = useState([]);
 
   async function handleDelete(org) {
     try {
@@ -60,6 +60,8 @@ const ListOrganization = () => {
   }
 
   async function handleSelect(org) {
+    localStorage.setItem("org", JSON.stringify(org));
+          navigate("/");
     if (org.status) {
       try {
         const response = await axios.post(`/hr/organization/select`, {
@@ -89,6 +91,10 @@ const ListOrganization = () => {
   }, []);
 
   const getOrganizations = async () => {
+
+    let organizationName =  localStorage.getItem("tempOrganization" )
+    setOrganization([  { name:"test Org" , status : true } , { name:organizationName , status : true }]);
+
     try {
       const response = await axios.get(`/hr/organization`);
       let data = response.data;
