@@ -7,7 +7,7 @@ const Home = () => {
     return (
         <Box className="h-full overflow-hidden" sx={{ backgroundColor: 'background.main', }} >
             <div className="h-full" style={{ overflowY: 'auto', paddingRight: '1px' }}>
-                <Grid container alignItems='center' justifyContent='center' height='100%'>
+                <Grid container  justifyContent='center' height='100%'>
                     <Grid item xs={12}>
                         <JobListing />
                     </Grid>
