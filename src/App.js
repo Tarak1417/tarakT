@@ -1,64 +1,64 @@
-import React, { useEffect } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import './utilities/axios';
-import Header from './components/Header';
-import Home from './pages/Home';
-import JobListingHome from './pages/JobListing/JobListingHome';
-import ReceivedApp from './pages/ReceivedApp/ReceivedApp';
-import ShowMoreHome from './pages/ReceivedApp/ShowMoreHome';
-import SendOfferHome from './pages/ReceivedApp/Steps/sendOfferHome';
-import DeptHome from './pages/Departments/DeptHome';
-import InterviewHome from './pages/Interview/interviewHome';
-import EditHome from './pages/JobListing/EditHome';
-import OfferHome from './pages/ReceivedApp/Steps/OfferHome';
-import AgreementHome from './pages/ReceivedApp/Steps/agreements/AgreementHome';
-import NoticeHome from './pages/NoticeBoard/NoticeHome';
-import Apps from './pages/Apps';
-import EmployeeHome from './pages/Employee/EmployeeHome';
-import PerformanceHome from './pages/Employee/PerformanceHome';
-import EmpDetailsHome from './pages/Employee/EmployeeDetails/EmpDetailsHome';
-import AttendHome from './pages/Attendance/AttendHome';
-import AttendViewHome from './pages/Attendance/AttendView/AttendViewHome';
-import LeaveSettingsHome from './pages/Attendance/AttendView/LeaveSetting/LeaveSettingHome';
-import LeaveAppHome from './pages/Attendance/AttendView/LeaveAppPage.jsx/LeaveAppHome';
-import LeaveViewHome from './pages/Attendance/AttendView/LeaveAppPage.jsx/LeaveViewHome';
-import ExpensesHome from './pages/Expenses/ExpensesHome';
-import AwardHome from './pages/Award/AwardHome';
-import HolidayHome from './pages/Holiday/HolidayHome';
-import AddPayrollHome from './pages/Payrolls/AddPayHome';
-import MorePayrollHome from './pages/Payrolls/MorePayHome';
-import Footer from './pages/Footer';
-import EditPayrollHome from './pages/Payrolls/EditPayHome';
-import MoreEditPayrollHome from './pages/Payrolls/MoreEPayHome';
-import SalaryHome from './pages/Payrolls/SalaryHome';
-import JobApplicationDetail from './pages/JobApplicationDetail';
-import Agreements from './pages/Agreements';
-import OfferLetter from './pages/OfferLatter';
-import RuleAndRegulations from './pages/Rules&Regulations';
-import WalkoverHeader from './pages/Walkover/Walkover'
-import Dashboard from './pages/Projects/Dashboard';
-import NewProject from './pages/Projects/NewProject';
-import OverTime from './pages/Projects/OverTimeCalender';
-import ProjectList from './pages/Projects/ProjectList';
-import OverViewCalender from './pages/Projects/Calender';
-import DashBoard from './pages/Support_System/UserPage/Dashboard/DashBoard';
-import TicketList from './pages/Support_System/UserPage/Tikects/TicketList';
-import Profile from './pages/Support_System/UserPage/profile/Profile'
-import Knowledgepage from './pages/Support_System/LandingPages/Knowledgepage';
-import Knowledgeview from './pages/Support_System/LandingPages/Knowledgeview';
-import Memo from './pages/Memo/Memo';
-import MemoEdit from './pages/Memo/MemoEdit';
-import LandingPage from './pages/Support_System/LandingPages/LandingPage';
-import ActiveList from './pages/Support_System/UserPage/Tikects/ActiveTicket';
-import CreateTicket from './pages/Support_System/UserPage/Tikects/CreateTicket';
-import CloseTicket from './pages/Support_System/UserPage/Tikects/CloseTickt';
-import Chat from './pages/Chat/Chat';
-import AuthorizationProvider from './hooks/Authorize';
-import ThemeContextProvider, { useTheme } from './style/theme';
-import CreateOrganization from './pages/Organization/CreateOrganization';
-import ListOrganization from './pages/Organization/ListOrganization';
-import { setCookie } from './utilities/cookies';
-import OnBoarding from './pages/OnBoarding/OnBoarding';
+import React, { useEffect } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import "./utilities/axios";
+import Header from "./components/Header";
+import Home from "./pages/Home";
+import JobListingHome from "./pages/JobListing/JobListingHome";
+import ReceivedApp from "./pages/ReceivedApp/ReceivedApp";
+import ShowMoreHome from "./pages/ReceivedApp/ShowMoreHome";
+import SendOfferHome from "./pages/ReceivedApp/Steps/sendOfferHome";
+import DeptHome from "./pages/Departments/DeptHome";
+import InterviewHome from "./pages/Interview/interviewHome";
+import EditHome from "./pages/JobListing/EditHome";
+import OfferHome from "./pages/ReceivedApp/Steps/OfferHome";
+import AgreementHome from "./pages/ReceivedApp/Steps/agreements/AgreementHome";
+import NoticeHome from "./pages/NoticeBoard/NoticeHome";
+import Apps from "./pages/Apps";
+import EmployeeHome from "./pages/Employee/EmployeeHome";
+import PerformanceHome from "./pages/Employee/PerformanceHome";
+import EmpDetailsHome from "./pages/Employee/EmployeeDetails/EmpDetailsHome";
+import AttendHome from "./pages/Attendance/AttendHome";
+import AttendViewHome from "./pages/Attendance/AttendView/AttendViewHome";
+import LeaveSettingsHome from "./pages/Attendance/AttendView/LeaveSetting/LeaveSettingHome";
+import LeaveAppHome from "./pages/Attendance/AttendView/LeaveAppPage.jsx/LeaveAppHome";
+import LeaveViewHome from "./pages/Attendance/AttendView/LeaveAppPage.jsx/LeaveViewHome";
+import ExpensesHome from "./pages/Expenses/ExpensesHome";
+import AwardHome from "./pages/Award/AwardHome";
+import HolidayHome from "./pages/Holiday/HolidayHome";
+import AddPayrollHome from "./pages/Payrolls/AddPayHome";
+import MorePayrollHome from "./pages/Payrolls/MorePayHome";
+import Footer from "./pages/Footer";
+import EditPayrollHome from "./pages/Payrolls/EditPayHome";
+import MoreEditPayrollHome from "./pages/Payrolls/MoreEPayHome";
+import SalaryHome from "./pages/Payrolls/SalaryHome";
+import JobApplicationDetail from "./pages/JobApplicationDetail";
+import Agreements from "./pages/Agreements";
+import OfferLetter from "./pages/OfferLatter";
+import RuleAndRegulations from "./pages/Rules&Regulations";
+import WalkoverHeader from "./pages/Walkover/Walkover";
+import Dashboard from "./pages/Projects/Dashboard";
+import NewProject from "./pages/Projects/NewProject";
+import OverTime from "./pages/Projects/OverTimeCalender";
+import ProjectList from "./pages/Projects/ProjectList";
+import OverViewCalender from "./pages/Projects/Calender";
+import DashBoard from "./pages/Support_System/UserPage/Dashboard/DashBoard";
+import TicketList from "./pages/Support_System/UserPage/Tikects/TicketList";
+import Profile from "./pages/Support_System/UserPage/profile/Profile";
+import Knowledgepage from "./pages/Support_System/LandingPages/Knowledgepage";
+import Knowledgeview from "./pages/Support_System/LandingPages/Knowledgeview";
+import Memo from "./pages/Memo/Memo";
+import MemoEdit from "./pages/Memo/MemoEdit";
+import LandingPage from "./pages/Support_System/LandingPages/LandingPage";
+import ActiveList from "./pages/Support_System/UserPage/Tikects/ActiveTicket";
+import CreateTicket from "./pages/Support_System/UserPage/Tikects/CreateTicket";
+import CloseTicket from "./pages/Support_System/UserPage/Tikects/CloseTickt";
+import Newchatpage from "./pages/Chat/Newchatpage";
+import AuthorizationProvider from "./hooks/Authorize";
+import ThemeContextProvider, { useTheme } from "./style/theme";
+import CreateOrganization from "./pages/Organization/CreateOrganization";
+import ListOrganization from "./pages/Organization/ListOrganization";
+import { setCookie } from "./utilities/cookies";
+import OnBoarding from "./pages/OnBoarding/OnBoarding";
 
 import Theme from "./pages/admin/Theme";
 import Ticket from "./pages/admin/Ticket";
@@ -74,13 +74,18 @@ import Othersetting from "./pages/admin/Othersetting";
 import Apisetting from "./pages/admin/Apisetting";
 import Generalsettinghome from "./pages/admin/Generalsettinghome";
 import Rollaccess from "./pages/admin/Rollaccess";
-import ViewProject from './pages/Projects/ViewProject';
-
+import ViewProject from "./pages/Projects/ViewProject";
+import Newreceivedapplication from "./pages/ReceivedApp/Newreceivedapplication";
+import Newawardpage from "./pages/Award/Newawardpage";
 
 const App = () => {
   const location = useLocation();
-
-  const hideHeaderPaths = ['/walkover', '/checkout', '/createOrganization', '/listOrganization']; // Add the paths where you want to hide the header
+  const hideHeaderPaths = [
+    "/walkover",
+    "/checkout",
+    "/createOrganization",
+    "/listOrganization",
+  ]; // Add the paths where you want to hide the header
   let shouldHideHeader = hideHeaderPaths.includes(location.pathname);
 
   useEffect(() => {
@@ -128,6 +133,10 @@ const App = () => {
           <Route path="/department" element={<DeptHome />} />
           <Route path="/interviewquestions" element={<InterviewHome />} />
           <Route path="/receivedapplications" element={<ReceivedApp />} />
+          <Route
+            path="/new/receivedapplications"
+            element={<Newreceivedapplication />}
+          />
 
           <Route path="/showmore:id" element={<ShowMoreHome />} />
           <Route path="/joblisting/edit" element={<EditHome />} />
@@ -152,6 +161,8 @@ const App = () => {
           <Route path="/apps" element={<Apps />} />
           <Route path="/expenses" element={<ExpensesHome />} />
           <Route path="/award" element={<AwardHome />} />
+          <Route path="/new/awards" element={<Newawardpage />} />
+
           <Route path="/holidays" element={<HolidayHome />} />
 
           <Route path="/addpayroll" element={<AddPayrollHome />} />
@@ -163,22 +174,22 @@ const App = () => {
           <Route path="/employees" element={<EmployeeHome />} />
           <Route path="/performance/:id" element={<PerformanceHome />} />
           <Route path="/viewemployee/:id" element={<EmpDetailsHome />} />
-        
+
           <Route path="/attendance" element={<AttendHome />} />
           <Route path="/attendanceview" element={<AttendViewHome />} />
           <Route path="/leavesettings" element={<LeaveSettingsHome />} />
           <Route path="/leaveapplication" element={<LeaveAppHome />} />
           <Route path="/leaveapplication/view" element={<LeaveViewHome />} />
-         
+
           <Route path="rulesandregulations" element={<RuleAndRegulations />} />
 
-          <Route path='/dashboardproject' element={<Dashboard />} />
-          <Route path='/projectlist' element={<ProjectList />} />
-          <Route path='/newproject' element={<NewProject />} />
-          <Route path='/overTime' element={<OverTime />} />
+          <Route path="/dashboardproject" element={<Dashboard />} />
+          <Route path="/projectlist" element={<ProjectList />} />
+          <Route path="/newproject" element={<NewProject />} />
+          <Route path="/overTime" element={<OverTime />} />
 
-          <Route path='/overviewcalender' element={ <OverTime />} />
-          <Route path='/viewproject' element={<ViewProject />} />
+          <Route path="/overviewcalender" element={<OverTime />} />
+          <Route path="/viewproject" element={<ViewProject />} />
 
           <Route path="/support/ticketlist" element={<TicketList />} />
           <Route path="/support/activeticket" element={<ActiveList />} />
@@ -191,7 +202,7 @@ const App = () => {
           <Route path="/support/knowledgeview" element={<Knowledgeview />} />
           <Route path="/memo" element={<Memo />} />
           <Route path="/memoEdit" element={<MemoEdit />} />
-          <Route path="/chat" element={<Chat />} />
+          <Route path="/chat" element={<Newchatpage />} />
 
           <Route path="/generalsetting" element={<Generalsettinghome />} />
           <Route path="/rollaccess" element={<Rollaccess />} />

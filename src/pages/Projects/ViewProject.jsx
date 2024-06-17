@@ -12,12 +12,16 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import MapsUgcIcon from "@mui/icons-material/MapsUgc";
 import view from "../ReceivedApp/viewicon.png";
 import AttendViewPage from "../Attendance/AttendView/AttendViewPage";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AvTimerIcon from "@mui/icons-material/AvTimer";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import ReplyIcon from "@mui/icons-material/Reply";
+import SearchIcon from "@mui/icons-material/Search";
+import { useTheme } from "../../../src/style/theme";
 
 // import Tab from '@mui/material/Tab';
 // import TabContext from '@mui/lab/TabContext';
@@ -27,6 +31,17 @@ import ReplyIcon from "@mui/icons-material/Reply";
 const ViewProject = () => {
   const [currentScreen, setCurrentScreen] = useState(1);
 
+  const [messageTab, setMessageTab] = useState(false);
+  const [messageTab1, setMessageTab1] = useState(false);
+  const { toggleTheme, mode } = useTheme();
+  console.log(mode);
+
+  const showMessageTab = () => {
+    setMessageTab(!messageTab);
+  };
+  const showMessageTab1 = () => {
+    setMessageTab1(!messageTab1);
+  };
   const handlePrevScreen = () => {
     if (currentScreen > 1) {
       setCurrentScreen(currentScreen - 1);
@@ -330,7 +345,7 @@ const ViewProject = () => {
   console.log(tab);
 
   return (
-    <Box sx={{ backgroundColor: "background.main" }}>
+    <Box sx={{ backgroundColor: "background.main", height: "100%" }}>
       <div className="flex flex-col">
         <div className="flex items-center justify-between md:w-full p-4">
           <div className="p-2">
@@ -339,7 +354,7 @@ const ViewProject = () => {
             </h1>
           </div>
           <div className="flex flex-row items-center justify-center gap-4">
-            <button className="flex  items-center text-white font-bold text-[8px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700">
+            <button className="flex  items-center text-white font-bold text-[8px] md:text-[16px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700">
               Create New Project
             </button>
             <InfoOutlinedIcon />
@@ -348,150 +363,128 @@ const ViewProject = () => {
       </div>
 
       <div className="flex flex-col mb-[-31px]">
-        <div className="flex items-center flex-row md:flex-row  md:w-full p-4">
-          <div className="p-2 ml-2">
-            <p className="text-[15px] md:text-[15px] text-neutral-200 ">
+        <div
+          className="flex items-center flex-nowrap overflow-x-auto p-4"
+          style={{
+            scrollbarWidth: "none" /* Firefox */,
+            msOverflowStyle: "none" /* IE and Edge */,
+          }}
+        >
+          <style jsx>{`
+            .hide-scrollbar::-webkit-scrollbar {
+              display: none;
+            }
+          `}</style>
+          <div className="p-2 ml-2 hide-scrollbar">
+            <p className="text-[15px] md:text-[15px] text-neutral-200">
               OverView
             </p>
           </div>
-          {tab == "task" ? (
+          {tab === "task" ? (
             <div
-              className="p-2 ml-2 "
-              onClick={(e) => handleTabChange("task")}
-              style={{
-                backgroundColor: "rgb(14 165 233 ",
-                color: "white",
-                borderTopRightRadius: "5px",
-                borderTopLeftRadius: "5px",
-              }}
+              className="p-2 ml-2 bg-blue-500 text-white rounded-t-md"
+              onClick={() => handleTabChange("task")}
             >
-              <h1 className="text-[14px] md:text-[15px] w-[50px] text-center  text-white">
+              <h1 className="text-[14px] md:text-[15px] w-[50px] text-center">
                 Task
               </h1>
             </div>
           ) : (
-            <div className="p-2 ml-2 " onClick={(e) => handleTabChange("task")}>
-              <h1 className="text-[14px] md:text-[15px] w-[50px] text-center  text-white">
+            <div className="p-2 ml-2" onClick={() => handleTabChange("task")}>
+              <h1 className="text-[14px] md:text-[15px] w-[50px] text-center">
                 Task
               </h1>
             </div>
           )}
-          {tab == "files" ? (
+          {tab === "files" ? (
             <div
-              className="p-2 ml-2"
-              onClick={(e) => handleTabChange("files")}
-              style={{
-                backgroundColor: "rgb(14 165 233 ",
-                color: "white",
-                borderTopRightRadius: "5px",
-                borderTopLeftRadius: "5px",
-              }}
+              className="p-2 ml-2 bg-blue-500 text-white rounded-t-md"
+              onClick={() => handleTabChange("files")}
             >
-              <h1 className="text-[14px] md:text-[15px] text-white-500">
-                Files
-              </h1>
+              <h1 className="text-[14px] md:text-[15px] text-center">Files</h1>
             </div>
           ) : (
-            <div className="p-2 ml-2" onClick={(e) => handleTabChange("files")}>
-              <h1 className="text-[14px] md:text-[15px] text-neutral-500">
+            <div className="p-2 ml-2" onClick={() => handleTabChange("files")}>
+              <h1 className="text-[14px] md:text-[15px] text-center text-neutral-500">
                 Files
               </h1>
             </div>
           )}
-
-          {tab == "milestone" ? (
+          {tab === "milestone" ? (
             <div
-              className="p-2 ml-2"
-              onClick={(e) => handleTabChange("milestone")}
-              style={{
-                backgroundColor: "rgb(14 165 233 ",
-                color: "white",
-                borderTopRightRadius: "5px",
-                borderTopLeftRadius: "5px",
-              }}
+              className="p-2 ml-2 bg-blue-500 text-white rounded-t-md"
+              onClick={() => handleTabChange("milestone")}
             >
-              <h1 className="text-[14px] md:text-[15px] text-white-500">
+              <h1 className="text-[14px] md:text-[15px] text-center">
                 milestone
               </h1>
             </div>
           ) : (
             <div
               className="p-2 ml-2"
-              onClick={(e) => handleTabChange("milestone")}
+              onClick={() => handleTabChange("milestone")}
             >
-              <h1 className="text-[14px] md:text-[15px] text-neutral-500">
+              <h1 className="text-[14px] md:text-[15px] text-center text-neutral-500">
                 milestone
               </h1>
             </div>
           )}
-          {tab == "Comments" ? (
+          {tab === "Comments" ? (
             <div
-              className="p-2 ml-2"
-              onClick={(e) => handleTabChange("Comments")}
-              style={{
-                backgroundColor: "rgb(14 165 233 ",
-                color: "white",
-                borderTopRightRadius: "5px",
-                borderTopLeftRadius: "5px",
-              }}
+              className="p-2 ml-2 bg-blue-500 text-white rounded-t-md"
+              onClick={() => handleTabChange("Comments")}
             >
-              <h1 className="text-[14px] md:text-[15px] text-white-500">
+              <h1 className="text-[14px] md:text-[15px] text-center">
                 Comments
               </h1>
             </div>
           ) : (
             <div
               className="p-2 ml-2"
-              onClick={(e) => handleTabChange("Comments")}
+              onClick={() => handleTabChange("Comments")}
             >
-              <h1 className="text-[14px] md:text-[15px] text-neutral-500">
+              <h1 className="text-[14px] md:text-[15px] text-center text-neutral-500">
                 Comments
               </h1>
             </div>
           )}
-
           <div className="p-2 ml-2">
-            <h1 className="text-[14px] md:text-[15px] text-neutral-500">
+            <h1 className="text-[14px] md:text-[15px] text-center text-neutral-500">
               Note
             </h1>
           </div>
-          {tab == "Invoice" ? (
+          {tab === "Invoice" ? (
             <div
-              className="p-2 ml-2"
-              onClick={(e) => handleTabChange("Invoice")}
-              style={{
-                backgroundColor: "rgb(14 165 233 ",
-                color: "white",
-                borderTopRightRadius: "5px",
-                borderTopLeftRadius: "5px",
-              }}
+              className="p-2 ml-2 bg-blue-500 text-white rounded-t-md"
+              onClick={() => handleTabChange("Invoice")}
             >
-              <h1 className="text-[14px] md:text-[15px] text-white-500">
+              <h1 className="text-[14px] md:text-[15px] text-center">
                 Invoice
               </h1>
             </div>
           ) : (
             <div
               className="p-2 ml-2"
-              onClick={(e) => handleTabChange("Invoice")}
+              onClick={() => handleTabChange("Invoice")}
             >
-              <h1 className="text-[14px] md:text-[15px] text-neutral-500">
+              <h1 className="text-[14px] md:text-[15px] text-center text-neutral-500">
                 Invoice
               </h1>
             </div>
           )}
         </div>
       </div>
+
       {tab == "task" && (
         <Box
-          className="w-[96%]  mr-[20px] md:ml-0  rounded-lg "
-          sx={{ backgroundColor: "background.view", marginLeft: "22px" }}
+          className="w-[100%] h-[65vh]  md:w-[96%]  md:ml-[20px] ml-[0px] md:mr-[20px] mr-[0px] md:ml-0  rounded-lg "
+          sx={{ backgroundColor: "background.view" }}
         >
           <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
             <div className="w-full md:w-[21%] flex justify-start items-center"></div>
           </Box>
 
-          <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
+          <Box className="flex  md:flex-row justify-between gap-4  w-[97%] ml-2 md:ml-4 mt-[25px]">
             <div className="w-full md:w-[21%] flex justify-start items-center">
               <p className="text-[12px] ml-3">Show</p>
               <select className="appearance-none bg-transparent pl-1 rounded leading-tight focus:outline-none focus:border-gray-500 text-[12px]">
@@ -504,21 +497,20 @@ const ViewProject = () => {
               <p className="text-[12px]">entries</p>
             </div>
 
-            <div className="w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center">
+            <div className="w-1/2 md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center">
               <input
                 placeholder="Search"
                 className="appearance-none bg-transparent w-[75%] text-white-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[15px] focus:border-gray-500"
               />
-
-              <ArrowDropDownIcon
-                style={{ fontSize: "28px" }}
+              <SearchIcon
+                style={{ fontSize: "20px" }}
                 className="text-zinc-500"
               />
             </div>
           </Box>
 
           <Box
-            className="w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm mt-10 h-[380px]"
+            className="h-[45vh] w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm mt-10 h-[380px]"
             sx={{
               overflowY: "scroll",
               "&::-webkit-scrollbar": {
@@ -529,31 +521,31 @@ const ViewProject = () => {
             }}
           >
             <Grid className="flex flex-row border-b border-zinc-500">
-              <div className="w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
-                ID
+              <div className="w-auto min-w-[50px] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+                No
               </div>
-              <div className="w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
-                Project Title
+              <div className="w-auto min-w-[150px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
+                Task
               </div>
-              <div className="w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
                 Client
               </div>
-              <div className="w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
-                Team
+              <div className="w-auto min-w-[100px] md:w-[14.6%] text-nowrap p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
+                Assigned To
               </div>
-              <div className="w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
-                Status
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[16px] font-bold">
+                Priority
               </div>
-              <div className="w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[100px] md:w-[14.6%] text-nowrap p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-[16px] font-bold">
                 Start Date
               </div>
-              <div className="w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[16px] font-bold">
                 Deadline
               </div>
-              <div className="w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
-                Progress
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[16px] font-bold">
+                Status
               </div>
-              <div className="w-[25%] md:w-[14.6%] p-2  text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[100px] md:w-[14.6%] border-b  md:border-b-0 border-zinc-500 p-2 text-left text-sm md:text-[16px] font-bold">
                 Action
               </div>
             </Grid>
@@ -563,30 +555,30 @@ const ViewProject = () => {
                 className="flex flex-row border-b border-zinc-500"
                 currentScreen={currentScreen}
               >
-                <div className="w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[50px] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
                   {user.Id}
                 </div>
-                <div className="w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[150px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
                   {user.Project}
                 </div>
-                <div className="w-[20%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
-                  {user.Project}
+                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
+                  {user.Client}
                 </div>
-                <div className="w-[20%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
                   <div style={{ display: "flex", flexDirection: "row" }}>
-                    {avatarData.map((item) => (
-                      <>
-                        <div
-                          class="MuiAvatar-root MuiAvatar-circular css-1m7vhif-MuiAvatar-root"
-                          style={{ width: "15px", height: "16px" }}
-                        >
-                          <img alt="Remy Sharp" src={item.src} />
-                        </div>
-                      </>
-                    ))}
+                    <div>
+                      <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s"
+                        alt="Assigned To"
+                        style={{ height: "20px", borderRadius: "50%" }}
+                      />
+                    </div>
+                    <div style={{ marginLeft: "3px", marginTop: "1px" }}>
+                      <p>Emma Stone</p>
+                    </div>
                   </div>
                 </div>
-                <div className="w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center">
                   <div
                     className={`px-1 py-1 rounded-lg w-3/5 flex justify-center items-center ${
                       getColor(user.status).bgColor
@@ -595,13 +587,13 @@ const ViewProject = () => {
                     {user.status}
                   </div>
                 </div>
-                <div className="w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-xs flex items-center">
                   {user.clockIn}
                 </div>
-                <div className="w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center">
                   {user.clockOut}
                 </div>
-                <div className="w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center">
                   <div className="h-2 flex justify-between w-full">
                     <div
                       className="h-full rounded-lg"
@@ -619,14 +611,16 @@ const ViewProject = () => {
                     )}
                   </div>
                 </div>
-                <div className="w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 flex justify-center items-center text-sm md:text-xs">
+                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 flex justify-center text-sm md:text-xs">
+                  <IconButton> {user.action}</IconButton>
+                  <IconButton> {user.action}</IconButton>
                   <IconButton> {user.action}</IconButton>
                 </div>
               </Grid>
             ))}
           </Box>
 
-          <div className="flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10">
+          <div className="flex items-center justify-between pt-[10px] w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 ">
             <div className="p-2 rounded-lg ">
               <div className="flex items-center gap-0 md:gap-6">
                 <p className="text-[12px] text-gray-400">
@@ -657,8 +651,8 @@ const ViewProject = () => {
 
       {tab == "files" && (
         <Box
-          className="w-[96%]  mr-[20px] md:ml-0  rounded-lg "
-          sx={{ backgroundColor: "background.view", marginLeft: "22px" }}
+          className="w-[96%] h-[66vh] m-auto  md:mr-[20px] md:ml-0  rounded-lg "
+          sx={{ backgroundColor: "background.view" }}
         >
           <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
             <div className="w-full md:w-[21%] flex justify-start items-center"></div>
@@ -678,21 +672,20 @@ const ViewProject = () => {
             </div>
 
             <div className="flex row">
-              <div className=" border border-gray-500 rounded-lg flex flex-row items-center'">
+              <div className="  md:justify-center ">
+                <button className="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Upload Files
+                </button>
+              </div>
+              <div className=" border border-gray-500 rounded-lg flex flex-row items-center  ml-[30px]">
                 <input
                   placeholder="Search"
                   className="appearance-none bg-transparent w-[75%] text-white-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[15px] focus:border-gray-500"
                 />
-                <ArrowDropDownIcon
-                  style={{ fontSize: "28px" }}
+                <SearchIcon
+                  style={{ fontSize: "20px" }}
                   className="text-zinc-500"
                 />
-              </div>
-
-              <div className="  md:justify-center  ml-[30px]">
-                <button className="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Upload Files
-                </button>
               </div>
             </div>
 
@@ -711,7 +704,7 @@ const ViewProject = () => {
           </Box>
 
           <Box
-            className="w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm mt-10 h-[380px]"
+            className="w-[97%] h-[32vh] ml-2 md:ml-4 border border-zinc-500 rounded-sm mt-10 "
             sx={{
               overflowY: "scroll",
               "&::-webkit-scrollbar": {
@@ -722,16 +715,16 @@ const ViewProject = () => {
             }}
           >
             <Grid className="flex flex-row border-b border-zinc-500">
-              <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
                 ID
               </div>
-              <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
                 Project Title
               </div>
-              <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
                 Client
               </div>
-              <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-[16px] font-bold">
                 Team
               </div>
             </Grid>
@@ -741,23 +734,22 @@ const ViewProject = () => {
                 className="flex flex-row border-b border-zinc-500"
                 currentScreen={currentScreen}
               >
-                <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
                   {user.Id}
                 </div>
-                <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
                   {user.Project}
                 </div>
-                <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
                   {user.Client}
                 </div>
-                <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-xs flex items-center">
                   {user.Team}
                 </div>
               </Grid>
             ))}
           </Box>
-
-          <div className="flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10">
+          <div className="flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 ">
             <div className="p-2 rounded-lg ">
               <div className="flex items-center gap-0 md:gap-6">
                 <p className="text-[12px] text-gray-400">
@@ -788,8 +780,8 @@ const ViewProject = () => {
 
       {tab == "milestone" && (
         <Box
-          className="w-[96%]  mr-[20px] md:ml-0  rounded-lg "
-          sx={{ backgroundColor: "background.view", marginLeft: "22px" }}
+          className="w-[96%] h-[66vh] m-auto  md:mr-[20px] md:ml-0  rounded-lg "
+          sx={{ backgroundColor: "background.view" }}
         >
           <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
             <div className="w-full md:w-[21%] flex justify-start items-center"></div>
@@ -808,22 +800,21 @@ const ViewProject = () => {
               <p className="text-[12px]">entries</p>
             </div>
 
-            <div className="flex row">
-              <div className=" border border-gray-500 rounded-lg flex flex-row items-center'">
+            <div className="flex row ">
+              <div className="  md:justify-center  ">
+                <button className="bg-sky-500 hover:bg-blue-700 text-nowrap text-white font-bold py-2 px-4 rounded">
+                  Add Milestone
+                </button>
+              </div>
+              <div className=" border border-gray-500 rounded-lg flex flex-row items-center ml-[30px]">
                 <input
                   placeholder="Search"
                   className="appearance-none bg-transparent w-[75%] text-white-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[15px] focus:border-gray-500"
                 />
-                <ArrowDropDownIcon
-                  style={{ fontSize: "28px" }}
+                <SearchIcon
+                  style={{ fontSize: "20px" }}
                   className="text-zinc-500"
                 />
-              </div>
-
-              <div className="  md:justify-center  ml-[30px]">
-                <button className="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Upload Files
-                </button>
               </div>
             </div>
 
@@ -842,7 +833,7 @@ const ViewProject = () => {
           </Box>
 
           <Box
-            className="w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm mt-10 h-[380px]"
+            className="w-[97%] h-[32vh] ml-2 md:ml-4 border border-zinc-500 rounded-sm mt-10 h-[380px]"
             sx={{
               overflowY: "scroll",
               "&::-webkit-scrollbar": {
@@ -853,16 +844,16 @@ const ViewProject = () => {
             }}
           >
             <Grid className="flex flex-row border-b border-zinc-500">
-              <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
                 ID
               </div>
-              <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
                 Project Title
               </div>
-              <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
                 Client
               </div>
-              <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-[16px] font-bold">
                 Team
               </div>
             </Grid>
@@ -870,25 +861,24 @@ const ViewProject = () => {
               <Grid
                 key={index}
                 className="flex flex-row border-b border-zinc-500"
-                currentScreen={currentScreen}
               >
-                <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
                   {user.Id}
                 </div>
-                <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
                   {user.Project}
                 </div>
-                <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
                   {user.Client}
                 </div>
-                <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-xs flex items-center">
                   {user.Team}
                 </div>
               </Grid>
             ))}
           </Box>
 
-          <div className="flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10">
+          <div className="flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 ">
             <div className="p-2 rounded-lg ">
               <div className="flex items-center gap-0 md:gap-6">
                 <p className="text-[12px] text-gray-400">
@@ -919,8 +909,8 @@ const ViewProject = () => {
 
       {tab == "Invoice" && (
         <Box
-          className="w-[96%]  mr-[20px] md:ml-0  rounded-lg "
-          sx={{ backgroundColor: "background.view", marginLeft: "22px" }}
+          className="w-[100%] md:w-[96%] h-[66vh]  md:mr-[20px] md:ml-0  rounded-lg "
+          sx={{ backgroundColor: "background.view" }}
         >
           <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
             <div className="w-full md:w-[21%] flex justify-start items-center"></div>
@@ -939,22 +929,21 @@ const ViewProject = () => {
               <p className="text-[12px]">entries</p>
             </div>
 
-            <div className="flex row">
-              <div className=" border border-gray-500 rounded-lg flex flex-row items-center'">
+            <div className="flex row ">
+              <div className="  md:justify-center  ">
+                <button className="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Add Invoice
+                </button>
+              </div>
+              <div className=" border border-gray-500 rounded-lg flex flex-row items-center ml-[30px]">
                 <input
                   placeholder="Search"
                   className="appearance-none bg-transparent w-[75%] text-white-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[15px] focus:border-gray-500"
                 />
-                <ArrowDropDownIcon
-                  style={{ fontSize: "28px" }}
+                <SearchIcon
+                  style={{ fontSize: "20px" }}
                   className="text-zinc-500"
                 />
-              </div>
-
-              <div className="  md:justify-center  ml-[30px]">
-                <button className="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Upload Files
-                </button>
               </div>
             </div>
 
@@ -973,7 +962,7 @@ const ViewProject = () => {
           </Box>
 
           <Box
-            className="w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm mt-10 h-[380px]"
+            className="w-[97%] h-[32vh] ml-2 md:ml-4 border border-zinc-500 rounded-sm mt-10 "
             sx={{
               overflowY: "scroll",
               "&::-webkit-scrollbar": {
@@ -984,16 +973,16 @@ const ViewProject = () => {
             }}
           >
             <Grid className="flex flex-row border-b border-zinc-500">
-              <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
                 ID
               </div>
-              <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
                 Project Title
               </div>
-              <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
                 Client
               </div>
-              <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-[16px] font-bold">
                 Team
               </div>
             </Grid>
@@ -1001,25 +990,24 @@ const ViewProject = () => {
               <Grid
                 key={index}
                 className="flex flex-row border-b border-zinc-500"
-                currentScreen={currentScreen}
               >
-                <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
                   {user.Id}
                 </div>
-                <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
                   {user.Project}
                 </div>
-                <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
                   {user.Client}
                 </div>
-                <div className="w-25 md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-xs flex items-center">
                   {user.Team}
                 </div>
               </Grid>
             ))}
           </Box>
 
-          <div className="flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10">
+          <div className="flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 ">
             <div className="p-2 rounded-lg ">
               <div className="flex items-center gap-0 md:gap-6">
                 <p className="text-[12px] text-gray-400">
@@ -1050,184 +1038,287 @@ const ViewProject = () => {
 
       {tab == "Comments" && (
         <Box
-          className="w-[96%] mr-[20px] md:ml-0 rounded-lg"
-          sx={{ backgroundColor: "background.view", marginLeft: "22px" }}
+          className="w-[100%] h-[72vh] md:h-[66vh] no-scrollbar overflow-hidden overflow-y-scroll mt-[16px]  md:w-[96%]  md:ml-[20px] ml-[0px] md:mr-[20px] mr-[0px] md:ml-0  rounded-lg "
+          sx={{ backgroundColor: "background.view" }}
         >
           <Box
             sx={{
-              marginTop: "20px",
-              border: "1px solid grey",
+              marginX: "27px",
+              border: "1px solid gray",
+              borderRadius: "15px",
+              marginY: "30px",
               padding: "20px",
-              borderRadius: "10px",
             }}
           >
-            <Box
-              sx={{
-                marginBottom: "20px",
-                padding: "20px",
-                backgroundColor: "#1a1a1a",
-                borderRadius: "8px",
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "10px",
-                }}
-              >
+            <div className=" md:flex gap-2">
+              <div className="md:w-[5%]">
                 <img
-                  alt="User"
-                  src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAHsAmQMBIgACEQEDEQH/xAAcAAAABwEBAAAAAAAAAAAAAAABAgMEBQYHAAj/xABAEAACAQMCAwUDCQYEBwAAAAABAgMABBEFIRIxQQYTUWFxIjKBBxQjM0KRobHBFVJi0eHwJHOCkhYlNDVTY3L/xAAaAQACAwEBAAAAAAAAAAAAAAADBAABAgUG/8QAIREAAgMAAgIDAQEAAAAAAAAAAAECAxESIQRBIjFRcTL/2gAMAwEAAhEDEQA/AJSGBcY2ArprQO2FOSOlRmuap80jAiXLscDNK6Bfy3TySTcKrgAUHpsGqpKHIlrWx4TlwPSn8cGB0oLaZJCVUjI507VaKhaUf0IsYxRwlHAowFWZwRkQYqPvrcvdWzBchW3p/e3EVrbvPO4SNBlmNUTWe2D3aFLJJEgzjK44n9azKSQWqiVj6LxKiKjEqNhnemcVgjN3kqjJ5DFZXd6xdzN3c00sgX3eMnJ+NL2N9daeqtazSCOU7YbGD4VlSfsNLxcXTNft4lAAAAFOQoU1SLXtdcRiJ54kmhcKAwBVgeud8Hr8Qat1jfRX0HeReO4PMUWLTAODj9j+Bx3q1MBthUFF9ctTAbYVbNVsVzQFqJxUBNUFDFqKW2NFJovFUKGb+8aLRnPtGi1YMomr2aSWbSNGWZRsBUJYxdy/HOWhhUem9WLVpriG14rYAtkZB8Ko11q17qN78yeMIXcAY2wKWS7HY2cYdl97PWxTjlR+JZDnc5qwpyphpVlHa20aR/u1IqKMhK2SnPUGAocUIoasxhRvlFvP+ns9iOEu438dvyqmxWc0wBhiYEEH2eXxFW/tham6189QsS7f360401Ut7RI0Xh8aStsxna8Wna0Uy9sJjH3hiIcHIwPChhaNrCeOQcLqQ0XmRg1oaxxyJhlBzTC/7N2tyAYR3b550ONu9MLOjPoo9tdiazSJmCqLkFfTmf1++rvouvJawuI7cvLM3FgHYDfA9etR3/BTrAVLhwMkcOxHpTDT7eez1MW8xJA6HY/0pmMu9QlZUsxmn6fP85jimMbR8X2W6VN52FQmn4EEPCMDAxtipjOwpkRgHzQZouaAmobBJopO1ATQE7VChufeNdRSfaNdvVmCr3kXHbuPKs+WJ11J2GeNW2NSATtVw8PEhB8jTP8AZGvd4ZO7XiPXNLOPYzCajHGaJ2feU2EffHLVLrVS7K/tkHgv0RIk5YO5q2LRkJ+xUUIoopjrtzPbaXLJaj6UkKDjOMnGajeLQldbsmor2Rs9qt1rl1xKcllUegUVD32o6daTd2LuLY4YcWSpzyNSOjpHNZXF5dKLiQMUMjjiJxjkT4VT5NLXu0uYbGGUyjjZpnO2d8cvh8K5vxnJtnoEpVRUV6LXZX1tKoaGeNwT0OakYT1znPnWbppyd6zwYtJFXJeN8qPWll1/W7e0hilhRONCyTSH7PiR8RW1V38TMrevkjTojsMnn5VC3FmbntCAqg5Vct4eJqv6b2m1aMJJMtrcwj3liJD49DVt0O/tL7U7hkdlnSJSYZFKsuevpuOXjR4LsRvkuPRPqAsgA5Cn+ajlP0gp9mmhCAcmgzRc0BNUaBzRSedcTQZqEETjJrqA8zXVegyuxXdocATJk8t6kERSM7ViWhOW1SzBY7SDrW1QvsPSsOOEl8Xg4UAUoKTBo4NRGRQGgmjE0Dxn7SkfHpQCjg1bW9GoycWmiA0+ERaO0DZjCuww3MDNRM1sLVGkt75IUO5ilTjTPkMgj7/hUh2iv0jkdDJgh8Y+6qfdm9W7+ccLSQKwCgEexnrv+dctRak0eiU+UVJ+ySNpJqhCzvEtspBaKNSpk6+1k54fLrUlrVirQ2t28btHCrRzCNcsqNghsdcED4E1CtY3zMk/dS8BIIePDY/25NJx38sYlju7x+7IICN7JYdedFjpUmsJK30/SJMSDUbdjF7uHVGXyO/LyqxaLCkl7eXqQKseEggkKYLqoJJ9CzH1xUJ2e1BLxEUxo7K/AHIBPlV0bCgKOQpij9Od5ksWAofpBT3NR6fWinpo7YjANmuzRc0FQ2CTXE7UFFNQoLQ5ouKGtAzENC0LURdWt13P0QcNnPStWiOMUw0Vl/ZVt7S5CYO9P48McqQfSs7pib1jtTtRwaRXYUcGqNCwNGFJA70fiVBl2CjONzzqbhaWvEUntnCV1NiGwxAkUDr0/Sm2k3iTSNAYwGIAwRzqX7YWg1RCImKzRZMbY5eX4VQEur3S7lTPEQYyaRaVjeHdg3XGKf4XFpDZTqsIki4z9knGaWuLC2dRd6hCJZIx7Jk3wfIGq7H22VHUtBy6kZ3pVdTve1F5FaWqFI2YEkjYDxrUa5r7JZdAmuzKrdasO4Xhgg9tjjqf1q6Od6Y6Rp8OmWqwQ79Xc82PjTxudM1rijk3T5y05PrBT2mSfWCnfFWmzMEGzXZohNBnappvAxoKLvXZ2qFYdQ0WhrYA89jVb6Ad0lzMqjkA1aN8nU81zpMsk8ryN3hGXOfCszuo+GdhjbOa0TsNdwaboJN2xR3kLJHj2mHiB4edMXNcMCWQwuuaaahqdnpqcV7cJGei5yx9Bzqna72tuSWitpEtI/4CHlP6D76pc99K0rNxMxbm7niY/fypZR0wol91Tt9HF7Fhbg7/AFk5wB8BzqJ0jtPdX+uW7X05KFmCDGArEbbfh8aplw/EVJznzronIbIJBHIjpVyhyi4hq2oSUjZ2Uvlm3zTG+0+GZfbQHzNNuy2srqljwyN/iIgBIv5MPI1MYGGB5VyHGUJYdpTU46VNdBtnkI7kLg5zirDosFnoULXMiPwkgO43IycD4b04WFWfbGfKg1iIr2c1FtuIQllPmNx+IpmqTb7Fr4pReEwuqae4DR3UZB5HiFKR3ME2TFIrAeBrGprjuLiVlHFGTl4iM5HLI8wPvqzdlNa02xjaK5jdBIeJJYzxKR6HcfjTjg/Rxo2J/wCjRo+EnIIpXNROny2904e0uUkXnhW3HqOYqSJwaxozDA5NdxUmTQiobwPmu4qr2sdqrLSLs292soIUNxKuRvn+VNF7eaMRnvJP9taxmW0W0UNVzS+1unanepaWveGR87ldtqsHFW0LGKxWkXzpp7of4aL2nGfePRf78KjNW1AXcrFURV6YUCh1nUu/k7iA/QRk7j7R6moomiDlsk5PBeOXuxgjKnp4UaQcIB5qdwabg7YpRGLQlDzVqgFoLJufSuXOM0PvOw8DQov0hXxFQg7sb64067S5tW4ZF3Hgw6g+VaToHaCx1iMRKwguTzhY7k/wnrWWqC0ZA95N/UVwzs8Zxj8DQbKY2fYWq6Vf0bhBbAHOefhUP2z1SK3sDp6OpeXBdeoUb7+tUG37Ua7DEIVv5uEbDKKzD/URmmUksrrNLKzMzj3mPtEmhw8fi+y7/K5RxAuTJdqFPtOjY/8ArmPyoLWVUkEL7QzHMefsP1Hof5V0h7u5tmHNCM0W8ixLNCR7LniQ+DU0c9Y1xZJaRqlxp14z27sskW653wcgH8DWq6DrcWtWzSKAs0e0iD8x5ViXfOwM5+tVcP5kb/kKtGg6uNM1O1vlOLe4AEo/h5H7iM1icdRqDdU1+M1mhBomQeRyOhFCKXOhhmfylf8AcpP8pPzNUuFwucrk4wKuPylt/wA0l/yk/M1SFNN+l/ALLn8n2/aGDPRGrVqyf5N2B7Swhv3G/Stg4Y6GwEovTzPnNdRRRh1oocEc6Uh95qSFKQ+8ahT+g0X13rRo/rs0WH38+dKR+/8ACphhhyTHLxAbZosqCGXbdGpWbkPSglGbZahQMZZDgNt0pSTLGNTzLAmkofqk+NK5JuI/QVDEkBN7bE+dOLle9i81ww9D/WkT9XS45xjxRgamA31gxbAdZPszLwuPPl+dHtJi1mIc7xS5Hoef5UnPtGQOh/lQWfKQ9aoM1sTXuxGqftHQowzZktz3TE9R0P3bfCrCrVmnydzSR3N4iOQphBI8w39TWhwMWUFjk0rYskMUy2JmvyksDrEg/wDUn61TENal8oNpbzJpzSRKWefgZuRIwTjNEtOyuiMkZaxBJUE/SP4etHU1xRHErPyecMnaaAFygCOeJfStV7xf/LN94/lUHb6HpmmH5zY2ixTLsHDEkA8+ZpTvpP3zSt9mS6HPG8dTjrZ//9k"
-                  style={{
-                    marginRight: "20px",
-                    marginBottom: "94px",
-                    height: "40px",
-                    width: "50px",
-                    borderRadius: "50%",
-                  }}
+                  className="h-[50px] w-[50px] rounded-[50%]"
+                  src="https://images.unsplash.com/photo-1716724854567-9ec995836d19?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8"
+                  alt=""
                 />
-                <Box>
-                  <Typography variant="body1" fontWeight="bold" color="white">
-                    Mobile App Update
-                  </Typography>
-                  <Typography variant="body2" color="gray">
-                    <CalendarMonthIcon
-                      style={{ marginBottom: "4px", fontSize: "14px" }}
-                    />{" "}
-                    Mar 10, 2024{" "}
-                    <AvTimerIcon
-                      style={{ marginBottom: "4px", fontSize: "14px" }}
-                    />{" "}
-                    15:30PM
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="white"
-                    sx={{ marginTop: "10px" }}
-                  >
-                    Lorem ipsum dolor sit amet consectetur. Est in adipiscing
-                    tincidunt viverra. Feugiat consectetur vitae non vestibulum
-                    eu et. In ultrices vel ultrices a laoreet semper rhoncus
-                    laoreet. Semper non neque malesuada aliquet quam adipiscing.
-                  </Typography>
-                  <Box
+              </div>
+              <div className="" style={{}}>
+                <h2 className="text-lg">Mobile App Developement</h2>
+                <p>
+                  <span className="text-xs text-gray-400 mr-2">
+                    <CalendarTodayIcon sx={{ fontSize: "12px" }} /> Mar 11, 2024
+                  </span>
+                  <span className="text-xs text-gray-400 mr-2">
+                    <AvTimerIcon sx={{ fontSize: "14px" }} /> 10:00AM
+                  </span>
+                </p>
+                <p className="mt-5 text-xs md:w-[75%]">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Asperiores eos qui eius molestiae architecto, ullam autem
+                  laborum labore earum id iure ad impedit voluptate deserunt
+                  facilis quidem.
+                </p>
+                <div className={"mt" - 5}>
+                  <Button
+                    onClick={showMessageTab}
                     sx={{
-                      display: "flex",
-                      marginTop: "10px",
+                      backgroundColor: mode === "dark" ? "#202021" : "#e2e0e0",
+                      color: "gray",
+                      fontSize: "12px",
+                      marginRight: "25px",
+                      borderRadius: "8px",
+                      padding: "7px 10px",
+                      border: "1px",
                     }}
                   >
-                    <Button
-                      variant="outlined"
-                      sx={{
-                        marginRight: "10px",
-                        backgroundColor: "gray",
-                        color: "white",
-                      }}
-                    >
-                      <ChatBubbleOutlineIcon style={{ height: "18px" }} />{" "}
-                      Comment
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      sx={{ backgroundColor: "gray", color: "white" }}
-                    >
-                      <ReplyIcon style={{ height: "18px" }} />
-                      Reply
-                    </Button>
-                  </Box>
-                  <Box></Box>
-                </Box>
-              </Box>
-            </Box>
+                    <MapsUgcIcon sx={{ marginRight: "4px" }} /> Comment
+                  </Button>
+                  <Button
+                    sx={{
+                      backgroundColor: mode === "dark" ? "#202021" : "#e2e0e0",
+                      color: "gray",
+                      fontSize: "12px",
+                      marginRight: "25px",
+                      borderRadius: "8px",
+                      padding: "7px 10px",
+                      border: "1px",
+                    }}
+                  >
+                    <ReplyIcon sx={{ marginRight: "4px" }} /> Reply
+                  </Button>
+                </div>
+                {messageTab && (
+                  <div
+                    className={`  ${
+                      mode === "dark" ? "bg-[#202021]" : "e2e0e0"
+                    }, p-5  mt-[30px] rounded-[15px]  md:w-[87%] rounded-lg border border-zinc-500`}
+                  >
+                    {" "}
+                    <div className="md:flex gap-2">
+                      <div className="md:w-[8%]">
+                        <img
+                          className="h-[50px] w-[50px] rounded-[50%]"
+                          src="https://images.unsplash.com/photo-1716724854567-9ec995836d19?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8"
+                          alt=""
+                        />
+                      </div>
+                      <div className="">
+                        <h2 className="text-base">Mobile App Developement</h2>
+                        <p>
+                          <span className="text-[12px] text-gray-400 mr-2">
+                            <CalendarTodayIcon sx={{ fontSize: "12px" }} /> Mar
+                            11, 2024
+                          </span>
+                          <span className="text-[12px] text-gray-400 ">
+                            <AvTimerIcon sx={{ fontSize: "12px" }} /> 10:00AM
+                          </span>
+                        </p>
+                        <p className="mt-5 text-xs ">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Asperiores eos qui eius molestiae architecto,
+                          ullam autem laborum labore earum id iure ad impedit
+                          voluptate deserunt facilis quidem.
+                        </p>
+                        <div className="mt-5">
+                          <Button
+                            sx={{
+                              backgroundColor:
+                                mode === "dark" ? "#202021" : "#e2e0e0",
+                              color: "gray",
+                              fontSize: "10px",
+                              marginRight: "25px",
+                              borderRadius: "8px",
+                              padding: "5px 8px",
+                            }}
+                          >
+                            <MapsUgcIcon sx={{ marginRight: "4px" }} /> Comment
+                          </Button>
+                          <Button
+                            sx={{
+                              padding: "5px 8px",
+
+                              backgroundColor:
+                                mode === "dark" ? "#202021" : "#e2e0e0",
+                              color: "gray",
+                              fontSize: "10px",
+                              borderRadius: "8px",
+                            }}
+                          >
+                            <ReplyIcon sx={{ marginRight: "4px" }} /> Reply
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </Box>
           <Box
             sx={{
-              marginTop: "20px",
-              border: "1px solid grey",
+              marginX: "27px",
+              border: "1px solid gray",
+              borderRadius: "15px",
+              marginY: "30px",
               padding: "20px",
             }}
           >
-            <Box
-              sx={{
-                marginBottom: "20px",
-                padding: "20px",
-                backgroundColor: "#1a1a1a",
-                borderRadius: "8px",
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "10px",
-                }}
-              >
+            <div className=" md:flex gap-2">
+              <div className="md:w-[5%]">
                 <img
-                  alt="User"
-                  src="data:image/jpeg;base64,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"
-                  style={{
-                    marginRight: "20px",
-                    marginBottom: "94px",
-                    height: "40px",
-                    width: "50px",
-                    borderRadius: "50%",
-                  }}
+                  className="h-[50px] w-[50px] rounded-[50%]"
+                  src="https://images.unsplash.com/photo-1716724854567-9ec995836d19?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8"
+                  alt=""
                 />
-                <Box>
-                  <Typography variant="body1" fontWeight="bold" color="white">
-                    Mobile App Update
-                  </Typography>
-                  <Typography variant="body2" color="gray">
-                    <CalendarMonthIcon
-                      style={{ marginBottom: "4px", fontSize: "14px" }}
-                    />{" "}
-                    Mar 10, 2024{" "}
-                    <AvTimerIcon
-                      style={{ marginBottom: "4px", fontSize: "14px" }}
-                    />{" "}
-                    15:30PM
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="white"
-                    sx={{ marginTop: "10px" }}
-                  >
-                    Lorem ipsum dolor sit amet consectetur. Est in adipiscing
-                    tincidunt viverra. Feugiat consectetur vitae non vestibulum
-                    eu et. In ultrices vel ultrices a laoreet semper rhoncus
-                    laoreet. Semper non neque malesuada aliquet quam adipiscing.
-                  </Typography>
-                  <Box
+              </div>
+              <div className="">
+                <h2 className="text-lg">Mobile App Developement</h2>
+                <p>
+                  <span className="text-xs text-gray-400 mr-2">
+                    <CalendarTodayIcon sx={{ fontSize: "12px" }} /> Mar 11, 2024
+                  </span>
+                  <span className="text-xs text-gray-400 mr-2">
+                    <AvTimerIcon sx={{ fontSize: "14px" }} /> 10:00AM
+                  </span>
+                </p>
+                <p className="mt-5 text-xs md:w-[75%]">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Asperiores eos qui eius molestiae architecto, ullam autem
+                  laborum labore earum id iure ad impedit voluptate deserunt
+                  facilis quidem.
+                </p>
+                <div className="mt-5">
+                  <Button
+                    onClick={showMessageTab1}
                     sx={{
-                      display: "flex",
-                      marginTop: "10px",
+                      backgroundColor: mode === "dark" ? "#202021" : "#e2e0e0",
+                      color: "gray",
+                      fontSize: "12px",
+                      marginRight: "25px",
+                      borderRadius: "8px",
+                      padding: "7px 10px",
                     }}
                   >
-                    <Button
-                      variant="outlined"
-                      sx={{
-                        marginRight: "10px",
-                        backgroundColor: "gray",
-                        color: "white",
-                      }}
-                    >
-                      <ChatBubbleOutlineIcon style={{ height: "18px" }} />{" "}
-                      Comment
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      sx={{ backgroundColor: "gray", color: "white" }}
-                    >
-                      <ReplyIcon style={{ height: "18px" }} />
-                      Reply
-                    </Button>
-                  </Box>
-                  <Box></Box>
-                </Box>
-              </Box>
-            </Box>
+                    <MapsUgcIcon sx={{ marginRight: "4px" }} /> Comment
+                  </Button>
+                  <Button
+                    sx={{
+                      padding: "7px 10px ",
+
+                      backgroundColor: mode === "dark" ? "#202021" : "#e2e0e0",
+                      color: "gray",
+                      fontSize: "12px",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <ReplyIcon sx={{ marginRight: "4px" }} /> Reply
+                  </Button>
+                </div>
+                {messageTab1 && (
+                  <div
+                    className={`  ${
+                      mode === "dark" ? "bg-[#202021]" : "e2e0e0"
+                    }, p-5  mt-[30px] rounded-[15px] md:w-[87%] rounded-lg border border-zinc-500`}
+                  >
+                    {" "}
+                    <div className="md:flex gap-2">
+                      <div className="md:w-[8%]">
+                        <img
+                          className="h-[50px] w-[50px] rounded-[50%]"
+                          src="https://images.unsplash.com/photo-1716724854567-9ec995836d19?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8"
+                          alt=""
+                        />
+                      </div>
+                      <div className="">
+                        <h2 className="text-base">Mobile App Developement</h2>
+                        <p>
+                          <span className="text-[12px] text-gray-400 mr-2">
+                            <CalendarTodayIcon sx={{ fontSize: "12px" }} /> Mar
+                            11, 2024
+                          </span>
+                          <span className="text-[12px] text-gray-400 ">
+                            <AvTimerIcon sx={{ fontSize: "12px" }} /> 10:00AM
+                          </span>
+                        </p>
+                        <p className="mt-5 text-xs ">
+                          Lorem ipsum dolor sit amet, consectetur adipisicing
+                          elit. Asperiores eos qui eius molestiae architecto,
+                          ullam autem laborum labore earum id iure ad impedit
+                          voluptate deserunt facilis quidem.
+                        </p>
+                        <div className="mt-5">
+                          <Button
+                            sx={{
+                              backgroundColor:
+                                mode === "dark" ? "#202021" : "#e2e0e0",
+                              color: "gray",
+                              fontSize: "10px",
+                              marginRight: "25px",
+                              borderRadius: "8px",
+                              padding: "5px 8px",
+                            }}
+                          >
+                            <MapsUgcIcon sx={{ marginRight: "4px" }} /> Comment
+                          </Button>
+                          <Button
+                            sx={{
+                              padding: "5px 8px",
+
+                              backgroundColor:
+                                mode === "dark" ? "#202021" : "#e2e0e0",
+                              color: "gray",
+                              fontSize: "10px",
+                              borderRadius: "8px",
+                            }}
+                          >
+                            <ReplyIcon sx={{ marginRight: "4px" }} /> Reply
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </Box>
+
+          <div className="w-[90%]">
+            <div className="d-flex flex-coloumn">
+              <div className="" style={{ margin: "auto" }}>
+                <input
+                  placeholder="Enter Title"
+                  className="appearance-none bg-transparent w-[100%] md:w-[96%] md:ml-[20px] md:mr-[20px] ml-[20px] mr-[20px] text-white-700 py-2 px-4 pr-8   h-[50px] rounded leading-tight focus:outline-none text-[15px] border border-zinc-500"
+                />
+              </div>
+              <div className="mt-[20px]">
+                <textarea
+                  placeholder="Enter Comments"
+                  className="appearance-none bg-transparent w-[100%] md:w-[96%] md:ml-[20px] md:mr-[20px] ml-[20px] mr-[20px] text-white-700 py-2 px-4 pr-8   h-[120px]  pt-[20px] rounded leading-tight focus:outline-none text-[15px] border border-zinc-500"
+                />
+              </div>
+            </div>
+            <div className="flex justify-end md:justify-end">
+              <button className="flex items-center text-white font-bold text-[8px]  mt-[10px] mb-[10px] md:text-[16px] py-1 md:py-1 px-2 md:px-3 md:mr-[24px] rounded bg-sky-500 hover:bg-sky-700">
+                Send Comment
+              </button>
+            </div>
+          </div>
         </Box>
       )}
     </Box>
