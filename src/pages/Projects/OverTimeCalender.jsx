@@ -469,7 +469,7 @@ const OverTime = () => {
           </Grid>
         </Box>
 
-        <div className="px-24 py-4">
+        <div className="md:px-24 py-4">
       <Calendar defaultView="month" onChange={onChange} value={value} />
     </div>
 

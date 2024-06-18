@@ -329,11 +329,11 @@ const AttendHome = () => {
                     flexDirection='column'
                     justifyContent='center'
                     alignItems='center'
-                    height='calc(100dvh - 220px)'>
+                   >
                     <Typography variant='h5' color='text.secondary' mb={2}>
                         Choose an employee to access their attendance records.
                     </Typography>
-                    <FormControl size='small' sx={{ width: 433 }}>
+                    <FormControl size='small' sx={{ width: { xs : "90%" , sm:"60%" } }}>
                         <SelectWithSearch
                             name='employeeId'
                             fullWidth
