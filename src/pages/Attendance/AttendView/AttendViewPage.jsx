@@ -95,12 +95,12 @@ const AttendViewPage = ({ month, year }) => {
                     </div>
             </div>
      
-            <Box className="w-full ml-2 md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
+            <Box className="w-full md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
             <p className=" mb-4 border-l-4 border-blue-500 pl-4 text-xl" gutterBottom>
                             Days Overview This Month
                         </p>
                         
-                <div className='flex flex-col md:flex-row items-center justify-start ml-10 gap-14 md:pt-4 md:w-full pb-10'>
+                <div className='flex flex-col md:flex-row items-center  justify-evenly  gap-14 md:pt-4 md:w-full pb-10'>
                     <div className='flex flex-col justify-center items-center gap-2'>
                         <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-neutral-800 text-[16px] text-blue-700'>31</div>
                         <p className='text-[16px] text-gray-400'>Total Working Days</p>
@@ -128,8 +128,8 @@ const AttendViewPage = ({ month, year }) => {
                 </div>
                 
             </Box>
-            <Box className="w-full ml-2 md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
-                <Box className="flex flex-col md:flex-row justify-center gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
+            <Box className="w-full md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
+                <Box className="flex flex-col md:flex-row justify-center gap-4 mt-4 w-[97%] md:ml-4 ">
                    <div className='w-full md:w-[21%] flex justify-start items-center'>
                     <p className='text-[12px] ml-3'>Show</p>
                         <select className="appearance-none bg-transparent pl-1 rounded leading-tight focus:outline-none focus:border-gray-500 text-[12px]">
@@ -183,18 +183,12 @@ const AttendViewPage = ({ month, year }) => {
                    </div>
                 </Box>
                 <Box
-                    className='w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm mt-10 h-[310px]'
-                    sx={{
-                        overflowY: 'scroll',
-                        '&::-webkit-scrollbar': {
-                            display: 'none'
-                        },
-                        '-ms-overflow-style': 'none',
-                        'scrollbar-width': 'none'
-                    }}
+                  sx={{ width :{ xs :'calc(100vw - 35px)'  , sm:'97%' }}} 
+                    className=' md:ml-4 border border-zinc-500 overflow-x-auto md:overflow-x-hidden rounded-sm mt-10 h-[310px]'
+                   
                 >
                     <Grid
-                        className='flex flex-row border-b border-zinc-500'
+                        className='flex flex-row border-b border-zinc-500  min-w-[68rem]'
                         
                     >
                         <div className='w-[25%] md:w-[6.2%] p-2 flex items-center border-r border-zinc-500 text-left text-sm md:text-[12px] font-bold'>
@@ -250,7 +244,7 @@ const AttendViewPage = ({ month, year }) => {
                     {attendance?.map((item,index) => (
                     <Grid
                     key={index}
-                        className='flex flex-row border-b border-zinc-500'
+                        className='flex flex-row border-b border-zinc-500  min-w-[68rem]'
                     >
                         <div className='w-[25%] md:w-[6.2%] p-2 border-r border-zinc-500 flex items-center text-sm md:text-[12px] '>
                                 #{item._id}
