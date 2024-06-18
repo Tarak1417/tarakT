@@ -84,14 +84,14 @@ const CardSection = () => {
   const elements = useElements();
 
   const handleSubmit = async (event) => {
-    setShowMessage({
-      show: true,
-      message: "Subscribe Successfully",
-      severity: "success",
-    });
-    setTimeout(() => {
-      navigate("/createOrganization");
-    }, [4000]);
+    // setShowMessage({
+    //   show: true,
+    //   message: "Subscribe Successfully",
+    //   severity: "success",
+    // });
+    // setTimeout(() => {
+    //   navigate("/createOrganization");
+    // }, [4000]);
     event.preventDefault();
     // showMessage(`Offer letter successfully send to ${handlers.values.nameOfEmployee}`);
     if (!stripe || !elements) {
