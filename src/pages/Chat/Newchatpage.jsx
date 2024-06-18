@@ -5,7 +5,7 @@ import Newchatsection from "./Newchatsection";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Newchatpage = () => {
-  const [sharedData, setSharedData] = useState([]);
+
   return (
     <Box
       sx={{ backgroundColor: "background.main", borderRadius: "12px" }}
@@ -20,11 +20,7 @@ const Newchatpage = () => {
           </Tooltip>
         </div>
       </div>
-
-      <div className="flex mx-5">
-        <Newsidebar setSharedData={setSharedData} />
-        <Newchatsection sharedData={sharedData} />
-      </div>
+        <Newsidebar  />
     </Box>
   );
 };

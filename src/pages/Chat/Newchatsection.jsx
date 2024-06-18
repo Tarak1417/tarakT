@@ -9,26 +9,19 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import SendIcon from "@mui/icons-material/Send";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-const Newchatsection = ({ sharedData }) => {
+const Newchatsection = ({ sharedData , setSharedData }) => {
   const { mode } = useTheme();
   console.log("SharedData from newschatsection", sharedData);
 
   return (
-    <Box
-      sx={{
-        backgroundColor: "background.view",
-        borderTopRightRadius: "12px",
-        borderBottomRightRadius: "12px",
-      }}
-      className="hidden md:block w-full md:w-[70vw] relative  mt-4 md:mt-0 rounded-tr-[15px] md:rounded-tr-[0px] "
-    >
+    <>
       <div
         className={` h-[84vh] md:h-[73vh] overflow-hidden mx-[5px]  md:mx-[20px] `}
       >
         <div className="flex  my-2 justify-between items-center">
           <div className="flex items-end gap-4     ">
             <div className="flex gap-4 items-center ">
-              <div className="md:hidden">
+              <div className="md:hidden" onClick={()=>{setSharedData([])}}>
                 <ArrowBackIosIcon />
               </div>
               <div className="h-[52px] md:h-[47px] w-[52px] md:w-[47px] relative">
@@ -177,7 +170,7 @@ const Newchatsection = ({ sharedData }) => {
         </div>
       </div>
       <p className="h-[1px] absolute top-[68px] w-full bg-gray-500"></p>
-    </Box>
+    </>
   );
 };
 

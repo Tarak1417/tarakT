@@ -60,8 +60,8 @@ const ListOrganization = () => {
   }
 
   async function handleSelect(org) {
-    localStorage.setItem("org", JSON.stringify(org));
-          navigate("/");
+    // localStorage.setItem("org", JSON.stringify(org));
+    //       navigate("/");
     if (org.status) {
       try {
         const response = await axios.post(`/hr/organization/select`, {
@@ -92,8 +92,8 @@ const ListOrganization = () => {
 
   const getOrganizations = async () => {
 
-    let organizationName =  localStorage.getItem("tempOrganization" )
-    setOrganization([  { name:"test Org" , status : true } , { name:organizationName , status : true }]);
+    // let organizationName =  localStorage.getItem("tempOrganization" )
+    // setOrganization([  { name:"test Org" , status : true } , { name:organizationName , status : true }]);
 
     try {
       const response = await axios.get(`/hr/organization`);
