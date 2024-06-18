@@ -208,8 +208,9 @@ const App = () => {
           <Route path="/rollaccess" element={<Rollaccess />} />
           <Route path="/apisetting" element={<Apisetting />} />
         </Routes>
+     
       </Header>
-      <Footer />
+  
       {/* <Footer /> */}
     </>
   );

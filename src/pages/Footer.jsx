@@ -15,7 +15,7 @@ const Footer = () => {
     };
 
     return (
-        <Box className='fixed bottom-0 w-full  p-2 flex flex-row gap-4 items-center justify-center md:hidden' sx={{ backgroundColor: 'background.view' }}>
+        <Box sx={{ backgroundColor: 'background.view',  height: '10dvh' }} className='fixed bottom-0 w-full  p-2 flex flex-row gap-4 items-center justify-center md:hidden'>
             <Link to="/">
                 <div className="flex flex-col items-center justify-center  w-[50px]" onClick={() => handleIconClick('home')}>
                     <div className={`${activeIcon === 'home' && 'text-white rounded-lg bg-blue-700 w-[90%] flex justify-center px-2 py-1'}`}>

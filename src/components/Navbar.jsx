@@ -74,6 +74,7 @@ import  ClikklePitch  from '../assets/ClikkleFavicons/Clikkle Pitch-favicon.png'
 import  ClikkleProject  from '../assets/ClikkleFavicons/Clikkle Projects-01.png';
 import  ClikkleLaunch  from '../assets/ClikkleFavicons/Clikkle Launch favicon.png';
 import OrganizationDropDown from '../pages/Organization/OrganizationDropDown';
+import Footer from '../pages/Footer';
 
 const clikkleApps = [{ 
     name : "Ads",
@@ -590,6 +591,7 @@ export default function Navbar(props) {
     console.log({ drawerHover });
     return (
         <Box
+
             sx={{
                 bgcolor: 'background.default',
                 px: { xs: 0.5, xm: 0 },
@@ -996,7 +998,7 @@ export default function Navbar(props) {
                 </Drawer>
             </Box>
 
-            <Box
+            <Box  
                 component='main'
                 sx={{
                     width: {
@@ -1013,6 +1015,7 @@ export default function Navbar(props) {
                                 : `${miniDrawerWidth}px`,
                     },
                     mt: 1,
+                    mb:  {  xs:7 , sm :0 },
                     height: { xs: 'calc(100dvh - 90px)' },
                     backgroundColor: 'background.paper',
                     borderRadius: '12px',
@@ -1032,6 +1035,7 @@ export default function Navbar(props) {
                     <Feedback closeModal={closeFeedback} />
                 </>
             </Modal>
+            <Footer />
         </Box>
     );
 }

@@ -4,6 +4,7 @@ import useSnack from '../hooks/useSnack';
 import ThemeContextProvider from './../style/theme';
 import AuthorizationProvider from '../hooks/Authorize';
 import Navbar from './Navbar';
+import Footer from '../pages/Footer';
 
 const HeaderContext = createContext();
 
@@ -16,6 +17,7 @@ const Header = ({ children }) => {
             <HeaderContext.Provider value={{ showMessage }}>
                 <AuthorizationProvider>
                     <Navbar>{children}</Navbar>
+                   
                 </AuthorizationProvider>
                 {SnackBar}
             </HeaderContext.Provider>

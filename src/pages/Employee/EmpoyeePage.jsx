@@ -119,7 +119,9 @@ const EmployeePage = () => {
                         </div>
                     </div>  
                 </div>
-            <Box className="w-full ml-2 md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
+                <Box  sx={{ width :{ xs :'calc(100vw - 30px)'  , sm:'100%' }}}  className='overflow-x-auto'>
+              
+            <Box className="w-full   min-w-[48rem] ml-2 md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
                 <div className='flex items-center justify-between md:w-full'>
                     <div>
                     <p className=" mb-4 border-l-4 border-blue-500 pl-3 text-xl" gutterBottom>
@@ -222,6 +224,7 @@ const EmployeePage = () => {
                     <p className='text-zinc-400 bg-blue-500 w-[20px] h-[20px] flex items-center justify-center p-1 rounded-full'>2</p>
                 </div>
                 </div>
+            </Box>
             </Box>
         </div>
         </Box>

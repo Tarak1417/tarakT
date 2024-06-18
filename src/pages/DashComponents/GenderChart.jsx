@@ -26,11 +26,11 @@ const GenderChart = ({items}) => {
                         Gender Chart
                     </Typography>
                     <div style={{ display: 'flex', justifyContent: 'center' }}> 
-                        <PieChart width={400} height={202}>
+                        <PieChart width={300} height={202}>
                             <Pie
                                 data={data}
                                 dataKey="value"
-                                cx="40%"
+                                cx="50%"
                                 cy="50%"
                                 outerRadius={100}
                                 fill="#8884d8"
