@@ -160,25 +160,29 @@ const SalaryPage = () => {
     return (
         <Box sx={{backgroundColor: 'background.main',}}>
         <div className='flex flex-col'>
-                <div className="flex items-center justify-between md:w-full p-4">
-                        <div className="p-2">
+                <div className="flex flex-col md:flex-row  justify-between md:w-full py-4 md:px-4">
+                        <div className="py-2">
                             <h1 className="text-2xl text-neutral-500">Employee Salary</h1>
                         </div>
-                        <div className="flex flex-row items-center justify-center gap-4">
+                        <div className="flex flex-row  items-center justify-between gap-4">
                         <button className='flex items-center text-amber-500  text-xs md:text-sm py-1 md:py-1 px-2 md:px-3 rounded border border-amber-500 hover:bg-orange-700'>
                             Download Monthly Report
                         </button>
-                        <Link to={'/addpayroll'}>
+                        
+                        <Link to={'/addpayroll'} className='flex gap-2 items-center'>
                         <button className='flex items-center text-white text-xs md:text-sm py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
                             Add New Payroll
+                            
                         </button>
+                        <InfoOutlinedIcon />
                         </Link>
-                            <InfoOutlinedIcon />
+                            
+                           
                         </div>
                     </div>
                
-            <Box className="w-full ml-2 md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
-            <Box className="flex flex-col md:flex-row justify-center gap-4 w-[97%] ml-2 md:ml-4 mb-5 ">
+            <Box className="w-full  pt-4 rounded-lg mb-4  overflow-x-auto" sx={{ backgroundColor: 'background.view',  width :{ xs :'calc(100vw - 30px)'  , sm:'100%' } }}  >
+            <Box className="flex  min-w-[48rem] flex-col md:flex-row justify-center gap-4 w-[97%] ml-2 md:ml-4 mb-5 ">
                 <div className='flex flex-row w-full items-center'>
                 <div className='w-1/2'>
                 <p className='text-sm md:text-[12px] pr-2 md:pr-5'>Rows per page: 7 <FontAwesomeIcon icon={faCaretDown} className='text-zinc-500 text-lg md:text-[12px] text-center ml-2'/></p>
@@ -197,7 +201,7 @@ const SalaryPage = () => {
                    </div>
                    </div>
                 </Box>
-                <div className='w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm '>
+                <div className='w-[97%]  min-w-[48rem] ml-2 md:ml-4 border border-zinc-500 rounded-sm '>
                     <div className='flex flex-row border-b border-zinc-500'>
                         <div className='w-[25%] md:w-[8%] p-3 border-r border-zinc-500 text-left text-sm md:text-sm  flex items-center font-bold'>
                             SR. No
@@ -268,7 +272,7 @@ const SalaryPage = () => {
                         </div>
                     ))}
                 </div>
-                <div className='w-[95%] ml-2  md:ml-5 mt-5 flex justify-between items-center pb-2 mb-20 md:mb-0'>
+                <div className='w-[95%]  min-w-[48rem] ml-2 md:ml-5 mt-5 flex justify-between items-center pb-2 md:mb-0'>
                     <p className='text-sm md:text-[12px]  '>Showing Rows: 1-7 of 20</p>
                     <div className='flex flex-row gap-4'>
                     <KeyboardArrowLeftOutlinedIcon className='text-zinc-400'/>

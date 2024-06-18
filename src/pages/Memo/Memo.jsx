@@ -167,8 +167,8 @@ function Memo() {
           <Grid item xs={11}>
             <Box sx={{ backgroundColor: "background.main" }}>
               <div className="flex flex-col justify-start">
-                <div className="flex items-center justify-between md:w-full p-4">
-                  <div className="p-2">
+                <div className="flex items-center justify-between md:w-full py-4 md:px-4">
+                  <div className="md:p-2">
                     <h1 className="text-2xl text-neutral-500">Memo</h1>
                   </div>
                   <div className="flex flex-row items-center justify-center gap-4">
@@ -185,11 +185,11 @@ function Memo() {
                   </div>
                 </div>
                 <Box className="w-full md:ml-0 pt-0 md:mt-5 rounded-lg mb-4 ">
-                  <Box className="flex items-center justify-between md:w-full p-4">
-                    <div className="w-[28%] md:w-[24%] h-[30px] border border-gray-500 rounded-lg flex flex-row items-center">
+                  <Box className="flex items-center justify-between md:w-full md:px-4 py-4">
+                    <div className="w-full md:w-[30%] h-[30px] border border-gray-500 rounded-lg flex flex-row items-center">
                       <input
-                        placeholder="Search"
-                        className="appearance-none bg-transparent w-[75%] text-white-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[15px] focus:border-gray-500"
+                        placeholder="Search Your memo "
+                        className="appearance-none bg-transparent w-[90%] text-white-700 p-2 md:px-4 md:pr-8 rounded leading-tight focus:outline-none md:text-[15px] text-[12px] focus:border-gray-500"
                       />
                       <SearchIcon
                         style={{ fontSize: "24px", marginLeft: "20px" }}
@@ -197,7 +197,7 @@ function Memo() {
                       />
                     </div>
 
-                    <div className="w-full md:w-[24%] flex justify-end md:justify-end items-center ">
+                    <div className="w-2/4 md:w-[24%] flex justify-end md:justify-end items-center ">
                       <div className="flex flex-row gap-4">
                         <KeyboardArrowLeftOutlinedIcon className="text-zinc-400" />
                         <p className="text-zinc-400">1</p>
@@ -208,141 +208,64 @@ function Memo() {
                     </div>
                   </Box>
                 </Box>
-                <Box className="w-full md:ml-0 md:mt-[0.25rem]  pt-4 rounded-lg flex justify-between">
-                  <Box
-                    className="flex justify-between md:w-[100%] align-center border border-zinc-800 rounded-sm"
-                    sx={{
-                      backgroundColor: "background.view",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <div className="flex items-center mb-5 md:w-[80%] mt-[15px] pt-[4px]">
-                      <p className="text-[14px] md:text-[16px]  pl-2 md:pl-5">
-                        Human Resources (Hr) rules and regulations{" "}
-                      </p>
-                    </div>
-                    <div className="flex items-center mb-5 md:w-[20%] mt-[15px]  pt-[2px]">
-                      <p className="text-[14px] md:text-[14px]  pl-2 md:pl-5" style={{color:'blue'}}>
-                        Show Details{" "}
-                        <span>
-                          <ExpandMoreIcon style={{color:'blue' , marginLeft:'4px'}} />
-                        </span>
-                      </p>
-                    </div>
-                  </Box>
-                  <div>
-                    <div className="ml-[8px] mt-[15px] flex flex-row gap-2 justify-center items-center">
-                      <IconButton>
-                        <EditOutlinedIcon
-                          style={{ fontSize: "12px", color: "blue" }}
-                          className=" rounded-sm"
-                        />
-                      </IconButton>{" "}
-                      <IconButton>
-                        <ContentCopyIcon
-                          style={{ fontSize: "12px", color: "blue" }}
-                          className=" rounded-sm"
-                        />
-                      </IconButton>
-                      <IconButton>
-                        <DeleteOutlineOutlinedIcon
-                          style={{ fontSize: "12px", color: "red" }}
-                          className="text-blue-500 rounded-sm"
-                        />
-                      </IconButton>
-                    </div>
-                  </div>
-                </Box>
-                <Box className="w-full md:ml-0 md:mt-[0.25rem]  pt-4 rounded-lg flex justify-between">
-                  <Box
-                    className="flex justify-between md:w-[100%] align-center border border-zinc-800 rounded-sm"
-                    sx={{
-                      backgroundColor: "background.view",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <div className="flex items-center mb-5 md:w-[80%] mt-[15px]">
-                      <p className="text-[14px] md:text-[16px]  pl-2 md:pl-5">
-                        Human Resources (Hr) rules and regulations{" "}
-                      </p>
-                    </div>
-                    <div className="flex items-center mb-5 md:w-[20%] mt-[15px]">
-                      <p className="text-[14px] md:text-[14px]  pl-2 md:pl-5" style={{color:'blue'}}>
-                        Show Details{" "}
-                        <span>
-                          <ExpandMoreIcon style={{color:'blue' , marginLeft:'4px'}} />
-                        </span>
-                      </p>
-                    </div>
-                  </Box>
-                  <div>
-                    <div className="ml-[8px] mt-[15px] flex flex-row gap-2 justify-center items-center">
-                      <IconButton>
-                        <EditOutlinedIcon
-                          style={{ fontSize: "12px", color: "blue" }}
-                          className=" rounded-sm"
-                        />
-                      </IconButton>{" "}
-                      <IconButton>
-                        <ContentCopyIcon
-                          style={{ fontSize: "12px", color: "blue" }}
-                          className=" rounded-sm"
-                        />
-                      </IconButton>
-                      <IconButton>
-                        <DeleteOutlineOutlinedIcon
-                          style={{ fontSize: "12px", color: "red" }}
-                          className="text-blue-500 rounded-sm"
-                        />
-                      </IconButton>
-                    </div>
-                  </div>
-                </Box>
-                <Box className="w-full md:ml-0 md:mt-[0.25rem]  pt-4 rounded-lg flex justify-between">
-                  <Box
-                    className="flex justify-between md:w-[100%] align-center border border-zinc-800 rounded-sm"
-                    sx={{
-                      backgroundColor: "background.view",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <div className="flex items-center mb-5 md:w-[80%] mt-[15px] pt-[4px]">
-                      <p className="text-[14px] md:text-[16px]  pl-2 md:pl-5">
-                        Human Resources (Hr) rules and regulations{" "}
-                      </p>
-                    </div>
-                    <div className="flex items-center mb-5 md:w-[20%] mt-[15px]  pt-[2px]">
-                      <p className="text-[14px] md:text-[14px]  pl-2 md:pl-5" style={{color:'blue'}}>
-                        Show Details{" "}
-                        <span>
-                          <ExpandMoreIcon style={{color:'blue' , marginLeft:'4px'}} />
-                        </span>
-                      </p>
-                    </div>
-                  </Box>
-                  <div>
-                    <div className="ml-[8px] mt-[15px] flex flex-row gap-2 justify-center items-center">
-                      <IconButton>
-                        <EditOutlinedIcon
-                          style={{ fontSize: "12px", color: "blue" }}
-                          className=" rounded-sm"
-                        />
-                      </IconButton>{" "}
-                      <IconButton>
-                        <ContentCopyIcon
-                          style={{ fontSize: "12px", color: "blue" }}
-                          className=" rounded-sm"
-                        />
-                      </IconButton>
-                      <IconButton>
-                        <DeleteOutlineOutlinedIcon
-                          style={{ fontSize: "12px", color: "red" }}
-                          className="text-blue-500 rounded-sm"
-                        />
-                      </IconButton>
-                    </div>
-                  </div>
-                </Box>
+                {[1,2,3,4].map((item) =>(
+             <Box key={item} className="w-full my-3 md:my-0  md:ml-0 md:mt-[0.25rem] border border-zinc-800 md:border-0 py-2 px-3 md:px-0 rounded-lg flex justify-between items-end md:items-center"
+             sx={{
+               backgroundColor: { xs : "background.view"  , sm:"background.main"},
+               borderRadius: "10px",
+             }}
+             >
+               <Box
+                 className="flex flex-col md:flex-row  md:p-5 gap-2 justify-between md:w-[100%] align-center md:border border-zinc-800 rounded-sm"
+                 sx={{
+                   backgroundColor:{ xs : ""  , sm:"background.view"},
+                   borderRadius: "10px",
+                 }}
+               >
+                 <div className=" ">
+                   <p className="text-[14px] md:text-[16px]  ">
+                     Human Resources (Hr) rules and regulations{" "}
+                   </p>
+                 </div>
+                 <div className=" ">
+                   <p className="text-[14px] md:text-[14px]" style={{color:'blue'}}>
+                     Show Details{" "}
+                     <span>
+                       <ExpandMoreIcon style={{color:'blue' , marginLeft:'4px'}} />
+                     </span>
+                   </p>
+                 </div>
+               </Box>
+               
+                 <div className=" py-2 flex md:px-4 flex-row gap-4 md:gap-6 justify-center items-center">
+                 
+                     <EditOutlinedIcon
+                       style={{ fontSize: "12px", color: "blue" }}
+                       className="rounded-sm"
+                     />
+                
+                   
+                     <ContentCopyIcon
+                       style={{ fontSize: "12px", color: "blue" }}
+                       className="rounded-sm"
+                     />
+                 
+                   
+                     <DeleteOutlineOutlinedIcon
+                       style={{ fontSize: "12px", color: "red" }}
+                       className="text-blue-500 rounded-sm"
+                     />
+                  
+                 </div>
+               
+             </Box>
+
+                ))}
+   
+
+   
+
+
                 <Modal
                   open={open}
                   onClose={handleClose}

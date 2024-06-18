@@ -8,7 +8,6 @@ const Newchatpage = () => {
   const [sharedData, setSharedData] = useState([]);
   return (
     <Box
-      className="h-[85vh] md:h-[88vh]"
       sx={{ backgroundColor: "background.main", borderRadius: "12px" }}
     >
       <div className="hidden md:block">

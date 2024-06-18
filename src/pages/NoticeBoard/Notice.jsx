@@ -66,7 +66,7 @@ const NoticePage = () => {
     return (
         <Box sx={{backgroundColor: 'background.main',}}>
         <div className='flex flex-col'>
-                <div className="flex items-center justify-between md:w-full p-4">
+                <div className="flex items-center justify-between md:w-full md:px-4 py-4">
                         <div className="p-2">
                             <h1 className="text-2xl text-neutral-500">Notice Board</h1>
                         </div>
@@ -80,15 +80,14 @@ const NoticePage = () => {
                             <InfoOutlinedIcon />
                         </div>
                     </div>
-               
-            <Box className="w-full ml-2 md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
-                    <div className='flex flex justify-between items-center w-full pt-3'>
+            <Box className="w-full  md:ml-0 pt-4 rounded-lg mb-4 overflow-x-auto" sx={{ width :{ xs :'calc(100vw - 30px)'  , sm:'100%' } , backgroundColor: 'background.view'}} >
+                    <div className='flex min-w-[48rem] flex justify-between items-center w-full pt-3'>
                             <p className=" mb-4 border-l-4 border-blue-500 pl-4  text-xl" gutterBottom>
                                 Notice Summary
                             </p> 
                             <p className='text-sm md:text-[12px] text-zinc-400 pr-2 md:pr-5'>Rows per page: 10 <FontAwesomeIcon icon={faCaretDown} className='text-zinc-500 text-lg md:text-[12px] text-center ml-2'/></p>
                      </div> 
-                <div className='w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm '>
+                <div className='w-[97%] min-w-[48rem] ml-2 md:ml-4 border border-zinc-500 rounded-sm '>
                     <div className='flex flex-row border-b border-zinc-500'>
                         <div className='w-[25%] md:w-[8%] p-3 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
                             No
@@ -142,7 +141,7 @@ const NoticePage = () => {
                         </div>
                     ))}
                 </div>
-                <div className='w-[95%] ml-2  md:ml-5 mt-5 flex justify-between items-center pb-2 mb-20 md:mb-0'>
+                <div className='w-[95%] min-w-[48rem]  ml-2  md:ml-5 mt-5 flex justify-between items-center pb-2 '>
                     <p className='text-sm md:text-[12px] text-zinc-400  '>Showing Rows: 1-8 of 10</p>
                     <div className='flex flex-row gap-4'>
                     <KeyboardArrowLeftOutlinedIcon className='text-zinc-400'/>

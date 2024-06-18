@@ -108,7 +108,7 @@ const ExpensesPage = () => {
     return (
         <Box sx={{backgroundColor: 'background.main',}}>
         <div className='flex flex-col'>
-                <div className="flex items-center justify-between md:w-full p-4">
+                <div className="flex items-center justify-between md:w-full md:px-4 py-4">
                         <div className="p-2">
                             <h1 className="text-2xl text-neutral-500">Expenses</h1>
                         </div>
@@ -120,14 +120,14 @@ const ExpensesPage = () => {
                         </div>
                     </div>
                
-            <Box className="w-full ml-2 md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
-            <div className='flex flex justify-between items-center w-full pt-3'>
+            <Box sx={{backgroundColor: 'background.view', width :{ xs :'calc(100vw - 30px)'  , sm:'100%' }}}  className="w-full pt-4 rounded-lg mb-4 overflow-x-auto" s>
+            <div className='min-w-[38rem]  flex flex justify-between items-center w-full pt-3'>
                             <p className=" mb-4 border-l-4 border-blue-500 pl-4  text-xl" gutterBottom>
                                 Expense Summary
                             </p> 
                             <p className='text-sm md:text-[12px]  pr-2 md:pr-5'>Rows per page: 10 <FontAwesomeIcon icon={faCaretDown} className=' text-lg md:text-[12px] text-center ml-2'/></p>
                      </div> 
-                <div className='w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm '>
+                <div className='w-[97%] min-w-[38rem]  ml-2 md:ml-4 border border-zinc-500 rounded-sm '>
                     <div className='flex flex-row border-b border-zinc-500'>
                         <div className='w-[25%] md:w-[5%] p-3 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
                             ID
@@ -212,7 +212,7 @@ const ExpensesPage = () => {
                         </div>
                     ))}
                 </div>
-                <div className='w-[95%] ml-2  md:ml-5 mt-5 flex justify-between items-center pb-2 mb-20 md:mb-0'>
+                <div className='w-[95%] min-w-[38rem]  ml-2  md:ml-5 mt-5 flex justify-between items-center pb-2 '>
                     <p className='text-sm md:text-[12px]  '>Showing Rows: 1-10 of 20</p>
                     <div className='flex flex-row gap-4'>
                     <KeyboardArrowLeftOutlinedIcon className='text-zinc-400'/>
