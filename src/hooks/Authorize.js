@@ -134,13 +134,13 @@ const AuthorizationProvider = ({ children }) => {
                  await checkUserSubscription(user.id)
                     authorize(true, (setUser) => setUser(user));
                 } else {
-                    authorize(true);
+                    authorize(false);
                 }
 
             } catch (err) {
                 console.log(err);
                 // handleAxiosError(err, showError);
-                authorize(true);
+                authorize(false);
             }
         })();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
