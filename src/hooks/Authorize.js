@@ -119,7 +119,7 @@ const AuthorizationProvider = ({ children }) => {
 
                         const responseData = await response.json();
                         const { user } = responseData;
-                     await checkUserSubscription(user.id)
+                    //  await checkUserSubscription(user.id)
                         console.log(user)
                         localStorage.setItem("user", JSON.stringify(user));
                         authorize(true, (setUser) => setUser(user));
@@ -131,16 +131,16 @@ const AuthorizationProvider = ({ children }) => {
 
                 } else if (localStorage.getItem("user")) {
                     let user = JSON.parse(localStorage.getItem("user"));
-                 await checkUserSubscription(user.id)
+                //  await checkUserSubscription(user.id)
                     authorize(true, (setUser) => setUser(user));
                 } else {
-                    authorize(false);
+                    authorize(true);
                 }
 
             } catch (err) {
                 console.log(err);
                 // handleAxiosError(err, showError);
-                authorize(false);
+                authorize(true);
             }
         })();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
