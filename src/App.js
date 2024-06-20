@@ -91,15 +91,15 @@ const App = () => {
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const data = {
-      amount: queryParams.get('amount'),
-      period: queryParams.get('period'),
-      theme: queryParams.get('theme'),
+      amount: queryParams.get("amount"),
+      period: queryParams.get("period"),
+      theme: queryParams.get("theme"),
     };
-  
-    if (data.theme === 'dark') {
-      setCookie('P13N', "dark");
+
+    if (data.theme === "dark") {
+      setCookie("P13N", "dark");
     } else {
-      setCookie('P13N', "light");
+      setCookie("P13N", "light");
     }
 
     if (data.amount !== null || data.period !== null) {
@@ -112,16 +112,18 @@ const App = () => {
       <ThemeContextProvider>
         <AuthorizationProvider>
           <Routes>
-            <Route path='/walkover' element={<WalkoverHeader />} />
-            <Route path='/checkout' element={<OnBoarding />} />
-            <Route path='/createOrganization' element={<CreateOrganization />} />
-            <Route path='/listOrganization' element={<ListOrganization />} />
+            <Route path="/walkover" element={<WalkoverHeader />} />
+            <Route path="/checkout" element={<OnBoarding />} />
+            <Route
+              path="/createOrganization"
+              element={<CreateOrganization />}
+            />
+            <Route path="/listOrganization" element={<ListOrganization />} />
           </Routes>
         </AuthorizationProvider>
       </ThemeContextProvider>
-    )
+    );
   }
-
 
   return (
     <>
@@ -132,7 +134,10 @@ const App = () => {
           <Route path="/joblisting" element={<JobListingHome />} />
           <Route path="/department" element={<DeptHome />} />
           <Route path="/interviewquestions" element={<InterviewHome />} />
-          <Route path="/receivedapplications" element={<Newreceivedapplication />} />
+          <Route
+            path="/receivedapplications"
+            element={<Newreceivedapplication />}
+          />
           <Route
             path="/new/receivedapplications"
             element={<Newreceivedapplication />}
@@ -161,7 +166,6 @@ const App = () => {
           <Route path="/apps" element={<Apps />} />
           <Route path="/expenses" element={<ExpensesHome />} />
           <Route path="/award" element={<Newawardpage />} />
-          {/* <Route path="/new/awards" element={<Newawardpage />} /> */}
 
           <Route path="/holidays" element={<HolidayHome />} />
 
@@ -208,9 +212,8 @@ const App = () => {
           <Route path="/rollaccess" element={<Rollaccess />} />
           <Route path="/apisetting" element={<Apisetting />} />
         </Routes>
-     
       </Header>
-  
+
       {/* <Footer /> */}
     </>
   );
