@@ -4,7 +4,7 @@ import TaskOutlinedIcon from "@mui/icons-material/TaskOutlined";
 import VideoChatOutlinedIcon from "@mui/icons-material/VideoChatOutlined";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import AtsIcon from "../services/icons/menu/ats.svg";
@@ -68,91 +68,99 @@ const Footer = () => {
 
   return (
     <Box
-      sx={{ backgroundColor: "background.default"  , height : "59px" }}
+      sx={{ backgroundColor: "background.default", height: "59px" }}
       className="fixed bottom-0 text-gray-500 w-full text-[10px] px-2 flex flex-row gap-4 items-center justify-between md:hidden"
     >
-      <Link to="/">
-        <div
-          className="flex flex-col items-center justify-center  w-[50px]"
-          onClick={() => handleIconClick("home")}
-        >
+      <NavLink to="/">
+        {({ isActive }) => (
           <div
-            className={`${
-              activeIcon === "home" &&
-              "text-white rounded-3xl bg-blue-500/[.15] w-[90%] flex justify-center "
-            } px-2 py-1 `}
+            className="flex flex-col items-center justify-center  w-[50px]"
+            onClick={() => handleIconClick("home")}
           >
-             <Home active={activeIcon === "home"} />
+            <div
+              className={`${
+                isActive &&
+                "text-white rounded-3xl bg-blue-500/[.15] w-[90%] flex justify-center "
+              } px-2 py-1 `}
+            >
+              <Home active={isActive} />
+            </div>
+            <p className={`${isActive && "text-blue-500 "}`}>Home</p>
           </div>
-          <p className={`${activeIcon === "home" && "text-blue-500 "}`}>Home</p>
-        </div>
-      </Link>
-      <Link to="/receivedapplications">
-        <div
-          className="flex flex-col items-center justify-center  w-[50px]"
-          onClick={() => handleIconClick("ats")}
-        >
+        )}
+      </NavLink>
+
+      <NavLink to="/receivedapplications">
+        {({ isActive }) => (
           <div
-            className={`${
-              activeIcon === "ats" &&
-              "text-white rounded-3xl bg-blue-500/[.15] w-[90%] flex justify-center "
-            } px-2 py-1`}
+            className="flex flex-col items-center justify-center  w-[50px]"
+            onClick={() => handleIconClick("ats")}
           >
-            <ATS active={activeIcon === "ats"} />
+            <div
+              className={`${
+                isActive &&
+                "text-white rounded-3xl bg-blue-500/[.15] w-[90%] flex justify-center "
+              } px-2 py-1`}
+            >
+              <ATS active={isActive} />
+            </div>
+            <p className={`${isActive && "text-blue-500"}`}>ATS</p>
           </div>
-          <p className={`${activeIcon === "ats" && "text-blue-500"}`}>ATS</p>
-        </div>
-      </Link>
-      <Link to="/apps">
-        <div
-          className="flex flex-col items-center justify-center  w-[70px]"
-          onClick={() => handleIconClick("app")}
-        >
+        )}
+      </NavLink>
+      <NavLink to="/apps">
+        {({ isActive }) => (
           <div
-            className={`${
-              activeIcon === "app" &&
-              "text-white rounded-3xl bg-blue-500/[.15] w-[90%] flex justify-center "
-            } px-2 py-1`}
+            className="flex flex-col items-center justify-center  w-[70px]"
+            onClick={() => handleIconClick("app")}
           >
-            <Apps  active={activeIcon === "app"} />
-            
+            <div
+              className={`${
+                isActive &&
+                "text-white rounded-3xl bg-blue-500/[.15] w-[90%] flex justify-center "
+              } px-2 py-1`}
+            >
+              <Apps active={isActive} />
+            </div>
           </div>
-        </div>
-      </Link>
-      <Link to="/dashboardproject">
-        <div
-          className="flex flex-col items-center justify-center w-[50px]"
-          onClick={() => handleIconClick("projects")}
-        >
+        )}
+      </NavLink>
+      <NavLink to="/dashboardproject">
+        {({ isActive }) => (
           <div
-            className={`${
-              activeIcon === "projects" &&
-              "text-white rounded-3xl bg-blue-500/[.15] w-[90%] flex justify-center "
-            } px-2 py-1`}
+            className="flex flex-col items-center justify-center w-[50px]"
+            onClick={() => handleIconClick("projects")}
           >
-            <Project active={activeIcon === "projects"} />
+            <div
+              className={`${
+                isActive &&
+                "text-white rounded-3xl bg-blue-500/[.15] w-[90%] flex justify-center "
+              } px-2 py-1`}
+            >
+              <Project active={isActive} />
+            </div>
+            <p className={`${isActive && "text-blue-500"}`}>Projects</p>
           </div>
-          <p className={`${activeIcon === "projects" && "text-blue-500"}`}>
-            Projects
-          </p>
-        </div>
-      </Link>
-      <Link to="/chat">
-        <div
-          className="flex flex-col justify-center items-center w-[50px]"
-          onClick={() => handleIconClick("chat")}
-        >
+        )}
+      </NavLink>
+      <NavLink to="/chat">
+        {({ isActive }) => (
           <div
-            className={`${
-              activeIcon === "chat" &&
-              "text-white rounded-3xl bg-blue-500/[.15] w-[90%] flex justify-center "
-            } px-2 py-1`}
+            className="flex flex-col justify-center items-center w-[50px]"
+            onClick={() => handleIconClick("chat")}
           >
-            <Chat active={activeIcon === "chat"} />
+            <div
+              className={`${
+                isActive &&
+                "text-white rounded-3xl bg-blue-500/[.15] w-[90%] flex justify-center "
+              } px-2 py-1`}
+            >
+              <Chat active={isActive} />
+            </div>
+            <p className={`${isActive && "text-blue-500"}`}>Chat</p>
           </div>
-          <p className={`${activeIcon === "chat" && "text-blue-500"}`}>Chat</p>
-        </div>
-      </Link>
+        )}
+      </NavLink>
     </Box>
   );
 };
