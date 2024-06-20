@@ -13,6 +13,12 @@ import ProjectIcon from "../services/icons/menu/project.svg";
 import ActiveProjectIcon from "../services/icons/active-menu/project.svg";
 import ChatIcon from "../services/icons/menu/chat.svg";
 import ActiveChatIcon from "../services/icons/active-menu/chat.svg";
+
+import HomeIcon from "../services/icons/menu/ic_outline-home.svg";
+import ActiveHomeIcon from "../services/icons/active-menu/ic_outline-home.svg";
+
+import AppsIcon from "../services/icons/menu/apps.svg";
+import ActiveAppsIcon from "../services/icons/active-menu/apps.svg";
 import { Box, ListItemIcon, SvgIcon } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import GroupsIcon from "@mui/icons-material/Groups";
@@ -21,21 +27,36 @@ const ATS = ({ active }) => (
   <img
     src={active ? ActiveAtsIcon : AtsIcon}
     alt="Ats Icon"
-    style={{ width: "24px", height: "24px" }}
+    style={{ width: "20px", height: "20px" }}
   />
 );
 const Project = ({ active }) => (
   <img
     src={active ? ActiveProjectIcon : ProjectIcon}
     alt="Interview Icon"
-    style={{ width: "24px", height: "24px" }}
+    style={{ width: "20px", height: "20px" }}
   />
 );
 const Chat = ({ active }) => (
   <img
     src={active ? ActiveChatIcon : ChatIcon}
     alt="Interview Icon"
-    style={{ width: "24px", height: "24px" }}
+    style={{ width: "20px", height: "20px" }}
+  />
+);
+
+const Home = ({ active }) => (
+  <img
+    src={active ? ActiveHomeIcon : HomeIcon}
+    alt="Interview Icon"
+    style={{ width: "20px", height: "20px" }}
+  />
+);
+const Apps = ({ active }) => (
+  <img
+    src={active ? ActiveAppsIcon : AppsIcon}
+    alt="Interview Icon"
+    style={{ width: "20px", height: "20px" }}
   />
 );
 const Footer = () => {
@@ -47,8 +68,8 @@ const Footer = () => {
 
   return (
     <Box
-      sx={{ backgroundColor: "background.default", height: "12dvh" }}
-      className="fixed bottom-0 text-gray-500 w-full text-xs px-2 py-3 flex flex-row gap-4 items-center justify-between md:hidden"
+      sx={{ backgroundColor: "background.default"  , height : "59px" }}
+      className="fixed bottom-0 text-gray-500 w-full text-[10px] px-2 flex flex-row gap-4 items-center justify-between md:hidden"
     >
       <Link to="/">
         <div
@@ -59,9 +80,9 @@ const Footer = () => {
             className={`${
               activeIcon === "home" &&
               "text-white rounded-3xl bg-blue-500/[.15] w-[90%] flex justify-center "
-            } px-2 py-px`}
+            } px-2 py-1 `}
           >
-            <HomeOutlinedIcon color={`${activeIcon === "home" && "primary"}`} />
+             <Home active={activeIcon === "home"} />
           </div>
           <p className={`${activeIcon === "home" && "text-blue-500 "}`}>Home</p>
         </div>
@@ -75,7 +96,7 @@ const Footer = () => {
             className={`${
               activeIcon === "ats" &&
               "text-white rounded-3xl bg-blue-500/[.15] w-[90%] flex justify-center "
-            } px-2 py-px`}
+            } px-2 py-1`}
           >
             <ATS active={activeIcon === "ats"} />
           </div>
@@ -91,29 +112,27 @@ const Footer = () => {
             className={`${
               activeIcon === "app" &&
               "text-white rounded-3xl bg-blue-500/[.15] w-[90%] flex justify-center "
-            } px-2 py-px`}
+            } px-2 py-1`}
           >
-            <AppsOutlinedIcon
-              fontSize="large"
-              color={`${activeIcon === "app" && "primary"}`}
-            />
+            <Apps  active={activeIcon === "app"} />
+            
           </div>
         </div>
       </Link>
-      <Link to="/attendance">
+      <Link to="/dashboardproject">
         <div
           className="flex flex-col items-center justify-center w-[50px]"
-          onClick={() => handleIconClick("attendance")}
+          onClick={() => handleIconClick("projects")}
         >
           <div
             className={`${
-              activeIcon === "attendance" &&
+              activeIcon === "projects" &&
               "text-white rounded-3xl bg-blue-500/[.15] w-[90%] flex justify-center "
-            } px-2 py-px`}
+            } px-2 py-1`}
           >
-            <Project active={activeIcon === "attendance"} />
+            <Project active={activeIcon === "projects"} />
           </div>
-          <p className={`${activeIcon === "attendance" && "text-blue-500"}`}>
+          <p className={`${activeIcon === "projects" && "text-blue-500"}`}>
             Projects
           </p>
         </div>
@@ -127,7 +146,7 @@ const Footer = () => {
             className={`${
               activeIcon === "chat" &&
               "text-white rounded-3xl bg-blue-500/[.15] w-[90%] flex justify-center "
-            } px-2 py-px`}
+            } px-2 py-1`}
           >
             <Chat active={activeIcon === "chat"} />
           </div>
