@@ -77,7 +77,7 @@ const JobApplicationDetail = () => {
       try {
         const response = await axios.get(`/hr/job-application/${id}`);
         const jobDetail = response.data.application;
-
+         console.log("jobDetail" ,jobDetail)
         jobDetail.isOfferLetterSend = response.data.isOfferLetterSend;
         jobDetail.isInterviewCompleted = response.data.isInterviewCompleted;
         jobDetail.interviewScore = response.data.interviewScore;
