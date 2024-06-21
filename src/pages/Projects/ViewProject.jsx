@@ -607,7 +607,13 @@ const ViewProject = () => {
                   {user.Client}
                 </div>
                 <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-[10px] font-[500] leading-[13.02px] md:text-xs flex items-center">
-                  <div style={{ display: "flex",alignItems:"center", flexDirection: "row" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      flexDirection: "row",
+                    }}
+                  >
                     <div>
                       <img
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s"
@@ -669,17 +675,19 @@ const ViewProject = () => {
           <div className="flex items-center justify-between pt-[10px] w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 ">
             <div className="p-2 rounded-lg ">
               <div className="flex items-center gap-0 md:gap-6">
-                <p className="text-[12px] text-gray-400">
-                  Show Rows: 1-10 of 20
+                <p className="text-[10px] font-[500] leading-[13.02px] text-gray-400">
+                  Show Rows: <span className="ml-3">1-10 of 20</span>
                 </p>
               </div>
             </div>
-            <div className="flex flex-row gap-4">
+            <div className="flex items-center flex-row gap-4">
               <KeyboardArrowLeftOutlinedIcon
-                className="text-zinc-400 cursor-pointer"
+                className="text-zinc-400  cursor-pointer"
                 onClick={handlePrevScreen}
               />
-              <p className="text-zinc-400">1</p>
+              <p className="text-zinc-400 text-[10px] font-[500] leading-[13.02px]">
+                1
+              </p>
               {currentScreen === 1 ? (
                 <KeyboardArrowRightOutlinedIcon
                   className="text-zinc-300 cursor-pointer"
@@ -706,7 +714,9 @@ const ViewProject = () => {
 
           <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
             <div className="w-full md:w-[21%] flex justify-start items-center">
-              <p className="text-[12px] ml-3">Shows</p>
+              <p className="text-[10px] leading-[13.02px] font-[500] ml-3 mr-3">
+                Rows per page:
+              </p>
               <select className="appearance-none bg-transparent pl-1 rounded leading-tight focus:outline-none focus:border-gray-500 text-[12px]">
                 <option>10</option>
                 <option>20</option>
@@ -714,24 +724,27 @@ const ViewProject = () => {
                 <option>40</option>
               </select>
               <ArrowDropDownIcon fontSize="medium" className="text-zinc-500" />
-              <p className="text-[12px]">entries</p>
+              <p className="text-[12px]"></p>
             </div>
 
-            <div className="flex row">
-              <div className="  md:justify-center ">
-                <button className="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Upload Files
-                </button>
-              </div>
-              <div className=" border border-gray-500 rounded-lg flex flex-row items-center  ml-[30px]">
-                <input
-                  placeholder="Search"
-                  className="appearance-none bg-transparent w-[75%] text-white-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[15px] focus:border-gray-500"
-                />
-                <SearchIcon
-                  style={{ fontSize: "20px" }}
-                  className="text-zinc-500"
-                />
+            <div className="flex justify-end">
+              {" "}
+              <div className="w-2/3 flex   row">
+                <div className="  md:justify-center ">
+                  <button className="bg-[#3767B1] text-nowrap py-[5px] px-[20px] text-[10px] font-[500] leading-[25px] hover:bg-blue-700 text-white  rounded">
+                    Upload Files
+                  </button>
+                </div>
+                <div className=" border border-gray-500 rounded-lg flex flex-row items-center ml-[15px]  md:ml-[30px]">
+                  <input
+                    placeholder="Search"
+                    className="appearance-none bg-transparent w-[75%] text-white-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[15px] focus:border-gray-500"
+                  />
+                  <SearchIcon
+                    style={{ fontSize: "20px" }}
+                    className="text-zinc-500"
+                  />
+                </div>
               </div>
             </div>
 
@@ -761,16 +774,16 @@ const ViewProject = () => {
             }}
           >
             <Grid className="flex flex-row border-b border-zinc-500">
-              <div className="w-auto min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[15px] leading-[19.53px] md:text-[16px] font-bold">
                 ID
               </div>
-              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[15px] leading-[19.53px] md:text-[16px] font-bold">
                 Project Title
               </div>
-              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[15px] leading-[19.53px] md:text-[16px] font-bold">
                 Client
               </div>
-              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-[15px] leading-[19.53px] md:text-[16px] font-bold">
                 Team
               </div>
             </Grid>
@@ -780,16 +793,16 @@ const ViewProject = () => {
                 className="flex flex-row border-b border-zinc-500"
                 currentScreen={currentScreen}
               >
-                <div className="w-auto min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[10px] leading-[13.02px] font-[500] md:text-xs flex items-center">
                   {user.Id}
                 </div>
-                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[10px] leading-[13.02px] font-[500] md:text-xs flex items-center">
                   {user.Project}
                 </div>
-                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[10px] leading-[13.02px] font-[500] md:text-xs flex items-center">
                   {user.Client}
                 </div>
-                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-[10px] leading-[13.02px] font-[500] md:text-xs flex items-center">
                   {user.Team}
                 </div>
               </Grid>
@@ -798,12 +811,12 @@ const ViewProject = () => {
           <div className="flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 ">
             <div className="p-2 rounded-lg ">
               <div className="flex items-center gap-0 md:gap-6">
-                <p className="text-[12px] text-gray-400">
-                  Show Rows: 1-10 of 20
+                <p className="text-[10px] font-[500] leading-[13.02px] text-gray-400">
+                  Show Rows: <span className="ml-3">1-10 of 20</span>
                 </p>
               </div>
             </div>
-            <div className="flex flex-row gap-4">
+            <div className="flex items-center flex-row gap-4">
               <KeyboardArrowLeftOutlinedIcon
                 className="text-zinc-400 cursor-pointer"
                 onClick={handlePrevScreen}
@@ -826,7 +839,7 @@ const ViewProject = () => {
 
       {tab == "note" && (
         <Box
-          className="md:w-[96%] md:mr-[20px] md:ml-0 rounded-lg w-full mt-[-55px]"
+          className=" md:w-[96%] md:mr-[20px] md:ml-0 rounded-lg w-full mt-[-55px]"
           sx={{
             backgroundColor: "background.view",
             marginLeft: { xs: 0, md: "22px" },
@@ -836,23 +849,39 @@ const ViewProject = () => {
           <Box
             sx={{
               backgroundColor: "background.view",
-              marginLeft: { xs: 0, md: "22px" },
-              marginRight: { xs: 0, md: "20px" },
+              marginLeft: { xs: "15px", md: "22px" },
+              marginRight: { xs: "15px", md: "22px" },
             }}
           >
-            <div style={{ marginTop: "30px", marginBottom: "14px" }}>
+            <div
+              style={{
+                marginTop: "30px",
+                marginBottom: "14px",
+                fontSize: "10px",
+                fontWeight: "500",
+                lineHeight: "13.02px",
+                marginX: "50px",
+              }}
+            >
               <Typography
                 variant="subtitle1"
                 component="p"
                 marginLeft={2}
-                mb={2}
+                mb={1}
                 mt={5}
                 padding={1}
+                className="text-[10px]"
+                sx={{
+                  fontSize: "10px",
+                  fontWeight: "500",
+                  lineHeight: "13.02px",
+                  paddingTop: "40px",
+                }}
               >
-                Select Departments
+                Title
               </Typography>
               <input
-                className={`border border-gray-500 h-[70px] p-[20px] w-full md:w-[96%] md:mr-[20px] md:ml-[20px] rounded-lg ${
+                className={`border border-gray-500 h-[70px]  p-[20px] w-full md:w-[96%] md:mr-[20px] md:ml-[20px] rounded-lg ${
                   mode === "dark" ? "bg-[#141414]" : ""
                 }`}
                 placeholder="Enter Title"
@@ -862,7 +891,15 @@ const ViewProject = () => {
               variant="subtitle1"
               component="p"
               marginLeft={2}
+              mb={1}
               padding={1}
+              className="text-[10px]"
+              sx={{
+                fontSize: "10px",
+                fontWeight: "500",
+                lineHeight: "13.02px",
+                paddingTop: "40px",
+              }}
             >
               Note
             </Typography>
@@ -872,12 +909,12 @@ const ViewProject = () => {
                 modules={modules}
                 formats={formats}
                 onChange={handleChange}
-                className="richtextWrap h-[200px] p-[20px] w-full rounded-lg"
+                className="richtextWrap h-[200px] w-full rounded-lg border-0"
                 placeholder="Enter Title"
               />
             </div>
-            <div className="flex flex-row items-center justify-end gap-4 md:mr-[20px] mt-[50px] mb-[20px]">
-              <button className="flex items-center text-white font-bold text-[8px] mb-[20px] md:text-[17px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700">
+            <div className="flex mt-[150px] flex-row items-center justify-end gap-4 md:mr-[20px] md:mt-[50px] mb-[20px]">
+              <button className="flex items-center text-white font-bold text-[8px] mb-[20px] md:text-[17px] py-1 md:py-1 px-3 md:px-3 rounded bg-[#3767B1] hover:bg-sky-700">
                 Submit
               </button>
             </div>
@@ -896,7 +933,9 @@ const ViewProject = () => {
 
           <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
             <div className="w-full md:w-[21%] flex justify-start items-center">
-              <p className="text-[12px] ml-3">Shows</p>
+              <p className="text-[10px] leading-[13.02px] font-[500] ml-3 mr-3">
+                Rows per page:
+              </p>
               <select className="appearance-none bg-transparent pl-1 rounded leading-tight focus:outline-none focus:border-gray-500 text-[12px]">
                 <option>10</option>
                 <option>20</option>
@@ -904,24 +943,27 @@ const ViewProject = () => {
                 <option>40</option>
               </select>
               <ArrowDropDownIcon fontSize="medium" className="text-zinc-500" />
-              <p className="text-[12px]">entries</p>
+              <p className="text-[12px]"></p>
             </div>
 
-            <div className="flex row ">
-              <div className="  md:justify-center  ">
-                <button className="bg-sky-500 hover:bg-blue-700 text-nowrap text-white font-bold py-2 px-4 rounded">
-                  Add Milestone
-                </button>
-              </div>
-              <div className=" border border-gray-500 rounded-lg flex flex-row items-center ml-[30px]">
-                <input
-                  placeholder="Search"
-                  className="appearance-none bg-transparent w-[75%] text-white-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[15px] focus:border-gray-500"
-                />
-                <SearchIcon
-                  style={{ fontSize: "20px" }}
-                  className="text-zinc-500"
-                />
+            <div className="flex justify-end">
+              {" "}
+              <div className="w-2/3 flex   row">
+                <div className="  md:justify-center ">
+                  <button className="bg-[#3767B1] text-nowrap py-[5px] px-[20px] text-[10px] font-[500] leading-[25px] hover:bg-blue-700 text-white  rounded">
+                    Add Milestone
+                  </button>
+                </div>
+                <div className=" border border-gray-500 rounded-lg flex flex-row items-center ml-[15px]  md:ml-[30px]">
+                  <input
+                    placeholder="Search"
+                    className="appearance-none bg-transparent w-[75%] text-white-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[15px] focus:border-gray-500"
+                  />
+                  <SearchIcon
+                    style={{ fontSize: "20px" }}
+                    className="text-zinc-500"
+                  />
+                </div>
               </div>
             </div>
 
@@ -951,16 +993,16 @@ const ViewProject = () => {
             }}
           >
             <Grid className="flex flex-row border-b border-zinc-500">
-              <div className="w-auto min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[15px] leading-[1text-[15px] leading-[19.53px] md:text-[16px] font-bold">
                 ID
               </div>
-              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[15px] leading-[19.53px] md:text-[16px] font-bold">
                 Project Title
               </div>
-              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[15px] leading-[19.53px] md:text-[16px] font-bold">
                 Client
               </div>
-              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-[15px] leading-[19.53px] md:text-[16px] font-bold">
                 Team
               </div>
             </Grid>
@@ -969,16 +1011,16 @@ const ViewProject = () => {
                 key={index}
                 className="flex flex-row border-b border-zinc-500"
               >
-                <div className="w-auto min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[10px] leading-[13.02px] font-[500] md:text-xs flex items-center">
                   {user.Id}
                 </div>
-                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[10px] leading-[13.02px] font-[500] md:text-xs flex items-center">
                   {user.Project}
                 </div>
-                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[10px] leading-[13.02px] font-[500] md:text-xs flex items-center">
                   {user.Client}
                 </div>
-                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="w-auto min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-[10px] leading-[13.02px] font-[500] md:text-xs flex items-center">
                   {user.Team}
                 </div>
               </Grid>
@@ -988,12 +1030,12 @@ const ViewProject = () => {
           <div className="flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 ">
             <div className="p-2 rounded-lg ">
               <div className="flex items-center gap-0 md:gap-6">
-                <p className="text-[12px] text-gray-400">
-                  Show Rows: 1-10 of 20
+                <p className="text-[10px] font-[500] leading-[13.02px] text-gray-400">
+                  Show Rows: <span className="ml-3">1-10 of 20</span>
                 </p>
               </div>
             </div>
-            <div className="flex flex-row gap-4">
+            <div className="flex  items-center flex-row gap-4">
               <KeyboardArrowLeftOutlinedIcon
                 className="text-zinc-400 cursor-pointer"
                 onClick={handlePrevScreen}
@@ -1025,7 +1067,9 @@ const ViewProject = () => {
 
           <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
             <div className="w-full md:w-[21%] flex justify-start items-center">
-              <p className="text-[12px] ml-3">Shows</p>
+              <p className="text-[10px] leading-[13.02px] font-[500] ml-3 mr-3">
+                Rows per page:
+              </p>
               <select className="appearance-none bg-transparent pl-1 rounded leading-tight focus:outline-none focus:border-gray-500 text-[12px]">
                 <option>10</option>
                 <option>20</option>
@@ -1033,24 +1077,27 @@ const ViewProject = () => {
                 <option>40</option>
               </select>
               <ArrowDropDownIcon fontSize="medium" className="text-zinc-500" />
-              <p className="text-[12px]">entries</p>
+              <p className="text-[12px]"></p>
             </div>
 
-            <div className="flex row ">
-              <div className="  md:justify-center  ">
-                <button className="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Add Invoice
-                </button>
-              </div>
-              <div className=" border border-gray-500 rounded-lg flex flex-row items-center ml-[30px]">
-                <input
-                  placeholder="Search"
-                  className="appearance-none bg-transparent w-[75%] text-white-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[15px] focus:border-gray-500"
-                />
-                <SearchIcon
-                  style={{ fontSize: "20px" }}
-                  className="text-zinc-500"
-                />
+            <div className="flex justify-end">
+              {" "}
+              <div className="w-2/3 flex   row">
+                <div className="  md:justify-center ">
+                  <button className="bg-[#3767B1] text-nowrap py-[5px] px-[20px] text-[10px] font-[500] leading-[25px] hover:bg-blue-700 text-white  rounded">
+                    Add Milestone
+                  </button>
+                </div>
+                <div className=" border border-gray-500 rounded-lg flex flex-row items-center ml-[15px]  md:ml-[30px]">
+                  <input
+                    placeholder="Search"
+                    className="appearance-none bg-transparent w-[75%] text-white-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[15px] focus:border-gray-500"
+                  />
+                  <SearchIcon
+                    style={{ fontSize: "20px" }}
+                    className="text-zinc-500"
+                  />
+                </div>
               </div>
             </div>
 
@@ -1080,16 +1127,16 @@ const ViewProject = () => {
             }}
           >
             <Grid className="flex flex-row border-b border-zinc-500">
-              <div className="min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[15px] leading-[19.53px] md:text-[16px] font-bold">
                 ID
               </div>
-              <div className="min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[15px] leading-[19.53px] md:text-[16px] font-bold">
                 Project Title
               </div>
-              <div className="min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[15px] leading-[19.53px] md:text-[16px] font-bold">
                 Client
               </div>
-              <div className="min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              <div className="min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-[15px] leading-[19.53px] md:text-[16px] font-bold">
                 Team
               </div>
             </Grid>
@@ -1098,16 +1145,16 @@ const ViewProject = () => {
                 key={index}
                 className="flex flex-row border-b border-zinc-500"
               >
-                <div className="min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="min-w-[50px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[10px] leading-[13.02px] font-[500] md:text-xs flex items-center">
                   {user.Id}
                 </div>
-                <div className="min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[10px] leading-[13.02px] font-[500] md:text-xs flex items-center">
                   {user.Project}
                 </div>
-                <div className="min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="min-w-[150px] md:w-1/4 p-2 border-r border-zinc-500 text-left text-[10px] leading-[13.02px] font-[500] md:text-xs flex items-center">
                   {user.Client}
                 </div>
-                <div className="min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                <div className="min-w-[150px] md:w-1/4 p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-[10px] leading-[13.02px] font-[500] md:text-xs flex items-center">
                   {user.Team}
                 </div>
               </Grid>
@@ -1117,12 +1164,12 @@ const ViewProject = () => {
           <div className="flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 ">
             <div className="p-2 rounded-lg ">
               <div className="flex items-center gap-0 md:gap-6">
-                <p className="text-[12px] text-gray-400">
-                  Show Rows: 1-10 of 20
+                <p className="text-[10px] font-[500] leading-[13.02px] text-gray-400">
+                  Show Rows: <span className="ml-3">1-10 of 20</span>
                 </p>
               </div>
             </div>
-            <div className="flex flex-row gap-4">
+            <div className="flex items-center flex-row gap-4">
               <KeyboardArrowLeftOutlinedIcon
                 className="text-zinc-400 cursor-pointer"
                 onClick={handlePrevScreen}
@@ -1150,7 +1197,7 @@ const ViewProject = () => {
         >
           <Box
             sx={{
-              marginX: "27px",
+              marginX: "18px",
               border: "1px solid gray",
               borderRadius: "15px",
               marginY: "30px",
@@ -1279,7 +1326,7 @@ const ViewProject = () => {
           </Box>
           <Box
             sx={{
-              marginX: "27px",
+              marginX: "18px",
               border: "1px solid gray",
               borderRadius: "15px",
               marginY: "30px",
@@ -1421,7 +1468,7 @@ const ViewProject = () => {
               </div>
             </div>
             <div className="flex justify-end md:justify-end">
-              <button className="flex items-center text-white font-bold text-[8px]  mt-[10px] mb-[10px] md:text-[16px] py-1 md:py-1 px-2 md:px-3 md:mr-[24px] rounded bg-sky-500 hover:bg-sky-700">
+              <button className="flex items-center text-white font-bold text-[8px]  mt-[10px] mb-[10px] md:text-[16px] py-1 md:py-1 px-2 md:px-3 md:mr-[24px] rounded bg-[#3767B1] hover:bg-sky-700">
                 Send Comment
               </button>
             </div>
