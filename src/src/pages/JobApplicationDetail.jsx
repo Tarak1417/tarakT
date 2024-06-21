@@ -170,16 +170,9 @@ const JobApplicationDetail = () => {
                                         </Button>
                                     </Grid>
                                 )}
-                                {jobApplication.step === 3 && !jobApplication.isEmployee && (
-                                    <Grid item>
-                                        <Button
-                                            disabled={!jobApplication.isAgreementSigned}
-                                            variant='contained'
-                                            onClick={openAddEmployee}>
-                                            Add Employee
-                                        </Button>{' '}
-                                    </Grid>
-                                )}
+                               
+                                  
+                                
                                 {jobApplication.isEmployee && (
                                     <Grid item>
                                         <Button
@@ -219,8 +212,15 @@ const JobApplicationDetail = () => {
                         </Typography>
                         <br />
                         <Button variant='contained' sx={{ mt: 2 }} onClick={openReset}>
-                            Reset Application
+                            Reset Applicationsssssssssssssss
                         </Button>{' '}
+                        <Grid item>
+                                        <Button
+                                            variant='contained'
+                                            onClick={openAddEmployee}>
+                                            Add Employee
+                                        </Button>{' '}
+                                    </Grid>
                     </Grid>
                     <Grid item lg={8} xs={12}>
                         <Grid container spacing={2.5}>
