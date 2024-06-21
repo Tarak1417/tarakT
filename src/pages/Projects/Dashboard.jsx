@@ -315,7 +315,7 @@ function Dashboard() {
           <div className="flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-4/4">
               <div className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
-                {overview.slice(0,4).map((box, index) => (
+                {boxesData1.map((box, index) => (
                   <Grid
                     sx={{ backgroundColor: "background.view" }}
                     key={index}
