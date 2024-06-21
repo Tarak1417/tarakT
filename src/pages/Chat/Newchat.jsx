@@ -71,7 +71,7 @@ const Newchat = ({ setSharedData }) => {
 
   return (
     <Box >
-      <div className=" md:h-[62vh] md:overflow-y-scroll overflow-hidden no-scrollbar">
+      <div className=" md:h-[72vh] md:py-2 px-2 md:overflow-y-scroll overflow-hidden no-scrollbar">
         <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
         {userList.map((item, index) => (
           <div key={index}  >
@@ -91,11 +91,11 @@ const Newchat = ({ setSharedData }) => {
                     Now
                   </div>
                 </div>
-                <div className="flex mt-1 md:mt-0 justify-between items-center ">
-                  <div className="line-clamp-1 text-xs text-[#434343] md:text-[12px]">
+                <div className="flex mt-1 justify-between items-center ">
+                  <div className="line-clamp-1 text-xs text-[#434343] md:text-[9px]">
                     {item.msg}
                   </div>
-                  <div className="bg-[#3A7EC1] text-[10px] rounded-full md:text-[8px] px-[5px] ">
+                  <div className="bg-[#3A7EC1] text-[10px] md:px-[3.5px] md rounded-full md:text-[7px] px-[5px] ">
                     1
                   </div>
                 </div>

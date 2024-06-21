@@ -139,7 +139,7 @@ const Newsidebar = () => {
               </Search>
             </div>
           </div>
-          <div >
+          <div className="" >
             {tabs === "contacts" ? (
               <Newcontact setSharedData={setSharedData} />
             ) : (

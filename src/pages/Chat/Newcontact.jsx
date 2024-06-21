@@ -72,7 +72,7 @@ const Newcontact = ({ setSharedData }) => {
   };
   return (
     <Box>
-      <div className=" md:h-[62vh] md:overflow-y-scroll overflow-hidden no-scrollbar">
+      <div className=" md:h-[72vh] md:py-2 px-2 md:overflow-y-scroll overflow-hidden no-scrollbar">
         <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
         {userList.map((item, index) => (
           <div key={index}>
@@ -89,9 +89,9 @@ const Newcontact = ({ setSharedData }) => {
                 onClick={() => handleClick(item)}
                 className="w-full font-bold"
               >
-                <div className="text-base  md:text-[16px] ">{item.name}</div>
+                <div className="text-base md:text-xs ">{item.name}</div>
 
-                <div className="mt-1 line-clamp-1 text-xs text-[#434343] md:text-[12px]">
+                <div className="mt-1 line-clamp-1 text-xs text-[#434343] md:text-[9px]">
                   {item.email}
                 </div>
               </div>
