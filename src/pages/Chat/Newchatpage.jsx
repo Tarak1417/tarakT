@@ -7,7 +7,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 const Newchatpage = () => {
 
   return (
-    <Box className="mx-[2px]"
+    <Box className="mx-[2px] h-full overflow-hidden"
       sx={{ backgroundColor: "background.main" , borderRadius : '14px' }}
     >
       <div className="hidden md:block">

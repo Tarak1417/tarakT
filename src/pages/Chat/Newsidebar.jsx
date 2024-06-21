@@ -60,7 +60,7 @@ const Newsidebar = () => {
       <Box
         className={` ${
           sharedData.name ? "hidden" : "block"
-        } md:block  w-full md:w-[30vw] relative  mt-4 md:mt-0   md:border-r border-r-gray-500`}
+        } md:block  w-full md:w-[30vw] relative  mt-4 md:mt-0  md:border-r border-r-gray-500`}
       >
         <div className={`overflow-hidden  md:mx-[20px] mx-2 `}>
           <div className="hidden md:block">
@@ -140,14 +140,9 @@ const Newsidebar = () => {
       </Box>
 
       <Box
-        sx={{
-          backgroundColor: "background.view",
-          borderTopRightRadius: "12px",
-          borderBottomRightRadius: "12px",
-        }}
         className={` ${
           sharedData.name ? "block" : "hidden"
-        } md:block w-full md:w-[70vw] relative  mt-4 md:mt-0 rounded-tr-[15px] md:rounded-tr-[0px]`}
+        } w-full h-full md:w-[70vw] relative md:mt-0 `}
       >
         <Newchatsection sharedData={sharedData} setSharedData={setSharedData} />
       </Box>
