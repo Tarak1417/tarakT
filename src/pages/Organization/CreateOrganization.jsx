@@ -33,48 +33,48 @@ const CreateOrganization = () => {
   };
 
   const handelSubmit = async () => {
-    localStorage.setItem("tempOrganization" ,organizationName )
-    setShowMessage({
-      show: true,
-      message: "organization Created Successfully",
-      severity: "success",
-    });
-    setTimeout(()=>{
-      navigate("/listOrganization");
-    },[2500])
-    // let subscriptionId = localStorage.getItem("subscriptionId");
+    // localStorage.setItem("tempOrganization" ,organizationName )
+    // setShowMessage({
+    //   show: true,
+    //   message: "organization Created Successfully",
+    //   severity: "success",
+    // });
+    // setTimeout(()=>{
+    //   navigate("/listOrganization");
+    // },[2500])
+    let subscriptionId = localStorage.getItem("subscriptionId");
 
-    // if (subscriptionId) {
-    //   try {
-    //     const response = await axios.post(`/hr/organization`, {
-    //       name: organizationName,
-    //       subscription: subscriptionId,
-    //     });
+    if (subscriptionId) {
+      try {
+        const response = await axios.post(`/hr/organization`, {
+          name: organizationName,
+          subscription: subscriptionId,
+        });
 
-    //     let data = response.data;
+        let data = response.data;
 
-    //     if(data.success){
-    //       setShowMessage({
-    //         show: true,
-    //         message: "organization Created Successfully",
-    //         severity: "success",
-    //       });
-    //       setTimeout(()=>{
-    //         navigate("/listOrganization");
-    //       },[2500])
+        if(data.success){
+          setShowMessage({
+            show: true,
+            message: "organization Created Successfully",
+            severity: "success",
+          });
+          setTimeout(()=>{
+            navigate("/listOrganization");
+          },[2500])
           
-    //     }
-    //   } catch (e) {
-    //     console.log("organization method created:", e);
-    //     setShowMessage({
-    //       show: true,
-    //       message:  e.response.data.error ,
-    //       severity: "error",
-    //     });
-    //   }
-    // } else {
-    //   navigate("/checkout");
-    // }
+        }
+      } catch (e) {
+        console.log("organization method created:", e);
+        setShowMessage({
+          show: true,
+          message:  e.response.data.error ,
+          severity: "error",
+        });
+      }
+    } else {
+      navigate("/checkout");
+    }
   };
 
   const handleClose = (event) => {
