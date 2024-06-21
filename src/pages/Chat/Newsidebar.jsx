@@ -62,7 +62,7 @@ const Newsidebar = () => {
           sharedData.name ? "hidden" : "block"
         } md:block  w-full h-full md:w-[30vw] relative md:mb-4   mt-4 md:mt-0 md:rounded-l-2xl  md:border-r border-r-[#3F3F3F]`}
       >
-        <div className={`overflow-hidden md:overflow-y-scroll `}>
+        <div className={`md:overflow-hidden h-[75vh] md:h-full overflow-y-scroll `}>
           <div className="hidden md:block border-b border-b-[#3F3F3F]">
             <div className="flex gap-4 my-4 px-2.5 justify-center ">
               <Button
