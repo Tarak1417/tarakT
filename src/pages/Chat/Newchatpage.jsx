@@ -7,8 +7,8 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 const Newchatpage = () => {
 
   return (
-    <Box
-      sx={{ backgroundColor: "background.main", borderRadius: "12px" }}
+    <Box className="mx-[2px]"
+      sx={{ backgroundColor: "background.main" , borderRadius : '14px' }}
     >
       <div className="hidden md:block">
         <div className="flex justify-between items-center mx-10 py-6 ">

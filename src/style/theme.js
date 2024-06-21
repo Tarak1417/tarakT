@@ -45,9 +45,9 @@ const ThemeContextProvider = props => {
                 activeTab: "#bbdefb",
             },
             text: {
-
                two:'#3f3f46',
-                one: '#1d1d1e'
+                one: '#1d1d1e',
+                four:"#000000"
             },
             divider: '#e7e3e3',
             custom: {
@@ -83,7 +83,8 @@ const ThemeContextProvider = props => {
                 secondary: '#818991',
                 one: '#57534e',
                 two:'#d1d5db',
-                three : "#a8a29e"
+                three : "#a8a29e",
+                four:"#A5A5A5"
             },
             divider: '#424242',
             custom: {

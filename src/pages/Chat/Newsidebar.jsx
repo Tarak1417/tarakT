@@ -6,7 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import Newcontact from "./Newcontact";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import Newchatsection from "./Newchatsection";
 
 const Search = styled("div")(({ theme }) => ({
@@ -55,18 +55,9 @@ const Newsidebar = () => {
   const [tabs, setTabs] = useState("chat");
   const [sharedData, setSharedData] = useState([]);
   return (
-    <div className="flex md:mx-5 mx-1">
-      <Box
-        sx={{
-          backgroundColor: "background.view",
-          borderTopLeftRadius: "12px",
-          borderBottomLeftRadius: "12px",
-        }}
-        className={` ${sharedData.name ? "hidden" : "block"  } md:block  w-full md:w-[30vw] relative  mt-4 md:mt-0 rounded-tr-[15px] md:rounded-tr-[0px] md:border-r border-r-gray-500`}
-      >
-        <div
-          className={` h-[84vh] md:h-[73vh] overflow-hidden  md:mx-[20px] mx-3 `}
-        >
+    <div className="flex md:mx-5 mx-1 ">
+      <Box className={` ${sharedData.name ? "hidden" : "block"  } md:block  w-full md:w-[30vw] relative  mt-4 md:mt-0   md:border-r border-r-gray-500`}>
+        <div className={`overflow-hidden  md:mx-[20px] mx-2 `}>
           <div className="hidden md:block">
             <div className="flex gap-8 my-4 px-[20px] justify-center ">
               <Button
@@ -97,10 +88,16 @@ const Newsidebar = () => {
           </div>
 
           <div className="md:hidden">
-            <div className="flex justify-between items-center mt-[25px]">
-              <h3 className="text-[25px]">Chat</h3>
+            <div className="flex justify-between items-center ">
+              <Typography variant='div' className="text-[20px]" color={"text.four"} >Chat</Typography>
+              
               <div>
                 {" "}
+                <img
+    src={active ? ActiveHomeIcon : HomeIcon}
+    alt="Interview Icon"
+    style={{ width: "20px", height: "20px" }}
+  />
                 <MapsUgcRoundedIcon
                   onClick={() => setTabs("chat")}
                   sx={{
