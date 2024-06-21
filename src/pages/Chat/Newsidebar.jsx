@@ -16,7 +16,7 @@ const Search = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.custom.search.main,
   width: "100%",
   borderRadius: "10px",
-  padding : "0px 13px",
+  padding: "0px 13px",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
     width: "auto",
@@ -35,7 +35,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
-  fontSize:"14px",
+  fontSize: "14px",
   width: "100%",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
@@ -51,27 +51,28 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-
 const Newsidebar = () => {
   const [tabs, setTabs] = useState("chat");
   const [sharedData, setSharedData] = useState([]);
   return (
-    <div className="flex md:mx-5 mx-1 ">
+    <div className="flex md:mx-5 h-[85vh] mx-1 md:pb-4 ">
       <Box
+        sx={{ backgroundColor: { sm: "background.view" } }}
         className={` ${
           sharedData.name ? "hidden" : "block"
-        } md:block  w-full md:w-[30vw] relative  mt-4 md:mt-0  md:border-r border-r-gray-500`}
+        } md:block  w-full h-full md:w-[30vw] relative md:mb-4   mt-4 md:mt-0 md:rounded-l-2xl  md:border-r border-r-[#3F3F3F]`}
       >
-        <div className={`overflow-hidden  md:mx-[20px] mx-2 `}>
-          <div className="hidden md:block">
-            <div className="flex gap-8 my-4 px-[20px] justify-center ">
+        <div className={`overflow-hidden md:overflow-y-scroll `}>
+          <div className="hidden md:block border-b border-b-[#3F3F3F]">
+            <div className="flex gap-4 my-4 px-2.5 justify-center ">
               <Button
                 onClick={() => setTabs("chat")}
                 sx={{
-                  padding: "5px 35px",
+                  padding: "3px 38px",
                   backgroundColor: tabs == "chat" ? "" : "background.view",
-                  border: "1px solid ",
+                  border: tabs == "chat" ? "" : "0.8px solid",
                   color: "text.two",
+                  borderRadius: "5px",
                 }}
                 variant="contained"
               >
@@ -80,10 +81,11 @@ const Newsidebar = () => {
               <Button
                 onClick={() => setTabs("contacts")}
                 sx={{
-                  padding: "5px 25px",
+                  borderRadius: "5px",
+                  padding: "3px 25px",
                   color: "text.two",
                   backgroundColor: tabs == "contacts" ? "" : "background.view",
-                  border: "1px solid ",
+                  border: tabs == "contacts" ? "" : "0.8px solid ",
                 }}
                 variant="contained"
               >
@@ -91,8 +93,7 @@ const Newsidebar = () => {
               </Button>
             </div>
           </div>
-
-          <div className="md:hidden">
+          <div className="md:hidden  mx-2 ">
             <div className="flex justify-between items-center ">
               <Typography
                 variant="div"
@@ -121,28 +122,39 @@ const Newsidebar = () => {
             <div className="my-5">
               <Search>
                 <SearchIconWrapper>
-                  <SearchIcon sx={{width:"18px" , height:"18px"}} />
+                  <SearchIcon sx={{ width: "18px", height: "18px" }} />
                 </SearchIconWrapper>
                 <StyledInputBase
-                   sx={{'& ::placeholder':{fontSize:'small' ,  color:"text.secondary"}}}
-                  placeholder= { tabs == "chat"? "Search chat" :"Search contact" }
+                  sx={{
+                    "& ::placeholder": {
+                      fontSize: "small",
+                      color: "text.secondary",
+                    },
+                  }}
+                  placeholder={
+                    tabs == "chat" ? "Search chat" : "Search contact"
+                  }
                   inputProps={{ "aria-label": "search" }}
                 />
               </Search>
             </div>
           </div>
-
-          {tabs === "chat" && <Newchat setSharedData={setSharedData} />}
-
-          {tabs === "contacts" && <Newcontact setSharedData={setSharedData} />}
+          <div >
+            {tabs === "contacts" ? (
+              <Newcontact setSharedData={setSharedData} />
+            ) : (
+              <Newchat setSharedData={setSharedData} />
+            )}
+          </div>
         </div>
-        <p className="h-[1px] hidden md:block absolute top-[68px] w-full bg-gray-500"></p>
+        {/* <p className="h-[1px] hidden md:block absolute top-[68px] w-full bg-gray-500"></p> */}
       </Box>
 
       <Box
+        sx={{ backgroundColor: { sm: "background.view" } }}
         className={` ${
           sharedData.name ? "block" : "hidden"
-        } w-full h-full md:w-[70vw] relative md:mt-0 `}
+        } w-full h-full md:w-[70vw] relative  md:mb-4 `}
       >
         <Newchatsection sharedData={sharedData} setSharedData={setSharedData} />
       </Box>

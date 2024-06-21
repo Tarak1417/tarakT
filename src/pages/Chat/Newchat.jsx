@@ -76,18 +76,18 @@ const Newchat = ({ setSharedData }) => {
         {userList.map((item, index) => (
           <div key={index}  >
             <div className="flex gap-4 items-center p-1 my-3">
-              <div className="h-[32px] w-[32px] md:h-[40px]  md:w-[50px] relative">
+              <div className="h-[31px] w-[31px] md:h-[40px]  md:w-[50px] relative">
                 <img
                   className="w-full h-full rounded-full object-cover object-top"
                   src={item.img}
                   alt=""
                 />
-                <p className="h-[7px] md:h-[9px] w-[7px] md:w-[9px] bg-blue-500 border p-[2px]  rounded-full absolute bottom-[4px] right-[-1px]"></p>
+                <p className="h-[7px]  w-[7px]  bg-blue-500 border p-[2px] md:right-[1px] md:bottom-[3px] rounded-full absolute bottom-[4px] right-[-1px]"></p>
               </div>
               <div onClick={() => handleClick(item)} className="w-full font-bold">
                 <div className="flex  justify-between items-center">
-                  <div className="text-base  md:text-[16px] ">{item.name}</div>
-                  <div className="text-[#3A7EC1] text-xs md:text-[10px]">
+                  <div className="text-sm  md:text-xs ">{item.name}</div>
+                  <div className="text-[#3A7EC1] text-xs md:text-[8px]">
                     Now
                   </div>
                 </div>

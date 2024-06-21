@@ -77,7 +77,7 @@ const Newcontact = ({ setSharedData }) => {
         {userList.map((item, index) => (
           <div key={index}>
             <div className="flex gap-4 items-center p-1 my-3">
-              <div className="h-[32px] w-[32px] md:h-[40px]  md:w-[50px] relative">
+              <div className="h-[31px] w-[31px] md:h-[40px]  md:w-[50px] relative">
                 <img
                   className="w-full h-full rounded-full object-cover object-top"
                   src={item.img}

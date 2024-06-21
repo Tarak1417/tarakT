@@ -11,11 +11,11 @@ const Newchatpage = () => {
       sx={{ backgroundColor: "background.main" , borderRadius : '14px' }}
     >
       <div className="hidden md:block">
-        <div className="flex justify-between items-center mx-10 py-6 ">
-          <h2 className="text-[25px]">Chat</h2>{" "}
+        <div className="flex justify-between items-center mx-9 py-3 ">
+          <div className="text-xl font-bold text-[#A5A5A5]">Chat</div>
           <Tooltip title="info" placement="top">
             <IconButton disableRipple variant="navIcon" sx={{ mr: 0 }}>
-              <InfoOutlinedIcon fontSize="small" />
+              <InfoOutlinedIcon fontSize="medium" />
             </IconButton>
           </Tooltip>
         </div>
