@@ -66,9 +66,9 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
 ] 
   return (
     <>
-      <div className={`h-[85vh] overflow-hidden relative flex flex-col  md:h-[73vh]  mx-2  md:mx-[20px] `}>
-        <div className="flex  my-4 justify-between items-center">
-          <div className="flex items-center gap-2.5 ">
+      <div className={`h-[85vh] overflow-hidden relative flex flex-col   mx-2   `}>
+        <div className="flex md:border-b md:border-b-[#3F3F3F] my-4 md:my-0 md:mt-4 md:pb-2 md:pt-px justify-between items-center">
+          <div className="flex md:mx-2 items-center gap-2.5 ">
             <div className="flex gap-4 items-center ">
               <div
                 className="md:hidden"
@@ -78,13 +78,13 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
               >
                 <ArrowBackIosIcon sx={{ width: "22px", height: "22px" }} />
               </div>
-              <div className="h-[32px] w-[32px] md:h-[40px]  md:w-[50px] relative">
+              <div className="h-[32px] w-[32px] md:h-[40px]  md:w-[40px] relative">
                 <img
                   className="w-full h-full rounded-full object-cover object-top"
                   src={img}
                   alt=""
                 />
-                <p className="h-[7px] md:h-[9px] w-[7px] md:w-[9px] bg-blue-500 border p-[2px]  rounded-full absolute bottom-[4px] right-[-1px]"></p>
+                <p className="h-[7px] w-[7px]  bg-blue-500 border p-[2px]  rounded-full absolute bottom-[4px] md:bottom-[3px] md:right-[1px] right-[-1px]"></p>
               </div>
             </div>
             <div className="font-bold">
@@ -94,7 +94,7 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
               <p className=" text-[#BDBDBD] text-xs md:text-[11px]">Active</p>
             </div>
           </div>
-          <ul className="flex gap-2 md:gap-4 ">
+          <ul className="flex gap-2 md:gap-6 ">
             {" "}
             <li>
               <CallIcon sx={{ fontSize: "17px" }} />
@@ -116,12 +116,16 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
         </div>
         <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
 
-        <Box className="overflow-y-auto md:h-[55vh]  mt-[14px] px-2  no-scrollbar" 
-          sx={{height: 'calc(100dvh - 305px)' }}
+        <Box className="overflow-y-auto mt-[14px] px-2  md:mt-0 no-scrollbar" 
+          sx={{height: {
+            sm:'calc(100dvh - 305px)',
+            md:'calc(72vh - 46px)'
+          }  }}
         >
           {chats.map((chat , index )  => (
             
-            <div key={index} className="">
+            <div key={index} className="  md:text-xs
+            text-sm font-bold">
               {(chat.type == "receiver") ? 
                <div className="flex flex-row w-full mt-[25px] justify-between">
                <div>
@@ -133,29 +137,29 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
                    />
                  </div>
                </div>
-               <div className="text-sm font-bold  px-3.5">
+               <div className=" px-3.5">
                  <div
                    className={`${
                      mode === "dark" ? "bg-[#1E1E1E]" : "border-2 bg-[#EEEEEE]"
-                   }  p-[12px] rounded-t-[12px]  rounded-br-[12px] md:text-[13px] md:leading-[17px]`}
+                   }  p-[12px] rounded-t-[12px]  rounded-br-[12px]  md:leading-[17px]`}
                  >
                  {chat.message}
                  </div>
-                 <p className="mt-1  md:text-[10px]  text-[#434343]">9:30pm</p>
+                 <p className="mt-1    text-[#434343]">9:30pm</p>
                </div>
              </div>
               
               : 
               <div className="flex flex-row w-full mt-[25px] justify-between">
-              <div className="text-sm font-bold text-right px-3.5">
+              <div className="text-right px-3.5">
                 <div
                   className={`${
                     mode === "dark" ? "bg-[#3C95D0]" :"bg-[#51A0D5]"
-                  }  p-[12px] rounded-t-[12px] rounded-bl-[12px] md:text-[13px] md:leading-[17px]`}
+                  }  p-[12px] rounded-t-[12px] rounded-bl-[12px]  md:leading-[17px]`}
                 >
                    {chat.message}
                 </div>
-                <p className="mt-1   md:text-[10px]  text-[#434343]">9:30pm</p>
+                <p className="mt-1   text-[#434343]">9:30pm</p>
               </div>
               <div>
                 <div className="h-[32px] w-[32px] md:h-[40px]  md:w-[50px] ">
@@ -170,12 +174,12 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
             </div>
           ))}
         </Box>
-        <Box  sx={{backgroundColor : "background.view"}} className="flex md:mb-0 items-center justify-between px-4 mb-5 mt-3 rounded-[8px]">       
+        <Box  sx={{backgroundColor : "background.input"}} className="flex items-center justify-between px-4 mb-5 mt-3 rounded-[8px]">       
        
-          <div className="text-[12px] py-4  md:py-0 flex w-full mr-4">
+          <div className="text-[12px] py-4  md:py-2 flex w-full mr-4">
             <AddCircleIcon color={"#626262"} sx={{ fontSize: "26px", marginRight: "16px" , color :"#626262" }} />{" "}
             <input
-              className="w-full outline-none bg-transparent placeholder:text-[#494949] placeholder:text-base"
+              className="w-full outline-none bg-transparent placeholder:text-[#494949] placeholder:text-base md:placeholder:text-sm"
               placeholder="Type message here"
             />
           </div>
