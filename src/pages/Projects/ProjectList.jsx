@@ -1,434 +1,625 @@
-
-
-import React, {useState} from 'react';
-import { Box, Grid, IconButton } from '@mui/material';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
-import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
-import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
-import view from '../ReceivedApp/viewicon.png';
-import AttendViewPage from '../Attendance/AttendView/AttendViewPage';
-import SearchIcon from '@mui/icons-material/Search';
-import EditIcon from '@mui/icons-material/Edit';
-import EditImg from '../../../src/assets/Icons/ic_baseline-edit.png'
-import Delete from '../../../src/assets/Icons/memory_trash.png'
+import React, { useState } from "react";
+import { Box, Grid, IconButton } from "@mui/material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
+import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
+import view from "../ReceivedApp/viewicon.png";
+import AttendViewPage from "../Attendance/AttendView/AttendViewPage";
+import SearchIcon from "@mui/icons-material/Search";
+import EditIcon from "@mui/icons-material/Edit";
+import EditImg from "../../../src/assets/Icons/ic_baseline-edit.png";
+import Delete from "../../../src/assets/Icons/memory_trash.png";
 
 const ProjectList = () => {
+  const [currentScreen, setCurrentScreen] = useState(1);
 
-    const [currentScreen, setCurrentScreen] = useState(1);
+  const handlePrevScreen = () => {
+    if (currentScreen > 1) {
+      setCurrentScreen(currentScreen - 1);
+    }
+  };
 
-    const handlePrevScreen = () => {
-        if (currentScreen > 1) {
-            setCurrentScreen(currentScreen - 1);
-        }
-    };
+  const handleNextScreen = () => {
+    if (currentScreen < 2) {
+      setCurrentScreen(currentScreen + 1);
+    }
+  };
 
-    const handleNextScreen = () => {
-        
-        if (currentScreen < 2) {
-            setCurrentScreen(currentScreen + 1);
-        }
-    };
+  const userData = [
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Present",
+      clockIn: "09:00 AM",
+      clockOut: "05:00 PM",
+      progress: "Present",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Present",
+      clockIn: "09:00 AM",
+      clockOut: "05:00 PM",
+      progress: "Holiday",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Holiday",
+      clockIn: "-- -- --",
+      clockOut: "-- -- --",
+      progress: "Present & Late",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Present",
+      clockIn: "09:00 AM",
+      clockOut: "05:00 PM",
+      progress: "Present",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Late",
+      clockIn: "09:50 AM",
+      clockOut: "05:00 PM",
+      progress: "Holiday",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Present",
+      clockIn: "09:00 AM",
+      clockOut: "05:00 PM",
+      progress: "Present",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Present",
+      clockIn: "09:00 AM",
+      clockOut: "05:00 PM",
+      progress: "Holiday",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Holiday",
+      clockIn: "-- -- --",
+      clockOut: "-- -- --",
+      progress: "Present & Late",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Present",
+      clockIn: "09:00 AM",
+      clockOut: "05:00 PM",
+      progress: "Present",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Late",
+      clockIn: "09:50 AM",
+      clockOut: "05:00 PM",
+      progress: "Holiday",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Present",
+      clockIn: "09:00 AM",
+      clockOut: "05:00 PM",
+      progress: "Present",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Present",
+      clockIn: "09:00 AM",
+      clockOut: "05:00 PM",
+      progress: "Holiday",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Holiday",
+      clockIn: "-- -- --",
+      clockOut: "-- -- --",
+      progress: "Present & Late",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Present",
+      clockIn: "09:00 AM",
+      clockOut: "05:00 PM",
+      progress: "Present",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Late",
+      clockIn: "09:00 AM",
+      clockOut: "05:00 PM",
+      progress: "Holiday",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Present",
+      clockIn: "09:00 AM",
+      clockOut: "05:00 PM",
+      progress: "Present",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Present",
+      clockIn: "09:00 AM",
+      clockOut: "05:00 PM",
+      progress: "Holiday",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Holiday",
+      clockIn: "-- -- --",
+      clockOut: "-- -- --",
+      progress: "Present & Late",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Present",
+      clockIn: "09:00 AM",
+      clockOut: "05:00 PM",
+      progress: "Present",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+    {
+      Id: "#29",
+      date: "2024-04-18",
+      Project: "Monday",
+      status: "Late",
+      clockIn: "09:09 AM",
+      clockOut: "05:00 PM",
+      progress: "Holiday",
+      action: <img src={view} alt="view" className="w-4 h-4" />,
+    },
+  ];
 
-    const userData = [
-        {Id:"#29" , date: '2024-04-18', Project: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action:  <img src={view} alt="view" className="w-4 h-4"/>},
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Holiday', action: <img src={view} alt="view" className="w-4 h-4"/> },
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Holiday', clockIn: '-- -- --', clockOut: '-- -- --', progress: 'Present & Late', action: <img src={view} alt="view" className="w-4 h-4"/>},
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action: <img src={view} alt="view" className="w-4 h-4"/>},
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Late', clockIn: '09:50 AM', clockOut: '05:00 PM', progress: 'Holiday', action: <img src={view} alt="view" className="w-4 h-4"/> },
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action: <img src={view} alt="view" className="w-4 h-4"/> },
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Holiday', action: <img src={view} alt="view" className="w-4 h-4"/> },
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Holiday', clockIn: '-- -- --', clockOut: '-- -- --', progress: 'Present & Late', action: <img src={view} alt="view" className="w-4 h-4"/> },
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action: <img src={view} alt="view" className="w-4 h-4"/> },
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Late', clockIn: '09:50 AM', clockOut: '05:00 PM', progress: 'Holiday', action: <img src={view} alt="view" className="w-4 h-4"/> },
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action: <img src={view} alt="view" className="w-4 h-4"/> },
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Holiday', action:  <img src={view} alt="view" className="w-4 h-4"/> },
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Holiday', clockIn: '-- -- --', clockOut: '-- -- --', progress: 'Present & Late', action:  <img src={view} alt="view" className="w-4 h-4"/>},
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action:  <img src={view} alt="view" className="w-4 h-4"/> },
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Late', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Holiday', action:  <img src={view} alt="view" className="w-4 h-4"/> },
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action:  <img src={view} alt="view" className="w-4 h-4"/> },
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Holiday', action:  <img src={view} alt="view" className="w-4 h-4"/> },
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Holiday', clockIn: '-- -- --', clockOut: '-- -- --', progress: 'Present & Late', action:  <img src={view} alt="view" className="w-4 h-4"/> },
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Present', clockIn: '09:00 AM', clockOut: '05:00 PM', progress: 'Present', action:  <img src={view} alt="view" className="w-4 h-4"/> },
-        {Id:"#29" ,  date: '2024-04-18', Project: 'Monday', status: 'Late', clockIn: '09:09 AM', clockOut: '05:00 PM', progress: 'Holiday', action:  <img src={view} alt="view" className="w-4 h-4"/> },
-   
-    ];    
+  const getColor = (status) => {
+    switch (status) {
+      case "Present":
+        return { bgColor: "bg-green-950", textColor: "text-green-500" };
+      case "Holiday":
+        return { bgColor: "bg-sky-950", textColor: "text-sky-500" };
+      case "Late":
+        return { bgColor: "bg-red-950", textColor: "text-red-500" };
+      default:
+        return { bgColor: "bg-gray-900", textColor: "text-gray-500" };
+    }
+  };
 
-    const getColor = (status) => {
-        switch (status) {
-            case 'Present':
-                return { bgColor: 'bg-green-950', textColor: 'text-green-500' };
-            case 'Holiday':
-                return { bgColor: 'bg-sky-950', textColor: 'text-sky-500' };
-            case 'Late':
-                return { bgColor: 'bg-red-950', textColor: 'text-red-500' };
-            default:
-                return { bgColor: 'bg-gray-900', textColor: 'text-gray-500' };
-        }
-    };
+  const getProgressBarStyle = (status) => {
+    switch (status) {
+      case "Present":
+        return { width: "100%", backgroundColor: "#34D399" };
+      case "Holiday":
+        return { width: "100%", backgroundColor: "#6B7280" };
+      case "Late":
+        return { width: "75%", backgroundColor: "#34D399" };
+      case "Present & Late":
+        return { width: "75%", backgroundColor: "#34D399" };
+      default:
+        return { width: "100%", backgroundColor: "#6B7280" };
+    }
+  };
 
-    const getProgressBarStyle = (status) => {
-        switch (status) {
-            case 'Present':
-                return { width: '100%', backgroundColor: '#34D399' }; 
-            case 'Holiday':
-                return { width: '100%', backgroundColor: '#6B7280' }; 
-            case 'Late':
-                return { width: '75%', backgroundColor: '#34D399' }; 
-            case 'Present & Late':
-                return { width: '75%', backgroundColor: '#34D399' }; 
-            default:
-                return { width: '100%', backgroundColor: '#6B7280' }; 
-        }
-    };
-    
-    const avatarData = [
-        {
-        alt: "Remy Sharp",
-        src:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s"
-        } ,
-        {
-            alt: "Remy Sharp",
-            src:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s"
-            } ,
-            {
-                alt: "Remy Sharp",
-                src:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s"
-                } ,
-                {
-                    alt: "Remy Sharp",
-                    src:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s"
-                    } ,
-                    {
-                        alt: "Remy Sharp",
-                        src:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s"
-                        } ,
-                        {
-                            alt: "Remy Sharp",
-                            src:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s"
-                            }
-     ]
+  const avatarData = [
+    {
+      alt: "Remy Sharp",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s",
+    },
+    {
+      alt: "Remy Sharp",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s",
+    },
+    {
+      alt: "Remy Sharp",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s",
+    },
+    {
+      alt: "Remy Sharp",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s",
+    },
+    {
+      alt: "Remy Sharp",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s",
+    },
+    {
+      alt: "Remy Sharp",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s",
+    },
+  ];
 
+  const Months = {
+    1: "January",
+    2: "February",
+    3: "March",
+    4: "April",
+    5: "May",
+    6: "June",
+    7: "July",
+    8: "August",
+    9: "September",
+    10: "October",
+    11: "November",
+    12: "December",
+  };
+  const [date, setDate] = useState({
+    employeeId: "",
+    month: new Date().getMonth() + 1,
+    year: new Date().getFullYear(),
+  });
 
-     const Months = {
-        1: 'January',
-        2: 'February',
-        3: 'March',
-        4: 'April',
-        5: 'May',
-        6: 'June',
-        7: 'July',
-        8: 'August',
-        9: 'September',
-        10: 'October',
-        11: 'November',
-        12: 'December',
-    };
-    const [date, setDate] = useState({
-        employeeId: '',
-        month: new Date().getMonth() + 1,
-        year: new Date().getFullYear(),
-    });
-    
-    const Years = Array(41)
-        .fill(1)
-        .map((el, i) => i + 2009);
+  const Years = Array(41)
+    .fill(1)
+    .map((el, i) => i + 2009);
 
-        
-    
-    return (
-        <Box sx={{backgroundColor: 'background.main',}}>
-        <div className='flex flex-col'>
-                <div className="flex items-center justify-between md:w-full p-4">
-                        <div className="p-2">
-                            <h1 className="text-xs md:text-2xl text-neutral-500">Project List</h1>
-                        </div>
-                        <div className="flex flex-row items-center justify-center gap-4">
-                            <button className='flex  items-center text-white font-bold text-[8px] md:text-[16px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
-                              Create New Project
-                            </button>
-                            <InfoOutlinedIcon />
-                        </div>
-                    </div>
-            </div>
-
-         
-            
-           
-            <Box
-    className="w-full md:w-[96%] pt-4 rounded-lg mb-4"
-    sx={{
-      backgroundColor: 'background.view',
-      marginLeft: { xs: '0', md: '22px' },
-      marginRight: { xs: '0', md: '20px' },
-    }}
-  >
-    <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-full md:w-[97%] mx-0 md:ml-4 md:mr-2">
-      <div className="h-full pr-[1px]">
-        <Grid item xs={11}>
-          <div className="flex flex-col md:flex-row items-center justify-between ml-2 gap-14 md:pt-4 w-full pb-10">
-            <div className="flex flex-col justify-center items-center gap-2">
-              <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-neutral-800 text-[16px] text-blue-700">
-                31
-              </div>
-              <p className="text-[16px] text-gray-400 text-center">Total Projects</p>
-            </div>
-            <div className="flex flex-col justify-center items-center gap-2">
-              <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-green-950 text-[16px] text-green-500">
-                20
-              </div>
-              <p className="text-[16px] text-gray-400 text-center">Completed Projects</p>
-            </div>
-            <div className="flex flex-col justify-center items-center gap-2">
-              <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-amber-950 text-[16px] text-amber-500">
-                3
-              </div>
-              <p className="text-[16px] text-gray-400 text-center">Pending Projects</p>
-            </div>
-            <div className="flex flex-col justify-center items-center gap-2">
-              <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-teal-950 text-[16px] text-teal-500">
-                0
-              </div>
-              <p className="text-[16px] text-gray-400 text-center">Ongoing Projects</p>
-            </div>
-            <div className="flex flex-col justify-center items-center gap-2">
-              <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-red-950 text-[16px] text-red-500">
-                5
-              </div>
-              <p className="text-[16px] text-gray-400 text-center">Canceled Projects</p>
-            </div>
-            <div className="flex flex-col justify-center items-center gap-2">
-              <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-red-950 text-[16px] text-red-500">
-                5
-              </div>
-              <p className="text-[16px] text-gray-400 text-center">Not Started Projects</p>
-            </div>
+  return (
+    <Box sx={{ backgroundColor: "background.main" }}>
+      <div className="flex flex-col">
+        <div className="flex items-center justify-between md:w-full p-4">
+          <div className="p-2">
+            <h1 className="text-xs md:text-2xl text-neutral-500">
+              Project List
+            </h1>
           </div>
-        </Grid>
+          <div className="flex flex-row items-center justify-center gap-4">
+            <button className="flex  items-center text-white font-bold text-[8px] md:text-[16px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700">
+              Create New Project
+            </button>
+            <InfoOutlinedIcon />
+          </div>
+        </div>
       </div>
-    </Box>
-  </Box>
-            <Box 
-            className="w-full md:w-[96%] pt-4 rounded-lg mb-4"
-            sx={{
-              backgroundColor: 'background.view',
-              marginLeft: { xs: '0', md: '22px' },
-              marginRight: { xs: '0', md: '20px' },
-            }}
-            
-            >
-            <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
-                   <div className='w-full md:w-[21%] flex justify-start items-center'>
-                    <p className='text-[18px] ml-3'>Recent Project Summery</p>
-                       
-                        
-                   </div>
-                 
-                   
-                  
-                         
-                      
-                </Box>
-                <Box
-    className="flex flex-col md:flex-row justify-end gap-4 mt-4 mr-2 ml-auto md:mr-4"
-    sx={{
-      width: { xs: '95%', md: '70%' },
-    }}
-  >                       <div className='w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center'>
-        <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
-            <option>From</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-        </select>
-        <CalendarTodayOutlinedIcon style={{fontSize:'24px'}} className="text-zinc-500 pr-2"/>
-    </div>
-    <div className='w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center'>
-        <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
-            <option>To</option>
-            <option>January</option>
-            <option>February</option>
-            <option>March</option>
-        </select>
-        <CalendarTodayOutlinedIcon style={{fontSize:'24px'}} className="text-zinc-500 pr-2"/>
-    </div>
-    <div className='w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center'>
-        <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
-            <option>Select Priority</option>
-            <option>2022</option>
-            <option>2023</option>
-            <option>2024</option>
-        </select>
-        <ArrowDropDownIcon style={{fontSize:'28px'}} className="text-zinc-500"/>
-    </div>
-    <div className='w-full md:w-[11%] flex justify-end md:justify-center items-center '>
-        <button  style={{fontSize:'12px'}} className="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " >Search</button>
-    </div>
-</Box>
-                <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 mt-[35px]">
-                   <div className='w-full md:w-[21%] flex justify-start items-center'>
-                    <p className='text-[12px] ml-3'>Rows per page</p>
-                        <select className="appearance-none bg-transparent pl-1 rounded leading-tight focus:outline-none focus:border-gray-500 text-[12px]">
-                            <option>10</option>
-                            <option>20</option>
-                            <option>30</option>
-                            <option>40</option>
-                        </select>
-                        <ArrowDropDownIcon fontSize='medium' className="text-zinc-500"/>
-                   </div>
-                 
-                   
-                   <div className='w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center'>
-                     <input  placeholder='Search' className="appearance-none bg-transparent w-[75%] text-white-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[15px] focus:border-gray-500" 
-                     
-                     />
-                         
-                      
-                        <SearchIcon style={{fontSize:'18px' , marginLeft:'18px'}} className="text-zinc-500"/>
-                   </div>
-                </Box>
 
-                <Box
-            className="h-[45vh] w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm mt-10 h-[380px]"
-            sx={{
-              overflowY: "scroll",
-              "&::-webkit-scrollbar": {
-                display: "none",
-              },
-              "-ms-overflow-style": "none",
-              "scrollbar-width": "none",
-            }}
-          >
-            <Grid className="flex flex-row border-b border-zinc-500">
-              <div className="w-auto min-w-[50px] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
-                No
-              </div>
-              <div className="w-auto min-w-[150px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
-                Task
-              </div>
-              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
-                Client
-              </div>
-              <div className="w-auto min-w-[100px] md:w-[14.6%] text-nowrap p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
-                Assigned To
-              </div>
-              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[16px] font-bold">
-                Priority
-              </div>
-              <div className="w-auto min-w-[100px] md:w-[14.6%] text-nowrap p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-[16px] font-bold">
-                Start Date
-              </div>
-              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[16px] font-bold">
-                Deadline
-              </div>
-              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[16px] font-bold">
-                Status
-              </div>
-              <div className="w-auto min-w-[100px] md:w-[14.6%] border-b  md:border-b-0 border-zinc-500 p-2 text-left text-sm md:text-[16px] font-bold">
-                Action
+      <Box
+        className="w-full md:w-[96%] pt-4 rounded-lg mb-4"
+        sx={{
+          backgroundColor: "background.view",
+          marginLeft: { xs: "0", md: "22px" },
+          marginRight: { xs: "0", md: "20px" },
+        }}
+      >
+        <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-full md:w-[97%] mx-0 md:ml-4 md:mr-2">
+          <div className="h-full pr-[1px]">
+            <Grid item xs={11}>
+              <div className="flex flex-col md:flex-row items-center justify-between ml-2 gap-14 md:pt-4 w-full pb-10">
+                <div className="flex flex-col justify-center items-center gap-2">
+                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-neutral-800 text-[16px] text-blue-700">
+                    31
+                  </div>
+                  <p className="text-[16px] text-gray-400 text-center">
+                    Total Projects
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center items-center gap-2">
+                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-green-950 text-[16px] text-green-500">
+                    20
+                  </div>
+                  <p className="text-[16px] text-gray-400 text-center">
+                    Completed Projects
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center items-center gap-2">
+                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-amber-950 text-[16px] text-amber-500">
+                    3
+                  </div>
+                  <p className="text-[16px] text-gray-400 text-center">
+                    Pending Projects
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center items-center gap-2">
+                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-teal-950 text-[16px] text-teal-500">
+                    0
+                  </div>
+                  <p className="text-[16px] text-gray-400 text-center">
+                    Ongoing Projects
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center items-center gap-2">
+                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-red-950 text-[16px] text-red-500">
+                    5
+                  </div>
+                  <p className="text-[16px] text-gray-400 text-center">
+                    Canceled Projects
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center items-center gap-2">
+                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-red-950 text-[16px] text-red-500">
+                    5
+                  </div>
+                  <p className="text-[16px] text-gray-400 text-center">
+                    Not Started Projects
+                  </p>
+                </div>
               </div>
             </Grid>
-            {userData.map((user, index) => (
-              <Grid
-                key={index}
-                className="flex flex-row border-b border-zinc-500"
-                currentScreen={currentScreen}
-              >
-                <div className="w-auto min-w-[50px] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
-                  {user.Id}
-                </div>
-                <div className="w-auto min-w-[150px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
-                  {user.Project}
-                </div>
-                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
-                  {user.Client}
-                </div>
-                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
-                  <div style={{ display: "flex", flexDirection: "row" }}>
-                    <div>
-                      <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s"
-                        alt="Assigned To"
-                        style={{ height: "20px", borderRadius: "50%" }}
-                      />
-                    </div>
-                    <div style={{ marginLeft: "3px", marginTop: "1px" }}>
-                      <p>Emma Stone</p>
-                    </div>
+          </div>
+        </Box>
+      </Box>
+      <Box
+        className="w-full md:w-[96%] pt-4 rounded-lg mb-4"
+        sx={{
+          backgroundColor: "background.view",
+          marginLeft: { xs: "0", md: "22px" },
+          marginRight: { xs: "0", md: "20px" },
+        }}
+      >
+        <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
+          <div className="w-full md:w-[21%] flex justify-start items-center">
+            <p className="text-[18px] ml-3">Recent Project Summery</p>
+          </div>
+        </Box>
+        <Box
+          className="flex flex-col md:flex-row justify-end gap-4 mt-4 mr-2 ml-auto md:mr-4"
+          sx={{
+            width: { xs: "95%", md: "70%" },
+          }}
+        >
+          {" "}
+          <div className="w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center">
+            <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
+              <option>From</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+            <CalendarTodayOutlinedIcon
+              style={{ fontSize: "24px" }}
+              className="text-zinc-500 pr-2"
+            />
+          </div>
+          <div className="w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center">
+            <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
+              <option>To</option>
+              <option>January</option>
+              <option>February</option>
+              <option>March</option>
+            </select>
+            <CalendarTodayOutlinedIcon
+              style={{ fontSize: "24px" }}
+              className="text-zinc-500 pr-2"
+            />
+          </div>
+          <div className="w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center">
+            <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
+              <option>Select Priority</option>
+              <option>2022</option>
+              <option>2023</option>
+              <option>2024</option>
+            </select>
+            <ArrowDropDownIcon
+              style={{ fontSize: "28px" }}
+              className="text-zinc-500"
+            />
+          </div>
+          <div className="w-full md:w-[11%] flex justify-end md:justify-center items-center ">
+            <button
+              style={{ fontSize: "12px" }}
+              className="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
+            >
+              Search
+            </button>
+          </div>
+        </Box>
+        <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 mt-[35px]">
+          <div className="w-full md:w-[21%] flex justify-start items-center">
+            <p className="text-[12px] ml-3">Rows per page</p>
+            <select className="appearance-none bg-transparent pl-1 rounded leading-tight focus:outline-none focus:border-gray-500 text-[12px]">
+              <option>10</option>
+              <option>20</option>
+              <option>30</option>
+              <option>40</option>
+            </select>
+            <ArrowDropDownIcon fontSize="medium" className="text-zinc-500" />
+          </div>
+
+          <div className="w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center">
+            <input
+              placeholder="Search"
+              className="appearance-none bg-transparent w-[75%] text-white-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[15px] focus:border-gray-500"
+            />
+
+            <SearchIcon
+              style={{ fontSize: "18px", marginLeft: "18px" }}
+              className="text-zinc-500"
+            />
+          </div>
+        </Box>
+
+        <Box
+          className="h-[45vh] w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm mt-10 h-[380px]"
+          sx={{
+            overflowY: "scroll",
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+            "-ms-overflow-style": "none",
+            "scrollbar-width": "none",
+          }}
+        >
+          <Grid className="flex flex-row border-b border-zinc-500">
+            <div className="w-auto min-w-[50px] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              No
+            </div>
+            <div className="w-auto min-w-[150px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
+              Task
+            </div>
+            <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
+              Client
+            </div>
+            <div className="w-auto min-w-[100px] md:w-[14.6%] text-nowrap p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
+              Assigned To
+            </div>
+            <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[16px] font-bold">
+              Priority
+            </div>
+            <div className="w-auto min-w-[100px] md:w-[14.6%] text-nowrap p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+              Start Date
+            </div>
+            <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[16px] font-bold">
+              Deadline
+            </div>
+            <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[16px] font-bold">
+              Status
+            </div>
+            <div className="w-auto min-w-[100px] md:w-[14.6%] border-b  md:border-b-0 border-zinc-500 p-2 text-left text-sm md:text-[16px] font-bold">
+              Action
+            </div>
+          </Grid>
+          {userData.map((user, index) => (
+            <Grid
+              key={index}
+              className="flex flex-row border-b border-zinc-500"
+              currentScreen={currentScreen}
+            >
+              <div className="w-auto min-w-[50px] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                {user.Id}
+              </div>
+              <div className="w-auto min-w-[150px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
+                {user.Project}
+              </div>
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
+                {user.Client}
+              </div>
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                  <div>
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s"
+                      alt="Assigned To"
+                      style={{ height: "20px", borderRadius: "50%" }}
+                    />
+                  </div>
+                  <div style={{ marginLeft: "3px", marginTop: "1px" }}>
+                    <p>Emma Stone</p>
                   </div>
                 </div>
-                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center">
+              </div>
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center">
+                <div
+                  className={`px-1 py-1 rounded-lg w-3/5 flex justify-center items-center ${
+                    getColor(user.status).bgColor
+                  } ${getColor(user.status).textColor}`}
+                >
+                  {user.status}
+                </div>
+              </div>
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-xs flex items-center">
+                {user.clockIn}
+              </div>
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center">
+                {user.clockOut}
+              </div>
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center">
+                <div className="h-2 flex justify-between w-full">
                   <div
-                    className={`px-1 py-1 rounded-lg w-3/5 flex justify-center items-center ${
-                      getColor(user.status).bgColor
-                    } ${getColor(user.status).textColor}`}
-                  >
-                    {user.status}
-                  </div>
-                </div>
-                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-xs flex items-center">
-                  {user.clockIn}
-                </div>
-                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center">
-                  {user.clockOut}
-                </div>
-                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center">
-                  <div className="h-2 flex justify-between w-full">
+                    className="h-full rounded-lg"
+                    style={{
+                      width: getProgressBarStyle(user.status).width,
+                      backgroundColor: getProgressBarStyle(user.status)
+                        .backgroundColor,
+                    }}
+                  ></div>
+                  {user.status === "Late" && (
                     <div
                       className="h-full rounded-lg"
-                      style={{
-                        width: getProgressBarStyle(user.status).width,
-                        backgroundColor: getProgressBarStyle(user.status)
-                          .backgroundColor,
-                      }}
+                      style={{ width: "25%", backgroundColor: "#EF4444" }}
                     ></div>
-                    {user.status === "Late" && (
-                      <div
-                        className="h-full rounded-lg"
-                        style={{ width: "25%", backgroundColor: "#EF4444" }}
-                      ></div>
-                    )}
-                  </div>
+                  )}
                 </div>
-                <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 flex justify-center text-sm md:text-xs">
-                  <IconButton> {user.action}</IconButton>
-                  <IconButton> {user.action}</IconButton>
-                  <IconButton> {user.action}</IconButton>
-                </div>
-              </Grid>
-            ))}
-          </Box>
-
-
-           
-            <div className='flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10 '>
-                <div className="p-2 rounded-lg ">
-                    <div className="flex items-center gap-0 md:gap-6">
-                        <p className='text-[12px] text-gray-400'>Show Rows: 1-10 of 20</p>
-                    </div>
-                </div>
-                <div className="flex flex-row gap-4">
-                    <KeyboardArrowLeftOutlinedIcon
-                        className="text-zinc-400 cursor-pointer"
-                        onClick={handlePrevScreen}
-                    />
-                    <p className="text-zinc-400">1</p>
-                    {currentScreen === 1 ? (
-                        <KeyboardArrowRightOutlinedIcon
-                            className="text-zinc-300 cursor-pointer"
-                            onClick={handleNextScreen}
-                        />
-                    ) : (
-                        <div className="bg-blue-500 w-[20px] h-[20px] flex items-center justify-center p-1 rounded-full">
-                            2
-                        </div>
-                    )}
-                </div>
-            </div>
-            </Box>
+              </div>
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 flex justify-center text-sm md:text-xs">
+                <IconButton> {user.action}</IconButton>
+                <IconButton> {user.action}</IconButton>
+                <IconButton> {user.action}</IconButton>
+              </div>
+            </Grid>
+          ))}
         </Box>
-    );
+
+        <div className="flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10 ">
+          <div className="p-2 rounded-lg ">
+            <div className="flex items-center gap-0 md:gap-6">
+              <p className="text-[12px] text-gray-400">Show Rows: 1-10 of 20</p>
+            </div>
+          </div>
+          <div className="flex flex-row gap-4">
+            <KeyboardArrowLeftOutlinedIcon
+              className="text-zinc-400 cursor-pointer"
+              onClick={handlePrevScreen}
+            />
+            <p className="text-zinc-400">1</p>
+            {currentScreen === 1 ? (
+              <KeyboardArrowRightOutlinedIcon
+                className="text-zinc-300 cursor-pointer"
+                onClick={handleNextScreen}
+              />
+            ) : (
+              <div className="bg-blue-500 w-[20px] h-[20px] flex items-center justify-center p-1 rounded-full">
+                2
+              </div>
+            )}
+          </div>
+        </div>
+      </Box>
+    </Box>
+  );
 };
 
 export default ProjectList;
