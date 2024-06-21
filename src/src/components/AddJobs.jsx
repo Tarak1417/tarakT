@@ -18,18 +18,15 @@ import axios from 'axios';
 import { useMessage } from './Header';
 import Loading from './Loading';
 
-
-
 function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
     const { id = null, action = null } = selectedJob;
     const [details, setDetails] = useState([]);
     const [loading, setLoading] = useState(Boolean(id));
     const [departments, setDepartments] = useState({});
     const { showError, showSuccess } = useMessage();
-    // const errorHandler = useErrorHandler();
 
     const TextField = props => {
-        console.log('TextField Redering');
+        console.log('TextField Rendering');
         return <MuiTextField {...props} />;
     };
 
@@ -99,7 +96,7 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                 });
                 setDetails(details);
             } catch (e) {
-                console.log(e)
+                console.log(e);
             } finally {
                 setLoading(false);
             }
@@ -158,17 +155,32 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
         handlers.setValues({ [name]: value });
     };
 
-    const onSubmit = res => {
-        const { message, success } = res.data;
+    const onSubmit = async (values) => {
+        console.log("onSubmit function called");
+        const payload = {
+            ...values,
+            salary: {
+                amount: values.salary,
+                currency: values.currency,
+            },
+            details,
+        };
 
-        if (success) {
-            handleClose();
-            setSelectedJob({});
-            showSuccess(action === 'edit' ? 'Job Updated Successfully' : 'Job Added Successfully');
-            return refresh();
+        try {
+            const response = await axios.post('/hr/job-listing', payload);
+            const { message, success } = response.data;
+
+            if (success) {
+                handleClose();
+                setSelectedJob({});
+                showSuccess(action === 'edit' ? 'Job Updated Successfully' : 'Job Added Successfully');
+                return refresh();
+            }
+            showError(message);
+        } catch (error) {
+            console.log(error);
+            showError('An error occurred while submitting the form.');
         }
-
-        showError(message);
     };
 
     const getDepartments = useCallback(async () => {
@@ -182,7 +194,7 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
 
             setDepartments(format);
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
     }, []);
 
@@ -418,12 +430,11 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                 </Grid>
 
                                 <Box textAlign='center'>
-                                    <Submit>
+                                    {/* <Submit debug>
                                         {loader => (
                                             <Button
                                                 variant='contained'
                                                 type='submit'
-                                                disabled={Boolean(loader)}
                                                 sx={{
                                                     fontWeight: '500',
                                                     textTransform: 'capitalize',
@@ -433,7 +444,8 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                                 {action === 'edit' ? 'Update' : 'Add Job'}
                                             </Button>
                                         )}
-                                    </Submit>
+                                    </Submit> */}
+                                    <button>Save</button>
                                 </Box>
                             </Grid>
                         </Form>

@@ -30,8 +30,9 @@ function Dashboard() {
   const [overview, setOverview] = useState({});
   const fetchOverview = useCallback(async () => {
     try {
-      const response = await axios.get(`/hr/dashboard`);
-      setOverview(response.data.overview);
+      const response = await axios.get(`/hr/projects`);
+      console.log(response)
+      setOverview(response.data.projects);
     } catch (e) {
       console.log(e);
     }
@@ -42,20 +43,18 @@ function Dashboard() {
   }, [fetchOverview]);
   console.log(overview);
 
-  const data = [
-    { name: "Jan", employees: 100, budget: 200, year: 2024 },
-    { name: "Feb", employees: 150, budget: 220, year: 2024 },
-    { name: "Mar", employees: 200, budget: 250, year: 2024 },
-    { name: "Apr", employees: 180, budget: 230, year: 2024 },
-    { name: "May", employees: 210, budget: 240, year: 2024 },
-    { name: "Jun", employees: 220, budget: 260, year: 2024 },
-    { name: "Jan", employees: 100, budget: 200, year: 2024 },
-    { name: "Feb", employees: 150, budget: 220, year: 2024 },
-    { name: "Mar", employees: 200, budget: 250, year: 2024 },
-    { name: "Apr", employees: 180, budget: 230, year: 2024 },
-    { name: "May", employees: 210, budget: 240, year: 2024 },
-    { name: "Jun", employees: 220, budget: 260, year: 2024 },
-  ];
+  const countProjectsByStatus = (status) => {
+    return overview.filter((project) => project.status === status).length;
+  };
+
+  const totalProjects = overview.length;
+  const completedProjects = countProjectsByStatus('Completed');
+  const ongoingProjects = countProjectsByStatus('Ongoing');
+  const pendingProjects = countProjectsByStatus('Pending');
+
+  console.log("totalProjects0" ,totalProjects , completedProjects , ongoingProjects , pendingProjects )
+
+
   const barsData = [
     { name: "Thu", inProgress: 50, pending: 20, completed: 30 },
     { name: "Sun", inProgress: 30, pending: 20, completed: 20 },
@@ -87,7 +86,7 @@ function Dashboard() {
           variant="body1"
           style={{ color: "blue", fontSize: "1.2em" }}
         >
-          {overview?.employees?.total ? overview?.employees?.total : "150"}
+          {totalProjects ? totalProjects : "150"}
         </Typography>
       ),
       description: "124 for last month",
@@ -107,7 +106,7 @@ function Dashboard() {
           variant="body1"
           style={{ color: "#00FF00", fontSize: "1.2em" }}
         >
-          {overview?.departments ? overview?.departments : "50"}
+          {completedProjects ? completedProjects : "0"}
         </Typography>
       ),
       description: "124 for last month,",
@@ -126,7 +125,7 @@ function Dashboard() {
           variant="body1"
           style={{ color: "rgb(85 255 213", fontSize: "1.2em" }}
         >
-          {overview?.departments ? overview?.departments : "75"}
+          {ongoingProjects ? ongoingProjects : "0"}
         </Typography>
       ),
       description: "124 for last month,",
@@ -148,7 +147,7 @@ function Dashboard() {
           variant="body1"
           style={{ color: "#FF0000", fontSize: "1.2em" }}
         >
-          {overview?.departments ? overview?.departments : "75"}
+          {pendingProjects ? pendingProjects : "0"}
         </Typography>
       ),
       description: "124 for last month",
@@ -316,15 +315,28 @@ function Dashboard() {
           <div className="flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-4/4">
               <div className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
-                {boxesData1.map((box, index) => (
+                {overview.slice(0,4).map((box, index) => (
                   <Grid
                     sx={{ backgroundColor: "background.view" }}
                     key={index}
                     className="rounded-lg p-4 shadow-md md:w-1/2"
                   >
-                    <p className="text-xl">{box.title}</p>
+                    <p className="text-xl">            {box.title.length > 10 ? `${box.title.substring(0, 15)}...` : box.title}
+                    </p>
+                    
                     <div className="flex items-center mb-[16px] mt-[-9px]">
-                      <p className="w-5/6 ">{box.value}</p>
+                      <p className="w-5/6 ">  {(() => {
+              // Function to strip HTML tags and truncate text
+              const stripHtmlAndTruncate = (html, maxLength) => {
+                const strippedText = html.replace(/<[^>]+>/g, '');
+                return strippedText.length > maxLength
+                  ? `${strippedText.substring(0, 15)}...`
+                  : strippedText;
+              };
+
+              // Call the function inline to process box.description
+              return stripHtmlAndTruncate(box.description, 50); // Adjust maxLength as per your requirement
+            })()}</p>
                       <div className="w-1/6" style={{padding:'0'}}>{box.icon}</div>
                     </div>
                     <div className="mb-[10px] mt-[2px]">

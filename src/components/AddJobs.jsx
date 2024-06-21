@@ -17,61 +17,29 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { useMessage } from './Header';
 import Loading from './Loading';
-
-
-
+import useFormHandler from '../hooks/useFormHandler';
 function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
     const { id = null, action = null } = selectedJob;
     const [details, setDetails] = useState([]);
     const [loading, setLoading] = useState(Boolean(id));
     const [departments, setDepartments] = useState({});
     const { showError, showSuccess } = useMessage();
-    // const errorHandler = useErrorHandler();
 
-    const TextField = props => {
-        console.log('TextField Redering');
-        return <MuiTextField {...props} />;
+    const initialValues = {
+        title: '',
+        department: '',
+        experience: '',
+        location: '',
+        salary: '',
+        currency: '',
+        jobType: 'Part Time',
+        remote: 'true',
     };
 
-    const handlers = useForm(
-        useMemo(
-            () => ({
-                title: {
-                    required: true,
-                },
-                department: {
-                    required: true,
-                },
-                experience: {
-                    required: true,
-                },
-                location: {
-                    required: true,
-                },
-                salary: {
-                    required: true,
-                },
-                currency: {
-                    required: true,
-                },
-                jobType: {
-                    required: true,
-                    value: 'Part Time',
-                },
-                remote: {
-                    required: true,
-                    value: 'true',
-                },
-            }),
-            []
-        ),
-        { Input: TextField }
-    );
-    const setValues = handlers.setValues;
-    const errors = handlers.errors;
+    const { values, setValues, errors, handleChange, resetForm } = useFormHandler(initialValues);
 
     const fetchJob = useCallback(
-        async id => {
+        async (id) => {
             setLoading(true);
             try {
                 const response = await axios.get(`/hr/job-listing/${id}`);
@@ -99,7 +67,7 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                 });
                 setDetails(details);
             } catch (e) {
-                console.log(e)
+                console.log(e);
             } finally {
                 setLoading(false);
             }
@@ -136,14 +104,9 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
         setDetails([...details]);
     };
 
-    console.log(details);
-
     const handleContentChange = (e, i) => {
-        console.log('onChange', i);
-        console.log(e);
         const newValue = e.target.value;
         details[i].content = newValue;
-        console.log(details);
         setDetails([...details]);
     };
 
@@ -153,22 +116,34 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
         setDetails([...details]);
     };
 
-    const customChangeHandler = e => {
-        const { name, value } = e.target;
-        handlers.setValues({ [name]: value });
-    };
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        console.log("onSubmit function called");
+        console.log("values", values.salary);
+        const payload = {
+            ...values,
+            salary: {
+                amount: values.salary,
+                currency: values.currency,
+            },
+            details,
+        };
 
-    const onSubmit = res => {
-        const { message, success } = res.data;
+        try {
+            const response = await axios.post('/hr/job-listing', payload);
+            const { message, success } = response.data;
 
-        if (success) {
-            handleClose();
-            setSelectedJob({});
-            showSuccess(action === 'edit' ? 'Job Updated Successfully' : 'Job Added Successfully');
-            return refresh();
+            if (success) {
+                handleClose();
+                setSelectedJob({});
+                showSuccess(action === 'edit' ? 'Job Updated Successfully' : 'Job Added Successfully');
+                return refresh();
+            }
+            showError(message);
+        } catch (error) {
+            console.log(error);
+            showError('An error occurred while submitting the form.');
         }
-
-        showError(message);
     };
 
     const getDepartments = useCallback(async () => {
@@ -178,11 +153,11 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
 
             const format = {};
 
-            departments.forEach(department => (format[department._id] = department.name));
+            departments.forEach((department) => (format[department._id] = department.name));
 
             setDepartments(format);
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
     }, []);
 
@@ -220,27 +195,14 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                 <Box p={2}>
                     <Typography id='modal-modal-title' variant='h2' component='h2'>
                         {action === 'edit'
-                            ? 'Edit question for listing'
-                            : 'Add question job for listing'}
+                            ? 'Edit job for listing'
+                            : 'Add job for listing'}
                     </Typography>
                     <hr color='#E5E5E5' />
                     {loading ? (
                         <Loading message='Please wait, while your job is loading...' />
                     ) : (
-                        <Form
-                            handlers={handlers}
-                            onSubmit={onSubmit}
-                            final={values => ({
-                                ...values,
-                                salary: {
-                                    amount: values.salary,
-                                    currency: values.currency,
-                                },
-                                details,
-                            })}
-                            action={action === 'edit' ? `/hr/job-listing/${id}` : '/hr/job-listing'}
-                            method={action === 'edit' ? 'patch' : 'post'}
-                            onError={console.log}>
+                        <form onSubmit={onSubmit}>
                             <Grid container spacing={1}>
                                 <Grid item lg={12} mb={1}>
                                     <Typography variant='h6'>Title</Typography>
@@ -252,7 +214,8 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                         id='outlined-basic'
                                         variant='outlined'
                                         fullWidth
-                                        small
+                                        value={values.title}
+                                        onChange={handleChange}
                                     />
                                 </Grid>
                                 <Grid item lg={12} mb={1}>
@@ -263,13 +226,8 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                         size='small'
                                         displayEmpty
                                         name='department'
-                                        onChange={customChangeHandler}
-                                        value={handlers.values.department}
-                                        isError={Boolean(errors.department)}
-                                        error={errors.department}
-                                        renderValue={selected =>
-                                            selected ? departments[selected] : ''
-                                        }
+                                        onChange={handleChange}
+                                        value={values.department}
                                         fullWidth>
                                         {Object.keys(departments).map((dept, i) => (
                                             <MenuItem value={dept} key={i} sx={{ px: 1.2 }}>
@@ -290,6 +248,8 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                         id='outlined-basic'
                                         variant='outlined'
                                         fullWidth
+                                        value={values.experience}
+                                        onChange={handleChange}
                                     />
                                 </Grid>
 
@@ -303,6 +263,8 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                         id='outlined-basic'
                                         variant='outlined'
                                         fullWidth
+                                        value={values.location}
+                                        onChange={handleChange}
                                     />
                                 </Grid>
 
@@ -320,6 +282,8 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                         id='outlined-basic'
                                         variant='outlined'
                                         fullWidth
+                                        value={values.salary}
+                                        onChange={handleChange}
                                     />
                                 </Grid>
                                 <Grid item xs={4}>
@@ -329,6 +293,8 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                         id='outlined-basic'
                                         variant='outlined'
                                         fullWidth
+                                        value={values.currency}
+                                        onChange={handleChange}
                                     />
                                 </Grid>
 
@@ -338,10 +304,10 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                 <Grid item lg={12}>
                                     <Select
                                         size='small'
-                                        value={handlers.values.jobType}
+                                        value={values.jobType}
                                         fullWidth
                                         name='jobType'
-                                        onChange={customChangeHandler}>
+                                        onChange={handleChange}>
                                         <MenuItem value='Part Time'>Part Time</MenuItem>
                                         <MenuItem value='Full Time'>Full Time</MenuItem>
                                     </Select>
@@ -353,10 +319,10 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                 <Grid item lg={12}>
                                     <Select
                                         size='small'
-                                        value={handlers.values.remote}
+                                        value={values.remote}
                                         name='remote'
                                         fullWidth
-                                        onChange={customChangeHandler}>
+                                        onChange={handleChange}>
                                         <MenuItem value='true'>Remote</MenuItem>
                                         <MenuItem value='false'>On Premise</MenuItem>
                                     </Select>
@@ -369,13 +335,11 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                 {details.map((detail, i) => (
                                     <Grid container key={i} spacing={2}>
                                         <Grid item xs>
-                                            <TextField
-                                                // name={'dtitle'}
+                                            <MuiTextField
                                                 size='small'
-                                                id='outlined-basic'
                                                 variant='outlined'
                                                 value={detail.content}
-                                                onChange={e => handleContentChange(e, i)}
+                                                onChange={(e) => handleContentChange(e, i)}
                                                 fullWidth
                                             />
                                         </Grid>
@@ -384,7 +348,7 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                                 size='small'
                                                 value={detail.tag}
                                                 fullWidth
-                                                onChange={e => handleTagChange(e, i)}>
+                                                onChange={(e) => handleTagChange(e, i)}>
                                                 <MenuItem value='h1'>Heading 1</MenuItem>
                                                 <MenuItem value='h2'>Heading 2</MenuItem>
                                                 <MenuItem value='h3'>Heading 3</MenuItem>
@@ -400,11 +364,7 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                                 <ContentCopyIcon />
                                             </IconButton>
                                             <IconButton onClick={() => removeDetail(detail, i)}>
-                                                <CloseIcon
-                                                    sx={{
-                                                        color: 'error.dark',
-                                                    }}
-                                                />
+                                                <CloseIcon sx={{ color: 'error.dark' }} />
                                             </IconButton>
                                         </Grid>
                                     </Grid>
@@ -417,26 +377,22 @@ function AddJobs({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                     />
                                 </Grid>
 
-                                <Box textAlign='center'>
-                                    <Submit>
-                                        {loader => (
-                                            <Button
-                                                variant='contained'
-                                                type='submit'
-                                                disabled={Boolean(loader)}
-                                                sx={{
-                                                    fontWeight: '500',
-                                                    textTransform: 'capitalize',
-                                                    letterSpacing: '1px',
-                                                }}
-                                                endIcon={loader}>
-                                                {action === 'edit' ? 'Update' : 'Add Job'}
-                                            </Button>
-                                        )}
-                                    </Submit>
-                                </Box>
+                                <Grid item lg={12}>
+                                    <Box textAlign='center'>
+                                        <Button
+                                            variant='contained'
+                                            type='submit'
+                                            sx={{
+                                                fontWeight: '500',
+                                                textTransform: 'capitalize',
+                                                letterSpacing: '1px',
+                                            }}>
+                                            {action === 'edit' ? 'Update Job' : 'Add Job'}
+                                        </Button>
+                                    </Box>
+                                </Grid>
                             </Grid>
-                        </Form>
+                        </form>
                     )}
                 </Box>
             </Container>
