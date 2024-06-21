@@ -6,18 +6,17 @@ import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import Newcontact from "./Newcontact";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, SvgIcon, Typography } from "@mui/material";
 import Newchatsection from "./Newchatsection";
+import chatIcon from "../../services/icons/chatIcon/chat.svg";
+import callIcon from "../../services/icons/chatIcon/call.svg";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
+  backgroundColor: theme.palette.custom.search.main,
   width: "100%",
+  borderRadius: "10px",
+  padding : "0px 13px",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
     width: "auto",
@@ -36,11 +35,12 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
+  fontSize:"14px",
   width: "100%",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingLeft: `calc(1em + ${theme.spacing(3.5)})`,
     transition: theme.transitions.create("width"),
     [theme.breakpoints.up("sm")]: {
       width: "12ch",
@@ -51,12 +51,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
 const Newsidebar = () => {
   const [tabs, setTabs] = useState("chat");
   const [sharedData, setSharedData] = useState([]);
   return (
     <div className="flex md:mx-5 mx-1 ">
-      <Box className={` ${sharedData.name ? "hidden" : "block"  } md:block  w-full md:w-[30vw] relative  mt-4 md:mt-0   md:border-r border-r-gray-500`}>
+      <Box
+        className={` ${
+          sharedData.name ? "hidden" : "block"
+        } md:block  w-full md:w-[30vw] relative  mt-4 md:mt-0   md:border-r border-r-gray-500`}
+      >
         <div className={`overflow-hidden  md:mx-[20px] mx-2 `}>
           <div className="hidden md:block">
             <div className="flex gap-8 my-4 px-[20px] justify-center ">
@@ -89,35 +94,38 @@ const Newsidebar = () => {
 
           <div className="md:hidden">
             <div className="flex justify-between items-center ">
-              <Typography variant='div' className="text-[20px]" color={"text.four"} >Chat</Typography>
-              
-              <div>
-                {" "}
-                <img
-    src={active ? ActiveHomeIcon : HomeIcon}
-    alt="Interview Icon"
-    style={{ width: "20px", height: "20px" }}
-  />
-                <MapsUgcRoundedIcon
-                  onClick={() => setTabs("chat")}
-                  sx={{
-                    marginRight: "15px",
-                    color: "skyblue",
-                    fontSize: "40px",
-                    fontWeight: "bold",
-                  }}
-                />
-                <CallRoundedIcon   onClick={() => setTabs("contacts")} sx={{ color: "green", fontSize: "40px" }} />
+              <Typography
+                variant="div"
+                className="text-[20px]"
+                color={"text.four"}
+              >
+                Chat
+              </Typography>
+              <div className="flex flex-row gap-6">
+                <div onClick={() => setTabs("chat")}>
+                  <img
+                    src={chatIcon}
+                    alt="Interview Icon"
+                    style={{ width: "22px", height: "22px" }}
+                  />
+                </div>
+                <div onClick={() => setTabs("contacts")}>
+                  <img
+                    src={callIcon}
+                    alt="Interview Icon"
+                    style={{ width: "21px", height: "21px" }}
+                  />
+                </div>
               </div>
             </div>
             <div className="my-5">
-              {" "}
-              <Search sx={{ width: "100%", borderRadius: "9px" }}>
+              <Search>
                 <SearchIconWrapper>
-                  <SearchIcon />
+                  <SearchIcon sx={{width:"18px" , height:"18px"}} />
                 </SearchIconWrapper>
                 <StyledInputBase
-                  placeholder="Search…"
+                   sx={{'& ::placeholder':{fontSize:'small' ,  color:"text.secondary"}}}
+                  placeholder= { tabs == "chat"? "Search chat" :"Search contact" }
                   inputProps={{ "aria-label": "search" }}
                 />
               </Search>
@@ -128,7 +136,7 @@ const Newsidebar = () => {
 
           {tabs === "contacts" && <Newcontact setSharedData={setSharedData} />}
         </div>
-        <p className="h-[1px] absolute top-[68px] w-full bg-gray-500"></p>
+        <p className="h-[1px] hidden md:block absolute top-[68px] w-full bg-gray-500"></p>
       </Box>
 
       <Box
@@ -137,9 +145,11 @@ const Newsidebar = () => {
           borderTopRightRadius: "12px",
           borderBottomRightRadius: "12px",
         }}
-        className={` ${sharedData.name ? "block" :"hidden"  } md:block w-full md:w-[70vw] relative  mt-4 md:mt-0 rounded-tr-[15px] md:rounded-tr-[0px]`}
+        className={` ${
+          sharedData.name ? "block" : "hidden"
+        } md:block w-full md:w-[70vw] relative  mt-4 md:mt-0 rounded-tr-[15px] md:rounded-tr-[0px]`}
       >
-        <Newchatsection sharedData={sharedData} setSharedData={setSharedData}  />
+        <Newchatsection sharedData={sharedData} setSharedData={setSharedData} />
       </Box>
     </div>
   );

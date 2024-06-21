@@ -71,50 +71,37 @@ const Newcontact = ({ setSharedData }) => {
     setSharedData(item);
   };
   return (
-    <Box
-      sx={{
-        backgroundColor: "background.view",
-        width: "100%",
-        borderTopLeftRadius: "15px",
-      }}
-    >
-      {" "}
-      <div className="h-[70vh] md:h-[62vh]  overflow-y-scroll  oveflow-hidden no-scrollbar">
-        <p className="h-[1px] bg-slate-500 w-full"></p>
+    <Box>
+      <div className=" md:h-[62vh] md:overflow-y-scroll overflow-hidden no-scrollbar">
+        <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
         {userList.map((item, index) => (
           <div key={index}>
-            {" "}
-            <div className="flex  justify-between items-center my-3">
-              <div className="flex gap-4 items-center ">
-                {" "}
-                <div className="h-[52px] w-[65px] md:h-[40px]   md:w-[60px] relative">
-                  <img
-                    className="w-full h-full rounded-[50%] object-cover object-top"
-                    src={item.img}
-                    alt=""
-                  />
-                </div>
-                <div onClick={() => handleClick(item)} className="w-full grow">
-                  <div className="flex  items-center">
-                    <div className="text-[24px] md:text-[16px]">
-                      {item.name}
-                    </div>
-                  </div>
-                  <div className="flex mt-2 md:mt-0 justify-between items-center ">
-                    <div className="line-clamp-1 text-[#939393] md:text-[12px]">
-                      {item.email}
-                    </div>
-                  </div>
+            <div className="flex gap-4 items-center p-1 my-3">
+              <div className="h-[32px] w-[32px] md:h-[40px]  md:w-[50px] relative">
+                <img
+                  className="w-full h-full rounded-full object-cover object-top"
+                  src={item.img}
+                  alt=""
+                />
+              </div>
+              <div className="flex w-full flex-row justify-between items-center" >             
+              <div
+                onClick={() => handleClick(item)}
+                className="w-full font-bold"
+              >
+                <div className="text-base  md:text-[16px] ">{item.name}</div>
+
+                <div className="mt-1 line-clamp-1 text-xs text-[#434343] md:text-[12px]">
+                  {item.email}
                 </div>
               </div>
-              <div>
-                {" "}
-                <MoreVertIcon className="text-[35px] md:text-[20px]" />
+            
+              <MoreVertIcon sx={{width : "18px" , height :"18px"}} className="text-[35px] md:text-[20px]" />
               </div>
             </div>
-            <p className="h-[1px] md:hidden bg-slate-500 w-full"></p>
+            <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
           </div>
-        ))}{" "}
+        ))}
       </div>
     </Box>
   );

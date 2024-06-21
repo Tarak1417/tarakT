@@ -70,39 +70,38 @@ const Newchat = ({ setSharedData }) => {
   };
 
   return (
-    <Box sx={{ backgroundColor: "background.view", width: "100%" }}>
-      <div className="h-[70vh] md:h-[62vh]  oveflow-hidden overflow-y-scroll no-scrollbar">
-        <p className="h-[1px] bg-slate-500 w-full"></p>
+    <Box >
+      <div className=" md:h-[62vh] md:overflow-y-scroll overflow-hidden no-scrollbar">
+        <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
         {userList.map((item, index) => (
-          <div key={index}>
-            {" "}
-            <div className="flex  gap-4 items-center my-3 ">
-              <div className="h-[52px] w-[65px] md:h-[40px]  md:w-[50px] relative">
+          <div key={index}  >
+            <div className="flex gap-4 items-center p-1 my-3">
+              <div className="h-[32px] w-[32px] md:h-[40px]  md:w-[50px] relative">
                 <img
-                  className="w-full h-full rounded-[50%] object-cover object-top"
+                  className="w-full h-full rounded-full object-cover object-top"
                   src={item.img}
                   alt=""
                 />
-                <p className="h-[12px] md:h-[9px] w-[12px] md:w-[9px] bg-blue-500 border-2 p-[2px]  rounded-[50%] absolute bottom-1 right-[0px]"></p>
+                <p className="h-[7px] md:h-[9px] w-[7px] md:w-[9px] bg-blue-500 border p-[2px]  rounded-full absolute bottom-[4px] right-[-1px]"></p>
               </div>
-              <div onClick={() => handleClick(item)} className="grow w-full">
-                <div className="flex justify-between items-center">
-                  <div className="text-[24px] md:text-[16px] ">{item.name}</div>
-                  <div className="text-blue-500 text-[17px] md:text-[10px]">
+              <div onClick={() => handleClick(item)} className="w-full font-bold">
+                <div className="flex  justify-between items-center">
+                  <div className="text-base  md:text-[16px] ">{item.name}</div>
+                  <div className="text-[#3A7EC1] text-xs md:text-[10px]">
                     Now
                   </div>
                 </div>
-                <div className="flex mt-2 md:mt-0 justify-between items-center ">
-                  <div className="line-clamp-1 text-[#939393] md:text-[12px]">
+                <div className="flex mt-1 md:mt-0 justify-between items-center ">
+                  <div className="line-clamp-1 text-xs text-[#434343] md:text-[12px]">
                     {item.msg}
                   </div>
-                  <div className="bg-blue-500 rounded-[50%] md:text-[8px] px-[5px] ">
+                  <div className="bg-[#3A7EC1] text-[10px] rounded-full md:text-[8px] px-[5px] ">
                     1
                   </div>
                 </div>
               </div>
             </div>
-            <p className="h-[1px] md:hidden bg-slate-500 w-full"></p>
+            <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
           </div>
         ))}
       </div>
