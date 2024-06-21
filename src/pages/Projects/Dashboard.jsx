@@ -44,15 +44,15 @@ function Dashboard() {
   console.log(overview);
 
   const countProjectsByStatus = (status) => {
-    return overview.filter((project) => project.status === status).length;
+    return overview && overview.length >1  && overview?.filter((project) => project.status === status).length;
   };
 
-  const totalProjects = overview.length;
+  const totalProjects =  overview && overview.length;
   const completedProjects = countProjectsByStatus('Completed');
   const ongoingProjects = countProjectsByStatus('Ongoing');
   const pendingProjects = countProjectsByStatus('Pending');
 
-  console.log("totalProjects0" ,totalProjects , completedProjects , ongoingProjects , pendingProjects )
+  // console.log("totalProjects0" ,totalProjects , completedProjects , ongoingProjects , pendingProjects )
 
 
   const barsData = [
@@ -315,7 +315,7 @@ function Dashboard() {
           <div className="flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-4/4">
               <div className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
-                {overview.slice(0,4).map((box, index) => (
+                {overview && overview.length > 1 &&   overview.slice(0,4).map((box, index) => (
                   <Grid
                     sx={{ backgroundColor: "background.view" }}
                     key={index}
