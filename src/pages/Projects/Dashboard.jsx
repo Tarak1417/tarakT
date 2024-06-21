@@ -27,7 +27,7 @@ import {
 } from '@mui/icons-material';
 import ProjectChart from "../DashComponents/ProjectChart";
 function Dashboard() {
-  const [overview, setOverview] = useState({});
+  const [overview, setOverview] = useState([]);
   const fetchOverview = useCallback(async () => {
     try {
       const response = await axios.get(`/hr/projects`);
