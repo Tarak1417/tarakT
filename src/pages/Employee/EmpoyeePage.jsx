@@ -8,6 +8,9 @@ import {Box, IconButton} from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Modal from "@mui/material/Modal";
+import AddEmployee from "../../components/AddEmployee";
+
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -18,8 +21,16 @@ import { useEmployees } from '../../hooks/Authorize';
 import moment from 'moment';
 import { data } from 'autoprefixer';
 import { Link } from 'react-router-dom';
+import useModal from "../../hooks/useModal";
 
 const EmployeePage = () => {
+    
+      const {
+        modalState: viewOfferLetter,
+        closeModal: closeOfferLetter,
+        openModal: openOfferLetter,
+      } = useModal();
+    
 
     const [employLists, setEmployLists] = useState(null);
     const [department, setDepartment] = useState(null);
@@ -89,6 +100,14 @@ const EmployeePage = () => {
     ];
    console.log(employLists)
    console.log(department)
+
+
+   const {
+    modalState: addEmployeeState,
+    closeModal: closeAddEmployee,
+    openModal: openAddEmployee,
+  } = useModal();
+
     
     return (
         <Box sx={{backgroundColor: 'background.main',}}>
@@ -98,7 +117,10 @@ const EmployeePage = () => {
                             <h1 className="text-2xl text-neutral-500">Employees</h1>
                         </div>
                         <div className="flex flex-row items-center justify-center gap-4">
-                            <button className='flex  items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                            <button className='flex  items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'
+                                                  onClick={openAddEmployee}
+
+                            >
                                 Add New Employee
                             </button>
                             <InfoOutlinedIcon />
@@ -227,6 +249,23 @@ const EmployeePage = () => {
             </Box>
             </Box>
         </div>
+        <Modal
+        open={addEmployeeState}
+        onClose={closeAddEmployee}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <>
+          <AddEmployee
+            closeModal={closeAddEmployee}
+            // userId={jobApplication.userId}
+            // refetch={fetchJobApplication}
+          />
+        </>
+      </Modal>
         </Box>
     );
 };
