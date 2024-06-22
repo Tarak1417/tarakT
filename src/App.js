@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import "./utilities/axios";
 import Header from "./components/Header";
 import Home from "./pages/Home";
@@ -77,6 +77,13 @@ import Rollaccess from "./pages/admin/Rollaccess";
 import ViewProject from "./pages/Projects/ViewProject";
 import Newreceivedapplication from "./pages/ReceivedApp/Newreceivedapplication";
 import Newawardpage from "./pages/Award/Newawardpage";
+import RootContainer from "./careers/globals/Root";
+import CareerHome from "./careers/pages/home";
+import ApplyForJob from "./careers/pages/ApplyForJob";
+import { RecoilRoot } from "recoil";
+
+
+
 
 const App = () => {
   const location = useLocation();
@@ -107,6 +114,19 @@ const App = () => {
     }
   }, []);
 
+  if (location.pathname.startsWith('/career')){
+    return (
+      <RecoilRoot>
+        <RootContainer>
+           <Routes>
+          <Route path='/career/:organization' element={<CareerHome />} />
+          <Route path='/career/apply-for-job/:organization/:id' element={<ApplyForJob />} />
+          </Routes>
+      </RootContainer>
+      </RecoilRoot>
+    );
+  }
+
   if (shouldHideHeader) {
     return (
       <ThemeContextProvider>
@@ -130,7 +150,6 @@ const App = () => {
       <Header>
         <Routes>
           <Route path="/" element={<Home />} />
-
           <Route path="/joblisting" element={<JobListingHome />} />
           <Route path="/department" element={<DeptHome />} />
           <Route path="/interviewquestions" element={<InterviewHome />} />
