@@ -34,46 +34,39 @@ const ProjectChart = ({ barsData }) => {
   }, []);
 
   return (
-    <Box sx={{ backgroundColor: "background.view" }} className="rounded-lg">
+    <Box
+      sx={{ backgroundColor: "background.view", borderRadius: "8px" }}
+      className="rounded-lg"
+    >
       <div className="rounded-lg pt-4 pb-4 pr-4 mb-4">
         <div
-          className="flex flex-col md:flex-row gap-4 mb-4"
+          className="flex flex-col md:items-center md:flex-row gap-4 mb-8"
           style={{ justifyContent: "space-between" }}
         >
-          <Typography
-            variant="h5"
-            className="w-full md:w-1/3 text-[20px] font-[500] leading-[26.04px] border-l-4 border-[#4B47E4] pl-2 mb-4 md:mb-0 md:mr-4"
-            gutterBottom
-          >
-            Statistics
-          </Typography>
-          <div className="flex justify-center  md:flex-row gap-4 mb-4">
-            <div className=" flex items-center justify-center border border-gray-600 rounded-lg p-2 gap-6">
+          <div>
+            {" "}
+            <div className="border-l-4 border-[#4B47E4] pl-3 md:pl-4 w-full text-[18px] leading-[26.04px] md:text-[18px] md:font-[500] md:leading-[32.55px]">
+              Statistics
+            </div>
+          </div>
+          <div className="flex justify-center ml-3 md:ml-0  md:flex-row gap-4 mb-4 md:mb-0">
+            <div className=" flex items-center justify-center border border-gray-600 rounded-[5px] px-2 py-3 gap-6">
               <div className="bg-[#C2CCFF] w-[15px] h-[15px] rounded-[3px]"></div>
-              <Typography
-                variant="h7"
-                className="text-[10px] font-[400] leading-[13.02px]"
-              >
+              <div className="text-[10px] font-[400] leading-[13.02px] md:text-[12px] md:leading-[19.53px]  ">
                 Ongoing
-              </Typography>
+              </div>
             </div>
-            <div className=" flex items-center justify-center border border-gray-600 rounded-lg p-2 gap-6">
+            <div className=" flex items-center justify-center border border-gray-600 rounded-[5px] px-2 py-3 gap-6">
               <div className="bg-[#004DBF] w-[15px] h-[15px] rounded-[3px]"></div>
-              <Typography
-                variant="h7"
-                className="text-[10px] font-[400] leading-[13.02px]"
-              >
+              <div className="text-[10px] font-[400] leading-[13.02px] md:text-[12px] md:leading-[19.53px]  ">
                 Completed
-              </Typography>
+              </div>
             </div>
-            <div className="  flex items-center justify-between border border-gray-600 rounded-lg p-2">
+            <div className="  flex items-center justify-between border border-gray-600 rounded-[5px] px-2 py-3">
               <div className="flex items-center justify-between relative">
-                <Typography
-                  variant="h7"
-                  className="text-[10px] font-[400] leading-[13.02px]"
-                >
+                <div className="text-[10px] font-[400] leading-[13.02px] md:text-[12px] md:leading-[19.53px]  ">
                   Year
-                </Typography>
+                </div>
                 {dropdownOpen && (
                   <div className="absolute top-10 right-0 mt-1 w-20 bg-neutral-900 rounded-lg border border-gray-600 z-10">
                     <div className="p-2 flex flex-col gap-2 justify-center items-center">

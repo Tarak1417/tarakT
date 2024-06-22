@@ -21,14 +21,17 @@ const GenderChart = ({ items }) => {
         }}
       >
         <div className="flex flex-col gap-4 items-start">
-          <Typography
-            variant="h5"
-            className="  text-[20px] font-[500] leading-[26.04px] border-l-4 border-[#4B47E4] pl-2 whitespace-nowrap"
-            gutterBottom
+          <div className="border-l-4 border-[#4B47E4] pl-4 w-full md:text-[18px] md:font-[500] md:leading-[32.55px]">
+            Employee Gender
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              width: "100%",
+              marginTop: "48px",
+            }}
           >
-            Gender Chart
-          </Typography>
-          <div style={{ display: "flex", justifyContent: "center" }}>
             <PieChart width={300} height={202}>
               <Pie
                 data={data}
@@ -49,32 +52,32 @@ const GenderChart = ({ items }) => {
               <Tooltip />
             </PieChart>
           </div>
-          <div className="flex flex-row gap-2 pl-4 items-center">
+          <div className="flex flex-row gap-2 mt-9 pl-4 items-center">
             <div
               style={{
-                width: "16px",
-                height: "16px",
+                width: "14px",
+                height: "14px",
                 backgroundColor: colors[0],
               }}
             ></div>
-            <Typography variant="body1" className="text-[10px]">
+            <div className="text-[10px] md:text-[12px] md:font-[400] md:leading-[19.53px]">
               Male
-            </Typography>
+            </div>
             <div
               style={{
-                width: "16px",
-                height: "16px",
+                width: "14px",
+                height: "14px",
                 backgroundColor: colors[1],
               }}
               className="ml-5"
             ></div>
-            <Typography variant="body1" className="text-[10px]">
+            <div className="text-[10px] md:text-[12px] md:font-[400] md:leading-[19.53px]">
               Female
-            </Typography>
+            </div>
           </div>
-          <Typography variant="body1" className="pl-4 text-[10px]">
+          <div className="pl-4 text-[10px] md:text-[13px] md:font-[500] md:leading-[19.53px]">
             Total: {totalCount}
-          </Typography>
+          </div>
         </div>
       </Grid>
     </Box>

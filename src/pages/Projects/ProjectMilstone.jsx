@@ -5,10 +5,10 @@ import Document from "../../../src/assets/Icons/fluent_document-48-regular.png";
 import bag from "../../../src/assets/Icons/Vector.png";
 import mobile from "../../../src/assets/Icons/mynaui_mobile.png";
 import dekstop from "../../../src/assets/Icons/mynaui_desktop.png";
-import mobileupload from "../../assets/Icons/mobileupload.png";
-import psdupload from "../../assets/Icons/psddocument.png";
-import uiupload from "../../assets/Icons/uiupload.png";
-import flutterupload from "../../assets/Icons/flutterupload.png";
+import mobileupload from "../../assets/Icons/mobi.png";
+import psdupload from "../../assets/Icons/psdd.png";
+import uiupload from "../../assets/Icons/uiup.png";
+import flutterupload from "../../assets/Icons/flut.png";
 
 const ProjectMilesTone = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -27,25 +27,25 @@ const ProjectMilesTone = () => {
     {
       title: "Flutter",
       description: "Deadline: 2 days left",
-      img: bag,
+      img: flutterupload,
       bgstyle: "#61896a",
     },
     {
       title: "Mobile app design",
       description: "Deadline: 2 days left",
-      img: mobile,
+      img: mobileupload,
       bgstyle: "#7b85b3",
     },
     {
       title: "UI upload",
       description: "Deadline: 2 days left",
-      img: dekstop,
+      img: uiupload,
       bgstyle: "#789174",
     },
     {
       title: "PSD Document",
       description: "Deadline: 2 days left",
-      img: Document,
+      img: psdupload,
       bgstyle: "#9b8c83",
     },
   ];
@@ -55,25 +55,24 @@ const ProjectMilesTone = () => {
       className="rounded-lg mb-4 shadow-md pr-4 pt-4 pb-4"
       sx={{
         backgroundColor: "background.view",
+        borderRadius: "8px",
       }}
     >
-      <div className="flex  md:flex-row gap-4 mb-4 items-center justify-between">
-        <Typography
-          variant="h5"
-          className="w-full md:w-1/3  text-[20px] font-[500] leading-[26.04px] border-l-4 border-[#4B47E4] pl-2 whitespace-nowrap"
-          gutterBottom
-        >
+      <div className="flex  md:flex-row gap-4 mb-6 items-center justify-between">
+        <div className="border-l-4 border-[#4B47E4] pl-3 md:pl-4 w-full text-[18px] md:text-[18px] md:font-[500] md:leading-[32.55px]">
           Milestones
-        </Typography>
+        </div>
         <div
           className="border border-gray-600 rounded-lg p-1"
-          style={{ padding: "13px 7px", height: "40px" }}
+          style={{ padding: "13px 7px" }}
         >
           <Typography
             sx={{ fontSize: "10px", fontWeight: "400", lineHeight: "13.02px" }}
-            className="text-[10px] text-nowrap gap-[25px] items-center flex font-[400] leading-[13.02px] md:text-[12px]"
+            className="text-[10px]  md:text-[15px] md:leading-[19.53px] text-nowrap gap-[25px] items-center flex font-[400] leading-[13.02px] "
           >
-            View All{" "}
+            <div className="text-[10px]  font-[400] leading-[13.02px] md:text-[12px] md:leading-[19.53px]  ">
+              View All
+            </div>
             <KeyboardArrowDownIcon
               sx={{
                 fontSize: "15px",
@@ -141,25 +140,25 @@ const ProjectMilesTone = () => {
           )}
         </div>
       </div>
-      <div className="w-full pl-4">
+      <div className="w-full pl-3 mb-6">
         {jobs.map((job, index) => (
-          <div key={index} className="mb-4">
-            <div className="flex gap-4 justify-center items-center">
+          <div key={index} className="mb-1">
+            <div className="flex gap-1 justify-center items-center">
               <div
-                style={{ borderRadius: "4px", backgroundColor: job.bgstyle }}
+              // style={{ borderRadius: "4px", backgroundColor: job.bgstyle }}
               >
                 <img
                   src={job.img}
                   alt={job.title}
-                  className="h-[45px] w-[45px]"
+                  className=" w-[60px]"
                   style={{ padding: "8px" }}
                 />
               </div>
               <div className="w-4/5">
-                <h1 className="text-[15px] font-[500] leading-[19.53px] md:text-[19px]">
+                <h1 className="text-[15px] font-[500] leading-[19.53px] md:text-[17px] md:leading-[32.55px]">
                   {job.title}
                 </h1>
-                <p className=" text-[10px] font-[400] leading-[13.02px] md:text-[14px] text-gray-500">
+                <p className=" text-[10px] font-[400] leading-[13.02px] md:text-[13px] md:leading-[15px] text-gray-500">
                   {job.description}
                 </p>
               </div>
