@@ -11,6 +11,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import EditIcon from "@mui/icons-material/Edit";
 import EditImg from "../../../src/assets/Icons/ic_baseline-edit.png";
 import Delete from "../../../src/assets/Icons/memory_trash.png";
+import Projectlistt from "./Projectlistt";
 
 const ProjectList = () => {
   const [currentScreen, setCurrentScreen] = useState(1);
@@ -310,78 +311,92 @@ const ProjectList = () => {
     .map((el, i) => i + 2009);
 
   return (
-    <Box sx={{ backgroundColor: "background.main" }}>
-      <div className="flex flex-col">
-        <div className="flex items-center justify-between md:w-full p-4">
-          <div className="p-2">
-            <h1 className="text-xs md:text-2xl text-neutral-500">
-              Project List
-            </h1>
-          </div>
-          <div className="flex flex-row items-center justify-center gap-4">
-            <button className="flex  items-center text-white font-bold text-[8px] md:text-[16px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700">
-              Create New Project
-            </button>
-            <InfoOutlinedIcon />
+    <Box
+      sx={{
+        backgroundColor: "background.main",
+        borderTopRightRadius: "15px",
+        borderTopLeftRadius: "15px",
+        marginX: "10px",
+        padding: "0",
+        paddingBottom: "8px",
+      }}
+    >
+      <div className="flex flex-col rounded-t-[15px]">
+        <div className="p-2 md:py-2 md:px-6">
+          <div className="flex items-center justify-between md:w-full py-8 md:p-4">
+            <div className="">
+              <h1 className=" text-neutral-500 text-[18px] leading-[26.04px] md:text-[25px] font-[500] md:leading-[39.06px]">
+                Project List
+              </h1>
+            </div>
+            <div className="flex flex-row items-center justify-center gap-3">
+              <button className="text-[13px] font-[500] leading-[32.5px] bg-[#3767B1] rounded-[5px] py-[5px] px-[15px]">
+                Create New Project
+              </button>
+              <div className="bg-[#0D0D0D] p-[8px] rounded-[5px]">
+                {" "}
+                <InfoOutlinedIcon sx={{ color: "#ffffff" }} />
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <Box
-        className="w-full md:w-[96%] pt-4 rounded-lg mb-4"
+        className="w-full hidden md:block  md:w-[96%] pt-4 pb-6 rounded-lg mb-4"
         sx={{
           backgroundColor: "background.view",
           marginLeft: { xs: "0", md: "22px" },
           marginRight: { xs: "0", md: "20px" },
         }}
       >
-        <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-full md:w-[97%] mx-0 md:ml-4 md:mr-2">
-          <div className="h-full pr-[1px]">
+        <Box className=" flex flex-col md:flex-row justify-between gap-4 mt-4  mx-0 md:mx-4">
+          <div className="h-full pr-[1px] w-full">
             <Grid item xs={11}>
-              <div className="flex flex-col md:flex-row items-center justify-between ml-2 gap-14 md:pt-4 w-full pb-10">
+              <div className="flex flex-col md:flex-row items-center justify-between   w-full ">
                 <div className="flex flex-col justify-center items-center gap-2">
-                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-neutral-800 text-[16px] text-blue-700">
-                    31
+                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-[5px] bg-[#3767B133] text-[#3767B1] md:text-[18px] md:font-[700] md:leading-[26px] ">
+                    150
                   </div>
                   <p className="text-[16px] text-gray-400 text-center">
                     Total Projects
                   </p>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
-                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-green-950 text-[16px] text-green-500">
-                    20
+                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-[5px] bg-[#42B82433] text-[#42B824]  md:text-[18px] md:font-[700] md:leading-[26px] ">
+                    50
                   </div>
                   <p className="text-[16px] text-gray-400 text-center">
                     Completed Projects
                   </p>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
-                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-amber-950 text-[16px] text-amber-500">
-                    3
+                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-[5px] bg-[#FF9B0533] text-[#FF9B05]  md:text-[18px] md:font-[700] md:leading-[26px] ">
+                    15
                   </div>
                   <p className="text-[16px] text-gray-400 text-center">
                     Pending Projects
                   </p>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
-                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-teal-950 text-[16px] text-teal-500">
-                    0
+                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-[5px] bg-[#50E3C233] text-[#50E3C2]  md:text-[18px] md:font-[700] md:leading-[26px] ">
+                    30
                   </div>
                   <p className="text-[16px] text-gray-400 text-center">
                     Ongoing Projects
                   </p>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
-                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-red-950 text-[16px] text-red-500">
-                    5
+                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-[5px] bg-[#D4060633] text-[#D40606]  md:text-[18px] md:font-[700] md:leading-[26px] ">
+                    2
                   </div>
                   <p className="text-[16px] text-gray-400 text-center">
                     Canceled Projects
                   </p>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
-                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-lg bg-red-950 text-[16px] text-red-500">
-                    5
+                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-[5px] bg-[#FF3D3D33] text-[#FF3D3D] md:text-[18px] md:font-[700] md:leading-[26px] ">
+                    3
                   </div>
                   <p className="text-[16px] text-gray-400 text-center">
                     Not Started Projects
@@ -392,28 +407,27 @@ const ProjectList = () => {
           </div>
         </Box>
       </Box>
-      <Box
-        className="w-full md:w-[96%] pt-4 rounded-lg mb-4"
+      <Projectlistt />
+      <div className="mx-2 md:mx-0"><Box
+        className="w-full md:w-[96%]  pt-4 rounded-lg mb-4"
         sx={{
           backgroundColor: "background.view",
           marginLeft: { xs: "0", md: "22px" },
           marginRight: { xs: "0", md: "20px" },
         }}
       >
-        <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
-          <div className="w-full md:w-[21%] flex justify-start items-center">
-            <p className="text-[18px] ml-3">Recent Project Summery</p>
-          </div>
-        </Box>
+        <div className=" border-l-4 border-[#3767B1] pl-3 md:pl-4 w-full text-[18px] md:text-[18px] md:font-[500] md:leading-[32.55px]">
+          Recent Project Summary
+        </div>
         <Box
-          className="flex flex-col md:flex-row justify-end gap-4 mt-4 mr-2 ml-auto md:mr-4"
+          className="flex  md:flex-row justify-end gap-1 md:gap-4 mt-4 mr-2 ml-auto md:mr-4"
           sx={{
             width: { xs: "95%", md: "70%" },
           }}
         >
           {" "}
-          <div className="w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center">
-            <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
+          <div className="w-full h-[40px]  md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center">
+            <select className="appearance-none bg-transparent w-[90%] text-gray-700  px-4 md:pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
               <option>From</option>
               <option>1</option>
               <option>2</option>
@@ -424,8 +438,8 @@ const ProjectList = () => {
               className="text-zinc-500 pr-2"
             />
           </div>
-          <div className="w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center">
-            <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
+          <div className="w-full h-[40px] md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center">
+            <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 md:pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
               <option>To</option>
               <option>January</option>
               <option>February</option>
@@ -436,8 +450,8 @@ const ProjectList = () => {
               className="text-zinc-500 pr-2"
             />
           </div>
-          <div className="w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center">
-            <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
+          <div className="w-full h-[40px] md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center">
+            <select className="appearance-none bg-transparent w-[90%] text-gray-700 py-2 px-4 md:pr-8 rounded leading-tight focus:outline-none text-[12px] focus:border-gray-500">
               <option>Select Priority</option>
               <option>2022</option>
               <option>2023</option>
@@ -448,19 +462,19 @@ const ProjectList = () => {
               className="text-zinc-500"
             />
           </div>
-          <div className="w-full md:w-[11%] flex justify-end md:justify-center items-center ">
+          <div className=" md:w-[11%] flex justify-end md:justify-center items-center ">
             <button
-              style={{ fontSize: "12px" }}
-              className="bg-sky-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
+              style={{ fontSize: "10px" }}
+              className="bg-[#3767B1] hover:bg-blue-700 text-white md:text-[10px]  md:leading-[15.32px] font-bold  py-3 md:py-3 px-5 md:px-7 rounded-[8px] "
             >
               Search
             </button>
           </div>
         </Box>
-        <Box className="flex flex-col md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 mt-[35px]">
+        <Box className="flex  h-[40px] md:flex-row justify-between gap-4 mt-4 w-[97%] ml-2 md:ml-4 mt-[35px]">
           <div className="w-full md:w-[21%] flex justify-start items-center">
-            <p className="text-[12px] ml-3">Rows per page</p>
-            <select className="appearance-none bg-transparent pl-1 rounded leading-tight focus:outline-none focus:border-gray-500 text-[12px]">
+            <p className="text-[11px] ml-3">Rows per page:</p>
+            <select className="appearance-none bg-transparent pl-3 rounded leading-tight focus:outline-none focus:border-gray-500 text-[12px]">
               <option>10</option>
               <option>20</option>
               <option>30</option>
@@ -472,7 +486,7 @@ const ProjectList = () => {
           <div className="w-full md:w-[22%] border border-gray-500 rounded-lg flex flex-row items-center">
             <input
               placeholder="Search"
-              className="appearance-none bg-transparent w-[75%] text-white-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[15px] focus:border-gray-500"
+              className="appearance-none bg-transparent w-[75%] text-white-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none text-[10px] focus:border-gray-500"
             />
 
             <SearchIcon
@@ -483,8 +497,9 @@ const ProjectList = () => {
         </Box>
 
         <Box
-          className="h-[45vh] w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm mt-10 h-[380px]"
+          className="h-[45vh] w-[96%] ml-2 md:mx-7 border border-zinc-500 rounded-sm mt-10 h-[380px]"
           sx={{
+            borderRadius: "6px",
             overflowY: "scroll",
             "&::-webkit-scrollbar": {
               display: "none",
@@ -494,31 +509,31 @@ const ProjectList = () => {
           }}
         >
           <Grid className="flex flex-row border-b border-zinc-500">
-            <div className="w-auto min-w-[50px] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+            <div className="w-auto min-w-[50px] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-[15px] font-bold md:leading-[26.04px]">
               No
             </div>
-            <div className="w-auto min-w-[150px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
+            <div className="w-auto min-w-[150px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[15px] font-bold md:leading-[26.04px]">
               Task
             </div>
-            <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
+            <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-[15px] font-bold md:leading-[26.04px]">
               Client
             </div>
-            <div className="w-auto min-w-[100px] md:w-[14.6%] text-nowrap p-2 border-r border-zinc-500 text-sm md:text-[16px] font-bold">
+            <div className="w-auto min-w-[100px] md:w-[14.6%] text-nowrap p-2 border-r border-zinc-500 text-sm md:text-[15px] font-bold md:leading-[26.04px]">
               Assigned To
             </div>
-            <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[16px] font-bold">
+            <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[15px] font-bold md:leading-[26.04px]">
               Priority
             </div>
-            <div className="w-auto min-w-[100px] md:w-[14.6%] text-nowrap p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-[16px] font-bold">
+            <div className="w-auto min-w-[100px] md:w-[14.6%] text-nowrap p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-[15px] font-bold md:leading-[26.04px]">
               Start Date
             </div>
-            <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[16px] font-bold">
+            <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[15px] font-bold md:leading-[26.04px]">
               Deadline
             </div>
-            <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[16px] font-bold">
+            <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-[15px] font-bold md:leading-[26.04px]">
               Status
             </div>
-            <div className="w-auto min-w-[100px] md:w-[14.6%] border-b  md:border-b-0 border-zinc-500 p-2 text-left text-sm md:text-[16px] font-bold">
+            <div className="w-auto min-w-[100px] md:w-[14.6%] border-b  md:border-b-0 border-zinc-500 p-2 text-left text-sm md:text-[15px] font-bold md:leading-[26.04px]">
               Action
             </div>
           </Grid>
@@ -528,16 +543,16 @@ const ProjectList = () => {
               className="flex flex-row border-b border-zinc-500"
               currentScreen={currentScreen}
             >
-              <div className="w-auto min-w-[50px] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center">
+              <div className="w-auto min-w-[50px] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center md:text-[13px] md:font-[500] md:leading-[19.53px]">
                 {user.Id}
               </div>
-              <div className="w-auto min-w-[150px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
+              <div className="w-auto min-w-[150px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center md:text-[13px] md:font-[500] md:leading-[19.53px]">
                 {user.Project}
               </div>
-              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center md:text-[13px] md:font-[500] md:leading-[19.53px]">
                 {user.Client}
               </div>
-              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center">
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center md:text-[13px] md:font-[500] md:leading-[19.53px]">
                 <div style={{ display: "flex", flexDirection: "row" }}>
                   <div>
                     <img
@@ -547,11 +562,13 @@ const ProjectList = () => {
                     />
                   </div>
                   <div style={{ marginLeft: "3px", marginTop: "1px" }}>
-                    <p>Emma Stone</p>
+                    <p className=" md:text-[11px] md:font-[500] md:leading-[19.53px]">
+                      Emma Stone
+                    </p>
                   </div>
                 </div>
               </div>
-              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center">
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center  md:text-[13px] md:font-[500] md:leading-[19.53px]">
                 <div
                   className={`px-1 py-1 rounded-lg w-3/5 flex justify-center items-center ${
                     getColor(user.status).bgColor
@@ -560,13 +577,13 @@ const ProjectList = () => {
                   {user.status}
                 </div>
               </div>
-              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-xs flex items-center">
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-xs flex items-center  md:text-[13px] md:font-[500] md:leading-[19.53px]">
                 {user.clockIn}
               </div>
-              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center">
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center  md:text-[13px] md:font-[500] md:leading-[19.53px]">
                 {user.clockOut}
               </div>
-              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center">
+              <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center  md:text-[13px] md:font-[500] md:leading-[19.53px]">
                 <div className="h-2 flex justify-between w-full">
                   <div
                     className="h-full rounded-lg"
@@ -593,13 +610,15 @@ const ProjectList = () => {
           ))}
         </Box>
 
-        <div className="flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10 ">
+        <div className="flex items-center justify-between  md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10 pb-5">
           <div className="p-2 rounded-lg ">
             <div className="flex items-center gap-0 md:gap-6">
-              <p className="text-[12px] text-gray-400">Show Rows: 1-10 of 20</p>
+              <p className="text-[11px] ml-3 text-gray-400">
+                Show Rows: 1-10 of 20
+              </p>
             </div>
           </div>
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-row gap-4 pr-4">
             <KeyboardArrowLeftOutlinedIcon
               className="text-zinc-400 cursor-pointer"
               onClick={handlePrevScreen}
@@ -611,13 +630,13 @@ const ProjectList = () => {
                 onClick={handleNextScreen}
               />
             ) : (
-              <div className="bg-blue-500 w-[20px] h-[20px] flex items-center justify-center p-1 rounded-full">
+              <div className="bg-blue-500 text-[11px] w-[20px] h-[20px] flex items-center justify-center p-1 rounded-full">
                 2
               </div>
             )}
           </div>
         </div>
-      </Box>
+      </Box></div>
     </Box>
   );
 };
