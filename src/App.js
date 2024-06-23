@@ -80,6 +80,7 @@ import Newawardpage from "./pages/Award/Newawardpage";
 import RootContainer from "./careers/globals/Root";
 import CareerHome from "./careers/pages/home";
 import ApplyForJob from "./careers/pages/ApplyForJob";
+import JobDetails from "./careers/jobRolepages/jobs";
 import { RecoilRoot } from "recoil";
 
 
@@ -120,7 +121,8 @@ const App = () => {
         <RootContainer>
            <Routes>
           <Route path='/career/:organization' element={<CareerHome />} />
-          <Route path='/career/apply-for-job/:organization/:id' element={<ApplyForJob />} />
+          <Route path='/career/apply-for-job/:id' element={<ApplyForJob />} />
+          <Route path='/career/job/:id' element={<JobDetails />} />
           </Routes>
       </RootContainer>
       </RecoilRoot>
