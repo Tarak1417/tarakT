@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Button } from "@mui/material";
 import { TrendingUp, TrendingDown } from "@mui/icons-material";
 import GroupIcon from "@mui/icons-material/Group";
 import ApartmentIcon from "@mui/icons-material/Apartment";
@@ -16,22 +16,28 @@ import { Box } from "@mui/material";
 import axios from "axios";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Pending from "@mui/icons-material/Pending";
-import TimerImage from '../../assets/Icons/f7_timer.png'
+import TimerImage from "../../assets/Icons/f7_timer.png";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ProjectMilesTone from "./ProjectMilstone";
 import ProjectActivity from "./ProjectActivity";
-import NoteAltIcon from '@mui/icons-material/NoteAlt';
-import {
-    DashboardOutlined,
-    Settings,
-} from '@mui/icons-material';
+import NoteAltIcon from "@mui/icons-material/NoteAlt";
+import { DashboardOutlined, Settings } from "@mui/icons-material";
 import ProjectChart from "../DashComponents/ProjectChart";
+import totalprojicon from "../../assets/Icons/totalprojicon.png";
+import completedprojicon from "../../assets/Icons/completedprojicon.png";
+import ongoingprojicon from "../../assets/Icons/ongoingprojicon.png";
+import pendingprojicon from "../../assets/Icons/pendingprojicon.png";
+import htmlicon from "../../assets/Icons/htmlicon.png";
+import figmaicon from "../../assets/Icons/figmaicon.png";
+import fluttericon from "../../assets/Icons/fluttericon.png";
+import adobeicon from "../../assets/Icons/adobeicon.png";
+
 function Dashboard() {
   const [overview, setOverview] = useState([]);
   const fetchOverview = useCallback(async () => {
     try {
       const response = await axios.get(`/hr/projects`);
-      console.log(response)
+      console.log(response);
       setOverview(response.data.projects);
     } catch (e) {
       console.log(e);
@@ -47,13 +53,18 @@ function Dashboard() {
     return overview && overview.length >1  && overview?.filter((project) => project.status === status).length;
   };
 
-  const totalProjects =  overview && overview.length;
+  const totalProjects =  overview ? overview.length : 0 ;
   const completedProjects = countProjectsByStatus('Completed');
   const ongoingProjects = countProjectsByStatus('Ongoing');
   const pendingProjects = countProjectsByStatus('Pending');
 
-  // console.log("totalProjects0" ,totalProjects , completedProjects , ongoingProjects , pendingProjects )
-
+  console.log(
+    "totalProjects0",
+    totalProjects,
+    completedProjects,
+    ongoingProjects,
+    pendingProjects
+  );
 
   const barsData = [
     { name: "Thu", inProgress: 50, pending: 20, completed: 30 },
@@ -66,67 +77,41 @@ function Dashboard() {
   ];
 
   const btn = [
-    {btn:"Low"},
-    {btn:"Medium"},
-    {btn:"Medium"},
-    {btn:"High"}
-  ]
+    { btn: "Low" },
+    { btn: "Medium" },
+    { btn: "Medium" },
+    { btn: "High" },
+  ];
   const boxesData = [
     {
-      icon: (
-        <DashboardOutlined
-          fontSize="large"
-          className="text-white  bg-sky-400 p-2 rounded-lg"
-          style={{padding:'3px' , width:'41px', height:'39px'}}
-        />
-      ),
+      icon: <img alt="" src={totalprojicon} />,
       title: "Total Projects",
       value: (
-        <Typography
-          variant="body1"
-          style={{ color: "blue", fontSize: "1.2em" }}
-        >
+        <div className="text-[#3767B1] text-[25px] font-[700] leading-[32.55px] md:text-[28px] md:font-[700] md:leading-[47.57px]">
           {totalProjects ? totalProjects : "150"}
-        </Typography>
+        </div>
       ),
       description: "124 for last month",
       trendIcon: <TrendingUp className="text-green-500" />,
     },
     {
-      icon: (
-        <NoteAltIcon
-          fontSize="large"
-          className="text-white  bg-green-400 p-2 rounded-lg"
-          style={{padding:'3px' , width:'41px', height:'39px'}}
-        />
-      ),
+      icon: <img alt="" src={completedprojicon} />,
       title: "Completed Projects",
       value: (
-        <Typography
-          variant="body1"
-          style={{ color: "#00FF00", fontSize: "1.2em" }}
-        >
-          {completedProjects ? completedProjects : "0"}
-        </Typography>
+        <div className="text-[#42B824] text-[25px] font-[700] leading-[32.55px] md:text-[28px] md:font-[700] md:leading-[47.57px]">
+          {completedProjects ? completedProjects : "50"}
+        </div>
       ),
       description: "124 for last month,",
       trendIcon: <TrendingDown className="text-red-500" />,
     },
     {
-    //   icon: (
-    //     // <ApartmentIcon
-    //     //   fontSize="large"
-    //     //   className="text-white bg-rose-500 p-2 rounded-lg"
-    //     // />
-    //   ),
+      icon: <img alt="" src={ongoingprojicon} />,
       title: "Ongoing Projects",
       value: (
-        <Typography
-          variant="body1"
-          style={{ color: "rgb(85 255 213", fontSize: "1.2em" }}
-        >
-          {ongoingProjects ? ongoingProjects : "0"}
-        </Typography>
+        <div className="text-[#50E3C2] text-[25px] font-[700] leading-[32.55px] md:text-[28px] md:font-[700] md:leading-[47.57px]">
+          {ongoingProjects ? ongoingProjects : "75"}
+        </div>
       ),
       description: "124 for last month,",
       trendIcon: <TrendingDown className="text-red-500" />,
@@ -134,100 +119,91 @@ function Dashboard() {
 
     {
       icon: (
-        <img
-        src={TimerImage}
-        alt="GroupIcon"
-        className="text-white  p-2 rounded-lg"
-        style={{ fontSize: "large" , color:'white' ,backgroundColor:'rgb(234 122 105)' }}
-      />
+        <img alt="" src={pendingprojicon} />
+        // <img
+        //   src={TimerImage}
+        //   alt="GroupIcon"
+        //   className="text-white  p-2 rounded-lg"
+        //   style={{
+        //     fontSize: "large",
+        //     color: "white",
+        //     backgroundColor: "rgb(234 122 105)",
+        //   }}
+        // />
       ),
       title: "Pending Projects",
       value: (
-        <Typography
-          variant="body1"
-          style={{ color: "#FF0000", fontSize: "1.2em" }}
-        >
-          {pendingProjects ? pendingProjects : "0"}
-        </Typography>
+        <div className="text-[#FF9B05] text-[25px] font-[700] leading-[32.55px] md:text-[28px] md:font-[700] md:leading-[47.57px]">
+          {pendingProjects ? pendingProjects : "25"}
+        </div>
       ),
       description: "124 for last month",
-     
     },
   ];
   const boxesData1 = [
     {
-      icon: (
-        <img
-        src="https://static-00.iconduck.com/assets.00/figma-icon-256x256-73jx2t0q.png"
-        alt="GroupIcon"
-        className="text-white  p-2 rounded-lg"
-        style={{ fontSize: "large" , padding:'0px' , height:'39px' , width:'40px' }}
-      />
-      ),
+      icon: <img alt="" className="w-[50px] " src={figmaicon} />,
       title: "Figma",
       value: (
-        <Typography variant="body1" style={{}}>
+        <div className="md:text-[13px] md:font-[400] md:leading-[23.44px] text-[#A5A5A5]">
           Designing Departments
-        </Typography>
+        </div>
       ),
       description: "124 for last month",
       trendIcon: <TrendingUp className="text-green-500" />,
+      standard: (
+        <p className="font-[400]  leading-[15.6px] rounded-[5px] border border-[#42B824] py-[4px] px-[] text-center h-[25px] w-[51px] text-[10px] text-[#32FC00]">
+          Low
+        </p>
+      ),
     },
     {
-      icon: (
-        <img
-        src="https://cdn4.iconfinder.com/data/icons/iconsimple-programming/512/html-512.png"
-        alt="GroupIcon"
-        className="text-white  p-2 rounded-lg"
-        style={{ fontSize: "large" , padding:'0px' , height:'39px' , width:'40px' }}
-      />
-      ),
+      icon: <img alt="" className="w-[50px] " src={htmlicon} />,
       title: "HTML",
       value: (
-        <Typography variant="body1" style={{ fontSize: "1em" }}>
+        <div className="md:text-[13px] md:font-[400] md:leading-[23.44px] text-[#A5A5A5]">
           Frontend Departments
-        </Typography>
+        </div>
       ),
       description: "124 for last month,",
       trendIcon: <TrendingDown className="text-red-500" />,
+      standard: (
+        <p className="font-[400]  leading-[15.6px] rounded-[5px] border border-[#FF9B05] py-[4px] px-[] text-center h-[25px] w-[51px] text-[10px] text-[#FF9B05]">
+          Medium
+        </p>
+      ),
     },
     {
-      icon: (
-        <img
-        src="data:image/png;base64,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
-"
-        alt="GroupIcon"
-        className="text-white  p-2 rounded-lg"
-        style={{ fontSize: "large" , padding:'0px' , height:'39px' , width:'40px' }}
-      />
-      ),
+      icon: <img alt="" className="w-[50px] " src={adobeicon} />,
       title: "Abode XD",
       value: (
-        <Typography variant="body1" style={{ fontSize: "1em" }}>
+        <div className="md:text-[13px] md:font-[400] md:leading-[23.44px] text-[#A5A5A5]">
           Designing Departments
-        </Typography>
+        </div>
       ),
       description: "124 for last month,",
       trendIcon: <TrendingDown className="text-red-500" />,
+      standard: (
+        <p className="font-[400]  leading-[15.6px] rounded-[5px] border border-[#FF9B05] py-[4px] px-[] text-center h-[25px] w-[51px] text-[10px] text-[#FF9B05]">
+          Medium
+        </p>
+      ),
     },
     {
-      icon: (
-        <img
-        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMoAAAD6CAMAAADXwSg3AAAAwFBMVEX///9HxfsAVp4Atfgzwfvp9/4PW6FFxfsAs/g9w/sAtvn7/v8ARpcARJY6wvsAr/cAQpZey/vT7/7e8/5tz/wAUpdUyPsnvPkASogAV6DE6v1izPva8v7i9f46vvkATY4ARH2s4v1/1Py45v3L7P4Faa55mcEAP3SFosYANmTK1ua96P2X2fsAPG8AMFmLp8mM2Pxzos0FYKEEWZMEUYYESXgAR4IEQWsAKVEDOFwAIkQAKkwAPoHAz+LS3OqastCAMTjGAAAD20lEQVR4nO3bi1YaMRAG4C1o0aDQWhSstaC2pdRK7c1qb77/W3V3uRQky06S4cxk/ecBsuc7/4QkmyVJBOu68YStWmeSkvMWn2QLEkgggQQSSCCBBBJIIIEEEkgg2Wh1KiNhzeRCUsKaCSQ8kl1IIIEEEkgggQQSSCARk1xCAgkkkEACCSSQQAKJk+QlJJBAoltyAgkkkEACCSSQQPJ4JG8gUSZpQALJcj2HBBJIIIEEEkggeTySA0gggQQSSCCBBBJIIIEEEkiqJDmqiqSJTKySV4KQJiSQQAIJJJBAAgmPZJuzTiUlnS3G6s4vnyQkjF+ULWy/IbEPWx3JC0j8HwlJybCQBDzyYBPjCksYU5GW8FnkJVwWDRIeS6OlQcJh0ZEJh6WxdWobVkASamm0BCSFm9YQiy5JiEWbxN+iT+JrIUo4/09FONz5WHRKfCxaJe4WvRJXi2aJm0W3xMWiXUK3aFxP/CxECeObA5/rAYqFKHnd7kpKKBaqZKde57J4XtmUWlrbVAmXhXi4c7bQM+GyeEtKLC6Z8FgCJGstrpJwS5AkKf4ddZeEWkIlRd8c+kjCLOESu2XXSxJi4ZDYLL4SfwuPZNXiL/G1cEkeWkIkfhY+ybIlTOJj4ZQsWkIl7hbiS3VnS7jE1cItmVk4JG4W4vbb2cIjcbFsQpJZuCR0C/Giw7lOSJIuQUK1bCYTalEyoVrikFAsshJad9Es8UjKLDFJ1lvikqyzxCYptsQnKbLEKLFbRCVNX4nNEqvEYolWsmKJWPLAQnvFplSyZIlcsmCJXjK3VEAytdCOqcoluUVUYtgkqaUhKEmSozabxOx8lpQkyQmXxZi3++8qYUkltdqesKXDYckllbBMJRWwzCXRWxYkkVuWJPKWc3/LA0nEFmO+HNYqYbFIIrVkklVKjJZU0rdIIrTkEislNosxX3tFFHHLtYsll9j7KzJLKrnpF4aSWd5HYskkvbWUWHJJJYNe8UzRYflIsRjzbVAWShyWXEKg6LekkmEaSll/5RbhuV9iySWU/lJvSSVXk1CKF5U4LMZ8v6KHotmSS5wo4pYzuyWVjDIKub/UWnKJW38ptWSSkWt/qbQY82OchUJdVPRacsmsvxwpuiymPpUMp5sWF4m85aK9KLmdUQY9R4cqy1SS91f/8PjYnaLFYup3t+OMMuwd+jD0WCaS8egmzcNbIm+5bGeSn7/GgzCHEsvdLYNDheV3n4OhwvLnGRMkrf1PsMACCyywwDKpDxWyIBdYYIEFlv+1B4tKy/49LCotVeoxWGDZtKVKcx8WtvoLi05L7Slb7d3/A3AY/1ddUbKTAAAAAElFTkSuQmCC
-"
-        alt="GroupIcon"
-        className="text-white  p-2 rounded-lg"
-        style={{ fontSize: "large" , padding:'0px' , height:'39px' , width:'40px' }}
-      />
-      ),
+      icon: <img alt="" className="w-[50px] " src={fluttericon} />,
       title: "Flutter",
       value: (
-        <Typography variant="body1" style={{ fontSize: "1em" }}>
+        <div className="md:text-[13px] md:font-[400] md:leading-[23.44px] text-[#A5A5A5]">
           Engineering Departments
-        </Typography>
+        </div>
       ),
       description: "124 for last month",
       trendIcon: <TrendingDown className="text-red-500" />,
+      standard: (
+        <p className="font-[400]  leading-[15.6px] rounded-[5px] border border-[#FF0000] py-[4px] px-[] text-center h-[25px] w-[51px] text-[10px] text-[#FF0000]">
+          High
+        </p>
+      ),
     },
   ];
   // const eventData = [
@@ -265,98 +241,133 @@ function Dashboard() {
   ];
 
   return (
-    <Box sx={{ backgroundColor: "background.main" }}>
-      <div className="flex flex-col">
-        <div className="p-2">
-          <div className="flex items-center justify-between md:w-full p-4">
-            <div className="p-2">
-              <h1 className="text-2xl text-neutral-500">Project Dashboard</h1>
+    <Box
+      sx={{
+        backgroundColor: "background.main",
+        borderTopRightRadius: "15px",
+        borderTopLeftRadius: "15px",
+        marginX: "10px",
+        padding: "0",
+      }}
+    >
+      <div className="flex flex-col  rounded-t-[15px]">
+        <div className="p-2 md:py-2 md:px-6">
+          <div className="flex items-center justify-between md:w-full py-8 md:p-4">
+            <div className="">
+              <h1 className=" text-neutral-500 text-[18px] leading-[26.04px] md:text-[25px] font-[500] md:leading-[39.06px]">
+                Project Dashboard
+              </h1>
             </div>
-            <div className="flex flex-row items-center justify-center gap-4">
-              <button className="flex  items-center text-white font-bold text-[10px] md:text-[15px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700">
-                Create New Projet
+            <div className="flex flex-row items-center justify-center gap-3">
+              <button className="text-[13px] font-[500] leading-[32.5px] bg-[#3767B1] rounded-[5px] py-[5px] px-[15px]">
+                Create New
               </button>
-              <InfoOutlinedIcon />
+              <div className="bg-[#0D0D0D] p-[8px] rounded-[5px]">
+                {" "}
+                <InfoOutlinedIcon sx={{ color: "#ffffff" }} />
+              </div>
             </div>
           </div>
           <div className="flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-4/4">
-              <div className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
+              <div className="flex flex-col gap-4 mb-4 md:flex-row">
                 {boxesData.map((box, index) => (
                   <Grid
-                    sx={{ backgroundColor: "background.view" }}
+                    sx={{
+                      backgroundColor: "background.view",
+                      borderRadius: "8px",
+                    }}
                     key={index}
                     className="rounded-lg p-4 shadow-md md:w-1/2"
                   >
-                    <p className="text-xl">{box.title}</p>
-                    <div className="flex items-center mb-2">
-                      <p className="w-5/6 text-xl">{box.value}</p>
-                      <div className="w-1/6">{box.icon}</div>
+                    <div className="flex items-center justify-between">
+                      {" "}
+                      <div className="">
+                        {" "}
+                        <p className="text-[15px] text-nowrap font-[500] leading-[19.53px] md:text-[16px] md:font-[500] md:leading-[23.44px]">
+                          {box.title}
+                        </p>
+                        <p className="w-5/6 text-[23px] leading-[32.55px] md:text-[35px] md:font-[700] md:leading-[47.57px]">
+                          {box.value}
+                        </p>
+                      </div>
+                      <div className="flex justify-end w-1/6">{box.icon}</div>
                     </div>
-                    {/* <div className="flex items-center gap-2">
-                                    {box.trendIcon}
-                                    <p variant="body2" className="ml-2">{box.description}</p>
-                                </div> */}
                   </Grid>
                 ))}
               </div>
-              {/* <Charts data={data} /> */}
             </div>
-            {/* <div className="w-full md:w-1/4">
-                    <NoticeBoard eventData={overview?.notices} />
-                    <UpcomingEvents />
-                </div> */}
           </div>
-          <div className="p-2">
-            <Typography className="text-2xl text-neutral-500">
-              Recent Project Dashboard
-            </Typography>
+          <div className="pb-[15px]">
+            <div className="text-[18px] mt-3 md:mt-0 font-[500] leading-[26.04px] md:text-[20px] md:leading-[32.55px] md:text-neutral-500">
+              Recent Project Update
+            </div>
           </div>
           <div className="flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-4/4">
               <div className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
                 {overview && overview.length > 1 &&   overview.slice(0,4).map((box, index) => (
                   <Grid
-                    sx={{ backgroundColor: "background.view" }}
+                    sx={{
+                      backgroundColor: "background.view",
+                      borderRadius: "8px",
+                    }}
                     key={index}
-                    className="rounded-lg p-4 shadow-md md:w-1/2"
+                    className="relative rounded-lg p-4 shadow-md md:w-1/2"
                   >
-                    <p className="text-xl">            {box.title.length > 10 ? `${box.title.substring(0, 15)}...` : box.title}
+                    <p className="text-[15px] font-[500] leading-[19.53px] md:text-[18px]">
+                      {" "}
+                      {box.title.length > 10
+                        ? `${box.title.substring(0, 15)}...`
+                        : box.title}
                     </p>
-                    
-                    <div className="flex items-center mb-[16px] mt-[-9px]">
-                      <p className="w-5/6 ">  {(() => {
-              // Function to strip HTML tags and truncate text
-              const stripHtmlAndTruncate = (html, maxLength) => {
-                const strippedText = html.replace(/<[^>]+>/g, '');
-                return strippedText.length > maxLength
-                  ? `${strippedText.substring(0, 15)}...`
-                  : strippedText;
-              };
 
-              // Call the function inline to process box.description
-              return stripHtmlAndTruncate(box.description, 50); // Adjust maxLength as per your requirement
-            })()}</p>
-                      <div className="w-1/6" style={{padding:'0'}}>{box.icon}</div>
+                    <div className="flex items-center mb-[16px] mt-[-9px]">
+                      <p className="text-[11px] leading-[13.02px] font-[400] w-5/6 ">
+                        {" "}
+                        {/* {(() => {
+                  
+                   const stripHtmlAndTruncate = (html, maxLength) => {
+                     const strippedText = html.replace(/<[^>]+>/g, "");
+                     return strippedText.length > maxLength
+                       ? `${strippedText.substring(0, 15)}...`
+                       : strippedText;
+                   };
+
+                 
+                   return stripHtmlAndTruncate(box.description, 50); 
+                 })()} */}
+                        {box.value}
+                      </p>
+                      <div
+                        className="flex justify-end w-1/6"
+                        style={{ padding: "0" }}
+                      >
+                        {box.icon}
+                      </div>
                     </div>
                     <div className="mb-[10px] mt-[2px]">
-                      <p className="text-sm " style={{ fontSize: "12px" }}>
+                      <p className="text-[10px] font-[400] leading-[13.02px] md:text-[9px] text-[#A5A5A5]">
                         Mobile App Ui Design
                       </p>
                     </div>
-                    <div>
-                      <div
-                        className="border-1 w-full"
-                        style={{ border: "0.5px solid white" }}
-                      ></div>
-                    </div>
-                    <div className="flex items-center justify-between gap-2 mt-2">
-                      <div style={{ display: "flex", flexDirection: "row" }}>
+
+                    <div
+                      className="absolute left-0 top-[113px] md:top-[105px] border-1 w-full"
+                      style={{ border: "0.5px solid #262626" }}
+                    ></div>
+
+                    <div className="flex items-center justify-between gap-2 pt-3">
+                      <div className="flex ">
                         {avatarData.map((item) => (
                           <>
                             <div
-                              class="MuiAvatar-root MuiAvatar-circular css-1m7vhif-MuiAvatar-root"
-                              style={{ width: "21px", height: "22px"  , marginLeft:'-5px'}}
+                              class="MuiAvatar-root  border-2 border-[#171717] MuiAvatar-circular css-1m7vhif-MuiAvatar-root"
+                              style={{
+                                width: "20px",
+                                height: "20px",
+                                marginLeft: "-5px",
+                              }}
                             >
                               <img alt="Remy Sharp" src={item.src} />
                             </div>
@@ -368,25 +379,9 @@ function Dashboard() {
                         style={{ display: "flex", flexDirection: "row" }}
                       >
                         {" "}
-                        <p
-                          variant="body2"
-                          style={{
-                            borderRadius: "5px",
-                            border: "1px solid green",
-                            padding: "5px",
-                            textAlign: "center",
-                            height: "25px",
-                            width: "51px",
-                            fontSize: "10px",
-                            color:"green" ,
-                            borderColor:'green'
-                          }}
-                          className="p-2"
-                        >
-                          Low
-                        </p>{" "}
+                        {box.standard}
                         <span>
-                          <MoreVertIcon />
+                          <MoreVertIcon sx={{ fontSize: "20px" }} />
                         </span>
                       </div>
                     </div>
@@ -401,19 +396,19 @@ function Dashboard() {
                 </div> */}
           </div>
         </div>
-        <div className="w-full  flex flex-col md:flex-row p-2">
-          <div className="w-full md:w-1/1 mx-1 mb-2 md:mb-0">
+        <div className="w-full gap-3  flex flex-col md:flex-row px-2 md:px-5">
+          <div className="w-full md:w-8/12 mx-1 mb-2 md:mb-0">
             <ProjectChart barsData={barsData} />
           </div>
-          <div className="w-full md:w-1/3 mx-1 mb-2 md:mb-0">
+          <div className="w-full md:w-4/12 mx-1 mb-2 md:mb-0">
             <ProjectMilesTone />
           </div>
         </div>
-        <div className="w-full flex flex-col md:flex-row p-2 h-full">
-          <div className="w-full md:w-3/4 mx-1 mb-2 md:mb-0 flex-grow">
+        <div className="w-full gap-3 flex flex-col md:flex-row px-2 md:px-5">
+          <div className="w-full md:w-8/12 mx-1 mb-2 md:mb-0 ">
             <ProjectActivity />
           </div>
-          <div className="w-full md:w-1/4 mx-1 mb-2 md:mb-0 flex-grow">
+          <div className="w-full md:w-4/12 mx-1 mb-2 md:mb-0 ">
             <GenderChart />
           </div>
         </div>
