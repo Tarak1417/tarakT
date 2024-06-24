@@ -32,7 +32,7 @@ import { DateCalendar, LocalizationProvider } from "@mui/x-date-pickers";
 import view from "../ReceivedApp/viewicon.png";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Calendar from "react-calendar";
-import './projectStyle.css'
+import "./projectStyle.css";
 
 const OverTime = () => {
   const [employees, setEmployees] = useState({});
@@ -446,47 +446,32 @@ const OverTime = () => {
     <>
       <Box
         sx={{ backgroundColor: "background.main" }}
-        className="h-full overflow-hidden "
+        className="h-full overflow-hidden overflow-y-scroll rounded-[8px] mx-4"
       >
-        <Box sx={{ mt: 3 , ml:3 }}>
-          <Grid container spacing={4} display="flex" alignItems="center">
-            <Grid item xs>
-              <Typography variant="h5">Overview Calender</Typography>
-            </Grid>
-
-            <Grid item display="flex" alignItems="center">
-              <Box sx={{ ml: 2 }}>
-                <button className="  items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700">
-                  Create New Projet
+        <div className="flex flex-col  rounded-t-[15px]">
+          <div className="p-2 md:py-2 md:px-6">
+            <div className="flex items-center justify-between md:w-full py-8 md:p-4">
+              <div className="">
+                <h1 className=" text-neutral-500 text-[18px] leading-[26.04px] md:text-[25px] font-[500] md:leading-[39.06px]">
+                  Project Dashboard
+                </h1>
+              </div>
+              <div className="flex flex-row items-center justify-center gap-3">
+                <button className="text-[13px] font-[500] leading-[32.5px] bg-[#3767B1] rounded-[5px] py-[5px] px-[15px]">
+                  Create New
                 </button>
-                <Tooltip title="info" placement="top">
-                  <IconButton disableRipple variant="navIcon" sx={{ mr: 0 }}>
-                    <InfoOutlinedIcon fontSize="small" />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-            </Grid>
-          </Grid>
-        </Box>
-
-        <div className="md:px-24 py-4">
-      <Calendar defaultView="month" onChange={onChange} value={value} />
-    </div>
-
-        <div>
-          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar  views={['day']} slotProps={{ textField: { size: "big" } }} />
-          </LocalizationProvider> */}
-
-
+                <div className="bg-[#0D0D0D] p-[8px] rounded-[5px]">
+                  {" "}
+                  <InfoOutlinedIcon sx={{ color: "#ffffff" }} />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div
-          className="h-full"
-          style={{ overflowY: "auto", paddingRight: "1px" }}
-        >
+        <div className="mx-5" style={{ paddingRight: "1px" }}>
           <Grid container justifyContent="center" height="100%">
-            <Grid item xs={11}>
+            <Grid item xs={12}>
               <Box mb={4}>
                 <Card elevation={0}>
                   <CardContent>
@@ -498,18 +483,15 @@ const OverTime = () => {
                         action="/hr/rules"
                         method="post"
                       >
-                        <Typography>Task OverView This month</Typography>
+                        <div className=" border-l-4 border-[#3767B1] ml-[-16px] pl-[16px] w-full text-[18px] md:text-[18px] md:font-[500] md:leading-[32.55px]">
+                          Task Overview This Month
+                        </div>
                         <Grid container spacing={2}>
                           <Grid item xs={12} md={6}>
                             <div className="mt-[20px]">
-                              <Typography
-                                variant="subtitle1"
-                                component="p"
-                                mb={1}
-                                mx={1}
-                              >
-                                Form
-                              </Typography>
+                              <div className="text-[#BDBDBD] mx-3 mb-1 text-[14px] font-[500] leading-[26.04px]">
+                                From
+                              </div>
                             </div>
 
                             <Input
@@ -521,14 +503,11 @@ const OverTime = () => {
                           </Grid>
                           <Grid item xs={12} md={6}>
                             <div className="mt-[20px]">
-                              <Typography
-                                variant="subtitle1"
-                                component="p"
-                                mb={1}
-                                mx={1}
-                              >
-                                to
-                              </Typography>
+                              <div className="mt-[20px]">
+                                <div className="text-[#BDBDBD] mx-3 mb-1 text-[14px] font-[500] leading-[26.04px]">
+                                  To
+                                </div>
+                              </div>
                             </div>
 
                             <Input
@@ -540,14 +519,13 @@ const OverTime = () => {
                           </Grid>
 
                           <Grid item xs={12} md={12}>
-                            <Typography
-                              variant="subtitle1"
-                              component="p"
-                              mb={1}
-                              mx={1}
-                            >
-                              Assigned Team{" "}
-                            </Typography>
+                            <div className="">
+                              <div className="mt-[]">
+                                <div className="text-[#BDBDBD] mx-3 mb-1 text-[14px] font-[500] leading-[26.04px]">
+                                  Project Priority
+                                </div>
+                              </div>
+                            </div>
                             <Select
                               name="priority"
                               fullWidth
@@ -566,13 +544,29 @@ const OverTime = () => {
                               type="submit"
                               variant="contained"
                               disabled={loader}
-                              sx={{ float: "right", my: 4 }}
+                              sx={{
+                                float: "right",
+                                my: 4,
+                                backgroundColor: "#3767B1",
+                                paddingX: 5,
+                              }}
                             >
                               Search
                             </Button>
                           )}
                         </Submit>
                       </Form>
+                      <div className="md:px-24 mt-[100px] py-4">
+                        <Calendar
+                          style={{
+                            textDecoration: "none",
+                            WebkitTextDecoration: "none",
+                          }}
+                          defaultView="month"
+                          onChange={onChange}
+                          value={value}
+                        />
+                      </div>
                     </Box>
                   </CardContent>
                 </Card>
@@ -580,6 +574,13 @@ const OverTime = () => {
             </Grid>
           </Grid>
         </div>
+
+        <div>
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateCalendar  views={['day']} slotProps={{ textField: { size: "big" } }} />
+          </LocalizationProvider> */}
+        </div>
+
         <style jsx>{`
           .h-full::-webkit-scrollbar {
             display: none;
