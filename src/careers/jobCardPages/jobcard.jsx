@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faWallet, faBriefcase, faLocationDot, faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 import './jobCard.css';
-// import JobRole from '../jobRolepages/jobRole';
+import JobRole from '../jobRolepages/jobRole';
 import { Link } from 'react-router-dom';
 
 const JobCard = ({jobs,index}) => {
-  const [show, setShow] = useState(null);
+  const [show, setShow] = useState(false);
   const handleLinkClick = () => {
     window.scrollTo(0, 0);
   };
@@ -61,20 +61,18 @@ const JobCard = ({jobs,index}) => {
 
 
           <div className="row7 col-span-1 text-xs flex items-center justify-between sm:justify-center md:justify-center gap-2 lg:w-full">
-            <p className="text-xs dark:text-zinc-300 text-black" onClick={() => setShow(show === index ? null : index)}>
+            <p className="text-xs dark:text-zinc-300 text-black" onClick={() => setShow(!show)}>
               Show Details <FontAwesomeIcon icon={faChevronDown} />
             </p>
-            <Link to={`/apply-for-job/${jobs._id}`} onClick={handleLinkClick}>
+            <Link to={`/career/job/${jobs._id}`} onClick={handleLinkClick}>
               <button className="text-white dark:text-white border border-black-500 px-6 py-2 rounded-md bg-blue-500">
                 Apply Now
               </button>
             </Link>
           </div>
-          {/* {show ===  index?
-            <div className="row8 col-span-2 md:col-span-2 lg:col-span-7 px-5 py-5 pt-4 text-sm">
-              <JobRole _id={jobs._id}/>
-            </div>
-            : null} */}
+          {show && <div className="row8 col-span-2 md:col-span-2 lg:col-span-7 px-5 py-5 pt-4 text-sm">
+              <JobRole jobs={jobs} _id={jobs._id}/>
+            </div>}
         </div>
     </div>
   );
