@@ -36,9 +36,9 @@ function Dashboard() {
   const [overview, setOverview] = useState([]);
   const fetchOverview = useCallback(async () => {
     try {
-      const response = await axios.get(`/hr/projects`);
-      console.log(response);
-      setOverview(response.data.projects);
+      const response = await axios.get(`hr/projects/dashbaord`);
+      console.log(response.data.overview.projects);
+      setOverview(response.data.overview.projects);
     } catch (e) {
       console.log(e);
     }
@@ -88,7 +88,7 @@ function Dashboard() {
       title: "Total Projects",
       value: (
         <div className="text-[#3767B1] text-[25px] font-[700] leading-[32.55px] md:text-[28px] md:font-[700] md:leading-[47.57px]">
-          {totalProjects ? totalProjects : "150"}
+          {totalProjects ? totalProjects : "0"}
         </div>
       ),
       description: "124 for last month",
@@ -99,7 +99,7 @@ function Dashboard() {
       title: "Completed Projects",
       value: (
         <div className="text-[#42B824] text-[25px] font-[700] leading-[32.55px] md:text-[28px] md:font-[700] md:leading-[47.57px]">
-          {completedProjects ? completedProjects : "50"}
+          {completedProjects ? completedProjects : "0"}
         </div>
       ),
       description: "124 for last month,",
@@ -110,7 +110,7 @@ function Dashboard() {
       title: "Ongoing Projects",
       value: (
         <div className="text-[#50E3C2] text-[25px] font-[700] leading-[32.55px] md:text-[28px] md:font-[700] md:leading-[47.57px]">
-          {ongoingProjects ? ongoingProjects : "75"}
+          {ongoingProjects ? ongoingProjects : "0"}
         </div>
       ),
       description: "124 for last month,",
@@ -134,7 +134,7 @@ function Dashboard() {
       title: "Pending Projects",
       value: (
         <div className="text-[#FF9B05] text-[25px] font-[700] leading-[32.55px] md:text-[28px] md:font-[700] md:leading-[47.57px]">
-          {pendingProjects ? pendingProjects : "25"}
+          {pendingProjects ? pendingProjects : "0"}
         </div>
       ),
       description: "124 for last month",
@@ -259,12 +259,15 @@ function Dashboard() {
               </h1>
             </div>
             <div className="flex flex-row items-center justify-center gap-3">
-              <button className="text-[13px] font-[500] leading-[32.5px] bg-[#3767B1] rounded-[5px] py-[5px] px-[15px]">
-                Create New
-              </button>
-              <div className="bg-[#0D0D0D] p-[8px] rounded-[5px]">
+              {/* <button className="text-[13px] font-[500] leading-[32.5px]  rounded-[5px] py-[5px] px-[15px]">
+               
+              </button> */}
+
+              <Button variant="contained" > Create New</Button>
+
+              <div className=" p-[8px] rounded-[5px]">
                 {" "}
-                <InfoOutlinedIcon sx={{ color: "#ffffff" }} />
+                <InfoOutlinedIcon  />
               </div>
             </div>
           </div>

@@ -143,6 +143,7 @@ const AddPayrollPage = () => {
       from: "",
       to: "",
       status: "",
+      assignedTo: "", // Reset assignedTo field
     });
     setText(""); // Reset the text state
   };
@@ -393,14 +394,21 @@ const AddPayrollPage = () => {
                             >
                               Assigned Team
                             </Typography>
-                            <TextField
+                         
+                            <Select
                               name="assignedTeam"
                               fullWidth
+                              variant="outlined"
                               size="small"
-                              placeholder="Enter assigned team"
                               onChange={handleChangeQuery}
                               value={values.assignedTeam}
-                            />
+                            >
+                              {departments.map((department) => (
+                                <MenuItem key={department._id} value={department._id}>
+                                  {department.name}
+                                </MenuItem>
+                              ))}
+                            </Select>
                           </Grid>
                           <Grid item xs={12} md={6}>
                             <Typography

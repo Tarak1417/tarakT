@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Box, Grid, IconButton } from "@mui/material";
+import React, { useState  , useCallback , useEffect } from "react";
+import { Box, Grid, IconButton , Button } from "@mui/material";
+import axios from "axios";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
@@ -259,32 +260,38 @@ const ProjectList = () => {
     }
   };
 
-  const avatarData = [
-    {
-      alt: "Remy Sharp",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s",
-    },
-    {
-      alt: "Remy Sharp",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s",
-    },
-    {
-      alt: "Remy Sharp",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s",
-    },
-    {
-      alt: "Remy Sharp",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s",
-    },
-    {
-      alt: "Remy Sharp",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s",
-    },
-    {
-      alt: "Remy Sharp",
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s",
-    },
-  ];
+  const [overview, setOverview] = useState([]);
+  const fetchOverview = useCallback(async () => {
+    try {
+      const response = await axios.get(`hr/projects/dashbaord`);
+      console.log(response.data.overview.projects);
+      setOverview(response.data.overview.projects);
+    } catch (e) {
+      console.log(e);
+    }
+  }, [setOverview]);
+
+  useEffect(() => {
+    fetchOverview();
+  }, [fetchOverview]);
+  console.log(overview);
+
+  const countProjectsByStatus = (status) => {
+    return overview && overview.length >1  && overview?.filter((project) => project.status === status).length;
+  };
+
+  const totalProjects =  overview ? overview.length : 0 ;
+  const completedProjects = countProjectsByStatus('Completed');
+  const ongoingProjects = countProjectsByStatus('Ongoing');
+  const pendingProjects = countProjectsByStatus('Pending');
+
+  console.log(
+    "totalProjects0",
+    totalProjects,
+    completedProjects,
+    ongoingProjects,
+    pendingProjects
+  );
 
   const Months = {
     1: "January",
@@ -330,12 +337,12 @@ const ProjectList = () => {
               </h1>
             </div>
             <div className="flex flex-row items-center justify-center gap-3">
-              <button className="text-[13px] font-[500] leading-[32.5px] bg-[#3767B1] rounded-[5px] py-[5px] px-[15px]">
-                Create New Project
-              </button>
-              <div className="bg-[#0D0D0D] p-[8px] rounded-[5px]">
+            <Button variant="contained" > Create New Project</Button>
+
+              
+              <div className=" p-[8px] rounded-[5px]">
                 {" "}
-                <InfoOutlinedIcon sx={{ color: "#ffffff" }} />
+                <InfoOutlinedIcon  />
               </div>
             </div>
           </div>
@@ -356,7 +363,7 @@ const ProjectList = () => {
               <div className="flex flex-col md:flex-row items-center justify-between   w-full ">
                 <div className="flex flex-col justify-center items-center gap-2">
                   <div className="w-[50px] h-[45px] flex justify-center items-center rounded-[5px] bg-[#3767B133] text-[#3767B1] md:text-[18px] md:font-[700] md:leading-[26px] ">
-                    150
+                   {totalProjects ? totalProjects :"0"}
                   </div>
                   <p className="text-[16px] text-gray-400 text-center">
                     Total Projects
@@ -364,7 +371,7 @@ const ProjectList = () => {
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
                   <div className="w-[50px] h-[45px] flex justify-center items-center rounded-[5px] bg-[#42B82433] text-[#42B824]  md:text-[18px] md:font-[700] md:leading-[26px] ">
-                    50
+                  {completedProjects ? completedProjects : '0'}
                   </div>
                   <p className="text-[16px] text-gray-400 text-center">
                     Completed Projects
@@ -372,7 +379,7 @@ const ProjectList = () => {
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
                   <div className="w-[50px] h-[45px] flex justify-center items-center rounded-[5px] bg-[#FF9B0533] text-[#FF9B05]  md:text-[18px] md:font-[700] md:leading-[26px] ">
-                    15
+                   {pendingProjects ? pendingProjects : '0'}
                   </div>
                   <p className="text-[16px] text-gray-400 text-center">
                     Pending Projects
@@ -380,7 +387,7 @@ const ProjectList = () => {
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
                   <div className="w-[50px] h-[45px] flex justify-center items-center rounded-[5px] bg-[#50E3C233] text-[#50E3C2]  md:text-[18px] md:font-[700] md:leading-[26px] ">
-                    30
+                    {ongoingProjects ? ongoingProjects : "0"}
                   </div>
                   <p className="text-[16px] text-gray-400 text-center">
                     Ongoing Projects
@@ -388,20 +395,13 @@ const ProjectList = () => {
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
                   <div className="w-[50px] h-[45px] flex justify-center items-center rounded-[5px] bg-[#D4060633] text-[#D40606]  md:text-[18px] md:font-[700] md:leading-[26px] ">
-                    2
+                    0
                   </div>
                   <p className="text-[16px] text-gray-400 text-center">
                     Canceled Projects
                   </p>
                 </div>
-                <div className="flex flex-col justify-center items-center gap-2">
-                  <div className="w-[50px] h-[45px] flex justify-center items-center rounded-[5px] bg-[#FF3D3D33] text-[#FF3D3D] md:text-[18px] md:font-[700] md:leading-[26px] ">
-                    3
-                  </div>
-                  <p className="text-[16px] text-gray-400 text-center">
-                    Not Started Projects
-                  </p>
-                </div>
+                
               </div>
             </Grid>
           </div>
@@ -537,20 +537,20 @@ const ProjectList = () => {
               Action
             </div>
           </Grid>
-          {userData.map((user, index) => (
+          {overview.map((user, index) => (
             <Grid
               key={index}
               className="flex flex-row border-b border-zinc-500"
               currentScreen={currentScreen}
             >
               <div className="w-auto min-w-[50px] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center md:text-[13px] md:font-[500] md:leading-[19.53px]">
-                {user.Id}
+                {index}
               </div>
               <div className="w-auto min-w-[150px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center md:text-[13px] md:font-[500] md:leading-[19.53px]">
-                {user.Project}
+                {user.title}
               </div>
               <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center md:text-[13px] md:font-[500] md:leading-[19.53px]">
-                {user.Client}
+                Clinet
               </div>
               <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center md:text-[13px] md:font-[500] md:leading-[19.53px]">
                 <div style={{ display: "flex", flexDirection: "row" }}>
@@ -578,10 +578,11 @@ const ProjectList = () => {
                 </div>
               </div>
               <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-left text-sm md:text-xs flex items-center  md:text-[13px] md:font-[500] md:leading-[19.53px]">
-                {user.clockIn}
+              {user?.startDate?.substring(0, 10)}
               </div>
               <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center  md:text-[13px] md:font-[500] md:leading-[19.53px]">
-                {user.clockOut}
+                {user?.endDate?.substring(0, 10)}
+
               </div>
               <div className="w-auto min-w-[100px] md:w-[14.6%] p-2 border-r border-b md:border-b-0 border-zinc-500 text-sm md:text-xs flex items-center  md:text-[13px] md:font-[500] md:leading-[19.53px]">
                 <div className="h-2 flex justify-between w-full">

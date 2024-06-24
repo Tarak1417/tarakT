@@ -21,6 +21,12 @@ import Banner from './banner';
 const Home = () => {
   const [jobs, setJobs] = useState([]);
 
+
+   useEffect(()=>{
+  
+   },[])
+
+
     async function fetchJobs() {
         try {
             const response = await axios.get(`http://localhost:8000/open/job-listing/?sortBy=orderr`);
