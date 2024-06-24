@@ -154,7 +154,7 @@ const Newsidebar = () => {
         sx={{ backgroundColor: { sm: "background.view" } }}
         className={` ${
           sharedData.name ? "block" : "hidden"
-        } w-full h-full md:w-[70vw] relative  md:mb-4 `}
+        } w-full h-full md:w-[70vw] relative md:block  md:mb-4 `}
       >
         <Newchatsection sharedData={sharedData} setSharedData={setSharedData} />
       </Box>
