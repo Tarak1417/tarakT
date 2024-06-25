@@ -1,27 +1,52 @@
 import { Divider } from "@mui/material";
-import React from "react";
-import { Link, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faWallet, faBriefcase, faLocationDot, faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 import FooterBlock from "./footer";
+import axios from "axios";
 
-const Jobs  = () => {
+const Jobs = () => {
     const navigate = useNavigate();
-    const handleApply = () => {
-        navigate("/career/apply-for-job/123456", { state: { role: "Front End Developer" } });
+    const params = useParams();
+    console.log(params.id);
+
+    const [jobs, setJobs] = useState([]);
+
+    async function fetchJobs() {
+        try {
+         //   const response = await axios.get(`/open/job-listing/?${params.id}`);
+        // http://localhost:8000/open/job-listing/6671e61dc628f5874ee647c8
+            const response = await axios.get(`/open/job-listing/${params.id}`);
+
+            console.log(response.data.job)
+            const jobs = response.data.job;
+            console.log(jobs);
+            setJobs(jobs);
+        } catch (e) {
+            console.error('Error fetching jobs:', e);
+        }
     }
+
+    useEffect(() => {
+        fetchJobs();
+    }, [params.id]);
+
+    const handleApply = () => {
+        navigate(`/career/apply-for-job/${jobs._id}`, { state: { role: jobs.department } });
+    };
 
     return (
         <div className="flex flex-col h-screen mx-8 md:mx-16 lg:mx-24 xl:mx-32 gap-4 dark:text-zinc-500">
             <Link to="/">
                 <button className="dark:text-white text-zinc-500 text-lg font-bold"><FontAwesomeIcon icon={faArrowLeft} /> Back</button>
             </Link>
-            <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4">Front End Developer</h1>
+            <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4">{jobs? jobs?.department : ""}</h1>
             <div className="flex flex-col dark:text-zinc-400 md:flex-row gap-8 mt-5">
-                <div className="flex items-center"><FontAwesomeIcon icon={faWallet} /> <span className="ml-2">30,000 Cad</span></div>
-                <div className="flex items-center"><FontAwesomeIcon icon={faBriefcase} /> <span className="ml-2">1 years</span></div>
-                <div className="flex items-center"><FontAwesomeIcon icon={faLocationDot} /> <span className="ml-2">Remote</span></div>
-                <div className="flex items-center"><FontAwesomeIcon icon={faLayerGroup} /> <span className="ml-2">Development</span></div>
+                <div className="flex items-center"><FontAwesomeIcon icon={faWallet} /> <span className="ml-2">{ jobs &&  (jobs.salary?.amount)} {jobs.salary?.currency && (jobs.salary?.currency)   }   </span></div>
+                <div className="flex items-center"><FontAwesomeIcon icon={faBriefcase} /> <span className="ml-2">{jobs && jobs.experience                } years</span></div>
+                <div className="flex items-center"><FontAwesomeIcon icon={faLocationDot} /> <span className="ml-2">{ jobs && jobs.jobType                }</span></div>
+                <div className="flex items-center"><FontAwesomeIcon icon={faLayerGroup} /> <span className="ml-2">{ jobs && jobs.title}</span></div>
             </div>
             <Divider />
             <section className="mb-8">
