@@ -41,7 +41,7 @@ const AuthorizationProvider = ({ children }) => {
 
         } else {
             try {
-                const response = await axios.post(`/hr/subscription/check`, { userId: userId });
+                const response = await axios.post(`/user/subscription/check`, { userId: userId });
                 let data = response.data;
                 if (data.success) {
                     await checkOrganization();
@@ -75,7 +75,7 @@ const AuthorizationProvider = ({ children }) => {
             }
 
         } else {
-            navigate("/listOrganization");
+            // navigate("/listOrganization");
         }
 
     }
@@ -91,10 +91,10 @@ const AuthorizationProvider = ({ children }) => {
                 await checkUserSubscription(user.id)
                 authorize(true, (setUser) => setUser(user));
             } else {
-                authorize(true);
+                authorize(false);
             }
         } catch (e) {
-            authorize(true);
+            authorize(false);
         }
     }
 
@@ -148,13 +148,13 @@ const AuthorizationProvider = ({ children }) => {
                        await createSession(user.refreshToken ,user );
                    
                 } else {
-                    authorize(true);
+                    authorize(false);
                 }
 
             } catch (err) {
                 console.log(err);
                 // handleAxiosError(err, showError);
-                authorize(true);
+                authorize(false);
             }
         })();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
