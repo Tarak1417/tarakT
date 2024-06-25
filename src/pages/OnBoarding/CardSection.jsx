@@ -134,7 +134,7 @@ const CardSection = () => {
       } else {
         // Save token and process payment
         try {
-          const response = await axios.post(`/hr/payment/subscribe`, {
+          const response = await axios.post(`/user/subscription/subscribe`, {
             name,
             email: "yogeshPawar123@gmail.com",
             paymentMethod: paymentMethod.id,
