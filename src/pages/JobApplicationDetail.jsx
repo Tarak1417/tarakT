@@ -29,6 +29,7 @@ import SendInterview from "../components/SendInterview";
 import ViewOfferLetter from "../components/ViewOfferLetter";
 import Agreements from "./Agreements";
 import ViewAgreements from "../components/ViewAgreements";
+import AddEmployeeByOffer from "../components/addEmployeeByOffer";
 
 const JobApplicationDetail = () => {
   const id = useParams().id;
@@ -472,7 +473,7 @@ const JobApplicationDetail = () => {
         }}
       >
         <>
-          <AddEmployee
+          <AddEmployeeByOffer
             closeModal={closeAddEmployee}
             userId={jobApplication.userId}
             refetch={fetchJobApplication}
