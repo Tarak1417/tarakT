@@ -5,178 +5,164 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 // import countryCodes from 'country-codes-list';
 import { toast } from "react-toastify";
-// import { useUser } from "../hooks/Autherize";
-// const myCountryCodesObject = countryCodes.customList(
-//     'countryCallingCode',
-//     '[{countryCode}] {countryNameEn}: +{countryCallingCode}'
-// );
+
 
 const ApplyForJob = () => {
 
-    const [selected, setSelected] = useState("US");
-    // const user = useUser();
+const [selected, setSelected] = useState("US");
+const [show, setShow] = useState(false);
+const jobId = useParams().id;
+const [job, setJob] = useState({});
+const [checkBox, setCheckBox] = useState(false);
+const navigate = useNavigate();
+const location = useLocation();
+const [picture, setPicture] = useState('');
+const [resume, setResume] = useState('');
+const [linkdin , setLinkdin] = useState('');
+const [twitter ,setTwitter] = useState('');
+const [exp , setExp] = useState('');
+const [mob , setmob] = useState('');
+const [jobIds , setJobId] = useState();
+const [adminId , setAdminId] = useState();
 
-    const [show, setShow] = useState(false);
-    const jobId = useParams().id;
-    const handleOpenPopUp = () => setShow(true);
-    const handleClosePopUp = () => {
-        setShow(false);
-        navigate(-1);
-    };
-    const [job, setJob] = useState({});
-    const [checkBox, setCheckBox] = useState(false);
-    const navigate = useNavigate();
-    const location = useLocation();
-    const [anchorEl, setAnchorEl] = useState(null);
-    const menuOpen = Boolean(anchorEl);
-    const handleClickMenu = (event)=> {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleCloseMenu = () => {
-        setAnchorEl(null);
-    };
-
-    const fetchJob = useCallback(async function (jobId) {
-        const res = await axios.get('http://localhost:8000/open/job-listing/' + jobId);
-        const job = res.data.job;
-        setJob(job);
-    }, []);
-
-    // const handlers = useForm(
-    //     {
-    //         // fullName: { required: true },
-    //         jobTitle: {
-    //             required: true,
-    //             validator: (v: string) =>
-    //                 /^[a-zA-Z ]+$/.test(v) ? '' : 'No numbers or Special Symbols are allowed',
-    //         },
-    //         experience: { required: true },
-    //         // email: { required: true },
-    //         countryCode: { required: true },
-    //         phone: { required: true },
-    //         linkedinAccount: {
-    //             required: false,
-    //             validator: (v: string) => (/(http:\/\/|https:\/\/)/.test(v) ? '' : 'Enter valid url'),
-    //         },
-    //         photo: { required: true },
-    //         resume: {
-    //             required: true,
-    //         },
-    //     },
-    //     {
-    //         Input: CustomInput,
-    //     }
-    // );
-
-    const handleResumeChange = (e ) => {
-        const { files } = e.target;
-        const file = files[0];
-        const isValidExtension = [
-            'PDF',
-            'DOC',
-            'DOCX',
-            'DOCS',
-            'TXT',
-            'PNG',
-            'JPEG',
-            'JPG',
-            'AVIF',
-            'WEBP',
-        ].some(ext => new RegExp(`(${ext})$`, 'gi').test(file.name));
-
-        if (!isValidExtension || file.size > 10e6)
-            return toast.error('Please provide the above mentioned file format or size');
-
-        toast.success('Resume changed successfully');
-        return file;
-    };
-
-    const handlePhotoChange = (e) => {
-        const { files } = e.target;
-        
-        if (!files || files.length === 0) {
-            toast.error('No file selected');
-            return;
-        }
-    
-        const file = files[0];
-        const isValidExtension = ['PNG', 'JPEG', 'JPG', 'AVIF', 'WEBP'].some(ext =>
-            new RegExp(`(${ext})$`, 'i').test(file.name)
-        );
-    
-        if (!isValidExtension) {
-            toast.warn('Please provide the PNG, AVIF, WEBP, JPEG, or JPG file format');
-            return;
-        }
-    
-        toast.success('Photo changed successfully');
-        return file;
-    };
-    
-
-    // const errors = handlers.errors;
-
-    const onSubmit = (res) => {
-        const { success, errors } = res.data;
-    
-        if (success) {
-            toast.success('Applied Successfully');
-            handleOpenPopUp();
-            return;
-        }
-    
-        errors.forEach((err) => toast.error(err));
-    };
-
-    function onError(err) {
-        const { errors } = err.response.data;
-
-        errors.forEach((err) => toast.error(err));
-    }
-
-    const handleCloseButton = () => {
-        handleClosePopUp();
-        navigate(-1);
-    };
-
-    useEffect(() => {
-        if (jobId) fetchJob(jobId);
-    }, [fetchJob, jobId]);
-
-    // const logout = () => {
-    //     clearCookie('accessToken');
-
-    //     // authorize(false);
-    //     const redirectTo =
-    //         env('AUTHENTICATION_CLIENT') +
-    //         '/login?redirectto=' +
-    //         encodeURIComponent(env('DOMAIN') + location.pathname + location.search);
-    //     window.location.replace(redirectTo);
-    // };
-
-    useEffect(() => {
-        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    },)
-    
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        // const formEle = document.querySelector('form')!;
-        // console.log(formEle)
-        const formData = new FormData({});
-
+useEffect(() => {
+    const url = window.location.href; // Get the current URL
+    const parts = url.split("/"); // Split the URL by "/"
+    const jobId = parts[parts.length - 1]; // Get the last part of the URL, which is the job ID
+    setJobId(jobId); 
+    async function fetchJobs() {
         try {
-            const res = await axios.post('http://localhost:3001/form', { ...formData }, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+         //   const response = await axios.get(`/open/job-listing/?${params.id}`);
+        // http://localhost:8000/open/job-listing/6671e61dc628f5874ee647c8
+            const response = await axios.get(`/open/job-listing/${jobId}`);
 
-            const data = res.data;
-            console.log(data);
+            console.log(response.data.job)
+            const jobs = response.data.job;
+            console.log(jobs);
+            setAdminId(jobs.adminId);
+        
         } catch (e) {
-            console.log(e)
+            console.error('Error fetching jobs:', e);
         }
     }
+    fetchJobs();
+   
+  }, []);
+const handleResumeChange = (e) => {
+    const { files } = e.target;
+  
+    const file = files[0];
+    const isValidExtension = [
+        'PDF', 'DOC', 'DOCX', 'DOCS', 'TXT', 'PNG', 'JPEG', 'JPG', 'AVIF', 'WEBP'
+    ].some(ext => new RegExp(`(${ext})$`, 'gi').test(file.name));
+
+    if (!isValidExtension || file.size > 10e6) {
+        toast.error('Please provide a valid file format (PDF, DOC, TXT, PNG, JPEG, etc.) and ensure it is under 10MB in size.');
+        return;
+    }
+
+    setResume(file);
+};
+
+const handlePhotoChange = (e) => {
+    const { files } = e.target;
+    if (!files || files.length === 0) {
+        toast.error('No file selected');
+        return;
+    }
+
+    const file = files[0];
+    const isValidExtension = ['PNG', 'JPEG', 'JPG', 'AVIF', 'WEBP'].some(ext =>
+        new RegExp(`(${ext})$`, 'i').test(file.name)
+    );
+
+    if (!isValidExtension) {
+        toast.warn('Please provide a valid photo file format (PNG, JPEG, JPG, AVIF, WEBP).');
+        return;
+    }
+
+    setPicture(file);
+};
+
+
+console.log(picture)
+console.log(resume)
+
+
+
+
+useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+}, []);
+
+const onSubmit = (res) => {
+    const { success, errors } = res.data;
+
+    if (success) {
+        toast.success('Applied Successfully');
+        // Optionally, redirect or perform other actions upon successful submission
+    } else {
+        errors.forEach((err) => toast.error(err));
+    }
+};
+
+const onError = (err) => {
+    const { errors } = err.response?.data || { errors: ['Something went wrong. Please try again later.'] };
+    errors.forEach((err) => toast.error(err));
+};
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+     console.log("call the func")
+    if (!picture || !resume) {
+        toast.error('Please upload both a photo and a resume.');
+        return;
+    }
+
+    if (!picture || !resume || !exp || !selected || !linkdin || !jobIds || !mob || !adminId) {
+        toast.error('Please fill out all fields.');
+        return;
+    }
+
+    if (mob.length !== 10) {
+        toast.error('Please enter a valid 10-digit phone number.');
+        return;
+    }
+    const formData = new FormData();
+    formData.append('photo', picture); // Ensure 'photo' matches backend field name
+    formData.append('resume', resume); // Ensure 'resume' matches backend field name
+    formData.append('experience', exp);
+    formData.append('countryCode', selected);
+    formData.append('linkedinAccount', linkdin);
+    formData.append('jobId', jobIds); 
+    formData.append('phone', mob);
+    formData.append('adminId', adminId);
+
+
+    try {
+        const res = await axios.post('http://localhost:8000/user/job-application', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        setPicture(null);
+        setResume(null);
+        setExp('');
+        setSelected('');
+        setLinkdin('');
+        setJobId('');
+        setmob('');
+        setAdminId('');
+
+        toast.success('Application submitted successfully.');
+        onSubmit(res);
+    } catch (e) {
+        onError(e);
+    }
+};
+
+
+
  
     return (
         <div className="flex flex-col h-screen mx-8 md:mx-16 lg:mx-24 xl:mx-32 gap-4 dark:text-zinc-500">
@@ -247,7 +233,9 @@ const ApplyForJob = () => {
                                 showOptionLabel={false}
                                 selectedSize={22}
                             />
-                            <input className="flex-1 shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-3 dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="phone" name="phone" type="text" placeholder="Enter Phone Number" required/>
+                            <input className="flex-1 shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-3 dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="phone" name="phone" type="text" placeholder="Enter Phone Number"
+                            onChange={(e)=>setmob(e.target.value)}
+                            required/>
                         </div>
                     </div>
                 </div>
@@ -258,14 +246,31 @@ const ApplyForJob = () => {
                             D.O.B
                         </label>
                         <div className="dobGrid">
-                            <select name="month" id="month" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="" disabled selected>Month</option>
+                        <select name="month" id="month" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option>Month</option>
+                                <option value="1">Jan</option>
+                                <option value="2">Feb</option>
+                                <option value="3">Mar</option>
+                                <option value="4">Apr</option>
+                                <option value="5">May</option>
+                                <option value="6">Jun</option>
+                                <option value="7">Jul</option>
+                                <option value="8">Aug</option>
+                                <option value="9">Sep</option>
+                                <option value="10">Oct</option>
+                                <option value="11">Nov</option>
+                                <option value="11">Dec</option>
                             </select>
                             <select name="day" id="day" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="" disabled selected>Day</option>
-                            </select>
+                            <option>Day</option>
+                                {Array.from({ length: 31 }, (_, i) => (
+                                    <option key={i + 1} value={i + 1}>{i + 1}</option>
+                                ))}                            </select>
                             <select name="year" id="year" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="" disabled selected>Year</option>
+                            <option>Year</option>
+                                {Array.from({ length: 50 }, (_, i) => (
+                                    <option key={i + 1960} value={i + 1960}>{i + 1960}</option>
+                                ))}
                             </select>
                         </div>
 
@@ -282,7 +287,9 @@ const ApplyForJob = () => {
                     <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="experience" >
                         Years of Experience
                     </label>
-                    <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="experience" type="number" placeholder="Enter Whole Numbers Only" required/>
+                    <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="experience" type="number" placeholder="Enter Whole Numbers Only"
+                    onChange={(e)=>setExp(e.target.value)}
+                    required/>
                 </div>
 
                 <div className="mb-6">
@@ -384,12 +391,12 @@ const ApplyForJob = () => {
                 <div className="mb-4">
                     <h3 className="mb-2 font-bold dark:text-white">Upload Picture</h3>
                     <button type="button" className="bg-sky-600 rounded text-white px-6 py-3">Upload Picture</button>
-                    <input type="file" accept="*"  required/>
+                    <input type="file" accept="*"  required  onChange={handlePhotoChange}/>
                 </div>
                 <div className="mb-4">
                     <h3 className="mb-2 font-bold dark:text-white">Resume/CV</h3>
                     <button type="button" className="bg-sky-600 rounded text-white px-6 py-3">Upload Resume/CV</button>
-                    <input type="file" accept="*"  required/>
+                    <input type="file" accept="*"   onChange={handleResumeChange}   required/>
                 </div>
                 <div className="mb-4">
                     <h3 className="mb-2 font-bold dark:text-white">Cover Letter</h3>
@@ -411,13 +418,18 @@ const ApplyForJob = () => {
                         <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="linkedin" >
                             Add the link to your Linkedin Profile
                         </label>
-                        <input className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="linkedin" type="text" placeholder="Enter Profile Link" required />
+                        <input className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="linkedin" type="text" placeholder="Enter Profile Link"
+                        onChange={(e)=>setLinkdin(e.target.value)}
+                        required />
                     </div>
                     <div className="mb-12">
                         <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="twitter" >
                             Add the link to your Twitter Profile
                         </label>
-                        <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="twitter" type="text" placeholder="Enter Profile Link" />
+                        <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="twitter" type="text" placeholder="Enter Profile Link"
+                                                onChange={(e)=>setTwitter(e.target.value)}
+
+                        />
                     </div>
                 </div>
 
