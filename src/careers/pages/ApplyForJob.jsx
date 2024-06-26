@@ -81,9 +81,9 @@ const [adminId , setAdminId] = useState();
             const responseData = await response.json();
             let { user } = responseData;
             user.refreshToken = refreshToken;
-            await createSession(refreshToken, user);
             console.log(user);
-            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("careerUser", JSON.stringify(user));
+            await createSession(refreshToken, user);
           } else {
             console.log("user not found");
             setUser(null);
@@ -172,12 +172,13 @@ const onError = (err) => {
 const handleSubmit = async (e) => {
     e.preventDefault();
      console.log("call the func")
+     
     if (!picture || !resume) {
         toast.error('Please upload both a photo and a resume.');
         return;
     }
 
-    if (!picture || !resume || !exp || !selected || !linkdin || !jobIds || !mob || !adminId) {
+    if (!picture || !resume || !exp || !selected || !linkdin || !jobId || !mob ) {
         toast.error('Please fill out all fields.');
         return;
     }
@@ -192,9 +193,8 @@ const handleSubmit = async (e) => {
     formData.append('experience', exp);
     formData.append('countryCode', selected);
     formData.append('linkedinAccount', linkdin);
-    formData.append('jobId', jobIds); 
+    formData.append('jobId', jobId); 
     formData.append('phone', mob);
-    formData.append('adminId', adminId);
 
 
     try {
