@@ -5,11 +5,13 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 // import countryCodes from 'country-codes-list';
 import { toast } from "react-toastify";
-
-
+import Loading from "../../components/Loading";
+import { env } from "../../utilities/function";
+import { setCookie } from "../../utilities/cookies";
 const ApplyForJob = () => {
 
 const [selected, setSelected] = useState("US");
+const [user, setUser] = useState({});
 const [show, setShow] = useState(false);
 const jobId = useParams().id;
 const [job, setJob] = useState({});
@@ -25,29 +27,95 @@ const [mob , setmob] = useState('');
 const [jobIds , setJobId] = useState();
 const [adminId , setAdminId] = useState();
 
-useEffect(() => {
-    const url = window.location.href; // Get the current URL
-    const parts = url.split("/"); // Split the URL by "/"
-    const jobId = parts[parts.length - 1]; // Get the last part of the URL, which is the job ID
-    setJobId(jobId); 
-    async function fetchJobs() {
-        try {
-         //   const response = await axios.get(`/open/job-listing/?${params.id}`);
-        // http://localhost:8000/open/job-listing/6671e61dc628f5874ee647c8
-            const response = await axios.get(`/open/job-listing/${jobId}`);
-
-            console.log(response.data.job)
-            const jobs = response.data.job;
-            console.log(jobs);
-            setAdminId(jobs.adminId);
-        
-        } catch (e) {
-            console.error('Error fetching jobs:', e);
-        }
-    }
-    fetchJobs();
-   
+  const fetchJob = useCallback(async function (jobId) {
+    const res = await axios.get(
+      "http://localhost:8000/open/job-listing/" + jobId
+    );
+    const job = res.data.job;
+    setJob(job);
   }, []);
+
+  const createSession = async (refreshToken, user) => {
+    try {
+      const response = await axios.post(`/open/session`, {
+        refreshToken,
+        userId: user._id,
+      });
+      let data = response.data;
+      if (data.success) {
+        setCookie("accessToken", data.token);
+        if (jobId) fetchJob(jobId);
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    } catch (e) {
+      setUser(null);
+    }
+  };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    (async () => {
+      try {
+        const queryParameters = new URLSearchParams(window.location.search);
+        const userId = queryParameters.get("userId");
+        const refreshToken = queryParameters.get("refreshToken");
+        console.log(userId);
+
+        if (userId) {
+          var formData = new FormData();
+          formData.append("id", userId);
+          const response = await fetch(
+            // "https://accounts.clikkle.com:5000/api/auth/get_user_profile",
+            // "https://api.campaigns.clikkle.com/get_user_profile",
+            "http://localhost:5000/api/auth/get_user_profile",
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
+
+          if (response.ok) {
+            console.log("user found ...");
+            const responseData = await response.json();
+            let { user } = responseData;
+            user.refreshToken = refreshToken;
+            await createSession(refreshToken, user);
+            console.log(user);
+            localStorage.setItem("user", JSON.stringify(user));
+          } else {
+            console.log("user not found");
+            setUser(null);
+          }
+        } else if (localStorage.getItem("careerUser")) {
+          let user = JSON.parse(localStorage.getItem("careerUser"));
+          await createSession(user.refreshToken ,user );
+        } else {
+          setUser(null);
+        }
+      } catch (err) {
+        console.log(err);
+        // handleAxiosError(err, showError);
+        setUser(null);
+      }
+    })();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (user == null) {
+    const redirectTo =
+      env("AUTHENTICATION_CLIENT") +
+      "/login?redirectto=" +
+      encodeURIComponent(window.location.href);
+    return (
+      <Loading
+        message="Please wait, redirecting you to Clikkle Accounts"
+        redirectTo={redirectTo}
+      />
+    );
+  }
+
+
 const handleResumeChange = (e) => {
     const { files } = e.target;
   
@@ -60,7 +128,7 @@ const handleResumeChange = (e) => {
         toast.error('Please provide a valid file format (PDF, DOC, TXT, PNG, JPEG, etc.) and ensure it is under 10MB in size.');
         return;
     }
-
+    toast.success("Resume update successfully");
     setResume(file);
 };
 
@@ -80,26 +148,16 @@ const handlePhotoChange = (e) => {
         toast.warn('Please provide a valid photo file format (PNG, JPEG, JPG, AVIF, WEBP).');
         return;
     }
-
+    toast.success("Photo update successfully");
     setPicture(file);
 };
 
-
-console.log(picture)
-console.log(resume)
-
-
-
-
-useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-}, []);
 
 const onSubmit = (res) => {
     const { success, errors } = res.data;
 
     if (success) {
-        toast.success('Applied Successfully');
+        // toast.success('Applied Successfully');
         // Optionally, redirect or perform other actions upon successful submission
     } else {
         errors.forEach((err) => toast.error(err));
@@ -161,9 +219,6 @@ const handleSubmit = async (e) => {
     }
 };
 
-
-
- 
     return (
         <div className="flex flex-col h-screen mx-8 md:mx-16 lg:mx-24 xl:mx-32 gap-4 dark:text-zinc-500">
 
