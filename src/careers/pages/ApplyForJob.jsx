@@ -4,7 +4,8 @@ import './apply-for-job.css'
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 // import countryCodes from 'country-codes-list';
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer  , toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const ApplyForJob = () => {
@@ -107,7 +108,7 @@ const onSubmit = (res) => {
 };
 
 const onError = (err) => {
-    const { errors } = err.response?.data || { errors: ['Something went wrong. Please try again later.'] };
+    const { errors } = err.response?.data || { errors: [' Youve already submitted your application. Please remain patient while its being reviewed for shortlisting'] };
     errors.forEach((err) => toast.error(err));
 };
 
@@ -158,7 +159,6 @@ const handleSubmit = async (e) => {
         onSubmit(res);
     } catch (e) {
         onError(e);
-        toast.error('Some thing.');
 
     }
 };
