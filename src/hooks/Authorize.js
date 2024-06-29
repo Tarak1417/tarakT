@@ -121,9 +121,9 @@ const AuthorizationProvider = ({ children }) => {
                     var formData = new FormData();
                     formData.append("id", userId);
                     const response = await fetch(
-                        // "https://accounts.clikkle.com:5000/api/auth/get_user_profile",
+                        "https://accounts.clikkle.com:5000/api/auth/get_user_profile",
                         // "https://api.campaigns.clikkle.com/get_user_profile",
-                        "http://localhost:5000/api/auth/get_user_profile",
+                        // "http://localhost:5000/api/auth/get_user_profile",
                         {
                             method: "POST",
                             body: formData
@@ -136,9 +136,9 @@ const AuthorizationProvider = ({ children }) => {
                         const responseData = await response.json();
                         let { user } = responseData;
                         user.refreshToken = refreshToken;
-                        await createSession(refreshToken ,user );
                         console.log(user)
                         localStorage.setItem("user", JSON.stringify(user));
+                        await createSession(refreshToken ,user );
                         // authorize(true, (setUser) => setUser(user));
                     } else {
                         console.log('user not found')
