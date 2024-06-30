@@ -3,9 +3,9 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import EditSection from './EditSections';
 
 
-const EditCards = () => {
+const EditCards = ({job}) => {
 
-
+console.log("job" , job);
     return (
         <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between md:w-full p-4">

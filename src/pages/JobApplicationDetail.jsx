@@ -237,15 +237,15 @@ const JobApplicationDetail = () => {
         <div className="flex flex-col md:flex-row p-4 items-start justify-start">
           <div className="w-full md:w-1/3 flex flex-col gap-2 p-4">
             <div className="flex justify-start md:justify-start">
-              {jobApplication.photo ? (
+              {jobApplication ? (
                 <img
-                  src={profile}
+                  src='http://localhost:3000/6630c84c2cefa9aabf43be83.png'
                   alt="Profile"
                   className=" w-[50%] md:w-full max-w-[200px] h-auto"
                 />
               ) : (
                 <img
-                src={profile}
+                src='http://localhost:3000/6630c84c2cefa9aabf43be83.png'
                 className=" w-[50%] md:w-full max-w-[200px] h-auto"
               />
               )}

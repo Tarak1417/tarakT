@@ -55,7 +55,7 @@ const JobCards = ({ currentScreen,jobs }) => {
                             <KeyboardArrowDownOutlinedIcon fontSize='medium' className="text-blue-500" />
                         </div>
                         <div className='flex flex-row gap-1 items-center justify-end md:justify-center md:ml-5'>
-                            <Link to="/joblisting/edit">
+                            <Link to="/joblisting/edit"   state={job}>
                                 <EditOutlinedIcon />
                             </Link>
                             <FilterOutlinedIcon onClick={() => handleCopy(job.id)}/>

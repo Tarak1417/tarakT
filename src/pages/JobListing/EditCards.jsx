@@ -3,8 +3,10 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import EditSection from './EditSections';
 
 
-const EditCards = () => {
+const EditCards = ({job}) => {
 
+    console.log("Edit Card is open")
+    console.log(job)
 
     return (
         <div className="flex flex-col gap-4">
@@ -19,7 +21,7 @@ const EditCards = () => {
                     <InfoOutlinedIcon />
                 </div>
             </div>
-            <EditSection/>
+            <EditSection job={job}/>
                 
                       
         </div>
