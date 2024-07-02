@@ -38,9 +38,9 @@ const Jobs = () => {
 
     return (
         <div className="flex flex-col h-screen mx-8 md:mx-16 lg:mx-24 xl:mx-32 gap-4 dark:text-zinc-500">
-            <Link to="/">
+            <div  onClick={() => navigate(-1)}>
                 <button className="dark:text-white text-zinc-500 text-lg font-bold"><FontAwesomeIcon icon={faArrowLeft} /> Back</button>
-            </Link>
+            </div>
             <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4">{jobs? jobs?.department : ""}</h1>
             <div className="flex flex-col dark:text-zinc-400 md:flex-row gap-8 mt-5">
                 <div className="flex items-center"><FontAwesomeIcon icon={faWallet} /> <span className="ml-2">{ jobs &&  (jobs.salary?.amount)} {jobs.salary?.currency && (jobs.salary?.currency)   }   </span></div>

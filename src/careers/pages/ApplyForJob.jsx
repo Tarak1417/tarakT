@@ -29,9 +29,7 @@ const [jobIds , setJobId] = useState();
 const [adminId , setAdminId] = useState();
 
   const fetchJob = useCallback(async function (jobId) {
-    const res = await axios.get(
-      "http://localhost:8000/open/job-listing/" + jobId
-    );
+    const res = await axios.get("/open/job-listing/" + jobId);
     const job = res.data.job;
     setJob(job);
   }, []);
@@ -68,9 +66,9 @@ const [adminId , setAdminId] = useState();
           var formData = new FormData();
           formData.append("id", userId);
           const response = await fetch(
-            // "https://accounts.clikkle.com:5000/api/auth/get_user_profile",
+            "https://accounts.clikkle.com:5000/api/auth/get_user_profile",
             // "https://api.campaigns.clikkle.com/get_user_profile",
-            "http://localhost:5000/api/auth/get_user_profile",
+            // "http://localhost:5000/api/auth/get_user_profile",
             {
               method: "POST",
               body: formData,
@@ -230,16 +228,16 @@ const handleSubmit = async (e) => {
 <nav className="flex mt-6" aria-label="Breadcrumb">
     <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
         <li className="inline-flex items-center">
-            <Link to="/" className="inline-flex items-center px-1 text-sm font-medium text-blue-600 dark:text-gray-400 dark:hover:text-white">
+            <div className="inline-flex items-center px-1 text-sm font-medium text-blue-600 dark:text-gray-400 dark:hover:text-white">
                 Career
-            </Link>
+            </div>
         </li>
         <li>
             <div className="flex items-center">
                 <svg className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
                 </svg>
-                <span onClick={() => navigate(-1)} className="ms-1 text-sm font-medium cursor-pointer text-blue-600 md:ms-2 px-1 dark:text-gray-400 dark:hover:text-white">{job?.title}</span>
+                <span onClick={() => navigate(`/career/job/${jobId}`)} className="ms-1 text-sm font-medium cursor-pointer text-blue-600 md:ms-2 px-1 dark:text-gray-400 dark:hover:text-white">{job?.title}</span>
             </div>
         </li>
         <li aria-current="page">
@@ -346,7 +344,7 @@ const handleSubmit = async (e) => {
     </div>
      */}
 
-<div className="mb-4 w-full">
+        <div className="mb-4 w-full">
             <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="phone" >
                 Phone Number
             </label>
@@ -454,13 +452,13 @@ const handleSubmit = async (e) => {
     <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4 mb-6">Upload Documents</h1>
 
     <div className="mb-4">
-        <h3 className="mb-2 font-bold dark:text-white">Upload Picture</h3>
-        <button type="button" className="bg-sky-600 rounded text-white px-6 py-3">Upload Picture</button>
+        <h3 className="mb-2 mr font-bold dark:text-white">Upload Picture</h3>
+        <button type="button" className="bg-sky-600 rounded text-white px-6 py-3 mr-2">Upload Picture</button>
         <input type="file" accept="*"  required  onChange={handlePhotoChange}/>
     </div>
     <div className="mb-4">
         <h3 className="mb-2 font-bold dark:text-white">Resume/CV</h3>
-        <button type="button" className="bg-sky-600 rounded text-white px-6 py-3">Upload Resume/CV</button>
+        <button type="button" className="bg-sky-600 rounded text-white px-6 py-3 mr-2">Upload Resume/CV</button>
         <input type="file" accept="*"   onChange={handleResumeChange}   required/>
     </div>
     {/* <div className="mb-4">

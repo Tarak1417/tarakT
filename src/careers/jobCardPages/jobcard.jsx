@@ -34,7 +34,7 @@ const JobCard = ({jobs,index}) => {
         <div className="main rounded-md border border-zinc-300 shadow-lg hover:border-blue-500 hover:translate-y-1 hover:scale-103 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 mt-2 lg:p-0 p-4">
 
           <div className="row2 col-span-1 md:col-span-1 lg:col-span-1 text-left items-start lg:w-5/6">
-          <Link to={'/portalPage'} onClick={handleLinkClick}>
+          <Link to={`/career/job/${jobs._id}` } onClick={handleLinkClick}>
             <h1 className="text-md font-semibold text-black px-2 py-4 dark:text-zinc-200">
               {jobs.title}
             </h1>

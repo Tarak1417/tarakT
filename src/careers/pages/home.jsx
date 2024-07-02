@@ -37,7 +37,7 @@ const Home = () => {
 
   async function fetchOrganization(name) {
     try {
-      const response = await axios.get(`http://localhost:8000/open/org-info?name=${name}`);
+      const response = await axios.get(`/open/org-info?name=${name}`);
       const organization = response.data.organization;
       console.log('organization', organization._id);
       setOrgId(organization._id);
@@ -51,7 +51,7 @@ const Home = () => {
     if (!orgId) return; // Ensure orgId is set before making the request
 
     try {
-      const response = await axios.get(`http://localhost:8000/open/job-listing?adminId=${orgId}`);
+      const response = await axios.get(`/open/job-listing?adminId=${orgId}`);
       console.log(response);
       const jobs = response.data.jobs;
       console.log(jobs);
