@@ -82,10 +82,10 @@ const AuthorizationProvider = ({ children }) => {
                 await checkUserSubscription(user.id)
                 authorize(true, (setUser) => setUser(user));
             } else {
-                authorize(false);
+                authorize(true);
             }
         } catch (e) {
-            authorize(false);
+            authorize(true);
         }
     }
 
@@ -139,13 +139,13 @@ const AuthorizationProvider = ({ children }) => {
                        await createSession(user.refreshToken ,user );
                    
                 } else {
-                    authorize(false);
+                    authorize(true);
                 }
 
             } catch (err) {
                 console.log(err);
                 // handleAxiosError(err, showError);
-                authorize(false);
+                authorize(true);
             }
         })();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
