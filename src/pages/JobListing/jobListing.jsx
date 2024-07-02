@@ -79,6 +79,18 @@ const JobListing = () => {
         setSelectedJob({ id });
     };
 
+    const goToCareerPage = () => {
+        let currentOrg = localStorage.getItem("org");
+        if (currentOrg) {
+          currentOrg = JSON.parse(currentOrg);
+          let  careerPage  = '/career/'+currentOrg.name
+          window.open(careerPage, '_blank', 'noopener,noreferrer')
+        //   navigate(careerPage);
+        }
+       
+    };
+
+
     const saveOrder = async () => {
         setLoading(true);
         const newOrder = getOrders(jobs);
@@ -153,7 +165,7 @@ const JobListing = () => {
         <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between md:w-full p-4">
                 <div className="p-2">
-                    <h1 className="text-2xl text-neutral-500">Job Listing</h1>
+                    <h1 className="text-2xl text-neutral-500" onClick={goToCareerPage} >Job Listing</h1>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
                     <Button variant="contained" onClick={openModal}>Add Job</Button>

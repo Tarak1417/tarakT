@@ -34,12 +34,6 @@ const AuthorizationProvider = ({ children }) => {
     };
 
     const checkUserSubscription = async (userId) => {
-
-        let selectedOrg = localStorage.getItem("org");
-        if (selectedOrg) {
-
-
-        } else {
             try {
                 const response = await axios.post(`/user/subscription/check`, { userId: userId });
                 let data = response.data;
@@ -48,13 +42,10 @@ const AuthorizationProvider = ({ children }) => {
                 } else {
                     navigate("/walkover");
                 }
-
             } catch (e) {
                 console.log("subscription/check Error:", e);
                 navigate("/walkover");
             }
-        }
-
     }
 
     const checkOrganization = async () => {

@@ -60,8 +60,6 @@ const ListOrganization = () => {
   }
 
   async function handleSelect(org) {
-    localStorage.setItem("org", JSON.stringify(org));
-          navigate("/");
     if (org.status) {
       try {
         const response = await axios.post(`/hr/organization/select`, {
