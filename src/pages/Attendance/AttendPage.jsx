@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { Box, Grid, IconButton } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -6,9 +6,17 @@ import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import view from '../ReceivedApp/viewicon.png';
+import axios from 'axios';
 
 const AttendPage = () => {
-
+ 
+    const [data , setDate] =  useState({
+        employeeId:"",
+        month: new Date().getMonth()+1,
+        year :  new Date().getFullYear(),
+        date : new Date().getDate()
+    })
+    const [ attendance , setAttendance ] = useState([]);
     const [currentScreen, setCurrentScreen] = useState(1);
 
     const handlePrevScreen = () => {
@@ -18,7 +26,6 @@ const AttendPage = () => {
     };
 
     const handleNextScreen = () => {
-        
         if (currentScreen < 2) {
             setCurrentScreen(currentScreen + 1);
         }
@@ -75,6 +82,23 @@ const AttendPage = () => {
                 return { width: '100%', backgroundColor: '#6B7280' }; 
         }
     };
+
+    const fetchAttendance =  useCallback(async function () {
+         try {
+            if( data.year && data.month){
+                const res = await axios.get(`/hr/attendance?year=${data.year}&month=${data.month}`);
+                setAttendance(res.data.attendance);
+            }
+         } catch (error) {
+            
+         }
+      
+      }, [])
+
+
+    useEffect(()=>{
+        fetchAttendance();
+    },[fetchAttendance])
     
     
     return (
@@ -211,7 +235,7 @@ const AttendPage = () => {
                             Action
                         </div>
                     </Grid>
-                    {userData.map((user, index) => (
+                    {attendance.map((user, index) => (
                         <Grid key={index} className='flex flex-row border-b border-zinc-500' currentScreen={currentScreen}>
                             <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center'>
                                 {user.date}
