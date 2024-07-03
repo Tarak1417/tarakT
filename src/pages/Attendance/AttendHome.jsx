@@ -248,6 +248,7 @@ const AttendHome = () => {
             ) }
 
             {attendanceDetail && metrics ? (
+                 <AttendPage metrics={metrics} attendance={attendanceDetail} />
                 // <>
                 //     <Grid container spacing={2}>
                 //         <Grid item xs={12}>
@@ -322,7 +323,7 @@ const AttendHome = () => {
                 //     <AttendanceByUserTable attendanceDetail={attendanceDetail} />
                 // </>
 
-                <AttendPage />
+               
             ) : (
                 <Box
                     display='flex'

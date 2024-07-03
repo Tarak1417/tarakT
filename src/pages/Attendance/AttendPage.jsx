@@ -3,12 +3,17 @@ import { Box, Grid, IconButton } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import view from '../ReceivedApp/viewicon.png';
 import axios from 'axios';
 
-const AttendPage = () => {
+const AttendPage = ( {metrics =  {
+    "Late": 0,
+    "Absent": 0,
+    "Holiday": 0
+}   , attendance  = []}) => {
  
     const [data , setDate] =  useState({
         employeeId:"",
@@ -16,7 +21,7 @@ const AttendPage = () => {
         year :  new Date().getFullYear(),
         date : new Date().getDate()
     })
-    const [ attendance , setAttendance ] = useState([]);
+    // const [ attendance , setAttendance ] = useState([]);
     const [currentScreen, setCurrentScreen] = useState(1);
 
     const handlePrevScreen = () => {
@@ -87,7 +92,7 @@ const AttendPage = () => {
          try {
             if( data.year && data.month){
                 const res = await axios.get(`/hr/attendance?year=${data.year}&month=${data.month}`);
-                setAttendance(res.data.attendance);
+                // setAttendance(res.data.attendance);
             }
          } catch (error) {
             
@@ -97,8 +102,22 @@ const AttendPage = () => {
 
 
     useEffect(()=>{
-        fetchAttendance();
+        // fetchAttendance();
     },[fetchAttendance])
+
+
+    const getNameDay = (date) => {
+      const dateObj = new Date(date);
+      const dayName = dateObj.toLocaleDateString("en-US", { weekday: "long" });
+      return dayName;
+    };
+
+    const getTime = (date) => {
+        if(!date) return 'N/A'
+      const dateObj = new Date(date);
+      const time = dateObj.toLocaleTimeString("en-US", { hour12: false });
+      return time;
+    };
     
     
     return (
@@ -123,19 +142,19 @@ const AttendPage = () => {
                         <p className='text-[16px] text-gray-400'>Total Working Days</p>
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2'>
-                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-green-950 text-[16px] text-green-500'>20</div>
+                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-green-950 text-[16px] text-green-500'>{attendance?.length ?? 0}</div>
                         <p className='text-[16px] text-gray-400'>Present Days</p>
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2'>
-                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-amber-950 text-[16px] text-amber-500'>3</div>
+                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-amber-950 text-[16px] text-amber-500'>{metrics.Absent}</div>
                         <p className='text-[16px] text-gray-400'>Absent Days</p>
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2'>
-                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-teal-950 text-[16px] text-teal-500'>0</div>
+                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-teal-950 text-[16px] text-teal-500'>{metrics.Holiday}</div>
                         <p className='text-[16px] text-gray-400'>Half Days</p>
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2'>
-                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-red-950 text-[16px] text-red-500'>5</div>
+                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-red-950 text-[16px] text-red-500'>{metrics.Late}</div>
                         <p className='text-[16px] text-gray-400'>Late Days</p>
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2'>
@@ -238,10 +257,11 @@ const AttendPage = () => {
                     {attendance.map((user, index) => (
                         <Grid key={index} className='flex flex-row border-b border-zinc-500' currentScreen={currentScreen}>
                             <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center'>
-                                {user.date}
+                            {user.clockInDate.day}  / {user.clockInDate.month} / {user.clockInDate.year}
                             </div>
                             <div className='w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center'>
-                                {user.day}
+                                { getNameDay(user.clockInTime)}
+
                             </div>
                             <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center'>
                                 <div
@@ -253,10 +273,11 @@ const AttendPage = () => {
                                 </div>
                             </div>
                             <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs flex items-center'>
-                                {user.clockIn}
+                                {getTime(user.clockInTime)}
+                                
                             </div>
                             <div className='w-[50%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center'>
-                                {user.clockOut}
+                                { getTime(user.clockOut)}
                             </div>
                             <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 text-sm md:text-xs flex items-center'>
                                 <div className='h-2 flex justify-between w-full'>
@@ -276,7 +297,7 @@ const AttendPage = () => {
                                 </div>
                             </div>
                             <div className='w-[25%] md:w-[14.6%] p-2 border-r border-zinc-500 flex justify-center items-center text-sm md:text-xs'>
-                               <IconButton> {user.action}</IconButton>
+                               <IconButton> <VisibilityOutlinedIcon /></IconButton>
                             </div>
                         </Grid>
                     ))}
