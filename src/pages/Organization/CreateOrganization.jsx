@@ -21,6 +21,9 @@ import axios from "axios";
 // Tabs Section
 const CreateOrganization = () => {
   const [organizationName, setOrganizationName] = useState(""); // Start with the second tab active
+  const [email, setEmail] = useState(""); // Start with the second tab active
+  const [website, setWebsite] = useState(""); // Start with the second tab active
+  const [picture, setPicture] = useState('');
   const navigate = useNavigate();
   const [showMessage, setShowMessage] = useState({
     show: true,
@@ -46,10 +49,17 @@ const CreateOrganization = () => {
 
     if (subscriptionId) {
       try {
-        const response = await axios.post(`/hr/organization`, {
-          name: organizationName,
-          subscription: subscriptionId,
-        });
+
+        const formData = new FormData();
+        formData.append('photo', picture); // Ensure 'photo' matches backend field name
+        formData.append('name', organizationName); // Ensure 'resume' matches backend field name
+        formData.append('subscription', subscriptionId);
+        formData.append('email', email);
+        formData.append('website', website);
+        const response = await axios.post(`/hr/organization`,  formData, {
+          headers: {
+              'Content-Type': 'multipart/form-data'
+          }});
 
         let data = response.data;
 
@@ -77,9 +87,47 @@ const CreateOrganization = () => {
     }
   };
 
+  const handlePhotoChange = (e) => {
+    const { files } = e.target;
+    if (!files || files.length === 0) {
+        // toast.error('No file selected');
+        setShowMessage({
+          show: true,
+          message:'No file selected' ,
+          severity: "error",
+        });
+        return;
+    }
+
+    const file = files[0];
+    const isValidExtension = ['PNG', 'JPEG', 'JPG', 'AVIF', 'WEBP'].some(ext =>
+        new RegExp(`(${ext})$`, 'i').test(file.name)
+    );
+
+    if (!isValidExtension) {
+      setShowMessage({
+        show: true,
+        message:'Please provide a valid photo file format (PNG, JPEG, JPG, AVIF, WEBP).' ,
+        severity: "error",
+      });
+        // toast.warn('Please provide a valid photo file format (PNG, JPEG, JPG, AVIF, WEBP).');
+        return;
+    }
+    setShowMessage({
+      show: true,
+      message:"Photo update successfully" ,
+      severity: "success",
+    });
+    // toast.success("Photo update successfully");
+    setPicture(file);
+};
+
+
   const handleClose = (event) => {
     setShowMessage({ show: false, message: " ", severity: "" });
   };
+
+  const isFormValidate  =  organizationName =='' || email =='' || website ==''|| picture ==''
 
   return (
     <Box
@@ -142,13 +190,46 @@ const CreateOrganization = () => {
           value={organizationName}
           variant="outlined"
           onChange={handleOrganizationChange}
-          placeholder="Create Organization"
+          placeholder=" Organization Name"
           fullWidth
         />
-        <div className="flex justify-end">
+
+        <TextField
+          name="question"
+          size="small"
+          value={email}
+          variant="outlined"
+          onChange={(e)=> setEmail(e.target.value)}
+          placeholder=" Organization  Email"
+          fullWidth
+        />
+        <TextField
+          name="question"
+          size="small"
+          value={website}
+          variant="outlined"
+          onChange={(e)=>setWebsite(e.target.value)}
+          placeholder=" Organization Website"
+          fullWidth
+        />
+
+        <div className="mb-4 flex flex-row">
+          <h4 className="mb-2 mr font-semibold dark:text-white">
+            Organization Logo
+          </h4>
+          <input
+            type="file"
+            className="rounded px-6 py-3 mr-2"
+            accept="*"
+            required
+            onChange={handlePhotoChange}
+          />
+        </div>
+        <div className="flex justify-end pb-5">
           <Button
-            className="mb-2 ml-auto"
+            className=" ml-auto"
             variant="contained"
+            disabled={isFormValidate}
             onClick={handelSubmit}
             sx={{ px: 5, py: 1 }}
           >

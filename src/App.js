@@ -235,6 +235,8 @@ const App = () => {
           <Route path="/chat" element={<Newchatpage />} />
 
           <Route path="/generalsetting" element={<Generalsettinghome />} />
+          <Route path="/createOrganization" element={<CreateOrganization />}/>
+          <Route path="/listOrganization" element={<ListOrganization />} />
           <Route path="/rollaccess" element={<Rollaccess />} />
           <Route path="/apisetting" element={<Apisetting />} />
         </Routes>
