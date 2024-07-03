@@ -73,6 +73,11 @@ const menuItems = [
                 to: '/department',
             },
             {
+                label: 'Docs',
+                icon: <Office/>,
+                to: '/docs',
+            },
+            {
                 label: 'Received Applications',
                 icon: <Received/>,
                 to: '/receivedapplications',
