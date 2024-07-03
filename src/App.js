@@ -83,6 +83,7 @@ import ApplyForJob from "./careers/pages/ApplyForJob";
 import JobDetails from "./careers/jobRolepages/jobs";
 import { RecoilRoot } from "recoil";
 import ErrorPage from "./careers/erropage/ErrorPage";
+import Docs from "./pages/Docs/Docs";
 
 
 
@@ -188,6 +189,7 @@ const App = () => {
 
           <Route path="/noticeboard" element={<NoticeHome />} />
           <Route path="/apps" element={<Apps />} />
+          <Route path="/docs" element={<Docs />} />
           <Route path="/expenses" element={<ExpensesHome />} />
           <Route path="/award" element={<Newawardpage />} />
 
