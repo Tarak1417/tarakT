@@ -197,7 +197,7 @@ const handleSubmit = async (e) => {
 
 
     try {
-        const res = await axios.post('http://localhost:8000/user/job-application', formData, {
+        const res = await axios.post('/user/job-application', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
