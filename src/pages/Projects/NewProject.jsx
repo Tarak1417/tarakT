@@ -15,7 +15,11 @@ import {
   Select,
   FormControl,
   FormControlLabel,
-  FormLabel
+  FormLabel ,
+  InputLabel ,
+  OutlinedInput ,
+  Checkbox ,
+  ListItemText
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useNavigate } from "react-router-dom";
@@ -24,12 +28,27 @@ import { Form, useForm } from "../../hooks/useForm/useForm";
 import axios from "axios";
 import { useMessage } from "../../components/Header";
 import ReactQuill from "react-quill";
+import Modal from '@mui/material/Modal';
+const style = {
+  position: 'absolute' ,
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const AddPayrollPage = () => {
   const [employees, setEmployees] = useState({});
   const [departments, setDepartments] = useState([]);
   const [text, setText] = useState("");
   const errorHandler = useErrorHandler();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const navigate = useNavigate();
 
   const handlers = useForm(
@@ -83,6 +102,8 @@ const AddPayrollPage = () => {
     [setEmployees]
   );
 
+  console.log("employees" , employees)
+
   useEffect(() => {
     fetchEmployees();
   }, [fetchEmployees]);
@@ -114,7 +135,7 @@ const AddPayrollPage = () => {
         department: values.department,
         price: values.price,
         client: values.client,
-        assignedTeam: values.assignedTeam,
+        assignedTeam: employees,
         from: values.from,
         to: values.to,
         status: values.status,
@@ -261,7 +282,7 @@ const AddPayrollPage = () => {
                         onError={errorHandler}
                       >
                         <Grid container spacing={2}>
-                          <Grid item xs={12} md={6}>
+                          {/* <Grid item xs={12} md={6}>
                             <Typography
                               variant="subtitle1"
                               component="p"
@@ -284,7 +305,7 @@ const AddPayrollPage = () => {
                                 </MenuItem>
                               ))}
                             </Select>
-                          </Grid>
+                          </Grid> */}
                           <Grid item xs={12} md={6}>
                             <Typography
                               variant="subtitle1"
@@ -301,7 +322,8 @@ const AddPayrollPage = () => {
                               placeholder="Enter project title"
                               onChange={handleChangeQuery}
                               value={values.title}
-                            />
+                              InputProps={{ style: { height: '37px' } }}
+                              />
                           </Grid>
                           <Grid item xs={12} md={6}>
                             <Typography
@@ -355,6 +377,7 @@ const AddPayrollPage = () => {
                               component="p"
                               mb={1}
                               mx={1}
+
                             >
                               Price
                             </Typography>
@@ -365,6 +388,8 @@ const AddPayrollPage = () => {
                               placeholder="Enter price"
                               onChange={handleChangeQuery}
                               value={values.price}
+                              InputProps={{ style: { height: '37px' } }}
+
                             />
                           </Grid>
                           <Grid item xs={12} md={6}>
@@ -383,6 +408,8 @@ const AddPayrollPage = () => {
                               placeholder="Enter client"
                               onChange={handleChangeQuery}
                               value={values.client}
+                              InputProps={{ style: { height: '37px' } }}
+
                             />
                           </Grid>
                           <Grid item xs={12} md={12}>
@@ -395,7 +422,7 @@ const AddPayrollPage = () => {
                               Assigned Team
                             </Typography>
                          
-                            <Select
+                            {/* <Select
                               name="assignedTeam"
                               fullWidth
                               variant="outlined"
@@ -408,7 +435,35 @@ const AddPayrollPage = () => {
                                   {department.name}
                                 </MenuItem>
                               ))}
-                            </Select>
+                            </Select> */}
+                              <FormControl fullWidth>
+                              {/* <InputLabel >Assigned Team</InputLabel> */}
+                              <Select
+      name="assignedTeam"
+      multiple
+      value={values.assignedTeam || []}
+      onChange={handleChangeQuery}
+      input={<OutlinedInput label="Assigned Team" />}
+      renderValue={(selected) =>
+        selected.map((id) => employees[id]).join(", ")
+      }
+      sx={{ height: '37px' }}
+      MenuProps={{
+        PaperProps: {
+          style: {
+            maxHeight: 300, // Customize the dropdown menu height
+          },
+        },
+      }}
+    >
+      {Object.entries(employees).map(([id, name]) => (
+        <MenuItem key={id} value={id}>
+          <Checkbox checked={values.assignedTeam.indexOf(id) > -1} />
+          <ListItemText primary={name} />
+        </MenuItem>
+      ))}
+    </Select>
+                            </FormControl>
                           </Grid>
                           <Grid item xs={12} md={6}>
                             <Typography
@@ -484,7 +539,7 @@ const AddPayrollPage = () => {
                                 mb={{ xs: 2, md: 0 }}
                                 sx={{border:"1px solid"}}
                               >
-                                <input
+                                {/* <input
                                   name="uploadedFiles"
                                   accept="image/*, .pdf, .doc, .docx"
                                   id="upload-file"
@@ -493,10 +548,21 @@ const AddPayrollPage = () => {
                                   fullWidth
                                   size="small"
                                   placeholder="No file chosen"
-                                />
+                                /> */}
+                                <p
+                             style={{
+                              fontSize: "10px" ,
+                                marginLeft: "8px" ,
+                                marginTop: "6px" ,
+                                padding: "3px" ,
+                             }}   
+                                >No file chosen
+                                </p>
                               </Box>
                               <Box>
-                                <Button variant="contained" color="primary">
+                                <Button variant="contained" color="primary"
+                                 onClick={handleOpen}
+                                >
                                   Choose file
                                 </Button>
                               </Box>
@@ -527,7 +593,11 @@ const AddPayrollPage = () => {
                                     {" "}
                                     <FormControlLabel
                                       value="Active"
-                                      control={<Radio />}
+                                      control={<Radio
+                                      
+                                      
+                                        
+                                        />}
                                       label="Active"
                                     />
                                   </div>
@@ -608,7 +678,31 @@ const AddPayrollPage = () => {
             scrollbar-width: none;
           }
         `}</style>
+       
       </Box>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+          Select Image
+          </Typography>
+        <input   
+         name="uploadedFiles"
+         accept="image/*, .pdf, .doc, .docx"
+         id="upload-file"
+         type="file"
+         onChange={handleFileChange}
+         fullWidth
+         size="small"
+         placeholder="No file chosen"
+        
+        />
+        </Box>
+      </Modal>
     </>
   );
 };
