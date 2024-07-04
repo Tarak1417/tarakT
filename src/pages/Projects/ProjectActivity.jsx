@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-const ProjectActivity = () => {
+const ProjectActivity = ({overview}) => {
+  console.log("overVie" , overview)
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [setSelectedYear] = useState("2024");
 
@@ -43,6 +44,16 @@ const ProjectActivity = () => {
       username: "Emma Stone",
     },
   ];
+
+  const formatDate = (dateString) => {
+    if (dateString && dateString.length >= 10) {
+      const datePart = dateString.substring(0, 10);
+      const date = new Date(datePart);
+      return date.toDateString(); // Change the format as needed
+    }
+    return '';
+  };
+  
 
   return (
     <Box
@@ -131,7 +142,7 @@ const ProjectActivity = () => {
         </div>
       </div>
       <div className="w-full pl-6 md:pl-9">
-        {jobs.map((job, index) => (
+        {overview.map((job, index) => (
           <div key={index} className="mb-4">
             <div className="flex  md:gap-4 justify-center items-center  mt-[18px] ">
               <div
@@ -162,13 +173,13 @@ const ProjectActivity = () => {
                     {job.username}
                   </p>
                   <p className="text-[10px] md:hidden font-[400] leading-[13px] text-center text-zinc-500">
-                    Just Now
+                {formatDate(job.createdAt)}
                   </p>
                 </div>
               </div>
               <div className="hidden md:block w-1/5">
                 <p className="text-[10px] font-[400] leading-[13px] text-end text-zinc-500">
-                  Just Now
+                {formatDate(job.createdAt)}
                 </p>
               </div>
             </div>

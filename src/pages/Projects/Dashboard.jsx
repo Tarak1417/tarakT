@@ -309,7 +309,7 @@ function Dashboard() {
           <div className="flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-4/4">
               <div className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
-                {overview && overview.length > 1 &&   overview.slice(0,4).map((box, index) => (
+                {overview && overview.length > 0 &&   overview.slice(0,4).map((box, index) => (
                   <Grid
                     sx={{
                       backgroundColor: "background.view",
@@ -352,7 +352,8 @@ function Dashboard() {
                     <div className="mb-[10px] mt-[2px]">
                       <p className="text-[10px] font-[400] leading-[13.02px] md:text-[9px] text-[#A5A5A5]">
                         Mobile App Ui Design
-                      </p>
+                        {box.description && box.description.toString().replace(/<[^>]*>/g, '').substring(0, 12)}
+                        </p>
                     </div>
 
                     <div
@@ -361,22 +362,23 @@ function Dashboard() {
                     ></div>
 
                     <div className="flex items-center justify-between gap-2 pt-3">
-                      <div className="flex ">
-                        {avatarData.map((item) => (
-                          <>
-                            <div
-                              class="MuiAvatar-root  border-2 border-[#171717] MuiAvatar-circular css-1m7vhif-MuiAvatar-root"
-                              style={{
-                                width: "20px",
-                                height: "20px",
-                                marginLeft: "-5px",
-                              }}
-                            >
-                              <img alt="Remy Sharp" src={item.src} />
-                            </div>
-                          </>
-                        ))}
-                      </div>
+                    <div className="flex ">
+                {box.assignedTo &&
+                  box.assignedTo.map((item, index) => (
+                    <div
+                      key={index}
+                      className="MuiAvatar-root border-2 border-[#171717] MuiAvatar-circular css-1m7vhif-MuiAvatar-root"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        marginLeft: "-5px",
+                      }}
+                    >
+                      <img alt={item.firstName} src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&s' />
+                    </div>
+                  ))}
+              </div>
+             
                       <div
                         className="text-cnter row"
                         style={{ display: "flex", flexDirection: "row" }}
@@ -409,10 +411,10 @@ function Dashboard() {
         </div>
         <div className="w-full gap-3 flex flex-col md:flex-row px-2 md:px-5">
           <div className="w-full md:w-8/12 mx-1 mb-2 md:mb-0 ">
-            <ProjectActivity />
+            <ProjectActivity  overview={overview} />
           </div>
           <div className="w-full md:w-4/12 mx-1 mb-2 md:mb-0 ">
-            <GenderChart />
+            <GenderChart overview={overview} />
           </div>
         </div>
       </div>

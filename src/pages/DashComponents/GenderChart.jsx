@@ -1,15 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import { PieChart, Pie, Tooltip, Cell } from "recharts";
 
-const GenderChart = ({ items }) => {
+const GenderChart = ({ overview }) => {
+  const [genderCount, setGenderCount] = useState({ male: 0, female: 0 });
+
+  useEffect(() => {
+    const GenderData = overview.map((box) => (
+      box.assignedTo &&
+      box.assignedTo.map((item) => (item.gender))
+    ));
+
+    const genders = GenderData.flat().map(gender => gender.toLowerCase());
+
+    // Count the occurrences of "male" and "female"
+    const count = genders.reduce((acc, gender) => {
+      if (gender === "male") {
+        acc.male += 1;
+      } else if (gender === "female") {
+        acc.female += 1;
+      }
+      return acc;
+    }, { male: 0, female: 0 });
+
+    setGenderCount(count);
+  }, [overview]);
+
   const data = [
-    { name: "Male", value: items?.male ? items.male : 40 },
-    { name: "Female", value: items?.female ? items.female : 60 },
+    { name: "Male", value: genderCount.male },
+    { name: "Female", value: genderCount.female },
   ];
 
   const colors = ["#3b82f6", "#dc2626"];
-
   const totalCount = data.reduce((acc, cur) => acc + cur.value, 0);
 
   return (
