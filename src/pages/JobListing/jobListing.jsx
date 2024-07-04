@@ -1,14 +1,15 @@
 // JobListing.jsx
 import React, { useCallback, useEffect, useState } from 'react';
-import { Button, Modal } from '@mui/material';
+import { Button, Modal, Skeleton } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
-import JobCards from './JobCards';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import axios from 'axios';
 import { useMessage } from '../../components/Header';
 import useModal from '../../hooks/useModal';
 import AddJobs from '../../components/AddJobs';
+import JobListingCard from './JobCards';
 
 const getOrders = jobs =>
     jobs.map((job, i) => ({
@@ -173,7 +174,60 @@ const JobListing = () => {
                 </div>
             </div>
             <div className="overflow-y-auto">
-                <JobCards currentScreen={currentScreen} jobs={jobs}/>
+            <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId='list'>
+                        {provided => (
+                            <div ref={provided.innerRef} {...provided.droppableProps}>
+                                {jobs
+                                    ? jobs.map((job, i) => (
+                                          <Draggable key={job._id} draggableId={job._id} index={i}>
+                                              {provided => (
+                                                  <div
+                                                      ref={provided.innerRef}
+                                                      {...provided.draggableProps}
+                                                      {...provided.dragHandleProps}>
+                                                      <JobListingCard
+                                                          ref={provided.innerRef}
+                                                          draggableProps={provided.draggableProps}
+                                                          dragHandleProps={provided.dragHandleProps}
+                                                          title={job.title}
+                                                          key={i}
+                                                          location={job.location}
+                                                          experience={job.experience}
+                                                          details={job.details}
+                                                          jobType={job.jobType}
+                                                          salary={job.salary}
+                                                          departmentId={job.department}
+                                                          refresh={fetchJobListing}
+                                                          id={job._id}
+                                                          editJob={editJob}
+                                                          copyJob={copyJob}
+                                                          departments={departments}
+                                                      />
+                                                  </div>
+                                              )}
+                                          </Draggable>
+                                      ))
+                                    : Array(5)
+                                          .fill(0)
+                                          .map((el, i) => (
+                                              <Skeleton
+                                                  variant='rounded'
+                                                  key={i}
+                                                  width='100%'
+                                                  height='136px'
+                                                  animation='wave'
+                                                  sx={{
+                                                      borderRadius: '20px',
+                                                      my: 2,
+                                                  }}
+                                              />
+                                          ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
             </div>
             <div className='flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10'>
                 <div className="p-2 rounded-lg ">

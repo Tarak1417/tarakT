@@ -1,71 +1,145 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
-import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
-import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
-import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
-import FilterOutlinedIcon from '@mui/icons-material/FilterOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { Box } from '@mui/material';
+import { Box, Button, Card, Grid, IconButton, Modal, Toolbar, Typography } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import React, { useState } from 'react';
+import PlaceIcon from '@mui/icons-material/Place';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import DeleteIcon from '@mui/icons-material/Delete';
+import CloseIcon from '@mui/icons-material/Close';
+import EditIcon from '@mui/icons-material/Edit';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
-const JobCards = ({ currentScreen,jobs }) => {
+import axios from 'axios';
+import { CategoryOutlined, Lock, Pending } from '@mui/icons-material';
+import Details from './Details';
+import { useMessage } from '../../components/Header';
 
 
+const JobListingCard = props => {
+    const {
+        title,
+        location,
+        experience,
+        details,
+        jobType,
+        salary,
+        id,
+        departmentId,
+        refresh,
+        editJob,
+        copyJob,
+        departments,
+    } = props;
+    const [accordionOpen, setAccordionOpen] = useState(false);
+    const [open, setOpen] = React.useState(false);
+    const [deleting, setDeleting] = useState(false);
+    const { showError, showSuccess } = useMessage();
 
-    const handleDelete = (jobId) => {
-        
-        console.log(`Deleting job with ID: ${jobId}`);
+    const style = {
+        width: '100%',
+
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
     };
 
-    const handleCopy = (jobId) => {
-        
-        console.log(`Copying details of job with ID: ${jobId}`);
+    const handleExpand = () => {
+        setAccordionOpen(show => !show);
     };
+
+    async function deletejob(id) {
+        setDeleting(true);
+        try {
+            const res = await axios.delete(`/hr/job-listing/${id}`);
+            const { success, message } = res.data;
+            if (success) {
+                showSuccess('Job deleted successfully');
+            } else {
+                showError(message);
+            }
+        } catch (e) {}
+        setDeleting(false);
+        refresh();
+    }
+
+    const handleClose = () => setOpen(false);
 
     return (
-        <div className="flex flex-col gap-4 w-full pl-4 overscroll-y-auto">
-            {jobs?.map((job,index) => (
-                <div className='flex flex-col md:flex-row items-center w-full gap-4 md:gap-0' key={index}>
-                    <Box className=" w-[90%] md:w-[98%] flex flex-col md:flex-row  md:gap-0 gap-2 mr-4 md:mr-0 rounded-lg p-4" sx={{ backgroundColor: 'background.view', }}>
-                        <div className=' w-full md:w-1/5'>
+        <Box my={2}>
+            <Card
+                elevation={0}
+                sx={{
+                    borderRadius: '20px',
+                    p: 2,
+                    // boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
+                }}>
+                <Typography variant='h6' fontWeight='bold'>
+                    {title}
+                </Typography>
+                <Grid container mt={2} display='flex' justifyContent='center' alignItems='center'>
+                    <Grid item xs={12} md>
+                        <Button kind='job' startIcon={<CategoryOutlined />}>
+                            {departments[departmentId]}
+                        </Button>
+                        <Button variant='text' kind='job' startIcon={<Lock />}>
+                            {jobType}
+                        </Button>
+                        <Button variant='text' kind='job' startIcon={<PlaceIcon />}>
+                            {location}
+                        </Button>
+                        <Button variant='text' kind='job' startIcon={<BusinessCenterIcon />}>
+                            {experience}+ Years of Experience
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12} md='auto' mt={{ xs: 1, md: 0 }}>
+                        <Button
+                            sx={{
+                                textTransform: 'capitalize',
+                                fontSize: '16px',
 
-                            <h2 className="text-sm font-semibold">{job.title}</h2>
-                        </div>
-                        <div className='w-full md:w-1/5 flex justify-start md:justify-center items-center gap-2'>
-                            <AccountBalanceWalletOutlinedIcon fontSize='small' className='text-zinc-400' />
-                            <p className="text-zinc-400 md:text-sm">{job.salary.amount}</p>
-                        </div>
-                        <div className='w-full md:w-1/5 flex justify-start md:justify-center items-center gap-2'>
-                            <WorkOutlineIcon fontSize='small' className='text-zinc-400' />
-                            <p className="text-zinc-400 md:text-sm">{job.experience}</p>
-                        </div>
-                        <div className='w-full md:w-1/4 flex justify-start md:justify-center items-center gap-2'>
-                            <LocationOnOutlinedIcon fontSize='small' className='text-zinc-400' />
-                            <p className="text-zinc-400 md:text-sm">{job.location}</p>
-                        </div>
-                        <div className='w-full md:w-1/6 flex justify-start items-center'>
-                            <FontAwesomeIcon icon={faLayerGroup} className="text-zinc-500 mr-2" />
-                            <p className="text-zinc-400 md:text-sm">{job.category}</p>
-                        </div>
-                        <div className='w-full md:w-1/6 flex justify-end items-center gap-2'>
-                            <Link to={job.moreDetails} className="text-blue-500">Show Details</Link>
-                            <KeyboardArrowDownOutlinedIcon fontSize='medium' className="text-blue-500" />
-                        </div>
-                        <div className='flex flex-row gap-1 items-center justify-end md:justify-center md:ml-5'>
-                            <Link to="/joblisting/edit"   state={job}>
-                                <EditOutlinedIcon />
-                            </Link>
-                            <FilterOutlinedIcon onClick={() => handleCopy(job.id)}/>
-                            <DeleteOutlineOutlinedIcon onClick={() => handleDelete(job._id)} />
-                        </div>
-                    </Box>
-                </div>
-            ))}
-        </div>
+                                mr: 2,
+                            }}
+                            onClick={handleExpand}
+                            variant='text'
+                            endIcon={<ExpandMoreIcon />}>
+                            show details
+                        </Button>
+                        <IconButton onClick={() => copyJob(id)}>
+                            <ContentCopyIcon fontSize='small' />
+                        </IconButton>
+                        <IconButton onClick={() => editJob(id)}>
+                            <EditIcon fontSize='small' />
+                        </IconButton>
+                        <IconButton onClick={() => deletejob(id)}>
+                            {deleting ? (
+                                <Pending fontSize='small' />
+                            ) : (
+                                <DeleteIcon fontSize='small' />
+                            )}
+                        </IconButton>
+                    </Grid>
+                </Grid>
+                {accordionOpen && <Details details={details} jobType={jobType} salary={salary} />}
+            </Card>
+            <Modal
+                sx={{ overflowY: 'scroll' }}
+                open={open}
+                onClose={handleClose}
+                aria-labelledby='modal-modal-title'
+                aria-describedby='modal-modal-description'>
+                <Box sx={style}>
+                    <Toolbar>
+                        <IconButton
+                            edge='start'
+                            color='primary'
+                            onClick={handleClose}
+                            aria-label='close'>
+                            <CloseIcon />
+                        </IconButton>
+                    </Toolbar>
+                </Box>
+            </Modal>
+        </Box>
     );
 };
 
-export default JobCards;
+export default JobListingCard;

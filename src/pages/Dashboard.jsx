@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Grid, Typography } from "@mui/material";
+import { Button, Grid, IconButton, Tooltip, Typography } from "@mui/material";
 import { TrendingUp, TrendingDown } from "@mui/icons-material";
 import GroupIcon from "@mui/icons-material/Group";
 import ApartmentIcon from "@mui/icons-material/Apartment";
@@ -14,9 +14,12 @@ import RecentJobs from "./DashComponents/recentJobs";
 import Attendance from "./DashComponents/attend";
 import { Box } from "@mui/material";
 import axios from "axios";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 const Dashboard = () => {
   const [overview, setOverview] = useState({});
+  const [time, setTime] = useState();
+  const [Dates, setDate] = useState();
   const fetchOverview = useCallback(async () => {
     try {
       const response = await axios.get(`/hr/dashboard`);
@@ -29,7 +32,21 @@ const Dashboard = () => {
   useEffect(() => {
     fetchOverview();
   }, [fetchOverview]);
-  console.log(overview);
+  // console.log(overview);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+        setTime(new Date().toLocaleTimeString());
+    }, 1000);
+    const Date1 = setInterval(() => {
+        setDate(new Date().toLocaleDateString());
+    }, 1000);
+
+    return () => {
+        clearInterval(timer);
+        clearInterval(Date1);
+    };
+}, []);
 
   const data = [
     { name: "Jan", employees: 100, budget: 200, year: 2024 },
@@ -128,9 +145,34 @@ const Dashboard = () => {
     <Box sx={{ backgroundColor: "background.main" }}>
       <div className="flex flex-col">
         <div className="p-2">
-          <Typography variant="h5" className="text-gray-500" gutterBottom>
+          {/* <Typography variant="h5" className="text-gray-500" gutterBottom>
             HR DASHBOARD
-          </Typography>
+          </Typography> */}
+          <Grid container  display='flex' alignItems='center'>
+                    <Grid item xs>
+                        <Typography className="text-gray-500" variant='h5'>HR Dashboard</Typography>
+                    </Grid>
+
+                    <Grid item sx={{ display: { xs: 'flex' }, mx: 'auto' ,my:1  }} alignItems='center'>
+                        <Box sx={{ mr: 2, display: { lg: 'block', xs: 'none' } }}>
+                            <Button variant='outlined'>{Dates}</Button>
+                        </Box>
+                        <Button variant='outlined' sx={{ display: { lg: 'block', xs: 'none' } }}>
+                            {time}
+                        </Button>
+                        <Box sx={{ mx: 2 }}>
+                            <Button variant='contained'>Clock In</Button>
+                        </Box>
+
+                        <Box>
+                            <Tooltip title='info' placement='top'>
+                                <IconButton disableRipple variant='navIcon' sx={{ mr: 0 }}>
+                                    <InfoOutlinedIcon fontSize='small' />
+                                </IconButton>
+                            </Tooltip>
+                        </Box>
+                    </Grid>
+                </Grid>
           <div className="flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-3/4">
               <div className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">

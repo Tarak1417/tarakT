@@ -6,24 +6,24 @@ const GenderChart = ({ overview }) => {
   const [genderCount, setGenderCount] = useState({ male: 0, female: 0 });
 
   useEffect(() => {
-    const GenderData = overview.map((box) => (
-      box.assignedTo &&
-      box.assignedTo.map((item) => (item.gender))
-    ));
-
-    const genders = GenderData.flat().map(gender => gender.toLowerCase());
+    // const GenderData = overview.map((box) => (
+    //   box.assignedTo &&
+    //   box.assignedTo.map((item) => (item.gender))
+    // ));
+    // setGenderCount(overview)
+    // const genders = GenderData.flat().map(gender => gender.toLowerCase());
 
     // Count the occurrences of "male" and "female"
-    const count = genders.reduce((acc, gender) => {
-      if (gender === "male") {
-        acc.male += 1;
-      } else if (gender === "female") {
-        acc.female += 1;
-      }
-      return acc;
-    }, { male: 0, female: 0 });
+    // const count = genders.reduce((acc, gender) => {
+    //   if (gender === "male") {
+    //     acc.male += 1;
+    //   } else if (gender === "female") {
+    //     acc.female += 1;
+    //   }
+    //   return acc;
+    // }, { male: 0, female: 0 });
 
-    setGenderCount(count);
+    // setGenderCount(count);
   }, [overview]);
 
   const data = [

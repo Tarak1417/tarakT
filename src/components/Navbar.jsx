@@ -98,8 +98,7 @@ const clikkleApps = [{
    name : "Host",
    url :"https://host.clikkle.com/",
    logo :ClikkleHost
-},
-,{ 
+},{ 
     name : "Launch",
     url :"https://launch.clikkle.com/",
     logo :ClikkleLaunch

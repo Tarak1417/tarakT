@@ -123,7 +123,7 @@ const DeptPage = () => {
                 onClose={handleClose}
                 aria-labelledby='modal-modal-title'
                 aria-describedby='modal-modal-description'>
-                <DeparmentModal fetchDepartment={fetchDepartment} handleClose={handleClose} />
+                <DeparmentModal fetchDepartment={fetchDepartment} handleClose={handleClose}  id={id} />
             </Modal>
             <Modal
                 open={deleteState}
