@@ -56,6 +56,7 @@ const ProgressBar = ({ percentage, color }) => {
 const PerformancePage = () => {
 
     const id = useParams().id;
+    console.log("id" , id)
     const [value, setValue] = useState(0);
     const [employeeDetail, setEmployeeDetail] = useState(null);
 
@@ -64,8 +65,9 @@ const PerformancePage = () => {
     };
     const fetchEmployeeDetails = useCallback(
         async function () {
+
             try {
-                const response = await axios.get(`/hr/employee/${id}`);
+                const response = await axios.get(`/employee/profile/${id}`);
                 console.log(response);
                 setEmployeeDetail(response.data.employee);
             } catch (e) {

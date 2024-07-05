@@ -6,6 +6,7 @@ import axios from 'axios';
 
 const EmpDetailsHome = () => {
     const id = useParams().id;
+    console.log("id" , id);
     const [value, setValue] = useState(0);
     const [employeeDetail, setEmployeeDetail] = useState(null);
 
@@ -15,7 +16,7 @@ const EmpDetailsHome = () => {
     const fetchEmployeeDetails = useCallback(
         async function () {
             try {
-                const response = await axios.get(`/hr/employee/${id}`);
+                const response = await axios.get(`employee/proifle/${id}`);
                 console.log(response);
                 setEmployeeDetail(response.data.employee);
             } catch (e) {

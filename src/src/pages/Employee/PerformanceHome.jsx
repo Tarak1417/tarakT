@@ -1,9 +1,13 @@
 import React from 'react';
 import { Box, Grid } from '@mui/material';
 import PerformancePage from './Performance';
-
+import { useParams } from 'react-router-dom';
 
 const PerformanceHome = () => {
+
+    const id = useParams().id;
+    console.log("id" , id)
+
     return (
         <Box sx={{ backgroundColor: 'background.main', }} className="h-full overflow-hidden ">
             <div className="h-full" style={{ overflowY: 'auto', paddingRight: '1px' }}>
