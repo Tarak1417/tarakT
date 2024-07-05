@@ -74,7 +74,7 @@ const AuthorizationProvider = ({ children }) => {
     const createSession = async (refreshToken, user) => {
         try {
             const response = await axios.post(`/open/session`, {
-                refreshToken, userId :user._id
+                refreshToken, userId :user._id , userType :"hr" 
             });
             let data = response.data;
             if (data.success) {
