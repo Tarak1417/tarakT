@@ -66,13 +66,14 @@ const AuthorizationProvider = ({ children }) => {
             }
 
         } else {
-            // navigate("/listOrganization");
+             navigate("/listOrganization");
         }
 
     }
 
     const createSession = async (refreshToken, user) => {
         try {
+            authorize(true, (setUser) => setUser(user));
             const response = await axios.post(`/open/session`, {
                 refreshToken, userId :user._id , userType :"hr" 
             });
@@ -80,13 +81,13 @@ const AuthorizationProvider = ({ children }) => {
             if (data.success) {
                 setCookie("accessToken", data.token);
                 await checkUserSubscription(user.id)
-                authorize(true, (setUser) => setUser(user));
             } else {
-                authorize(false);
+                navigate("/walkover");
             }
         } catch (e) {
-            authorize(false);
+            navigate("/walkover");
         }
+       
     }
 
     useEffect(() => {
@@ -137,7 +138,6 @@ const AuthorizationProvider = ({ children }) => {
                 } else if (localStorage.getItem("user")) {
                     let user = JSON.parse(localStorage.getItem("user"));
                        await createSession(user.refreshToken ,user );
-                   
                 } else {
                     authorize(false);
                 }
