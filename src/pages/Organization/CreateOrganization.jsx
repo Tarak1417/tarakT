@@ -17,19 +17,23 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import './organization.css';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 
 // Tabs Section
 const CreateOrganization = () => {
   const [organizationName, setOrganizationName] = useState(""); // Start with the second tab active
   const [email, setEmail] = useState(""); // Start with the second tab active
   const [website, setWebsite] = useState(""); // Start with the second tab active
-  const [picture, setPicture] = useState('');
+  const [picture, setPicture] = useState("");
+  const [image, setImage] = useState(null);
   const navigate = useNavigate();
   const [showMessage, setShowMessage] = useState({
     show: true,
     message: "",
     severity: "",
   });
+  const [page, setPage] = useState(0);
 
   const handleOrganizationChange = (event) => {
     setOrganizationName(event.target.value);
@@ -49,36 +53,35 @@ const CreateOrganization = () => {
 
     if (subscriptionId) {
       try {
-
         const formData = new FormData();
-        formData.append('photo', picture); // Ensure 'photo' matches backend field name
-        formData.append('name', organizationName); // Ensure 'resume' matches backend field name
-        formData.append('subscription', subscriptionId);
-        formData.append('email', email);
-        formData.append('website', website);
-        const response = await axios.post(`/hr/organization`,  formData, {
+        formData.append("photo", picture); // Ensure 'photo' matches backend field name
+        formData.append("name", organizationName); // Ensure 'resume' matches backend field name
+        formData.append("subscription", subscriptionId);
+        formData.append("email", email);
+        formData.append("website", website);
+        const response = await axios.post(`/hr/organization`, formData, {
           headers: {
-              'Content-Type': 'multipart/form-data'
-          }});
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
         let data = response.data;
 
-        if(data.success){
+        if (data.success) {
           setShowMessage({
             show: true,
             message: "organization Created Successfully",
             severity: "success",
           });
-          setTimeout(()=>{
+          setTimeout(() => {
             navigate("/listOrganization");
-          },[2500])
-          
+          }, [2500]);
         }
       } catch (e) {
         console.log("organization method created:", e);
         setShowMessage({
           show: true,
-          message:  e.response.data.error ,
+          message: e.response.data.error,
           severity: "error",
         });
       }
@@ -90,44 +93,82 @@ const CreateOrganization = () => {
   const handlePhotoChange = (e) => {
     const { files } = e.target;
     if (!files || files.length === 0) {
-        // toast.error('No file selected');
-        setShowMessage({
-          show: true,
-          message:'No file selected' ,
-          severity: "error",
-        });
-        return;
+      // toast.error('No file selected');
+      setShowMessage({
+        show: true,
+        message: "No file selected",
+        severity: "error",
+      });
+      return;
     }
 
     const file = files[0];
-    const isValidExtension = ['PNG', 'JPEG', 'JPG', 'AVIF', 'WEBP'].some(ext =>
-        new RegExp(`(${ext})$`, 'i').test(file.name)
+    const isValidExtension = ["PNG", "JPEG", "JPG", "AVIF", "WEBP"].some(
+      (ext) => new RegExp(`(${ext})$`, "i").test(file.name)
     );
 
     if (!isValidExtension) {
       setShowMessage({
         show: true,
-        message:'Please provide a valid photo file format (PNG, JPEG, JPG, AVIF, WEBP).' ,
+        message:
+          "Please provide a valid photo file format (PNG, JPEG, JPG, AVIF, WEBP).",
         severity: "error",
       });
-        // toast.warn('Please provide a valid photo file format (PNG, JPEG, JPG, AVIF, WEBP).');
-        return;
+      // toast.warn('Please provide a valid photo file format (PNG, JPEG, JPG, AVIF, WEBP).');
+      return;
     }
+
     setShowMessage({
       show: true,
-      message:"Photo update successfully" ,
+      message: "Photo update successfully",
       severity: "success",
     });
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setImage(event.target.result);
+    };
+    reader.readAsDataURL(e.target.files[0]);
     // toast.success("Photo update successfully");
     setPicture(file);
-};
-
+  };
 
   const handleClose = (event) => {
     setShowMessage({ show: false, message: " ", severity: "" });
   };
 
-  const isFormValidate  =  organizationName =='' || email =='' || website ==''|| picture ==''
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateWebsite = (website) => {
+    const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+    return urlRegex.test(website);
+  };
+
+  const handleEmailChange = () => {
+    if (!validateEmail(email)) {
+      setShowMessage({
+        show: true,
+        message: "Invalid email address",
+        severity: "error",
+      });
+     
+    }
+  };
+
+  const handleWebsiteChange = (e) => {
+    if (!validateWebsite(website)) {
+      setShowMessage({
+        show: true,
+        message: "Invalid URL",
+        severity: "error",
+      });
+      return;
+    }
+  };
+
+  const isFormValidate = organizationName == "" || (!validateEmail(email)) || picture == "";
 
   return (
     <Box
@@ -135,7 +176,7 @@ const CreateOrganization = () => {
         backgroundColor: "background.main",
         p: { xs: 3, sm: 10 },
         width: "100vw",
-        height: "100vh",
+        minHeight: "100vh",
       }}
     >
       <Snackbar
@@ -153,90 +194,152 @@ const CreateOrganization = () => {
           {showMessage.message}
         </Alert>
       </Snackbar>
-      <Box
-        sx={{
-          marginTop: { xs: "2.7rem", sm: ".7rem" },
-          textAlign: { xs: "center", sm: "start" },
-        }}
-      >
-        <Typography sx={{ fontSize: { xs: "1.6rem", sm: "2.5rem" } }}>
-          Create an Organization to track the status of your employees
-        </Typography>
 
-        <Typography
+      {page === 0 ? (
+        <Box
           sx={{
-            marginTop: ".7rem",
-            paddingX: { xs: 2, sm: 0 },
-            marginRight: { xs: 0, sm: 36 },
-            fontSize: { xs: "0.7rem", sm: "1rem" },
+            marginTop: { xs: "2.7rem", sm: ".7rem" },
+            textAlign: { xs: "center", sm: "start" },
           }}
         >
-          HR organization refers to the style of coordination, communication and
-          management, a team or an employee uses through out his/her contract
-          with the organization.
-        </Typography>
-        <div className="flex justify-center py-12">
-          <img
-            className="origin-center"
-            style={{ width: 250 }}
-            src="/images/ASSETS/walkover4.png"
-            alt="walkover1"
-          />
-        </div>
+          <div>
+            <Typography sx={{ fontSize: { xs: "1.6rem", sm: "2.5rem" } }}>
+              Create an Organization to track the status of your employees
+            </Typography>
 
-        <TextField
-          name="question"
-          size="small"
-          value={organizationName}
-          variant="outlined"
-          onChange={handleOrganizationChange}
-          placeholder=" Organization Name"
-          fullWidth
-        />
+            <Typography
+              sx={{
+                marginTop: ".7rem",
+                paddingX: { xs: 2, sm: 0 },
+                marginRight: { xs: 0, sm: 36 },
+                fontSize: { xs: "0.7rem", sm: "1rem" },
+              }}
+            >
+              HR organization refers to the style of coordination, communication
+              and management, a team or an employee uses through out his/her
+              contract with the organization.
+            </Typography>
+            <div className="flex justify-center">
+              <img
+                className="origin-center"
+                style={{ width: "39%" }}
+                src="/images/ASSETS/createOrg.svg"
+                alt="walkover1"
+              />
+            </div>
+            <div className="flex justify-end pb-5">
+              <Button
+                className="ml-auto"
+                variant="contained"
+                onClick={() => {
+                  setPage(1);
+                }}
+                sx={{ px: 5, py: 1 }}
+              >
+                Next
+              </Button>
+            </div>
+          </div>
+        </Box>
+      ) : (
+        <div className="flex flex-col gap-8">
+          <div>
+            <div className="w-[13%] pb-3 flex items-center">
+              <p className="text-[20px] whitespace-nowrap">Organization Name</p>
+            </div>
+            <TextField
+              name="question"
+              size="small"
+              value={organizationName}
+              variant="outlined"
+              onChange={handleOrganizationChange}
+              placeholder="Enter Name"
+              fullWidth
+            />
+          </div>
+          <div>
+            <div className="w-[13%] pb-3 flex items-center">
+              <p className="text-[20px] whitespace-nowrap">
+                Organization Email
+              </p>
+            </div>
+            <TextField
+              name="question"
+              size="small"
+              value={email}
+              variant="outlined"
+              onBlur={handleEmailChange}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter Email"
+              fullWidth
+            />{" "}
+          </div>
+          <div>
+            <div className="w-[13%] pb-3 flex items-center">
+              <p className="text-[20px] whitespace-nowrap">
+                Organization Website url
+              </p>
+            </div>
+            <TextField
+              name="question"
+              size="small"
+              value={website}
+              variant="outlined"
+              onBlur={handleWebsiteChange}
+              onChange={(e) =>setWebsite(e.target.value)}
+              placeholder=" Enter website url"
+              fullWidth
+            />
+          </div>
+          <div>
+            <div className="w-[13%] pb-3 flex items-center">
+              <p className="text-[20px] whitespace-nowrap">
+                {" "}
+                Organization Logo
+              </p>
+            </div>
 
-        <TextField
-          name="question"
-          size="small"
-          value={email}
-          variant="outlined"
-          onChange={(e)=> setEmail(e.target.value)}
-          placeholder=" Organization  Email"
-          fullWidth
-        />
-        <TextField
-          name="question"
-          size="small"
-          value={website}
-          variant="outlined"
-          onChange={(e)=>setWebsite(e.target.value)}
-          placeholder=" Organization Website"
-          fullWidth
-        />
+            <div className="mb-4 flex flex-row">
+              {/* <input
+                type="file"
+                className="rounded px-6 py-3 mr-2"
+                accept="*"
+                required
+                onChange={handlePhotoChange}
+              /> */}
 
-        <div className="mb-4 flex flex-row">
-          <h4 className="mb-2 mr font-semibold dark:text-white">
-            Organization Logo
-          </h4>
-          <input
-            type="file"
-            className="rounded px-6 py-3 mr-2"
-            accept="*"
-            required
-            onChange={handlePhotoChange}
-          />
+              <div className="image-input-wrapper">
+                <input
+                  type="file"
+                  accept="*"
+                  required
+                  onChange={handlePhotoChange}
+                  className="image-input"
+                />
+                {image ? (
+                  <img src={image} alt="Selected" className="image-preview" />
+                ) : (
+                  <div className="plus-icon">
+                    <AddOutlinedIcon />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-end pb-5">
+            <Button
+              className=" ml-auto"
+              variant="contained"
+              disabled={isFormValidate}
+              onClick={handelSubmit}
+              sx={{ px: 5, py: 1 }}
+            >
+              Create
+            </Button>
+          </div>
         </div>
-        <div className="flex justify-end pb-5">
-          <Button
-            className=" ml-auto"
-            variant="contained"
-            disabled={isFormValidate}
-            onClick={handelSubmit}
-            sx={{ px: 5, py: 1 }}
-          >
-            Create
-          </Button>
-        </div>
-      </Box>
+      )}
     </Box>
   );
 };
