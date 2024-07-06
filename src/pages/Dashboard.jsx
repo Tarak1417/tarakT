@@ -22,8 +22,8 @@ const Dashboard = () => {
   const [Dates, setDate] = useState();
   const fetchOverview = useCallback(async () => {
     try {
-      const response = await axios.get(`/hr/dashboard`);
-      setOverview(response.data.overview);
+      // const response = await axios.get(`/hr/dashboard`);
+      // setOverview(response.data.overview);
     } catch (e) {
       console.log(e);
     }
