@@ -73,7 +73,7 @@ const AuthorizationProvider = ({ children }) => {
 
     const createSession = async (refreshToken, user) => {
         try {
-            authorize(true, (setUser) => setUser(user));
+           
             const response = await axios.post(`/open/session`, {
                 refreshToken, userId :user._id , userType :"hr" 
             });
@@ -86,6 +86,8 @@ const AuthorizationProvider = ({ children }) => {
             }
         } catch (e) {
             navigate("/walkover");
+        }finally{
+            authorize(true, (setUser) => setUser(user));
         }
        
     }
