@@ -16,10 +16,12 @@ import Projectlistt from "./Projectlistt";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useTheme } from "../../style/theme";
-
+import { useNavigate } from 'react-router-dom';
 const ProjectList = () => {
   const [currentScreen, setCurrentScreen] = useState(1);
   const { mode } = useTheme();
+  const navigate = useNavigate();
+
 
   const handlePrevScreen = () => {
     if (currentScreen > 1) {
@@ -324,6 +326,11 @@ const ProjectList = () => {
   const Years = Array(41)
     .fill(1)
     .map((el, i) => i + 2009);
+
+    const sendData = (user) => {
+    console.log("userData to view", user);
+    navigate('/viewproject', { state: { user } });    };
+
 
   return (
     <Box
@@ -678,6 +685,7 @@ const ProjectList = () => {
                 </div>
                 <div className="w-auto min-w-[100px] md:w-[14.6%] p-2   flex  text-sm md:text-xs">
                   <RemoveRedEyeIcon 
+                 onClick={()=>sendData(user)}
                   className={`${
                     mode === "dark" ? "bg-[#1E1E1E]" : "border-2 bg-[#EEEEEE]"
                   } `}
@@ -687,7 +695,9 @@ const ProjectList = () => {
     padding: '2px' ,
     marginRight: "8px" ,
     height: "20px"
-} }/>
+} }
+
+/>
 
                   <EditIcon
                   className={`${
