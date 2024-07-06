@@ -24,14 +24,14 @@ const EmpDetailsPage = () => {
     const fetchEmployeeDetails = useCallback(
         async function () {
             try {
-                const response = await axios.get(`/hr/employee/${id}`);
+                const response = await axios.get(`/employee/profile/${id}`);
                 console.log(response);
                 setEmployeeDetail(response.data.employee);
             } catch (e) {
                 console.log(e);
             }
         },
-        [setEmployeeDetail, id]
+        [setEmployeeDetail, id , content1]
     );
     useEffect(() => {
         fetchEmployeeDetails();
@@ -102,7 +102,9 @@ const EmpDetailsPage = () => {
                                                     dateOfJoining={employeeDetail.dateOfJoining}
                                                     jobType={employeeDetail.jobType}
                                                     amount={employeeDetail.salary.amount}/></div>}
-                {activeContent === 'content3' && <div><BankDetails accountHolder={
+                {activeContent === 'content3' && <div><BankDetails 
+                id={employeeDetail._id}
+                accountHolder={
                                                             employeeDetail?.bank?.accountHolder
                                                         }
                                                         accountNumber={

@@ -9,8 +9,11 @@ import axios from 'axios';
 import { useForm } from '../../../hooks/useForm/useForm';
 import { Input } from 'postcss';
 
-const CompanyDetails = ({ id, department, designation, jobType, amount, dateOfJoining }) => {
+const CompanyDetails = ({ id, department, designation, jobType, amount, dateOfJoining , employeeDetail }) => {
     const [currentPage, setCurrentPage] = useState(1);
+
+
+    console.log("employeeDetail" ,employeeDetail)
 
     const nextPage = () => {
         setCurrentPage(currentPage + 1);

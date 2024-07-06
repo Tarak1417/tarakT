@@ -15,7 +15,7 @@ const EmpDetailsHome = () => {
     const fetchEmployeeDetails = useCallback(
         async function () {
             try {
-                const response = await axios.get(`/hr/employee/${id}`);
+                const response = await axios.get(`employee/profile/${id}`);
                 console.log(response);
                 setEmployeeDetail(response.data.employee);
             } catch (e) {
