@@ -96,7 +96,7 @@ const menuItems = [
             {
                 label: 'Employee View',
                 icon: <Person/>,
-                to: '/performance',
+                to: '/performance/view',
             },
         ],
     },
