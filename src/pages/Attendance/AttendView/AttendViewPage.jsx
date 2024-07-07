@@ -9,6 +9,7 @@ import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeft
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import { useMenu } from '../../../hooks/useMenu';
 import axios from 'axios';
+import attendanceImg from '../../../assets/initalScreen/attendanceView.svg'
 
 
 
@@ -128,7 +129,9 @@ const AttendViewPage = ({ month, year }) => {
                 </div>
                 
             </Box>
-            <Box className="w-full md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
+           {  attendance && attendance.length > 0 ?
+            <Box className="w-full md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view'}}>
+            <Box>
                 <Box className="flex flex-col md:flex-row justify-center gap-4 mt-4 w-[97%] md:ml-4 ">
                    <div className='w-full md:w-[21%] flex justify-start items-center'>
                     <p className='text-[12px] ml-3'>Show</p>
@@ -323,7 +326,20 @@ const AttendViewPage = ({ month, year }) => {
                     )}
                 </div>
             </div>
+                </Box>
+             
+               
+             
         </Box>
+        :
+        <div className="flex flex-col items-center justify-center  text-center">
+        <div><img src={attendanceImg} alt="No Record" className="mb-1"
+        style={{maxWidth:'70%' , margin:'auto'}}
+        /></div>
+        <div><h1 className="text-2xl font-bold mb-2" style={{fontSize:'36px'}}> No Current attendance</h1></div>
+        <div><p className='mb-[50px]'>Your compnany attendance will be seen and edited here</p></div>
+     </div>
+}
     </Box>
     );
 };

@@ -10,6 +10,7 @@ import { useMessage } from '../../components/Header';
 import useModal from '../../hooks/useModal';
 import AddJobs from '../../components/AddJobs';
 import JobListingCard from './JobCards';
+import noRecord from '../../assets/initalScreen/jobListing.svg';
 
 const getOrders = jobs =>
     jobs.map((job, i) => ({
@@ -173,6 +174,8 @@ const JobListing = () => {
                     <InfoOutlinedIcon />
                 </div>
             </div>
+{jobs && jobs?.length > 0  ?
+            <div>
             <div className="overflow-y-auto">
             <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId='list'>
@@ -260,8 +263,18 @@ const JobListing = () => {
                         </div>
                     )}
                 </div>
+            </div> 
             </div>
-
+            :
+            <div className="flex flex-col items-center justify-center  text-center">
+            <div><img src={noRecord} alt="No Record" className="mb-1"
+            style={{maxWidth:'70%' , margin:'auto'}}
+            /></div>
+            <div><h1 className="text-2xl font-bold mb-2" style={{fontSize:'36px'}}>No Job  list Available</h1></div>
+            <div><p className='mb-[50px]'> You have not listed any availble job for application Click on add job now<br /> to start creating opportunites.</p></div>
+        </div>
+          
+}
             
         </div>
     );

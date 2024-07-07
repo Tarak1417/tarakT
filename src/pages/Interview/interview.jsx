@@ -8,6 +8,7 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import AddQuestion from '../../components/AddQuestuion';
 import QuestionCard from '../../components/QuestionCard';
 import { Search } from '@mui/icons-material';
+import DepartmentImg from '../../assets/initalScreen/intrviewQuestion.svg'
 
 const getOrders = jobs =>
     jobs.map((job, i) => ({
@@ -141,96 +142,108 @@ const Interview = () => {
                     </Grid>
                 </Grid>
             </Box>
+{
+    questions && questions.length > 0 ?
+    <Box className="flex flex-col h-[75%] justify-between">
+    <Modal sx={{ overflowY: 'scroll' }} open={modalState} onClose={closeModal}>
+        <AddQuestion
+            selectedQuestion={selectedQuestion}
+            setSelectedQuestion={setSelectedQuestion}
+            refresh={fetchInterviewQuestions}
+            handleClose={closeModal}
+            questions={questions}
+        />
+    </Modal>
 
-            <Box className="flex flex-col h-[75%] justify-between" >
-                <Modal sx={{ overflowY: 'scroll' }} open={modalState} onClose={closeModal}>
-                    <AddQuestion
-                        selectedQuestion={selectedQuestion}
-                        setSelectedQuestion={setSelectedQuestion}
-                        refresh={fetchInterviewQuestions}
-                        handleClose={closeModal}
-                        questions={questions}
-                    />
-                </Modal>
+    <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId='list'>
+            {provided => (
+                <div ref={provided.innerRef} {...provided.droppableProps}>
+                    {questions
+                        ? questions?.map((question, i) => (
+                              <Draggable
+                                  key={question._id}
+                                  draggableId={question._id}
+                                  index={i}>
+                                  {provided => (
+                                      <div
+                                          ref={provided.innerRef}
+                                          {...provided.draggableProps}
+                                          {...provided.dragHandleProps}>
+                                        <QuestionCard
+                                              ref={provided.innerRef}
+                                              draggableProps={provided.draggableProps}
+                                              dragHandleProps={provided.dragHandleProps}
+                                              title={question.title}
+                                              questions={question.questions}
+                                              refresh={fetchInterviewQuestions}
+                                              id={question.jobId}
+                                              editQuestion={editQuestion}
+                                          />
+                                      </div>
+                                  )}
+                              </Draggable>
+                          ))
+                        : Array(5)
+                              ?.fill(0)
+                              .map((el, i) => (
+                                  <Skeleton
+                                      variant='rounded'
+                                      key={i}
+                                      width='100%'
+                                      height='136px'
+                                      animation='wave'
+                                      sx={{
+                                          borderRadius: '20px',
+                                          my: 2,
+                                      }}
+                                  />
+                              ))}
+                    {provided.placeholder}
+                </div>
+            )}
+        </Droppable>
+    </DragDropContext>
+    <Stack direction='row' justifyContent='flex-end' my={4}>
+        {/* <Search
+            placeholder='Search Your Job Category questions'
+            onChange={e => {
+                const { value } = e.target;
+                !(value.trim() === ' ') && fetchInterviewQuestions(value);
+            }}
+        /> */}
+        <Pagination
+            page={pageNo}
+            onChange={(_, newPage) => setPageNo(newPage)}
+            color='primary'
+            count={pageLimit}
+            sx={{ float: 'right' }}
+        />
+        {isOrderChanged && (
+            <Button
+                variant='contained'
+                onClick={saveOrder}
+                endIcon={
+                    loading && (
+                        <CircularProgress size={20} color='secondary' thickness={7} />
+                    )
+                }>
+                Save Order
+            </Button>
+        )}
+    </Stack>
+</Box>
+:
+<div className="flex flex-col items-center justify-center  text-center">
+<div><img src={DepartmentImg} alt="No Record" className="mb-1"
+style={{maxWidth:'70%' , margin:'auto'}}
+/></div>
+<div><h1 className="text-2xl font-bold mb-2" style={{fontSize:"36px" , marginTop:'10px'}}>You interview questions available </h1></div>
+<div><p className='mb-[50px]' >You have not set any interview qestions , start now , and keep offeres , rolling in</p></div>
+</div>
 
-                <DragDropContext onDragEnd={onDragEnd}>
-                    <Droppable droppableId='list'>
-                        {provided => (
-                            <div ref={provided.innerRef} {...provided.droppableProps}>
-                                {questions
-                                    ? questions?.map((question, i) => (
-                                          <Draggable
-                                              key={question._id}
-                                              draggableId={question._id}
-                                              index={i}>
-                                              {provided => (
-                                                  <div
-                                                      ref={provided.innerRef}
-                                                      {...provided.draggableProps}
-                                                      {...provided.dragHandleProps}>
-                                                    <QuestionCard
-                                                          ref={provided.innerRef}
-                                                          draggableProps={provided.draggableProps}
-                                                          dragHandleProps={provided.dragHandleProps}
-                                                          title={question.title}
-                                                          questions={question.questions}
-                                                          refresh={fetchInterviewQuestions}
-                                                          id={question.jobId}
-                                                          editQuestion={editQuestion}
-                                                      />
-                                                  </div>
-                                              )}
-                                          </Draggable>
-                                      ))
-                                    : Array(5)
-                                          ?.fill(0)
-                                          .map((el, i) => (
-                                              <Skeleton
-                                                  variant='rounded'
-                                                  key={i}
-                                                  width='100%'
-                                                  height='136px'
-                                                  animation='wave'
-                                                  sx={{
-                                                      borderRadius: '20px',
-                                                      my: 2,
-                                                  }}
-                                              />
-                                          ))}
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
-                </DragDropContext>
-                <Stack direction='row' justifyContent='flex-end' my={4}>
-                    {/* <Search
-                        placeholder='Search Your Job Category questions'
-                        onChange={e => {
-                            const { value } = e.target;
-                            !(value.trim() === ' ') && fetchInterviewQuestions(value);
-                        }}
-                    /> */}
-                    <Pagination
-                        page={pageNo}
-                        onChange={(_, newPage) => setPageNo(newPage)}
-                        color='primary'
-                        count={pageLimit}
-                        sx={{ float: 'right' }}
-                    />
-                    {isOrderChanged && (
-                        <Button
-                            variant='contained'
-                            onClick={saveOrder}
-                            endIcon={
-                                loading && (
-                                    <CircularProgress size={20} color='secondary' thickness={7} />
-                                )
-                            }>
-                            Save Order
-                        </Button>
-                    )}
-                </Stack>
-            </Box>
+}
+           
         </div>
     );
 };
