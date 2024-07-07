@@ -48,7 +48,7 @@ const CreateOrganization = () => {
     // setTimeout(()=>{
     //   navigate("/listOrganization");
     // },[2500])
-    let subscriptionId = localStorage.getItem("subscriptionId");
+    let subscriptionId = sessionStorage.getItem("subscriptionId");
 
     if (subscriptionId) {
       try {

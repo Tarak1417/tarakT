@@ -38,6 +38,7 @@ const AuthorizationProvider = ({ children }) => {
                 const response = await axios.post(`/user/subscription/check`, { userId: userId });
                 let data = response.data;
                 if (data.success) {
+                    sessionStorage.setItem("subscriptionId" ,data.subscriptionId)
                     await checkOrganization();
                 } else {
                     navigate("/walkover");

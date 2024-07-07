@@ -95,7 +95,11 @@ const ListOrganization = () => {
       const response = await axios.get(`/hr/organization`);
       let data = response.data;
       if (data.success) {
-        setOrganization(data.data);
+        if(data.data.length === 0){
+          navigate('/createOrganization')
+        }else {
+          setOrganization(data.data);
+        }
       }
     } catch (e) {
       console.log("Error List of Organization", e);
