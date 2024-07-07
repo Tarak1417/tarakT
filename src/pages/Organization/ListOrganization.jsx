@@ -26,10 +26,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useMessage } from "../../components/Header";
 // Tabs Section
 const ListOrganization = () => {
   const navigate = useNavigate();
   const [organizations, setOrganization] = useState([]);
+  const { showError, showSuccess } = useMessage();
 
   async function handleDelete(org) {
     try {
@@ -38,21 +40,19 @@ const ListOrganization = () => {
       let data = response.data;
       if (data.success) {
         getOrganizations();
+        showSuccess("Organization Delete Successfully");
         // setShowMessage({
         //   show: true,
-        //   message: "Subscribe Successfully",
+        //   message: ,
         //   severity: "success",
         // });
       }
     } catch (e) {
-      console.log("Payment method created:", e);
-      // setShowMessage({
-      //   show: true,
-      //   message: "Error creating Subscriptions ",
-      //   severity: "error",
-      // });
+      console.log("Error Deleting Organization ", e);
+      showError("Error Deleting Organization ");
+   
     }
-    return { name: "" };
+    
   }
 
   function handleEdit(org) {
@@ -75,6 +75,7 @@ const ListOrganization = () => {
         }
       } catch (e) {
         console.log("Error select of Organization", e);
+        showError("Error select of Organization");
       }
     }
   }

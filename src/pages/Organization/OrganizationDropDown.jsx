@@ -13,6 +13,7 @@ import DraftsIcon from "@mui/icons-material/Drafts";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { Avatar } from "@mui/material";
+import { useNavigate } from "react-router";
 const colorHexCodes = [
   "#e57373", // Red
   "#f06292", // Green
@@ -34,6 +35,7 @@ const colorHexCodes = [
 
 
 const OrganizationDropDown = () => {
+  const navigate = useNavigate();
   const [selectedValue, setSelectedValue] = useState({name : "n/a" , _id : "0"});
   const [organizations, setOrganization] = useState([]);
   const [isListVisible, setIsListVisible] = useState(false);
@@ -41,6 +43,10 @@ const OrganizationDropDown = () => {
   const toggleListVisibility = () => {
     setIsListVisible(!isListVisible);
   };
+
+  const handleAddNew =()=>{
+    navigate('/createOrganization');
+  }
 
   const getOrganizations = useCallback(async () => {
     try {
@@ -157,7 +163,7 @@ const OrganizationDropDown = () => {
                 </ListItem>
                    ))}
                 <Divider />
-                <ListItem disablePadding>
+                <ListItem disablePadding onClick={handleAddNew}>
                   <ListItemButton>
                     <ListItemIcon>
                       <AddCircleOutlineOutlinedIcon  sx={{  width: 20, height: 20  }} />

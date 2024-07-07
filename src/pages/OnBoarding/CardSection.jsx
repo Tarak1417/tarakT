@@ -482,7 +482,7 @@ const CardSection = () => {
                     </ListItemIcon>
                     <ListItemText
                       primary="DAY 7: FREE TRIAL ENDS"
-                      secondary="You will be billed for the Business monthly plan ($50/mo) on May 13. :)"
+                      secondary= {`You will be billed for the Business monthly plan ($ ${plan == "Current Plan" ? planData.amount : "99"}/mo) on May 13. `}
                     />
                   </ListItem>
                 </List>

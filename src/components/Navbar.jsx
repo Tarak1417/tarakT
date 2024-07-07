@@ -428,13 +428,13 @@ export default function Navbar(props) {
                 to='/'
                 sx={{ textDecoration: 'none', color: 'text.primary', py: 1 }}>
                 <Image src={hrlogo} sx={{ height: '47px' }} />
-                <Typography
+                {/* <Typography
                     color='text.secondary'
                     variant='body2'
                     fontWeight='bold'
                     sx={{ position: 'absolute', bottom: 2, left: '43%' }}>
                     Beta
-                </Typography>
+                </Typography> */}
             </Box>
 
             <Box sx={{ overflowY: 'auto', height: 'calc(100dvh - 90px)', flexGrow: 1 }}>
