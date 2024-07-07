@@ -31,7 +31,7 @@ import SaveAltRoundedIcon from "@mui/icons-material/SaveAltRounded";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import Progressbar from "./Progressbar";
 import comm from "../../assets/Icons/comm.png";
-
+import { useLocation } from "react-router-dom";
 // import Tab from '@mui/material/Tab';
 // import TabContext from '@mui/lab/TabContext';
 // import TabList from '@mui/lab/TabList';
@@ -510,8 +510,15 @@ const ViewProject = () => {
     .fill(1)
     .map((el, i) => i + 2009);
 
-  const [tab, setTab] = useState("task");
+  const [tab, setTab] = useState("overview");
   const [paddingBottomContainer, setPaddingBottomContainer] = useState(132);
+
+
+  const location = useLocation();
+  const userDataVal = location.state?.user; // accessing user data passed via navigate
+
+  console.log("userData", userDataVal?.description
+  );
 
   const handleTabChange = (newTab) => {
     setTab(newTab);
@@ -571,11 +578,23 @@ const ViewProject = () => {
               display: none;
             }
           `}</style>
-          <div className="p-2 md:ml-2 hide-scrollbar">
-            <p className="text-[10px] font-[500] leading-[13.02px]  md:text-[15px] md:leading-[26.04px] text-neutral-200">
-              OverView
-            </p>
-          </div>
+           {tab === "overview" ? (
+            <div
+              className="p-2  md:px-6 md:ml-2 bg-[#3767B1] text-white rounded-t-[10px]"
+              onClick={() => handleTabChange("overview")}
+            >
+              <h1 className="text-[10px]  font-[500] leading-[13.02px] md:leading-[26.04px] md:text-[15px]  text-center">
+                Overview
+              </h1>
+            </div>
+          ) : (
+            <div className="p-2 " onClick={() => handleTabChange("overview")}>
+              <h1 className="text-[10px] font-[500] leading-[13.02px] md:leading-[26.04px] md:text-[15px]  text-center">
+              Overview
+              </h1>
+            </div>
+          )}
+         
           {tab === "task" ? (
             <div
               className="p-2  md:px-6 md:ml-2 bg-[#3767B1] text-white rounded-t-[10px]"
@@ -674,6 +693,40 @@ const ViewProject = () => {
           )}
         </div>
       </div>
+
+      {tab == "overview" && (
+        <Box
+          className="mx-2  md:h-[50vh]  md:w-[96%]  md:ml-[20px]  md:mr-[20px]   rounded-lg "
+          sx={{ backgroundColor: "background.view" }}
+        >
+          <Box className=" gap-4 mt-4 w-[97%] ml-2 md:ml-4 ">
+            <div className="w-full md:w-[21%] flex justify-start items-center">
+              <h1    style={{
+                  fontSize: "20px",
+                  lineHeight: "13.02px",
+                  fontWeight: "500",
+                  marginTop:'20px'
+                }}
+                className="text-zinc-500"
+              >Description</h1>
+
+ 
+
+            </div>
+            {
+              userDataVal &&
+              <div className="mt-5">
+              
+              <div className="mt-5" dangerouslySetInnerHTML={{ __html: userDataVal.description }} />
+              </div>
+            }
+         
+            
+          </Box>
+
+          
+        </Box>
+      )}
 
       {tab == "task" && (
         <Box

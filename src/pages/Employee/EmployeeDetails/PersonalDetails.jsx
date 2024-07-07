@@ -118,7 +118,7 @@ const PersonalDetails = ({ employeeDetails }) => {
             {currentPage == 1 && (
                 <div className='w-[99%] p-2 flex flex-col gap-4'>
                     <h1 className='text-xl font-bold'>Basic</h1>
-                    <div className='flex flex-col md:flex-row w-full gap-8'>
+                    {/* <div className='flex flex-col md:flex-row w-full gap-8'>
                         <div className='flex flex-row w-full md:w-1/2 gap-2'>
                             <div className='w-1/4 flex items-center'>
                                 <p className='text-[16px]'>Full Name</p>
@@ -134,8 +134,47 @@ const PersonalDetails = ({ employeeDetails }) => {
                                 />
                             </div>
                         </div>
-                        <div className='flex flex-row gap-2 w-full md:w-1/2 flex items-center'>
-                            <div className='w-full border border-gray-300 rounded-lg'>
+                     
+                           <div className='flex flex-col md:flex-row w-full gap-8'>
+                        <div className='flex flex-row w-full md:w-1/2 gap-2'>
+                            <div className='w-1/4 flex items-center'>
+                                <p className='text-[16px]'>Last Name</p>
+                            </div>
+                            <div className='w-4/5 border border-gray-300 rounded-lg flex items-center'>
+                                <input 
+                                    type="text" 
+                                    className="w-full rounded-lg bg-transparent focus:outline-none p-2" 
+                                    placeholder='last name' 
+                                    name="lastName" 
+                                    value={formData.lastName} 
+                                    onChange={handleChange} 
+                                />
+                            </div>
+                        </div>
+                      
+                    </div>
+                    </div>  */}
+                     <div className='flex flex-col md:flex-row w-full gap-8'>
+                        <div className='flex flex-row w-full md:w-1/2 gap-2'>
+                            <div className='w-1/4 flex items-center'>
+                                <p className='text-[16px]'>First Name</p>
+                            </div>
+                            <div className='w-4/5 border border-gray-300 rounded-lg flex items-center'>
+                                <input 
+                                    type="text" 
+                                    className="w-full rounded-lg bg-transparent focus:outline-none p-2" 
+                                    placeholder='first name' 
+                                    name="firstName" 
+                                    value={formData.firstName} 
+                                    onChange={handleChange} 
+                                />
+                            </div>
+                        </div>
+                        <div className='flex flex-row gap-2 w-full md:w-1/2'>
+                            <div className='w-1/4 flex items-center'>
+                                <p className='text-[16px]'>Last Name </p>
+                            </div>
+                            <div className='w-4/5 border border-gray-300 rounded-lg flex items-center'>
                                 <input 
                                     type="text" 
                                     className="w-full rounded-lg bg-transparent focus:outline-none p-2" 
@@ -147,6 +186,7 @@ const PersonalDetails = ({ employeeDetails }) => {
                             </div>
                         </div>
                     </div>
+                 
                     <div className='flex flex-col md:flex-row w-full gap-8'>
                         <div className='flex flex-row w-full md:w-1/2 gap-2'>
                             <div className='w-1/4 flex items-center'>
