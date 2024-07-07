@@ -67,8 +67,11 @@ const ListOrganization = () => {
         });
         let data = response.data;
         if (data.success) {
-          localStorage.setItem("org", JSON.stringify(org));
-          navigate("/");
+          sessionStorage.setItem("org", JSON.stringify(org));
+          setTimeout(()=>{
+            navigate("/");
+          },[1000])
+
         }
       } catch (e) {
         console.log("Error select of Organization", e);
@@ -84,15 +87,9 @@ const ListOrganization = () => {
     }
   };
 
-  useEffect(() => {
-    getOrganizations();
-  }, []);
+
 
   const getOrganizations = async () => {
-
-    let organizationName =  localStorage.getItem("tempOrganization" )
-    setOrganization([  { name:"Test Org" , status : true } , { name:organizationName , status : true }]);
-
     try {
       const response = await axios.get(`/hr/organization`);
       let data = response.data;
@@ -103,6 +100,10 @@ const ListOrganization = () => {
       console.log("Error List of Organization", e);
     }
   };
+
+  useEffect(() => {
+    getOrganizations();
+  }, []);
 
   return (
     <Box

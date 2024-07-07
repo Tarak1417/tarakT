@@ -16,8 +16,7 @@ const Header = ({ children }) => {
             <CssBaseline />
             <HeaderContext.Provider value={{ showMessage }}>
                 <AuthorizationProvider>
-                    <Navbar>{children}</Navbar>
-                   
+                    {children} 
                 </AuthorizationProvider>
                 {SnackBar}
             </HeaderContext.Provider>

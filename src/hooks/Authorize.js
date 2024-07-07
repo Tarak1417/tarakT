@@ -49,7 +49,7 @@ const AuthorizationProvider = ({ children }) => {
     }
 
     const checkOrganization = async () => {
-        let selectedOrg = localStorage.getItem("org");
+        let selectedOrg = sessionStorage.getItem("org");
         if (selectedOrg) {
             try {
                 selectedOrg = JSON.parse(selectedOrg);
@@ -83,9 +83,11 @@ const AuthorizationProvider = ({ children }) => {
                 await checkUserSubscription(user.id)
             } else {
                 navigate("/walkover");
+                
             }
         } catch (e) {
             navigate("/walkover");
+            localStorage.clear("user")
         }finally{
             authorize(true, (setUser) => setUser(user));
         }

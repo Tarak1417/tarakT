@@ -81,7 +81,7 @@ const JobListing = () => {
     };
 
     const goToCareerPage = () => {
-        let currentOrg = localStorage.getItem("org");
+        let currentOrg = sessionStorage.getItem("org");
         if (currentOrg) {
           currentOrg = JSON.parse(currentOrg);
           let  careerPage  = '/career/'+currentOrg.name

@@ -40,7 +40,6 @@ const CreateOrganization = () => {
   };
 
   const handelSubmit = async () => {
-    // localStorage.setItem("tempOrganization" ,organizationName )
     // setShowMessage({
     //   show: true,
     //   message: "organization Created Successfully",
