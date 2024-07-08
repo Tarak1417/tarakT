@@ -30,7 +30,7 @@ import CircularProgress from "../../hooks/useForm/components/CircularProgress";
 import { Form, Submit, useForm } from "../../hooks/useForm/useForm";
 import { Input } from "../../hooks/useForm/inputs";
 import Matrics from "../../components/Matrics";
-
+import noRecord from '../../assets/initalScreen/recievedApplication.svg'
 const Applications = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -254,8 +254,17 @@ const Applications = () => {
           />
         </Grid>
       </Grid>
-
-      <Grid container spacing={2} my={1.5}>
+{ jobApplications && jobApplications?.length>0 ?
+      <div className="flex flex-col items-center justify-center  text-center">
+      <div><img src={noRecord} alt="No Record" className="mb-1"
+      style={{maxWidth:'70%' , margin:'auto'}}
+      /></div>
+      <div><h1 className="text-2xl font-bold mb-2" style={{fontSize:'36px'}}>No Job  list Available</h1></div>
+      <div><p className='mb-[50px]'> You have not listed any availble job for application Click on add job now<br /> to start creating opportunites.</p></div>
+  </div>
+:
+<Box>
+<Grid container spacing={2} my={1.5}>
         {jobApplications ? (
           jobApplications?.map((jobApplication) => {
             const appliedDate = new Date(
@@ -524,6 +533,10 @@ const Applications = () => {
         count={pageLimit}
         sx={{ float: "right", my: 3 }}
       />
+</Box>
+    
+
+      }
       <Modal
         open={confirmDeleteDialogOpen}
         onClose={handleCancelDelete}

@@ -10,7 +10,7 @@ import axios from 'axios';
 import DeparmentModal from '../../components/DeparmentModal';
 import useModal from '../../hooks/useModal';
 import { useMessage } from '../../components/Header';
-
+import DepartmentImg from '../../assets/initalScreen/departements.svg'
 const DeptPage = () => {
     const [id, setId] = useState();
     const [open, setOpen] = useState(false);
@@ -72,52 +72,65 @@ const DeptPage = () => {
                     <InfoOutlinedIcon />
                 </div>
             </div>
+            { departments && departments?.length > 0 ?  
             <Box className="w-[95%] ml-2 md:ml-5 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
-                <p className=" mb-4 border-l-4 border-blue-500 pl-4 text-xl" gutterBottom>
-                    Department Summary
-                </p>
-                <div className='w-full pl-4'>
-                    <p className='text-sm md:text-base text-zinc-400 pl-2 md:pl-5'>Rows per page: 10 <FontAwesomeIcon icon={faCaretDown} className='text-zinc-500 text-lg md:text-2xl text-center ml-2'/></p>
+            <p className=" mb-4 border-l-4 border-blue-500 pl-4 text-xl" gutterBottom>
+                Department Summary
+            </p>
+            <div className='w-full pl-4'>
+                <p className='text-sm md:text-base text-zinc-400 pl-2 md:pl-5'>Rows per page: 10 <FontAwesomeIcon icon={faCaretDown} className='text-zinc-500 text-lg md:text-2xl text-center ml-2'/></p>
+            </div>
+            <div className='w-[95%] ml-2 md:ml-9 border border-zinc-500 rounded-sm mt-4 '>
+                <div className='flex flex-row border-b border-zinc-500'>
+                    <div className='w-[25%] md:w-[5%] p-2 border-r border-zinc-500 text-left text-sm md:text-lg font-bold'>
+                        #ID
+                    </div>
+                    <div className='w-[50%] md:w-[85%] p-2 border-r border-zinc-500 text-sm md:text-lg font-bold'>
+                        Department Name
+                    </div>
+                    <div className='w-[25%] md:w-[10%] p-2 text-sm md:text-lg font-bold'>
+                        Actions
+                    </div>
                 </div>
-                <div className='w-[95%] ml-2 md:ml-9 border border-zinc-500 rounded-sm mt-4 '>
-                    <div className='flex flex-row border-b border-zinc-500'>
-                        <div className='w-[25%] md:w-[5%] p-2 border-r border-zinc-500 text-left text-sm md:text-lg font-bold'>
-                            #ID
+                {departments?.map((dept,index) => (
+                    <div key={index} className='flex flex-row border-b border-zinc-500'>
+                        <div className='w-[25%] md:w-[5%] p-2 md:p-4 border-r border-zinc-500 text-left text-sm md:text-[16px]'>
+                            #{index+1}
                         </div>
-                        <div className='w-[50%] md:w-[85%] p-2 border-r border-zinc-500 text-sm md:text-lg font-bold'>
-                            Department Name
+                        <div className='w-[50%] md:w-[85%] p-2 md:p-4 border-r border-zinc-500 text-sm md:text-[18px]'>
+                            {dept.name}
                         </div>
-                        <div className='w-[25%] md:w-[10%] p-2 text-sm md:text-lg font-bold'>
-                            Actions
+                        <div className='w-[25%] md:w-[10%] p-2 flex flex-row gap-2 items-center'>
+                            <IconButton onClick={() => EditDepartment(dept._id)}><EditOutlinedIcon fontSize='medium' className='p-1 rounded-sm'/></IconButton>
+                            <IconButton onClick={() => {
+                                                setSelectDepartment(dept);
+                                                openDelete();
+                                            }}><DeleteOutlineOutlinedIcon fontSize='medium' className='p-1  rounded-sm'/></IconButton>
                         </div>
                     </div>
-                    {departments?.map((dept,index) => (
-                        <div key={index} className='flex flex-row border-b border-zinc-500'>
-                            <div className='w-[25%] md:w-[5%] p-2 md:p-4 border-r border-zinc-500 text-left text-sm md:text-[16px]'>
-                                #{index+1}
-                            </div>
-                            <div className='w-[50%] md:w-[85%] p-2 md:p-4 border-r border-zinc-500 text-sm md:text-[18px]'>
-                                {dept.name}
-                            </div>
-                            <div className='w-[25%] md:w-[10%] p-2 flex flex-row gap-2 items-center'>
-                                <IconButton onClick={() => EditDepartment(dept._id)}><EditOutlinedIcon fontSize='medium' className='p-1 rounded-sm'/></IconButton>
-                                <IconButton onClick={() => {
-                                                    setSelectDepartment(dept);
-                                                    openDelete();
-                                                }}><DeleteOutlineOutlinedIcon fontSize='medium' className='p-1  rounded-sm'/></IconButton>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-                <div className='w-[95%] ml-2  md:ml-9 mt-2 flex justify-between items-center pb-2 mb-20 md:mb-0'>
-                    <p className='text-sm md:text-base text-zinc-400 '>Showing Rows: 1-10 of 20</p>
-                    <div className='flex flex-row gap-4'>
-                    <KeyboardArrowLeftOutlinedIcon className='text-zinc-400'/>
-                    <p className='text-zinc-400'>1</p>
-                    <p className='text-zinc-400 bg-blue-500 w-[20px] h-[20px] flex items-center justify-center p-1 rounded-full'>2</p>
-                </div>
-                </div>
-            </Box>
+                ))}
+            </div>
+            <div className='w-[95%] ml-2  md:ml-9 mt-2 flex justify-between items-center pb-2 mb-20 md:mb-0'>
+                <p className='text-sm md:text-base text-zinc-400 '>Showing Rows: 1-10 of 20</p>
+                <div className='flex flex-row gap-4'>
+                <KeyboardArrowLeftOutlinedIcon className='text-zinc-400'/>
+                <p className='text-zinc-400'>1</p>
+                <p className='text-zinc-400 bg-blue-500 w-[20px] h-[20px] flex items-center justify-center p-1 rounded-full'>2</p>
+            </div>
+            </div>
+        </Box> 
+            :
+   <div className="flex flex-col items-center justify-center  text-center">
+   <div><img src={DepartmentImg} alt="No Record" className="mb-1"
+   style={{maxWidth:'70%' , margin:'auto'}}
+   /></div>
+   <div><h1 className="text-2xl font-bold mb-2">You have No available departments</h1></div>
+   <div><p className='mb-[50px]'>don't waste  time build your orgnaization by setting your available departments now </p></div>
+</div>
+            }
+        
+
+         
             <Modal
                 open={open}
                 onClose={handleClose}
