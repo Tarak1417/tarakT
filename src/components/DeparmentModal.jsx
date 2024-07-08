@@ -26,7 +26,7 @@ const DeparmentModal = ({ handleClose, fetchDepartment, id }) => {
         { Input: TextField }
     );
 
-    const title = id ? 'Edit Deparment' : 'Add Deparment';
+    const title = id ? 'Edit Department' : 'Add Department';
     const buttonText = id ? 'Update' : 'Add';
     const method = id ? 'PATCH' : 'POST';
     const action = id ? `/hr/department/${id}` : '/hr/department';
@@ -38,7 +38,7 @@ const DeparmentModal = ({ handleClose, fetchDepartment, id }) => {
             try {
                 const response = await axios.get(`/hr/department/${id}`);
 
-                const data = response.data.department.name;
+                const data = response?.data?.departments[0]?.name;
                 const name = data;
                 setValues({ name });
             } catch (e) {

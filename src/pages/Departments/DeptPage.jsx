@@ -20,8 +20,9 @@ const DeptPage = () => {
     const [selectDepartment, setSelectDepartment] = useState({});
 
     const EditDepartment = id => {
-        handleOpen();
+      
         setId(id);
+        handleOpen();
     };
 
     const fetchDepartment = useCallback(
