@@ -21,6 +21,7 @@ import {
   Grid,
   Divider,
   IconButton,
+  Tooltip,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -50,9 +51,7 @@ const ListOrganization = () => {
     } catch (e) {
       console.log("Error Deleting Organization ", e);
       showError("Error Deleting Organization ");
-   
     }
-    
   }
 
   function handleEdit(org) {
@@ -68,10 +67,9 @@ const ListOrganization = () => {
         let data = response.data;
         if (data.success) {
           sessionStorage.setItem("org", JSON.stringify(org));
-          setTimeout(()=>{
+          setTimeout(() => {
             navigate("/");
-          },[1000])
-
+          }, [1000]);
         }
       } catch (e) {
         console.log("Error select of Organization", e);
@@ -88,16 +86,14 @@ const ListOrganization = () => {
     }
   };
 
-
-
   const getOrganizations = async () => {
     try {
       const response = await axios.get(`/hr/organization`);
       let data = response.data;
       if (data.success) {
-        if(data.data.length === 0){
-          navigate('/createOrganization')
-        }else {
+        if (data.data.length === 0) {
+          navigate("/createOrganization");
+        } else {
           setOrganization(data.data);
         }
       }
@@ -156,7 +152,7 @@ const ListOrganization = () => {
           {organizations.map((org, index) => (
             <Grid container sx={{ p: 1, minWidth: 525 }}>
               <Grid item xs={8}>
-                <div onClick={() => handleSelect(org)}>{org.name}</div>
+                <div className="px-3 py-1 mr-2 rounded-lg hover:text-sky-600 active:text-blue-600 " onClick={() => handleSelect(org)}>{org.name}</div>
               </Grid>
               <Grid item xs={2}>
                 <div
@@ -168,11 +164,20 @@ const ListOrganization = () => {
                 </div>
               </Grid>
               <Grid item xs={2}>
-                <EditIcon
-                  sx={{ color: "blue", marginRight: 1.5 }}
-                  onClick={() => handleEdit(org)}
-                />
-                <DeleteIcon color="error" onClick={() => handleDelete(org)} />
+             
+                <Tooltip title="Edit Organization" sx={{marginRight: 1.5 }}>
+                <IconButton variant='outlined' onClick={() => handleEdit(org)}>
+                  <EditIcon  sx={{ color: "blue"}}  />
+                  </IconButton>
+                </Tooltip>
+                
+                <Tooltip title="Delete Organization">
+                  <IconButton variant='outlined'>
+
+                
+                  <DeleteIcon color="error" onClick={() => handleDelete(org)} />
+                  </IconButton>
+                </Tooltip>
               </Grid>
             </Grid>
           ))}

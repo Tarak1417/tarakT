@@ -153,7 +153,7 @@ const CardSection = () => {
             });
             setTimeout(() => {
               navigate("/createOrganization");
-            }, [2500]);
+            }, [1000]);
           }
         } catch (e) {
           console.log("Payment method created:", e);
