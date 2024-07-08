@@ -22,7 +22,7 @@ import moment from 'moment';
 import { data } from 'autoprefixer';
 import { Link } from 'react-router-dom';
 import useModal from "../../hooks/useModal";
-
+import noRecord from '../../assets/initalScreen/employeeList.svg';
 const EmployeePage = () => {
     
       const {
@@ -142,7 +142,7 @@ const EmployeePage = () => {
                     </div>  
                 </div>
                 <Box  sx={{ width :{ xs :'calc(100vw - 30px)'  , sm:'100%' }}}  className='overflow-x-auto'>
-              
+              { employLists?.length > 0 ?
             <Box className="w-full   min-w-[48rem] ml-2 md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
                 <div className='flex items-center justify-between md:w-full'>
                     <div>
@@ -247,6 +247,16 @@ const EmployeePage = () => {
                 </div>
                 </div>
             </Box>
+            :
+            <div className="flex flex-col items-center justify-center  text-center">
+            <div><img src={noRecord} alt="No Record" className="mb-1"
+            style={{maxWidth:'70%' , margin:'auto'}}
+            /></div>
+            <div><h1 className="text-2xl font-bold mb-2">No Employee Record</h1></div>
+            <div><p className='mb-[50px]'>When you employee people to work at your organization, their information<br /> will be seen here.</p></div>
+        </div>
+}
+
             </Box>
         </div>
         <Modal
