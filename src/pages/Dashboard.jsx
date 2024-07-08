@@ -149,9 +149,12 @@ const Dashboard = () => {
             HR DASHBOARD
           </Typography> */}
           <Grid container  display='flex' alignItems='center'>
-                    <Grid item xs>
+                    {/* <Grid item xs>
                         <Typography className="text-gray-500" variant='h5'>HR Dashboard</Typography>
-                    </Grid>
+                    </Grid> */}
+                    <div className="p-2">
+          <h1 className="text-2xl text-neutral-500">HR Dashboard</h1>
+        </div>
 
                     <Grid item sx={{ display: { xs: 'flex' }, mx: 'auto' ,my:1  }} alignItems='center'>
                         <Box sx={{ mr: 2, display: { lg: 'block', xs: 'none' } }}>

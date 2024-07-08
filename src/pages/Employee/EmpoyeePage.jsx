@@ -111,8 +111,8 @@ const EmployeePage = () => {
     
     return (
         <Box sx={{backgroundColor: 'background.main',}}>
-        <div className='flex flex-col'>
-                <div className="flex items-center justify-between md:w-full p-4">
+        <div className='flex flex-col p-4'>
+                <div className="flex items-center justify-between md:w-full ">
                         <div className="p-2">
                             <h1 className="text-2xl text-neutral-500">Employees</h1>
                         </div>

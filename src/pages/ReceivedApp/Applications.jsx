@@ -254,7 +254,7 @@ const Applications = () => {
           />
         </Grid>
       </Grid>
-{ jobApplications && jobApplications?.length>0 ?
+{ jobApplications && jobApplications?.length == 0 ?
       <div className="flex flex-col items-center justify-center  text-center">
       <div><img src={noRecord} alt="No Record" className="mb-1"
       style={{maxWidth:'70%' , margin:'auto'}}

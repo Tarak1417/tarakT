@@ -127,7 +127,6 @@ const App = () => {
           <Route path='/career/apply-for-job/:id' element={<ApplyForJob />} />
           <Route path='/career/job/:id' element={<JobDetails />} />
           <Route path='/career/404' element={<ErrorPage />} />
-
           </Routes>
       </RootContainer>
       </RecoilRoot>

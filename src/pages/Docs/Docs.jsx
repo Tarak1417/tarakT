@@ -38,8 +38,12 @@ const Docs = () => {
             <Box sx={{ mt: 3 }}>
                 <Grid container spacing={4} display='flex' alignItems='center'>
                     <Grid item xs>
-                        <Typography variant='h5'>Docs</Typography>
+                    <div className="p-2 mx-3">
+                    <h1 className="text-2xl text-neutral-500"  >Docs</h1>
+                </div>
+                        {/* <Typography variant='h5'>Docs</Typography> */}
                     </Grid>
+           
                     <Grid item display='flex' alignItems='center'>
                         <Box>
                             <Button

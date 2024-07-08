@@ -6,6 +6,7 @@ import { Box } from "@mui/material";
 import axios from "axios";
 import useQueryState from "../../hooks/useQueryState";
 import { useMessage } from "../../components/Header";
+import noRecord from '../../assets/initalScreen/recievedApplication.svg'
 
 const JobCards = () => {
   const [jobApplications, setJobApplications] = useState(null);
@@ -70,86 +71,118 @@ const JobCards = () => {
 
   return (
     <div className="w-full flex flex-wrap justify-between mx-4 pt-4 gap-1 pr-6">
-      {jobApplications &&
-        jobApplications.map((application, index) => (
-          <Box
-            key={index}
-            className="w-full md:w-[48%] lg:w-[32%] xl:w-[24%] h-auto p-2 gap-4 rounded-lg mb-4"
-            sx={{ backgroundColor: "background.view" }}
-          >
-            <div className="flex flex-row justify-between items-center">
-              <h1 className="text-[14px]">{application.jobTitle}</h1>
-              <p className="text-[8px] text-zinc-500">
-                {new Date(application.createdAt).toLocaleDateString()}
-              </p>
-            </div>
-            <div className="flex flex-row justify-start gap-2 items-center">
-              <p className="text-[12px] text-zinc-500">
-                <PersonIcon fontSize="small" className="text-zinc-300" />{" "}
-                {application.fullName}
-              </p>
-            </div>
-            <div className="flex flex-row gap-2 pt-2">
-              {/* <Link to={`/showmore/${application._id}`}> */}
-              {/* <Link to={`/showmore:${application._id}`}> */}
-              <Link to={`/jobApplicationDetail/${application._id}`}>
-
-
-
-
-                <button
-                  className="flex text-zinc-200 p-1 bg-sky-500 rounded-sm text-[8px]"
-                  onClick={() => handleShowMoreClick(application._id)}
-                >
-                  Show more
-                </button>
-              </Link>
-              <button
-                className="flex text-zinc-200 p-1 bg-amber-500 rounded-sm text-[8px]"
-                onClick={() => handleDeleteClick(application)}
-              >
-                Delete
-              </button>
-            </div>
-            <div className="flex flex-row gap-1 w-full mt-2">
-              <div className="flex items-center border-b border-solid border-zinc-50 w-[96%] ">
-                <div className="w-full relative ">
-                  <select className="outline-none border-none w-full bg-transparent light:text-zinc-50 text-[12px] pr-6 appearance-none">
-                    <option value="">Add Label</option>
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                    <option value="option3">Option 3</option>
-                  </select>
-                </div>
-                <ArrowDropDownIcon className="text-zinc-500" />
+      {jobApplications && jobApplications.length > 0 ? (
+        <>
+          {jobApplications.map((application, index) => (
+            <Box
+              key={index}
+              className="w-full md:w-[48%] lg:w-[32%] xl:w-[24%] h-auto p-2 gap-4 rounded-lg mb-4"
+              sx={{ backgroundColor: "background.view" }}
+            >
+              <div className="flex flex-row justify-between items-center">
+                <h1 className="text-[14px]">{application.jobTitle}</h1>
+                <p className="text-[8px] text-zinc-500">
+                  {new Date(application.createdAt).toLocaleDateString()}
+                </p>
               </div>
-              <p className="text-[14px] text-zinc-500 flex items-bottom justify-bottom">
-                +
-              </p>
-            </div>
-            <div className="flex flex-row gap-2 pt-2">
-              {/* Example status labels */}
-              <Box
-                sx={{ backgroundColor: "background.bond", color: "text.two" }}
-                className="flex p-1 bg-neutral-800 text-[8px]"
-              >
-                {application.isInterviewDone ? "Interviewed" : "Not Interviewed"}
-              </Box>
-              <Box
-                sx={{ backgroundColor: "background.bond", color: "text.two" }}
-                className="flex p-1 bg-neutral-800 text-[8px]"
-              >
-                {application.isOfferLetterSigned ? "Offer Signed" : "Offer Not Signed"}
-              </Box>
-              <Box
-                sx={{ backgroundColor: "background.bond", color: "text.two" }}
-                className="flex p-1 bg-neutral-800 text-[8px]"
-              >
-                {application.isAgreementSigned ? "Agreement Signed" : "Agreement Not Signed"}
-              </Box>
-            </div>
-          </Box>
-        ))}
+              <div className="flex flex-row justify-start gap-2 items-center">
+                <p className="text-[12px] text-zinc-500">
+                  <PersonIcon fontSize="small" className="text-zinc-300" />{" "}
+                  {application.fullName}
+                </p>
+              </div>
+              <div className="flex flex-row gap-2 pt-2">
+                {/* <Link to={`/showmore/${application._id}`}> */}
+                {/* <Link to={`/showmore:${application._id}`}> */}
+                <Link to={`/jobApplicationDetail/${application._id}`}>
+                  <button
+                    className="flex text-zinc-200 p-1 bg-sky-500 rounded-sm text-[8px]"
+                    onClick={() => handleShowMoreClick(application._id)}
+                  >
+                    Show more
+                  </button>
+                </Link>
+                <button
+                  className="flex text-zinc-200 p-1 bg-amber-500 rounded-sm text-[8px]"
+                  onClick={() => handleDeleteClick(application)}
+                >
+                  Delete
+                </button>
+              </div>
+              <div className="flex flex-row gap-1 w-full mt-2">
+                <div className="flex items-center border-b border-solid border-zinc-50 w-[96%] ">
+                  <div className="w-full relative ">
+                    <select className="outline-none border-none w-full bg-transparent light:text-zinc-50 text-[12px] pr-6 appearance-none">
+                      <option value="">Add Label</option>
+                      <option value="option1">Option 1</option>
+                      <option value="option2">Option 2</option>
+                      <option value="option3">Option 3</option>
+                    </select>
+                  </div>
+                  <ArrowDropDownIcon className="text-zinc-500" />
+                </div>
+                <p className="text-[14px] text-zinc-500 flex items-bottom justify-bottom">
+                  +
+                </p>
+              </div>
+              <div className="flex flex-row gap-2 pt-2">
+                {/* Example status labels */}
+                <Box
+                  sx={{ backgroundColor: "background.bond", color: "text.two" }}
+                  className="flex p-1 bg-neutral-800 text-[8px]"
+                >
+                  {application.isInterviewDone
+                    ? "Interviewed"
+                    : "Not Interviewed"}
+                </Box>
+                <Box
+                  sx={{ backgroundColor: "background.bond", color: "text.two" }}
+                  className="flex p-1 bg-neutral-800 text-[8px]"
+                >
+                  {application.isOfferLetterSigned
+                    ? "Offer Signed"
+                    : "Offer Not Signed"}
+                </Box>
+                <Box
+                  sx={{ backgroundColor: "background.bond", color: "text.two" }}
+                  className="flex p-1 bg-neutral-800 text-[8px]"
+                >
+                  {application.isAgreementSigned
+                    ? "Agreement Signed"
+                    : "Agreement Not Signed"}
+                </Box>
+              </div>
+            </Box>
+          ))}{" "}
+        </>
+      ) : (
+        <div className="flex w-full flex-col items-center justify-center  text-center">
+          <div>
+            <img
+              src={noRecord}
+              alt="No Record"
+              className="mb-1"
+              style={{ maxWidth: "60%", margin: "auto" }}
+            />
+          </div>
+          <div>
+            <h1
+              className="text-2xl font-bold mb-2"
+              style={{ fontSize: "36px" }}
+            >
+              No Job list Available
+            </h1>
+          </div>
+          <div>
+            <p className="mb-[50px]">
+              {" "}
+              You have not listed any availble job for application Click on add
+              job now
+              <br /> to start creating opportunites.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

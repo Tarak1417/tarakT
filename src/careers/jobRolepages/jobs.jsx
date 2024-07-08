@@ -41,12 +41,12 @@ const Jobs = () => {
             <div  onClick={() => navigate(-1)}>
                 <button className="dark:text-white text-zinc-500 text-lg font-bold"><FontAwesomeIcon icon={faArrowLeft} /> Back</button>
             </div>
-            <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4">{jobs? jobs?.department : ""}</h1>
+            <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4">{jobs? jobs?.title : ""}</h1>
             <div className="flex flex-col dark:text-zinc-400 md:flex-row gap-8 mt-5">
                 <div className="flex items-center"><FontAwesomeIcon icon={faWallet} /> <span className="ml-2">{ jobs &&  (jobs.salary?.amount)} {jobs.salary?.currency && (jobs.salary?.currency)   }   </span></div>
-                <div className="flex items-center"><FontAwesomeIcon icon={faBriefcase} /> <span className="ml-2">{jobs && jobs.experience                } years</span></div>
-                <div className="flex items-center"><FontAwesomeIcon icon={faLocationDot} /> <span className="ml-2">{ jobs && jobs.jobType                }</span></div>
-                <div className="flex items-center"><FontAwesomeIcon icon={faLayerGroup} /> <span className="ml-2">{ jobs && jobs.title}</span></div>
+                <div className="flex items-center"><FontAwesomeIcon icon={faBriefcase} /> <span className="ml-2">{jobs && jobs.experience} years</span></div>
+                <div className="flex items-center"><FontAwesomeIcon icon={faLocationDot} /> <span className="ml-2">{ jobs && jobs.jobType}</span></div>
+                <div className="flex items-center"><FontAwesomeIcon icon={faLayerGroup} /> <span className="ml-2">{ jobs && jobs.department}</span></div>
             </div>
             <Divider />
             { (jobs&& jobs.details)  &&jobs.details.map((detail, index  ) =>(
