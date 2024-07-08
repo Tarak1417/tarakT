@@ -120,8 +120,12 @@ const Interview = () => {
             <Box mt={3}>
                 <Grid container spacing={4} display='flex' alignItems='center'>
                     <Grid item xs>
+                    <div className="p-2">
+                    <h1 className="text-2xl text-neutral-500"  >Interview Questions</h1>
+                </div>
+                       
 
-                    <h1 className="text-2xl text-neutral-500">Interview Questions</h1>
+                    {/* <h1 className="text-2xl text-neutral-500">Interview Questions</h1> */}
           
                         {/* <Typography variant='h5'>Interview Question</Typography> */}
                     </Grid>

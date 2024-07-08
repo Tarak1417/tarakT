@@ -31,16 +31,14 @@ const Overview = () => {
 
   return (
     <div className="md:w-full flex flex-col md:flex-row gap-2">
-           { applicationMetrics && applicationMetrics.length > 0 && 
-        <>
-    
+  
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between rounded-lg p-2 gap-10 overflow-hidden"
         sx={{ backgroundColor: "background.rec" }}
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {applicationMetrics && applicationMetrics[0].applied}
+            {(applicationMetrics && applicationMetrics.length > 0 )? applicationMetrics[0].applied  :0  }
           </h1>
           <p className="text-[8px]">Applied</p>
         </div>
@@ -61,7 +59,7 @@ const Overview = () => {
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {applicationMetrics && applicationMetrics[0].interviewSent}
+            {(applicationMetrics && applicationMetrics.length > 0) ? applicationMetrics[0].interviewSent :0}
           </h1>
           <p className="text-[8px]">Interview Sent</p>
         </div>
@@ -82,7 +80,7 @@ const Overview = () => {
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {applicationMetrics && applicationMetrics[0].interviewed}
+            {(applicationMetrics && applicationMetrics.length > 0) ? applicationMetrics[0].interviewed :0}
           </h1>
           <p className="text-[8px]">Interviewed</p>
         </div>
@@ -103,7 +101,7 @@ const Overview = () => {
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {applicationMetrics && applicationMetrics[0].offerSent}
+            {(applicationMetrics && applicationMetrics.length > 0) ? applicationMetrics[0].offerSent :0}
           </h1>
           <p className="text-[8px]">Offer Letter Sent</p>
         </div>
@@ -124,7 +122,7 @@ const Overview = () => {
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {applicationMetrics && applicationMetrics[0].offerSigned}
+            {(applicationMetrics && applicationMetrics.length > 0) ? applicationMetrics[0].offerSigned:0}
           </h1>
           <p className="text-[8px]">Offer Letter Signed</p>
         </div>
@@ -145,7 +143,7 @@ const Overview = () => {
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {applicationMetrics && applicationMetrics[0].agreementSent}
+            {(applicationMetrics && applicationMetrics.length > 0) ? applicationMetrics[0].agreementSent :0}
           </h1>
           <p className="text-[8px]">Agreements Sent</p>
         </div>
@@ -166,7 +164,7 @@ const Overview = () => {
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {applicationMetrics && applicationMetrics[0].agreementSigned}
+            {(applicationMetrics && applicationMetrics.length > 0) ? applicationMetrics[0].agreementSigned :0}
           </h1>
           <p className="text-[8px]">Agreements Signed</p>
         </div>
@@ -187,7 +185,7 @@ const Overview = () => {
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {applicationMetrics && applicationMetrics[0].employed}
+            {(applicationMetrics && applicationMetrics.length > 0) ? applicationMetrics[0].employed :0}
           </h1>
           <p className="text-[8px]">Employed</p>
         </div>
@@ -208,7 +206,7 @@ const Overview = () => {
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {applicationMetrics && applicationMetrics[0].terminated}
+            {(applicationMetrics && applicationMetrics.length > 0) ? applicationMetrics[0].terminated :0}
           </h1>
           <p className="text-[8px]">Terminated</p>
         </div>
@@ -223,8 +221,6 @@ const Overview = () => {
         </div>
       </Box>
 
-      </>
-}
     </div>
   );
 };
