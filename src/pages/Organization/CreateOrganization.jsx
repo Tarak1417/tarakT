@@ -167,7 +167,7 @@ const CreateOrganization = () => {
     }
   };
 
-  const isFormValidate = organizationName == "" || (!validateEmail(email)) || picture == "";
+  const isFormValidate = organizationName == "" || (!validateEmail(email)) || (!validateWebsite(website))|| picture == "";
 
   return (
     <Box
