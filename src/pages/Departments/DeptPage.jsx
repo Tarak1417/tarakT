@@ -121,7 +121,7 @@ const DeptPage = () => {
                 <p className='text-zinc-400 bg-blue-500 w-[20px] h-[20px] flex items-center justify-center p-1 rounded-full'>2</p>
             </div>
             </div>
-        </Box> 
+            </Box> 
             :
    <div className="flex flex-col items-center justify-center  text-center">
    <div><img src={DepartmentImg} alt="No Record" className="mb-1"

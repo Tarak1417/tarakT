@@ -174,8 +174,9 @@ const JobListing = () => {
                     <InfoOutlinedIcon />
                 </div>
             </div>
-{jobs && jobs?.length > 0  ?
+
             <div>
+            {jobs && jobs?.length > 0  ?
             <div className="overflow-y-auto">
             <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId='list'>
@@ -232,6 +233,15 @@ const JobListing = () => {
                     </Droppable>
                 </DragDropContext>
             </div>
+            :
+            <div className="flex flex-col items-center justify-center  text-center">
+            <div><img src={noRecord} alt="No Record" className="mb-1"
+            style={{maxWidth:'70%' , margin:'auto'}}
+            /></div>
+            <div><h1 className="text-2xl font-bold mb-2" style={{fontSize:'36px'}}>No Job  list Available</h1></div>
+            <div><p className='mb-[50px]'> You have not listed any availble job for application Click on add job now<br /> to start creating opportunites.</p></div>
+            </div>
+            }
             <div className='flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10'>
                 <div className="p-2 rounded-lg ">
                     <div className="flex items-center gap-0 md:gap-6">
@@ -265,16 +275,7 @@ const JobListing = () => {
                 </div>
             </div> 
             </div>
-            :
-            <div className="flex flex-col items-center justify-center  text-center">
-            <div><img src={noRecord} alt="No Record" className="mb-1"
-            style={{maxWidth:'70%' , margin:'auto'}}
-            /></div>
-            <div><h1 className="text-2xl font-bold mb-2" style={{fontSize:'36px'}}>No Job  list Available</h1></div>
-            <div><p className='mb-[50px]'> You have not listed any availble job for application Click on add job now<br /> to start creating opportunites.</p></div>
-        </div>
-          
-}
+            
             
         </div>
     );

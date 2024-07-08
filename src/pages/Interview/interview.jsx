@@ -146,8 +146,7 @@ const Interview = () => {
                     </Grid>
                 </Grid>
             </Box>
-{
-    questions && questions.length > 0 ?
+
     <Box className="flex flex-col h-[75%] justify-between">
     <Modal sx={{ overflowY: 'scroll' }} open={modalState} onClose={closeModal}>
         <AddQuestion
@@ -158,7 +157,8 @@ const Interview = () => {
             questions={questions}
         />
     </Modal>
-
+    {
+    questions && questions.length > 0 ?
     <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId='list'>
             {provided => (
@@ -208,6 +208,16 @@ const Interview = () => {
             )}
         </Droppable>
     </DragDropContext>
+    :
+    <div className="flex flex-col items-center justify-center  text-center">
+    <div><img src={DepartmentImg} alt="No Record" className="mb-1"
+    style={{maxWidth:'70%' , margin:'auto'}}
+    /></div>
+    <div><h1 className="text-2xl font-bold mb-2" style={{fontSize:"36px" , marginTop:'10px'}}>You interview questions available </h1></div>
+    <div><p className='mb-[50px]' >You have not set any interview qestions , start now , and keep offeres , rolling in</p></div>
+    </div>
+    
+    }
     <Stack direction='row' justifyContent='flex-end' my={4}>
         {/* <Search
             placeholder='Search Your Job Category questions'
@@ -237,16 +247,7 @@ const Interview = () => {
         )}
     </Stack>
 </Box>
-:
-<div className="flex flex-col items-center justify-center  text-center">
-<div><img src={DepartmentImg} alt="No Record" className="mb-1"
-style={{maxWidth:'70%' , margin:'auto'}}
-/></div>
-<div><h1 className="text-2xl font-bold mb-2" style={{fontSize:"36px" , marginTop:'10px'}}>You interview questions available </h1></div>
-<div><p className='mb-[50px]' >You have not set any interview qestions , start now , and keep offeres , rolling in</p></div>
-</div>
 
-}
            
         </div>
     );
