@@ -141,6 +141,7 @@ const CardSection = () => {
             tokenId: token.id,
             card: token.card,
             plan: "private",
+            amount:planData.amount
           });
 
           if (response.status === 200) {
