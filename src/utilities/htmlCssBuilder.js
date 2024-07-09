@@ -28,5 +28,22 @@ function getElementWithCss({ tag, content }) {
 
 }
 
+function getDropDownElementWithCss({ tag, content }) {
 
-export { getElementWithCss };
+    if(content.trim() == ""){
+       return ( <div className="mb-8" ></div>)
+    } else if (tag == 'li') {
+        return (
+            <ul className="list-disc pl-4 text-sm md:text-base">
+                <li>{content}</li>
+            </ul>
+        )
+    } else if (tag == 'h6' || tag == 'h5' ||tag == 'h3'||tag == 'h4'||tag == 'h2'||tag == 'h1' ) {
+        return <h6 className="text-base dark:text-zinc-300 mb-2 mt-1">{content}</h6>
+    } else {
+        return <p className="text-sm md:text-base mb-2 mt-1">{content}</p>
+    }
+}
+
+
+export { getElementWithCss ,getDropDownElementWithCss };

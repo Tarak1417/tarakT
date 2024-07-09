@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { getElementWithCss } from '../../utilities/htmlCssBuilder';
+import { getDropDownElementWithCss, getElementWithCss } from '../../utilities/htmlCssBuilder';
 
   export const jobRole = [ 
     {
@@ -80,7 +80,7 @@ const JobRole = ({ job, _id}) => {
         {job &&
           job.details &&
           job.details.map((detail, index) => (
-            <div key={index}>{getElementWithCss(detail)}</div>
+            <div key={index}>{getDropDownElementWithCss(detail)}</div>
           ))}
               </div>
 

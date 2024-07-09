@@ -1,5 +1,6 @@
 import { Box, Typography, Accordion, AccordionDetails } from '@mui/material';
 import React from 'react';
+import { getDropDownElementWithCss, getElementWithCss } from '../../utilities/htmlCssBuilder';
 
 function Details(props) {
     const { details, jobType, salary } = props;
@@ -13,13 +14,17 @@ function Details(props) {
                 transition: '0.2s',
             }}
         >
-            <AccordionDetails sx={{ transition: '1s' }}>
-                {details?.map((detail) => (
-                    <Box>
-                        {React.createElement(detail.tag, {
-                            children: detail.content,
-                        })}
-                    </Box>
+            <AccordionDetails sx={{ transition: '1s' }} className='dark:text-zinc-500'>
+                {details?.map((detail , index) => (
+                    <div key={index}>
+                      { getDropDownElementWithCss(detail)}
+                    </div>
+                    
+                    // <Box>
+                    //     {React.createElement(detail.tag, {
+                    //         children: detail.content,
+                    //     })}
+                    // </Box>
                 ))}
                 <Box sx={{ p: 2 }}>
                     <Typography variant='h5' sx={{ pb: 3 }}>
