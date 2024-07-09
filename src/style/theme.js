@@ -24,8 +24,16 @@ const ThemeContextProvider = props => {
     }
 
     useLayoutEffect(() => {
-        console.log('useLayout');
-        const theme = getCookie('P13N');
+
+        const queryParameters = new URLSearchParams(window.location.search)
+     
+        let theme = getCookie('P13N');
+        let  queryTheme = queryParameters.get("theme");
+        // console.log(queryTheme , "theme");
+        if (queryTheme) {
+            theme = (queryTheme =="dark"?"dark":"light")       
+        }
+        console.log('theme' , theme);
         if (theme) setMode(theme || preferTheme);
     }, [mode, preferTheme]);
 

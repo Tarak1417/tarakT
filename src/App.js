@@ -87,17 +87,8 @@ import Docs from "./pages/Docs/Docs";
 import Layout from "./Layout";
 
 
-
-
 const App = () => {
   const location = useLocation();
-  const hideHeaderPaths = [
-    "/walkover",
-    "/checkout",
-    "/createOrganization",
-    "/listOrganization",
-  ]; // Add the paths where you want to hide the header
-  let shouldHideHeader = hideHeaderPaths.includes(location.pathname);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -106,12 +97,6 @@ const App = () => {
       period: queryParams.get("period"),
       theme: queryParams.get("theme"),
     };
-
-    if (data.theme === "dark") {
-      setCookie("P13N", "dark");
-    } else {
-      setCookie("P13N", "light");
-    }
 
     if (data.amount !== null || data.period !== null) {
       localStorage.setItem("planData", JSON.stringify(data));
