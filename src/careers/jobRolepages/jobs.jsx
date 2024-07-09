@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faWallet, faBriefcase, faLocationDot, faLayerGroup } from '@fortawesome/free-solid-svg-icons';
 import FooterBlock from "./footer";
 import axios from "axios";
+import { getElementWithCss } from "../../utilities/htmlCssBuilder";
 
 const Jobs = () => {
     const navigate = useNavigate();
@@ -37,32 +38,46 @@ const Jobs = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen mx-8 md:mx-16 lg:mx-24 xl:mx-32 gap-4 dark:text-zinc-500">
-            <div  onClick={() => navigate(-1)}>
-                <button className="dark:text-white text-zinc-500 text-lg font-bold"><FontAwesomeIcon icon={faArrowLeft} /> Back</button>
-            </div>
-            <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4">{jobs? jobs?.title : ""}</h1>
-            <div className="flex flex-col dark:text-zinc-400 md:flex-row gap-8 mt-5">
-                <div className="flex items-center"><FontAwesomeIcon icon={faWallet} /> <span className="ml-2">{ jobs &&  (jobs.salary?.amount)} {jobs.salary?.currency && (jobs.salary?.currency)   }   </span></div>
-                <div className="flex items-center"><FontAwesomeIcon icon={faBriefcase} /> <span className="ml-2">{jobs && jobs.experience} years</span></div>
-                <div className="flex items-center"><FontAwesomeIcon icon={faLocationDot} /> <span className="ml-2">{ jobs && jobs.jobType}</span></div>
-                <div className="flex items-center"><FontAwesomeIcon icon={faLayerGroup} /> <span className="ml-2">{ jobs && jobs.department}</span></div>
-            </div>
-            <Divider />
-            { (jobs&& jobs.details)  &&jobs.details.map((detail, index  ) =>(
+      <div className="flex flex-col h-screen mx-8 md:mx-16 lg:mx-24 xl:mx-32 gap-4 dark:text-zinc-500">
+        <div onClick={() => navigate(-1)}>
+          <button className="dark:text-white text-zinc-500 text-lg font-bold">
+            <FontAwesomeIcon icon={faArrowLeft} /> Back
+          </button>
+        </div>
+        <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4">
+          {jobs ? jobs?.title : ""}
+        </h1>
+        <div className="flex flex-col dark:text-zinc-400 md:flex-row gap-8 mt-5">
+          <div className="flex items-center">
+            <FontAwesomeIcon icon={faWallet} />{" "}
+            <span className="ml-2">
+              {jobs && jobs.salary?.amount}{" "}
+              {jobs.salary?.currency && jobs.salary?.currency}{" "}
+            </span>
+          </div>
+          <div className="flex items-center">
+            <FontAwesomeIcon icon={faBriefcase} />{" "}
+            <span className="ml-2">{jobs && jobs.experience} years</span>
+          </div>
+          <div className="flex items-center">
+            <FontAwesomeIcon icon={faLocationDot} />{" "}
+            <span className="ml-2">{jobs && jobs.jobType}</span>
+          </div>
+          <div className="flex items-center">
+            <FontAwesomeIcon icon={faLayerGroup} />{" "}
+            <span className="ml-2">{jobs && jobs.department}</span>
+          </div>
+        </div>
+        <Divider />
+        <div >
+        {jobs &&
+          jobs.details &&
+          jobs.details.map((detail, index) => (
+            <div key={index}>{getElementWithCss(detail)}</div>
+          ))}
+              </div>
 
-<section key={index} className="mb-8">
-<Typography
-        variant={detail.tag}
-       
-      >
-        {detail.content}
-      </Typography>
- 
- </section>
-            )) }
-          
-            {/* <section className="mb-8">
+        {/* <section className="mb-8">
                 <h2 className="text-xl dark:text-zinc-300 mb-2">Job Description </h2>
                 <p className="text-sm md:text-base">We are looking for freshers with a keen eye for design for the position of front end developer. Front end developers are responsible for ensuring the alignment of web design and user experience requirements, optimizing web pages for maximum efficiency, and maintaining brand consistency across all web pages, among other duties.Front end developers are required to work in teams alongside back end developers, graphic designers, and user experience designers to ensure all elements of web creation are consistent. This requires excellent communication and interpersonal skills.  </p>
             </section>
@@ -109,13 +124,16 @@ const Jobs = () => {
             Clikkle is an equal opportunity agency and employer. We advocate for you and welcome anyone regardless of race, color, religion, national origin, sex, physical or mental disability, or age. So what are you waiting for. Come join the clikk
             </p>
             </section> */}
-            <div className='pt-5 flex justify-center items-center'>
-                  <button onClick={handleApply} className="text-white dark:text-white border border-black-500 px-6 py-2 rounded-md bg-blue-500">
-                    Apply Now
-                    </button>
-             </div>
-             <FooterBlock/>
+        <div className="pt-5 flex justify-center items-center">
+          <button
+            onClick={handleApply}
+            className="text-white dark:text-white border border-black-500 px-6 py-2 rounded-md bg-blue-500"
+          >
+            Apply Now
+          </button>
         </div>
+        <FooterBlock />
+      </div>
     );
 };
 

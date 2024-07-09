@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { getElementWithCss } from '../../utilities/htmlCssBuilder';
 
   export const jobRole = [ 
     {
@@ -14,17 +15,17 @@ import { Link } from 'react-router-dom';
 
 
 
-const JobRole = ({ jobs, _id}) => {
+const JobRole = ({ job, _id}) => {
 
   const handleLinkClick = () => {
     window.scrollTo(0, 0);
   };
   return(
     <div>
-         {jobRole.map((role) => (
+      
             <div className='text-sm dark:text-zinc-500 mx-4 sm:text-xs sm:text:left sm:text-xs'>
-            <h1 className='dark:text-zinc-300 text-sm'>Job Description: {role.title}</h1>
-            <section className="mb-8 pt-7">
+            <h1 className='dark:text-zinc-300 text-sm'>Job Description: {job.title}  | {job.salary.amount}  {job.salary.currency} | {job.remote ?"Remote" :"On Premise"}  | {job.department}  </h1>
+            {/* <section className="mb-8 pt-7">
                 <h2 className="text-sm dark:text-zinc-300 mb-2">About Clikkle…</h2>
                 <p className="text-sm md:text-base">Clikkle Technologies is disrupting the SaaS sector by making the hype of AI a reality. Our AI platforms are becoming the most in-demand solution on the market because we put the power of AI in the hands of businesses, who can now unleash the value in their data and operations in ways they’ve never been able to before! We are helping the world’s largest companies drive impactful results, almost instantly, from improving their productivity to spearheading their global sustainability efforts.</p>
                 <p className="text-sm md:text-base pt-4">Our software and customer deployments prove each day that AI is revolutionizing how businesses start, grow and maintain there operations globally. We are continuously innovating to solve the most complex professional challenges and enable better business and personal life outcomes; Our work is not always easy, but it is ambitious and rewarding. So, we’re looking for people who love a challenge. People who are happiest when they’re solving problems and collaborating with the industry’s best and brightest. That’s the Clikkle way. It’s how we do things that might appear impossible. How we develop our employees’ strengths and unlock their potential. How we find meaning in everything we do.</p>
@@ -74,7 +75,15 @@ const JobRole = ({ jobs, _id}) => {
             <p className="text-sm md:text-base">
             Clikkle is an equal opportunity agency and employer. We advocate for you and welcome anyone regardless of race, color, religion, national origin, sex, physical or mental disability, or age. So what are you waiting for. Come join the clikk
             </p>
-            </section>
+            </section> */}
+             <div className='pt-7' >
+        {job &&
+          job.details &&
+          job.details.map((detail, index) => (
+            <div key={index}>{getElementWithCss(detail)}</div>
+          ))}
+              </div>
+
             
             <div className='pt-5 flex justify-center items-center'>
             <Link to={`/career/apply-for-job/${_id}`} onClick={handleLinkClick}>
@@ -84,8 +93,6 @@ const JobRole = ({ jobs, _id}) => {
             </Link>  
             </div>
             </div>
-          ))}
-        
     </div>
   );
 };

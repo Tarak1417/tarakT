@@ -71,7 +71,7 @@ const JobCard = ({jobs,index}) => {
             </Link>
           </div>
           {show && <div className="row8 col-span-2 md:col-span-2 lg:col-span-7 px-5 py-5 pt-4 text-sm">
-              <JobRole jobs={jobs} _id={jobs._id}/>
+              <JobRole job={jobs} _id={jobs._id}/>
             </div>}
         </div>
     </div>
