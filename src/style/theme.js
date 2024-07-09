@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material';
-import React, { useMemo, useContext, useState, createContext, useLayoutEffect } from 'react';
+import React, { useMemo, useContext, useState, createContext, useLayoutEffect, useEffect } from 'react';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { getCookie, setCookie } from '../utilities/cookies';
 
@@ -8,6 +8,8 @@ const ThemeContext = createContext({ toggleTheme: () => {} });
 const ThemeContextProvider = props => {
     const preferTheme = systemPreferTheme();
     const [mode, setMode] = useState(preferTheme || 'dark');
+
+
 
     function toggleTheme() {
         setMode(prevMode => {
@@ -25,14 +27,8 @@ const ThemeContextProvider = props => {
 
     useLayoutEffect(() => {
 
-        const queryParameters = new URLSearchParams(window.location.search)
-     
-        let theme = getCookie('P13N');
-        let  queryTheme = queryParameters.get("theme");
-        // console.log(queryTheme , "theme");
-        if (queryTheme) {
-            theme = (queryTheme =="dark"?"dark":"light")       
-        }
+        const theme = getCookie('P13N');
+
         console.log('theme' , theme);
         if (theme) setMode(theme || preferTheme);
     }, [mode, preferTheme]);
@@ -310,6 +306,16 @@ const ThemeContextProvider = props => {
             }),
         [mode, dark, light]
     );
+    useEffect(()=>{
+        const queryParameters = new URLSearchParams(window.location.search)
+        const  queryTheme = queryParameters.get("theme");
+        console.log('queryTheme' , queryTheme);
+        if (queryTheme) {
+            let theme =(queryTheme =="dark"?"dark":"light")
+            setCookie('P13N', theme);
+            setMode(theme)       
+        }
+    },[])
 
     return (
         <ThemeContext.Provider value={{ toggleTheme, mode }}>
