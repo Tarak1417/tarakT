@@ -34,6 +34,29 @@ const [adminId , setAdminId] = useState();
     setJob(job);
   }, []);
 
+
+  const UserDetails = JSON.parse(window.localStorage.getItem('user'));
+
+  console.log("First Name:", UserDetails.firstName);
+  console.log("Last Name:", UserDetails.lastName);
+  console.log("Email:", UserDetails.email);
+  console.log("Phone Number:", UserDetails.phoneNumber);
+  console.log("Gender:", UserDetails.gender);
+  const [year, month, day] = UserDetails.dob.split('-');
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const monthIndex = monthNames.indexOf(month) + 1;
+
+  useEffect(() => {
+    // Set the selected values for the select elements
+    document.getElementById('month').value = monthIndex;
+    document.getElementById('day').value = parseInt(day);
+    document.getElementById('year').value = parseInt(year);
+  }, [monthIndex, day, year]);
+
+
+
+
+
   const createSession = async (refreshToken, user) => {
     try {
       const response = await axios.post(`/open/session`, {
@@ -177,15 +200,13 @@ const handleSubmit = async (e) => {
         return;
     }
 
-    if (!picture || !resume || !exp || !selected || !linkdin || !jobId || !mob ) {
+    if (!picture || !resume || !exp || !selected || !linkdin || !jobId  ) {
+        console.log( exp , selected , linkdin , jobId , mob )
         toast.error('Please fill out all fields.');
         return;
     }
 
-    if (mob.length !== 10) {
-        toast('Please enter a valid 10-digit phone number.');
-        return;
-    }
+   
     const formData = new FormData();
     formData.append('photo', picture); // Ensure 'photo' matches backend field name
     formData.append('resume', resume); // Ensure 'resume' matches backend field name
@@ -193,7 +214,7 @@ const handleSubmit = async (e) => {
     formData.append('countryCode', selected);
     formData.append('linkedinAccount', linkdin);
     formData.append('jobId', jobId); 
-    formData.append('phone', mob);
+    formData.append('phone', UserDetails.phoneNumber);
 
 
     try {
@@ -254,19 +275,24 @@ const handleSubmit = async (e) => {
 
 <form className="w-full mb-8" onSubmit={handleSubmit}>
     <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4 mb-8">Personal Details</h1>
-    {/* <div className="formInputGrid gap-20 mb-6 sm:gap-10">
+     <div className="formInputGrid gap-20 mb-6 sm:gap-10">
         <div className="mb-4">
             <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="firstName" >
                 First Name
             </label>
-            <input className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="firstName" name="firstName" type="text" placeholder="Enter First Name" />
+            <input className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="firstName" name="firstName" type="text" placeholder="Enter First Name"
+            value={UserDetails.firstName}
+             />
         </div>
        
         <div className="mb-4">
      <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="lastName" >
                 Last Name
             </label>
-            <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="lastName" name="lastName" type="text" placeholder="Enter Last Name" />
+            <input 
+                        value={UserDetails.lastName}
+
+            className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="lastName" name="lastName" type="text" placeholder="Enter Last Name" />
         </div>
     </div>
 
@@ -275,7 +301,10 @@ const handleSubmit = async (e) => {
             <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="email" >
                 Email
             </label>
-            <input className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="email" name="email" type="email" placeholder="Enter Email" />
+            <input 
+                                    value={UserDetails.email}
+
+            className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="email" name="email" type="email" placeholder="Enter Email" />
         </div>
 
         <div className="mb-4 w-full">
@@ -294,44 +323,47 @@ const handleSubmit = async (e) => {
                 />
                 <input className="flex-1 shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-3 dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="phone" name="phone" type="text" placeholder="Enter Phone Number"
                 onChange={(e)=>setmob(e.target.value)}
-                required/>
+                required
+                value={UserDetails.phoneNumber}
+                />
             </div>
         </div>
         
-    </div> */}
+    </div> 
 
-    {/*   <div className="formInputGrid gap-20 mb-6">
+       <div className="formInputGrid gap-20 mb-6">
       <div className="mb-4">
             <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="dob" >
                 D.O.B
             </label>
             <div className="dobGrid">
             <select name="month" id="month" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option>Month</option>
-                    <option value="1">Jan</option>
-                    <option value="2">Feb</option>
-                    <option value="3">Mar</option>
-                    <option value="4">Apr</option>
-                    <option value="5">May</option>
-                    <option value="6">Jun</option>
-                    <option value="7">Jul</option>
-                    <option value="8">Aug</option>
-                    <option value="9">Sep</option>
-                    <option value="10">Oct</option>
-                    <option value="11">Nov</option>
-                    <option value="11">Dec</option>
-                </select>
-                <select name="day" id="day" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option>Day</option>
-                    {Array.from({ length: 31 }, (_, i) => (
-                        <option key={i + 1} value={i + 1}>{i + 1}</option>
-                    ))}                            </select>
-                <select name="year" id="year" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option>Year</option>
-                    {Array.from({ length: 50 }, (_, i) => (
-                        <option key={i + 1960} value={i + 1960}>{i + 1960}</option>
-                    ))}
-                </select>
+            <option value="">Month</option>
+            <option value="1">Jan</option>
+            <option value="2">Feb</option>
+            <option value="3">Mar</option>
+            <option value="4">Apr</option>
+            <option value="5">May</option>
+            <option value="6">Jun</option>
+            <option value="7">Jul</option>
+            <option value="8">Aug</option>
+            <option value="9">Sep</option>
+            <option value="10">Oct</option>
+            <option value="11">Nov</option>
+            <option value="12">Dec</option>
+            </select>
+            <select name="day" id="day" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="">Day</option>
+            {Array.from({ length: 31 }, (_, i) => (
+              <option key={i + 1} value={i + 1}>{i + 1}</option>
+            ))}
+          </select>
+          <select name="year" id="year" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="">Year</option>
+            {Array.from({ length: 50 }, (_, i) => (
+              <option key={i + 1960} value={i + 1960}>{i + 1960}</option>
+            ))}
+          </select>
             </div>
 
         </div>
@@ -342,9 +374,9 @@ const handleSubmit = async (e) => {
             <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="jobRole" type="text" placeholder="Enter Job Role" required/>
         </div>
     </div>
-     */}
+     
 
-        <div className="mb-4 w-full">
+        {/* <div className="mb-4 w-full">
             <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="phone" >
                 Phone Number
             </label>
@@ -362,7 +394,7 @@ const handleSubmit = async (e) => {
                 onChange={(e)=>setmob(e.target.value)}
                 required/>
             </div>
-        </div>
+        </div> */}
 
     <div className="mb-6">
         <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="experience" >
@@ -375,7 +407,7 @@ const handleSubmit = async (e) => {
 
 
 
-    {/* <div className="formInputGrid gap-20 mb-6">
+     {/* <div className="formInputGrid gap-20 mb-6">
         <div className="mb-4">
             <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="cityName" >
                 City Name
@@ -388,10 +420,10 @@ const handleSubmit = async (e) => {
             </label>
             <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="postal" type="text" placeholder="Enter Postal Code" />
         </div>
-    </div> */}
+    </div>  */}
 
-    {/* <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4 mb-8">Education</h1>
-    <div className="formInputGrid gap-20 mb-6">
+    {/* <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4 mb-8">Education</h1> */}
+    {/* <div className="formInputGrid gap-20 mb-6">
         <div className="mb-4">
             <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="school" >
                 School
@@ -404,7 +436,7 @@ const handleSubmit = async (e) => {
             </label>
             <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="fieldOfStudy" type="text" placeholder="Enter Field Of Study" />
         </div>
-    </div>
+    </div> */}
     <div className="mb-2">
         <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="edSummary" >
             Summary
@@ -416,7 +448,7 @@ const handleSubmit = async (e) => {
     </div>
     <div className="mb-8">
         <button type="button" className="bg-transparent text-sky-600">+ Add Education</button>
-    </div> */}
+    </div> 
 
     {/* <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4 mb-2">Experience</h1>
     <h3 className="text-gray-400 text-sm mb-6">Work History</h3>

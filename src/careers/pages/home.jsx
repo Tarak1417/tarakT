@@ -43,7 +43,7 @@ const Home = () => {
       setOrgId(organization._id);
     } catch (error) {
       console.error('Error fetching organization:', error);
-      navigate('/career/404');
+     navigate('/career/404');
     }
   }
 
