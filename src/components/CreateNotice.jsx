@@ -26,6 +26,7 @@ import { Input } from '../hooks/useForm/inputs';
 
 const CreateNotice = props => {
     const { closeModal, refresh, notice } = props;
+    console.log("notie", notice );
     const [text, setText] = useState('');
     const { showError, showSuccess } = useMessage();
     const { loaderState, start, end } = useLoader();
@@ -118,6 +119,9 @@ const CreateNotice = props => {
         },
         [errorHandler, setValues, start, end]
     );
+
+
+    
 
     const getDepartments = useCallback(
         async search => {

@@ -37,6 +37,8 @@ const PersonalDetails = ({ employeeDetails }) => {
         notificationsEnabled: false
     });
 
+    console.log("employeeDetails" , employeeDetails );
+
     useEffect(() => {
         if (employeeDetails) {
             setFormData({
@@ -60,7 +62,7 @@ const PersonalDetails = ({ employeeDetails }) => {
                 email: employeeDetails?.email || '',
                 presentAddress: '',
                 permanentAddress: '',
-                gender: employeeDetails?.gender || '',
+                gender: employeeDetails?.gender || 'male',
                 maritalStatus: '',
                 photo: null,
                 employeeEmail: '',

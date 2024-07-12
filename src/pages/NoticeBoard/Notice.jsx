@@ -33,6 +33,7 @@ const NoticePage = () => {
 
     const editNotice = id => {
         setNotice(id);
+        console.log("id" , id)
         openNotice();
     };
 
@@ -147,7 +148,7 @@ const NoticePage = () => {
                     open={noticeState}
                     onClose={closeNotice}>
                     <>
-                        <CreateNotice closeModal={closeNotice} refresh={fetchNotice} notice={notice} />
+                        <CreateNotice closeModal={closeNotice} refresh={fetchNotice} notice={notice}  />
                     </>
                 </Modal>
             </div>

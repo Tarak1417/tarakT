@@ -135,7 +135,7 @@ const AddPayrollPage = () => {
         department: values.department,
         price: values.price,
         client: values.client,
-        assignedTeam: employees,
+        assignedTeam: values.assignedTeam,
         from: values.from,
         to: values.to,
         status: values.status,
@@ -240,6 +240,9 @@ const AddPayrollPage = () => {
       // Handle error as per your application requirements
     }
   };
+
+
+  
 
   return (
     <>
@@ -412,7 +415,7 @@ const AddPayrollPage = () => {
 
                             />
                           </Grid>
-                          <Grid item xs={12} md={12}>
+                          {/* <Grid item xs={12} md={12}>
                             <Typography
                               variant="subtitle1"
                               component="p"
@@ -421,50 +424,63 @@ const AddPayrollPage = () => {
                             >
                               Assigned Team
                             </Typography>
-                         
-                            {/* <Select
-                              name="assignedTeam"
-                              fullWidth
-                              variant="outlined"
-                              size="small"
-                              onChange={handleChangeQuery}
-                              value={values.assignedTeam}
-                            >
-                              {departments.map((department) => (
-                                <MenuItem key={department._id} value={department._id}>
-                                  {department.name}
-                                </MenuItem>
-                              ))}
-                            </Select> */}
-                              <FormControl fullWidth>
-                              {/* <InputLabel >Assigned Team</InputLabel> */}
+                            <FormControl fullWidth>
                               <Select
+                                name="assignedTeam"
+                                multiple
+                                value={values.assignedTeam || []}
+                                onChange={handleChangeQuery}
+                                input={<OutlinedInput label="Assigned Team" />}
+                                renderValue={(selected) =>
+                                  selected.map((id) => employees[id]).join(", ")
+                                }
+                                sx={{ height: '37px' }}
+                                MenuProps={{
+                                  PaperProps: {
+                                    style: {
+                                      maxHeight: 300,
+                                    },
+                                  },
+                                }}
+                              >
+                                {Object.entries(employees).map(([id, name]) => (
+                                  <MenuItem key={id} value={id}>
+                                    <Checkbox checked={values.assignedTeam.indexOf(id) > -1} />
+                                    <ListItemText primary={name} />
+                                  </MenuItem>
+                                ))}
+                              </Select>
+                            </FormControl>
+                          </Grid> */}
+                          <Grid item xs={12} md={12}>
+  <Typography variant="subtitle1" component="p" mb={1} mx={1}>
+    Assigned Team
+  </Typography>
+  <FormControl fullWidth>
+    <Select
       name="assignedTeam"
-      multiple
-      value={values.assignedTeam || []}
+      value={values.assignedTeam || ""}
       onChange={handleChangeQuery}
       input={<OutlinedInput label="Assigned Team" />}
-      renderValue={(selected) =>
-        selected.map((id) => employees[id]).join(", ")
-      }
+      renderValue={(selected) => employees[selected] || ""}
       sx={{ height: '37px' }}
       MenuProps={{
         PaperProps: {
           style: {
-            maxHeight: 300, // Customize the dropdown menu height
+            maxHeight: 300,
           },
         },
       }}
     >
       {Object.entries(employees).map(([id, name]) => (
         <MenuItem key={id} value={id}>
-          <Checkbox checked={values.assignedTeam.indexOf(id) > -1} />
           <ListItemText primary={name} />
         </MenuItem>
       ))}
     </Select>
-                            </FormControl>
-                          </Grid>
+  </FormControl>
+</Grid>
+
                           <Grid item xs={12} md={6}>
                             <Typography
                               variant="subtitle1"
