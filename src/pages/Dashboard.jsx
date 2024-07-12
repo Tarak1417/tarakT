@@ -148,7 +148,7 @@ const Dashboard = () => {
           {/* <Typography variant="h5" className="text-gray-500" gutterBottom>
             HR DASHBOARD
           </Typography> */}
-          <Grid container  display='flex' alignItems='center'>
+          <Grid container  display='flex' justifyContent="space-between" alignItems='center'>
                     {/* <Grid item xs>
                         <Typography className="text-gray-500" variant='h5'>HR Dashboard</Typography>
                     </Grid> */}
@@ -156,7 +156,7 @@ const Dashboard = () => {
           <h1 className="text-2xl text-neutral-500">HR Dashboard</h1>
         </div>
 
-                    <Grid item sx={{ display: { xs: 'flex' }, mx: 'auto' ,my:1  }} alignItems='center'>
+                    <Grid item sx={{ display: { xs: 'flex' },my:1  }} alignItems='center'>
                         <Box sx={{ mr: 2, display: { lg: 'block', xs: 'none' } }}>
                             <Button variant='outlined'>{Dates}</Button>
                         </Box>

@@ -12,16 +12,26 @@ import useModal from '../../hooks/useModal';
 import { useMessage } from '../../components/Header';
 import DepartmentImg from '../../assets/initalScreen/departements.svg'
 const DeptPage = () => {
-    const [id, setId] = useState();
+    const [id, setId] = useState(null);
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+  
     const [departments, setDepartments] = useState();
     const [selectDepartment, setSelectDepartment] = useState({});
 
     const EditDepartment = id => {
       
         setId(id);
+        handleOpen();
+    };
+
+    const handleClose = () =>{
+        setId(null);
+        setOpen(false);
+    }
+
+    const NewDepartment =()  => {
+        setId(null);
         handleOpen();
     };
 
@@ -61,7 +71,6 @@ const DeptPage = () => {
     useEffect(() => {
         fetchDepartment();
     }, [fetchDepartment]);
-    console.log(departments)
     return (
         <div className="container mx-auto overscroll-auto overflow-hidden">
             <div className="flex flex-row items-center justify-between p-4">
@@ -70,7 +79,7 @@ const DeptPage = () => {
                 </div>
                 {/* <h1 className="text-2xl md:text-3xl text-zinc-400 mb-4">Department</h1> */}
                 <div className="flex items-center gap-4">
-                    <button onClick={handleOpen} className='flex items-center text-white font-bold text-xs md:text-base py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                    <button onClick={NewDepartment} className='flex items-center text-white font-bold text-xs md:text-base py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
                         Add Department
                     </button>
                     <InfoOutlinedIcon />
@@ -129,12 +138,9 @@ const DeptPage = () => {
    style={{maxWidth:'70%' , margin:'auto'}}
    /></div>
    <div><h1 className="text-2xl font-bold mb-2">You have No available departments</h1></div>
-   <div><p className='mb-[50px]'>don't waste  time build your orgnaization by setting your available departments now </p></div>
+   <div><p className='mb-[50px]'>don't waste  time build your organization by setting your available departments now </p></div>
 </div>
-            }
-        
-
-         
+            }         
             <Modal
                 open={open}
                 onClose={handleClose}

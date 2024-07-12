@@ -49,16 +49,20 @@ const DeparmentModal = ({ handleClose, fetchDepartment, id }) => {
     );
 
     useEffect(() => {
+        if(id ==null ){
+            console.log("name" , id)
+            setValues({ name : ''})
+      }else {
         updateDeartment();
+      }     
     }, [updateDeartment]);
 
     const { showSuccess, showError } = useMessage();
     const submit = res => {
         const { success, message } = res.data;
-
         if (!success) return showError(message);
-
         showSuccess(successMessage);
+        setValues({ name : ''})
         fetchDepartment();
         handleClose();
     };
