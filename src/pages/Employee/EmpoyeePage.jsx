@@ -212,7 +212,7 @@ const EmployeePage = () => {
                              {employee.designation}
                         </div>
                         <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
-                        {employee.phone.countryCode} {employee.phone.phone}
+                        {employee.phone?.countryCode} {employee.phone?.phone}
                         </div>
                         <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
                         {moment(employee.dateOfJoining)

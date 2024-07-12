@@ -77,6 +77,7 @@ const AddEmployee = () => {
           pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
         },
         dateOfBirth: { required: true },
+        gender: { required: true },
         department: { required: true },
         designation: { required: true },
         jobType: { required: true },
@@ -169,6 +170,23 @@ const AddEmployee = () => {
               size="small"
               required
             />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography gutterBottom>Gender</Typography>
+            <Select
+              required
+              name="gender"
+              fullWidth
+              size="small"
+              displayEmpty
+              sx={{ mb: 2 }}
+              value={handlers.values.gender || ""}
+              onChange={onSelectHandler}
+            >
+              <MenuItem value="male">Male</MenuItem>
+              <MenuItem value="female">Female</MenuItem>
+              <MenuItem value="Non-binary">Others</MenuItem>
+            </Select>
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography gutterBottom>Designation</Typography>

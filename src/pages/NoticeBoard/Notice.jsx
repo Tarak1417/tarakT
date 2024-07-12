@@ -147,7 +147,7 @@ const NoticePage = () => {
                     open={noticeState}
                     onClose={closeNotice}>
                     <>
-                        <CreateNotice closeModal={closeNotice} refresh={fetchNotice} notice={notice} />
+                        <CreateNotice closeModal={closeNotice} refresh={fetchNotice} notice={notice}  />
                     </>
                 </Modal>
             </div>
