@@ -50,6 +50,13 @@ function CdnImage(props) {
 
     return <Box component='img' src={link} alt='image' sx={{ maxWidth: '100%' }} {...rest} />;
 }
+function ServerImage(props) {
+    const { src, ...rest } = props;
+
+    const link = src && process.env.REACT_APP_PRODUCTION_SERVER + '/static/' + src;
+
+    return <Box component='img' src={link} alt='image' sx={{ maxWidth: '100%' }} {...rest} />;
+}
 
 function BaseImage(props) {
     const { center, ...rest } = props;
@@ -59,4 +66,4 @@ function BaseImage(props) {
     return center ? <div style={{ textAlign: 'center' }}>{image}</div> : image;
 }
 
-export { Image, FetchImage, CdnImage, Images };
+export { Image, FetchImage, CdnImage, Images , ServerImage};
