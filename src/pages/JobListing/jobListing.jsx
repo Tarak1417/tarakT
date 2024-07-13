@@ -51,7 +51,7 @@ const JobListing = () => {
             // setJobs(null);
             try {
                 const response = await axios.get(
-                    `/hr/job-listing?searchBy=title&search=${search}&sortBy=order&direction=-1&page=${pageNo}`
+                    `/hr/job-listing?searchBy=title&search=${search}&sortBy=order&direction=1&page=${pageNo}`
                 );
                 const body = response.data;
                 const { jobs, pageData } = body;
@@ -93,9 +93,9 @@ const JobListing = () => {
     };
 
 
-    const saveOrder = async () => {
+    const saveOrder = async (newJobOrder) => {
         setLoading(true);
-        const newOrder = getOrders(jobs);
+        const newOrder = getOrders(newJobOrder);
         const effOrder = newOrder
             .filter((order, i) => order.id !== originalOrder[i].id)
             .map(order => ({
@@ -141,6 +141,7 @@ const JobListing = () => {
         console.log(jobs);
 
         setJobs([...jobs]);
+        saveOrder([...jobs])
     };
 
     const getDepartments = useCallback(async () => {

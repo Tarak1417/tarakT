@@ -51,7 +51,7 @@ const Home = () => {
     if (!orgId) return; // Ensure orgId is set before making the request
 
     try {
-      const response = await axios.get(`/open/job-listing?adminId=${orgId}`);
+      const response = await axios.get(`/open/job-listing?adminId=${orgId}&sortBy=order&direction=1`);
       console.log(response);
       const jobs = response.data.jobs;
       console.log(jobs);
