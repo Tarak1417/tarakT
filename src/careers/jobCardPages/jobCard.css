@@ -5,10 +5,6 @@
     margin-left: 5px;
     padding: 10px 8px; 
     }
-  button:hover {
-    background-color: rgb(37, 103, 211);
-    color: #000000;
-  }
   .content{
     margin-top: 10px;
     color: #898585;
