@@ -36,6 +36,7 @@ const AddEmployee = () => {
 
   const [pageNo, setPageNo] = useState(1);
   const [pageLimit, setPageLimit] = useState(0);
+  const [verifyEmail, setVerifyEmail] = useState(true);
   const [jobs, setJobs] = useState(null);
   const [originalOrder, setOriginalOrders] = useState(null);
   const [offset, setOffset] = useState(0);
@@ -59,7 +60,29 @@ const AddEmployee = () => {
     [setJobs, pageNo]
   );
 
-  console.log(jobs);
+  const verifyUserByEmail =  async (email) => {
+      try {
+        var formData = new FormData();
+          formData.append("email", email);
+        const response = await fetch("https://accounts.clikkle.com:5000/api/auth/get_user_by_mail",
+          {
+              method: "POST",
+              body: formData
+          },
+
+      );
+      if (response.ok) {
+       setVerifyEmail(false)
+      } else {
+        showError('user not found please use clikkle registered accounts')
+          console.log('user not found')
+      }
+      } catch (e) {
+        showError('User not found')
+        console.warn(e);
+      }
+    }
+  // console.log(jobs);
 
   useEffect(() => {
     fetchJobListing();
@@ -109,7 +132,15 @@ const AddEmployee = () => {
     fetchDepartments();
   }, [fetchDepartments]);
 
-  console.log("handlers.values.designation", handlers.values.designation);
+  // console.log("handlers.values.designation", handlers.values.designation);
+
+  const handleBlur = () => {
+     if (handlers.values.email) {
+      verifyUserByEmail(handlers.values.email)
+      // console.log("handlers ", handlers.values.email);
+    //   setError('Input cannot be empty.');
+     }
+  };
 
   return (
     <Card
@@ -159,7 +190,7 @@ const AddEmployee = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography gutterBottom>Email</Typography>
-            <Input name="email" fullWidth type="email" size="small" required />
+            <Input   onBlur={handleBlur} name="email" fullWidth type="email" size="small" required />
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography gutterBottom>Date of Birth</Typography>
@@ -308,7 +339,7 @@ const AddEmployee = () => {
               <Button
                 type="submit"
                 variant="contained"
-                disabled={Boolean(loader)}
+                disabled={Boolean(loader) && verifyEmail}
                 endIcon={loader}
                 sx={{
                   mt: 1,

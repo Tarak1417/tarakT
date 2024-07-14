@@ -24,7 +24,6 @@ import { useMessage } from "../components/Header";
 import useModal from "../hooks/useModal";
 import { FetchImage } from "../components/Images";
 import useLoader from "../hooks/useLoader";
-import AddEmployee from "../components/AddEmployee";
 import SendInterview from "../components/SendInterview";
 import ViewOfferLetter from "../components/ViewOfferLetter";
 import Agreements from "./Agreements";
