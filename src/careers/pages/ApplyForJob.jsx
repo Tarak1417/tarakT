@@ -28,18 +28,20 @@ const [mob , setmob] = useState('');
 const [jobIds , setJobId] = useState();
 const [adminId , setAdminId] = useState();
 
+
+
+const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+
   const fetchJob = useCallback(async function (jobId) {
     const res = await axios.get("/open/job-listing/" + jobId);
     const job = res.data.job;
     setJob(job);
+
+
   }, []);
 
-  console.log("jobs" , job)
-
-
-
-
-
+//   console.log("jobs" , job)
 
   const createSession = async (refreshToken, user) => {
     try {
@@ -51,6 +53,13 @@ const [adminId , setAdminId] = useState();
       if (data.success) {
         setCookie("accessToken", data.token);
         if (jobId) fetchJob(jobId);
+
+        const [year, month, day] = data.user?.dob?.split('-');
+        const monthIndex = monthNames.indexOf(month) + 1;
+        document.getElementById('month').value = monthIndex;
+        document.getElementById('day').value = parseInt(day);
+        document.getElementById('year').value = parseInt(year);
+
         setUser(user);
       } else {
         setUser(null);
@@ -59,9 +68,6 @@ const [adminId , setAdminId] = useState();
       setUser(null);
     }
   };
-
-
-
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -112,23 +118,21 @@ const [adminId , setAdminId] = useState();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
-  const UserDetails = JSON.parse(window.localStorage.getItem('careerUser'));
+//   const UserDetails = JSON.parse(window.localStorage.getItem('careerUser'));
 
-  console.log("First Name:", UserDetails?.firstName);
-  console.log("Last Name:", UserDetails?.lastName);
-  console.log("Email:", UserDetails?.email);
-  console.log("Phone Number:", UserDetails?.phoneNumber);
-  console.log("Gender:", UserDetails?.gender);
-  const [year, month, day] = UserDetails?.dob?.split('-');
-  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  const monthIndex = monthNames.indexOf(month) + 1;
+//   console.log("First Name:", UserDetails?.firstName);
+//   console.log("Last Name:", UserDetails?.lastName);
+//   console.log("Email:", UserDetails?.email);
+//   console.log("Phone Number:", UserDetails?.phoneNumber);
+//   console.log("Gender:", UserDetails?.gender);
 
-  useEffect(() => {
-    // Set the selected values for the select elements
-    document.getElementById('month').value = monthIndex;
-    document.getElementById('day').value = parseInt(day);
-    document.getElementById('year').value = parseInt(year);
-  }, [monthIndex, day, year]);
+
+//   useEffect(() => {
+//     // Set the selected values for the select elements
+//     document.getElementById('month').value = monthIndex;
+//     document.getElementById('day').value = parseInt(day);
+//     document.getElementById('year').value = parseInt(year);
+//   }, [monthIndex, day, year]);
 
   if (user == null) {
     const redirectTo =
@@ -220,7 +224,7 @@ const handleSubmit = async (e) => {
     formData.append('countryCode', selected);
     formData.append('linkedinAccount', linkdin);
     formData.append('jobId', jobId); 
-    formData.append('phone', UserDetails.phoneNumber);
+    formData.append('phone', user?.phoneNumber);
 
 
     try {
@@ -287,7 +291,7 @@ const handleSubmit = async (e) => {
                 First Name
             </label>
             <input className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="firstName" name="firstName" type="text" placeholder="Enter First Name"
-            value={UserDetails.firstName}
+            value={user?.firstName}
              />
         </div>
        
@@ -296,7 +300,7 @@ const handleSubmit = async (e) => {
                 Last Name
             </label>
             <input 
-                        value={UserDetails.lastName}
+                        value={user?.lastName}
 
             className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="lastName" name="lastName" type="text" placeholder="Enter Last Name" />
         </div>
@@ -308,7 +312,7 @@ const handleSubmit = async (e) => {
                 Email
             </label>
             <input 
-                                    value={UserDetails.email}
+                                    value={user?.email}
 
             className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="email" name="email" type="email" placeholder="Enter Email" />
         </div>
@@ -330,7 +334,7 @@ const handleSubmit = async (e) => {
                 <input className="flex-1 shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-3 dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="phone" name="phone" type="text" placeholder="Enter Phone Number"
                 onChange={(e)=>setmob(e.target.value)}
                 required
-                value={UserDetails.phoneNumber}
+                value={user?.phoneNumber}
                 />
             </div>
         </div>
