@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
@@ -15,8 +16,15 @@ import { useTheme } from '../atoms/theme';
 const Header = () => {
   const { theme } = useTheme();
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
+  const location = useLocation();
 
   const toggleLeftDrawer = () => setLeftDrawerOpen((prev) => !prev);
+
+  const orgName = localStorage.getItem('Organization');
+  const pathName = location.pathname;
+
+  const shouldRenderMenuIcon =
+    !pathName.includes(`/career/${orgName}`) && orgName === 'clikkle' ;
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -27,8 +35,11 @@ const Header = () => {
           ...(theme === 'light' ? { backgroundColor: '#fff' } : {}),
         }}
       >
+      
         <Toolbar>
-          <IconButton
+          {
+            shouldRenderMenuIcon && 
+            <IconButton
             size='large'
             edge='start'
             color='inherit'
@@ -38,9 +49,23 @@ const Header = () => {
           >
             <MenuIcon />
           </IconButton>
+        
+          }
+        
 
-          <Brand />
-          <AppListToggler />
+
+<Brand />
+     
+
+<AppListToggler />
+
+
+
+
+       
+
+    
+         
         </Toolbar>
       </AppBar>
       <Divider />

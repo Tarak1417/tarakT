@@ -61,7 +61,8 @@ const Jobs = () => {
           </div>
           <div className="flex items-center">
             <FontAwesomeIcon icon={faLocationDot} />{" "}
-            <span className="ml-2">{jobs && jobs.jobType}</span>
+            <span className="ml-2">{jobs && jobs.
+remote == true ? 'Remote' : 'On-Site'}</span>
           </div>
           <div className="flex items-center">
             <FontAwesomeIcon icon={faLayerGroup} />{" "}

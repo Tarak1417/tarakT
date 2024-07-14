@@ -51,11 +51,15 @@ const JobCard = ({jobs,index}) => {
 
           </div>
           <div className="row5 col-span-1 pt-5 lg:w-2/3">
-            <p className="text-zinc-500 px-2"><FontAwesomeIcon icon={faLocationDot} /> {jobs.location}</p>
+            <p className="text-zinc-500 px-2"><FontAwesomeIcon icon={faLocationDot} /> {jobs && jobs.
+remote == true ? 'Remote' : 'On-Site'}</p>
 
           </div>
           <div className="row6 col-span-1 pt-5 lg:w-2/3 pl-2 lg:pl-0">
-            <p className="text-zinc-500 text-sm font-semibold"><FontAwesomeIcon icon={faLayerGroup} /> {jobs.jobType}</p>
+            <p className="text-zinc-500 text-sm font-semibold"><FontAwesomeIcon icon={faLayerGroup} /> {jobs.department
+            }</p>
+
+
 
           </div>
 

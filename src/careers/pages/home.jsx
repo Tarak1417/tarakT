@@ -16,6 +16,8 @@ import axios from 'axios';
 import SearchBar from './searchBar';
 import JobCard from '../jobCardPages/jobcard';
 import Banner from './banner';
+import { useLocation } from 'react-router-dom';
+
 
 const Home = () => {
   const [jobs, setJobs] = useState([]);
@@ -39,8 +41,19 @@ const Home = () => {
     try {
       const response = await axios.get(`/open/org-info?name=${name}`);
       const organization = response.data.organization;
+      console.log('organization' , organization);
       console.log('organization', organization._id);
       setOrgId(organization._id);
+      if (organization.name !== localStorage.getItem('Organization')) {
+        localStorage.setItem('Organization', organization.name);
+        localStorage.setItem('JobApply', true);
+
+        
+      } else {
+        console.log('Same organization name is already stored');
+      }
+
+
     } catch (error) {
       console.error('Error fetching organization:', error);
      navigate('/career/404');
@@ -65,46 +78,60 @@ const Home = () => {
     fetchJobs();
   }, [orgId]);
 
+
+  const location = useLocation();
+
+  const orgNames = localStorage.getItem('Organization');
+  const pathName = location.pathname;
+
+  const shouldRenderMenuIcon =
+    !pathName.includes(`/career/${orgNames}`) && orgNames === 'clikkle';
+
   return (
+    <>
     <div className='px-2 py-8 sm:px-6 sm:py-6'>
       <Banner />
       <SearchBar />
       {jobs?.map((item, index) => (
         <JobCard jobs={item} index={index} key={index} />
       ))}
+{
+   shouldRenderMenuIcon && 
+   <div className='flex items-center gap-4 p-4'>
+   <Typography className='text-gray-700 dark:text-gray-200'>
+     Follow our blog
+   </Typography>
+   <IconButton>
+     <Link to="https://www.youtube.com/clikkle">
+       <YouTube />
+     </Link>
+   </IconButton>
 
-      <div className='flex items-center gap-4 p-4'>
-        <Typography className='text-gray-700 dark:text-gray-200'>
-          Follow our blog
-        </Typography>
-        <IconButton>
-          <Link to="https://www.youtube.com/clikkle">
-            <YouTube />
-          </Link>
-        </IconButton>
+   <IconButton>
+     <Link to="https://twitter.com/clikkle">
+       <Twitter />
+     </Link>
+   </IconButton>
 
-        <IconButton>
-          <Link to="https://twitter.com/clikkle">
-            <Twitter />
-          </Link>
-        </IconButton>
-
-        <IconButton>
-          <Link to="https://facebook.com/clikkle">
-            <Facebook />
-          </Link>
-        </IconButton>
-        <IconButton>
-          <Link to="https://www.instagram.com/myclikkle">
-            <Instagram />
-          </Link>
-        </IconButton>
-      </div>
+   <IconButton>
+     <Link to="https://facebook.com/clikkle">
+       <Facebook />
+     </Link>
+   </IconButton>
+   <IconButton>
+     <Link to="https://www.instagram.com/myclikkle">
+       <Instagram />
+     </Link>
+   </IconButton>
+ </div>
+}
+     
 
       <Divider />
 
-      <div className='py-4 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-8 p-4'>
-        <div className='flex items-center gap-2 sm:gap-4'>
+      <div className={`py-4 sm:py-8 flex flex-col sm:flex-row items-center ${shouldRenderMenuIcon ? 'justify-between' : 'justify-end'} gap-4 sm:gap-8 p-4`}>
+      { shouldRenderMenuIcon &&
+         <div className='flex items-center gap-2 sm:gap-4'>
           <Link to={"https://clikkle.com"}>
             <Typography className='text-gray-600 dark:text-gray-300'>
               Clikkle
@@ -135,7 +162,7 @@ const Home = () => {
               Terms
             </Typography>
           </Link>
-        </div>
+        </div> }
 
         <div className='flex items-center gap-2 sm:gap-4'>
           <IconButton>
@@ -157,6 +184,9 @@ const Home = () => {
         </div>
       </div>
     </div>
+   
+    </>
+    
   );
 };
 

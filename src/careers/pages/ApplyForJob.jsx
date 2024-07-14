@@ -34,24 +34,8 @@ const [adminId , setAdminId] = useState();
     setJob(job);
   }, []);
 
+  console.log("jobs" , job)
 
-  const UserDetails = JSON.parse(window.localStorage.getItem('user'));
-
-  console.log("First Name:", UserDetails.firstName);
-  console.log("Last Name:", UserDetails.lastName);
-  console.log("Email:", UserDetails.email);
-  console.log("Phone Number:", UserDetails.phoneNumber);
-  console.log("Gender:", UserDetails.gender);
-  const [year, month, day] = UserDetails.dob.split('-');
-  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  const monthIndex = monthNames.indexOf(month) + 1;
-
-  useEffect(() => {
-    // Set the selected values for the select elements
-    document.getElementById('month').value = monthIndex;
-    document.getElementById('day').value = parseInt(day);
-    document.getElementById('year').value = parseInt(year);
-  }, [monthIndex, day, year]);
 
 
 
@@ -75,6 +59,9 @@ const [adminId , setAdminId] = useState();
       setUser(null);
     }
   };
+
+
+
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -123,6 +110,25 @@ const [adminId , setAdminId] = useState();
       }
     })();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+
+  const UserDetails = JSON.parse(window.localStorage.getItem('careerUser'));
+
+  console.log("First Name:", UserDetails?.firstName);
+  console.log("Last Name:", UserDetails?.lastName);
+  console.log("Email:", UserDetails?.email);
+  console.log("Phone Number:", UserDetails?.phoneNumber);
+  console.log("Gender:", UserDetails?.gender);
+  const [year, month, day] = UserDetails?.dob?.split('-');
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const monthIndex = monthNames.indexOf(month) + 1;
+
+  useEffect(() => {
+    // Set the selected values for the select elements
+    document.getElementById('month').value = monthIndex;
+    document.getElementById('day').value = parseInt(day);
+    document.getElementById('year').value = parseInt(year);
+  }, [monthIndex, day, year]);
 
   if (user == null) {
     const redirectTo =

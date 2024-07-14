@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
 import logo from './hivrrlogo.png';
-
+import { useLocation } from 'react-router-dom';
 export const appList= [
   
   {
@@ -106,19 +106,28 @@ export const appList= [
 
 const AppListToggler = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const location = useLocation();
+
+  const orgName = localStorage.getItem('Organization');
+  const pathName = location.pathname;
+
+  const shouldRenderMenuIcon =
+    !pathName.includes(`/career/${orgName}`) && orgName === 'clikkle';
+
 
   return (
     <div className='hidden sm:flex items-center gap-2'>
-      <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
+      {shouldRenderMenuIcon && <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
         <Apps />
-      </IconButton>
+      </IconButton> }
       <Button variant='contained'>
           <Link to={"https://accounts.clikkle.com"}>
            Sign In
           </Link>
         </Button>
-
-      <Popover
+{
+  shouldRenderMenuIcon && 
+  <Popover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
@@ -148,6 +157,8 @@ const AppListToggler = () => {
           ))}
         </div>
       </Popover>
+}
+      
     </div>
   );
 };
