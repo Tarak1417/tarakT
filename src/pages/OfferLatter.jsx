@@ -369,10 +369,13 @@ const Letter = () => {
                             </Typography>
                         </Grid>
                         <Grid
-                            item
-                            xs={5}
-                            textAlign='right
-                        '>
+                                item
+                                lg={5}
+                                xs={12}
+                                sx={{
+                                    textAlign: { lg: 'right', xs: 'center' },
+                                    mt: { lg: 0, xs: 2 },
+                                }}>
                               <img src={letter1}  style={{ height : '340px'}} />
                             {/* <Images src='letter1.png' height='340' /> */}
                         </Grid>
