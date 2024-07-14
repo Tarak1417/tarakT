@@ -3,21 +3,23 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
-import { CdnImage, Images } from './Images';
+import { CdnImage, Images, ServerImage } from './Images';
 import Loading from './Loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faSquare } from '@fortawesome/free-solid-svg-icons';
-import img1 from '../assets/offerLatter/image1.png'
-import img2 from '../assets/offerLatter/image2.png';
+import letter1 from '../assets/offerLatter/letter1.png'
+import letter2 from '../assets/offerLatter/letter2.png';
 
 
 const ViewOfferLetter = ({ applicationId }) => {
     const [letter, setLetter] = useState(null);
+    const [organization, setOrganization] = useState(null);
 
     const fetchLetter = useCallback(async () => {
         try {
             const response = await axios.get(`/hr/offer-letter/${applicationId}`);
             setLetter(response.data.letter);
+            setOrganization(response.data.organization)
         } catch (e) {
             console.log(e);
         }
@@ -29,442 +31,760 @@ const ViewOfferLetter = ({ applicationId }) => {
 
     return (
         <>
-            <Container sx={{ maxWidth: '1216px', mx: 'auto', p: 2 }}>
+             <Container sx={{ maxWidth: '1216px', mx: 'auto', p: 2 }}>
                 {letter ? (
-                        <div className="container mx-auto overscroll-auto overflow-hidden">
-                        <div className="flex justify-between items-center w-full mt-5">
-                          <div className="flex items-center pl-6">
-                            <img
-                              src="https://cdn.clikkle.com/images/clikkle/logo/2023/clikkle-text.png"
-                              alt="clikkle"
-                              className="w-auto h-auto"
-                            />
-                          </div>
-                          <div className="flex flex-col gap-0 border border-zinc-50 p-2 md:p-4 w-[20%] md:w-[10%] border border-r-black">
-                            <p className="text-[8px] md:text-[12px]  text-start pl-3 md:pl-0">
-                              Offer
-                            </p>
-                            <h1 className="text-[10px] md:text-[16px]  text-start pl-3 md:pl-0">
-                              LETTER
-                            </h1>
-                          </div>
-                        </div>
-                        <div className="flex flex-col md:flex-row gap-4 w-full mt-28 h-auto md:h-[350px] md:justify-center items-center">
-                          <div className="w-full md:w-1/3 ml-8 flex flex-col md:mb-0">
-                            <div>
-                              <h1 className="text-2xl  text-start font-bold">
-                                {" "}
-                                {letter.jobTitle.split(" ").shift()}
-                              </h1>
-              
-                              {letter.jobTitle
-                                .split(" ")
-                                .slice(1)
-                                .map((title) => (
-                                  <h1 className="text-2xl text-sky-500 text-start font-bold">
-                                    {" "}
-                                    {title}
-                                  </h1>
-                                ))}
-                            </div>
-                            <div className="flex flex-row gap-2 w-full md:gap-8">
-                              <div className="w-[25px] mt-20">
-                                <p className="text-zinc-500 font-bold fa-rotate-270 text-nowrap text-xl">
-                                  JOB TITLE
-                                </p>
-                              </div>
-                              <div className="w-4/5 mt-10">
-                                <h1 className="text-center text-[10px] md:text-lg  pt-14">
-                                  <FontAwesomeIcon
-                                    icon={faSquare}
-                                    className="text-[10px] mr-2"
-                                  />
-                                  JOIN OUR TEAM OF PROFESSIONAL
-                                </h1>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="w-full md:w-2/3 flex flex justify-center">
-                            <img src={img1} alt="image1" />
-                          </div>
-                          <div className="w-full md:w-1/3 ml-5 md:ml-0 md:mb-0">
-                            <h1 className="text-2xl  text-start font-bold">Job</h1>
-                            <h1 className="text-2xl text-sky-500 text-start font-bold">
-                              Description.
-                            </h1>
-                            <p className="text-[12px] text-left pr-12 pt-5">
-                              {letter.jobDescription}
-                              ... <span className="text-blue-500 text-sm">ReadMore</span>
-                            </p>
-                          </div>
-                        </div>
-                        <div className="w-full flex justify-center items-center h-[300px] md:mt-10">
-                          <div className="w-full  md:w-[75%] mt-10 flex flex-col">
-                            <h1 className="text-blue-500 text-sm text-center">
-                              Greetings {letter.nameOfEmployee},
-                            </h1>
-                            <h1 className="text-[10px] p-5 md:p-0 md:text-sm text-left md:text-center">
-                              After a through assessment of your credentials and thoughtful
-                              deliberation, we are delighted to extend an offer for the
-                              position offer
-                              {letter.jobTitle}. We kindly request your meticulous
-                              review of the attached job offer letter, and we encourage you to
-                              affix your signature at your earliest convenience. This step
-                              marks the initiation of your onboarding journey.
-                            </h1>
-                            <h1 className="text-sm text-center text-blue-500">
-                              We look forward to your positive response.
-                            </h1>
-                          </div>
-                        </div>
-                        <div className="w-full flex justify-center items-center h-[150%] md:h-[300px]">
-                          <div className="w-[75%] mt-10 flex flex-col">
-                            <h1 className=" text-3xl md:text-5xl text-center font-bold">
-                              JOIN OUR
-                            </h1>
-                            <h1 className="text-blue-500 text-3xl md:text-5xl text-center font-bold">
-                              GROWING
-                            </h1>
-                            <h1 className="text-3xl md:text-5xl text-center  font-bold">
-                              TEAM
-                            </h1>
-                          </div>
-                        </div>
-                        <div className="w-full flex flex-col gap-4 h-[450px] md:h-[600px] mt-32">
-                          <div className="w-full h-[420px] md:h-[400px] mx-4 md:mx-8 flex flex-col md:flex-row gap-4">
-                            <div className="w-[90%] md:w-1/2 flex flex-col">
-                              <h1 className="text-3xl">
-                                About <span className="text-3xl text-blue-500">Company</span>
-                              </h1>
-                              <p className="text-sm text-left pt-10">
-                                Clikkle Technologies disrupts the SaaS sector with practical
-                                A1 solutions, empowering businesses to unleash their data's
-                                potentials. Our innovative A1 platforms drive impactful
-                                results for global companies, revolutionizing how they
-                                operate. We seek ambitious problem solver to join our
-                                rewarding journey. Embrace the impossible with us and unlock
-                                your potential at Clikkle.
-                              </p>
-                            </div>
-                            <div className="w-full md:w-1/2">
-                              <img src={img2} alt="image2" />
-                            </div>
-                          </div>
-                          <div className="w-full flex justify-between p-4 mt-32 md:mt-2">
-                            <div className="w-1/2 mx-4">
-                              <h1 className="text-[14px] md:text-5xl  text-start">
-                                MORE{" "}
-                                <span className="text-[14px] md:text-2xl text-start ">
-                                  INFORMATION
-                                </span>
-                              </h1>
-                            </div>
-                            <div className="w-[25%] md:w-[10%]">
-                              <h1 className="text-[10px] md:text-xl text-start ">
-                                <FontAwesomeIcon
-                                  icon={faSquare}
-                                  className="text-[10px] mr-2"
-                                />
-                                Offer
-                              </h1>
-                              <h1 className="text-[10px] md:text-xl text-center ">LETTER</h1>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex flex-col md:flex-row md:justify-between w-full gap-4 md:gap-0 mt-48 md:mt-4">
-                          <div className="flex flex-col  justify-start w-full md:w-1/3 mx-8">
-                            <h1 className="text-[24px] ">Reporting</h1>
-                            <h1 className="text-[24px] text-blue-500">Relationship</h1>
-                            <p className="pt-10 text-[16px] pr-12">
-                              The {letter.jobTitle} will report directly to{" "}
-                              <span className="text-blue-500">
-                                {letter.managerName},{" "}
-                                {letter.managerJobTitle}.
-                              </span>
-                              <br />
-                              They will collaborate closely with the Development Team.
-                            </p>
-                          </div>
-                          <div className="flex flex-col w-[90%] md:w-1/2 mx-2 md:mx-8">
-                            <h1 className="text-[24px] text-right">Probationary</h1>
-                            <h1 className="text-[24px] text-blue-500 text-right">Period</h1>
-                            <p className="pt-10 text-[16px] pl-5 md:pl-40 text-right">
-                              The initial Probationary period for this position will be{" "}
-                              <span className="text-blue-500">
-                                {letter.probationaryPeriod}
-                                <br />
-                                months
-                              </span>
-                              , during which performance and suitability for the role will be
-                              evaluated. Employment confirmation will be subject to a
-                              satisfactory review at the end of the Probationary period.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="w-full flex justify-center items-center h-[300px]">
-                          <div className="w-[75%] mt-10 flex flex-col items-center justify-center gap-4">
-                            <button className="text-center  font-semibold text-[14px] md:text-xl  border border-white py-2 px-6">
-                              Base{" "}
-                              <span className="text-blue-500 text-[14px] md:text-xl">
-                                Salary
-                              </span>
-                            </button>
-                            <p className="text-[12px] md:text-xl text-center">
-                              The
-                              <span className="text-[12px] md:text-xl text-blue-500 pl-2 pr-2">
-                                {" "}
-                                {letter.jobTitle}
-                              </span>
-                              Will receive a competitive base salary of{" "}
-                              <span className="text-[12px] md:text-xl text-blue-500 pl-2 pr-2">
-                                {letter.salaryAmount}{" "}
-                                {letter.salaryCurrency}
-                              </span>
-                              per year, payable in Bi-Weekly installments.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex flex-col md:flex-row md:justify-between w-full gap-4 md:gap-0">
-                          <div className="flex flex-col  justify-start w-[87%] md:w-1/3 ml-5 mx-2 md:mx-8">
-                            <h1 className="text-[18px] md:text-[24px] ">Benefits</h1>
-                            <p className="text-[12px] md:text-[18px]  pt-5">
-                              We offer a comprehensive benefit package, including, but not
-                              limited to:
-                            </p>
-                            {letter.benefits.map((benefit, index) => (
-                              <p
-                                key={index}
-                                className="text-[12px] md:text-[18px] pr-10 md:pr-2"
-                              >
-                                <FontAwesomeIcon
-                                  icon={faCircle}
-                                  className="pr-2 text-[8px] pt-8"
-                                />
-                                {benefit}
-                              </p>
-                            ))}
-                          </div>
-                          <div className="flex flex-col w-[90%] md:w-1/3 mx-2 md:mx-8">
-                            <h1 className="text-[18px] md:text-[24px] text-right">
-                              Allowances
-                            </h1>
-                            <p className="text-[12px] md:text-[18px]  text-right pl-12 pt-5 text-right">
-                              As part of the compensation package, the{" "}
-                              <span className="text-blue-500 text-[12px] md:text-[18px] pl-2 pr-2">
-                                {" "}
-                                {letter.jobTitle}{" "}
-                              </span>{" "}
-                              will receive the following allowances:
-                            </p>
-                            {letter.allowance.map((k, index) => (
-                              <p
-                                key={index}
-                                className="text-right text-[12px] md:text-[18px]"
-                              >
-                                <FontAwesomeIcon
-                                  icon={faCircle}
-                                  className="pr-2 text-[8px]"
-                                />
-                                {k}
-                              </p>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="flex flex-col md:flex-row md:justify-between w-full gap-4 md:gap-0 mt-10 md:mt-32">
-                          <div className="flex flex-col  justify-start w-[87%] md:w-1/3 mx-2 md:mx-8 ml-5">
-                            <h1 className="text-[18px] md:text-[24px] ">
-                              Vocation & Personal
-                            </h1>
-                            <h1 className="text-[18px] md:text-[24px] text-blue-500">
-                              Emergency Time Off
-                            </h1>
-                            <p className="pt-10 text-[12px] md:text-[16px]  pr-12">
-                              The
-                              <span className="text-[12px] md:text-[16px] text-blue-500 pl-2 pr-2">
-                                {letter.jobTitle}
-                              </span>
-                              will be entitled to{" "}
-                              <span className="text-[12px] md:text-[16px] text-blue-500 pl-0 pr-2">
-                                {letter.daysOff.vacation} days
-                              </span>
-                              of paid vocation leave per year. Additionally,{" "}
-                              <span className="text-[12px] md:text-[16px] text-blue-500 pl-2 pr-2">
-                                {letter.daysOff.emergency} days
-                              </span>
-                              of personal emergency time off will be provided for unforeseen
-                              circumstances.
-                            </p>
-                          </div>
-                          <div className="flex flex-col w-[90%] md:w-1/2 mx-2  md:mx-8">
-                            <h1 className="text-[18px] md:text-[24px]  text-right">
-                              Currency
-                            </h1>
-                            <h1 className="text-[18px] md:text-[24px] text-blue-500 text-right">
-                              Deductions
-                            </h1>
-                            <p className="pt-10 text-[12px] md:text-[16px]  pl-32 text-right">
-                              All salaries and allowances will be paid in the local currency.
-                              Applicable taxes and deductions as per government regulations
-                              will be withheld from the salary.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="w-full flex justify-center items-center h-[150px] md:h-[300px]">
-                          <div className="w-[80%] mt-10 flex flex-col items-center justify-center gap-4">
-                            <button className="text-center  font-semibold text-[14px] md:text-xl  border border-white py-2 px-6">
-                              Sign-On{" "}
-                              <span className="text-blue-500 text-[14px] md:text-xl">
-                                Bonus
-                              </span>
-                            </button>
-                            <p className="text-[12px] md:text-xl text-center">
-                              This job title receive a competitive sign-on bonus of
-                              <span className="text-[12px] md:text-xl text-blue-500 pl-2 pr-2">
-                                {letter.signOnBonus}
-                              </span>
-                              payable within{" "}
-                              <span className="text-[12px] md:text-xl text-blue-500 pl-2 pr-2">
-                                30 days
-                              </span>
-                              of employment.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="w-full flex justify-center items-center h-[150px] md:h-[300px]">
-                          <div className="w-[90%] mt-10 flex flex-col items-center justify-center gap-4">
-                            <button className="text-center  font-semibold text-[14px] md:text-xl  border border-white py-2 px-6">
-                              Expenses
-                            </button>
-                            <p className="text-[12px] md:text-xl text-center text-white">
-                              The company will reimburse and pre-approved expenses incurred by
-                              the
-                              <span className="text-[12px] md:text-xl text-blue-500 pl-2 pr-2">
-                                {" "}
-                                {letter.jobTitle}
-                              </span>
-                              in the course of their duty & proper documentations and approval
-                              are required for reimbursement.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex flex-col md:flex-row md:justify-between w-full mt-20 gap-5 md:gap-0">
-                          <div className="flex flex-col justify-start w-[87%] md:w-1/3 ml-5 mx-2 md:mx-8">
-                            <h1 className="text-[18px] md:text-[24px] ">Termination</h1>
-                            <h1 className="text-[18px] md:text-[24px] text-blue-500">
-                              Conditions
-                            </h1>
-                            <p className="text-[12px] md:text-[18px]  pt-5 pr-10 md:pr-2">
-                              Termination of employment may occur under the following
-                              circumstances:
-                            </p>
-                            <p className="text-[12px] md:text-[18px] pr-10 md:pr-2">
-                              <FontAwesomeIcon
-                                icon={faCircle}
-                                className="pr-2 text-[8px] pt-8"
-                              />
-                              Resignation: The{" "}
-                              <span className="text-[12px] md:text-[18px] text-blue-500 pl-2 pr-2">
-                                {" "}
-                                {letter.jobTitle}
-                              </span>
-                              from their position by providing a{" "}
-                              <span className="text-[12px] md:text-[18px] text-blue-500 pl-2 pr-2">
-                                {letter.noticePeriod} days notice{" "}
-                              </span>
-                              in writing.
-                            </p>
-                            <p className="text-[12px] md:text-[18px] pr-10 md:pr-2">
-                              <FontAwesomeIcon icon={faCircle} className="pr-2 text-[8px]" />
-                              Termination for cause: The company reserves the right to
-                              terminate employment immediately if the
-                              {letter.jobTitle} breaches company policies or engages
-                              in any misconduct.
-                            </p>
-                            <p className="text-[12px] md:text-[18px] pr-10 md:pr-2">
-                              <FontAwesomeIcon icon={faCircle} className="pr-2 text-[8px]" />
-                              Termination without cause: The company may terminate employment
-                              without cause by providing a{" "}
-                              <span className="text-[12px] md:text-[18px] text-blue-500 pl-2 pr-2">
-                                {letter.noticePeriod} hours notice
-                              </span>
-                              or salary in lieu of notice.
-                            </p>
-                          </div>
-                          <div className="flex flex-col w-[90%] md:w-1/3 mx-2 md:mx-8">
-                            <h1 className="text-[18px] md:text-[24px]  text-right">
-                              Confidentially of Information
-                            </h1>
-                            <h1 className="text-[18px] md:text-[24px]  text-right">
-                              and Ownership of
-                            </h1>
-                            <h1 className="text-[18px] md:text-[24px] text-blue-500 text-right">
-                              Proprietary Property
-                            </h1>
-                            <p className="text-[12px] md:text-[18px]  text-right  pt-5 text-right pl-10 md:pl-0">
-                              During the course of employment, the {letter.jobTitle}{" "}
-                              may have access to confidential and proprietary information of
-                              the company. They will be required to sign a separate
-                              <span className="text-blue-500 text-[12px] md:text-[18px] pl-2 pr-2">
-                                Non-Disclosure Agreement (NDA)
-                              </span>{" "}
-                              to protect the company's sensitive information.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="w-full flex justify-center items-center h-[167px]  md:h-[300px] mt-28 md:mt-10">
-                          <div className="w-[80%] mt-10 flex flex-col items-center justify-center gap-4 border border-white p-4">
-                            <p className="text-[10px] md:text-lg text-center  pt-2">
-                              Your employment with Clikkle is at-will and either party can
-                              terminate the relationship at any time with or without cause,
-                              and with or without notice. You acknowledge that this offer
-                              letter represents, but is not the entire agreements between you
-                              and Clikkle technologies.
-                            </p>
-                            <p className="text-[10px] md:text-lg text-center pt-4">
-                              If you are in agreement with the above outline please sign
-                              below. This offer is in effect for
-                              <span className="text-[10px] md:text-lg text-blue-500 pl-2 ">
-                                {letter.effectiveDays} business days.
-                              </span>
-                            </p>
-                          </div>
-                        </div>
-                        <div className="w-full mt-20 flex justify-center items-center">
-                          <div className="flex justify-between w-[85%] mx-2 md:mx-8">
-                            <div className="flex flex-col gap-2 w-1/3 md:w-1/4">
-                              <input
-                                type="text"
-                                className="w-full bg-transparent border border-neutral-700 focus:outline-none p-2 md:p-4"
-                                value={letter.candidateSign?.sign}
-                              />
-                              <span className="w-full border-b border-zinc-300 mt-2"></span>
-                            </div>
-                            <div className="flex flex-col gap-2 w-1/3 md:w-1/4">
-                              <input
-                                type="text"
-                                className="w-ful bg-transparent border border-neutral-700 focus:outline-none p-2 md:p-4"
-                                value={letter.hrSign}
-                              />
-                              <span className="w-full border-b border-zinc-300 mt-2"></span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="w-full flex justify-center items-center mb-20 mt-2">
-                          <div className="flex justify-between w-[85%] mx-8">
-                            <div className="w-1/2">
-                              <h1 className="text-[12px] md:text-[22px]">
-                                CANDIDATE'S SIGNATURE
-                              </h1>
-                            </div>
-                            <div className="w-1/2">
-                              <h1 className="text-[12px] md:text-[22px] text-right ">
-                                HR SIGNATURE
-                              </h1>
-                            </div>
-                          </div>
-                        </div>
-              
-                      </div>
+                    <>
+                        <Stack
+                            direction='row'
+                            justifyContent='space-between'
+                            py={8}
+                            alignItems='flex-start'>
+                           <ServerImage src={organization?.logo ?? ""} width='100' height='40' />
+                            <Box
+                                sx={{
+                                    borderStyle: 'solid',
+                                    borderRight: 'inherit',
+                                    borderColor: 'common',
+                                    borderWidth: 'thin',
+                                    p: 2,
+                                }}>
+                                <Typography variant='body1'>offer</Typography>
+                                <Typography
+                                    variant='subtitle1'
+                                    fontWeight={500}
+                                    textTransform='uppercase'
+                                    letterSpacing='1.2px'>
+                                    LETTER
+                                </Typography>
+                            </Box>
+                        </Stack>
+                        <Grid container spacing={3} mb={5}>
+                            <Grid item xs={12} lg={4}>
+                                <Box position='relative'>
+                                    <Typography
+                                        variant='subtitle1'
+                                        sx={{
+                                            transform: 'rotate(270deg)',
+                                            display: 'inline-block',
+                                            position: 'absolute',
+                                            bottom: '-53%',
+                                            left: '-22px',
+                                        }}>
+                                        JOB TITLE
+                                    </Typography>
+                                    <Typography
+                                        variant='h3'
+                                        fontWeight='bold'
+                                        lineHeight='0.7'
+                                        textTransform='uppercase'>
+                                        {letter.jobTitle.split(' ').shift()}
+                                    </Typography>
+                                    {letter.jobTitle
+                                        .split(' ')
+                                        .slice(1)
+                                        .map(title => (
+                                            <Typography
+                                                variant='h3'
+                                                color='primary.main'
+                                                fontWeight='bold'
+                                                textTransform='uppercase'>
+                                                {title}
+                                            </Typography>
+                                        ))}
+                                </Box>
+                            </Grid>
+                            <Grid item xs sx={{ textAlign: 'center' }}>
+                            <img src={letter2}  style={{ height : '340px'}} />
+                            </Grid>
+                            <Grid item lg={4} xs={12}>
+                                <Box>
+                                    <Typography variant='h3' fontWeight='bold' lineHeight='0.7'>
+                                        Job
+                                    </Typography>
+                                    <Typography
+                                        variant='h3'
+                                        color='primary.main'
+                                        fontWeight='bold'
+                                        mb={1}>
+                                        Description.
+                                    </Typography>
+                                    <Typography variant='subtitle1' fontWeight={500}>
+                                        {letter.jobDescription}
+                                        ...{' '}
+                                        <Typography
+                                            color='primary.main'
+                                            component={NavLink}
+                                            to={`/career/job/${letter.jobId}`}>
+                                            Read More
+                                        </Typography>
+                                    </Typography>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                        <Box
+                            sx={{
+                                boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.1) ',
+                                px: { lg: 10, xs: 5 },
+                            }}
+                            display='flex'
+                            alignItems='center'
+                            flexDirection='column'
+                            py={3}>
+                            <Typography variant='h5' fontWeight='800' color='primary.main' mb={2}>
+                                Greetings {letter.nameOfEmployee},
+                            </Typography>
+                            <Typography variant='h5' fontWeight='bold' textAlign='center' mb={2}>
+                                After a thorough assessment of your credentials and thoughtful
+                                deliberation, we are delighted to extend an offer for the position
+                                of{' '}
+                                <Typography
+                                    variant='h5'
+                                    display='inline'
+                                    fontWeight='bold'
+                                    color='primary.main'>
+                                    {letter.jobTitle}
+                                </Typography>
+                                . We kindly request your meticulous review of the attached job offer
+                                letter, and we encourage you to affix your signature at your
+                                earliest convenience. This step marks the initiation of your
+                                onboarding journey.
+                            </Typography>
+                            <Typography variant='h5' fontWeight='800' color='primary.main' mb={2}>
+                                We look forword to your positive response.
+                            </Typography>
+                        </Box>
+                        <Box position='relative' textAlign='center' py={8} mt={5}>
+                            <Typography
+                                variant='subtitle1'
+                                fontWeight={600}
+                                sx={{
+                                    transform: 'rotate(270deg)',
+                                    display: 'inline-block',
+                                    position: 'absolute',
+                                    top: '159px',
+
+                                    left: '-60px',
+                                }}>
+                                Discover Your Skills
+                            </Typography>
+                            <Typography
+                                variant='subtitle1'
+                                fontWeight={600}
+                                sx={{
+                                    transform: 'rotate(90deg)',
+
+                                    display: 'inline-block',
+                                    position: 'absolute',
+                                    top: '159px',
+
+                                    right: '-60px',
+                                }}>
+                                Discover Your Skills
+                            </Typography>
+                            <Box sx={{ mt: { xs: 3, lg: 0 } }}>
+                                <Typography
+                                    variant='h2'
+                                    fontWeight='600'
+                                    textTransform='uppercase'
+                                    letterSpacing='2px'
+                                    gutterBottom
+                                    sx={{ fontSize: 'clamp(30px, 5vw, 60px)' }}>
+                                    Join Our
+                                </Typography>
+                                <Typography
+                                    variant='h2'
+                                    fontWeight='600'
+                                    color='primary.main'
+                                    lineHeight='0.7'
+                                    letterSpacing='2px'
+                                    gutterBottom
+                                    textTransform='uppercase'
+                                    sx={{ fontSize: 'clamp(30px, 5vw, 60px)' }}>
+                                    Growing
+                                </Typography>
+                                <Typography
+                                    variant='h2'
+                                    fontWeight='600'
+                                    textTransform='uppercase'
+                                    sx={{ fontSize: 'clamp(40px, 5vw, 60px)' }}>
+                                    team
+                                </Typography>
+                            </Box>
+                        </Box>
+                        <Grid container justifyContent='space-around' alignItems='center' pt={8}>
+                            <Grid item lg={5} xs={12}>
+                                <Typography
+                                    variant='h3'
+                                    fontWeight='600'
+                                    mb={1}
+                                    display='inline-block'>
+                                    About
+                                </Typography>
+                                <Typography
+                                    variant='h3'
+                                    pl={1}
+                                    fontWeight='600'
+                                    color='primary.main'
+                                    display='inline-block'>
+                                    Company.
+                                </Typography>
+                                <Typography variant='subtitle1' fontWeight={500}>
+                                   {organization.name} Technologies disrupts the SaaS sector with practical A1
+                                    solutions, empowering businesses to unleash their data&apos;s
+                                    potential. Our innovative A1 platforms drive impactful results
+                                    for global companies, revolutionizing how they operate. We seek
+                                    ambitious problem solvers to join our rewarding journey. Embrace
+                                    the impossible with us and unlock your potential at {organization.name}.
+                                </Typography>
+                            </Grid>
+                            <Grid
+                                item
+                                lg={5}
+                                xs={12}
+                                sx={{
+                                    textAlign:  'right',
+                                    mt: { lg: 0, xs: 2 },
+                                }}>
+                                 <img src={letter1}  style={{ height : '340px' ,margin : 0}} />
+                            </Grid>
+                        </Grid>
+                        <Stack
+                            direction='row'
+                            justifyContent='space-between'
+                            alignItems='center'
+                            spacing={3}
+                            pt={8}>
+                            <Box>
+                                <Typography
+                                    variant='h1'
+                                    fontWeight='600'
+                                    display='inline-block'
+                                    sx={{ fontSize: 'clamp(40px, 5vw, 60px)' }}>
+                                    MORE
+                                </Typography>
+                                <Typography
+                                    variant='subtitle1'
+                                    fontSize='40px'
+                                    pl={1}
+                                    letterSpacing='2px'
+                                    display='inline-block'
+                                    sx={{ fontSize: 'clamp(20px, 5vw, 50px)' }}>
+                                    information.
+                                </Typography>
+                            </Box>
+                            <Box p={2}>
+                                <Typography
+                                    variant='body1'
+                                    sx={{
+                                        position: 'relative',
+                                        '&:before': {
+                                            content: "''",
+                                            width: '10px',
+                                            height: '10px',
+                                            backgroundColor: 'custom.common',
+                                            display: 'inline-block',
+                                            position: 'absolute',
+                                            left: '-22px',
+                                            top: '7px',
+                                        },
+                                    }}>
+                                    offer
+                                </Typography>
+                                <Typography
+                                    variant='subtitle1'
+                                    fontWeight={500}
+                                    textTransform='uppercase'
+                                    letterSpacing='1.2px'>
+                                    LETTER
+                                </Typography>
+                            </Box>
+                        </Stack>
+                        <Grid container justifyContent='space-between' py={8} columnSpacing={6}>
+                            <Grid item lg={4} xs={12}>
+                                <Typography variant='h4' fontWeight='600'>
+                                    Reporting
+                                </Typography>
+                                <Typography
+                                    variant='h4'
+                                    fontWeight='600'
+                                    mb={2}
+                                    color='primary.main'>
+                                    Relationship.
+                                </Typography>
+                                <Typography variant='subtitle1'>
+                                    The {letter.jobTitle} will report directly to{' '}
+                                    <Typography
+                                        variant='subtitle1'
+                                        display='inline'
+                                        color='primary.main'>
+                                        {letter.manager.name}, {letter.manager.jobTitle}
+                                    </Typography>
+                                    . They will collaborate closely with {letter.team}.
+                                </Typography>
+                            </Grid>
+                            <Grid
+                                item
+                                lg={4}
+                                xs={12}
+                                textAlign='right'
+                                sx={{ mt: { lg: 0, xs: 4 } }}>
+                                <Typography variant='h4' fontWeight='600'>
+                                    Probationary
+                                </Typography>
+                                <Typography
+                                    variant='h4'
+                                    fontWeight='600'
+                                    mb={2}
+                                    color='primary.main'>
+                                    Period.
+                                </Typography>
+                                <Typography variant='subtitle1'>
+                                    The initial probationary period for this position will be{' '}
+                                    <Typography
+                                        variant='subtitle1'
+                                        display='inline'
+                                        color='primary.main'>
+                                        {`${letter.probationaryPeriod} months`}
+                                    </Typography>
+                                    , during which performance and suitability for the role will be
+                                    evaluated. Employment confirmation will be subject to a
+                                    satisfactory review at the end of the probationary period.
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <Box py={8} textAlign='center'>
+                            <Box
+                                sx={{
+                                    borderStyle: 'solid',
+                                    borderColor: 'common',
+                                    borderWidth: 'thin',
+                                }}
+                                py={1}
+                                px={5}
+                                display='inline-flex'
+                                mb={1}>
+                                <Typography variant='h5' fontWeight='600' mr={1}>
+                                    Base{' '}
+                                </Typography>
+                                <Typography variant='h5' fontWeight='600' color='primary.main'>
+                                    Salary
+                                </Typography>
+                            </Box>
+                            <Typography
+                                variant='subtitle1'
+                                maxWidth='40ch'
+                                mx='auto'
+                                fontWeight={500}>
+                                The{' '}
+                                <Typography
+                                    variant='subtitle1'
+                                    display='inline'
+                                    color='primary.main'
+                                    fontWeight={500}>
+                                    {letter.jobTitle}
+                                </Typography>{' '}
+                                will receive a competitive base salary of{' '}
+                                <Typography
+                                    variant='subtitle1'
+                                    display='inline'
+                                    color='primary.main'
+                                    fontWeight={500}>
+                                    {letter.salary.amount} {letter.salary.currency}
+                                </Typography>{' '}
+                                per year, payable in Bi-Weekly installments.
+                            </Typography>
+                        </Box>
+                        <Grid container justifyContent='space-between' py={8} columnSpacing={6}>
+                            <Grid item lg={5} xs={12}>
+                                <Typography variant='h4' fontWeight='600' mb={2}>
+                                    Benefits.
+                                </Typography>
+                                <Typography variant='subtitle1'>
+                                    We offer a comprehensive benefits package, including but not
+                                    limited to:
+                                </Typography>
+                                <List>
+                                    {letter.benefits.map(benefit => (
+                                        <ListItem sx={{ pl: 0 }}>- {benefit}</ListItem>
+                                    ))}
+                                </List>
+                            </Grid>
+                            <Grid
+                                item
+                                lg={5}
+                                xs={12}
+                                textAlign='right'
+                                sx={{ mt: { lg: 0, xs: 4 } }}>
+                                <Typography variant='h4' fontWeight='600' mb={2}>
+                                    Allowances.
+                                </Typography>
+                                <Typography variant='subtitle1'>
+                                    As part of the compensation package, the {letter.jobTitle} will
+                                    receive the following allowances:
+                                </Typography>
+                                <List
+                                    sx={{
+                                        '& .MuiListItem-root': {
+                                            ml: 1,
+                                        },
+                                    }}>
+                                    {letter.allowance.map(k => (
+                                        <ListItem
+                                            sx={{
+                                                justifyContent: 'end',
+                                            }}>
+                                            - {k}
+                                        </ListItem>
+                                    ))}
+                                </List>
+                            </Grid>
+                        </Grid>
+                        <Box py={8} textAlign='center'>
+                            <Box
+                                sx={{
+                                    borderStyle: 'solid',
+                                    borderColor: 'common',
+                                    borderWidth: 'thin',
+                                }}
+                                py={1}
+                                px={5}
+                                display='inline-flex'
+                                mb={1}>
+                                <Typography variant='h5' fontWeight='600' mr={1}>
+                                    Sign-On{' '}
+                                </Typography>
+                                <Typography variant='h5' fontWeight='600' color='primary.main'>
+                                    Bonus
+                                </Typography>
+                            </Box>
+                            <Typography
+                                variant='subtitle1'
+                                maxWidth='40ch'
+                                mx='auto'
+                                fontWeight={500}>
+                                This job title receive a competitive sign-on bonus of{' '}
+                                <Typography
+                                    variant='subtitle1'
+                                    display='inline'
+                                    color='primary.main'
+                                    fontWeight={500}>
+                                    {letter.signOnBonus} CAD
+                                </Typography>{' '}
+                                payable within{' '}
+                                <Typography
+                                    variant='subtitle1'
+                                    display='inline'
+                                    color='primary.main'
+                                    fontWeight={500}>
+                                    30 days
+                                </Typography>{' '}
+                                of employment.
+                            </Typography>
+                        </Box>
+                        <Grid
+                            container
+                            justifyContent='space-between'
+                            alignItems='center'
+                            py={8}
+                            columnSpacing={6}>
+                            <Grid item lg={4} xs={12}>
+                                <Typography variant='h4' fontWeight='600'>
+                                    Vocation & Personal
+                                </Typography>
+                                <Typography
+                                    variant='h4'
+                                    fontWeight='600'
+                                    mb={2}
+                                    color='primary.main'>
+                                    Emergency Time Off.
+                                </Typography>
+                                <Typography variant='subtitle1'>
+                                    The{' '}
+                                    <Typography
+                                        variant='subtitle1'
+                                        display='inline'
+                                        color='primary.main'>
+                                        {letter.jobTitle}
+                                    </Typography>{' '}
+                                    will be entitled to{' '}
+                                    <Typography
+                                        variant='subtitle1'
+                                        display='inline'
+                                        color='primary.main'>
+                                        {letter.daysOff.vacation} days
+                                    </Typography>{' '}
+                                    Of paid vacation leave per year. Additionally,{' '}
+                                    <Typography
+                                        variant='subtitle1'
+                                        display='inline'
+                                        color='primary.main'>
+                                        {letter.daysOff.emergency} days
+                                    </Typography>{' '}
+                                    of personal emergency time off will be provided for unforeseen
+                                    circumstances
+                                </Typography>
+                            </Grid>
+                            <Grid
+                                item
+                                lg={4}
+                                xs={12}
+                                textAlign='right'
+                                sx={{ mt: { lg: 0, xs: 4 } }}>
+                                <Typography variant='h4' fontWeight='600'>
+                                    Currency &
+                                </Typography>
+                                <Typography
+                                    variant='h4'
+                                    fontWeight='600'
+                                    mb={2}
+                                    color='primary.main'>
+                                    Deductions.
+                                </Typography>
+                                <Typography variant='subtitle1'>
+                                    All salaries and allowances will be paid in the local currency{' '}
+                                    <Typography
+                                        variant='subtitle1'
+                                        display='inline'
+                                        color='primary.main'>
+                                        {letter.salary.currency}
+                                    </Typography>
+                                    . Applicable taxes and deductions as per government regulations
+                                    will be withheld from the salary.
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <Box py={8} textAlign='center'>
+                            <Box
+                                py={1}
+                                px={5}
+                                display='inline-flex'
+                                mb={1}
+                                sx={{
+                                    borderStyle: 'solid',
+                                    borderColor: 'common',
+                                    borderWidth: 'thin',
+                                }}>
+                                <Typography variant='h5' fontWeight='600' mr={1}>
+                                    Expenses
+                                </Typography>
+                            </Box>
+                            <Typography
+                                variant='subtitle1'
+                                maxWidth='75ch'
+                                mx='auto'
+                                fontWeight={500}>
+                                The company will reimburse reasonable and pre-approved expenses
+                                incurred by the{' '}
+                                <Typography
+                                    variant='subtitle1'
+                                    display='inline'
+                                    color='primary.main'
+                                    fontWeight={500}>
+                                    {letter.jobTitle}
+                                </Typography>{' '}
+                                in the course Of their duty & Proper documentation and approval are
+                                required for reimbursement.
+                            </Typography>
+                        </Box>
+                        <Grid
+                            container
+                            justifyContent='space-between'
+                            alignItems='center'
+                            py={8}
+                            columnSpacing={6}>
+                            <Grid item lg={4} xs={12}>
+                                <Typography variant='h4' fontWeight='600'>
+                                    Termination
+                                </Typography>
+                                <Typography
+                                    variant='h4'
+                                    fontWeight='600'
+                                    mb={2}
+                                    color='primary.main'>
+                                    Conditions.
+                                </Typography>
+                                <Typography variant='body2'>
+                                    Termination of employment may occur under the following
+                                    circumstances:
+                                </Typography>
+                                <List
+                                    sx={{
+                                        '& .MuiListItem-root': {
+                                            p: 0,
+                                            fontSize: '0.875rem',
+                                        },
+                                    }}>
+                                    <ListItem sx={{ display: 'inline-block' }}>
+                                        - Resignation: The{' '}
+                                        <Typography
+                                            display='inherit'
+                                            fontSize='inherit'
+                                            color='primary.main'>
+                                            {letter.jobTitle}
+                                        </Typography>{' '}
+                                        may resign from their position by providing{' '}
+                                        <Typography
+                                            display='inherit'
+                                            fontSize='inherit'
+                                            color='primary.main'>
+                                            {letter.noticePeriod} days notice
+                                        </Typography>{' '}
+                                        in writing.
+                                    </ListItem>
+                                    <ListItem sx={{ display: 'inline-block' }}>
+                                        - Termination for cause: The company reserves the right to
+                                        terminate employment immediately if the {letter.jobTitle}{' '}
+                                        breaches company policies or engages in any misconduct.
+                                    </ListItem>
+                                    <ListItem sx={{ display: 'inline-block' }}>
+                                        - Termination without cause: The company may terminate
+                                        employment without cause by providing{' '}
+                                        <Typography
+                                            display='inherit'
+                                            fontSize='inherit'
+                                            color='primary.main'>
+                                            {letter.noticePeriod} days notice
+                                        </Typography>{' '}
+                                        or salary in lieu of notice.
+                                    </ListItem>
+                                </List>
+                            </Grid>
+                            <Grid
+                                item
+                                lg={4}
+                                xs={12}
+                                textAlign='right'
+                                sx={{ mt: { lg: 0, xs: 4 } }}>
+                                <Typography variant='h4' fontWeight='600'>
+                                    Confidentiality of Information and Ownership of
+                                </Typography>
+                                <Typography
+                                    variant='h4'
+                                    fontWeight='600'
+                                    mb={2}
+                                    color='primary.main'>
+                                    Proprietary Property.
+                                </Typography>
+                                <Typography variant='subtitle1'>
+                                    During the course Of employment, the {letter.jobTitle} may have
+                                    access to confidential and proprietary information Of the
+                                    company. They will be required to sign a separate{' '}
+                                    <Typography
+                                        variant='subtitle1'
+                                        display='inline'
+                                        fontSize='inherit'
+                                        color='primary.main'>
+                                        Non-Disclosure Agreement (NDA){' '}
+                                    </Typography>{' '}
+                                    to protect the company's sensitive information.
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <Box
+                            sx={{ mx: { lg: 8, xs: 0 } }}
+                            my={2}
+                            border='1px solid'
+                            borderColor='common'
+                            py={5}
+                            px={3}
+                            textAlign='center'>
+                            <Typography variant='subtitle1' mb={2}>
+                                your employment with {organization.name} is at-will and either party can terminate
+                                the relationship at any time with or without cause and with or
+                                without notice. you acknowledge that this Offer letter represents
+                                the entire agreement between you and {organization.name}.
+                            </Typography>
+                            <Typography variant='subtitle1'>
+                                If you agree in agreement with the above outline, please sign below.
+                                This Offer is in effect for{' '}
+                                <Typography
+                                    variant='subtitle1'
+                                    display='inline'
+                                    fontSize='inherit'
+                                    color='primary.main'>
+                                    {letter.effectiveDays} business days.
+                                </Typography>
+                            </Typography>
+                        </Box>
+                        <Grid container justifyContent='space-between' mt={8}>
+                            <Grid
+                                item
+                                lg={4}
+                                xs={12}
+                                sx={{
+                                    borderColor: 'common',
+                                }}>
+                                <Grid container alignItems='center' sx={{ mb: 4 }}>
+                                    <Grid item xs>
+                                        <TextField
+                                            sx={{
+                                                '& .MuiInputBase-root.MuiOutlinedInput-root': {
+                                                    fontFamily: "'Mrs Saint Delafield', cursive",
+                                                    fontSize: 40,
+                                                },
+                                                mb: 0,
+                                                pr: 1,
+                                                '& input::placeholder': {
+                                                    fontFamily: 'Arial, Helvetica, sans-serif',
+                                                    fontSize: 25,
+                                                },
+                                            }}
+                                            value={letter.candidateSign?.sign}
+                                            placeholder='Your Signature Here'
+                                            disabled={letter.candidateSign}
+                                            fullWidth
+                                        />
+                                    </Grid>
+                                </Grid>
+                                <Typography
+                                    variant='h5'
+                                    textTransform='uppercase'
+                                    mt={1}
+                                    sx={{
+                                        paddingTop: '10px',
+                                        borderTop: '1px solid',
+                                    }}>
+                                    Candidate&apos;s signature
+                                </Typography>
+                            </Grid>
+                            <Grid
+                                item
+                                lg={4}
+                                xs={12}
+                                sx={{
+                                    mt: { lg: 0, xs: 5 },
+                                    borderColor: 'common',
+                                }}>
+                                <Grid container alignItems='center' sx={{ mb: 4 }}>
+                                    <Grid item xs>
+                                        <TextField
+                                            value={letter.hrSign}
+                                            disabled={true}
+                                            sx={{
+                                                '& .MuiInputBase-root.MuiOutlinedInput-root': {
+                                                    fontFamily: "'Mrs Saint Delafield', cursive",
+                                                    fontSize: 40,
+                                                },
+                                                mb: 0,
+                                            }}
+                                            fullWidth
+                                        />
+                                    </Grid>
+                                </Grid>
+                                <Typography
+                                    variant='h5'
+                                    textTransform='uppercase'
+                                    mt={1}
+                                    textAlign='left'
+                                    sx={{
+                                        paddingTop: '10px',
+                                        borderTop: '1px solid',
+                                    }}>
+                                    hr signature
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                    </>
                 ) : (
                     <Typography variant='subtitle1'>
                         {' '}
