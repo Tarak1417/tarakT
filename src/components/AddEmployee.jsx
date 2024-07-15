@@ -15,9 +15,9 @@ import { useMessage } from "./Header";
 import { Form, Submit, useForm } from "../hooks/useForm/useForm";
 import { Input } from "../hooks/useForm/inputs";
 
-const AddEmployee = () => {
-  const userId = "662a20af3cf627cfd7eb7090"; // Static userId
-  const adminId = "666fc89dc53c1dde21a36a73"; // Static adminId
+const AddEmployee = ( { closeModal , refetch}) => {
+  // const userId = "662a20af3cf627cfd7eb7090"; // Static userId
+  // const adminId = "666fc89dc53c1dde21a36a73"; // Static adminId
   const [departments, setDepartments] = useState([]);
   const { showError, showSuccess } = useMessage();
   const errorHandler = useErrorHandler();
@@ -36,9 +36,11 @@ const AddEmployee = () => {
 
   const [pageNo, setPageNo] = useState(1);
   const [pageLimit, setPageLimit] = useState(0);
+  const [verifyEmail, setVerifyEmail] = useState(true);
   const [jobs, setJobs] = useState(null);
   const [originalOrder, setOriginalOrders] = useState(null);
   const [offset, setOffset] = useState(0);
+  const [user, setUser] = useState({});
 
   const fetchJobListing = useCallback(
     async (search = "") => {
@@ -59,7 +61,38 @@ const AddEmployee = () => {
     [setJobs, pageNo]
   );
 
-  console.log(jobs);
+  const verifyUserByEmail =  async (email) => {
+      try {
+        var formData = new FormData();
+          formData.append("email", email);
+        const response = await fetch("https://accounts.clikkle.com:5000/api/auth/get_user_by_mail",
+          {
+              method: "POST",
+              body: formData
+          },
+
+      );
+      if (response.ok) {
+       setVerifyEmail(false)
+       let data  =   await response.json();
+       let tempUser  =  data.data;
+       handlers.values.firstName = tempUser.firstName;
+       handlers.values.lastName = tempUser.lastName;
+       handlers.values.dateOfBirth =  new Date(tempUser.dateOfBirth) ;
+       handlers.values.gender = tempUser.gender;
+       handlers.values.userId = tempUser._id;
+       showSuccess('user found Successfully ')
+      } else {
+        showError('user not found please use clikkle registered accounts   @clikkmail.com')
+          console.log('user not found')
+          handlers.errors.email = 'User not found please use clikkle registered accounts  @clikkmail.com'
+      }
+      } catch (e) {
+        showError('User not found')
+        console.warn(e);
+      }
+    }
+  // console.log(jobs);
 
   useEffect(() => {
     fetchJobListing();
@@ -68,20 +101,24 @@ const AddEmployee = () => {
   const handlers = useForm(
     useMemo(
       () => ({
-        userId: { final: () => userId },
-        adminId: { final: () => adminId },
-        firstName: { required: true },
-        lastName: { required: true },
+        userId :{ },
+        firstName: {  },
+        lastName: {  },
         email: {
           required: true,
           pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
         },
-        dateOfBirth: { required: true },
-        gender: { required: true },
+        dateOfBirth: { },
+        gender: { },
+        salary: {
+          required: true,
+         },
+        currency: {
+          required: true,
+         },
         department: { required: true },
         designation: { required: true },
         jobType: { required: true },
-        status: { required: true },
         startDate: { required: true },
         shiftStartTime: { required: true },
         shiftEndTime: { required: true },
@@ -96,8 +133,10 @@ const AddEmployee = () => {
     const { success, message } = res.data;
 
     if (!success) return showError(message);
-
+ 
     showSuccess("Employee added successfully");
+    refetch();
+    closeModal();
   };
 
   const onSelectHandler = (e) => {
@@ -109,7 +148,15 @@ const AddEmployee = () => {
     fetchDepartments();
   }, [fetchDepartments]);
 
-  console.log("handlers.values.designation", handlers.values.designation);
+  // console.log("handlers.values.designation", handlers.values.designation);
+
+  const handleBlur = () => {
+     if (handlers.values.email) {
+      verifyUserByEmail(handlers.values.email)
+      // console.log("handlers ", handlers.values.email);
+    //   setError('Input cannot be empty.');
+     }
+  };
 
   return (
     <Card
@@ -151,17 +198,17 @@ const AddEmployee = () => {
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <Typography gutterBottom>First Name</Typography>
-            <Input name="firstName" fullWidth type="text" size="small" required />
+            <Input disabled name="firstName" fullWidth type="text" size="small" required />
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography gutterBottom>Last Name</Typography>
-            <Input name="lastName" fullWidth type="text" size="small" required />
+            <Input disabled name="lastName" fullWidth type="text" size="small" required />
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography gutterBottom>Email</Typography>
-            <Input name="email" fullWidth type="email" size="small" required />
+            <Input   onBlur={handleBlur} name="email" fullWidth type="email" size="small" required />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <Typography gutterBottom>Date of Birth</Typography>
             <Input
               name="dateOfBirth"
@@ -169,8 +216,9 @@ const AddEmployee = () => {
               type="date"
               size="small"
               required
+              disabled
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} sm={6}>
             <Typography gutterBottom>Gender</Typography>
             <Select
@@ -182,9 +230,10 @@ const AddEmployee = () => {
               sx={{ mb: 2 }}
               value={handlers.values.gender || ""}
               onChange={onSelectHandler}
+              disabled
             >
-              <MenuItem value="male">Male</MenuItem>
-              <MenuItem value="female">Female</MenuItem>
+              <MenuItem value="Male">Male</MenuItem>
+              <MenuItem value="Female">Female</MenuItem>
               <MenuItem value="Non-binary">Others</MenuItem>
             </Select>
           </Grid>
@@ -228,6 +277,28 @@ const AddEmployee = () => {
             </Select>
           </Grid>
           <Grid item xs={12} sm={6}>
+            <Typography gutterBottom>Currency</Typography>
+            <Input
+                                        name='currency'
+                                        size='small'
+                                        id='outlined-basic'
+                                        variant='outlined'
+                                        fullWidth
+                                    />
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <Typography gutterBottom>Salary</Typography>
+            <Input
+                                        type='number'
+                                        name='salary'
+                                        size='small'
+                                        id='outlined-basic'
+                                        variant='outlined'
+                                        fullWidth
+                                    />
+          </Grid>
+          <Grid item xs={12} sm={6}>
             <Typography gutterBottom>Job Type</Typography>
             <Select
               required
@@ -243,7 +314,8 @@ const AddEmployee = () => {
               <MenuItem value="Full Time">Full Time</MenuItem>
             </Select>
           </Grid>
-          <Grid item xs={12} sm={6}>
+
+          {/* <Grid item xs={12} sm={6}>
             <Typography gutterBottom>Status</Typography>
             <Select
               required
@@ -258,7 +330,7 @@ const AddEmployee = () => {
               <MenuItem value="Active">Active</MenuItem>
               <MenuItem value="Terminated">Terminated</MenuItem>
             </Select>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} sm={6}>
             <Typography gutterBottom>Start Date</Typography>
             <Input name="startDate" fullWidth type="date" size="small" required />
@@ -301,6 +373,7 @@ const AddEmployee = () => {
               ))}
             </Select>
           </Grid>
+
         </Grid>
         <Box my={2} textAlign="right">
           <Submit>
@@ -308,7 +381,7 @@ const AddEmployee = () => {
               <Button
                 type="submit"
                 variant="contained"
-                disabled={Boolean(loader)}
+                disabled={Boolean(loader) && verifyEmail}
                 endIcon={loader}
                 sx={{
                   mt: 1,

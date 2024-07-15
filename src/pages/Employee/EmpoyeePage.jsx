@@ -272,7 +272,7 @@ const EmployeePage = () => {
           <AddEmployee
             closeModal={closeAddEmployee}
             // userId={jobApplication.userId}
-            // refetch={fetchJobApplication}
+            refetch={fetchEmploees}
           />
         </>
       </Modal>
