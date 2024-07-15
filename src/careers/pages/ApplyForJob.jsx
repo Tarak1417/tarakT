@@ -1,4 +1,4 @@
-import { ChangeEvent, SetStateAction, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import './apply-for-job.css'
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
@@ -10,7 +10,7 @@ import Loading from "../../components/Loading";
 import { env } from "../../utilities/function";
 import { setCookie } from "../../utilities/cookies";
 const ApplyForJob = () => {
-
+ 
 const [selected, setSelected] = useState("US");
 const [user, setUser] = useState({});
 const [show, setShow] = useState(false);
@@ -27,19 +27,25 @@ const [exp , setExp] = useState('');
 const [mob , setmob] = useState('');
 const [jobIds , setJobId] = useState();
 const [adminId , setAdminId] = useState();
-
+const resumeInputRef = useRef(null);
+const photoInputRef = useRef(null);
+const cvInputRef = useRef(null);
 
 
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 
-  const fetchJob = useCallback(async function (jobId) {
+  const fetchJob = async  (jobId) => {
     const res = await axios.get("/open/job-listing/" + jobId);
     const job = res.data.job;
     setJob(job);
 
 
-  }, []);
+  } ;
+
+  const handleButtonClick = (fileInputRef) => {
+    fileInputRef.current.click();
+};
 
 //   console.log("jobs" , job)
 
@@ -185,19 +191,19 @@ const handlePhotoChange = (e) => {
 };
 
 
-const onSubmit = (res) => {
-    const { success, errors } = res.data;
+// const onSubmit = (res) => {
+//     const { success, errors } = res.data;
 
-    if (success) {
-        // toast.success('Applied Successfully');
-        // Optionally, redirect or perform other actions upon successful submission
-    } else {
-        errors.forEach((err) => toast.error(err));
-    }
-};
+//     if (success) {
+//         // toast.success('Applied Successfully');
+//         // Optionally, redirect or perform other actions upon successful submission
+//     } else {
+//         errors.forEach((err) => toast.error(err));
+//     }
+// };
 
 const onError = (err) => {
-    const { errors } = err.response?.data || { errors: [' Youve already submitted your application. Please remain patient while its being reviewed for shortlisting'] };
+    const { errors } = err.response?.data || { errors: [' You  already submitted your application. Please remain patient while its being reviewed for shortlisting'] };
     errors.forEach((err) => toast.error(err));
 };
 
@@ -240,13 +246,23 @@ const handleSubmit = async (e) => {
         setLinkdin('');
         setJobId('');
         setmob('');
-        setAdminId('');
-
         toast.success('Application submitted successfully.');
-        onSubmit(res);
+
+        setTimeout(()=>{
+            navigate(`/career/${job.adminId}`)
+        },[2000])
+        // onSubmit(res);
     } catch (e) {
         onError(e);
 
+    }
+};
+
+const handleUrlChange = (e) => {
+    const value = linkdin;
+    const regex = /^(https?:\/\/)?(www\.)?linkedin\.com/
+    if (!regex.test(value)) {
+        toast.error('Please enter a valid LinkedIn URL starting with www.linkedin.com');
     }
 };
 
@@ -381,7 +397,7 @@ const handleSubmit = async (e) => {
             <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="jobRole" >
                 Job Role
             </label>
-            <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="jobRole" type="text" placeholder="Enter Job Role" required/>
+            <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="jobRole" type="text" value={job?.title ?? ""} disabled placeholder="Enter Job Role" required/>
         </div>
     </div>
      
@@ -415,9 +431,16 @@ const handleSubmit = async (e) => {
         required/>
     </div>
 
+    <div className="mb-2">
+        <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="edSummary" >
+            Address
+        </label>
+        <textarea className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="edSsummary" rows={5} placeholder="Enter Address" />
+    </div>
 
 
-     {/* <div className="formInputGrid gap-20 mb-6">
+
+     <div className="formInputGrid gap-20 mb-6">
         <div className="mb-4">
             <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="cityName" >
                 City Name
@@ -430,10 +453,10 @@ const handleSubmit = async (e) => {
             </label>
             <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="postal" type="text" placeholder="Enter Postal Code" />
         </div>
-    </div>  */}
+    </div> 
 
-    {/* <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4 mb-8">Education</h1> */}
-    {/* <div className="formInputGrid gap-20 mb-6">
+    <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4 mb-8">Education</h1>
+    <div className="formInputGrid gap-20 mb-6">
         <div className="mb-4">
             <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="school" >
                 School
@@ -446,7 +469,7 @@ const handleSubmit = async (e) => {
             </label>
             <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="fieldOfStudy" type="text" placeholder="Enter Field Of Study" />
         </div>
-    </div> */}
+    </div>
     <div className="mb-2">
         <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="edSummary" >
             Summary
@@ -460,10 +483,10 @@ const handleSubmit = async (e) => {
         <button type="button" className="bg-transparent text-sky-600">+ Add Education</button>
     </div> 
 
-    {/* <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4 mb-2">Experience</h1>
+    <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4 mb-2">Experience</h1>
     <h3 className="text-gray-400 text-sm mb-6">Work History</h3>
-  */}
-    {/* <div className="formInputGrid gap-20 mb-6">
+ 
+    <div className="formInputGrid gap-20 mb-6">
         <div className="mb-4">
             <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="startDate" >
                 Start Date
@@ -482,31 +505,31 @@ const handleSubmit = async (e) => {
             Summary
         </label>
         <textarea className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="workSsummary" rows={5} placeholder="Summary" />
-    </div> */}
-    {/* <div className="mb-5">
+    </div>
+    <div className="mb-5">
         <button type="button" className="d-block bg-transparent text-sky-600 text-sm">Delete</button>
     </div>
     <div className="mb-8">
         <button type="button" className="bg-transparent text-sky-600">+ Add Position</button>
-    </div> */}
+    </div>
 
 
     <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4 mb-6">Upload Documents</h1>
 
     <div className="mb-4">
         <h3 className="mb-2 mr font-bold dark:text-white">Upload Picture</h3>
-        <button type="button" className="bg-sky-600 rounded text-white px-6 py-3 mr-2">Upload Picture</button>
-        <input type="file" accept="*"  required  onChange={handlePhotoChange}/>
+        <button type="button" onClick={()=>{handleButtonClick(resumeInputRef)}} className="bg-sky-600 rounded text-white px-6 py-3 mr-2">Upload Picture</button>
+        <input type="file"  ref={resumeInputRef}  accept="*" className="hidden"  required  onChange={handlePhotoChange}/>
     </div>
     <div className="mb-4">
         <h3 className="mb-2 font-bold dark:text-white">Resume/CV</h3>
-        <button type="button" className="bg-sky-600 rounded text-white px-6 py-3 mr-2">Upload Resume/CV</button>
-        <input type="file" accept="*"   onChange={handleResumeChange}   required/>
+        <button type="button"  onClick={()=>{handleButtonClick(photoInputRef)}} className="bg-sky-600 rounded text-white px-6 py-3 mr-2">Upload Resume/CV</button>
+        <input type="file"  ref={photoInputRef}  className="hidden" accept="*"   onChange={handleResumeChange}   required/>
     </div>
-    {/* <div className="mb-4">
+    <div className="mb-4">
         <h3 className="mb-2 font-bold dark:text-white">Cover Letter</h3>
-        <button type="button" className="bg-sky-600 rounded text-white px-6 py-3">Upload Cover Letter</button>
-        <input type="file" accept=".pdf, .docx, .txt" className="hidden" />
+        <button type="button"  onClick={()=>{handleButtonClick(cvInputRef)}} className="bg-sky-600 rounded text-white px-6 py-3">Upload Cover Letter</button>
+        <input type="file"  ref={cvInputRef}  accept=".pdf, .docx, .txt" className="hidden" />
     </div>
 
     <div className="mb-8">
@@ -514,18 +537,22 @@ const handleSubmit = async (e) => {
             Or type in box
         </label>
         <textarea className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="coverLetter" rows={5} placeholder="Cover Letter" />
-    </div> */}
+    </div>
 
     <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4 mb-6">Socials</h1>
-
-    <div className="formInputGrid gap-20 mb-6">
-        <div className="mb-4">
-            <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="linkedin" >
+    <div className="mb-10">
+    <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="linkedin" >
                 Add the link to your Linkedin Profile
             </label>
             <input className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="linkedin" type="text" placeholder="Enter Profile Link"
             onChange={(e)=>setLinkdin(e.target.value)}
+            onBlur={handleUrlChange}
             required />
+    </div>
+
+    {/* <div className="formInputGrid gap-20 mb-6">
+        <div className="mb-4">
+            
         </div>
         <div className="mb-12">
             <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="twitter" >
@@ -536,7 +563,7 @@ const handleSubmit = async (e) => {
 
             />
         </div>
-    </div>
+    </div> */}
 
     <div className="text-center mb-16">
         <button className="bg-sky-600 rounded text-white px-6 py-3">Submit The Application</button>

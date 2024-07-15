@@ -27,7 +27,7 @@ const JobCard = ({jobs,index}) => {
   //       fetchJobs();
   //   }, []);
   //   console.log(jobs)
-  console.log(jobs)
+  // console.log(jobs)
   return (
     <div>
       
@@ -47,7 +47,7 @@ const JobCard = ({jobs,index}) => {
 
           </div>
           <div className="row4 col-span-1 pt-5 lg:w-2/3">
-            <h1 className="text-zinc-500 px-2"><FontAwesomeIcon icon={faBriefcase} /> {jobs.experience} + Years</h1>
+            <h1 className="text-zinc-500 px-2"><FontAwesomeIcon icon={faBriefcase} /> {jobs.experience} Years</h1>
 
           </div>
           <div className="row5 col-span-1 pt-5 lg:w-2/3">
