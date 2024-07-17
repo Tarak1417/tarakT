@@ -108,9 +108,11 @@ const App = () => {
       <RecoilRoot>
         <RootContainer>
            <Routes>
-          <Route path='/career/:organization' element={<CareerHome />} />
-          <Route path='/career/apply-for-job/:id' element={<ApplyForJob />} />
-          <Route path='/career/job/:id' element={<JobDetails />} />
+          <Route path='/career/:organization'>
+          <Route index element={<CareerHome />} />
+          <Route path='apply-for-job/:id' element={<ApplyForJob />} />
+          <Route path='job/:id' element={<JobDetails />} />
+          </Route>
           <Route path='/career/404' element={<ErrorPage />} />
           </Routes>
       </RootContainer>
