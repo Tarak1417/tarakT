@@ -104,17 +104,9 @@ export const appList= [
   },
 ];
 
-const AppListToggler = () => {
+const AppListToggler = ( {shouldRenderMenuIcon}) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const location = useLocation();
-
-  const orgName = localStorage.getItem('Organization');
-  const pathName = location.pathname;
-
-  const shouldRenderMenuIcon =
-    !pathName.includes(`/career/${orgName}`) && orgName === 'clikkle';
-
-
+  
   return (
     <div className='hidden sm:flex items-center gap-2'>
       {shouldRenderMenuIcon && <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>

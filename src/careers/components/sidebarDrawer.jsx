@@ -20,14 +20,14 @@ const sidebarRoutes = {
   
 };
 
-const SidebarDrawer = ({ open, toggle }) => {
+const SidebarDrawer = ({ open, toggle , shouldRenderMenuIcon=false ,  orgName="" }) => {
   return (
     <Drawer PaperProps={{ style: { width: 360 } }} open={open} onClose={toggle}>
     <div className=''>
       <div className='bg-white dark:bg-zinc-900  sm:h-[calc(100vh-250px)] md:h-[calc(100vh-185px)] overflow-auto gap-1'>
         <div className='p-2 flex items-center justify-between'>
           <div className='flex-grow'>
-            <Brand />
+            <Brand  shouldRenderMenuIcon={shouldRenderMenuIcon} orgName={orgName}  />
           </div>
           <ThemeSwitch />
           <IconButton onClick={toggle}>
