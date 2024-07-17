@@ -261,7 +261,7 @@ const Letter = () => {
                                         color='primary.main'
                                         component={NavLink}
                                         
-                                        to={`/career/job/${offerLetter.jobId}`}>
+                                        to={`/career/${organization.name}/job/${offerLetter.jobId}`}>
                                         Read More
                                     </Typography>
                                 </Typography>

@@ -114,7 +114,7 @@ const ViewOfferLetter = ({ applicationId }) => {
                                         <Typography
                                             color='primary.main'
                                             component={NavLink}
-                                            to={`/career/job/${letter.jobId}`}>
+                                            to={`/career/${organization.name}/job/${letter.jobId}`}>
                                             Read More
                                         </Typography>
                                     </Typography>
