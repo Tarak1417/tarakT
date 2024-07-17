@@ -3,7 +3,7 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   Facebook,
   QuestionMarkRounded,
@@ -21,9 +21,10 @@ import { useLocation } from 'react-router-dom';
 
 const Home = () => {
   const [jobs, setJobs] = useState([]);
+  const { organization } = useParams();
+  const navigate = useNavigate();
   const [orgName, setOrgName] = useState('');
   const [orgId, setOrgId] = useState('');
-  const navigate = useNavigate();
 
   useEffect(() => {
     const urlParams = new URL(window.location.href);
@@ -78,14 +79,11 @@ const Home = () => {
     fetchJobs();
   }, [orgId]);
 
-
   const location = useLocation();
-
-  const orgNames = localStorage.getItem('Organization');
   const pathName = location.pathname;
 
-  const shouldRenderMenuIcon =
-    !pathName.includes(`/career/${orgNames}`) && orgNames === 'clikkle';
+  
+  const shouldRenderMenuIcon = !pathName.includes(`/career/${orgName}`) && orgName === 'Clikkle Technologies' ;
 
   return (
     <>

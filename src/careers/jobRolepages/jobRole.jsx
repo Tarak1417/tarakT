@@ -15,7 +15,7 @@ import { getDropDownElementWithCss, getElementWithCss } from '../../utilities/ht
 
 
 
-const JobRole = ({ job, _id}) => {
+const JobRole = ({ job, _id , organization}) => {
 
   const handleLinkClick = () => {
     window.scrollTo(0, 0);
@@ -86,7 +86,7 @@ const JobRole = ({ job, _id}) => {
 
             
             <div className='pt-5 flex justify-center items-center'>
-            <Link to={`/career/apply-for-job/${_id}`} onClick={handleLinkClick}>
+            <Link to={`/career/${organization}/apply-for-job/${_id}`} onClick={handleLinkClick}>
             <button className="text-white dark:text-white border border-black-500 px-6 py-2 rounded-md bg-blue-500">
               Apply Now
             </button>

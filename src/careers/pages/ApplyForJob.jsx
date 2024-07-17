@@ -10,7 +10,7 @@ import Loading from "../../components/Loading";
 import { env } from "../../utilities/function";
 import { setCookie } from "../../utilities/cookies";
 const ApplyForJob = () => {
- 
+    const { organization } = useParams();
 const [selected, setSelected] = useState("US");
 const [user, setUser] = useState({});
 const [show, setShow] = useState(false);
@@ -249,7 +249,7 @@ const handleSubmit = async (e) => {
         toast.success('Application submitted successfully.');
 
         setTimeout(()=>{
-            navigate(`/career/${job.adminId}`)
+            navigate(`/career/${organization}`)
         },[2000])
         // onSubmit(res);
     } catch (e) {
@@ -284,7 +284,7 @@ const handleUrlChange = (e) => {
                 <svg className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
                 </svg>
-                <span onClick={() => navigate(`/career/job/${jobId}`)} className="ms-1 text-sm font-medium cursor-pointer text-blue-600 md:ms-2 px-1 dark:text-gray-400 dark:hover:text-white">{job?.title}</span>
+                <span onClick={() => navigate(`/career/${organization}/job/${jobId}`)} className="ms-1 text-sm font-medium cursor-pointer text-blue-600 md:ms-2 px-1 dark:text-gray-400 dark:hover:text-white">{job?.title}</span>
             </div>
         </li>
         <li aria-current="page">

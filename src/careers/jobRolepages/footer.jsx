@@ -4,7 +4,7 @@ import {
     IconButton,
     Typography,
   } from '@mui/material';
-  import { Link } from 'react-router-dom';
+  import { Link, useLocation } from 'react-router-dom';
   import {
     Facebook,
     QuestionMarkRounded,
@@ -15,10 +15,16 @@ import {
 
 
 
-const FooterBlock = () => {
+const FooterBlock = ( ) => {
 
+  const location = useLocation();
+  const pathName = location.pathname;
+  const name = pathName.split('/')[2]; 
+  const decodedName = decodeURIComponent(name);
+  const shouldRenderMenuIcon = !pathName.includes(`/career/${decodedName}`) && decodedName === 'Clikkle Technologies' ;
     return (
        <div>
+        { shouldRenderMenuIcon && 
          <div className='flex items-center gap-4 p-4'>
           <Typography className='text-gray-700 dark:text-gray-200'>
               Follow our blog
@@ -35,11 +41,12 @@ const FooterBlock = () => {
             <Facebook />
           </IconButton>
         </div>
+}
       
 
       <Divider />
       <div className='py-4 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-8 p-4'>
-        <div className='flex items-center gap-2 sm:gap-4'>
+      { shouldRenderMenuIcon ? <div className='flex items-center gap-2 sm:gap-4'>
           <Link to={"https://clikkle.com"}>
           <Typography className='text-gray-600 dark:text-gray-300'>
             Clikkle
@@ -70,7 +77,7 @@ const FooterBlock = () => {
             Terms
           </Typography>
           </Link>
-        </div>
+        </div> : <div className='flex items-center gap-2 sm:gap-4'> </div>}
 
         <div className='flex items-center gap-2 sm:gap-4'>
           <IconButton>

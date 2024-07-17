@@ -8,9 +8,10 @@ import axios from "axios";
 import { getElementWithCss } from "../../utilities/htmlCssBuilder";
 
 const Jobs = () => {
+  const { organization ,  id } = useParams();
     const navigate = useNavigate();
-    const params = useParams();
-    console.log(params.id);
+    // const params = useParams();
+    // console.log(params.id);
 
     const [jobs, setJobs] = useState([]);
 
@@ -18,7 +19,7 @@ const Jobs = () => {
         try {
          //   const response = await axios.get(`/open/job-listing/?${params.id}`);
         // http://localhost:8000/open/job-listing/6671e61dc628f5874ee647c8
-            const response = await axios.get(`/open/job-listing/${params.id}`);
+            const response = await axios.get(`/open/job-listing/${id}`);
 
             console.log(response.data.job)
             const jobs = response.data.job;
@@ -31,15 +32,15 @@ const Jobs = () => {
 
     useEffect(() => {
         fetchJobs();
-    }, [params.id]);
+    }, [id]);
 
     const handleApply = () => {
-        navigate(`/career/apply-for-job/${jobs._id}`, { state: { role: jobs.department } });
+        navigate(`/career/${organization}/apply-for-job/${jobs._id}`, { state: { role: jobs.department } });
     };
 
     return (
       <div className="flex flex-col h-screen mx-8 md:mx-16 lg:mx-24 xl:mx-32 gap-4 dark:text-zinc-500">
-        <div onClick={() => navigate(-1)}>
+        <div onClick={() => navigate(`/career/${organization}`)}>
           <button className="dark:text-white text-zinc-500 text-lg font-bold">
             <FontAwesomeIcon icon={faArrowLeft} /> Back
           </button>

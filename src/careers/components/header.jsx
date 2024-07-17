@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
@@ -15,16 +15,26 @@ import { useTheme } from '../atoms/theme';
 
 const Header = () => {
   const { theme } = useTheme();
+  
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
+  const [orgName, setOrgName] = useState('');
   const location = useLocation();
-
   const toggleLeftDrawer = () => setLeftDrawerOpen((prev) => !prev);
 
-  const orgName = localStorage.getItem('Organization');
   const pathName = location.pathname;
 
-  const shouldRenderMenuIcon =
-    !pathName.includes(`/career/${orgName}`) && orgName === 'clikkle' ;
+  useEffect(() => {
+    const name = pathName.split('/')[2]; // Get the part after the first slash
+    const decodedName = decodeURIComponent(name);
+    if (decodedName) {
+      setOrgName(decodedName);
+    }else {
+      const orgNameTemp = localStorage.getItem('Organization');
+      setOrgName(orgNameTemp);
+    }
+  }, []);
+
+  const shouldRenderMenuIcon = !pathName.includes(`/career/${orgName}`) && orgName === 'Clikkle Technologies' ;
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -49,28 +59,13 @@ const Header = () => {
           >
             <MenuIcon />
           </IconButton>
-        
           }
-        
-
-
-<Brand />
-     
-
-<AppListToggler />
-
-
-
-
-       
-
-    
-         
+        <Brand shouldRenderMenuIcon={shouldRenderMenuIcon} orgName={orgName} />
+        <AppListToggler shouldRenderMenuIcon={shouldRenderMenuIcon} />  
         </Toolbar>
       </AppBar>
       <Divider />
-
-      <SidebarDrawer open={leftDrawerOpen} toggle={toggleLeftDrawer} />
+      <SidebarDrawer open={leftDrawerOpen} toggle={toggleLeftDrawer}  shouldRenderMenuIcon={shouldRenderMenuIcon} orgName={orgName}/>
     </Box>
   );
 };
