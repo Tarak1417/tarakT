@@ -22,12 +22,14 @@ import {
   Divider,
   IconButton,
   Tooltip,
+  Avatar,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useMessage } from "../../components/Header";
+import { ServerImage } from "../../components/Images";
 // Tabs Section
 const ListOrganization = () => {
   const navigate = useNavigate();
@@ -151,9 +153,15 @@ const ListOrganization = () => {
         <Box>
           {organizations.map((org, index) => (
             <Grid container sx={{ p: 1, minWidth: 525 }}>
-              <Grid item xs={8}>
+              <Grid item xs={8}  >
+                <div className="flex flex-row gap-2">
+                
+
+              <Avatar sx={{ width: 30, height: 30 , fontSize:12 }}>  <ServerImage src={org?.logo ?? ""} width='30' height='30' /></Avatar>
                 <div className="px-3 py-1 mr-2 rounded-lg hover:text-sky-600 active:text-blue-600 " onClick={() => handleSelect(org)}>{org.name}</div>
-              </Grid>
+             
+                </div>
+                 </Grid>
               <Grid item xs={2}>
                 <div
                   className={`px-3 py-1 rounded-lg w-fit ${getColor(
