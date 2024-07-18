@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext } from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 import { CssBaseline } from '@mui/material';
 import useSnack from '../hooks/useSnack';
 import ThemeContextProvider from './../style/theme';
@@ -10,11 +10,15 @@ const HeaderContext = createContext();
 
 const Header = ({ children }) => {
     const { SnackBar, showMessage } = useSnack();
+    const [refreshPage, setRefreshPage] = useState(false);
+
+      const triggerRefresh = () => setRefreshPage((prev) => !prev);
+
 
     return (
         <ThemeContextProvider>
             <CssBaseline />
-            <HeaderContext.Provider value={{ showMessage }}>
+            <HeaderContext.Provider value={{ showMessage  , refreshPage , triggerRefresh}}>
                 <AuthorizationProvider>
                     {children} 
                 </AuthorizationProvider>
@@ -53,6 +57,8 @@ const useMessage = () => {
     return { showError, showSuccess, showResponse };
 };
 
+const useRefresh = () => useContext(HeaderContext);
+
 // const useEventEmitter = () => {
 //     const eventEmitter = useContext(HeaderContext).eventEmitter;
 //     return eventEmitter;
@@ -60,4 +66,4 @@ const useMessage = () => {
 
 export default Header;
 
-export { useMessage, HeaderContext };
+export { useMessage, HeaderContext ,useRefresh };

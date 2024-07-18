@@ -15,6 +15,8 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router";
+import { setCookie } from "../../utilities/cookies";
+import { useRefresh } from "../../components/Header";
 const colorHexCodes = [
   "#e57373", // Red
   "#f06292", // Green
@@ -37,6 +39,7 @@ const colorHexCodes = [
 
 const OrganizationDropDown = () => {
   const navigate = useNavigate();
+  const { triggerRefresh } = useRefresh();
   const [selectedValue, setSelectedValue] = useState({name : "Loading..." , _id : "0"});
   const [organizations, setOrganization] = useState([]);
   const [isListVisible, setIsListVisible] = useState(false);
@@ -81,9 +84,12 @@ const OrganizationDropDown = () => {
         });
         let data = response.data;
         if (data.success) {
+          setCookie("orgToken", data.data);
           sessionStorage.setItem("org", JSON.stringify(org));
           setSelectedValue(org);
           toggleListVisibility()
+          triggerRefresh()
+          navigate('/');
         }
       } catch (e) {
         console.log("Error select of Organization", e);
