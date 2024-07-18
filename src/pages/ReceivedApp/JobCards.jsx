@@ -70,7 +70,7 @@ const JobCards = () => {
   }, [fetchJobsApplication]);
 
   return (
-    <div className="w-full flex flex-wrap justify-between mx-4 pt-4 gap-1 pr-6">
+    <div className="w-full flex flex-wrap justify-start mx-4 pt-4 gap-2 pr-6">
       {jobApplications && jobApplications.length > 0 ? (
         <>
           {jobApplications.map((application, index) => (

@@ -51,11 +51,11 @@ function CdnImage(props) {
     return <Box component='img' src={link} alt='image' sx={{ maxWidth: '100%' }} {...rest} />;
 }
 function ServerImage(props) {
-    const { src, ...rest } = props;
+    const { src,sx, ...rest } = props;
 
     const link = src && process.env.REACT_APP_PRODUCTION_SERVER + '/static/' + src;
 
-    return <Box component='img' src={link} alt='image' sx={{ maxWidth: '100%' }} {...rest} />;
+    return <Box component='img' src={link} alt='image' sx={{ maxWidth: '100%', ...sx }} {...rest} />;
 }
 
 function BaseImage(props) {

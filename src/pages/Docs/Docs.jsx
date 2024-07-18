@@ -34,7 +34,7 @@ const Docs = () => {
     }, [fetchDocs]);
 
     return (
-        <Box  sx={{backgroundColor: 'background.main'}} >
+        <Box  sx={{backgroundColor: 'background.main' , minHeight :"100vh"}} >
             <Box sx={{ mt: 3 }} >
                 <Grid container spacing={4} display='flex' alignItems='center'>
                     <Grid item xs>

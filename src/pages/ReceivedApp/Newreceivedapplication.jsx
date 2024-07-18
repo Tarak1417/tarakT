@@ -8,6 +8,7 @@ import { Box } from "@mui/material";
 const Newreceivedapplication = () => {
   
   return (
+    <Box  sx={{backgroundColor: 'background.main' , minHeight :"100vh"}} >
     <div className=" rounded-lg overscroll-auto overflow-hidden">
       <div className="flex items-center justify-between md:w-full p-2">
         <div className="p-2">
@@ -40,6 +41,7 @@ const Newreceivedapplication = () => {
         </div>
       </div>
     </div>
+    </Box>
   );
 };
 

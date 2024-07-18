@@ -22,7 +22,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import Modal from "@mui/material/Modal";
 import { useMessage } from "../components/Header";
 import useModal from "../hooks/useModal";
-import { FetchImage } from "../components/Images";
+import { FetchImage, ServerImage } from "../components/Images";
 import useLoader from "../hooks/useLoader";
 import SendInterview from "../components/SendInterview";
 import ViewOfferLetter from "../components/ViewOfferLetter";
@@ -150,8 +150,8 @@ const JobApplicationDetail = () => {
   const linkedinAccount = jobApplication.linkedinAccount;
   const fsize = { xs: "8px", md: "14px" };
   return (
-    <div>
-      <div className="container mx-auto overscroll-auto overflow-hidden px-5 md:px-8 ">
+    <div >
+      <div className="container mx-auto overscroll-auto overflow-hidden px-5 md:px-8 pb-10 md:pb-0">
         <div className="flex items-center justify-between p-4">
           <div>
             <h1 className="text-sm md:text-3xl text-zinc-400">
@@ -235,19 +235,16 @@ const JobApplicationDetail = () => {
         </div>
         <div className="flex flex-col md:flex-row p-4 items-start justify-start">
           <div className="w-full md:w-1/3 flex flex-col gap-2 p-4">
+       
             <div className="flex justify-start md:justify-start">
-              {jobApplication ? (
-                <img
-                  src='http://localhost:3000/6630c84c2cefa9aabf43be83.png'
-                  alt="Profile"
-                  className=" w-[50%] md:w-full max-w-[200px] h-auto"
-                />
-              ) : (
-                <img
-                src='http://localhost:3000/6630c84c2cefa9aabf43be83.png'
-                className=" w-[50%] md:w-full max-w-[200px] h-auto"
-              />
-              )}
+            {jobApplication && jobApplication.photo ? (
+                            <Box maxWidth='130px'>
+                              <ServerImage src={jobApplication.photo ?? ""}    alt="Profile"  className=" w-[50%] md:w-full max-w-[200px] h-[50%]"  />
+                            </Box>
+                        ) : (
+                            <CircularProgress />
+                        )}
+      
             </div>
             <div className="w-full">
               <h1 className="text-blue-500 text-xs md:text-[22px]">

@@ -5,7 +5,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
-import { Box, Button, Card, CardActions, CardContent, CircularProgress, Divider, IconButton, Modal, Typography } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CircularProgress, Divider, Grid, IconButton, Modal, Tooltip, Typography } from '@mui/material';
 import axios from 'axios';
 import DeparmentModal from '../../components/DeparmentModal';
 import useModal from '../../hooks/useModal';
@@ -74,16 +74,34 @@ const DeptPage = () => {
     return (
         <div className="container mx-auto overscroll-auto overflow-hidden">
             <div className="flex flex-row items-center justify-between p-4">
-            <div className="p-2">
+                    <div className="p-2">
                     <h1 className="text-2xl text-neutral-500"  >Department</h1>
                 </div>
                 {/* <h1 className="text-2xl md:text-3xl text-zinc-400 mb-4">Department</h1> */}
-                <div className="flex items-center gap-4">
-                    <button onClick={NewDepartment} className='flex items-center text-white font-bold text-xs md:text-base py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                <Grid item display='flex' alignItems='center'>
+                        <Box>
+                            <Button
+                                variant='contained'
+                                onClick={NewDepartment}>
+                             Add Department
+                            </Button>
+                        </Box>
+
+                        <Box>
+                            <Tooltip title='info' placement='top'>
+                                <IconButton disableRipple variant='navIcon' sx={{ mr: 0, ml: 2 }}>
+                                    <InfoOutlinedIcon fontSize='small' />
+                                </IconButton>
+                            </Tooltip>
+                        </Box>
+                    </Grid>
+                {/* <div className="flex flex-row   gap-4"> */}
+                {/* <Button variant="contained" onClick={NewDepartment}> Add Department</Button> */}
+                    {/* <button onClick={NewDepartment} className='flex items-center text-white font-bold text-xs md:text-base py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
                         Add Department
-                    </button>
-                    <InfoOutlinedIcon />
-                </div>
+                    </button> */}
+                    {/* <InfoOutlinedIcon /> */}
+                {/* </div> */}
             </div>
             { departments && departments?.length > 0 ?  
             <Box className="w-[95%] ml-2 md:ml-5 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
