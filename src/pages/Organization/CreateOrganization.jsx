@@ -173,7 +173,7 @@ const CreateOrganization = () => {
     <Box
       sx={{
         backgroundColor: "background.main",
-        p: { xs: 3, sm: 10 },
+        p: { xs: 3, sm: 8 },
         width: "100vw",
         minHeight: "100vh",
       }}
@@ -197,16 +197,17 @@ const CreateOrganization = () => {
       {page === 0 ? (
         <Box
           sx={{
-            marginTop: { xs: "2.7rem", sm: ".7rem" },
+            marginTop: { xs: "3rem", sm: "0" },
             textAlign: { xs: "center", sm: "start" },
           }}
         >
-          <div>
-            <Typography sx={{ fontSize: { xs: "1.6rem", sm: "2.5rem" } }}>
+          
+            <Typography sx={{ fontSize: { xs: "1.6rem", sm: "2.2rem" }  }}>
               Create an Organization to track the status of your employees
             </Typography>
 
             <Typography
+            className=" text-neutral-500"
               sx={{
                 marginTop: ".7rem",
                 paddingX: { xs: 2, sm: 0 },
@@ -220,13 +221,12 @@ const CreateOrganization = () => {
             </Typography>
             <div className="flex justify-center">
               <img
-                className="origin-center"
-                style={{ width: "39%" }}
+                className="origin-center  w-[90%] md:w-[30%]"
                 src="/images/ASSETS/createOrg.svg"
                 alt="walkover1"
               />
             </div>
-            <div className="flex justify-end pb-5">
+            <div className="flex justify-end ">
               <Button
                 className="ml-auto"
                 variant="contained"
@@ -238,7 +238,7 @@ const CreateOrganization = () => {
                 Next
               </Button>
             </div>
-          </div>
+          
         </Box>
       ) : (
         <div className="flex flex-col gap-8">
