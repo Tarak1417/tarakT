@@ -37,7 +37,7 @@ const colorHexCodes = [
 
 const OrganizationDropDown = () => {
   const navigate = useNavigate();
-  const [selectedValue, setSelectedValue] = useState({name : "n/a" , _id : "0"});
+  const [selectedValue, setSelectedValue] = useState({name : "Loading..." , _id : "0"});
   const [organizations, setOrganization] = useState([]);
   const [isListVisible, setIsListVisible] = useState(false);
 
@@ -64,6 +64,8 @@ const OrganizationDropDown = () => {
         if (currentOrg) {
           currentOrg = JSON.parse(currentOrg);
           setSelectedValue(currentOrg);
+        }else {
+          handleEdit();
         }
       }
     } catch (e) {
