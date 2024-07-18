@@ -1,6 +1,6 @@
 // JobListing.jsx
 import React, { useCallback, useEffect, useState } from 'react';
-import { Button, Modal, Skeleton } from '@mui/material';
+import { Button, IconButton, Modal, Skeleton } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
@@ -11,6 +11,7 @@ import useModal from '../../hooks/useModal';
 import AddJobs from '../../components/AddJobs';
 import JobListingCard from './JobCards';
 import noRecord from '../../assets/initalScreen/jobListing.svg';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const getOrders = jobs =>
     jobs.map((job, i) => ({
@@ -20,7 +21,7 @@ const getOrders = jobs =>
 
 const JobListing = () => {
     const [currentScreen, setCurrentScreen] = useState(1);
-
+    const [org , setOrg] = useState('N/A');
     const handlePrevScreen = () => {
         if (currentScreen > 1) {
             setCurrentScreen(currentScreen - 1);
@@ -68,6 +69,9 @@ const JobListing = () => {
     );
 
     useEffect(() => {
+        let currentOrg = sessionStorage.getItem("org");
+        currentOrg = JSON.parse(currentOrg);
+        setOrg(currentOrg)
         fetchJobListing();
     }, [fetchJobListing]);
 
@@ -81,14 +85,19 @@ const JobListing = () => {
         setSelectedJob({ id });
     };
 
+    const handleCopy = () => {
+        let text =  `https://hr.clikkle.com/career/${org.name}`
+        navigator.clipboard.writeText(text).then(() => { }).catch((err) => {
+          console.error('Failed to copy text: ', err);
+        });
+      };
+
     const goToCareerPage = () => {
-        let currentOrg = sessionStorage.getItem("org");
-        if (currentOrg) {
-          currentOrg = JSON.parse(currentOrg);
-          let  careerPage  = '/career/'+currentOrg.name
+
+          let  careerPage  = '/career/'+org.name
           window.open(careerPage, '_blank', 'noopener,noreferrer')
         //   navigate(careerPage);
-        }
+
        
     };
 
@@ -167,8 +176,14 @@ const JobListing = () => {
     return (
         <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between md:w-full p-4">
-                <div className="p-2">
-                    <h1 className="text-2xl text-neutral-500" onClick={goToCareerPage} >Job Listing</h1>
+                <div className="p-2 flex flex-row gap-2">
+                    <h1 className="text-2xl text-neutral-500"  >Job Listing</h1>
+                    <a className="text-lg text-neutral-500  cursor-pointer" onClick={goToCareerPage} >hr.clikkle.com/career/{org.name} </a>
+                    <span onClick={handleCopy}> 
+                    
+                    <IconButton >
+                            <ContentCopyIcon fontSize='small' />
+                        </IconButton>  </span>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
                     <Button variant="contained" onClick={openModal}>Add Job</Button>
