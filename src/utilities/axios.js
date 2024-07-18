@@ -7,6 +7,8 @@ axios.defaults.baseURL = env('SERVER');
 
 axios.interceptors.request.use(function (config) {
     const accessToken = getCookie('accessToken');
+    const orgToken = getCookie('orgToken');
     config.headers.Authorization = `Bearer ${accessToken}`;
+    config.headers['org-token'] = orgToken;
     return config;
 });

@@ -57,9 +57,13 @@ const AuthorizationProvider = ({ children }) => {
                 const response = await axios.post(`/hr/organization/select`, {
                     organizationId: selectedOrg._id,
                 });
+               
                 let data = response.data;
                 if (!data.success) {
                     navigate("/listOrganization");
+                }else {
+                    
+                    setCookie("orgToken", data.data);
                 }
             } catch (e) {
                 console.log("Error select of Organization", e);

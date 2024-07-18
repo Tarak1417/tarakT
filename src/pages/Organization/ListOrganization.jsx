@@ -33,6 +33,7 @@ import { useMessage } from "../../components/Header";
 import { ServerImage } from "../../components/Images";
 import useModal from "../../hooks/useModal";
 import DeleteOrganization from "./DeleteOrganization";
+import { setCookie } from "../../utilities/cookies";
 // Tabs Section
 const ListOrganization = () => {
   const navigate = useNavigate();
@@ -79,6 +80,7 @@ const ListOrganization = () => {
         });
         let data = response.data;
         if (data.success) {
+          setCookie("orgToken", data.data);
           sessionStorage.setItem("org", JSON.stringify(org));
           setTimeout(() => {
             navigate("/");

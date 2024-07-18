@@ -14,12 +14,14 @@ import RecentJobs from "./DashComponents/recentJobs";
 import Attendance from "./DashComponents/attend";
 import { Box } from "@mui/material";
 import axios from "axios";
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+
+import { useRefresh } from "../components/Header";
+import Clock from "../components/Clock";
 
 const Dashboard = () => {
   const [overview, setOverview] = useState({});
-  const [time, setTime] = useState();
-  const [Dates, setDate] = useState();
+  const { refreshPage } = useRefresh();
+
   const fetchOverview = useCallback(async () => {
     try {
       const response = await axios.get(`/hr/dashboard`);
@@ -31,22 +33,10 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchOverview();
-  }, [fetchOverview]);
+    console.log("page refresh" , refreshPage);
+  }, [fetchOverview , refreshPage]);
   // console.log(overview);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-        setTime(new Date().toLocaleTimeString());
-    }, 1000);
-    const Date1 = setInterval(() => {
-        setDate(new Date().toLocaleDateString());
-    }, 1000);
-
-    return () => {
-        clearInterval(timer);
-        clearInterval(Date1);
-    };
-}, []);
 
   const data = [
     { name: "Jan", employees: 100, budget: 200, year: 2024 },
@@ -156,25 +146,7 @@ const Dashboard = () => {
           <h1 className="text-2xl text-neutral-500">HR Dashboard</h1>
         </div>
 
-                    <Grid item sx={{ display: { xs: 'flex' },my:1  }} alignItems='center'>
-                        <Box sx={{ mr: 2, display: { lg: 'block', xs: 'none' } }}>
-                            <Button variant='outlined'>{Dates}</Button>
-                        </Box>
-                        <Button variant='outlined' sx={{ display: { lg: 'block', xs: 'none' } }}>
-                            {time}
-                        </Button>
-                        <Box sx={{ mx: 2 }}>
-                            <Button variant='contained'>Clock In</Button>
-                        </Box>
-
-                        <Box>
-                            <Tooltip title='info' placement='top'>
-                                <IconButton disableRipple variant='navIcon' sx={{ mr: 0 }}>
-                                    <InfoOutlinedIcon fontSize='small' />
-                                </IconButton>
-                            </Tooltip>
-                        </Box>
-                    </Grid>
+              <Clock />
                 </Grid>
           <div className="flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-3/4">
