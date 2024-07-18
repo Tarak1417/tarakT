@@ -23,6 +23,7 @@ import {
   IconButton,
   Tooltip,
   Avatar,
+  Modal,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -30,11 +31,15 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useMessage } from "../../components/Header";
 import { ServerImage } from "../../components/Images";
+import useModal from "../../hooks/useModal";
+import DeleteOrganization from "./DeleteOrganization";
 // Tabs Section
 const ListOrganization = () => {
   const navigate = useNavigate();
   const [organizations, setOrganization] = useState([]);
+  const [deleteOrg, setDeleteOrg] = useState(null);
   const { showError, showSuccess } = useMessage();
+  const { modalState, openModal, closeModal } = useModal();
 
   async function handleDelete(org) {
     try {
@@ -44,6 +49,7 @@ const ListOrganization = () => {
       if (data.success) {
         getOrganizations();
         showSuccess("Organization Delete Successfully");
+        setDeleteOrg(null)
         // setShowMessage({
         //   show: true,
         //   message: ,
@@ -54,6 +60,11 @@ const ListOrganization = () => {
       console.log("Error Deleting Organization ", e);
       showError("Error Deleting Organization ");
     }
+  }
+
+  function openDeleteBox (org){
+    openModal()
+    setDeleteOrg(org)
   }
 
   function handleEdit(org) {
@@ -183,7 +194,7 @@ const ListOrganization = () => {
                   <IconButton variant='outlined'>
 
                 
-                  <DeleteIcon color="error" onClick={() => handleDelete(org)} />
+                  <DeleteIcon color="error" onClick={() => openDeleteBox(org)} />
                   </IconButton>
                 </Tooltip>
               </Grid>
@@ -191,6 +202,17 @@ const ListOrganization = () => {
           ))}
         </Box>
       </Box>
+      <Modal
+                sx={{
+                    overflowY: 'scroll',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+                open={modalState}
+                onClose={closeModal}>
+               <DeleteOrganization   onClose={closeModal} onDelete={handleDelete} org={deleteOrg}  />
+            </Modal>
     </Box>
   );
 };
