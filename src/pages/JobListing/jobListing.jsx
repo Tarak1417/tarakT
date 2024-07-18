@@ -181,8 +181,8 @@ const JobListing = () => {
                     <a className="text-lg text-neutral-500  cursor-pointer" onClick={goToCareerPage} >hr.clikkle.com/career/{org.name} </a>
                     <span onClick={handleCopy}> 
                     
-                    <IconButton >
-                            <ContentCopyIcon fontSize='small' />
+                    <IconButton sx={{height:'20px' ,  width: '20px' }} >
+                            <ContentCopyIcon  sx={{height:'17px'}} />
                         </IconButton>  </span>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
