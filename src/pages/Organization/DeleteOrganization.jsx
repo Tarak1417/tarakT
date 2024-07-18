@@ -6,9 +6,9 @@ const DeleteOrganization = ({ onClose, onDelete, org }) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleDelete = () => {
-    let inputValueLower = String(inputValue).toLocaleLowerCase();
-    let orgNameLower = String(org.name).toLocaleLowerCase();
-    if (inputValueLower === orgNameLower) {
+    // let inputValueLower = String(inputValue).toLocaleLowerCase();
+    // let orgNameLower = String(org.name).toLocaleLowerCase();
+    if (inputValue === org.name) {
       onDelete(org);
       onClose();
     } else {
