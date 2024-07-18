@@ -10,6 +10,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import InboxIcon from "@mui/icons-material/Inbox";
 import DraftsIcon from "@mui/icons-material/Drafts";
+import EditIcon from '@mui/icons-material/Edit';
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { Avatar } from "@mui/material";
@@ -46,6 +47,10 @@ const OrganizationDropDown = () => {
 
   const handleAddNew =()=>{
     navigate('/createOrganization');
+  }
+
+  const handleEdit =()=>{
+    navigate('/listOrganization');
   }
 
   const getOrganizations = useCallback(async () => {
@@ -146,29 +151,45 @@ const OrganizationDropDown = () => {
               }}
               className="shadow-lg"
             >
-              <List    >
+              <List sx={{ pb:0}}   >
               {organizations.map((item, index) => (   
                 <ListItem  key={index} disablePadding  onClick={ ()=>handleChange(item)}>
                   <ListItemButton>
-                    <ListItemIcon>
+
                       
-                      <Avatar sx={{ bgcolor: colorHexCodes[(index%10 )] , width: 25, height: 25 , fontSize:12 }}>{getFirstCharacter (item?.name)}</Avatar>
+                      <Avatar sx={{ bgcolor: colorHexCodes[(index%10 )] , width: 25, height: 25 , fontSize:12 , mr:1 }}>{getFirstCharacter (item?.name)}</Avatar>
                       {/* <div className="w-4 h-4 bg-red-500 rounded-full ml-1.5 mr-5">
                         {" "}
                       </div>{" "} */}
-                    </ListItemIcon>
-                    <ListItemText primary= {item.name} />
+
+
+              <ListItemText 
+              primary={
+                <div className="truncate ">
+                  {item.name}
+                  </div>
+              } />
+            
+                  
+                    {/* <ListItemText primary= {item.name} /> */}
                    { item._id === selectedValue?._id  && <TaskAltIcon sx={{  width: 20, height: 20  }} /> } 
                   </ListItemButton>
                 </ListItem>
                    ))}
                 <Divider />
-                <ListItem disablePadding onClick={handleAddNew}>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <AddCircleOutlineOutlinedIcon  sx={{  width: 20, height: 20  }} />
-                    </ListItemIcon>
+                <ListItem disablePadding >
+                  <ListItemButton onClick={handleAddNew}  >
+                  
+                      <AddCircleOutlineOutlinedIcon  sx={{  width: 20, height: 20 , mr:1  }} />
+                   
                     <ListItemText primary="Add " />
+
+                  </ListItemButton>
+                  <Divider    orientation="vertical" flexItem/>
+                
+                  <ListItemButton onClick={handleEdit}  >
+                      <EditIcon  sx={{  width: 20, height: 20 , mr:1   }} />
+                    <ListItemText primary="Edit " />
                   </ListItemButton>
                 </ListItem>
               </List>
