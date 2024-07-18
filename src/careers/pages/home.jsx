@@ -31,10 +31,10 @@ const Home = () => {
     const pathname = urlParams.pathname;
 
     const name = pathname.split('/')[2]; // Get the part after the first slash
-
-    if (name) {
-      setOrgName(name);
-      fetchOrganization(name);
+    const decodedName = decodeURIComponent(name);
+    if (decodedName) {
+      setOrgName(decodedName);
+      fetchOrganization(decodedName);
     }
   }, []);
 
