@@ -165,17 +165,14 @@ const ListOrganization = () => {
         <Divider sx={{ minWidth: 525 }} />
         <Box>
           {organizations.map((org, index) => (
-            <Grid container sx={{ p: 1, minWidth: 525 }}>
-              <Grid item xs={8}  >
+            <Grid container sx={{ p: 1, minWidth: 565 }}>
+              <Grid item xs={7} sm={8}  >
                 <div className="flex flex-row gap-2">
-                
-
               <Avatar sx={{ width: 30, height: 30 , fontSize:12 }}>  <ServerImage src={org?.logo ?? ""} width='30' height='30' /></Avatar>
-                <div className="px-3 py-1 mr-2 rounded-lg hover:text-sky-600 active:text-blue-600 " onClick={() => handleSelect(org)}>{org.name}</div>
-             
+                <div className="px-3 py-1 mr-2 truncate rounded-lg hover:text-sky-600 active:text-blue-600 " onClick={() => handleSelect(org)}>{org.name}</div>
                 </div>
                  </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={2} sm={2}>
                 <div
                   className={`px-3 py-1 rounded-lg w-fit ${getColor(
                     org.status
@@ -184,7 +181,7 @@ const ListOrganization = () => {
                   {org.status ? "Active" : "In-active"}
                 </div>
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={3} sm={2}>
              
                 <Tooltip title="Edit Organization" sx={{marginRight: 1.5 }}>
                 <IconButton variant='outlined' onClick={() => handleEdit(org)}>
