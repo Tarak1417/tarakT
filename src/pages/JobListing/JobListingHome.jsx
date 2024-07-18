@@ -5,10 +5,13 @@ import {Box} from '@mui/material';
 
 const Home = () => {
     return (
-        <Box className="h-full overflow-hidden" sx={{ backgroundColor: 'background.default', }} >
+        <Box className="h-full overflow-hidden" sx={{ backgroundColor: 'background.main', }} >
             <div className="h-full" style={{ overflowY: 'auto', paddingRight: '1px' }}>
                 <Grid container  justifyContent='center' height='100%'>
-                    <Grid item className='px-2' xs={12}>
+                    <Grid item className='px-2' xs={12}  sx={{  maxWidth: {
+      xs :'95vw',
+      sm :'100vw'
+    } }} >
                         <JobListing />
                     </Grid>
                 </Grid>

@@ -64,7 +64,7 @@ const JobListingCard = props => {
     const handleClose = () => setOpen(false);
 
     return (
-        <Box my={2}>
+        <Box my={2}  sx={{ backgroundColor: 'background.default' }}  >
             <Card
                 elevation={0}
                 sx={{

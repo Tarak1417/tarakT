@@ -174,9 +174,9 @@ const JobListing = () => {
     console.log(jobs)
     console.log(currentScreen)
     return (
-        <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-between md:w-full p-4">
-                <div className="p-2 flex flex-row gap-2">
+        <div className="flex flex-col gap-4 max-w-screen">
+            <div className="flex md:items-center items-start justify-between flex-col md:flex-row md:w-full md:px-4  py-4 px-2">
+                <div className="py-2 flex flex-row flex-wrap  gap-2">
                     <h1 className="text-2xl text-neutral-500"  >Job Listing</h1>
                     <a className="text-lg text-neutral-500  cursor-pointer" onClick={goToCareerPage} >hr.clikkle.com/career/{org.name} </a>
                     <span onClick={handleCopy}> 
@@ -185,7 +185,7 @@ const JobListing = () => {
                             <ContentCopyIcon  sx={{height:'17px'}} />
                         </IconButton>  </span>
                 </div>
-                <div className="flex flex-row items-center justify-center gap-4">
+                <div className="flex flex-row   gap-4">
                     <Button variant="contained" onClick={openModal}>Add Job</Button>
                     <InfoOutlinedIcon />
                 </div>

@@ -132,7 +132,10 @@ const Dashboard = () => {
   // ];
 
   return (
-    <Box sx={{ backgroundColor: "background.main" }}>
+    <Box sx={{ backgroundColor: "background.main" ,  maxWidth: {
+      xs :'95vw',
+      sm :'100vw'
+    } }}>
       <div className="flex flex-col">
         <div className="p-2">
           {/* <Typography variant="h5" className="text-gray-500" gutterBottom>
