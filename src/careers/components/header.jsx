@@ -12,9 +12,10 @@ import Brand from './brand';
 import SidebarDrawer from './sidebarDrawer';
 import AppListToggler from './appList';
 import { useTheme } from '../atoms/theme';
+import { getCookie } from '../../utilities/cookies';
 
 const Header = () => {
-  const { theme } = useTheme();
+  const { theme  , toggleTheme} = useTheme();
   
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
   const [orgName, setOrgName] = useState('');
@@ -26,6 +27,11 @@ const Header = () => {
   useEffect(() => {
     const name = pathName.split('/')[2]; // Get the part after the first slash
     const decodedName = decodeURIComponent(name);
+    const hrTheme = getCookie('P13N');
+
+    if(theme !==hrTheme){
+      toggleTheme();
+    }
     if (decodedName) {
       setOrgName(decodedName);
     }else {
