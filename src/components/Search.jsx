@@ -13,21 +13,23 @@ const Search = props => {
                 display: 'flex',
                 alignItems: 'center',
                 bgcolor: 'custom.search.main',
-                border: '1px solid',
-                borderColor: 'divider',
-                minHeight: '36px',
-                maxWidth: '300px',
-                width: '100%',
+                minHeight: '30px',
+                border:0,
+                width: {
+                    sm: '100%',
+                    md:'240px'
+                },
                 borderRadius: '5px',
-                px: 1,
+                px: 1.5,
                 ...sx,
             }}>
             <InputBase
                 sx={{
                     ml: 1,
                     flex: 1,
+                    fontSize:'10px',
                     'input::placeholder': {
-                        fontSize: '12px',
+                        fontSize: '10px',
                     },
                 }}
                 onClick={e => e.stopPropagation()}
@@ -35,9 +37,9 @@ const Search = props => {
                 {...rest}
             />
 
-            <IconButton type='button' aria-label='search'>
-                <SearchIcon fontSize='small' />
-            </IconButton>
+            
+                <SearchIcon sx={{fontSize : '15px'}} fontSize='small' />
+            
         </Paper>
     );
 };

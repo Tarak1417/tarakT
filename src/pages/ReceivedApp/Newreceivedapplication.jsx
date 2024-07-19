@@ -3,9 +3,10 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 import Overview from "./Overview";
 import OverviewCards from "./JobCards";
-import { Box, Button, Modal } from "@mui/material";
+import { Box, Button, Grid, Modal, Pagination } from "@mui/material";
 import CreateLabel from "./CreateLebel";
 import axios from "axios";
+
 
 const Newreceivedapplication = () => {
   const [open, setOpen] = React.useState(false);
@@ -36,9 +37,9 @@ useEffect(() => {
 
   return (
     <Box sx={{ backgroundColor: "background.main", minHeight: "100vh" }}>
-      <div className=" rounded-lg overscroll-auto overflow-hidden">
-        <div className="flex items-center justify-between md:w-full p-2">
-          <div className="p-2">
+      <div className=" rounded-lg overscroll-auto overflow-hidden px-2  md:px-5 py-4">
+        <div className="flex items-center justify-between md:w-full py-4">
+          <div className="">
             <h1 className="text-2xl text-neutral-500">Received Applications</h1>
           </div>
           <div className="flex flex-row items-center justify-center gap-4">
@@ -51,7 +52,7 @@ useEffect(() => {
           </div>
         </div>
         <Box
-          className="md:w-[98%] p-4 flex flex-col gap-4  rounded-lg mx-4"
+          className="p-4 flex flex-col gap-4  rounded-lg"
           sx={{ backgroundColor: "background.view" }}
         >
           <h1 className="text-sm md:text-lg text-zinc-400">
@@ -60,7 +61,7 @@ useEffect(() => {
           <Overview />
         </Box>
         <OverviewCards labels={labels} />
-        <div className="flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-2">
+        {/* <div className="flex items-center justify-between md:mx-4 pl-5 md:pl-0 pt-2">
           <div className="p-2 rounded-lg ">
             <div className="flex items-center  gap-0 md:gap-6"></div>
           </div>
@@ -71,7 +72,7 @@ useEffect(() => {
               2
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
       <Modal open={open} onClose={handleClose}>
         <CreateLabel handleClose={handleClose} fetchLabel={fetchLabel} />
