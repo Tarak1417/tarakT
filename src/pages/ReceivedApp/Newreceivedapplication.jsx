@@ -3,9 +3,14 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 import Overview from "./Overview";
 import OverviewCards from "./JobCards";
-import { Box } from "@mui/material";
+import { Box, Button, Modal } from "@mui/material";
+import CreateLabel  from "./CreateLebel"
 
 const Newreceivedapplication = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   
   return (
     <Box  sx={{backgroundColor: 'background.main' , minHeight :"100vh"}} >
@@ -15,6 +20,11 @@ const Newreceivedapplication = () => {
           <h1 className="text-2xl text-neutral-500">Received Applications</h1>
         </div>
         <div className="flex flex-row items-center justify-center gap-4">
+        <Box>
+                            <Button onClick={handleOpen} variant='contained'>
+                                Add Label
+                            </Button>
+                        </Box>
           <InfoOutlinedIcon />
         </div>
       </div>
@@ -41,8 +51,14 @@ const Newreceivedapplication = () => {
         </div>
       </div>
     </div>
+    <Modal open={open} onClose={handleClose}>
+                <CreateLabel handleClose={handleClose} />
+            </Modal>
     </Box>
   );
 };
 
 export default Newreceivedapplication;
+
+
+
