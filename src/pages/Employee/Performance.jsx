@@ -1,11 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { Box } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import profile from '../ReceivedApp/profile.png';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import EmpDetailsHome from './EmployeeDetails/EmpDetailsHome';
 
 const ProgressCircle = ({ percentage, color }) => {
     const circleStyle = {
@@ -13,16 +14,14 @@ const ProgressCircle = ({ percentage, color }) => {
         height: '60px',
         backgroundColor: 'transparent',
         borderRadius: '50%',
-        border: `4px solid ${color} `,
+        border: `4px solid ${color}`,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: '16px',
         fontWeight: 'bold',
         color: color,
-        
     };
-
 
     return (
         <div style={circleStyle}>
@@ -54,32 +53,36 @@ const ProgressBar = ({ percentage, color }) => {
 };
 
 const PerformancePage = () => {
-
-    const id = useParams().id;
-    console.log("id" , id)
-    const [value, setValue] = useState(0);
+    const { id } = useParams();
+    console.log("id", id);
     const [employeeDetail, setEmployeeDetail] = useState(null);
+    const [showEdit, setShowEdit] = useState(false);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-    const fetchEmployeeDetails = useCallback(
-        async function () {
-            try {
-                const response = await axios.get(`/employee/profile/${id}`);
-                console.log(response);
-                setEmployeeDetail(response.data.employee);
-            } catch (e) {
-                console.log(e);
-            }
-        },
-        [setEmployeeDetail, id]
-    );
+    const fetchEmployeeDetails = useCallback(async () => {
+        try {
+            const response = await axios.get(`/employee/profile/${id}`);
+            console.log(response);
+            setEmployeeDetail(response.data.employee);
+        } catch (e) {
+            console.log(e);
+        }
+    }, [id]);
+
     useEffect(() => {
         fetchEmployeeDetails();
     }, [fetchEmployeeDetails]);
 
-    console.log(employeeDetail);
+    const editSectionRef = useRef(null);
+
+    const openEditSection = () => {
+        setShowEdit(true);
+        setTimeout(() => {
+            if (editSectionRef.current) {
+                editSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 100); // Slight delay to ensure the component is rendered
+    };
+
     return (
         <Box sx={{ backgroundColor: 'background.main' }}>
             <div className='flex flex-col'>
@@ -88,11 +91,10 @@ const PerformancePage = () => {
                         <h1 className="text-2xl text-neutral-500">Employee</h1>
                     </div>
                     <div className="flex flex-row items-center justify-center gap-4">
-                        <Link to={`/viewemployee/${id}`}>
-                            <button className='flex items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
-                                Edit Employee
-                            </button>
-                        </Link>
+                        <button className='flex items-center text-white font-bold text-[10px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'
+                            onClick={openEditSection}>
+                            Edit Employee
+                        </button>
                         <InfoOutlinedIcon />
                     </div>
                 </div>
@@ -161,6 +163,12 @@ const PerformancePage = () => {
                     </div>
                 </div>
             </Box>
+
+            {showEdit &&
+                <div ref={editSectionRef}>
+                    <EmpDetailsHome id={id} />
+                </div>
+            }
         </Box>
     );
 };
