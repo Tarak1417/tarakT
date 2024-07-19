@@ -68,7 +68,7 @@ const AddLabels = ({ labels, id, fetchJobsApplication }) => {
 
 
     return (
-        <div className="flex flex-row gap-2 w-full items-center mt-2">
+        <div className="flex flex-row gap-2 w-full items-center mt-1">
         <div  className='w-[92%]'>
             <StyledAutocomplete
                 multiple
@@ -117,7 +117,7 @@ const AddLabels = ({ labels, id, fetchJobsApplication }) => {
                             },
                         }}
                         size='small'
-                        placeholder='Labels'
+                        placeholder='Add Labels'
                     />
                 )}
             />

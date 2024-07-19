@@ -107,7 +107,7 @@ const  LabelTag = ({ label })=>{
           {jobApplications.map((application, index) => (
             <Box
               key={index}
-              className="w-full md:w-[48%] lg:w-[32%] xl:w-[24%] h-auto min-w-80 p-2 gap-4 rounded-lg mb-4"
+              className="w-full md:w-[48%] lg:w-[32%] xl:w-[24%] h-auto min-w-80  p-3 gap-4 rounded-lg mb-4"
               sx={{ backgroundColor: "background.view" }}
             >
               <div className="flex flex-row justify-between items-center">
@@ -127,14 +127,14 @@ const  LabelTag = ({ label })=>{
                 {/* <Link to={`/showmore:${application._id}`}> */}
                 <Link to={`/jobApplicationDetail/${application._id}`}>
                   <button
-                    className="flex text-zinc-200 p-[2px] bg-sky-500 rounded-sm text-[8px]"
+                    className="flex text-zinc-200 py-[2px] px-1 bg-sky-500 rounded-sm text-[8px]"
                     onClick={() => handleShowMoreClick(application._id)}
                   >
                     Show more
                   </button>
                 </Link>
                 <button
-                  className="flex text-zinc-200 p-[2px] bg-amber-500 rounded-sm text-[8px]"
+                  className="flex text-zinc-200 py-[2px] px-2 bg-amber-500 rounded-sm text-[8px]"
                   onClick={() => handleDeleteClick(application)}
                 >
                   Delete
@@ -160,9 +160,8 @@ const  LabelTag = ({ label })=>{
                   fetchJobsApplication={fetchJobsApplication}
                 />
               
-             
-              <div className="flex flex-row  gap-2 pt-2">
-                <Box sx={{ my: 1 }}  className="flex flex-row  gap-2 " >
+           
+                <Box sx={{ my: 1 }}  className="flex flex-row flex-wrap gap-2 " >
                   {application.isInterviewDone ? (
                     <LabelTag label="Interviewed" />
                   ) : (
@@ -240,9 +239,8 @@ const  LabelTag = ({ label })=>{
                     ? "Agreement Signed"
                     : "Agreement Not Signed"}
                 </Box> */}
-              </div>
             </Box>
-          ))}{" "}
+          ))}
         </>
       ) : (
         <div className="flex w-full flex-col items-center justify-center  text-center">
