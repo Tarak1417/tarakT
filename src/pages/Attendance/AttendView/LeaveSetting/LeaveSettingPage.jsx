@@ -60,7 +60,9 @@ const LeaveSettingPage = () => {
                             <h1 className="text-xs md:text-2xl text-neutral-500">Leave Settings</h1>
                         </div>
                         <div className="flex flex-row items-center justify-center gap-4">
-                            <button className='flex  items-center text-white font-bold text-[8px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                            <button className='flex  items-center text-white font-bold text-[8px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'
+                            onClick={handleOpen}
+                            >
                                 Add Leave Type
                             </button>
                             <InfoOutlinedIcon />
@@ -151,7 +153,7 @@ const LeaveSettingPage = () => {
                     </CardActions>
                 </Card>
             </Modal>
-            {/* <Modal
+             <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby='modal-modal-title'
@@ -162,7 +164,7 @@ const LeaveSettingPage = () => {
                     leaveTypeId={selectLeaveType._id}
                     fetchLeaveType={fetchLeaveType}
                 />
-            </Modal> */}
+            </Modal> 
                 
             </Box>
     </Box>

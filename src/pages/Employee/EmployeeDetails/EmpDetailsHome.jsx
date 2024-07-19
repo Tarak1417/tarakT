@@ -4,8 +4,9 @@ import EmpDetailsPage from './EmpDetails';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const EmpDetailsHome = () => {
-    const id = useParams().id;
+const EmpDetailsHome = ({id}) => {
+     //const id = useParams().id;
+
     const [value, setValue] = useState(0);
     const [employeeDetail, setEmployeeDetail] = useState(null);
 
