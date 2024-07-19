@@ -27,6 +27,46 @@ const Overview = () => {
     fetchMetrics();
   }, []);
 
+  function getCount(type){
+
+    let count = 0;
+
+    if(!applicationMetrics || applicationMetrics.length == 0) return count ;
+
+    count += getNumber(applicationMetrics[0].employed) 
+    if(type = "employed") return count ;  
+
+    count += getNumber(applicationMetrics[0].agreementSigned) 
+    if(type = "agreementSigned") return count ;  
+
+    count += getNumber(applicationMetrics[0].agreementSent) 
+    if(type = "agreementSent") return count ;  
+
+    count += getNumber(applicationMetrics[0].offerSigned) 
+    if(type = "offerSigned") return count ;  
+
+    count += getNumber(applicationMetrics[0].offerSent) 
+    if(type = "offerSent") return count ;  
+
+
+    count += getNumber(applicationMetrics[0].interviewed) 
+    if(type = "interviewed") return count ;  
+
+    count += getNumber(applicationMetrics[0].interviewSent) 
+    if(type = "interviewSent") return count ;  
+
+  }
+
+
+function getNumber(value = 0){
+
+    if(isNaN(value)) return 0 ;
+
+    return Number(value)
+
+  }
+
+
 //   console.log("applicationMetrics", applicationMetrics);
 
   return (
@@ -59,7 +99,7 @@ const Overview = () => {
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {(applicationMetrics && applicationMetrics.length > 0) ? applicationMetrics[0].interviewSent :0}
+            {getCount("interviewSent")}
           </h1>
           <p className="text-[8px]">Interview Sent</p>
         </div>
@@ -80,7 +120,7 @@ const Overview = () => {
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {(applicationMetrics && applicationMetrics.length > 0) ? applicationMetrics[0].interviewed :0}
+            {getCount("interviewed")}
           </h1>
           <p className="text-[8px]">Interviewed</p>
         </div>
@@ -101,7 +141,7 @@ const Overview = () => {
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {(applicationMetrics && applicationMetrics.length > 0) ? applicationMetrics[0].offerSent :0}
+            { getCount("offerSent")}
           </h1>
           <p className="text-[8px]">Offer Letter Sent</p>
         </div>
@@ -122,7 +162,7 @@ const Overview = () => {
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {(applicationMetrics && applicationMetrics.length > 0) ? applicationMetrics[0].offerSigned:0}
+            {getCount("offerSigned")}
           </h1>
           <p className="text-[8px]">Offer Letter Signed</p>
         </div>
@@ -143,7 +183,7 @@ const Overview = () => {
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {(applicationMetrics && applicationMetrics.length > 0) ? applicationMetrics[0].agreementSent :0}
+            { getCount("agreementSent")}
           </h1>
           <p className="text-[8px]">Agreements Sent</p>
         </div>
@@ -164,7 +204,7 @@ const Overview = () => {
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {(applicationMetrics && applicationMetrics.length > 0) ? applicationMetrics[0].agreementSigned :0}
+            { getCount("agreementSigned")}
           </h1>
           <p className="text-[8px]">Agreements Signed</p>
         </div>
@@ -185,7 +225,7 @@ const Overview = () => {
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
-            {(applicationMetrics && applicationMetrics.length > 0) ? applicationMetrics[0].employed :0}
+            { getCount("employed")}
           </h1>
           <p className="text-[8px]">Employed</p>
         </div>

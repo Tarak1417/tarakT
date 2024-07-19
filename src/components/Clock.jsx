@@ -30,9 +30,9 @@ export default function Clock() {
         <Button variant='outlined' sx={{ display: { lg: 'block', xs: 'none' } }}>
             {time}
         </Button>
-        <Box sx={{ mx: 2 }}>
+        {/* <Box sx={{ mx: 2 }}>
             <Button variant='contained'>Clock In</Button>
-        </Box>
+        </Box> */}
 
         <Box>
             <Tooltip title='info' placement='top'>
