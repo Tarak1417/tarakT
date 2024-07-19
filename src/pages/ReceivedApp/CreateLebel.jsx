@@ -16,7 +16,7 @@ const style = {
     p: 4,
 };
 
-const CreateLabel = ({ handleClose }) => {
+const CreateLabel = ({ handleClose ,fetchLabel }) => {
     const handlers = useForm(
         useMemo(
             () => ({
@@ -31,7 +31,7 @@ const CreateLabel = ({ handleClose }) => {
         const { success, message } = res.data;
   
         if (!success) return showError(message);
-  
+        fetchLabel();
         showSuccess('Add label successfully');
         handleClose();
     };

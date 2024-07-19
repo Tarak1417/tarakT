@@ -2,13 +2,14 @@ import React, { useState, useEffect, useCallback } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Link } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, Chip } from "@mui/material";
 import axios from "axios";
 import useQueryState from "../../hooks/useQueryState";
 import { useMessage } from "../../components/Header";
 import noRecord from '../../assets/initalScreen/recievedApplication.svg'
+import AddLabels from "./AddLabels";
 
-const JobCards = () => {
+const JobCards = ( { labels}) => {
   const [jobApplications, setJobApplications] = useState(null);
   const [filters, setFilters] = useQueryState({
     search: "",
@@ -26,7 +27,6 @@ const JobCards = () => {
   });
   const [pageNo, setPageNo] = useState(1);
   const [pageLimit, setPageLimit] = useState(0);
-  const [labels, setLabels] = useState(null);
   const { showSuccess, showError } = useMessage();
 
   const fetchJobsApplication = useCallback(async () => {
@@ -67,7 +67,38 @@ const JobCards = () => {
 
   useEffect(() => {
     fetchJobsApplication();
-  }, [fetchJobsApplication]);
+  }, [fetchJobsApplication ]);
+
+  const handleDelete = useCallback(
+    async function (statusId, ApplicationId) {
+        try {
+            const res = await axios.delete(
+                `hr/job-application/status/${ApplicationId}?status=${statusId}`
+            );
+            const { success, errors } = res.data;
+
+            if (!success) return showError(errors);
+
+            showSuccess('label Delete successfully');
+            fetchJobsApplication();
+        } catch (e) {
+            console.log(e);
+        }
+    },
+    [showSuccess, showError, fetchJobsApplication]
+);
+
+const  LabelTag = ({ label })=>{
+
+  return (
+ <Box sx={{ backgroundColor: "background.bond", color: "text.two" }}
+    className="w-fit  p-1.5 bg-neutral-800 text-center text-[8px]"  >
+ {label}
+  </Box>
+  )
+}
+
+
 
   return (
     <div className="w-full flex flex-wrap justify-start mx-4 pt-4 gap-2 pr-6">
@@ -76,17 +107,17 @@ const JobCards = () => {
           {jobApplications.map((application, index) => (
             <Box
               key={index}
-              className="w-full md:w-[48%] lg:w-[32%] xl:w-[24%] h-auto p-2 gap-4 rounded-lg mb-4"
+              className="w-full md:w-[48%] lg:w-[32%] xl:w-[24%] h-auto min-w-80 p-2 gap-4 rounded-lg mb-4"
               sx={{ backgroundColor: "background.view" }}
             >
               <div className="flex flex-row justify-between items-center">
-                <h1 className="text-[14px]">{application.jobTitle}</h1>
+                <h1 className="text-[12px]">{application.jobTitle}</h1>
                 <p className="text-[8px] text-zinc-500">
                   {new Date(application.createdAt).toLocaleDateString()}
                 </p>
               </div>
               <div className="flex flex-row justify-start gap-2 items-center">
-                <p className="text-[12px] text-zinc-500">
+                <p className="text-[10px] text-zinc-500">
                   <PersonIcon fontSize="small" className="text-zinc-300" />{" "}
                   {application.fullName}
                 </p>
@@ -96,21 +127,21 @@ const JobCards = () => {
                 {/* <Link to={`/showmore:${application._id}`}> */}
                 <Link to={`/jobApplicationDetail/${application._id}`}>
                   <button
-                    className="flex text-zinc-200 p-1 bg-sky-500 rounded-sm text-[8px]"
+                    className="flex text-zinc-200 p-[2px] bg-sky-500 rounded-sm text-[8px]"
                     onClick={() => handleShowMoreClick(application._id)}
                   >
                     Show more
                   </button>
                 </Link>
                 <button
-                  className="flex text-zinc-200 p-1 bg-amber-500 rounded-sm text-[8px]"
+                  className="flex text-zinc-200 p-[2px] bg-amber-500 rounded-sm text-[8px]"
                   onClick={() => handleDeleteClick(application)}
                 >
                   Delete
                 </button>
               </div>
-              <div className="flex flex-row gap-1 w-full mt-2">
-                <div className="flex items-center border-b border-solid border-zinc-50 w-[96%] ">
+            
+                {/* <div className="flex items-center border-b border-solid border-zinc-50 w-[96%] ">
                   <div className="w-full relative ">
                     <select className="outline-none border-none w-full bg-transparent light:text-zinc-50 text-[12px] pr-6 appearance-none">
                       <option value="">Add Label</option>
@@ -120,14 +151,72 @@ const JobCards = () => {
                     </select>
                   </div>
                   <ArrowDropDownIcon className="text-zinc-500" />
-                </div>
-                <p className="text-[14px] text-zinc-500 flex items-bottom justify-bottom">
-                  +
-                </p>
-              </div>
-              <div className="flex flex-row gap-2 pt-2">
+                </div> */}
+
+                <AddLabels
+                  labels={labels}
+                  id={application._id}
+                  // status={status?.value}
+                  fetchJobsApplication={fetchJobsApplication}
+                />
+              
+             
+              <div className="flex flex-row  gap-2 pt-2">
+                <Box sx={{ my: 1 }}  className="flex flex-row  gap-2 " >
+                  {application.isInterviewDone ? (
+                    <LabelTag label="Interviewed" />
+                  ) : (
+                    application.step === 1 && (
+                      <LabelTag label="Interview sent"  />
+                    )
+                  )}
+
+                  {application.isOfferLetterSigned ? (
+                    <LabelTag label="Offer Signed"  />
+                  ) : (
+                    application.step === 2 && (
+                      <LabelTag label="Offer sent"  />
+                    )
+                  )}
+
+                  {application.isAgreementSigned ? (
+                    <LabelTag label="Agreements Signed"  />
+                  ) : (
+                    application.step === 3 && (
+                      <LabelTag label="Agreements sent"  />
+                    )
+                  )}
+                  {application.isEmployee && (
+                    <LabelTag label="Employed"  />
+                  )}
+
+                  {application.label &&
+                    labels
+                      ?.filter((label) =>
+                        application.label.find(
+                          (status) => status.status === label._id
+                        )
+                      )
+                      .map((label) => (
+                        // <Tooltip title='Click to see more'>
+                        <Chip
+                          variant="outlined"
+                          size="small"
+                          className=" bg-neutral-800 "
+                          label={label.value}
+                          onDelete={() =>
+                            handleDelete(label._id, application._id)
+                          }
+                          sx={{ backgroundColor: "background.bond", color: "text.two" ,border : 0  ,  borderRadius : 0
+                          , fontSize : '8px' }}
+                         
+                        />
+                        // </Tooltip>
+                      ))}
+                </Box>
+
                 {/* Example status labels */}
-                <Box
+                {/* <Box
                   sx={{ backgroundColor: "background.bond", color: "text.two" }}
                   className="flex p-1 bg-neutral-800 text-[8px]"
                 >
@@ -150,7 +239,7 @@ const JobCards = () => {
                   {application.isAgreementSigned
                     ? "Agreement Signed"
                     : "Agreement Not Signed"}
-                </Box>
+                </Box> */}
               </div>
             </Box>
           ))}{" "}
