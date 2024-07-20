@@ -28,6 +28,7 @@ const Agreements = props => {
     // const errorHandler = useErrorHandler();
     const { showSuccess } = useMessage();
     const [agreement, setAgreement] = useState(null);
+    const [selectedAgreements, setSelectedAgreements] = useState([]);
 
     const fetchDocs = useCallback(async () => {
         try {
@@ -39,10 +40,10 @@ const Agreements = props => {
         }
     }, [ jobId]);
 
-    const sendAgreement = async (agreementId, content, title) => {
+    const sendAgreement = async () => {
         try {
-            await axios.patch(`/hr/agreement/${jobApplicationId}`, { agreementId, content, title });
 
+            await axios.patch(`/hr/agreement/${jobApplicationId}`, { agreements : selectedAgreements });
             showSuccess('Agreement sent!');
             refetch();
             closeModal();
@@ -50,6 +51,27 @@ const Agreements = props => {
             console.log(e)
         }
     };
+    // const handleSubmit = async ()  =>{
+
+    //     const promises =  selectedAgreements?.map(doc =>  sendAgreement(doc._id , doc.content , doc.title ));
+    //     await Promise.all(promises);
+
+     
+    // }
+
+    const selectAgreement = (doc) => {
+        let  id = String(doc._id)
+        if (isCardSelected(id)) {
+            setSelectedAgreements(selectedAgreements.filter(item => item.agreementId != id));
+          } else {
+            setSelectedAgreements([...selectedAgreements, {  agreementId : doc._id , content : doc.content , title : doc.title}]);
+          }
+    }
+
+    const isCardSelected = (id)=>{
+        const index  =  selectedAgreements.findIndex(item => item.agreementId == id)
+        return index !== -1
+    }
 
     useEffect(() => {
         fetchDocs();
@@ -57,6 +79,7 @@ const Agreements = props => {
 
     return (
         <Box
+        className="relative "
             sx={{
                 width: '100%',
                 bgcolor: 'background.paper',
@@ -84,10 +107,12 @@ const Agreements = props => {
                                 <Grid item xs={12} md={6} xm={4} lg={3} xl={2.5} key={doc._id}>
                                     <Card
                                         variant='outlined'
+                                        className={`cursor-pointer `}
                                         sx={{
                                             height: '100%',
                                             display: 'flex',
                                             flexDirection: 'column',
+                                            borderColor : ( isCardSelected(doc._id) ? 'primary.main' :"")
                                         }}>
                                         <CardContent sx={{ flexGrow: 1 }}>
                                             <Typography variant='h5' gutterBottom>
@@ -116,9 +141,10 @@ const Agreements = props => {
                                             <Button
                                                 size='small'
                                                 onClick={() => {
-                                                    sendAgreement(doc._id, doc.content, doc.title);
+                                                    selectAgreement(doc)
                                                 }}>
-                                                Send
+                                                    {isCardSelected(doc._id) ? "Unselect": "Select" }
+                                                
                                             </Button>
                                         </CardActions>
                                     </Card>
@@ -154,6 +180,17 @@ const Agreements = props => {
                     )}
                 </Grid>
             </Box>
+            <Grid item className="absolute bottom-2 right-2 md:bottom-4 md:right-4" >
+                    <Button
+                      onClick={sendAgreement}
+                      className="text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded bg-sky-500 hover:bg-sky-700"
+                      variant="contained"
+                      disabled={selectedAgreements.length ==0}
+                     
+                    >
+                      Send Agreements
+                    </Button>
+                  </Grid>
 
             <Modal
                 open={editState}
