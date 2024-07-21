@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import React from "react";
 
 const NoticeBoard = ({ eventData }) => {
-  console.log(eventData);
   const demoEvent = [
     {
       date: "5 Mar",
@@ -29,6 +28,30 @@ const NoticeBoard = ({ eventData }) => {
       backgroundColor: "#3b82f6",
     },
   ];
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { day: "numeric", month: "short" };
+    return date.toLocaleDateString("en-US", options);
+  };
+
+  const removePTags = (caption) => {
+    return caption.replace(/<p>|<\/p>/g, '');
+  };
+
+  const getBackgroundColor = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+
+    if (day >= 1 && day <= 10) {
+      return '#fbbf24'; // yellow
+    } else if (day > 10 && day <= 20) {
+      return '#10b981'; // green
+    } else {
+      return '#f97316'; // orange
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -50,17 +73,19 @@ const NoticeBoard = ({ eventData }) => {
                 <div className="flex gap-4 justify-center items-center">
                   <div
                     className="w-1/4 h-[60px] flex items-center justify-center text-white rounded-lg"
-                    style={{ backgroundColor: event.backgroundColor }}
+                    style={{
+                      backgroundColor: event.updatedAt ? getBackgroundColor(event.updatedAt) : event.backgroundColor
+                    }}
                   >
                     <div className="w-[97%] h-[57px] flex items-center justify-center border-2 border-gray-900 rounded-lg p-0">
                       <p className="p-1 text-gray-900 font-semibold text-center gap-0">
-                        {event.date}
+                        {event.updatedAt ? formatDate(event.updatedAt) : event.date}
                       </p>
                     </div>
                   </div>
                   <div className="w-4/5">
                     <h1 className="text-sm">{event.title}</h1>
-                    <p className="text-xs text-gray-500">{event.description}</p>
+                    <p className="text-xs text-gray-500">{event.caption ? removePTags(event.caption) : event.description}</p>
                   </div>
                 </div>
               </div>

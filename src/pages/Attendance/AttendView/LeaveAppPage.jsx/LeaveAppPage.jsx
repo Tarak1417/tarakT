@@ -64,6 +64,15 @@ const LeaveAppPage = () => {
         [fetchLeaveApplication, showSuccess, showError]
     );
 
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+      }
+
     return (
         <Box sx={{ backgroundColor: 'background.main' }}>
             <div className='flex flex-col md:mb-1'>
@@ -119,10 +128,10 @@ const LeaveAppPage = () => {
                                 <Box className="w-full ml-2 md:ml-0 rounded-lg" sx={{ backgroundColor: 'background.view' }}>
                                     <div className='flex flex justify-between items-center w-full'>
                                         <p className="mb-4 border-l-2 border-blue-500 pl-4 md:text-[18px] mt-2" gutterBottom>
-                                            {section._id}
+                                        Earned Leave Request
                                         </p>
                                         <button className='flex items-center text-white text-[8px] mr-2 md:mr-5 md:text-[10px] py-1 md:py-1 px-2 md:px-2 rounded bg-slate-500 hover:bg-sky-700'>
-                                            {daysRemaining}
+                                            {daysRemaining ?  daysRemaining + 1 : '1'} days
                                         </button>
                                     </div>
                                     <div className='flex flex-row gap-2 mx-4'>
@@ -134,17 +143,22 @@ const LeaveAppPage = () => {
                                             <p className='text-[10px] text-zinc-500'>{section.department}</p>
                                         </div>
                                     </div>
-                                    <div className='flex flex-row gap-4 mx-5 pt-2'>
+                                    <div className='flex flex-row gap-4 mx-5 pt-2 ' style={{marginTop:'3px' , marginBottom:'3px'}}>
                                         <div className='flex justify-center items-center'>
                                             <CalendarTodayOutlinedIcon fontSize='small' />
                                         </div>
-                                        <p className='text-[16px]'>{section.date}</p>
+                                        <p className='text-[16px]'>{section.date}
+                                        {section?.dates[0]?.year}-{section?.dates[0]?.month}-{section?.dates[0]?.day}
+                                        {section?.dates.length > 1 ? ` - ${section?.dates[section.dates.length - 1].year}-${section?.dates[section.dates.length - 1].month}-${section?.dates[section.dates.length - 1].day}` : ''}
+
+                                        </p>
                                         <button className='flex text-center items-center text-white text-[8px] md:text-[10px]  px-2 md:px-2 rounded bg-slate-500 hover:bg-sky-700'>
-                                            1 day
+                                        {daysRemaining ?  daysRemaining + 1 : '1'} days
                                         </button>
                                     </div>
                                     <div className='flex flex-col w-[90%] md:ml-5 mx-4 gap-2'>
-                                    <p className='text-[10px] text-zinc-500 mt-2'>Applied On{section.updatedAt}</p>
+                        <p className='text-[10px] text-zinc-500 mt-2'>Applied On {formatDate(section.updatedAt)}</p>
+                                    
                                     <LinearProgress variant="determinate" className='mb-2 w-[97%]' value={daysRemaining} />
                                     </div>
                                     <div className='flex flex justify-between items-center w-[85%] md:ml-5 mx-4'>
@@ -155,7 +169,7 @@ const LeaveAppPage = () => {
                                             {daysRemaining}
                                         </p>
                                     </div>
-                                    <Box className='mt-2 w-[90%] ml-3 flex justify-center items-center md:ml-5 rounded-lg' sx={{ backgroundColor: 'background.bond' }}>
+                                    <Box className='mt-2 w-[90%] ml-3 flex  md:ml-5 rounded-lg' sx={{ backgroundColor: 'background.bond' }}>
                                         <div>
                                             <div className='flex flex-col p-2'>
                                                 <h1 className='text-[10px]'>Reason</h1>
