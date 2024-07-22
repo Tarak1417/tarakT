@@ -1,9 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useCallback } from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import { PieChart, Pie, Tooltip, Cell } from "recharts";
+import axios from "axios";
 
 const GenderChart = ({ overview }) => {
   const [genderCount, setGenderCount] = useState({ male: 0, female: 0 });
+  const [status, setStatus] = useState('Active');
+  const [total , setTotal] = useState(0);
+
+
+  const fetchEmploees = useCallback(
+    async (search = '') => {
+        try {
+            const response = await axios.get(
+                `/hr/employee?searchBy=firstName&search=${search}&sortBy=order&status=${status}&page=1`
+            );
+           console.log(response.data.employees);
+           countGenders(response.data.employees);
+          
+            // const newEmployeeFilter =  response.data.employees.filter(jod => jod.dateOfJoining === Date.now());
+            // setNewEmployee(newEmployeeFilter)
+            // console.log(Date.now())
+        } catch (e) {
+            console.log(e);
+        }
+    },
+    [ ]
+);
+fetchEmploees();
+
+
+
+const countGenders = (employees) => {
+  const counts = { male: 0, female: 0 };
+  employees.forEach(employee => {
+    if (employee.gender === 'Male') {
+      counts.male += 1;
+    } else if (employee.gender ===  'Female') {
+      counts.female += 1;
+    }
+  });
+  console.log(counts);
+  return setTotal(counts);
+};
+
 
   useEffect(() => {
     const GenderData =overview && overview?.map((box) => (
@@ -27,8 +67,8 @@ const GenderChart = ({ overview }) => {
   }, [overview]);
 
   const data = [
-    { name: "Male", value: genderCount && genderCount.male },
-    { name: "Female", value: genderCount && genderCount.female },
+    { name: "Male", value: total.male   && total.male},
+    { name: "Female", value: total.male  && total.male},
   ];
 
   const colors = ["#3b82f6", "#dc2626"];
@@ -98,7 +138,7 @@ const GenderChart = ({ overview }) => {
             </div>
           </div>
           <div className="pl-4 text-[10px] md:text-[13px] md:font-[500] md:leading-[19.53px]">
-            Total: {totalCount}
+            Total: {total?.male + total?.female}
           </div>
         </div>
       </Grid>
