@@ -101,8 +101,8 @@ const PerformancePage = () => {
             </div>
             <div className='flex flex-col justify-center gap-1 items-center'>
                 <img src={profile} alt="Profile" className="w-[20%] md:w-full max-w-[100px] h-auto" />
-                <h1 className='text-[18px] text-center font-bold'>{employeeDetail?.firstName} {employeeDetail?.lastName}{' '}</h1>
-                <p className='text-[12px] text-zinc-400 text-center'>{employeeDetail?.designation}</p>
+                <h1 className='text-[18px] text-center font-bold'>{employeeDetail && employeeDetail?.firstName} {employeeDetail && employeeDetail?.lastName}{' '}</h1>
+                <p className='text-[12px] text-zinc-400 text-center'>{employeeDetail && employeeDetail?.designation}</p>
                 <div className='flex flex-row gap-1 justify-center'>
                     <StarIcon style={{ fontSize: '12px' }} className='text-yellow-400' /><StarIcon style={{ fontSize: '12px' }} className='text-yellow-400' /><StarIcon style={{ fontSize: '12px' }} className='text-yellow-400' /> <StarBorderOutlinedIcon style={{ fontSize: '12px' }} /> <StarBorderOutlinedIcon style={{ fontSize: '12px' }} />
                 </div>

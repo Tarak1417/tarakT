@@ -76,7 +76,7 @@ const Dashboard = () => {
           variant="body1"
           style={{ color: "#00FF00", fontSize: "1.2em" }}
         >
-          {overview?.employees?.total ?? 0}
+          {overview && overview?.employees?.total}
         </Typography>
       ),
       description: "124 for last month",
@@ -95,7 +95,7 @@ const Dashboard = () => {
           variant="body1"
           style={{ color: "#FF0000", fontSize: "1.2em" }}
         >
-          {overview?.departments}
+          {overview && overview?.departments}
         </Typography>
       ),
       description: "124 for last month,",
@@ -115,7 +115,7 @@ const Dashboard = () => {
           style={{ color: "#FF0000", fontSize: "1.2em" }}
         >
           ${" "}
-          {overview?.expenses
+          { overview && overview?.expenses
             ? overview.expenses.reduce((total, el) => total + el.price, 0)
             : 0}
         </Typography>
@@ -154,7 +154,7 @@ const Dashboard = () => {
           <div className="flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-3/4">
               <div className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
-                {boxesData.map((box, index) => (
+                {boxesData && boxesData.map((box, index) => (
                   <Grid
                     sx={{ backgroundColor: "background.view" }}
                     key={index}
@@ -177,7 +177,7 @@ const Dashboard = () => {
               <Charts data={data} />
             </div>
             <div className="w-full md:w-1/4">
-              <NoticeBoard eventData={overview?.notices} />
+              <NoticeBoard eventData={ overview && overview?.notices} />
               <UpcomingEvents />
             </div>
           </div>
@@ -190,15 +190,15 @@ const Dashboard = () => {
             <RecentActivity />
           </div>
           <div className="w-full md:w-1/3 mx-1">
-            <GenderChart items={overview?.employees} />
+            <GenderChart items={  overview && overview?.employees} />
           </div>
         </div>
         <div className="w-full  flex flex-col md:flex-row p-2">
           <div className="w-full md:w-1/2 mx-1 mb-2 md:mb-0">
-            <RecentJobs items={overview?.applications} />
+            <RecentJobs items={ overview && overview?.applications} />
           </div>
           <div className="w-full md:w-1/2 mx-1 mb-2 md:mb-0">
-            <Attendance items={overview?.attendance} />
+            <Attendance items={ overview && overview?.attendance} />
           </div>
         </div>
       </div>

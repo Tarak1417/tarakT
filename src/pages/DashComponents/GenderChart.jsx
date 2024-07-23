@@ -15,8 +15,8 @@ const GenderChart = ({ overview }) => {
             const response = await axios.get(
                 `/hr/employee?searchBy=firstName&search=${search}&sortBy=order&status=${status}&page=1`
             );
-           console.log(response.data.employees);
-           countGenders(response.data.employees);
+          //  console.log(response.data.employees);
+           countGenders(response?.data?.employees);
           
             // const newEmployeeFilter =  response.data.employees.filter(jod => jod.dateOfJoining === Date.now());
             // setNewEmployee(newEmployeeFilter)
@@ -34,9 +34,9 @@ fetchEmploees();
 const countGenders = (employees) => {
   const counts = { male: 0, female: 0 };
   employees.forEach(employee => {
-    if (employee.gender === 'Male') {
+    if (employee?.gender === 'Male') {
       counts.male += 1;
-    } else if (employee.gender ===  'Female') {
+    } else if (employee?.gender ===  'Female') {
       counts.female += 1;
     }
   });
@@ -67,8 +67,8 @@ const countGenders = (employees) => {
   }, [overview]);
 
   const data = [
-    { name: "Male", value: total.male   && total.male},
-    { name: "Female", value: total.male  && total.male},
+    { name: "Male", value: total.male   ? total.male : ''},
+    { name: "Female", value: total.male  ? total.male : ''},
   ];
 
   const colors = ["#3b82f6", "#dc2626"];
@@ -94,6 +94,7 @@ const countGenders = (employees) => {
               marginTop: "48px",
             }}
           >
+            { data ?
             <PieChart width={300} height={202}>
               <Pie
                 data={data}
@@ -113,6 +114,9 @@ const countGenders = (employees) => {
               </Pie>
               <Tooltip />
             </PieChart>
+            :
+            "Loading..."
+}
           </div>
           <div className="flex flex-row gap-2 mt-9 pl-4 items-center">
             <div

@@ -80,26 +80,26 @@ const EmpDetailsPage = () => {
                     <p>Loading...</p>
                 ) : (
                     <>
-                        {activeContent === 'content1' && <PersonalDetails employeeDetails={employeeDetail} />}
-                        {activeContent === 'content2' && <CompanyDetails id={employeeDetail._id}
-                            department={employeeDetail.department}
-                            designation={employeeDetail.designation}
-                            dateOfJoining={employeeDetail.dateOfJoining}
-                            jobType={employeeDetail.jobType}
-                            amount={employeeDetail.salary.amount} 
-                            employeeDetail={employeeDetail}
+                        {activeContent === 'content1' && <PersonalDetails employeeDetails={employeeDetail && employeeDetail} />}
+                        {activeContent === 'content2' && <CompanyDetails id={  employeeDetail && employeeDetail._id}
+                            department={employeeDetail && employeeDetail.department}
+                            designation={employeeDetail && employeeDetail.designation}
+                            dateOfJoining={employeeDetail && employeeDetail.dateOfJoining}
+                            jobType={employeeDetail && employeeDetail.jobType}
+                            amount={employeeDetail && employeeDetail.salary.amount} 
+                            employeeDetail={employeeDetail && employeeDetail}
                             />}
                         {activeContent === 'content3' && <BankDetails 
-                            id={employeeDetail._id}
-                            accountHolder={employeeDetail?.bank?.accountHolder}
-                            accountNumber={employeeDetail?.bank?.accountNumber}
-                            branch={employeeDetail?.bank?.branch}
-                            bankName={employeeDetail?.bank?.bankName}
-                            ifsc={employeeDetail?.bank?.ifsc}
-                            pan={employeeDetail?.bank?.pan}
-                            city={employeeDetail?.bank?.city}
-                            state={employeeDetail?.bank?.state}
-                            country={employeeDetail?.bank?.country} />}
+                            id={employeeDetail && employeeDetail._id}
+                            accountHolder={employeeDetail && employeeDetail?.bank?.accountHolder}
+                            accountNumber={employeeDetail && employeeDetail?.bank?.accountNumber}
+                            branch={employeeDetail && employeeDetail?.bank?.branch}
+                            bankName={ employeeDetail &&  employeeDetail?.bank?.bankName}
+                            ifsc={ employeeDetail &&   employeeDetail?.bank?.ifsc}
+                            pan={employeeDetail && employeeDetail?.bank?.pan}
+                            city={employeeDetail && employeeDetail?.bank?.city}
+                            state={ employeeDetail && employeeDetail?.bank?.state}
+                            country={employeeDetail &&  employeeDetail?.bank?.country} />}
                         {activeContent === 'content4' && <UploadDetails
                           id={employeeDetail._id}
                         />}

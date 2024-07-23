@@ -51,10 +51,10 @@ const EmployeePage = () => {
                 const response = await axios.get(
                     `/hr/employee?searchBy=firstName&search=${search}&sortBy=order&status=${status}&page=${page}`
                 );
-                setEmployLists(response.data.employees);
-                setPageLimit(response.data.pageData.totalPages);
-                setTotalEmployee(response.data.pageData.totalData);
-                const filteredFruits = response.data.employees.filter(male => male.gender==='male');
+                setEmployLists(response?.data?.employees);
+                setPageLimit(response?.data?.pageData.totalPages);
+                setTotalEmployee(response?.data.pageData.totalData);
+                const filteredFruits = response?.data?.employees?.filter(male => male.gender==='male');
                 setMaleEmployee(filteredFruits.length)
                 // const newEmployeeFilter =  response.data.employees.filter(jod => jod.dateOfJoining === Date.now());
                 // setNewEmployee(newEmployeeFilter)
@@ -129,7 +129,7 @@ const EmployeePage = () => {
                 <div className="flex flex-col md:flex-row gap-4">
                     <div className="w-full md:w-full">
                         <div  className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
-                            {boxesData.map((box, index) => (
+                            { boxesData && boxesData.map((box, index) => (
                                 <Grid sx={{backgroundColor: 'background.view',}}  key={index} className="rounded-lg p-4 shadow-md md:w-1/4">
                                     <p className='text-base'>{box.title}</p>
                                     <div className="flex items-center mb-2">
@@ -188,7 +188,7 @@ const EmployeePage = () => {
                         </div>
                         
                     </div>
-                    {employLists?.map((employee,index) => (
+                    {employLists && employLists?.map((employee,index) => (
                         <div key={index} className='flex flex-row border-b border-zinc-500'>
                         <div className='w-[25%] md:w-[5%] p-2 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
                             {index+1}
@@ -198,33 +198,33 @@ const EmployeePage = () => {
                                 <PersonIcon style={{ fontSize: '16px' }} className="text-zinc-300"/>
                             </div>
                             <div className='flex flex-col gap-0'>
-                                {employee.firstName} {employee.lastName}{' '}
+                                {employee.firstName && employee.firstName} {employee.lastName && employee.lastName}{' '}
                                 <p className='text-[6px]'>{employee.mail}</p>
                             </div>
                         </div>
                         <div className='w-[25%] truncate  md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
-                            {employee._id}
+                            { employee && employee._id}
                         </div>
                         <div className='w-[25%] md:w-[8%] p-2 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                             {employee?.dept}
+                             {employee && employee?.dept}
                         </div>
                         <div className='w-[50%] md:w-[12%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
-                             {employee.designation}
+                             {employee && employee?.designation}
                         </div>
                         <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
-                        {employee.phone?.countryCode} {employee.phone?.phone}
+                        { employee && employee.phone?.countryCode} {employee && employee.phone?.phone}
                         </div>
                         <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                        {moment(employee.dateOfJoining)
+                        {moment(employee && employee.dateOfJoining)
                                                     .utc()
                                                     .format('MM-DD-YYYY')}
                         </div>
                         <div className='w-[50%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
-                            {employee?.work}
+                            {employee && employee?.work}
                         </div>
                         <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-xs'>
                         <button className='flex  items-center text-white font-bold text-[6px] md:text-[8px] py-0 md:py-0 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
-                        {employee.status}
+                        {employee && employee.status}
                             </button>
                         </div>
                         

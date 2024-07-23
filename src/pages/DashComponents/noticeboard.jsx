@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const NoticeBoard = ({ eventData }) => {
   const demoEvent = [
@@ -28,6 +28,13 @@ const NoticeBoard = ({ eventData }) => {
       backgroundColor: "#3b82f6",
     },
   ];
+
+  const [datastore , setStore] = useState([]);
+
+  useEffect(()=>{
+    setStore(eventData)
+  },[eventData])
+
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -68,7 +75,7 @@ const NoticeBoard = ({ eventData }) => {
         </p>
         <div className="px-1 p-4 overflow-y-auto">
           <div className="">
-            {(eventData ? eventData : demoEvent).map((event, index) => (
+            {datastore ? datastore?.map((event, index) => (
               <div key={index} className="mb-4">
                 <div className="flex gap-4 justify-center items-center">
                   <div
@@ -89,7 +96,10 @@ const NoticeBoard = ({ eventData }) => {
                   </div>
                 </div>
               </div>
-            ))}
+            ))
+          :
+          "Loading...."
+          }
           </div>
         </div>
         <style jsx>{`

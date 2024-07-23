@@ -115,7 +115,7 @@ const RecentJobs = ({ items }) => {
         </div>
       </div>
       <div className="w-full">
-        {items?.map((item, index) => (
+        { items && items ? items?.map((item, index) => (
           <div
             key={index}
             className="flex flex-row mb-4 gap-1 md:gap-0"
@@ -162,7 +162,12 @@ const RecentJobs = ({ items }) => {
               <DeleteIcon className="text-red-700 " />
             </div>
           </div>
-        ))}
+          
+
+        ))
+      :
+      "Loading..."
+      }
       </div>
     </Box>
   );
