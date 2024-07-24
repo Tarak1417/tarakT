@@ -146,13 +146,13 @@ const RecentJobs = ({ items }) => {
               </div>
             </div>
             <div className="w-1/5 md:w-1/5 flex items-center justify-start md:items-center md:justify-center">
-              <p className="text-sm text-zinc-500">{item.experience}</p>
+              <p className="text-sm text-zinc-500">{item?.experience}</p>
             </div>
             <div className="w-1/3 md:w-1/5 flex items-center justify-start md:items-center md:justify-center">
               <p className="text-sm text-zinc-500" style={{ whiteSpace: "nowrap" }}>
-                 {item.jobTitle.length > 10 
-                ? `${item.jobTitle.slice(0, 10)}...`
-                : item.jobTitle
+                 {item?.jobTitle?.length > 10 
+                ? `${item?.jobTitle?.slice(0, 10)}...`
+                : item?.jobTitle
                 }
               </p>
             </div>

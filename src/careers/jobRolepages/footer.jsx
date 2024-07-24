@@ -81,11 +81,14 @@ const FooterBlock = ( ) => {
 
         <div className='flex items-center gap-2 sm:gap-4'>
           <IconButton>
-            <QuestionMarkRounded className='text-gray-600 dark:text-gray-300' />
-          </IconButton>
+          <Link to="https://support.clikkle.com">
+              <QuestionMarkRounded className='text-gray-600 dark:text-gray-300' />
+            </Link>          </IconButton>
 
-          <Typography className='text-gray-600 dark:text-gray-300'>
-            Help
+          <Typography className='text-gray-600 dark:text-gray-300' >
+            <Link to="https://support.clikkle.com">
+              Help
+            </Link>
           </Typography>
           <div className='border-gray-300 dark:border-gray-600 border-[1px] rounded-md px-6 py-[6px]'>
             <Typography className='text-gray-600 dark:text-gray-300'>
