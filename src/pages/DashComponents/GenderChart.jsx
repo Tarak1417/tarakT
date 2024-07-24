@@ -3,8 +3,8 @@ import { Box, Grid, Typography } from "@mui/material";
 import { PieChart, Pie, Tooltip, Cell } from "recharts";
 import axios from "axios";
 
-const GenderChart = ({ overview }) => {
-  const [genderCount, setGenderCount] = useState({ male: 0, female: 0 });
+const GenderChart = ({ items ={ male: 0, female: 0 ,total:0 } }) => {
+  const [genderCount, setGenderCount] = useState([]);
   const [status, setStatus] = useState('Active');
   const [total , setTotal] = useState(0);
 
@@ -27,7 +27,7 @@ const GenderChart = ({ overview }) => {
     },
     [ ]
 );
-fetchEmploees();
+
 
 
 
@@ -46,25 +46,31 @@ const countGenders = (employees) => {
 
 
   useEffect(() => {
-    const GenderData =overview && overview?.map((box) => (
-      box.assignedTo &&
-      box.assignedTo?.map((item) => (item.gender))
-    ));
+    // const GenderData =items && items?.map((box) => (
+    //   box.assignedTo &&
+    //   box.assignedTo?.map((item) => (item.gender))
+    // ));
 
-    const genders = GenderData && GenderData?.flat().map(gender => gender?.toLowerCase());
+    // const genders = GenderData && GenderData?.flat().map(gender => gender?.toLowerCase());
 
-    // Count the occurrences of "male" and "female"
-    const count = genders &&  genders.reduce((acc, gender) => {
-      if (gender === "male") {
-        acc.male += 1;
-      } else if (gender === "female") {
-        acc.female += 1;
-      }
-      return acc;
-    }, { male: 0, female: 0 });
+    // // Count the occurrences of "male" and "female"
+    // const count = genders &&  genders.reduce((acc, gender) => {
+    //   if (gender === "male") {
+    //     acc.male += 1;
+    //   } else if (gender === "female") {
+    //     acc.female += 1;
+    //   }
+    //   return acc;
+    // }, { male: 0, female: 0 });
 
+    // fetchEmploees();
     // setGenderCount(count);
-  }, [overview]);
+
+    setGenderCount([
+      { name: "Male", value: items.male   || 0},
+      { name: "Female", value: items.female  || 0},
+    ])
+  }, [items]);
 
   const data = [
     { name: "Male", value: total.male   ? total.male : ''},
@@ -97,7 +103,7 @@ const countGenders = (employees) => {
             { data ?
             <PieChart width={300} height={202}>
               <Pie
-                data={data}
+                data={genderCount}
                 dataKey="value"
                 cx="50%"
                 cy="50%"
@@ -105,7 +111,7 @@ const countGenders = (employees) => {
                 fill="#8884d8"
                 label
               >
-                {data.map((entry, index) => (
+                {genderCount.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={colors[index % colors.length]}
@@ -142,7 +148,7 @@ const countGenders = (employees) => {
             </div>
           </div>
           <div className="pl-4 text-[10px] md:text-[13px] md:font-[500] md:leading-[19.53px]">
-            Total: {total?.male + total?.female}
+            Total: {items.total}
           </div>
         </div>
       </Grid>
