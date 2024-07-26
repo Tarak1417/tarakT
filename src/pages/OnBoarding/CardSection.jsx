@@ -21,7 +21,10 @@ import {
   ToggleButtonGroup,
   ToggleButton,
 } from "@mui/material";
-
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
@@ -70,7 +73,7 @@ let CurrentPlan = [
 const CardSection = () => {
   // const classes = useStyles();
   // const { SnackBar, showMessage } = useSnack();
-  const [plan, setPlan] = React.useState("Current Plan");
+  const [plan, setPlan] = useState("Private"); // Initialize with a default plan
   const [name, setName] = useState("");
   const [zip, setZip] = useState(0);
   const [planData, setPlanData] = useState({ amount: 49, period: "mon" });
@@ -174,6 +177,19 @@ const CardSection = () => {
   };
   const handlePlanChange = (event, newPlan) => {
     setPlan(newPlan);
+    switch (newPlan) {
+      case "Private":
+        setPlanData({ amount: 49, period: "mon" });
+        break;
+      case "Business":
+        setPlanData({ amount: 149, period: "mon" });
+        break;
+      case "Enterprise":
+        setPlanData({ amount: 249, period: "mon" });
+        break;
+      default:
+        setPlanData({ amount: 99, period: "mon" });
+    }
   };
 
   const [cardNumberComplete, setCardNumberComplete] = useState(false);
@@ -206,6 +222,38 @@ const CardSection = () => {
     !cardNumberComplete ||
     !cardExpiryComplete ||
     !cardCvcComplete;
+
+
+
+    const [age, setAge] = useState('Private'); // Initialize with a default value
+
+    const handleSelectChange = (event) => {
+      setPlan(event.target.value);
+      console.log("plan" , plan)
+      switch (event.target.value) {
+        case "Private":
+          setPlanData({ amount: 49, period: "mon" });
+          break;
+        case "Business":
+          setPlanData({ amount: 149, period: "mon" });
+          break;
+        case "Enterprise":
+          setPlanData({ amount: 249, period: "mon" });
+          break;
+        default:
+          setPlanData({ amount: 49, period: "mon" });
+      }
+    };
+
+    const getBillingDate = () => {
+      const date = new Date();
+      date.setDate(date.getDate() + 7);
+      return date.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      });
+    };
 
   return (
     <Box
@@ -257,9 +305,25 @@ const CardSection = () => {
                 aria-label="Platform"
                 onChange={handlePlanChange}
               >
-                <ToggleButton className="py-3" value="Current Plan">
-                  Current{" "}
-                </ToggleButton>
+               
+             
+             <Box sx={{ minWidth: 120 , borderRadius:0 }}>
+             <FormControl fullWidth>
+                  <Select
+                    labelId="demo-customized-select-label"
+                    id="demo-customized-select"
+                    value={plan}
+                    onChange={handleSelectChange}
+                    style={{color:'gray' , border:'1px solid #e7e3e3' , borderRadius:'3px'}}
+                  >
+                    <MenuItem value="Private" style={{color:'gray'}}>PRIVATE</MenuItem>
+                    <MenuItem value="Business">BUSINESS</MenuItem>
+                    <MenuItem value="Enterprise">ENTERPRISE</MenuItem>
+                  </Select>
+                </FormControl>
+    </Box>
+
+
                 <ToggleButton className="py-3" value="Clikkle Plus">
                   clikkle Plus
                 </ToggleButton>
@@ -271,8 +335,8 @@ const CardSection = () => {
                 </Typography>
               </div>
               <Typography variant="body2" color="textSecondary" gutterBottom>
-                7 days free trial, then $
-                {plan == "Current Plan" ? planData.amount : "99"}/month
+              7 days free trial, then $
+              {planData.amount}/month
               </Typography>
               <Typography
                 variant="body1"
@@ -482,9 +546,9 @@ const CardSection = () => {
                       />
                     </ListItemIcon>
                     <ListItemText
-                      primary="DAY 7: FREE TRIAL ENDS"
-                      secondary= {`You will be billed for the Business monthly plan ($ ${plan == "Current Plan" ? planData.amount : "99"}/mo) on May 13. `}
-                    />
+                primary="DAY 7: FREE TRIAL ENDS"
+                secondary={`You will be billed for the ${plan} plan ($${planData.amount}/mo) on ${getBillingDate()}.`}
+              />
                   </ListItem>
                 </List>
               </Box>
