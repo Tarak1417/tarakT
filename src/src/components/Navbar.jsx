@@ -266,7 +266,7 @@ export default function Navbar(props) {
         clearCookie('setupCompleted');
 
         const redirectTo =
-            env('AUTHENTICATION_CLIENT') + '/login?redirectto=' + encodeURIComponent(env('DOMAIN'));
+            env('AUTHENTICATION_CLIENT') + '/logout?redirectto=' + encodeURIComponent(env('DOMAIN'));
         window.location.replace(redirectTo);
     };
 
