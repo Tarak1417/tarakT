@@ -70,15 +70,15 @@ const countGenders = (employees) => {
       { name: "Male", value: items.male   || 0},
       { name: "Female", value: items.female  || 0},
     ])
-  }, [items]);
+  }, []);
 
-  const data = [
-    { name: "Male", value: total.male   ? total.male : ''},
-    { name: "Female", value: total.male  ? total.male : ''},
-  ];
+  // const data = [
+  //   { name: "Male", value: total.male   ? total.male : ''},
+  //   { name: "Female", value: total.male  ? total.male : ''},
+  // ];
 
   const colors = ["#3b82f6", "#dc2626"];
-  const totalCount = data.reduce((acc, cur) => acc + cur.value, 0);
+  // const totalCount = data.reduce((acc, cur) => acc + cur.value, 0);
 
   return (
     <Box className="">
@@ -100,7 +100,7 @@ const countGenders = (employees) => {
               marginTop: "48px",
             }}
           >
-            { data ?
+            { genderCount ?
             <PieChart width={300} height={202}>
               <Pie
                 data={genderCount}
