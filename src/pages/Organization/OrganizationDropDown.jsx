@@ -63,7 +63,7 @@ const OrganizationDropDown = () => {
       if (data.success) {
         let tempData = data.data.filter((item) => item.status);
         setOrganization(tempData);
-        let currentOrg = sessionStorage.getItem("org");
+        let currentOrg = localStorage.getItem("org");
         if (currentOrg) {
           currentOrg = JSON.parse(currentOrg);
           setSelectedValue(currentOrg);
@@ -85,7 +85,7 @@ const OrganizationDropDown = () => {
         let data = response.data;
         if (data.success) {
           setCookie("orgToken", data.data);
-          sessionStorage.setItem("org", JSON.stringify(org));
+          localStorage.setItem("org", JSON.stringify(org));
           setSelectedValue(org);
           toggleListVisibility()
           triggerRefresh()

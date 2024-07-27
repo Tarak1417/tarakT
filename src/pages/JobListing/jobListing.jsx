@@ -69,7 +69,7 @@ const JobListing = () => {
     );
 
     useEffect(() => {
-        let currentOrg = sessionStorage.getItem("org");
+        let currentOrg = localStorage.getItem("org");
         currentOrg = JSON.parse(currentOrg);
         setOrg(currentOrg)
         fetchJobListing();

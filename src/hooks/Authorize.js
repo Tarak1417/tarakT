@@ -38,7 +38,7 @@ const AuthorizationProvider = ({ children }) => {
                 const response = await axios.post(`/user/subscription/check`, { userId: userId });
                 let data = response.data;
                 if (data.success) {
-                    sessionStorage.setItem("subscriptionId" ,data.subscriptionId)
+                    localStorage.setItem("subscriptionId" ,data.subscriptionId)
                     await checkOrganization();
                 } else {
                     navigate("/walkover");
@@ -50,7 +50,7 @@ const AuthorizationProvider = ({ children }) => {
     }
 
     const checkOrganization = async () => {
-        let selectedOrg = sessionStorage.getItem("org");
+        let selectedOrg = localStorage.getItem("org");
         if (selectedOrg) {
             try {
                 selectedOrg = JSON.parse(selectedOrg);
@@ -92,7 +92,7 @@ const AuthorizationProvider = ({ children }) => {
             }
         } catch (e) {
             navigate("/walkover");
-            localStorage.clear("user")
+            localStorage.removeItem("user")
         }finally{
             authorize(true, (setUser) => setUser(user));
         }

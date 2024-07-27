@@ -81,7 +81,7 @@ const ListOrganization = () => {
         let data = response.data;
         if (data.success) {
           setCookie("orgToken", data.data);
-          sessionStorage.setItem("org", JSON.stringify(org));
+          localStorage.setItem("org", JSON.stringify(org));
           setTimeout(() => {
             navigate("/");
           }, [1000]);
@@ -165,7 +165,7 @@ const ListOrganization = () => {
         <Divider sx={{ minWidth: 525 }} />
         <Box>
           {organizations.map((org, index) => (
-            <Grid container sx={{ p: 1, minWidth: 565 }}>
+            <Grid key={index} container sx={{ p: 1, minWidth: 565 }}>
               <Grid item xs={7} sm={8}  >
                 <div className="flex flex-row gap-2">
               <Avatar sx={{ width: 30, height: 30 , fontSize:12 }}>  <ServerImage src={org?.logo ?? ""} width='30' height='30' /></Avatar>

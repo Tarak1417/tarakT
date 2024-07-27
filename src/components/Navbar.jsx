@@ -318,8 +318,11 @@ export default function Navbar(props) {
 
     const signOut = () => {
         clearCookie('accessToken');
-        clearCookie('role');
-        clearCookie('setupCompleted');
+        localStorage.removeItem("subscriptionId");
+        localStorage.removeItem("org");
+        localStorage.removeItem("user")
+        // clearCookie('role');
+        // clearCookie('setupCompleted');
 
         const redirectTo =
             env('AUTHENTICATION_CLIENT') + '/login?redirectto=' + encodeURIComponent(env('DOMAIN'));

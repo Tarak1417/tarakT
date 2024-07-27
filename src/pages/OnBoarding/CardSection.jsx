@@ -149,7 +149,7 @@ const CardSection = () => {
 
           if (response.status === 200) {
             let data = response.data;
-            sessionStorage.setItem("subscriptionId" ,data.subscriptionId)
+            localStorage.setItem("subscriptionId" ,data.subscriptionId)
             setShowMessage({
               show: true,
               message: "Subscribe Successfully",
