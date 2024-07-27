@@ -210,9 +210,28 @@ const CardSection = () => {
 
   React.useEffect(() => {
     let tempPlanData = localStorage.getItem("planData");
+  
     if (tempPlanData) {
       tempPlanData = JSON.parse(tempPlanData);
+      console.log("tempPlanData " ,tempPlanData)
       setPlanData(tempPlanData);
+      switch (tempPlanData.amount) {
+        case 49:
+          setPlan("Private");
+          break;
+        case 149:
+          setPlan("Business");
+          break;
+        case 249:
+          setPlan("Enterprise");
+          break;
+        case 249:
+          setPlan("Clikkle Plus");
+          break;  
+        default:
+          break;
+
+      }
     }
   }, []);
 
@@ -316,12 +335,14 @@ const CardSection = () => {
                     onChange={handleSelectChange}
                     style={{color:'gray' , border:'1px solid #e7e3e3' , borderRadius:'3px'}}
                   >
-                    <MenuItem value="Private" style={{color:'gray'}}>PRIVATE</MenuItem>
+                    <MenuItem disabled value="Clikkle Plus">CURRENT PLAN </MenuItem>
+                    <MenuItem value="Private" >PRIVATE</MenuItem>
                     <MenuItem value="Business">BUSINESS</MenuItem>
                     <MenuItem value="Enterprise">ENTERPRISE</MenuItem>
+                   
                   </Select>
                 </FormControl>
-    </Box>
+                 </Box>
 
 
                 <ToggleButton className="py-3" value="Clikkle Plus">
