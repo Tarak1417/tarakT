@@ -74,9 +74,10 @@ const CardSection = () => {
   // const classes = useStyles();
   // const { SnackBar, showMessage } = useSnack();
   const [plan, setPlan] = useState("Private"); // Initialize with a default plan
+  const [alignment, setAlignment] = useState("mo"); //  an , mon  
   const [name, setName] = useState("");
   const [zip, setZip] = useState(0);
-  const [planData, setPlanData] = useState({ amount: 49, period: "mon" });
+  // const [planData, setPlanData] = useState({ amount: 49, period: "mon" });
   const [showMessage, setShowMessage] = useState({
     show: true,
     message: "",
@@ -144,7 +145,7 @@ const CardSection = () => {
             tokenId: token.id,
             card: token.card,
             plan: "private",
-            amount:planData.amount
+            amount: getPlanPrice(plan)
           });
 
           if (response.status === 200) {
@@ -172,24 +173,39 @@ const CardSection = () => {
       }
     }
   };
+
   const handleClose = (event) => {
     setShowMessage({ show: false, message: " ", severity: "" });
   };
+
   const handlePlanChange = (event, newPlan) => {
     setPlan(newPlan);
-    switch (newPlan) {
-      case "Private":
-        setPlanData({ amount: 49, period: "mon" });
-        break;
-      case "Business":
-        setPlanData({ amount: 149, period: "mon" });
-        break;
-      case "Enterprise":
-        setPlanData({ amount: 249, period: "mon" });
-        break;
-      default:
-        setPlanData({ amount: 99, period: "mon" });
-    }
+    // switch (newPlan) {
+    //   case "Private":
+    //     setPlanData({ amount: 49, period: "mon" });
+    //     break;
+    //   case "Business":
+    //     setPlanData({ amount: 149, period: "mon" });
+    //     break;
+    //   case "Enterprise":
+    //     setPlanData({ amount: 249, period: "mon" });
+    //     break;
+    //   default:
+    //     setPlanData({ amount: 99, period: "mon" });
+    // }
+  };
+
+  const handleChange = (event, newAlignment) => {
+    setAlignment(newAlignment);
+  };
+
+  const borderStyle = {
+    marginTop: "18px",
+    width: "18px",
+    height: "18px",
+    borderTop: "2px solid blue", // Adjust the color and width as needed
+    borderRight: "2px solid blue", // Adjust the color and width as needed
+    borderTopRightRadius: "50px",
   };
 
   const [cardNumberComplete, setCardNumberComplete] = useState(false);
@@ -210,27 +226,48 @@ const CardSection = () => {
 
   React.useEffect(() => {
     let tempPlanData = localStorage.getItem("planData");
-  
     if (tempPlanData) {
       tempPlanData = JSON.parse(tempPlanData);
       console.log("tempPlanData " ,tempPlanData)
-      setPlanData(tempPlanData);
-      switch (tempPlanData.amount) {
+      // setPlanData(tempPlanData);
+      let amount  =  Number(tempPlanData.amount) || 49
+      switch (amount) {
         case 49:
           setPlan("Private");
+          setAlignment("mo");
           break;
         case 149:
           setPlan("Business");
+          setAlignment("mo");
           break;
         case 249:
           setPlan("Enterprise");
+          setAlignment("mo");
           break;
-        case 249:
+        case 99:
           setPlan("Clikkle Plus");
-          break;  
-        default:
+          setAlignment("mo");
+          break; 
+        case 294:
+          setPlan("Private");
+          setAlignment("an");
           break;
-
+        case 894:
+          setPlan("Business");
+          setAlignment("an");
+          break;
+        case 1494:
+          setPlan("Enterprise");
+          setAlignment("an");
+          break;
+        case 594:
+          setPlan("Clikkle Plus");
+          setAlignment("an");
+          break;             
+        default:
+          setPlan("Private");
+          setAlignment("mo");          
+          break;
       }
     }
   }, []);
@@ -242,26 +279,22 @@ const CardSection = () => {
     !cardExpiryComplete ||
     !cardCvcComplete;
 
-
-
-    const [age, setAge] = useState('Private'); // Initialize with a default value
-
     const handleSelectChange = (event) => {
       setPlan(event.target.value);
       console.log("plan" , plan)
-      switch (event.target.value) {
-        case "Private":
-          setPlanData({ amount: 49, period: "mon" });
-          break;
-        case "Business":
-          setPlanData({ amount: 149, period: "mon" });
-          break;
-        case "Enterprise":
-          setPlanData({ amount: 249, period: "mon" });
-          break;
-        default:
-          setPlanData({ amount: 49, period: "mon" });
-      }
+      // switch (event.target.value) {
+      //   case "Private":
+      //     setPlanData({ amount: 49, period: "mon" });
+      //     break;
+      //   case "Business":
+      //     setPlanData({ amount: 149, period: "mon" });
+      //     break;
+      //   case "Enterprise":
+      //     setPlanData({ amount: 249, period: "mon" });
+      //     break;
+      //   default:
+      //     setPlanData({ amount: 49, period: "mon" });
+      // }
     };
 
     const getBillingDate = () => {
@@ -274,14 +307,31 @@ const CardSection = () => {
       });
     };
 
+
+  const getPlanPrice =(plan)=>{
+    let price = 49;
+    switch (plan) {
+      case "Private":
+        price = (alignment =="an") ? 294  : 49 ;
+        break;
+      case "Business":
+        price = (alignment =="an") ? 894  : 149 ;
+        break;
+      case "Enterprise":
+        price = (alignment =="an") ? 1494  : 249 ;
+        break;
+      case "Clikkle Plus":
+        price = (alignment =="an") ? 594  : 99 ;
+        break;
+      default:
+        price = (alignment =="an") ? 294  : 49 ;
+        break;
+    }
+    return price
+     }
+
   return (
-    <Box
-      sx={{
-        // display:"flex",
-        // justifyContent:"center",
-        margin: "2rem",
-      }}
-    >
+    <Box    >
       <Snackbar
         open={showMessage.show}
         autoHideDuration={4000}
@@ -297,14 +347,61 @@ const CardSection = () => {
           {showMessage.message}
         </Alert>
       </Snackbar>
-
+      <div className="flex flex-col justify-center  items-center my-2">
+      <div className="flex flex-row">
+        <div className="text-center m-2 text-blue-800">Save Up to 50%</div>
+        <div style={borderStyle}></div>
+      </div>
+      <ToggleButtonGroup
+        color="primary"
+        value={alignment}
+        exclusive
+        onChange={handleChange}
+        aria-label="Platform"
+      >
+        <ToggleButton
+          sx={{
+            px: {
+              xs: 2,
+              sm: 3,
+            },
+            fontSize: {
+              xs: 10,
+              sm: 14,
+            },
+            borderBottomLeftRadius: 50,
+            borderTopLeftRadius: 50,
+          }}
+          value="mo"
+        >
+          Bill Monthly
+        </ToggleButton>
+        <ToggleButton
+          sx={{
+            px: {
+              xs: 2,
+              sm: 3,
+            },
+            fontSize: {
+              xs: 10,
+              sm: 14,
+            },
+            borderBottomRightRadius: 50,
+            borderTopRightRadius: 50,
+          }}
+        
+          value="an"
+        >
+          Bill Annually
+        </ToggleButton>
+      </ToggleButtonGroup>
+      </div>
       <Grid
         container
         sx={{
           display: "flex",
           justifyContent: "center",
-
-          // margin:'2rem'
+          margin:'2rem'
         }}
       >
         {/* Card One */}
@@ -323,11 +420,9 @@ const CardSection = () => {
                 exclusive
                 aria-label="Platform"
                 onChange={handlePlanChange}
-              >
-               
-             
+              > 
              <Box sx={{ minWidth: 120 , borderRadius:0 }}>
-             <FormControl fullWidth>
+                <FormControl fullWidth>
                   <Select
                     labelId="demo-customized-select-label"
                     id="demo-customized-select"
@@ -342,9 +437,7 @@ const CardSection = () => {
                    
                   </Select>
                 </FormControl>
-                 </Box>
-
-
+              </Box>
                 <ToggleButton className="py-3" value="Clikkle Plus">
                   clikkle Plus
                 </ToggleButton>
@@ -357,7 +450,7 @@ const CardSection = () => {
               </div>
               <Typography variant="body2" color="textSecondary" gutterBottom>
               7 days free trial, then $
-              {planData.amount}/month
+              {getPlanPrice(plan)}/{alignment == "an" ? "Annually" :"Monthly"}
               </Typography>
               <Typography
                 variant="body1"
@@ -568,7 +661,7 @@ const CardSection = () => {
                     </ListItemIcon>
                     <ListItemText
                 primary="DAY 7: FREE TRIAL ENDS"
-                secondary={`You will be billed for the ${plan} plan ($${planData.amount}/mo) on ${getBillingDate()}.`}
+                secondary={`You will be billed for the ${plan} plan ($${getPlanPrice(plan)}/${alignment}) on ${getBillingDate()}.`}
               />
                   </ListItem>
                 </List>
