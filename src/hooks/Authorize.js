@@ -22,7 +22,7 @@ const AuthorizationProvider = ({ children }) => {
             const redirectTo =
                 env('AUTHENTICATION_CLIENT') +
                 '/login?redirectto=' +
-                encodeURIComponent(window.location.href);
+                encodeURIComponent(window.location.href)+'&&referrer='+window.location.href;
             setContent(
                 <Loading
                     message='Please wait, redirecting you to Clikkle Accounts'

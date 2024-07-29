@@ -139,12 +139,11 @@ const monthNames = ["January", "February", "March", "April", "May", "June", "Jul
 //     document.getElementById('day').value = parseInt(day);
 //     document.getElementById('year').value = parseInt(year);
 //   }, [monthIndex, day, year]);
-
   if (user == null) {
+    let url =  encodeURIComponent(window.location.href)
     const redirectTo =
       env("AUTHENTICATION_CLIENT") +
-      "/login?redirectto=" +
-      encodeURIComponent(window.location.href);
+      "/login?referrer="+window.location.href+"&&redirectto=" + url;
     return (
       <Loading
         message="Please wait, redirecting you to Clikkle Accounts"
