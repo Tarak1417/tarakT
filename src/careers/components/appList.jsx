@@ -7,6 +7,8 @@ import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
 import logo from './hivrrlogo.png';
 import { useLocation } from 'react-router-dom';
+import { Avatar, Tooltip } from '@mui/material';
+import { env } from '../../utilities/function';
 export const appList= [
   
   {
@@ -104,19 +106,51 @@ export const appList= [
   },
 ];
 
-const AppListToggler = ( {shouldRenderMenuIcon}) => {
+const AppListToggler = ( {shouldRenderMenuIcon , careerUser =null}) => {
+  const userName = (careerUser==null ) ? "U" : (careerUser?.firstName+ " "+careerUser?.lastName);
   const [anchorEl, setAnchorEl] = useState(null);
+  let url =  encodeURIComponent(window.location.href)
+  const redirectTo =
+    env("AUTHENTICATION_CLIENT") +
+    "/login?referrer="+url+"&&redirectto=" + url
+
   
   return (
     <div className='hidden sm:flex items-center gap-2'>
       {shouldRenderMenuIcon && <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
         <Apps />
       </IconButton> }
+      {careerUser == null ?
       <Button variant='contained'>
-          <Link to={"https://accounts.clikkle.com"}>
+          <Link to={redirectTo}>
            Sign In
           </Link>
-        </Button>
+        </Button>:
+        <>
+        
+        <Tooltip title={userName}>
+              <IconButton sx={{ p: 0 }}>
+                <Avatar
+                  alt={userName}
+                />
+              </IconButton>
+            </Tooltip>
+
+            <Typography
+              sx={{
+                display: { xs: "none", sm: "block" },
+                color: "text.secondary",
+                marginLeft: 1,
+                color: "#424242",
+              }}
+              textAlign="center"
+            >
+             {userName}
+            </Typography>
+        </>
+
+
+         }
 {
   shouldRenderMenuIcon && 
   <Popover

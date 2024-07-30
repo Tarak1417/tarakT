@@ -14,7 +14,7 @@ import AppListToggler from './appList';
 import { useTheme } from '../atoms/theme';
 import { getCookie } from '../../utilities/cookies';
 
-const Header = () => {
+const Header = ({careerUser}) => {
   const { theme  , toggleTheme} = useTheme();
   
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
@@ -67,7 +67,7 @@ const Header = () => {
           </IconButton>
           }
         <Brand shouldRenderMenuIcon={shouldRenderMenuIcon} orgName={orgName} />
-        <AppListToggler shouldRenderMenuIcon={shouldRenderMenuIcon} />  
+        <AppListToggler careerUser={careerUser} shouldRenderMenuIcon={shouldRenderMenuIcon} />  
         </Toolbar>
       </AppBar>
       <Divider />

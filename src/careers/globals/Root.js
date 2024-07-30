@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
@@ -165,7 +165,7 @@ const darkThemeConfig = {
   },
 };
 
-const RootContainer = ({ children }) => {
+const RootContainer = ({ children , careerUser ,setCareerUser }) => {
   const { theme } = useTheme();
 
   const muiTheme = useMemo(() => {
@@ -179,12 +179,54 @@ const RootContainer = ({ children }) => {
     });
   }, [theme]);
 
+   useEffect(()=>{
+      (async () => {
+        try {
+          const queryParameters = new URLSearchParams(window.location.search);
+          const userId = queryParameters.get("userId");
+          const refreshToken = queryParameters.get("refreshToken");
+          console.log(userId);
+  
+          if (userId) {
+            var formData = new FormData();
+            formData.append("id", userId);
+            const response = await fetch(
+              "https://accounts.clikkle.com:5000/api/auth/get_user_profile",
+              // "https://api.campaigns.clikkle.com/get_user_profile",
+              // "http://localhost:5000/api/auth/get_user_profile",
+              {
+                method: "POST",
+                body: formData,
+              }
+            );
+  
+            if (response.ok) {
+              console.log("user found ...");
+              const responseData = await response.json();
+              let { user } = responseData;
+              user.refreshToken = refreshToken;
+              console.log(user);
+              localStorage.setItem("careerUser", JSON.stringify(user));
+              setCareerUser(user);;
+            }
+          } else if (localStorage.getItem("careerUser")) {
+            let user = JSON.parse(localStorage.getItem("careerUser"));
+            setCareerUser(user);;
+          } 
+        } catch (err) {
+          console.log(err);
+          // handleAxiosError(err, showError);
+        }
+      })();
+
+   },[])
+
   return (
 
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
       <div className='sticky top-0 z-50'>
-        <Header />
+        <Header careerUser={careerUser} />
       </div>
       <div>{children}</div>
     </ThemeProvider>

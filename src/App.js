@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import "./utilities/axios";
 import Header from "./components/Header";
@@ -89,6 +89,7 @@ import Layout from "./Layout";
 
 const App = () => {
   const location = useLocation();
+  const [ careerUser , setCareerUser] =  useState(null);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -106,11 +107,11 @@ const App = () => {
   if (location.pathname.startsWith('/career')){
     return (
       <RecoilRoot>
-        <RootContainer>
+        <RootContainer careerUser={careerUser} setCareerUser={setCareerUser} >
            <Routes>
           <Route path='/career/:organization'>
           <Route index element={<CareerHome />} />
-          <Route path='apply-for-job/:id' element={<ApplyForJob />} />
+          <Route path='apply-for-job/:id' element={<ApplyForJob setCareerUser={setCareerUser} />} />
           <Route path='job/:id' element={<JobDetails />} />
           </Route>
           <Route path='/career/404' element={<ErrorPage />} />
