@@ -19,6 +19,7 @@ const [isLoading, setIsLoading] = useState({show:false , message :""});
 const jobId = useParams().id;
 const [job, setJob] = useState({});
 const [checkBox, setCheckBox] = useState(false);
+const [accessToken, setAccessToken] = useState("");
 const navigate = useNavigate();
 const location = useLocation();
 const [picture, setPicture] = useState('');
@@ -60,6 +61,7 @@ const monthNames = ["January", "February", "March", "April", "May", "June", "Jul
       let data = response.data;
       if (data.success) {
         setCookie("accessToken", data.token);
+        setAccessToken(data.token)
         if (jobId) fetchJob(jobId);
 
         const [year, month, day] = data.user?.dob?.split('-');
@@ -74,6 +76,7 @@ const monthNames = ["January", "February", "March", "April", "May", "June", "Jul
         setUser(null);
       }
     } catch (e) {
+    //   toast.error('Something went wrong please reload page');
       setUser(null);
     }
   };
@@ -210,7 +213,7 @@ const handlePhotoChange = (e) => {
 // };
 
 const onError = (err) => {
-    const { errors } = err.response?.data || { errors: [' You  already submitted your application. Please remain patient while its being reviewed for shortlisting'] };
+    const { errors } = err.response?.data || { errors: ['Something went wrong please try again some time later'] };
     errors.forEach((err) => toast.error(err));
 };
 
@@ -218,9 +221,14 @@ const handleSubmit = async (e) => {
     e.preventDefault();
   
      console.log("call the func")
+
+     if(accessToken ==""){
+        toast.error('Something went wrong please reload page');
+        return;
+     }
      
     if (!picture || !resume) {
-        toast('Please upload both a photo and a resume.');
+        toast.error(`Please upload   ${!picture ? " a photo" :""} , ${!resume ?  "a  resume" :""} .`);
         return;
     }
 
@@ -231,6 +239,8 @@ const handleSubmit = async (e) => {
     }
 
     setIsLoading({show:true , message :"Job application Submitting please wait"})
+
+    try {
     const formData = new FormData();
     formData.append('photo', picture); // Ensure 'photo' matches backend field name
     formData.append('resume', resume); // Ensure 'resume' matches backend field name
@@ -241,7 +251,17 @@ const handleSubmit = async (e) => {
     formData.append('phone', user?.phoneNumber);
 
 
-    try {
+    //  let  url =  env('SERVER')+"/user/job-application"
+
+    //   const response = await fetch(url, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Authorization': `Bearer ${accessToken}`,
+    //       },
+    //     body: formData,
+    //   });
+
+
         const res = await axios.post('/user/job-application', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -298,7 +318,7 @@ const handleUrlChange = (e) => {
                     <li>
                         <div className="flex items-center">
                             <svg className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                                <path stroke="currentColor" d="m1 9 4-4-4-4" />
                             </svg>
                             <span onClick={() => navigate(`/career/${organization}/job/${jobId}`)} className="ms-1 text-sm font-medium cursor-pointer text-blue-600 md:ms-2 px-1 dark:text-gray-400 dark:hover:text-white">{job?.title}</span>
                         </div>
@@ -306,7 +326,7 @@ const handleUrlChange = (e) => {
                     <li aria-current="page">
                         <div className="flex items-center">
                             <svg className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                                <path stroke="currentColor" d="m1 9 4-4-4-4" />
                             </svg>
                             <span className="ms-1 text-sm font-medium text-gray-500 px-1 md:ms-2 dark:text-gray-400">Apply</span>
                         </div>
@@ -329,10 +349,7 @@ const handleUrlChange = (e) => {
                 <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="lastName" >
                             Last Name
                         </label>
-                        <input 
-                                    value={user?.lastName}
-
-                        className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="lastName" name="lastName" type="text" placeholder="Enter Last Name" />
+                        <input value={user?.lastName}  className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="lastName" name="lastName" type="text" placeholder="Enter Last Name" />
                     </div>
                 </div>
 
@@ -341,10 +358,7 @@ const handleUrlChange = (e) => {
                         <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="email" >
                             Email
                         </label>
-                        <input 
-                                                value={user?.email}
-
-                        className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="email" name="email" type="email" placeholder="Enter Email" />
+                        <input value={user?.email} className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="email" name="email" type="email" placeholder="Enter Email" />
                     </div>
 
                     <div className="mb-4 w-full">
@@ -411,7 +425,7 @@ const handleUrlChange = (e) => {
                         <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="jobRole" >
                             Job Role
                         </label>
-                        <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="jobRole" type="text" value={job?.title ?? ""} disabled placeholder="Enter Job Role" required/>
+                        <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="jobRole"  name="jobRole" type="text" value={job?.title ?? ""} disabled placeholder="Enter Job Role" required/>
                     </div>
                 </div>
                 
@@ -440,16 +454,16 @@ const handleUrlChange = (e) => {
                     <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="experience" >
                         Years of Experience
                     </label>
-                    <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="experience" type="number" placeholder="Enter Whole Numbers Only"
+                    <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="experience"  name="experience" type="number" placeholder="Enter Whole Numbers Only"
                     onChange={(e)=>setExp(e.target.value)}
                     required/>
                 </div>
 
                 <div className="mb-2">
-                    <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="edSummary" >
+                    <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="address" >
                         Address
                     </label>
-                    <textarea className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="edSsummary" rows={5} placeholder="Enter Address" />
+                    <textarea className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="address" name="address" rows={5} placeholder="Enter Address" />
                 </div>
 
 
@@ -459,13 +473,13 @@ const handleUrlChange = (e) => {
                         <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="cityName" >
                             City Name
                         </label>
-                        <input className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="cityName" type="text" placeholder="Enter City Name" />
+                        <input className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="cityName" name="cityName" type="text" placeholder="Enter City Name" />
                     </div>
                     <div className="mb-4">
                         <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="postal" >
                             Postal Code
                         </label>
-                        <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="postal" type="text" placeholder="Enter Postal Code" />
+                        <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="postal" name="postal" type="text" placeholder="Enter Postal Code" />
                     </div>
                 </div> 
 
@@ -475,20 +489,20 @@ const handleUrlChange = (e) => {
                         <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="school" >
                             School
                         </label>
-                        <input className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="school" type="text" placeholder="Enter School Name" />
+                        <input className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="school" name="school" type="text" placeholder="Enter School Name" />
                     </div>
                     <div className="mb-4">
                         <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="fieldOfStudy" >
                             Field Of Study
                         </label>
-                        <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="fieldOfStudy" type="text" placeholder="Enter Field Of Study" />
+                        <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="fieldOfStudy" name="fieldOfStudy" type="text" placeholder="Enter Field Of Study" />
                     </div>
                 </div>
                 <div className="mb-2">
                     <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="edSummary" >
                         Summary
                     </label>
-                    <textarea className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="edSsummary" rows={5} placeholder="Summary" />
+                    <textarea className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="edSummary" name="edSummary" rows={5} placeholder="Summary" />
                 </div>
                 <div className="mb-5">
                     <button type="button" className="d-block bg-transparent text-sky-600 text-sm">Delete</button>
@@ -505,20 +519,20 @@ const handleUrlChange = (e) => {
                         <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="startDate" >
                             Start Date
                         </label>
-                        <input className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="startDate" type="date" />
+                        <input className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="startDate"  name="startDate" type="date" />
                     </div>
                     <div className="mb-4">
                         <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="endDate" >
                             End Date
                         </label>
-                        <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="endDate" type="date" />
+                        <input className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="endDate" name="endDate" type="date" />
                     </div>
                 </div>
                 <div className="mb-2">
                     <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="workSummary" >
                         Summary
                     </label>
-                    <textarea className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="workSsummary" rows={5} placeholder="Summary" />
+                    <textarea className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="workSummary" name="workSummary" rows={5} placeholder="Summary" />
                 </div>
                 <div className="mb-5">
                     <button type="button" className="d-block bg-transparent text-sky-600 text-sm">Delete</button>
@@ -531,26 +545,26 @@ const handleUrlChange = (e) => {
                 <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4 mb-6">Upload Documents</h1>
 
                 <div className="mb-4">
-                    <h3 className="mb-2 mr font-bold dark:text-white">Upload Picture</h3>
+                     <h3  className="mb-2 mr font-bold dark:text-white">Upload Picture</h3>  
                     <button type="button" onClick={()=>{handleButtonClick(resumeInputRef)}} className="bg-sky-600 rounded text-white px-6 py-3 mr-2">Upload Picture</button>
-                    <input type="file"  ref={resumeInputRef}  accept="*" className="hidden"  required  onChange={handlePhotoChange}/>
+                    <input type="file"   id="photo" name="photo" ref={resumeInputRef}  accept="*" className="hidden"    onChange={handlePhotoChange}/>
                 </div>
                 <div className="mb-4">
-                    <h3 className="mb-2 font-bold dark:text-white">Resume/CV</h3>
+                    <h3  className="mb-2  font-bold dark:text-white">Resume/CV</h3>
                     <button type="button"  onClick={()=>{handleButtonClick(photoInputRef)}} className="bg-sky-600 rounded text-white px-6 py-3 mr-2">Upload Resume/CV</button>
-                    <input type="file"  ref={photoInputRef}  className="hidden" accept="*"   onChange={handleResumeChange}   required/>
+                    <input type="file" name="resume" id="resume" ref={photoInputRef}  className="hidden" accept="*"   onChange={handleResumeChange}   />
                 </div>
                 <div className="mb-4">
-                    <h3 className="mb-2 font-bold dark:text-white">Cover Letter</h3>
+                    <h3 htmlFor="cover" className="mb-2 font-bold dark:text-white">Cover Letter</h3>
                     <button type="button"  onClick={()=>{handleButtonClick(cvInputRef)}} className="bg-sky-600 rounded text-white px-6 py-3">Upload Cover Letter</button>
-                    <input type="file"  ref={cvInputRef}  accept=".pdf, .docx, .txt" className="hidden" />
+                    <input type="file" id='cover' name="cover" ref={cvInputRef}  accept=".pdf, .docx, .txt" className="hidden" />
                 </div>
 
                 <div className="mb-8">
                     <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="coverLetter" >
                         Or type in box
                     </label>
-                    <textarea className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="coverLetter" rows={5} placeholder="Cover Letter" />
+                    <textarea className="shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="coverLetter" name="coverLetter" rows={5} placeholder="Cover Letter" />
                 </div>
 
                 <h1 className="text-2xl dark:text-zinc-200 font-bold mt-4 mb-6">Socials</h1>
@@ -558,7 +572,7 @@ const handleUrlChange = (e) => {
                 <label className="block text-black text-sm font-bold mb-4 dark:text-zinc-200" htmlFor="linkedin" >
                             Add the link to your Linkedin Profile
                         </label>
-                        <input className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="linkedin" type="text" placeholder="Enter Profile Link"
+                        <input className="shadow appearance-none border rounded-lg placeholder-gray-600 w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="linkedin" type="text" name="linkedin" placeholder="Enter Profile Link"
                         onChange={(e)=>setLinkdin(e.target.value)}
                         onBlur={handleUrlChange}
                         required />
