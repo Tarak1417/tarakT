@@ -37,7 +37,7 @@ const JobCards = ({ labels }) => {
   const fetchJobsApplication = useCallback(async () => {
     try {
       const response = await axios.get(
-        `/hr/job-application?searchBy=${filters.searchBy}&search=${filters.search}&sortBy=${filters.sortBy}&direction=${filters.direction}&page=${pageNo}&interviewSent=${filters.interviewSent}&interviewed=${filters.interviewed}&offerSent=${filters.offerSent}&offerSigned=${filters.offerSigned}&agreementSent=${filters.agreementSent}&agreementSigned=${filters.agreementSigned}&employed=${filters.employed}&terminated=${filters.terminated}`
+        `/hr/job-application?searchBy=${filters.searchBy}&searchText=${filters.search}&sortBy=${filters.sortBy}&direction=${filters.direction}&page=${pageNo}&interviewSent=${filters.interviewSent}&interviewed=${filters.interviewed}&offerSent=${filters.offerSent}&offerSigned=${filters.offerSigned}&agreementSent=${filters.agreementSent}&agreementSigned=${filters.agreementSigned}&employed=${filters.employed}&terminated=${filters.terminated}`
       );
       setJobApplications(response.data.applications);
       setPageLimit(response.data.pageData.totalPages);
