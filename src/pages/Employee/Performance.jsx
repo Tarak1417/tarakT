@@ -54,9 +54,9 @@ const ProgressBar = ({ percentage, color }) => {
 
 const PerformancePage = () => {
     const { id } = useParams();
-    console.log("id", id);
+    // console.log("id", id);
     const [employeeDetail, setEmployeeDetail] = useState(null);
-    const [showEdit, setShowEdit] = useState(false);
+    const [showEdit, setShowEdit] = useState(true);
 
     const fetchEmployeeDetails = useCallback(async () => {
         try {
