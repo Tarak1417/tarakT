@@ -55,10 +55,10 @@ const AttendViewPage = ({ month, year }) => {
 
             setOverView({
                 working :result.working,
-                leaves : getCount( "Leave",result.overview),
-                absent :0,
-                halfDays :getCount( "Half-Day",result.overview),
-                lateDays :getCount( "Late",result.overview) ,
+                leaves : result?.Leave ?? 0  ,
+                absent : 0,
+                halfDays :result?.["Half-Day"] ?? 0  ,
+                lateDays :result?.Late ?? 0   ,
                 holidays :result.holidays,
             })
 
@@ -236,12 +236,8 @@ const AttendViewPage = ({ month, year }) => {
                 <Box
                   sx={{ width :{ xs :'calc(100vw - 35px)'  , sm:'97%' }}} 
                     className=' md:ml-4 border border-zinc-500 overflow-x-auto md:overflow-x-hidden rounded-sm mt-10 h-[310px]'
-                   
-                >
-                    <Grid
-                        className='flex flex-row border-b border-zinc-500  min-w-[68rem]'
-                        
-                    >
+                  >
+                    <Grid className='flex flex-row border-b border-zinc-500  min-w-[68rem]' >
                         <div className='w-[50%] md:w-[18%] p-2 flex items-center border-r border-zinc-500 text-left text-sm md:text-[12px] font-bold'>
                             Emp ID
                         </div>
@@ -260,8 +256,7 @@ const AttendViewPage = ({ month, year }) => {
                         <div className='w-[25%] md:w-[6.2%] flex items-center p-2 border-r border-zinc-500 text-sm md:text-[12px] font-bold'>
                         Leave
                         </div>
-
-{/* 
+                    {/* 
                         <div className='w-[25%] md:w-[6.2%] p-2 flex items-center border-r border-zinc-500 text-sm md:text-[12px] font-bold'>
                             Status
                         </div> */}
@@ -270,10 +265,7 @@ const AttendViewPage = ({ month, year }) => {
                         </div>
                     </Grid>
                     {attendance?.map((item,index) => (
-                    <Grid
-                    key={index}
-                        className='flex flex-row border-b border-zinc-500  min-w-[68rem]'
-                    >
+                    <Grid  key={index} className='flex flex-row border-b border-zinc-500  min-w-[68rem]' >
                         <div className='w-[50%] md:w-[18%] p-2 border-r border-zinc-500 truncate flex items-center text-sm md:text-[12px] '>
                                 #{item.employeeData._id}
                             </div>

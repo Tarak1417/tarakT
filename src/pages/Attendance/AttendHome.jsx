@@ -100,6 +100,24 @@ const AttendHome = () => {
         },
         [query.month, query.year, query.employeeId]
     );
+    const fetchOverView = useCallback(async () => {
+        try {
+            const response = await axios.get(`/hr/attendance/overview/${query.employeeId}?year=${query.year}&month=${query.month}`);
+            const result = response.data;
+
+            setMetrics({
+                working :result.working,
+                leaves : result?.Leave ?? 0  ,
+                absent : 0,
+                halfDays :result?.["Half-Day"] ?? 0  ,
+                lateDays :result?.Late ?? 0   ,
+                holidays :result.holidays,
+            })
+
+        } catch (e) {
+            console.log(e);
+        }
+    }, [query.month, query.year, query.employeeId]);
 
     // const attendenceMetrics = useCallback(
     //     async function () {
@@ -134,6 +152,7 @@ const AttendHome = () => {
     useEffect(() => {
         if (query.employeeId) {
             fetchAttendence();
+            fetchOverView();
         }
     }, [query.employeeId, fetchAttendence]);
 
