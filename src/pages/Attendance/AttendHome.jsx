@@ -133,7 +133,7 @@ const AttendHome = () => {
     //     [query.month, query.year, query.employeeId]
     // );
 
-    console.log({ query });
+    // console.log({ query });
 
     useEffect(() => {
         fetchEmployees();
