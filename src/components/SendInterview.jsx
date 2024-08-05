@@ -111,7 +111,7 @@ import Calendar from "react-calendar";
 // };
 
 const SendInterview = props => {
-    const { closeModal, userId, refresh } = props;
+    const { closeModal, userId , jobId, refresh } = props;
     const { showError, showSuccess } = useMessage();
     const errorHandler = useErrorHandler();
 
@@ -119,6 +119,7 @@ const SendInterview = props => {
         useMemo(
             () => ({
                 userId: { final: v => userId },
+                jobId : {  final: v => jobId },
                 interviewTime: { required: true },
                 interviewDate: { required: true },
                 interviewPlatform: { required: true },

@@ -487,6 +487,7 @@ const JobApplicationDetail = () => {
       >
         <>
           <SendInterview
+            jobId={jobApplication.jobId}
             closeModal={closeSendInterview}
             userId={jobApplication.userId}
             refresh={fetchJobApplication}
