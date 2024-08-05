@@ -52,7 +52,7 @@ import LandingPage from "./pages/Support_System/LandingPages/LandingPage";
 import ActiveList from "./pages/Support_System/UserPage/Tikects/ActiveTicket";
 import CreateTicket from "./pages/Support_System/UserPage/Tikects/CreateTicket";
 import CloseTicket from "./pages/Support_System/UserPage/Tikects/CloseTickt";
-import Newchatpage from "./pages/Chat/Newchatpage";
+import chatPage from "./pages/Chat/Newchatpage";
 import AuthorizationProvider from "./hooks/Authorize";
 import ThemeContextProvider, { useTheme } from "./style/theme";
 import CreateOrganization from "./pages/Organization/CreateOrganization";
@@ -181,7 +181,6 @@ const App = () => {
           <Route path="docs" element={<Docs />} />
           <Route path="expenses" element={<ExpensesHome />} />
           <Route path="award" element={<Newawardpage />} />
-
           <Route path="holidays" element={<HolidayHome />} />
 
           <Route path="addpayroll" element={<AddPayrollHome />} />
@@ -221,7 +220,7 @@ const App = () => {
           <Route path="support/knowledgeview" element={<Knowledgeview />} />
           <Route path="memo" element={<Memo />} />
           <Route path="memoEdit" element={<MemoEdit />} />
-          <Route path="chat" element={<Newchatpage />} />
+          <Route path="chat" element={<chatPage />} />
 
           <Route path="generalsetting" element={<Generalsettinghome />} />
           <Route path="rollaccess" element={<Rollaccess />} />

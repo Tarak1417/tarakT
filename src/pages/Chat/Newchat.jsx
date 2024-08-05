@@ -1,7 +1,10 @@
 import { Box } from "@mui/material";
-import React from "react";
+import axios from "axios";
+import React, { useCallback, useEffect } from "react";
 
 const Newchat = ({ setSharedData }) => {
+  let page  = 1;
+  const [ chats , setChats] =  useState([])
   const userList = [
     {
       id: 1,
@@ -64,6 +67,28 @@ const Newchat = ({ setSharedData }) => {
       img: "https://images.unsplash.com/photo-1605993439219-9d09d2020fa5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHVzZXIlMjBwcm9maWxlfGVufDB8fDB8fHww",
     },
   ];
+
+ let img = "https://images.unsplash.com/photo-1605993439219-9d09d2020fa5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHVzZXIlMjBwcm9maWxlfGVufDB8fDB8fHww"
+
+  const fetchChatList  = useCallback(
+    async () => {
+        // setJobs(null);
+        try {
+            const response = await axios.get(
+                `/hr/message?page=${page}&limit=50`
+            );
+            const data = response.data;
+            setChats(data.contact)
+        } catch (e) {
+            console.warn(e);
+        }
+    },
+    [setJobs, pageNo]
+);
+
+useEffect(() => {
+  fetchChatList();
+}, [fetchChatList])
   const handleClick = (item) => {
     console.log("shared data from chat", item);
     setSharedData(item);
@@ -73,7 +98,7 @@ const Newchat = ({ setSharedData }) => {
     <Box >
       <div className=" md:h-[72vh] md:py-2 px-2 md:overflow-y-scroll overflow-hidden no-scrollbar">
         <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
-        {userList.map((item, index) => (
+        {chats.map((item, index) => (
           <div key={index}  >
             <div className="flex gap-4 items-center p-1 my-3">
               <div className="h-[31px] w-[31px] md:h-[40px]  md:w-[50px] relative">
@@ -86,14 +111,14 @@ const Newchat = ({ setSharedData }) => {
               </div>
               <div onClick={() => handleClick(item)} className="w-full font-bold">
                 <div className="flex  justify-between items-center">
-                  <div className="text-sm  md:text-xs ">{item.name}</div>
+                  <div className="text-sm  md:text-xs ">{item.firstName} {item.lastName}</div>
                   <div className="text-[#3A7EC1] text-xs md:text-[8px]">
                     Now
                   </div>
                 </div>
                 <div className="flex mt-1 justify-between items-center ">
                   <div className="line-clamp-1 text-xs text-[#434343] md:text-[9px]">
-                    {item.msg}
+                    {item.content}
                   </div>
                   <div className="bg-[#3A7EC1] text-[10px] md:px-[3.5px] md rounded-full md:text-[7px] px-[5px] ">
                     1
