@@ -66,4 +66,4 @@ function BaseImage(props) {
     return center ? <div style={{ textAlign: 'center' }}>{image}</div> : image;
 }
 
-export { Image, FetchImage, CdnImage, Images , ServerImage};
+export { Image, FetchImage, CdnImage, Images , BaseImage , ServerImage};

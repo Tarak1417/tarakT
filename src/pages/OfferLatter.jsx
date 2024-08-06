@@ -15,7 +15,7 @@ import {
     CircularProgress,
     Divider,
 } from '@mui/material';
-import { CdnImage, Images, ServerImage } from '../components/Images';
+import { CdnImage, Images,BaseImage, ServerImage } from '../components/Images';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
@@ -204,7 +204,7 @@ const Letter = () => {
                         </Box>
                     </Stack>
                     <Grid container spacing={3} mb={5}>
-                        <Grid item xs={4}>
+                        <Grid item xs={12} lg={4}>
                             <Box position='relative'>
                                 <Typography
                                     variant='subtitle1'
@@ -238,11 +238,11 @@ const Letter = () => {
                                     ))}
                             </Box>
                         </Grid>
-                        <Grid item xs>
-                            <img src={letter2}  style={{ height : '340px'}} />
-                            {/* <Images src='letter2.png' height='340' /> */}
+                        <Grid item xs sx={{ textAlign: 'center' }}>
+                            {/* <img src={letter2}  style={{ height : '340px'}} /> */}
+                            <BaseImage src={letter2} height='340' />
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item lg={4} xs={12} >
                             <Box>
                                 <Typography variant='h3' fontWeight='bold' lineHeight='0.7'>
                                     Job
@@ -269,12 +269,13 @@ const Letter = () => {
                         </Grid>
                     </Grid>
                     <Box
-                        sx={{ boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.1) ' }}
+                        sx={{ boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.1) ' ,
+                              px: { lg: 10, xs: 5 }, }}
                         display='flex'
                         alignItems='center'
                         flexDirection='column'
                         py={3}
-                        px={10}>
+                        >
                         <Typography variant='h5' fontWeight='800' color='primary.main' mb={2}>
                             Greetings {handlers.values.nameOfEmployee},
                         </Typography>
@@ -324,12 +325,14 @@ const Letter = () => {
                             }}>
                             Discover Your Skills
                         </Typography>
+                        <Box sx={{ mt: { xs: 3, lg: 0 } }}>
                         <Typography
                             variant='h2'
                             fontWeight='600'
                             textTransform='uppercase'
                             letterSpacing='2px'
-                            gutterBottom>
+                            gutterBottom 
+                            sx={{ fontSize: 'clamp(30px, 5vw, 60px)' }}>
                             Join Our
                         </Typography>
                         <Typography
@@ -339,15 +342,17 @@ const Letter = () => {
                             lineHeight='0.7'
                             letterSpacing='2px'
                             gutterBottom
-                            textTransform='uppercase'>
+                            textTransform='uppercase'
+                            sx={{ fontSize: 'clamp(30px, 5vw, 60px)' }}>
                             Growing
                         </Typography>
-                        <Typography variant='h2' fontWeight='600' textTransform='uppercase'>
+                        <Typography variant='h2' fontWeight='600' textTransform='uppercase'    sx={{ fontSize: 'clamp(40px, 5vw, 60px)' }} >
                             team
                         </Typography>
+                        </Box>
                     </Box>
                     <Grid container justifyContent='space-around' alignItems='center' pt={8}>
-                        <Grid item xs={5}>
+                        <Grid  item lg={5} xs={12}>
                             <Typography variant='h3' fontWeight='600' mb={1} display='inline-block'>
                                 About
                             </Typography>
@@ -376,8 +381,8 @@ const Letter = () => {
                                     textAlign: { lg: 'right', xs: 'center' },
                                     mt: { lg: 0, xs: 2 },
                                 }}>
-                              <img src={letter1}  style={{ height : '340px'}} />
-                            {/* <Images src='letter1.png' height='340' /> */}
+                              {/* <img src={letter1}  style={{ height : '340px'}} /> */}
+                            <BaseImage src={letter1} height='340' />
                         </Grid>
                     </Grid>
                     <Stack
@@ -387,7 +392,7 @@ const Letter = () => {
                         spacing={3}
                         pt={8}>
                         <Box>
-                            <Typography variant='h1' fontWeight='600' display='inline-block'>
+                            <Typography variant='h1' fontWeight='600' display='inline-block' sx={{ fontSize: 'clamp(40px, 5vw, 60px)' }} >
                                 MORE
                             </Typography>
                             <Typography
@@ -395,7 +400,8 @@ const Letter = () => {
                                 fontSize='40px'
                                 pl={1}
                                 letterSpacing='2px'
-                                display='inline-block'>
+                                display='inline-block'
+                                sx={{ fontSize: 'clamp(40px, 5vw, 60px)' }}>
                                 information.
                             </Typography>
                         </Box>
@@ -427,7 +433,7 @@ const Letter = () => {
                         </Box>
                     </Stack>
                     <Grid container justifyContent='space-between' py={8} columnSpacing={6}>
-                        <Grid item xs={4}>
+                        <Grid item lg={4} xs={12}>
                             <Typography variant='h4' fontWeight='600'>
                                 Reporting
                             </Typography>
@@ -445,7 +451,7 @@ const Letter = () => {
                                 . They will collaborate closely with {handlers.values.team}.
                             </Typography>
                         </Grid>
-                        <Grid item xs={4} textAlign='right'>
+                        <Grid item  lg={4}  xs={12} textAlign='right'  sx={{ mt: { lg: 0, xs: 4 } }}>
                             <Typography variant='h4' fontWeight='600'>
                                 Probationary
                             </Typography>
@@ -505,7 +511,7 @@ const Letter = () => {
                         </Typography>
                     </Box>
                     <Grid container justifyContent='space-between' py={8} columnSpacing={6}>
-                        <Grid item xs={5}>
+                        <Grid item  lg={5} xs={12}>
                             <Typography variant='h4' fontWeight='600' mb={2}>
                                 Benefits.
                             </Typography>
@@ -519,7 +525,8 @@ const Letter = () => {
                                 ))}
                             </List>
                         </Grid>
-                        <Grid item xs={5} textAlign='right'>
+                        <Grid item  lg={5}
+                                xs={12} textAlign='right'   sx={{ mt: { lg: 0, xs: 4 } }}>
                             <Typography variant='h4' fontWeight='600' mb={2}>
                                 Allowances.
                             </Typography>
@@ -588,7 +595,7 @@ const Letter = () => {
                         alignItems='center'
                         py={8}
                         columnSpacing={6}>
-                        <Grid item xs={4}>
+                        <Grid item lg={4} xs={12}>
                             <Typography variant='h4' fontWeight='600'>
                                 Vocation & Personal
                             </Typography>
@@ -621,7 +628,7 @@ const Letter = () => {
                                 circumstances
                             </Typography>
                         </Grid>
-                        <Grid item xs={4} textAlign='right'>
+                        <Grid item  lg={4}  xs={12} textAlign='right'  sx={{ mt: { lg: 0, xs: 4 } }} >
                             <Typography variant='h4' fontWeight='600'>
                                 Currency &
                             </Typography>
@@ -676,7 +683,7 @@ const Letter = () => {
                         alignItems='center'
                         py={8}
                         columnSpacing={6}>
-                        <Grid item xs={4}>
+                        <Grid item lg={4} xs={12}>
                             <Typography variant='h4' fontWeight='600'>
                                 Termination
                             </Typography>
@@ -730,7 +737,7 @@ const Letter = () => {
                                 </ListItem>
                             </List>
                         </Grid>
-                        <Grid item xs={4} textAlign='right'>
+                        <Grid item   lg={4}  xs={12} textAlign='right'  sx={{ mt: { lg: 0, xs: 4 } }}>
                             <Typography variant='h4' fontWeight='600'>
                                 Confidentiality of Information and Ownership of
                             </Typography>
@@ -753,7 +760,7 @@ const Letter = () => {
                         </Grid>
                     </Grid>
                     <Box
-                        mx={15}
+                        sx={{ mx: { lg: 8, xs: 0 } }}
                         my={2}
                         border='1px solid'
                         borderColor='common'
@@ -779,7 +786,11 @@ const Letter = () => {
                         </Typography>
                     </Box>
                     <Grid container justifyContent='space-between' mt={8}>
-                        <Grid item xs={4}>
+                        <Grid item  lg={4}
+                                xs={12}
+                                sx={{
+                                    borderColor: 'common',
+                                }}>
                             <Grid container alignItems='center' sx={{ mb: 4 }}>
                                 <Grid item xs>
                                     <TextField
@@ -808,8 +819,10 @@ const Letter = () => {
                         </Grid>
                         <Grid
                             item
-                            xs={4}
+                            lg={4}
+                            xs={12}
                             sx={{
+                                mt: { lg: 0, xs: 5 },
                                 borderColor: 'common',
                             }}>
                             <Grid container alignItems='center' sx={{ mb: 4 }}>
