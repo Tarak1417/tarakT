@@ -128,9 +128,9 @@ const AttendPage = ( {metrics =  {
                             <h1 className="text-xs md:text-2xl text-neutral-500">Attendance By User</h1>
                         </div>
                         <div className="flex flex-row items-center justify-center gap-4">
-                            <button className='flex  items-center text-white font-bold text-[8px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                            {/* <button className='flex  items-center text-white font-bold text-[8px] md:text-[12px] py-1 md:py-1 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
                                 Mark Attendance
-                            </button>
+                            </button> */}
                             <InfoOutlinedIcon />
                         </div>
                     </div>
@@ -138,7 +138,7 @@ const AttendPage = ( {metrics =  {
             <Box className="w-full ml-2 md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
                 <div className='flex flex-col md:flex-row items-center justify-center gap-14 md:w-full'>
                     <div className='flex flex-col justify-center items-center gap-2'>
-                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-neutral-800 text-[16px] text-blue-700'>31</div>
+                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-neutral-800 text-[16px] text-blue-700'>{metrics.working}</div>
                         <p className='text-[16px] text-gray-400'>Total Working Days</p>
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2'>
@@ -146,19 +146,19 @@ const AttendPage = ( {metrics =  {
                         <p className='text-[16px] text-gray-400'>Present Days</p>
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2'>
-                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-amber-950 text-[16px] text-amber-500'>{metrics.Absent}</div>
+                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-amber-950 text-[16px] text-amber-500'>{metrics?.absent ?? 0}</div>
                         <p className='text-[16px] text-gray-400'>Absent Days</p>
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2'>
-                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-teal-950 text-[16px] text-teal-500'>{metrics.Holiday}</div>
+                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-teal-950 text-[16px] text-teal-500'>{metrics.halfDays ?? 0}</div>
                         <p className='text-[16px] text-gray-400'>Half Days</p>
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2'>
-                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-red-950 text-[16px] text-red-500'>{metrics.Late}</div>
+                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-red-950 text-[16px] text-red-500'>{metrics.lateDays}</div>
                         <p className='text-[16px] text-gray-400'>Late Days</p>
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2'>
-                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-orange-950 text-[16px] text-orange-500'>6</div>
+                        <div className='w-[40px] h-[40px] flex justify-center items-center rounded-lg bg-orange-950 text-[16px] text-orange-500'>{metrics.holidays ?? 0}</div>
                         <p className='text-[16px] text-gray-400'>Holidays</p>
                     </div>
                 </div>

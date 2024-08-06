@@ -1,19 +1,31 @@
 // Layout.js
 import React from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 
 const Layout = () => {
     const location = useLocation();
+    const navigate = useNavigate();
+    let subscriptionId = localStorage.getItem("subscriptionId");
+    let path = location.pathname
     const hideHeaderPaths = [
         "/walkover",
         "/checkout",
         "/createOrganization",
         "/listOrganization",
     ]; // Add the paths where you want to hide the header
-    let shouldHideHeader = hideHeaderPaths.includes(location.pathname);
+    let shouldHideHeader = hideHeaderPaths.includes(path);
 
-    console.log("shouldHideHeader" ,shouldHideHeader)
+    if(shouldHideHeader){
+        if(subscriptionId && (path ==="/walkover" ||path=== "/checkout" )){
+            navigate("/listOrganization")
+        }
+    }else{
+        if(!subscriptionId){
+            navigate("/walkover")
+        }
+    }
+    // console.log("shouldHideHeader" ,shouldHideHeader)
 
     return (
 

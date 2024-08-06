@@ -92,7 +92,9 @@ const AuthorizationProvider = ({ children }) => {
             }
         } catch (e) {
             navigate("/walkover");
-            localStorage.removeItem("user")
+            localStorage.removeItem("user");
+            localStorage.removeItem("subscriptionId");
+            localStorage.removeItem("org");
         }finally{
             authorize(true, (setUser) => setUser(user));
         }
