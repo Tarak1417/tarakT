@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Box } from "@mui/material";
 import axios from "axios";
@@ -75,16 +75,16 @@ const Newcontact = ({ setSharedData }) => {
     async () => {
         // setJobs(null);
         try {
-            const response = await axios.get(
-                `/hr/message/contact?page=${page}&limit=50`
-            );
-            const data = response.data;
-            setContacts(data.contact)
+            // const response = await axios.get(
+            //     `/hr/message/contact?page=${page}&limit=50`
+            // );
+            // const data = response.data;
+            // setContacts(data.contact)
         } catch (e) {
             console.warn(e);
         }
     },
-    [setJobs, pageNo]
+    []
 );
 
 useEffect(() => {

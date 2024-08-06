@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import axios from "axios";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 
 const Newchat = ({ setSharedData }) => {
   let page  = 1;
@@ -74,16 +74,16 @@ const Newchat = ({ setSharedData }) => {
     async () => {
         // setJobs(null);
         try {
-            const response = await axios.get(
-                `/hr/message?page=${page}&limit=50`
-            );
-            const data = response.data;
-            setChats(data.contact)
+            // const response = await axios.get(
+            //     `/hr/message?page=${page}&limit=50`
+            // );
+            // const data = response.data;
+            // setChats(data.contact)
         } catch (e) {
             console.warn(e);
         }
     },
-    [setJobs, pageNo]
+    [chats]
 );
 
 useEffect(() => {
