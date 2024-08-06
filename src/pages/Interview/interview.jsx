@@ -70,6 +70,11 @@ const Interview = () => {
         setSelectedQuestion({ id, action: 'edit' });
     };
 
+    const copyQuestion=id=>{
+        openModal();
+        setSelectedQuestion({ id, action: '' });
+    }
+
     const saveOrder = async () => {
         setLoading(true);
         const newOrder = getOrders(questions);
@@ -183,6 +188,7 @@ const Interview = () => {
                                               refresh={fetchInterviewQuestions}
                                               id={question.jobId}
                                               editQuestion={editQuestion}
+                                              copyQuestion={copyQuestion}
                                           />
                                       </div>
                                   )}

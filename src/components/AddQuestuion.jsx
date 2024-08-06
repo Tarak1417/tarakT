@@ -18,6 +18,7 @@ import { useMessage } from './Header';
 import { Form, Submit, useForm } from '../hooks/useForm/useForm';
 import Loading from './Loading';
 import { SelectWithSearch } from './SelectSearch';
+import useErrorHandler from '../hooks/useErrorHandler';
 
 function AddQuestion({ handleClose, selectedQuestion, refresh, setSelectedQuestion }) {
     const { id = null, action = null } = selectedQuestion;
@@ -26,7 +27,7 @@ function AddQuestion({ handleClose, selectedQuestion, refresh, setSelectedQuesti
     ]);
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(Boolean(id));
-
+    const errorHandler = useErrorHandler();
     const { showError, showSuccess } = useMessage();
     // console.log('Add Question');
     // const TextField = (props) => {
@@ -195,7 +196,7 @@ function AddQuestion({ handleClose, selectedQuestion, refresh, setSelectedQuesti
                             })}
                             action={'/hr/question'}
                             method={action === 'edit' ? 'patch' : 'post'}
-                            onError={onError}>
+                            onError={errorHandler}>
                             <Box mt={2}>
                                 <FormControl fullWidth size='small' disabled={action === 'edit'}>
                                     <SelectWithSearch

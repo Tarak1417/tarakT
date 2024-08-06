@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import axios from 'axios';
 import Pending from '@mui/icons-material/Pending';
 import { useMessage } from './Header';
@@ -11,7 +12,7 @@ import Details from './Details';
 
 
 const QuestionCard = props => {
-    const { title, questions, id, refresh, editQuestion } = props;
+    const { title, questions, id, refresh, editQuestion , copyQuestion } = props;
     const [accordionOpen, setAccordionOpen] = useState(false);
     const [open, setOpen] = React.useState(false);
     const [deleting, setDeleting] = useState(false);
@@ -76,11 +77,15 @@ const QuestionCard = props => {
                             endIcon={<ExpandMoreIcon />}>
                             show details
                         </Button>
-
-                        <IconButton onClick={() => editQuestion(id)}>
+                        <IconButton className='ml-[5px] mr-[5px]' style={{margin:'2px'}}>
+                          <ContentCopyIcon fontSize='small'   onClick={() => copyQuestion(id)} />   
+                        </IconButton>
+                        <IconButton onClick={() => editQuestion(id)} className='ml-[5px] mr-[5px]' style={{margin:'2px'}}>
                             <EditIcon fontSize='small' />
                         </IconButton>
-                        <IconButton onClick={() => deleteCategory(id)}>
+
+                       
+                        <IconButton onClick={() => deleteCategory(id)} className='ml-[5px] mr-[5px]' style={{margin:'2px'}}>
                             {deleting ? (
                                 <Pending fontSize='small' />
                             ) : (
