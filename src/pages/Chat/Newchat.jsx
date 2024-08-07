@@ -86,7 +86,7 @@ const Newchat = ({ setSharedData }) => {
             console.warn(e);
         }
     },
-    [chats]
+    []
 );
 
 useEffect(() => {
@@ -112,7 +112,7 @@ useEffect(() => {
                 />
                 <p className="h-[7px]  w-[7px]  bg-blue-500 border p-[2px] md:right-[1px] md:bottom-[3px] rounded-full absolute bottom-[4px] right-[-1px]"></p>
               </div>
-              <div onClick={() => handleClick(item)} className="w-full font-bold">
+              <div onClick={() => handleClick(item.receiver)} className="w-full font-bold">
                 <div className="flex  justify-between items-center">
                   <div className="text-sm  md:text-xs ">{item?.receiver?.firstName} {item?.receiver?.lastName}</div>
                   <div className="text-[#3A7EC1] text-xs md:text-[8px]">

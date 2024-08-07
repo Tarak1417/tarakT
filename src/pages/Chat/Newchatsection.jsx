@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import CallIcon from "@mui/icons-material/Call";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -9,14 +9,37 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import SendIcon from "@mui/icons-material/Send";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import axios from "axios";
 const Newchatsection = ({ sharedData, setSharedData }) => {
   const { mode } = useTheme();
+  const [ chats  , setChats] =  useState([])
+  let page = 1;
   console.log("SharedData from newschatsection", sharedData);
+
+  const fetchChatList  = useCallback(
+    async () => {
+        // setJobs(null);
+        try {
+            const response = await axios.get(
+                `/hr/message/details?receiver=${sharedData._id}&page=${page}&limit=0`
+            );
+            const data = response.data;
+            setChats(data.messages)
+        } catch (e) {
+            console.warn(e);
+        }
+    },
+    [sharedData]
+);
+
+useEffect(() => {
+  fetchChatList();
+}, [fetchChatList]);
 
   let img = "https://images.unsplash.com/photo-1605993439219-9d09d2020fa5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHVzZXIlMjBwcm9maWxlfGVufDB8fDB8fHww";
 
 
-  let  chats  =  [ { 
+  let  chatsOld  =  [ { 
     type :"receiver",
     message :`Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et
     temporibus ipsam corrupti? Consequuntur eveniet excepturi, iste,
@@ -89,7 +112,7 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
             </div>
             <div className="font-bold">
               <div className="text-base ">
-                {sharedData.name ? sharedData.name : "Shakira"}
+                {sharedData.firstName ? sharedData.firstName  : "N/a"}{" "} {sharedData.lastName && sharedData.lastName}
               </div>
               <p className=" text-[#BDBDBD] text-xs md:text-[11px]">Active</p>
             </div>
@@ -126,8 +149,8 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
             
             <div key={index} className="  md:text-xs
             text-sm font-bold">
-              {(chat.type == "receiver") ? 
-               <div className="flex flex-row w-full mt-[25px] justify-between">
+              {(chat.sender == sharedData._id) ? 
+               <div className="flex flex-row w-full mt-[25px] justify-start">
                <div>
                  <div className="h-[32px] w-[32px] md:h-[40px]  md:w-[50px]">
                    <img
@@ -143,21 +166,20 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
                      mode === "dark" ? "bg-[#1E1E1E]" : "border-2 bg-[#EEEEEE]"
                    }  p-[12px] rounded-t-[12px]  rounded-br-[12px]  md:leading-[17px]`}
                  >
-                 {chat.message}
+                 {chat.content}
                  </div>
                  <p className="mt-1    text-[#434343]">9:30pm</p>
                </div>
-             </div>
-              
+             </div>  
               : 
-              <div className="flex flex-row w-full mt-[25px] justify-between">
+              <div className="flex flex-row w-full mt-[25px] justify-end">
               <div className="text-right px-3.5">
                 <div
                   className={`${
                     mode === "dark" ? "bg-[#3C95D0]" :"bg-[#51A0D5]"
                   }  p-[12px] rounded-t-[12px] rounded-bl-[12px]  md:leading-[17px]`}
                 >
-                   {chat.message}
+                   {chat.content}
                 </div>
                 <p className="mt-1   text-[#434343]">9:30pm</p>
               </div>
@@ -175,7 +197,6 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
           ))}
         </Box>
         <Box  sx={{backgroundColor : "background.input"}} className="flex items-center justify-between px-4 mb-5 mt-3 rounded-[8px]">       
-       
           <div className="text-[12px] py-4  md:py-2 flex w-full mr-4">
             <AddCircleIcon color={"#626262"} sx={{ fontSize: "26px", marginRight: "16px" , color :"#626262" }} />{" "}
             <input
