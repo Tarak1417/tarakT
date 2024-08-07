@@ -68,17 +68,20 @@ const Newchat = ({ setSharedData }) => {
     },
   ];
 
- let img = "https://images.unsplash.com/photo-1605993439219-9d09d2020fa5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHVzZXIlMjBwcm9maWxlfGVufDB8fDB8fHww"
+ let imgUrl = "https://images.unsplash.com/photo-1605993439219-9d09d2020fa5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHVzZXIlMjBwcm9maWxlfGVufDB8fDB8fHww"
 
   const fetchChatList  = useCallback(
     async () => {
         // setJobs(null);
         try {
-            // const response = await axios.get(
-            //     `/hr/message?page=${page}&limit=50`
-            // );
-            // const data = response.data;
-            // setChats(data.contact)
+            const response = await axios.get(
+                `/hr/message?page=${page}&limit=50`
+            );
+            const data = response.data;
+            if(data.success){
+              setChats(data.messages)
+            }
+           
         } catch (e) {
             console.warn(e);
         }
@@ -98,20 +101,20 @@ useEffect(() => {
     <Box >
       <div className=" md:h-[72vh] md:py-2 px-2 md:overflow-y-scroll overflow-hidden no-scrollbar">
         <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
-        {chats.map((item, index) => (
+        {chats?.map((item, index) => (
           <div key={index}  >
             <div className="flex gap-4 items-center p-1 my-3">
               <div className="h-[31px] w-[31px] md:h-[40px]  md:w-[50px] relative">
                 <img
                   className="w-full h-full rounded-full object-cover object-top"
-                  src={item.img}
+                  src={imgUrl}
                   alt=""
                 />
                 <p className="h-[7px]  w-[7px]  bg-blue-500 border p-[2px] md:right-[1px] md:bottom-[3px] rounded-full absolute bottom-[4px] right-[-1px]"></p>
               </div>
               <div onClick={() => handleClick(item)} className="w-full font-bold">
                 <div className="flex  justify-between items-center">
-                  <div className="text-sm  md:text-xs ">{item.firstName} {item.lastName}</div>
+                  <div className="text-sm  md:text-xs ">{item?.receiver?.firstName} {item?.receiver?.lastName}</div>
                   <div className="text-[#3A7EC1] text-xs md:text-[8px]">
                     Now
                   </div>
@@ -120,9 +123,10 @@ useEffect(() => {
                   <div className="line-clamp-1 text-xs text-[#434343] md:text-[9px]">
                     {item.content}
                   </div>
+                  {item.isViewed &&
                   <div className="bg-[#3A7EC1] text-[10px] md:px-[3.5px] md rounded-full md:text-[7px] px-[5px] ">
                     1
-                  </div>
+                  </div> }
                 </div>
               </div>
             </div>

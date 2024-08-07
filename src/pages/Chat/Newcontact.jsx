@@ -75,11 +75,11 @@ const Newcontact = ({ setSharedData }) => {
     async () => {
         // setJobs(null);
         try {
-            // const response = await axios.get(
-            //     `/hr/message/contact?page=${page}&limit=50`
-            // );
-            // const data = response.data;
-            // setContacts(data.contact)
+            const response = await axios.get(
+                `/hr/message/contact?page=${page}&limit=50`
+            );
+            const data = response.data;
+            setContacts(data.contact)
         } catch (e) {
             console.warn(e);
         }
