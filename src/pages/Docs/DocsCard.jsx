@@ -10,11 +10,12 @@ import useLoader from '../../hooks/useLoader';
 import useErrorHandler from '../../hooks/useErrorHandler';
 import axios from 'axios';
 import { useMessage } from '../../components/Header';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 // import CreateMemo from './CreateMemo';
 
 const DocsCard = props => {
-    const { title, content, joblistings, id, refresh, editDoc } = props;
+    const { title, content, joblistings, id, refresh, editDoc , copyDoc } = props;
     const [accordionOpen, setAccordionOpen] = useState(false);
     const { loaderState, start, end } = useLoader();
     const errorHandler = useErrorHandler();
@@ -80,10 +81,14 @@ const DocsCard = props => {
                             endIcon={<ExpandMoreIcon />}>
                             show details
                         </Button>
-
-                        <IconButton onClick={() => editDoc(id)}>
+                        <IconButton onClick={() => copyDoc(id)}>
+                            <ContentCopyIcon fontSize='small' 
+                            
+                            />
+                        </IconButton> 
+                         <IconButton onClick={() => editDoc(id)}>
                             <EditIcon fontSize='small' />
-                        </IconButton>
+                        </IconButton> 
                         <IconButton onClick={() => deleteDoc(id)}>
                             {loaderState ? (
                                 <Pending fontSize='small' />

@@ -1,8 +1,7 @@
 import { Box, Button, Grid, IconButton, Modal, Tooltip, Typography } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import axios from 'axios';
-import { useEffect } from 'react';
 import DocsCard from './DocsCard';
 import CreateDocs from './CreateDocs';
 import useModal from '../../hooks/useModal';
@@ -13,11 +12,11 @@ const Docs = () => {
     const { modalState, openModal, closeModal } = useModal();
     const errorHandler = useErrorHandler();
     const [doc, setDoc] = useState(null);
+    const [isCopying, setIsCopying] = useState(false); 
 
     const fetchDocs = useCallback(async () => {
         try {
             const response = await axios.get('/hr/docs');
-
             setDocs(response.data.docs);
         } catch (e) {
             errorHandler(e);
@@ -26,6 +25,13 @@ const Docs = () => {
 
     const editDoc = id => {
         setDoc(id);
+        setIsCopying(false); // Set to false for editing
+        openModal();
+    };
+
+    const copyDoc = id => {
+        setDoc(id);
+        setIsCopying(true); // Set to true for copying
         openModal();
     };
 
@@ -34,22 +40,22 @@ const Docs = () => {
     }, [fetchDocs]);
 
     return (
-        <Box  sx={{backgroundColor: 'background.main' , minHeight :"100vh"}} >
-            <Box sx={{ mt: 3 }} >
+        <Box sx={{ backgroundColor: 'background.main', minHeight: '100vh' }}>
+            <Box sx={{ mt: 3 }}>
                 <Grid container spacing={4} display='flex' alignItems='center'>
                     <Grid item xs>
-                    <div className="p-2 mx-3">
-                    <h1 className="text-2xl text-neutral-500"  >Docs</h1>
-                </div>
-                        {/* <Typography variant='h5'>Docs</Typography> */}
+                        <div className="p-2 mx-3">
+                            <h1 className="text-2xl text-neutral-500">Docs</h1>
+                        </div>
                     </Grid>
-           
+
                     <Grid item display='flex' alignItems='center'>
                         <Box>
                             <Button
                                 variant='contained'
                                 onClick={() => {
                                     setDoc(null);
+                                    setIsCopying(false); // Ensure creating a new doc
                                     openModal();
                                 }}>
                                 Create Docs
@@ -68,12 +74,14 @@ const Docs = () => {
             </Box>
             {docs?.map(doc => (
                 <DocsCard
+                    key={doc._id}
                     id={doc._id}
                     title={doc.title}
                     content={doc.content}
                     joblistings={doc.joblistings}
                     refresh={fetchDocs}
                     editDoc={editDoc}
+                    copyDoc={copyDoc}
                 />
             ))}
             <Modal
@@ -85,12 +93,15 @@ const Docs = () => {
                 }}
                 open={modalState}
                 onClose={closeModal}>
-                <>
-                    <CreateDocs closeModal={closeModal} refresh={fetchDocs} doc={doc} />
-                </>
+                <CreateDocs
+                    closeModal={closeModal}
+                    refresh={fetchDocs}
+                    doc={doc}
+                    isCopying={isCopying} 
+                />
             </Modal>
         </Box>
     );
 };
 
-export default Docs ;
+export default Docs;

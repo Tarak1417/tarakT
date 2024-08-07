@@ -15,10 +15,8 @@ import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './quill.css';
 import { Form, Submit, useForm } from '../../hooks/useForm';
-
 import { Input } from '../../hooks/useForm/inputs';
 import useErrorHandler from '../../hooks/useErrorHandler';
-
 import axios from 'axios';
 import Loading from '../../components/Loading';
 import { SelectWithSearch } from '../../components/Select';
@@ -34,6 +32,8 @@ const CreateDocs = props => {
     const errorHandler = useErrorHandler();
     const [jobListing, setJobListing] = useState({});
     const [saveListing, setSaveListing] = useState({});
+    const isEditing = Boolean(doc); 
+    const isCopying = props.isCopying; 
 
     Quill.register('modules/imageResize', ImageResize);
 
@@ -83,7 +83,7 @@ const CreateDocs = props => {
     const setValues = handlers.setValues;
     const errors = handlers.errors;
 
-    const onSubmit = res => {
+    const onSubmit = async res => {
         const { success, message } = res.data;
 
         if (!success) return showError(message);
@@ -100,6 +100,7 @@ const CreateDocs = props => {
 
     const fetchDoc = useCallback(
         async id => {
+            if (!id) return; // Early return if no id provided
             start();
             try {
                 const response = await axios.get(`/hr/docs/${id}`);
@@ -136,9 +137,7 @@ const CreateDocs = props => {
                 const body = response.data;
                 const { jobs } = body;
 
-                setJobListing({});
                 const format = {};
-
                 jobs.forEach(job => (format[job._id] = job.title));
 
                 setJobListing(format);
@@ -155,8 +154,8 @@ const CreateDocs = props => {
     }, [getJobListings]);
 
     useEffect(() => {
-        if (doc) fetchDoc(doc);
-    }, [doc, fetchDoc]);
+        if (isEditing && doc) fetchDoc(doc);
+    }, [doc, fetchDoc, isEditing]);
 
     return (
         <Card
@@ -173,7 +172,7 @@ const CreateDocs = props => {
             }}>
             <Stack direction='row' justifyContent='space-between' alignItems='center' mb={3}>
                 <Typography variant='h6' fontWeight={500}>
-                    {doc ? 'Edit' : 'Create'} Docs
+                    {isEditing ? (isCopying ? 'Create' : 'Edit') : 'Create'} Docs
                 </Typography>
 
                 <IconButton onClick={closeModal}>
@@ -182,15 +181,15 @@ const CreateDocs = props => {
             </Stack>
 
             {loaderState ? (
-                <Loading message='Please wait, while your Document are loading...' />
+                <Loading message='Please wait, while your Document is loading...' />
             ) : (
                 <Box pb={8}>
                     <Form
                         handlers={handlers}
                         onSubmit={onSubmit}
                         onError={errorHandler}
-                        action={doc ? `/hr/docs/${doc}` : '/hr/docs'}
-                        method={doc ? 'patch' : 'post'}
+                        action={isEditing ? (isCopying ? '/hr/docs' : `/hr/docs/${doc}`) : '/hr/docs'}
+                        method={isEditing ? (isCopying ? 'post' : 'patch') : 'post'}
                         final={values => ({
                             ...values,
                             content: text,
@@ -212,17 +211,15 @@ const CreateDocs = props => {
                             multiple
                             renderValue={selected => (
                                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                    {selected.map(value => {
-                                        return (
-                                            <Chip
-                                                key={value}
-                                                label={saveListing[value]}
-                                                size='small'
-                                                variant='outlined'
-                                                color='primary'
-                                            />
-                                        );
-                                    })}
+                                    {selected.map(value => (
+                                        <Chip
+                                            key={value}
+                                            label={saveListing[value]}
+                                            size='small'
+                                            variant='outlined'
+                                            color='primary'
+                                        />
+                                    ))}
                                 </Box>
                             )}
                             fullWidth
@@ -251,7 +248,7 @@ const CreateDocs = props => {
                                     disabled={loader || !text}
                                     endIcon={loader}
                                     sx={{ float: 'right', my: 4 }}>
-                                    {doc ? 'Done' : 'Create'}
+                                    {isEditing ? (isCopying ? 'Create' : 'Update') : 'Create'}
                                 </Button>
                             )}
                         </Submit>
