@@ -34,26 +34,26 @@ const Overview = () => {
     if(!applicationMetrics || applicationMetrics.length == 0) return count ;
 
     count += getNumber(applicationMetrics[0].employed) 
-    if(type = "employed") return count ;  
+    if(type == "employed") return count ;  
 
     count += getNumber(applicationMetrics[0].agreementSigned) 
-    if(type = "agreementSigned") return count ;  
+    if(type == "agreementSigned") return count ;  
 
     count += getNumber(applicationMetrics[0].agreementSent) 
-    if(type = "agreementSent") return count ;  
+    if(type == "agreementSent") return count ;  
 
     count += getNumber(applicationMetrics[0].offerSigned) 
-    if(type = "offerSigned") return count ;  
+    if(type == "offerSigned") return count ;  
 
     count += getNumber(applicationMetrics[0].offerSent) 
-    if(type = "offerSent") return count ;  
+    if(type == "offerSent") return count ;  
 
 
     count += getNumber(applicationMetrics[0].interviewed) 
-    if(type = "interviewed") return count ;  
+    if(type == "interviewed") return count ;  
 
     count += getNumber(applicationMetrics[0].interviewSent) 
-    if(type = "interviewSent") return count ;  
+    if(type == "interviewSent") return count ;  
 
   }
 
