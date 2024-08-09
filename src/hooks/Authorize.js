@@ -3,7 +3,7 @@ import Loading from '../components/Loading';
 import { env } from '../utilities/function';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { setCookie } from '../utilities/cookies';
+import { clearCookie, setCookie } from '../utilities/cookies';
 //import axios from 'axios';
 //import { useMessage } from '../components/Header';
 
@@ -14,6 +14,23 @@ const AuthorizationProvider = ({ children }) => {
     const [user, setUser] = useState({});
     const navigate = useNavigate();
     // const { showError } = useMessage();
+
+
+    const signOut = () => {
+        clearCookie('accessToken');
+        localStorage.removeItem("subscriptionId");
+        localStorage.removeItem("org");
+        localStorage.removeItem("user")
+        const redirectTo =
+            env('AUTHENTICATION_CLIENT') + '/logout?redirectto=' + encodeURIComponent(env('DOMAIN')) +'&&referrer='+encodeURIComponent(env('DOMAIN'));
+       
+        setContent(
+            <Loading
+                message='Some thing went worng please try again some time later'
+                redirectTo={redirectTo}
+            />
+        );
+    };
 
     const authorize = async (loggedIn, cb) => {
         if (loggedIn) {
@@ -86,19 +103,17 @@ const AuthorizationProvider = ({ children }) => {
             if (data.success) {
                 setCookie("accessToken", data.token);
                 await checkUserSubscription(user.id)
+                authorize(true, (setUser) => setUser(user));
             } else {
+                authorize(true, (setUser) => setUser(user));
                 navigate("/walkover");
-                
+                setTimeout(()=>{ signOut(); },[6000])  
             }
         } catch (e) {
-            navigate("/walkover");
-            localStorage.removeItem("user");
-            localStorage.removeItem("subscriptionId");
-            localStorage.removeItem("org");
-        }finally{
             authorize(true, (setUser) => setUser(user));
+            navigate("/walkover");
+            setTimeout(()=>{signOut() },[6000])
         }
-       
     }
 
     useEffect(() => {
