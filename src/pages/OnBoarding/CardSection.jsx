@@ -42,6 +42,7 @@ import {
 import axios from "axios";
 import useSnack from "../../hooks/useSnack";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../hooks/Authorize";
 // import TaskAltIcon from '@mui/icons-material/CheckCircleOutline';
 let ClikklePlan = [
   "All features in Current Plan",
@@ -73,6 +74,7 @@ let CurrentPlan = [
 const CardSection = () => {
   // const classes = useStyles();
   // const { SnackBar, showMessage } = useSnack();
+  const platformUser = useUser();
   const [plan, setPlan] = useState("Private"); // Initialize with a default plan
   const [alignment, setAlignment] = useState("mo"); //  an , mon  
   const [name, setName] = useState("");
@@ -140,7 +142,7 @@ const CardSection = () => {
         try {
           const response = await axios.post(`/user/subscription/subscribe`, {
             name,
-            email: "yogeshPawar123@gmail.com",
+            email: platformUser.recoveryEmail,
             paymentMethod: paymentMethod.id,
             tokenId: token.id,
             card: token.card,
