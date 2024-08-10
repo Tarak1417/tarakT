@@ -76,7 +76,7 @@ const Dashboard = () => {
           variant="body1"
           style={{ color: "#00FF00", fontSize: "1.2em" }}
         >
-          {overview && overview?.employees?.total}
+          {overview?.employees?.total || 0}
         </Typography>
       ),
       description: "124 for last month",
@@ -95,7 +95,7 @@ const Dashboard = () => {
           variant="body1"
           style={{ color: "#FF0000", fontSize: "1.2em" }}
         >
-          {overview && overview?.departments}
+          {overview?.departments  || 0}
         </Typography>
       ),
       description: "124 for last month,",
