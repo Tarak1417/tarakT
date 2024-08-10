@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 import Overview from "./Overview";
+import AddIcon from '@mui/icons-material/Add';
 import OverviewCards from "./JobCards";
 import { Box, Button, Grid, Modal, Pagination } from "@mui/material";
 import CreateLabel from "./CreateLebel";
@@ -44,9 +45,10 @@ useEffect(() => {
           </div>
           <div className="flex flex-row items-center justify-center gap-4">
             <Box>
-              <Button onClick={handleOpen} variant="contained">
-                Add Label
-              </Button>
+            <AddIcon color="#1976d2" sx={{color : "#1976d2" }} onClick={handleOpen} />
+              {/* <Button onClick={handleOpen} variant="contained">
+               +
+              </Button> */}
             </Box>
             <InfoOutlinedIcon />
           </div>
