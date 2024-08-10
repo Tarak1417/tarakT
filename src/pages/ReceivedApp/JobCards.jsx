@@ -9,6 +9,7 @@ import { useMessage } from "../../components/Header";
 import noRecord from "../../assets/initalScreen/recievedApplication.svg";
 import AddLabels from "./AddLabels";
 import Search from "../../components/Search";
+import Overview from "./Overview";
 
 const JobCards = ({ labels }) => {
   const [jobApplications, setJobApplications] = useState(null);
@@ -134,8 +135,20 @@ const handleCancelDelete = () => {
     );
   };
 
+  const selectFilters = filterName => {
+    setFilters(filterName, filters[filterName] ? '' : '1');
+};
+
   return (
     <>
+      <Box className="p-4 flex flex-col gap-4  rounded-lg"
+          sx={{ backgroundColor: "background.view" }}
+        >
+          <h1 className="text-sm md:text-lg text-zinc-400">
+            Job Application Overview
+          </h1>
+          <Overview filters={filters} selectFilters={selectFilters} />
+        </Box>
       <Box
         className="flex flex-col  md:flex-row gap-4 justify-between"
         sx={{ my: 5 }}

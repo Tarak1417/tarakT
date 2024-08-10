@@ -11,8 +11,20 @@ import icon8 from "./icons/8.png";
 import icon9 from "./icons/9.png";
 import { Box } from "@mui/material";
 
-const Overview = () => {
+const Overview = ({ filters, selectFilters }) => {
   const [applicationMetrics, setApplicationMetrics] = useState([]);
+
+  const {
+    interviewSent,
+    interviewed,
+    offerSigned,
+    offerSent,
+    agreementSent,
+    agreementSigned,
+    employed,
+    terminated,
+} = filters;
+
 
   const fetchMetrics = useCallback(async () => {
     try {
@@ -95,7 +107,8 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 gap-0 overflow-hidden"
-        sx={{ backgroundColor: "background.rec" }}
+        sx={{ backgroundColor: interviewSent ? "background.card" : "background.rec" }}
+        onClick={() => selectFilters('interviewSent')}
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
@@ -116,7 +129,8 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 gap-0 overflow-hidden"
-        sx={{ backgroundColor: "background.rec" }}
+        sx={{ backgroundColor: interviewed ? "background.card" : "background.rec" }}
+        onClick={() => selectFilters('interviewed')}
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
@@ -137,7 +151,8 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 gap-0 overflow-hidden"
-        sx={{ backgroundColor: "background.rec" }}
+        sx={{ backgroundColor: offerSent ? "background.card" : "background.rec" }}
+        onClick={() => selectFilters('offerSent')}
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
@@ -158,7 +173,8 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 gap-0 overflow-hidden"
-        sx={{ backgroundColor: "background.rec" }}
+        sx={{ backgroundColor: offerSigned ? "background.card" : "background.rec" }}
+        onClick={() => selectFilters('offerSigned')}
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
@@ -179,7 +195,8 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[13%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 overflow-hidden"
-        sx={{ backgroundColor: "background.rec" }}
+        sx={{ backgroundColor: agreementSent ? "background.card" : "background.rec" }}
+        onClick={() => selectFilters('agreementSent')}
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
@@ -200,7 +217,8 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 gap-0 overflow-hidden"
-        sx={{ backgroundColor: "background.rec" }}
+        sx={{ backgroundColor: agreementSigned ? "background.card" : "background.rec" }}
+        onClick={() => selectFilters('agreementSigned')}
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
@@ -221,7 +239,8 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 gap-0 overflow-hidden"
-        sx={{ backgroundColor: "background.rec" }}
+        sx={{ backgroundColor: employed ? "background.card" : "background.rec" }}
+        onClick={() => selectFilters('employed')}
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">
@@ -242,7 +261,8 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 gap-0 overflow-hidden"
-        sx={{ backgroundColor: "background.rec" }}
+        sx={{ backgroundColor: terminated ? "background.card" : "background.rec" }}
+        onClick={() => selectFilters('terminated')}
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">

@@ -51,15 +51,6 @@ useEffect(() => {
             <InfoOutlinedIcon />
           </div>
         </div>
-        <Box
-          className="p-4 flex flex-col gap-4  rounded-lg"
-          sx={{ backgroundColor: "background.view" }}
-        >
-          <h1 className="text-sm md:text-lg text-zinc-400">
-            Job Application Overview
-          </h1>
-          <Overview />
-        </Box>
         <OverviewCards labels={labels} />
         {/* <div className="flex items-center justify-between md:mx-4 pl-5 md:pl-0 pt-2">
           <div className="p-2 rounded-lg ">
