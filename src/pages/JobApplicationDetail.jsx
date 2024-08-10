@@ -237,7 +237,7 @@ const JobApplicationDetail = () => {
           <div className="w-full md:w-1/3 flex flex-col gap-2 p-4">
        
             <div className="flex justify-start md:justify-start">
-            {jobApplication && jobApplication.photo ? (
+                      {jobApplication && jobApplication.photo ? (
                             <Box maxWidth='130px'>
                               <ServerImage src={jobApplication.photo ?? ""}    alt="Profile"  className=" w-[50%] md:w-full max-w-[200px] h-[50%]"  />
                             </Box>
@@ -253,9 +253,12 @@ const JobApplicationDetail = () => {
               <p className="text-[10px] md:text-[16px]">
                 {jobApplication.jobTitle}
               </p>
-              <Button variant="contained" sx={{ mt: 2 }} onClick={openReset}>
-                Reset Application
-              </Button>{" "}
+              {jobApplication.step !== 4  &&  
+                 <Button variant="contained" sx={{ mt: 2 }} onClick={openReset}>
+                 Reset Application
+               </Button>
+              }
+              {" "}
             </div>
           </div>
           <div className="flex flex-col gap-4 md:gap-2 w-full md:w-2/3">

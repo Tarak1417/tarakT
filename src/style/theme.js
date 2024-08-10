@@ -44,6 +44,7 @@ const ThemeContextProvider = props => {
                 rec:'#fff',
                 bond:'#f8fafc',
                 card: "#fff",
+                active  : "#1976d2",
                 input : "#EEEEEE",
 
                 cardView: "#e3f2fd",
@@ -81,6 +82,7 @@ const ThemeContextProvider = props => {
                 bond:'#262626',
                 card: "#1976d2",
                 input : "#1E1E1E",
+                active  : "#1976d2",
 
                 cardView: "#171717",
                 activeTab: "#171717",

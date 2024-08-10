@@ -107,7 +107,7 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 gap-0 overflow-hidden"
-        sx={{ backgroundColor: interviewSent ? "background.card" : "background.rec" }}
+        sx={{ backgroundColor: interviewSent ? "background.active" : "background.rec" }}
         onClick={() => selectFilters('interviewSent')}
       >
         <div className="flex-shrink-0">
@@ -129,7 +129,7 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 gap-0 overflow-hidden"
-        sx={{ backgroundColor: interviewed ? "background.card" : "background.rec" }}
+        sx={{ backgroundColor: interviewed ? "background.active" : "background.rec" }}
         onClick={() => selectFilters('interviewed')}
       >
         <div className="flex-shrink-0">
@@ -151,7 +151,7 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 gap-0 overflow-hidden"
-        sx={{ backgroundColor: offerSent ? "background.card" : "background.rec" }}
+        sx={{ backgroundColor: offerSent ? "background.active" : "background.rec" }}
         onClick={() => selectFilters('offerSent')}
       >
         <div className="flex-shrink-0">
@@ -173,7 +173,7 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 gap-0 overflow-hidden"
-        sx={{ backgroundColor: offerSigned ? "background.card" : "background.rec" }}
+        sx={{ backgroundColor: offerSigned ? "background.active" : "background.rec" }}
         onClick={() => selectFilters('offerSigned')}
       >
         <div className="flex-shrink-0">
@@ -195,7 +195,7 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[13%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 overflow-hidden"
-        sx={{ backgroundColor: agreementSent ? "background.card" : "background.rec" }}
+        sx={{ backgroundColor: agreementSent ? "background.active" : "background.rec" }}
         onClick={() => selectFilters('agreementSent')}
       >
         <div className="flex-shrink-0">
@@ -217,7 +217,7 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 gap-0 overflow-hidden"
-        sx={{ backgroundColor: agreementSigned ? "background.card" : "background.rec" }}
+        sx={{ backgroundColor: agreementSigned ? "background.active" : "background.rec" }}
         onClick={() => selectFilters('agreementSigned')}
       >
         <div className="flex-shrink-0">
@@ -239,7 +239,7 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 gap-0 overflow-hidden"
-        sx={{ backgroundColor: employed ? "background.card" : "background.rec" }}
+        sx={{ backgroundColor: employed ? "background.active" : "background.rec" }}
         onClick={() => selectFilters('employed')}
       >
         <div className="flex-shrink-0">
@@ -261,7 +261,7 @@ function getNumber(value = 0){
 
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between bg-black rounded-lg p-2 gap-0 overflow-hidden"
-        sx={{ backgroundColor: terminated ? "background.card" : "background.rec" }}
+        sx={{ backgroundColor: terminated ? "background.active" : "background.rec" }}
         onClick={() => selectFilters('terminated')}
       >
         <div className="flex-shrink-0">
