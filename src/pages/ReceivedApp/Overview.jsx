@@ -11,7 +11,7 @@ import icon8 from "./icons/8.png";
 import icon9 from "./icons/9.png";
 import { Box } from "@mui/material";
 
-const Overview = ({ filters, selectFilters }) => {
+const Overview = ({ filters, selectFilters ,handleRest }) => {
   const [applicationMetrics, setApplicationMetrics] = useState([]);
 
   const {
@@ -87,6 +87,7 @@ function getNumber(value = 0){
       <Box
         className="w-full md:w-[12%] h-[40px] flex flex-row items-center justify-between rounded-lg p-2 gap-10 overflow-hidden"
         sx={{ backgroundColor: "background.rec" }}
+        onClick={handleRest}
       >
         <div className="flex-shrink-0">
           <h1 className="text-[10px]">

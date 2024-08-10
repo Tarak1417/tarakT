@@ -118,6 +118,20 @@ const handleConfirmDelete = () => {
       });
 };
 
+
+const handleRest =()=>{
+  setFilters("search" , "")
+  setFilters("interviewSent" , "")
+  setFilters("offerSent" , "")
+  setFilters("offerSigned" , "")
+  setFilters("agreementSent" , "")
+  setFilters("agreementSigned" , "")
+  setFilters("employed" , "")
+  setFilters("terminated" , "")
+
+}
+
+
 const handleCancelDelete = () => {
   setSelectedApplication({});
   setConfirmDeleteDialogOpen(false);
@@ -147,7 +161,7 @@ const handleCancelDelete = () => {
           <h1 className="text-sm md:text-lg text-zinc-400">
             Job Application Overview
           </h1>
-          <Overview filters={filters} selectFilters={selectFilters} />
+          <Overview filters={filters} handleRest={handleRest} selectFilters={selectFilters} />
         </Box>
       <Box
         className="flex flex-col  md:flex-row gap-4 justify-between"
@@ -180,13 +194,13 @@ const handleCancelDelete = () => {
                 sx={{ backgroundColor: "background.view" }}
               >
                 <div className="flex flex-row justify-between items-center">
-                  <h1 className="text-[12px]">{application.jobTitle}</h1>
+                  <h1 onClick={()=>{setFilters("search", application.jobTitle)}} className="text-[12px]">{application.jobTitle}</h1>
                   <p className="text-[8px] text-zinc-500">
                     {new Date(application.createdAt).toLocaleDateString()}
                   </p>
                 </div>
                 <div className="flex flex-row justify-start gap-2 mt-2 items-center">
-                  <p className="text-[10px] text-zinc-500">
+                  <p onClick={()=>{setFilters("search", application.fullName)}} className="text-[10px] text-zinc-500">
                     <PersonIcon fontSize="small" className="text-zinc-300" />{" "}
                     {application.fullName}
                   </p>
