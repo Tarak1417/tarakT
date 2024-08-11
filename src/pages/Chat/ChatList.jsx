@@ -98,9 +98,7 @@ useEffect(() => {
   };
 
   return (
-    <Box >
-      <div style={ { height : 'calc(100vh - 220px)'}} className="md:py-2 px-2 md:overflow-y-scroll overflow-hidden no-scrollbar">
-        <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
+    <>
         {chats?.map((item, index) => (
           <div key={index}  >
             <div className="flex gap-4 items-center p-1 my-3">
@@ -133,8 +131,8 @@ useEffect(() => {
             <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
           </div>
         ))}
-      </div>
-    </Box>
+
+    </>
   );
 };
 

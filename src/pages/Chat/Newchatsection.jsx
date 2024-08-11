@@ -16,7 +16,7 @@ import { env } from "../../utilities/function";
 // Connect to the server
 const socket = io(env('SERVER'));
 
-const ChatSection = ({ sharedData, setSharedData }) => {
+const ChatSection = ({ sharedData, closeModal }) => {
   const { mode } = useTheme();
   const [ chats  , setChats] =  useState([])
   const [userId, setUserId] = useState('1234564656545');
@@ -128,14 +128,14 @@ const ChatSection = ({ sharedData, setSharedData }) => {
 ] 
   return (
     <>
-      <div className={`overflow-hidden relative flex flex-col   mx-2   `}>
+      <div className={`overflow-hidden relative flex flex-col mx-2`}>
         <div className="flex md:border-b md:border-b-[#3F3F3F] my-4 md:my-0 md:mt-4 md:pb-2 md:pt-px justify-between items-center">
           <div className="flex md:mx-2 items-center gap-2.5 ">
             <div className="flex gap-4 items-center ">
               <div
                 className="md:hidden"
                 onClick={() => {
-                  setSharedData([]);
+                  closeModal();
                 }}
               >
                 <ArrowBackIosIcon sx={{ width: "22px", height: "22px" }} />
@@ -201,7 +201,7 @@ const ChatSection = ({ sharedData, setSharedData }) => {
                      mode === "dark" ? "bg-[#1E1E1E]" : "border-2 bg-[#EEEEEE]"
                    }  p-[12px] rounded-t-[12px]  rounded-br-[12px]  md:leading-[17px]`}
                  >
-                 {chat?.content}
+                 {chat?.message}
                  </div>
                  <p className="mt-1    text-[#434343]">9:30pm</p>
                </div>
@@ -214,7 +214,7 @@ const ChatSection = ({ sharedData, setSharedData }) => {
                     mode === "dark" ? "bg-[#3C95D0]" :"bg-[#51A0D5]"
                   }  p-[12px] rounded-t-[12px] rounded-bl-[12px]  md:leading-[17px]`}
                 >
-                   {chat?.content}
+                   {chat?.message}
                 </div>
                 <p className="mt-1   text-[#434343]">9:30pm</p>
               </div>
@@ -231,7 +231,7 @@ const ChatSection = ({ sharedData, setSharedData }) => {
             </div>
           ))}
         </Box>
-        <Box  sx={{backgroundColor : "background.input"}} className="flex items-center justify-between px-4 py-1 rounded-[8px]">       
+        <Box  sx={{backgroundColor : "background.input"}} className="flex items-center justify-between px-4  rounded-[8px]">       
           <div className="text-[12px] py-4  md:py-2 flex w-full mr-4">
             <AddCircleIcon color={"#626262"} sx={{ fontSize: "26px", marginRight: "16px" , color :"#626262" }} />{" "}
             <input
