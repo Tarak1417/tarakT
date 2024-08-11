@@ -136,8 +136,8 @@ const Dashboard = () => {
       xs :'95vw',
       sm :'100vw'
     } }}>
-      <div className="flex flex-col">
-        <div className="p-2">
+      <div className="flex flex-col sm:px-4 px-2 py-2">
+        <div className="">
           {/* <Typography variant="h5" className="text-gray-500" gutterBottom>
             HR DASHBOARD
           </Typography> */}
@@ -145,12 +145,12 @@ const Dashboard = () => {
                     {/* <Grid item xs>
                         <Typography className="text-gray-500" variant='h5'>HR Dashboard</Typography>
                     </Grid> */}
-                    <div className="p-2">
+                    <div className="">
           <h1 className="text-2xl text-neutral-500">HR Dashboard</h1>
         </div>
 
               <Clock />
-                </Grid>
+          </Grid>
           <div className="flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-3/4">
               <div className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
@@ -182,7 +182,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="w-full  flex flex-col md:flex-row p-2">
+        <div className="w-full  flex flex-col md:flex-row py-2">
           <div className="w-full md:w-1/3 mx-1 mb-2 md:mb-0">
             <Bars barsData={barsData} />
           </div>
@@ -193,7 +193,7 @@ const Dashboard = () => {
             <GenderChart items={  overview && overview?.employees} />
           </div>
         </div>
-        <div className="w-full  flex flex-col md:flex-row p-2">
+        <div className="w-full  flex flex-col md:flex-row py-2">
           <div className="w-full md:w-1/2 mx-1 mb-2 md:mb-0">
             <RecentJobs items={ overview && overview?.applications} />
           </div>

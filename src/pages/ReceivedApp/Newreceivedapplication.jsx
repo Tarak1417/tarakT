@@ -37,12 +37,10 @@ useEffect(() => {
 
 
   return (
-    <Box sx={{ backgroundColor: "background.main", minHeight: "100vh" }}>
-      <div className=" rounded-lg overscroll-auto overflow-hidden px-2  md:px-5 py-4">
-        <div className="flex items-center justify-between md:w-full py-4">
-          <div className="">
+    <Box sx={{ backgroundColor: "background.main" , px:2 , py:3 }} >
+      <div className=" rounded-lg">
+        <div className="flex items-center justify-between md:w-full  pb-2">
             <h1 className="text-2xl text-neutral-500">Received Applications</h1>
-          </div>
           <div className="flex flex-row items-center justify-center gap-4">
             <Box>
             <AddIcon color="#1976d2" sx={{color : "#1976d2" }} onClick={handleOpen} />

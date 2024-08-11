@@ -1,6 +1,6 @@
 // JobListing.jsx
 import React, { useCallback, useEffect, useState } from 'react';
-import { Button, IconButton, Modal, Skeleton } from '@mui/material';
+import { Button, IconButton, Modal, Pagination, Skeleton } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
@@ -174,12 +174,12 @@ const JobListing = () => {
     console.log(jobs)
     console.log(currentScreen)
     return (
-        <div className="flex flex-col gap-4 max-w-screen">
-            <div className="flex md:items-center items-start justify-between flex-col md:flex-row md:w-full md:px-4  py-4 px-2">
-                <div className="py-2 flex flex-row flex-wrap  gap-2">
+        <div className="flex flex-col gap-4 max-w-screen py-4 px-2 sm:px-4 " >
+            <div className="flex md:items-center items-start justify-between flex-row md:w-full py-1 ">
+                <div className=" flex flex-row flex-wrap  gap-2">
                     <h1 className="text-2xl text-neutral-500"  >Job Listing</h1>
-                    <a className="text-lg text-neutral-500  cursor-pointer" onClick={goToCareerPage} >hr.clikkle.com/career/{org.name} </a>
-                    <span onClick={handleCopy}> 
+                    <a className="hidden sm:block text-lg text-neutral-500  cursor-pointer" onClick={goToCareerPage} >hr.clikkle.com/career/{org.name} </a>
+                    <span className="hidden sm:block" onClick={handleCopy}> 
                     
                     <IconButton sx={{height:'20px' ,  width: '20px' }} >
                             <ContentCopyIcon  sx={{height:'17px'}} />
@@ -190,6 +190,13 @@ const JobListing = () => {
                     <InfoOutlinedIcon />
                 </div>
             </div>
+            <div className=" sm:hidden py-1 flex flex-row  gap-2 ">
+                    <a className="text-lg text-neutral-500 truncate cursor-pointer" onClick={goToCareerPage} >hr.clikkle.com/career/{org.name} </a>
+                    <span className="" onClick={handleCopy}> 
+                    <IconButton sx={{height:'20px' ,  width: '20px' }} >
+                            <ContentCopyIcon  sx={{height:'17px'}} />
+                        </IconButton>  </span>
+                </div>
 
             <div>
             {jobs && jobs?.length > 0  ?
@@ -258,13 +265,9 @@ const JobListing = () => {
             <div><p className='mb-[50px]'> You have not listed any availble job for application Click on add job now<br /> to start creating opportunites.</p></div>
             </div>
             }
-            <div className='flex items-center justify-between w-[80%] md:w-[92%] md:mx-4 pl-5 md:pl-0 pt-4 md:pt-10'>
-                <div className="p-2 rounded-lg ">
-                    <div className="flex items-center gap-0 md:gap-6">
-                        
-                    </div>
-                </div>
-                <Modal sx={{ overflowY: 'scroll' }} open={modalState} onClose={closeModal}>
+       
+            </div>
+            <Modal sx={{ overflowY: 'scroll' }} open={modalState} onClose={closeModal}>
                     <AddJobs
                         selectedJob={selectedJob}
                         setSelectedJob={setSelectedJob}
@@ -272,25 +275,16 @@ const JobListing = () => {
                         handleClose={closeModal}
                     />
                 </Modal>
-                <div className="flex flex-row gap-4">
-                    <KeyboardArrowLeftOutlinedIcon
-                        className="text-zinc-400 cursor-pointer"
-                        onClick={handlePrevScreen}
-                    />
-                    <p className="text-zinc-400">1</p>
-                    {currentScreen === 1 ? (
-                        <KeyboardArrowRightOutlinedIcon
-                            className="text-zinc-300 cursor-pointer"
-                            onClick={handleNextScreen}
-                        />
-                    ) : (
-                        <div className="bg-blue-500 w-[20px] h-[20px] flex items-center justify-center p-1 rounded-full">
-                            2
-                        </div>
-                    )}
-                </div>
-            </div> 
-            </div>
+            <div className='flex justify-end pb-2 sm:pb-0'>
+
+            <Pagination
+          page={pageNo}
+          onChange={(_, newPage) => setPageNo(newPage)}
+          color="primary"
+          count={pageLimit}
+        />
+
+</div>
             
             
         </div>

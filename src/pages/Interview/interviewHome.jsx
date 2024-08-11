@@ -8,7 +8,7 @@ const InterviewHome = () => {
         <Box className="h-full overflow-hidden bg-black" sx={{ backgroundColor: 'background.main', }}>
             <div className="h-full" style={{ overflowY: 'auto', paddingRight: '1px' }}>
                 <Grid container  justifyContent='center' height='100%'>
-                    <Grid item xs={12}>
+                    <Grid item  xs={12}>
                         <Interview/>
                     </Grid>
                 </Grid>

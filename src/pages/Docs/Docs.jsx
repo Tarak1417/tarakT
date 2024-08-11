@@ -40,11 +40,11 @@ const Docs = () => {
     }, [fetchDocs]);
 
     return (
-        <Box sx={{ backgroundColor: 'background.main', minHeight: '100vh' }}>
-            <Box sx={{ mt: 3 }}>
-                <Grid container spacing={4} display='flex' alignItems='center'>
+        <Box  sx={{ backgroundColor: 'background.main' , p:2  }}>
+            <Box >
+                <Grid container spacing={4} display='flex' alignItems='center' className="py-1">
                     <Grid item xs>
-                        <div className="p-2 mx-3">
+                        <div >
                             <h1 className="text-2xl text-neutral-500">Docs</h1>
                         </div>
                     </Grid>

@@ -121,11 +121,11 @@ const Interview = () => {
     console.log(questions)
 
     return (
-        <div className="flex flex-col h-screen gap-4 px-4">
-            <Box mt={3}>
+        <div className="flex flex-col h-screen gap-4 sm:px-4 px-2">
+            <Box mt={2}>
                 <Grid container spacing={4} display='flex' alignItems='center'>
                     <Grid item xs>
-                    <div className="p-2">
+                    <div className="">
                     <h1 className="text-2xl text-neutral-500"  >Interview Questions</h1>
                 </div>
                        

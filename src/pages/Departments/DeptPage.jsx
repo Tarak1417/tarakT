@@ -72,9 +72,9 @@ const DeptPage = () => {
         fetchDepartment();
     }, [fetchDepartment]);
     return (
-        <div className="container mx-auto overscroll-auto overflow-hidden">
-            <div className="flex flex-row items-center justify-between p-4">
-                    <div className="p-2">
+        <div className="container mx-auto overscroll-auto overflow-hidden  py-4 px-2 sm:px-4">
+            <div className="flex flex-row items-center justify-between  pb-4">
+                    <div className="">
                     <h1 className="text-2xl text-neutral-500"  >Department</h1>
                 </div>
                 {/* <h1 className="text-2xl md:text-3xl text-zinc-400 mb-4">Department</h1> */}
