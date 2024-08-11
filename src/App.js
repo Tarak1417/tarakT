@@ -52,7 +52,7 @@ import LandingPage from "./pages/Support_System/LandingPages/LandingPage";
 import ActiveList from "./pages/Support_System/UserPage/Tikects/ActiveTicket";
 import CreateTicket from "./pages/Support_System/UserPage/Tikects/CreateTicket";
 import CloseTicket from "./pages/Support_System/UserPage/Tikects/CloseTickt";
-import ChatPage from "./pages/Chat/Newchatpage";
+
 import AuthorizationProvider from "./hooks/Authorize";
 import ThemeContextProvider, { useTheme } from "./style/theme";
 import CreateOrganization from "./pages/Organization/CreateOrganization";
@@ -85,6 +85,8 @@ import { RecoilRoot } from "recoil";
 import ErrorPage from "./careers/erropage/ErrorPage";
 import Docs from "./pages/Docs/Docs";
 import Layout from "./Layout";
+import ChatPage from "./pages/Chat/ChatPage";
+
 
 
 const App = () => {

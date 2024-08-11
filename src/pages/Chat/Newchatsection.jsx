@@ -16,7 +16,7 @@ import { env } from "../../utilities/function";
 // Connect to the server
 const socket = io(env('SERVER'));
 
-const Newchatsection = ({ sharedData, setSharedData }) => {
+const ChatSection = ({ sharedData, setSharedData }) => {
   const { mode } = useTheme();
   const [ chats  , setChats] =  useState([])
   const [userId, setUserId] = useState('1234564656545');
@@ -128,7 +128,7 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
 ] 
   return (
     <>
-      <div className={`h-[85vh] overflow-hidden relative flex flex-col   mx-2   `}>
+      <div className={`overflow-hidden relative flex flex-col   mx-2   `}>
         <div className="flex md:border-b md:border-b-[#3F3F3F] my-4 md:my-0 md:mt-4 md:pb-2 md:pt-px justify-between items-center">
           <div className="flex md:mx-2 items-center gap-2.5 ">
             <div className="flex gap-4 items-center ">
@@ -178,17 +178,13 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
         </div>
         <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
 
-        <Box className="overflow-y-auto mt-[14px] px-2  md:mt-0 no-scrollbar" 
-          sx={{height: {
-            sm:'calc(100dvh - 305px)',
-            md:'calc(72vh - 46px)'
-          }  }}
-        >
-          {chats.map((chat , index )  => (
+        <Box style={ { height : 'calc(100vh - 280px)'}}  className="overflow-y-auto mt-[14px] px-2 mb-2 md:mt-0 no-scrollbar" 
+          >
+          {chatsOld.map((chat , index )  => (
             
             <div key={index} className="  md:text-xs
             text-sm font-bold">
-              {(chat.sender == sharedData._id) ? 
+              {(chat?.sender == sharedData?._id) ? 
                <div className="flex flex-row w-full mt-[25px] justify-start">
                <div>
                  <div className="h-[32px] w-[32px] md:h-[40px]  md:w-[50px]">
@@ -205,7 +201,7 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
                      mode === "dark" ? "bg-[#1E1E1E]" : "border-2 bg-[#EEEEEE]"
                    }  p-[12px] rounded-t-[12px]  rounded-br-[12px]  md:leading-[17px]`}
                  >
-                 {chat.content}
+                 {chat?.content}
                  </div>
                  <p className="mt-1    text-[#434343]">9:30pm</p>
                </div>
@@ -218,7 +214,7 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
                     mode === "dark" ? "bg-[#3C95D0]" :"bg-[#51A0D5]"
                   }  p-[12px] rounded-t-[12px] rounded-bl-[12px]  md:leading-[17px]`}
                 >
-                   {chat.content}
+                   {chat?.content}
                 </div>
                 <p className="mt-1   text-[#434343]">9:30pm</p>
               </div>
@@ -235,7 +231,7 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
             </div>
           ))}
         </Box>
-        <Box  sx={{backgroundColor : "background.input"}} className="flex items-center justify-between px-4 mb-5 mt-3 rounded-[8px]">       
+        <Box  sx={{backgroundColor : "background.input"}} className="flex items-center justify-between px-4 py-1 rounded-[8px]">       
           <div className="text-[12px] py-4  md:py-2 flex w-full mr-4">
             <AddCircleIcon color={"#626262"} sx={{ fontSize: "26px", marginRight: "16px" , color :"#626262" }} />{" "}
             <input
@@ -262,4 +258,4 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
   );
 };
 
-export default Newchatsection;
+export default ChatSection;
