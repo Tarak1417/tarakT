@@ -136,7 +136,7 @@ const Dashboard = () => {
       xs :'95vw',
       sm :'100vw'
     } }}>
-      <div className="flex flex-col sm:px-4 px-2 py-2">
+      <div className="flex flex-col sm:px-4 px-2 py-6">
         <div className="">
           {/* <Typography variant="h5" className="text-gray-500" gutterBottom>
             HR DASHBOARD

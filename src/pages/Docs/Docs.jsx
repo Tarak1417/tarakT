@@ -40,16 +40,16 @@ const Docs = () => {
     }, [fetchDocs]);
 
     return (
-        <Box  sx={{ backgroundColor: 'background.main' , p:2  }}>
+        <Box  sx={{ backgroundColor: 'background.main' , px:2 , py :3 }}>
             <Box >
-                <Grid container spacing={4} display='flex' alignItems='center' className="py-1">
+                <Grid container spacing={4} display='flex' alignItems='center' className="pb-1">
                     <Grid item xs>
                         <div >
                             <h1 className="text-2xl text-neutral-500">Docs</h1>
                         </div>
                     </Grid>
 
-                    <Grid item display='flex' alignItems='center'>
+                    <Grid item display='flex' alignItems='center' gap={2}>
                         <Box>
                             <Button
                                 variant='contained'
@@ -64,9 +64,10 @@ const Docs = () => {
 
                         <Box>
                             <Tooltip title='info' placement='top'>
-                                <IconButton disableRipple variant='navIcon' sx={{ mr: 0, ml: 2 }}>
-                                    <InfoOutlinedIcon fontSize='small' />
-                                </IconButton>
+                                {/* <IconButton disableRipple variant='navIcon' sx={{ mr: 0, ml: 2 }}> */}
+                                    {/* <InfoOutlinedIcon fontSize='small' /> */}
+                                    <InfoOutlinedIcon />
+                                {/* </IconButton> */}
                             </Tooltip>
                         </Box>
                     </Grid>

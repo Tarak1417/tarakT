@@ -1,6 +1,6 @@
 // JobListing.jsx
 import React, { useCallback, useEffect, useState } from 'react';
-import { Button, IconButton, Modal, Pagination, Skeleton } from '@mui/material';
+import { Box, Button, Grid, IconButton, Modal, Pagination, Skeleton, Tooltip } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
@@ -174,7 +174,7 @@ const JobListing = () => {
     console.log(jobs)
     console.log(currentScreen)
     return (
-        <div className="flex flex-col gap-4 max-w-screen py-4 px-2 sm:px-4 " >
+        <div className="flex flex-col gap-4 max-w-screen py-6 px-2 sm:px-4 " >
             <div className="flex md:items-center items-start justify-between flex-row md:w-full py-1 ">
                 <div className=" flex flex-row flex-wrap  gap-2">
                     <h1 className="text-2xl text-neutral-500"  >Job Listing</h1>
@@ -185,10 +185,19 @@ const JobListing = () => {
                             <ContentCopyIcon  sx={{height:'17px'}} />
                         </IconButton>  </span>
                 </div>
-                <div className="flex flex-row   gap-4">
-                    <Button variant="contained" onClick={openModal}>Add Job</Button>
-                    <InfoOutlinedIcon />
-                </div>
+                <Grid item display='flex' alignItems='center'>
+                        <Box>
+                        <Button variant="contained" onClick={openModal}>Add Job</Button>
+                        </Box>
+
+                        <Box sx={{ ml: 2 }}>
+                            <Tooltip title='info' placement='top'>
+                                {/* <IconButton disableRipple variant='navIcon' sx={{ mr: 0 }}> */}
+                                    <InfoOutlinedIcon />
+                                {/* </IconButton> */}
+                            </Tooltip>
+                        </Box>
+                    </Grid>
             </div>
             <div className=" sm:hidden py-1 flex flex-row  gap-2 ">
                     <a className="text-lg text-neutral-500 truncate cursor-pointer" onClick={goToCareerPage} >hr.clikkle.com/career/{org.name} </a>

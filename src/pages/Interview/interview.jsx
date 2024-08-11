@@ -122,7 +122,7 @@ const Interview = () => {
 
     return (
         <div className="flex flex-col h-screen gap-4 sm:px-4 px-2">
-            <Box mt={2}>
+            <Box mt={3}>
                 <Grid container spacing={4} display='flex' alignItems='center'>
                     <Grid item xs>
                     <div className="">
@@ -143,9 +143,9 @@ const Interview = () => {
 
                         <Box sx={{ ml: 2 }}>
                             <Tooltip title='info' placement='top'>
-                                <IconButton disableRipple variant='navIcon' sx={{ mr: 0 }}>
-                                    <InfoOutlinedIcon fontSize='small' />
-                                </IconButton>
+                                {/* <IconButton disableRipple variant='navIcon' sx={{ mr: 0 }}> */}
+                                    <InfoOutlinedIcon  />
+                                {/* </IconButton> */}
                             </Tooltip>
                         </Box>
                     </Grid>
