@@ -36,9 +36,9 @@ export default function Clock() {
 
         <Box>
             <Tooltip title='info' placement='top'>
-                <IconButton disableRipple variant='navIcon' sx={{ mr: 0 }}>
-                    <InfoOutlinedIcon fontSize='small' />
-                </IconButton>
+                {/* <IconButton disableRipple variant='navIcon' sx={{ mr: 0 }}> */}
+                    <InfoOutlinedIcon sx={{ ml: 1.5 }} />
+                {/* </IconButton> */}
             </Tooltip>
         </Box>
     </Grid>

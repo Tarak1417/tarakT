@@ -341,6 +341,23 @@ export default function Navbar(props) {
         user && getPlatforms();
     }, [user, getPlatforms]);
 
+    useEffect(() => {
+        const setVh = () => {
+          const vh = window.innerHeight * 0.01;
+          document.documentElement.style.setProperty('--vh', `${vh}px`);
+        };
+    
+        setVh();
+    
+        // Listen to resize events
+        window.addEventListener('resize', setVh);
+    
+        // Cleanup on unmount
+        return () => {
+          window.removeEventListener('resize', setVh);
+        };
+      }, []);
+
 
     const SideBarLinkButton = ({ menus }) => {
       return (
@@ -1018,8 +1035,12 @@ export default function Navbar(props) {
                     },
                     mt: 1,
                     mb:  {  xs:7 , sm :0 },
-                    height: { xs: 'calc(100dvh - 90px)' },
+                    height: {
+                        xs: 'calc(var(--vh, 1vh) * 100 - 125px)',
+                        sm: 'calc(var(--vh, 1vh) * 100 - 75px)',
+                      },
                     backgroundColor: 'background.paper',
+                    overflowY: 'auto',
                     borderRadius: '12px',
                 }}>
                 {children}

@@ -44,7 +44,7 @@ const DocsCard = props => {
     }
 
     return (
-        <Box m={2}>
+        <Box my={2}>
             <Card
                 elevation={0}
                 sx={{
