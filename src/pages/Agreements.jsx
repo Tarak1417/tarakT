@@ -78,14 +78,14 @@ const Agreements = props => {
     }, [fetchDocs]);
 
     return (
-        <Box
-        className="relative "
+        <Box  className="relative "
             sx={{
                 width: '100%',
                 bgcolor: 'background.paper',
                 border: '2px solid #000',
                 boxShadow: 24,
                 minHeight: '100%',
+               
             }}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <Typography variant='h4'>Agreements</Typography>
@@ -98,6 +98,9 @@ const Agreements = props => {
                     <CloseIcon />
                 </IconButton>
             </Toolbar>
+            <div className="flex flex-col justify-between">
+
+          
 
             <Box p={2}>
                 <Grid container spacing={2}>
@@ -180,7 +183,7 @@ const Agreements = props => {
                     )}
                 </Grid>
             </Box>
-            <Grid item className="absolute bottom-2 right-2 md:bottom-4 md:right-4" >
+            <Grid p={2}  item className="flex justify-end" >
                     <Button
                       onClick={sendAgreement}
                       className="text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded bg-sky-500 hover:bg-sky-700"
@@ -190,12 +193,13 @@ const Agreements = props => {
                     >
                       Send Agreements
                     </Button>
-                  </Grid>
-
+            </Grid>
+            </div>
             <Modal
                 open={editState}
                 onClose={editClose}
-                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' , 
+                    overflowY: 'scroll'  }}>
                 <EditAgreement
                     agreement={agreement}
                     closeModal={editClose}

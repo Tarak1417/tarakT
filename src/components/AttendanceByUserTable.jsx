@@ -167,6 +167,8 @@ const AttendanceByUserTable = ({ attendanceDetail }) => {
             </TableContainer>
 
             <Modal
+              sx={{ 
+                overflowY: 'scroll' }}
                 open={open}
                 onClose={handleClose}
                 aria-labelledby='modal-modal-title'

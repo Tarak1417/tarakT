@@ -1047,9 +1047,12 @@ export default function Navbar(props) {
             </Box>
 
             <Modal
+
                 open={feedbackState}
                 onClose={closeFeedback}
                 sx={{
+               
+                    overflowY: 'scroll',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'flex-start',

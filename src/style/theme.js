@@ -304,6 +304,13 @@ const ThemeContextProvider = props => {
                             },
                         },
                     },
+                    MuiModal: {
+                        styleOverrides: {
+                          root: {
+                            overflowY: 'scroll',
+                          },
+                        },
+                    },
                 },
             }),
         [mode, dark, light]
