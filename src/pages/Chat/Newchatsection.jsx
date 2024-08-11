@@ -10,9 +10,48 @@ import SendIcon from "@mui/icons-material/Send";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import axios from "axios";
+import io from 'socket.io-client';
+import { env } from "../../utilities/function";
+
+// Connect to the server
+const socket = io(env('SERVER'));
+
 const Newchatsection = ({ sharedData, setSharedData }) => {
   const { mode } = useTheme();
   const [ chats  , setChats] =  useState([])
+  const [userId, setUserId] = useState('1234564656545');
+  const [receiverId, setReceiverId] = useState('');
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+      // Listen for incoming private messages
+      registerUser();
+      socket.on('privateMessage', ({ senderId, message }) => {
+        setChats((prevChat) => [...prevChat, `From ${senderId}: ${message}`]);
+      });
+
+      // Cleanup on component unmount
+      return () => socket.off('privateMessage');
+  }, []);
+
+  const registerUser = () => {
+      // Register the user ID with the server
+      console.log("register User")
+      socket.emit('registerUser', userId);
+  };
+
+  const sendMessage = (e) => {
+      e.preventDefault();
+
+      // Send the message to the server
+      socket.emit('privateMessage', { senderId: userId, receiverId, message });
+
+      // Add the message locally for the sender's view
+      setChats((prevChat) => [...prevChat, `To ${receiverId}: ${message}`]);
+
+      // Clear the input field
+      setMessage('');
+  };
   let page = 1;
   console.log("SharedData from newschatsection", sharedData);
 
@@ -32,9 +71,9 @@ const Newchatsection = ({ sharedData, setSharedData }) => {
     [sharedData]
 );
 
-useEffect(() => {
-  fetchChatList();
-}, [fetchChatList]);
+// useEffect(() => {
+//   fetchChatList();
+// }, [fetchChatList]);
 
   let img = "https://images.unsplash.com/photo-1605993439219-9d09d2020fa5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHVzZXIlMjBwcm9maWxlfGVufDB8fDB8fHww";
 
