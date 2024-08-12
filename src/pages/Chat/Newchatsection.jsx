@@ -14,7 +14,7 @@ import io from 'socket.io-client';
 import { env } from "../../utilities/function";
 
 // Connect to the server
-const socket = io(env('SERVER'));
+// const socket = io(env('SERVER'));
 
 const ChatSection = ({ sharedData, closeModal }) => {
   const { mode } = useTheme();
@@ -23,35 +23,35 @@ const ChatSection = ({ sharedData, closeModal }) => {
   const [receiverId, setReceiverId] = useState('');
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-      // Listen for incoming private messages
-      registerUser();
-      socket.on('privateMessage', ({ senderId, message }) => {
-        setChats((prevChat) => [...prevChat, `From ${senderId}: ${message}`]);
-      });
+  // useEffect(() => {
+  //     // Listen for incoming private messages
+  //     registerUser();
+  //     socket.on('privateMessage', ({ senderId, message }) => {
+  //       setChats((prevChat) => [...prevChat, `From ${senderId}: ${message}`]);
+  //     });
 
-      // Cleanup on component unmount
-      return () => socket.off('privateMessage');
-  }, []);
+  //     // Cleanup on component unmount
+  //     return () => socket.off('privateMessage');
+  // }, []);
 
-  const registerUser = () => {
-      // Register the user ID with the server
-      console.log("register User")
-      socket.emit('registerUser', userId);
-  };
+  // const registerUser = () => {
+  //     // Register the user ID with the server
+  //     console.log("register User")
+  //     socket.emit('registerUser', userId);
+  // };
 
-  const sendMessage = (e) => {
-      e.preventDefault();
+  // const sendMessage = (e) => {
+  //     e.preventDefault();
 
-      // Send the message to the server
-      socket.emit('privateMessage', { senderId: userId, receiverId, message });
+  //     // Send the message to the server
+  //     socket.emit('privateMessage', { senderId: userId, receiverId, message });
 
-      // Add the message locally for the sender's view
-      setChats((prevChat) => [...prevChat, `To ${receiverId}: ${message}`]);
+  //     // Add the message locally for the sender's view
+  //     setChats((prevChat) => [...prevChat, `To ${receiverId}: ${message}`]);
 
-      // Clear the input field
-      setMessage('');
-  };
+  //     // Clear the input field
+  //     setMessage('');
+  // };
   let page = 1;
   console.log("SharedData from newschatsection", sharedData);
 
