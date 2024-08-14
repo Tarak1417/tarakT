@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import axios from "axios";
 import React, { useCallback, useState, useEffect } from "react";
 
-const ChatList = ({ setSharedData }) => {
+const ChatList = ({ setCurrentChatUser }) => {
   let page  = 1;
   const [ chats , setChats] =  useState([])
   const userList = [
@@ -94,7 +94,7 @@ useEffect(() => {
 }, [fetchChatList])
   const handleClick = (item) => {
     console.log("shared data from chat", item);
-    setSharedData(item);
+    setCurrentChatUser(item);
   };
 
   return (

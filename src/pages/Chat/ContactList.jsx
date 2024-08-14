@@ -3,7 +3,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Box } from "@mui/material";
 import axios from "axios";
 
-const ContactList = ({ setSharedData }) => {
+const ContactList = ({ setCurrentChatUser }) => {
   let page = 1;
   const [contacts, setContacts] = useState([]);
   let img =
@@ -91,7 +91,7 @@ const ContactList = ({ setSharedData }) => {
 
   const handleClick = (item) => {
     console.log("first", item);
-    setSharedData(item);
+    setCurrentChatUser(item);
   };
   return (
     <>

@@ -5,11 +5,13 @@ import { useUser } from './Authorize';
 
 const useSocket = () => {
     const [socket, setSocket] = useState(null);
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState({ });
     const [ contactChatList  , setContactChatList ] =  useState([])
-    const [currentReceiverId , setCurrentReceiverId] = useState("");
-
-    const platformUser = useUser();
+    // const platformUser = useUser();
+    let currentOrg = localStorage.getItem("org");
+    if (currentOrg) {
+      currentOrg = JSON.parse(currentOrg);
+    }
 
     useEffect(() => {
         // Initialize the socket connection
@@ -17,13 +19,15 @@ const useSocket = () => {
         setSocket(newSocket);
 
         // Register the user once on connection
-        if (platformUser._id) {
-            newSocket.emit('registerUser', platformUser._id);
+        if (currentOrg._id) {
+            newSocket.emit('registerUser', currentOrg._id);
         }
 
         // Handle incoming messages
-        newSocket.on('receiveChat', ({ senderId, receiverId , message }) => {
-            setMessages((prevMessages) => [...prevMessages, message]);
+        newSocket.on('receiveChat', ({ sender, receiver, content }) => {
+            let periouseChat  = messages[sender] || []
+            setMessages({...messages ,  [sender]  : [...periouseChat, { sender, receiver, content }]})
+            // setMessages((prevMessages) => [...prevMessages, message]);
         });
 
         // Cleanup on unmount
@@ -33,20 +37,22 @@ const useSocket = () => {
     }, []);
 
     // Function to send a private message
-    const sendMessage = useCallback((receiverId, messageContent) => {
+    const sendMessage = (receiver, content) => {
         if (socket) {
             socket.emit('sendChat', {
-                senderId: userId,
-                receiverId,
-                message: messageContent,
+                sender: currentOrg._id,
+                receiver,
+                content: content,
             });
+            let periouseChat  = messages[receiver] || []
+            setMessages({...messages , [receiver] : [...periouseChat, { sender : currentOrg._id, receiver, content }]})
         }
-    }, [socket]);
+    };
 
-    const setMessage = useCallback((oldMessage) => {
-            setMessages((prevMessages) => [ ...oldMessage , ...prevMessages]);
+    const setMessage = useCallback((oldMessage , receiverId) => {
+             setMessages({...messages , receiverId : [ ...oldMessage ,...messages[receiverId] ]})
     }, [socket]);
-    return { messages, sendMessage ,  setMessage ,currentReceiverId , setCurrentReceiverId ,contactChatList };
+    return { messages, sendMessage ,  setMessage ,contactChatList , setContactChatList };
 };
 
 export default useSocket;
