@@ -54,7 +54,7 @@ const EmployeePage = () => {
                 setEmployLists(response?.data?.employees);
                 setPageLimit(response?.data?.pageData.totalPages);
                 setTotalEmployee(response?.data.pageData.totalData);
-                const filteredFruits = response?.data?.employees?.filter(male => male.gender==='male');
+                const filteredFruits = response?.data?.employees?.filter(male => male.gender === 'male' ||male.gender === 'Male' );
                 setMaleEmployee(filteredFruits.length)
                 // const newEmployeeFilter =  response.data.employees.filter(jod => jod.dateOfJoining === Date.now());
                 // setNewEmployee(newEmployeeFilter)
@@ -125,7 +125,7 @@ const EmployeePage = () => {
                             </button>
                             <InfoOutlinedIcon />
                         </div>
-                    </div>
+                </div>
                 <div className="flex flex-col md:flex-row gap-4">
                     <div className="w-full md:w-full">
                         <div  className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
@@ -141,9 +141,9 @@ const EmployeePage = () => {
                         </div>
                     </div>  
                 </div>
-                <Box  sx={{ width :{ xs :'calc(100vw - 30px)'  , sm:'100%' }}}  className='overflow-x-auto'>
+                <Box  sx={{ width :{ xs :'calc(100vw - 30px)'  , sm:'100%' }}}  >
               { employLists?.length > 0 ?
-            <Box className="w-full   min-w-[48rem] ml-2 md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
+             <Box className="w-full  ml-2 md:ml-0 pt-4 rounded-lg mb-4" sx={{ backgroundColor: 'background.view', }}>
                 <div className='flex items-center justify-between md:w-full'>
                     <div>
                     <p className=" mb-4 border-l-4 border-blue-500 pl-3 text-xl" gutterBottom>
@@ -154,81 +154,88 @@ const EmployeePage = () => {
                         <p className='text-sm md:text-base text-zinc-400 pl-2 md:pl-5'>Rows per page: 10 <FontAwesomeIcon icon={faCaretDown} className='text-zinc-500 text-lg md:text-2xl text-center ml-2'/></p>
                     </div>
                 </div>
-                <div className='w-[97%] ml-2 md:ml-4 border border-zinc-500 rounded-sm '>
-                    <div className='flex flex-row border-b border-zinc-500'>
-                        <div className='w-[25%] md:w-[5%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
+                <Box
+                  sx={{ width :{ xs :'calc(100vw - 35px)'  , sm:'97%' }}} 
+                    className=' md:ml-4 border border-zinc-500 overflow-x-auto md:overflow-x-hidden rounded-sm mt-10'
+                  >
+               
+                  <Grid className='flex flex-row border-b border-zinc-500  w-[68rem] md:w-full' >
+                        <div className='w-[5%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs font-bold truncate'>
                             No
                         </div>
-                        <div className='w-[50%] md:w-[15%] p-2 border-r border-zinc-500 text-sm md:text-xs font-bold'>
+                        <div className=' w-[15%] p-2  border-r border-zinc-500 text-sm md:text-xs font-bold truncate'>
                             Emp Name
                         </div>
-                        <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-xs font-bold'>
+                        <div className='w-[13%] p-2 border-r border-zinc-500 text-sm md:text-xs font-bold truncate'>
                             Emp ID
                         </div>
-                        <div className='w-[25%] md:w-[8%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
+                        <div className='w-[12%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
                             Department
                         </div>
-                        <div className='w-[50%] md:w-[12%] p-2 border-r border-zinc-500 text-sm md:text-xs font-bold'>
+                        <div className='w-[15%] p-2 border-r border-zinc-500 text-sm md:text-xs font-bold'>
                             Designation
                         </div>
-                        <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-xs font-bold'>
+                        <div className='w-[12%] p-2 border-r border-zinc-500 text-sm md:text-xs font-bold'>
                             Phone No
                         </div>
-                        <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
+                        <div className='w-[10%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
                             Join Date
                         </div>
-                        <div className='w-[50%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-xs font-bold'>
+                        {/* <div className='w-[10%] p-2 border-r border-zinc-500 text-sm md:text-xs font-bold'>
                             At Work
-                        </div>
-                        <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-xs font-bold'>
+                        </div> */}
+                        <div className='w-[8%] p-2 border-r border-zinc-500 text-sm md:text-xs font-bold'>
                             Status
                         </div>
-                        <div className='w-[25%] md:w-[10%] p-2  text-left text-sm md:text-xs font-bold'>
+                        <div className='w-[10%] p-2  text-left text-sm md:text-xs font-bold'>
                             Action
                         </div>
                         
-                    </div>
+                    </Grid>
+
                     {employLists && employLists?.map((employee,index) => (
-                        <div key={index} className='flex flex-row border-b border-zinc-500'>
-                        <div className='w-[25%] md:w-[5%] p-2 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                            {index+1}
+
+<Grid className='flex flex-row border-b border-zinc-500  w-[68rem] md:w-full' >
+                        <div className='w-[5%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs truncate'>
+                        {index+1}
                         </div>
-                        <div className='w-[50%] md:w-[15%] p-0 border-r border-zinc-500 text-sm md:text-[10px] flex flex-row gap-2 flex items-center'>
-                            <div className='flex justify-center items-center pl-4'>
-                                <PersonIcon style={{ fontSize: '16px' }} className="text-zinc-300"/>
-                            </div>
-                            <div className='flex flex-col gap-0'>
-                                {employee.firstName && employee.firstName} {employee.lastName && employee.lastName}{' '}
-                                <p className='text-[6px]'>{employee.mail}</p>
-                            </div>
+                        <div className='w-[15%] p-3 border-r border-zinc-500 text-sm md:text-xs '>
+                        <div className='flex flex-row gap-3 items-center  pl-1 '>
+                         
+                         <div className='flex justify-center items-center'>
+                             <PersonIcon style={{ fontSize: '16px' }} className="text-zinc-300"/>
+                         </div>
+                         <div className='flex flex-col gap-0'>
+                             {employee.firstName && employee.firstName} {employee.lastName && employee.lastName}{' '}
+                             <p className='text-[6px]'>{employee.mail}</p>
+                         </div>
+                         </div>
                         </div>
-                        <div className='w-[25%] truncate  md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
-                            { employee && employee._id}
+                        <div className='w-[13%] p-2 border-r border-zinc-500 text-sm md:text-xs truncate'>
+                        { employee && employee._id}
                         </div>
-                        <div className='w-[25%] md:w-[8%] p-2 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                             {employee && employee?.dept}
+                        <div className='w-[12%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs truncate'>
+                        {employee && employee?.department}
                         </div>
-                        <div className='w-[50%] md:w-[12%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
-                             {employee && employee?.designation}
+                        <div className='w-[15%] p-2 border-r border-zinc-500 text-sm md:text-xs truncate'>
+                        {employee && employee?.designation}
                         </div>
-                        <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
+                        <div className='w-[12%] p-2 border-r border-zinc-500 text-sm md:text-xs truncate'>
                         { employee && employee.phone?.countryCode} {employee && employee.phone?.phone}
                         </div>
-                        <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
+                        <div className='w-[10%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs truncate'>
                         {moment(employee && employee.dateOfJoining)
                                                     .utc()
                                                     .format('MM-DD-YYYY')}
                         </div>
-                        <div className='w-[50%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
-                            {employee && employee?.work}
-                        </div>
-                        <div className='w-[25%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-xs'>
-                        <button className='flex  items-center text-white font-bold text-[6px] md:text-[8px] py-0 md:py-0 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                        {/* <div className='w-[10%] p-2 border-r border-zinc-500 text-sm md:text-xs truncate'>
+                        {employee && employee?.work}
+                        </div> */}
+                        <div className='w-[8%] p-2 border-r border-zinc-500 text-sm md:text-xs truncate'>
                         {employee && employee.status}
-                            </button>
                         </div>
-                        
-                            <div className='w-[25%] md:w-[10%] flex flex-row gap-2 justify-center items-center'>
+                        <div className='w-[10%] p-2  text-left text-sm md:text-xs'>
+                        <div className='flex flex-row gap-2 justify-center items-center'>
                                 <Link to={`/performance/${employee._id}`}>
                                 <IconButton><EditOutlinedIcon style={{ fontSize: '12px' }}  className=' rounded-sm'/></IconButton>
                                 </Link>
@@ -236,8 +243,61 @@ const EmployeePage = () => {
                                 <IconButton><DeleteOutlineOutlinedIcon style={{ fontSize: '12px' }} className='text-blue-500 rounded-sm'/></IconButton>
                             </div>
                         </div>
+                        
+                        </Grid>
+
+                        // <div key={index} className=' w-full flex flex-row border-b border-zinc-500'>
+                        // <div className='w-[25%] md:w-[5%] p-2 border-r border-zinc-500 text-left text-sm md:text-xs font-bold'>
+                        //     {index+1}
+                        // </div>
+                        // <div className='w-full md:w-[15%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
+                        //    <div className='flex flex-row gap-3 items-center justify-between '>
+                         
+                        //     <div className='flex justify-center items-center'>
+                        //         <PersonIcon style={{ fontSize: '16px' }} className="text-zinc-300"/>
+                        //     </div>
+                        //     <div className='flex flex-col gap-0'>
+                        //         {employee.firstName && employee.firstName} {employee.lastName && employee.lastName}{' '}
+                        //         <p className='text-[6px]'>{employee.mail}</p>
+                        //     </div>
+                        //     </div>
+                        // </div>
+                        // <div className='w-[50%] truncate  md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
+                        //     { employee && employee._id}
+                        // </div>
+                        // <div className='w-[50%] md:w-[8%] p-2 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
+                        //      {employee && employee?.dept}
+                        // </div>
+                        // <div className='w-[50%] md:w-[12%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
+                        //      {employee && employee?.designation}
+                        // </div>
+                        // <div className='w-[50%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
+                        // { employee && employee.phone?.countryCode} {employee && employee.phone?.phone}
+                        // </div>
+                        // <div className='w-[50%] md:w-[10%] p-2 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
+                        // {moment(employee && employee.dateOfJoining)
+                        //                             .utc()
+                        //                             .format('MM-DD-YYYY')}
+                        // </div>
+                        // <div className='w-[50%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-[10px]'>
+                        //     {employee && employee?.work}
+                        // </div>
+                        // <div className='w-[50%] md:w-[10%] p-2 border-r border-zinc-500 text-sm md:text-xs'>
+                        // <button className='flex  items-center text-white font-bold text-[6px] md:text-[8px] py-0 md:py-0 px-2 md:px-3 rounded bg-sky-500 hover:bg-sky-700'>
+                        // {employee && employee.status}
+                        //     </button>
+                        // </div>
+                      
+                        //     <div className='w-[25%] md:w-[10%] p-2  flex flex-row gap-2 justify-center items-center'>
+                        //         <Link to={`/performance/${employee._id}`}>
+                        //         <IconButton><EditOutlinedIcon style={{ fontSize: '12px' }}  className=' rounded-sm'/></IconButton>
+                        //         </Link>
+                                
+                        //         <IconButton><DeleteOutlineOutlinedIcon style={{ fontSize: '12px' }} className='text-blue-500 rounded-sm'/></IconButton>
+                        //     </div>
+                        // </div>
                     ))}
-                </div>
+                </Box>
                 <div className='w-[95%] ml-2  md:ml-9 mt-2 flex justify-between items-center pb-2 mb-20 md:mb-0'>
                     <p className='text-sm md:text-base text-zinc-400 '>Showing Rows: 1-10 of 20</p>
                     <div className='flex flex-row gap-4'>
