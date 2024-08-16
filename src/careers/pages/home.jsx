@@ -42,18 +42,10 @@ const Home = () => {
     try {
       const response = await axios.get(`/open/org-info?name=${name}`);
       const organization = response.data.organization;
-      console.log('organization' , organization);
-      console.log('organization', organization._id);
-      setOrgId(organization._id);
-      if (organization.name !== localStorage.getItem('Organization')) {
+        setOrgId(organization._id);
         localStorage.setItem('Organization', organization.name);
         localStorage.setItem('JobApply', true);
-
-        
-      } else {
-        console.log('Same organization name is already stored');
-      }
-
+   
 
     } catch (error) {
       console.error('Error fetching organization:', error);
