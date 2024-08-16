@@ -1,10 +1,11 @@
 import { Box } from "@mui/material";
 import axios from "axios";
 import React, { useCallback, useState, useEffect } from "react";
+import { formatTimestamp } from "../../utilities/function";
 
-const ChatList = ({ setCurrentChatUser }) => {
+const ChatList = ({ setCurrentChatUser ,chatList = [] }) => {
   let page  = 1;
-  const [ chats , setChats] =  useState([])
+  // const [ chats , setChats] =  useState([])
   const userList = [
     {
       id: 1,
@@ -70,28 +71,7 @@ const ChatList = ({ setCurrentChatUser }) => {
 
  let imgUrl = "https://images.unsplash.com/photo-1605993439219-9d09d2020fa5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHVzZXIlMjBwcm9maWxlfGVufDB8fDB8fHww"
 
-  const fetchChatList  = useCallback(
-    async () => {
-        // setJobs(null);
-        try {
-            const response = await axios.get(
-                `/hr/message?page=${page}&limit=50`
-            );
-            const data = response.data;
-            if(data.success){
-              setChats(data.messages)
-            }
-           
-        } catch (e) {
-            console.warn(e);
-        }
-    },
-    []
-);
 
-useEffect(() => {
-  fetchChatList();
-}, [fetchChatList])
   const handleClick = (item) => {
     console.log("shared data from chat", item);
     setCurrentChatUser(item);
@@ -99,7 +79,7 @@ useEffect(() => {
 
   return (
     <>
-        {chats?.map((item, index) => (
+        {chatList?.map((item, index) => (
           <div key={index}  >
             <div className="flex gap-4 items-center p-1 my-3">
               <div className="h-[31px] w-[31px] md:h-[40px]  md:w-[50px] relative">
@@ -114,7 +94,7 @@ useEffect(() => {
                 <div className="flex  justify-between items-center">
                   <div className="text-sm  md:text-xs ">{item?.receiver?.firstName} {item?.receiver?.lastName}</div>
                   <div className="text-[#3A7EC1] text-xs md:text-[8px]">
-                    Now
+                  { formatTimestamp(item.createdAt) }
                   </div>
                 </div>
                 <div className="flex mt-1 justify-between items-center ">

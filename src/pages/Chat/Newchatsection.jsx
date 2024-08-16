@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import CallIcon from "@mui/icons-material/Call";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -11,7 +11,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import axios from "axios";
 import io from 'socket.io-client';
-import { env } from "../../utilities/function";
+import { env, formatTimestamp } from "../../utilities/function";
 
 // Connect to the server
 // const socket = io(env('SERVER'));
@@ -20,6 +20,7 @@ const ChatSection = ({ currentChatUser, closeModal , messages , sendMessage }) =
   const { mode } = useTheme();
   const [ chats  , setChats] =  useState([])
   const [message, setMessage] = useState('');
+  const lastMessageRef = useRef(null);
 
   // useEffect(() => {
   //     // Listen for incoming private messages
@@ -38,7 +39,7 @@ const ChatSection = ({ currentChatUser, closeModal , messages , sendMessage }) =
   //     socket.emit('registerUser', userId);
   // };
 
-  const  handelSendMessage = (e) => {
+  const handelSendMessage = (e) => {
       // e.preventDefault();
       // Send the message to the server
       sendMessage(currentChatUser._id, message);
@@ -47,7 +48,7 @@ const ChatSection = ({ currentChatUser, closeModal , messages , sendMessage }) =
   let page = 1;
   console.log("SharedData from newschatsection", messages);
 
-  const fetchChatList  = useCallback(
+const fetchChatList  = useCallback(
     async () => {
         // setJobs(null);
         try {
@@ -63,9 +64,28 @@ const ChatSection = ({ currentChatUser, closeModal , messages , sendMessage }) =
     [currentChatUser]
 );
 
+const scrollToBottom = () => {
+  lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' , block: "end", inline: "nearest" });
+};
+
 useEffect(() => {
   fetchChatList();
 }, [fetchChatList]);
+
+useEffect(() => {
+  scrollToBottom();
+}, [messages]);
+
+const handleKeyDown = (event) => {
+  if (event.key === 'Enter') {
+      event.preventDefault(); // Prevent the default behavior of Enter (like submitting a form)
+      if (message.trim()) {
+        handelSendMessage();
+      }
+  }
+};
+
+
 
   let img = "https://images.unsplash.com/photo-1605993439219-9d09d2020fa5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHVzZXIlMjBwcm9maWxlfGVufDB8fDB8fHww";
 
@@ -171,7 +191,7 @@ useEffect(() => {
         <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
 
         <Box style={ { height : 'calc(100vh - 280px)'}}  className="overflow-y-auto mt-[14px] px-2 mb-2 md:mt-0 no-scrollbar" 
-          >
+       >
           {chats.map((chat , index )  => (
             
             <div key={index} className="  md:text-xs
@@ -195,7 +215,7 @@ useEffect(() => {
                  >
                  {chat?.content}
                  </div>
-                 <p className="mt-1    text-[#434343]">9:30pm</p>
+                 <p className="mt-1    text-[#434343]"> { formatTimestamp(chat.createdAt) }</p>
                </div>
              </div>  
               : 
@@ -208,7 +228,7 @@ useEffect(() => {
                 >
                    {chat?.content}
                 </div>
-                <p className="mt-1   text-[#434343]">9:30pm</p>
+                <p className="mt-1   text-[#434343]">{ formatTimestamp(chat.createdAt) }</p>
               </div>
               <div>
                 <div className="h-[32px] w-[32px] md:h-[40px]  md:w-[50px] ">
@@ -245,7 +265,7 @@ useEffect(() => {
                  >
                  {chat?.content}
                  </div>
-                 <p className="mt-1    text-[#434343]">9:30pm</p>
+                 <p className="mt-1    text-[#434343]">{ formatTimestamp(chat.createdAt) }</p>
                </div>
              </div>  
               : 
@@ -258,7 +278,7 @@ useEffect(() => {
                 >
                    {chat?.content}
                 </div>
-                <p className="mt-1   text-[#434343]">9:30pm</p>
+                <p className="mt-1   text-[#434343]">{ formatTimestamp(chat.createdAt) }</p>
               </div>
               <div>
                 <div className="h-[32px] w-[32px] md:h-[40px]  md:w-[50px] ">
@@ -272,7 +292,9 @@ useEffect(() => {
             </div> } 
             </div>
           ))}
+           <div ref={lastMessageRef}> </div>
         </Box>
+       
         <Box  sx={{backgroundColor : "background.input"}} className="flex items-center justify-between px-4  rounded-[8px]">       
           <div className="text-[12px] py-4  md:py-2 flex w-full mr-4">
             <AddCircleIcon color={"#626262"} sx={{ fontSize: "26px", marginRight: "16px" , color :"#626262" }} />{" "}
@@ -281,6 +303,7 @@ useEffect(() => {
               placeholder="Type message here"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={handleKeyDown} // Listen for keydown events
             />
           </div>
           <div>

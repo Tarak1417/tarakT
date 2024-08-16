@@ -67,7 +67,7 @@ const ChatPage = () => {
   const [currentChatUser, setCurrentChatUser] = useState([]);
   const { modalState, closeModal, openModal } = useModal();
 
-   const {   messages, sendMessage  , contactChatList , setContactChatList  }   =   useSocket()
+  const {   messages, sendMessage   , contacts  , chatList }   =   useSocket()
 
   const handelMobileChatOpen = (data)=>{
     openModal();
@@ -134,9 +134,9 @@ const ChatPage = () => {
               >
                 <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
                 {tabs === "contacts" ? (
-                  <ContactList setCurrentChatUser={handelChatOpen}  />
+                  <ContactList setCurrentChatUser={handelChatOpen} contacts={contacts}  />
                 ) : (
-                  <ChatList setCurrentChatUser={handelChatOpen} contactChatList={contactChatList} setContactChatList={setContactChatList} />
+                  <ChatList setCurrentChatUser={handelChatOpen} chatList={chatList}  />
                 )}
               </div>
             </Box>
