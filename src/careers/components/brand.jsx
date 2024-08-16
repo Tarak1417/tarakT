@@ -18,12 +18,12 @@ const Brand = ({ shouldRenderMenuIcon=false ,  orgName="" , orgLogo =""}) => {
    
         <Link to={`/career/${orgName}`}>
         { shouldRenderMenuIcon ? (
-           <img
+           <img alt="logo"
           className='w-[35px] h-[35px] sm:w-[35px] sm:h-[35px]'
           src='https://cdn.clikkle.com/images/clikkle/logo/2023/clikkle.png'
           />
           ) :
-           <>{orgLogo != "" && <img alt={(orgName + " logo")} className='w-[35px] h-[35px] sm:w-[35px] sm:h-[35px]'  src={orgLogoLink} /> }</> 
+           <>{orgLogo != "" && <img alt="logo" className='w-[35px] h-[35px] sm:w-[35px] sm:h-[35px]'  src={orgLogoLink} /> }</> 
          }
         </Link>
      {
