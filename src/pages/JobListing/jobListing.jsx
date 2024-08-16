@@ -86,7 +86,8 @@ const JobListing = () => {
     };
 
     const handleCopy = () => {
-        let text =  `https://hr.clikkle.com/career/${org.name}`
+        let text =  `https://hr.clikkle.com/career/ ${ encodeURIComponent(org.name)}` ;
+
         navigator.clipboard.writeText(text).then(() => { }).catch((err) => {
           console.error('Failed to copy text: ', err);
         });
@@ -94,7 +95,7 @@ const JobListing = () => {
 
     const goToCareerPage = () => {
 
-          let  careerPage  = '/career/'+org.name
+          let  careerPage  = '/career/'+encodeURIComponent(org.name)
           window.open(careerPage, '_blank', 'noopener,noreferrer')
         //   navigate(careerPage);
 
