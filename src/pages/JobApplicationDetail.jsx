@@ -238,9 +238,12 @@ const JobApplicationDetail = () => {
        
             <div className="flex justify-start md:justify-start">
                       {jobApplication && jobApplication.photo ? (
-                            <Box maxWidth='130px'>
-                              <ServerImage src={jobApplication.photo ?? ""}    alt="Profile"  className=" w-[50%] md:w-full max-w-[200px] h-[50%]"  />
-                            </Box>
+                          <Box maxWidth='130px'>
+                          <FetchImage name={jobApplication.photo} />
+                          </Box>
+                            // <Box maxWidth='130px'>
+                            //   <ServerImage src={jobApplication.photo ?? ""}    alt="Profile"  className=" w-[50%] md:w-full max-w-[200px] h-[50%]"  />
+                            // </Box>
                         ) : (
                             <CircularProgress />
                         )}
@@ -254,7 +257,11 @@ const JobApplicationDetail = () => {
                 {jobApplication.jobTitle}
               </p>
               {jobApplication.step !== 4  &&  
-                 <Button variant="contained" sx={{ mt: 2 }} onClick={openReset}>
+                 <Button
+                 sx={{ fontSize: fsize ,  mt: 2 }}
+                 className="text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded bg-sky-500 hover:bg-sky-700"
+                 variant="contained"
+                 onClick={openReset}>
                  Reset Application
                </Button>
               }
