@@ -27,7 +27,7 @@ const TabSection = () => {
   return (
     <Box sx={{ marginTop: "5rem" }}>
       <Elements stripe={stripePromise}>
-        <Box
+        <Box justifyContent="center"
           sx={{
             display: "flex",
             justifyContent: "center",

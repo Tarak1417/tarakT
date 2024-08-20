@@ -30,6 +30,8 @@ import { useMenu } from "../../hooks/useMenu";
 import { useTheme } from "../../style/theme";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import HelpCenterOutlinedIcon from "@mui/icons-material/HelpCenterOutlined";
+import { clearCookie } from "../../utilities/cookies";
+import { env } from "../../utilities/function";
 
 const drawerWidth = 240;
 const navItems = ["Home", "About", "Contact"];
@@ -38,6 +40,15 @@ function Nav(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [userName, setUserName] = React.useState("");
+  let user = localStorage.getItem("user");
+  if (user) {
+    user = JSON.parse(user);
+  }
+  const {
+    anchorEl: anchorElProfile,
+    openMenu: openProfileMenu,
+    closeMenu: closeProfileMenu,
+  } = useMenu();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -86,6 +97,23 @@ function Nav(props) {
       setUserName(user.firstName + " " + user.lastName);
     }
   }, []);
+
+  const signOut = () => {
+    clearCookie("accessToken");
+    localStorage.removeItem("subscriptionId");
+    localStorage.removeItem("org");
+    localStorage.removeItem("user");
+    // clearCookie('role');
+    // clearCookie('setupCompleted');
+
+    const redirectTo =
+      env("AUTHENTICATION_CLIENT") +
+      "/logout?redirectto=" +
+      encodeURIComponent(env("DOMAIN")) +
+      "&&referrer=" +
+      encodeURIComponent(env("DOMAIN"));
+      window().location.replace(redirectTo);
+  };
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
@@ -137,14 +165,95 @@ function Nav(props) {
               color="action"
             />
 
-            <Tooltip title={userName}>
-              <IconButton sx={{ p: 0 }}>
-                <Avatar
-                  alt={userName}
-                  src="../../components/images/hr-text.png"
-                />
-              </IconButton>
-            </Tooltip>
+            {/* <Tooltip title={userName}> */}
+            <IconButton sx={{ p: 0 }} onClick={openProfileMenu}>
+              <Avatar
+                alt={userName}
+                src="../../components/images/hr-text.png"
+              />
+            </IconButton>
+            <Menu
+              anchorEl={anchorElProfile}
+              open={Boolean(anchorElProfile)}
+              onClose={closeProfileMenu}
+              sx={{
+                ".MuiPaper-root.MuiMenu-paper.MuiPopover-paper": {
+                  width: "min(100%, 320px)",
+                  boxShadow:
+                    "rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px",
+                  border: "1px solid #00000017",
+                  bgcolor: "custom.menu",
+                  px: 0.5,
+                  pt: 1.5,
+                },
+              }}
+            >
+              <Grid container spacing={2} alignItems="center" flexWrap="nowrap">
+                <Grid item>
+                  <Avatar
+                    alt={userName}
+                    src="../../components/images/hr-text.png"
+                    sx={{ width: 95, height: 95 }}
+                  >
+                    <Typography sx={{ fontSize: "3rem" }}>
+                      {userName[0]}
+                    </Typography>
+                  </Avatar>
+                </Grid>
+                <Grid item xs={8}>
+                  <Typography
+                    variant="substitle1"
+                    component="div"
+                    fontWeight={600}
+                    sx={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {userName}
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    component="div"
+                    sx={{
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {user?.email || "N/A"}
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    component="a"
+                    href={env("MY_ACCOUNT")}
+                    color="primary.main"
+                    display="block"
+                  >
+                    My Clikkle account
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    component="a"
+                    href="#"
+                    color="primary.main"
+                    display="block"
+                  >
+                    My Profile
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Stack direction="row" mt={2}>
+                <Button variant="text" fullWidth>
+                  Add account
+                </Button>
+                <Button variant="text" onClick={signOut} fullWidth>
+                  Sign out
+                </Button>
+              </Stack>
+            </Menu>
+            {/* </Tooltip> */}
 
             <Typography
               sx={{
@@ -155,7 +264,7 @@ function Nav(props) {
               }}
               textAlign="center"
             >
-             {userName}
+              {userName}
             </Typography>
             <ArrowForwardIosIcon
               sx={{ display: { xs: "none", sm: "block" } }}
