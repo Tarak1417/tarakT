@@ -340,7 +340,9 @@ export default function Navbar(props) {
 
     useEffect(() => {
         setMobileOpen(false);
-        closeAllCollapsesState();
+        if(mobileOpen){
+            closeAllCollapsesState();
+        }
     }, [location.pathname, location.hash]);
 
     useEffect(() => {

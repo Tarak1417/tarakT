@@ -28,7 +28,7 @@ const Attendance = ({ items }) => {
 
   return (
     <Box
-      className="rounded-lg mb-4 shadow-md pt-4 pr-4 pb-4 h-[350px]"
+      className="rounded-lg mb-4 shadow-md pt-4 pr-4 pb-4 h-full"
       sx={{ backgroundColor: "background.view" }}
     >
       <div className="flex flex-row gap-4 mb-4 items-center justify-between">

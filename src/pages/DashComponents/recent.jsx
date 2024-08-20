@@ -29,7 +29,7 @@ const RecentActivity = () => {
     ];
 
     return (
-        <Box  className='rounded-lg mb-4 shadow-md pr-4 pt-4 pb-4' sx={{
+        <Box  className='rounded-lg mb-4 shadow-md pr-4 pt-4 pb-4  h-full' sx={{
             backgroundColor: 'background.view', 
            
            }}>
