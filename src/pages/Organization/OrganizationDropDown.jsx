@@ -17,6 +17,7 @@ import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router";
 import { setCookie } from "../../utilities/cookies";
 import { useRefresh } from "../../components/Header";
+import { ServerImage } from "../../components/Images";
 const colorHexCodes = [
   "#e57373", // Red
   "#f06292", // Green
@@ -115,8 +116,13 @@ const OrganizationDropDown = () => {
   return (
     <div>
       <div className="relative flex justify-between">
+        <div>
+        <Avatar sx={{ bgcolor :"#FFFFFF" , width: 25, height: 25 , fontSize:12 , mr:1 }}>{ (selectedValue.logo&& selectedValue.log !="" ? <ServerImage src={selectedValue?.logo} width='24' height='24' sx={{p:0.5}} /> : getFirstCharacter (selectedValue?.name) ) }</Avatar>
+
+        </div>
+
         <div
-          className="bg-transparent text-xl text-gray-500 w-full "
+          className="bg-transparent text-xl truncate ... text-gray-500 mr-1 w-full "
           onClick={toggleListVisibility}
         >
           {selectedValue?.name ?? 'N/A' }
@@ -164,8 +170,9 @@ const OrganizationDropDown = () => {
                 <ListItem  key={index} disablePadding  onClick={ ()=>handleChange(item)}>
                   <ListItemButton>
 
+              {/* <Avatar sx={{ width: 30, height: 30 , fontSize:12 }}>  </Avatar> */}
                       
-                      <Avatar sx={{ bgcolor: colorHexCodes[(index%10 )] , width: 25, height: 25 , fontSize:12 , mr:1 }}>{getFirstCharacter (item?.name)}</Avatar>
+                      <Avatar sx={{ bgcolor :"#FFFFFF" , width: 25, height: 25 , fontSize:12 , mr:1 }}>{ (item.logo&& item.log !="" ? <ServerImage src={item?.logo} width='24' height='24' sx={{p:0.5}} /> : getFirstCharacter (item?.name) ) }</Avatar>
                       {/* <div className="w-4 h-4 bg-red-500 rounded-full ml-1.5 mr-5">
                         {" "}
                       </div>{" "} */}
