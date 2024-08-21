@@ -320,10 +320,19 @@ const JobApplicationDetail = () => {
                 </h1>
               </div>
               <div className="w-1/2">
-                <p className="text-[12px] md:text-[20px]">
+                 <Button
+                     className="text-neutral-500 p-0 m-0"
+                      LinkComponent={Link}
+                      sx={{minWidth : "12px"}}
+                      to={`/receivedapplications?experience=${jobApplication.experience}`}
+                      disabled={!jobApplication.experience}
+                    >
+                         <p className="text-[12px] md:text-[20px]">
                   {" "}
                   {jobApplication.experience}
                 </p>
+                    </Button>
+            
               </div>
             </div>
             <div className="w-full flex flex-row items-center justify-start gap-10">
