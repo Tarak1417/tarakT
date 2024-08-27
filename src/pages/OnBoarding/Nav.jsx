@@ -37,7 +37,7 @@ const drawerWidth = 240;
 const navItems = ["Home", "About", "Contact"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 function Nav(props) {
-  const { window } = props;
+  // const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [userName, setUserName] = React.useState("");
   let user = localStorage.getItem("user");
@@ -112,11 +112,11 @@ function Nav(props) {
       encodeURIComponent(env("DOMAIN")) +
       "&&referrer=" +
       encodeURIComponent(env("DOMAIN"));
-      window().location.replace(redirectTo);
+      window.location.replace(redirectTo);
   };
 
   const container =
-    window !== undefined ? () => window().document.body : undefined;
+   window !== undefined ? () => window.document.body : undefined;
 
   return (
     <Box sx={{ display: "flex" }}>
