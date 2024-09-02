@@ -86,7 +86,7 @@ const JobListing = () => {
     };
 
     const handleCopy = () => {
-        let text =  `https://hr.clikkle.com/career/ ${ encodeURIComponent(org.name)}` ;
+        let text =  `https://hr.clikkle.com/career/${encodeURIComponent(org.name)}` ;
 
         navigator.clipboard.writeText(text).then(() => { }).catch((err) => {
           console.error('Failed to copy text: ', err);
