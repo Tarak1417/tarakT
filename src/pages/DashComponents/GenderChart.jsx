@@ -81,7 +81,7 @@ const countGenders = (employees) => {
   // const totalCount = data.reduce((acc, cur) => acc + cur.value, 0);
 
   return (
-    <Box className="">
+    <Box className="  h-full">
       <Grid
         className="rounded-lg pt-4 pr-4 pb-4"
         sx={{

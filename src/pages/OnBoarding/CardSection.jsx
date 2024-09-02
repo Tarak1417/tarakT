@@ -403,19 +403,20 @@ const CardSection = () => {
         sx={{
           display: "flex",
           justifyContent: "center",
-          margin:'2rem'
+          padding:'2rem 1rem'
         }}
       >
         {/* Card One */}
-        <Grid item md={4} lg={4}>
+        <Grid item xs={11}  md={4}>
           <Card
-            className="p-4"
+            className="p-4 "
             sx={{
               backgroundColor: "background.cardView",
               height: "100%",
+              width: "100%",
             }}
           >
-            <CardContent>
+            <CardContent  className=" w-full">
               <ToggleButtonGroup
                 color="primary"
                 value={plan}
@@ -423,7 +424,7 @@ const CardSection = () => {
                 aria-label="Platform"
                 onChange={handlePlanChange}
               > 
-             <Box sx={{ minWidth: 120 , borderRadius:0 }}>
+             <Box >
                 <FormControl fullWidth>
                   <Select
                     labelId="demo-customized-select-label"
@@ -484,9 +485,9 @@ const CardSection = () => {
         </Grid>
         {/* card two */}
 
-        <Grid item md={4} lg={4}>
+        <Grid item xs={11} md={4}>
           <Card
-            className="p-4"
+            className="p-4 w-full"
             sx={{
               height: "100%",
               backgroundColor: "background.card",
@@ -601,9 +602,9 @@ const CardSection = () => {
         </Grid>
 
         {/* card three */}
-        <Grid item md={4} lg={4}>
+        <Grid item xs={11} md={4}>
           <Card
-            className="p-4"
+            className="p-4 w-full"
             sx={{
               backgroundColor: "background.cardView",
               height: "100%",

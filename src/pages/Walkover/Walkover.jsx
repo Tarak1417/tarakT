@@ -67,7 +67,7 @@ const WalkoverHeader = () => {
         <div className="absolute right-0 w-full h-full scale-125 bg-[#ebfbff] rounded-full transform translate-x-[76%]"></div>
       </Box>
       <div className="z-10 flex sm:flex-row-reverse flex-col w-full h-full sm:justify-between">
-        <div className="py-10 px-6 text-right block sm:hidden">Skip</div>
+        <div onClick={handleGoToCheckout} className="py-10 px-6 text-right text-gray-500 block">Skip</div>
         <div className="w-full h-1/3 sm:h-full sm:w-1/2 flex items-center justify-center">
           <div className="w-4/6 sm:w-auto">
             <img

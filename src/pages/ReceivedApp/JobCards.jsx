@@ -26,6 +26,7 @@ const JobCards = ({ labels }) => {
     terminated: "",
     searchBy: "fullName",
     direction: -1,
+    experience: null
   });
   const [pageNo, setPageNo] = useState(1);
   const [pageLimit, setPageLimit] = useState(0);
@@ -37,8 +38,9 @@ const JobCards = ({ labels }) => {
 
   const fetchJobsApplication = useCallback(async () => {
     try {
+      console.log("experience >",filters.experience )
       const response = await axios.get(
-        `/hr/job-application?searchBy=${filters.searchBy}&searchText=${filters.search}&sortBy=${filters.sortBy}&direction=${filters.direction}&page=${pageNo}&interviewSent=${filters.interviewSent}&interviewed=${filters.interviewed}&offerSent=${filters.offerSent}&offerSigned=${filters.offerSigned}&agreementSent=${filters.agreementSent}&agreementSigned=${filters.agreementSigned}&employed=${filters.employed}&terminated=${filters.terminated}`
+        `/hr/job-application?searchBy=${filters.searchBy}${(filters.experience == "null") ? "":'&experience='+filters.experience }&searchText=${filters.search}&sortBy=${filters.sortBy}&direction=${filters.direction}&page=${pageNo}&interviewSent=${filters.interviewSent}&interviewed=${filters.interviewed}&offerSent=${filters.offerSent}&offerSigned=${filters.offerSigned}&agreementSent=${filters.agreementSent}&agreementSigned=${filters.agreementSigned}&employed=${filters.employed}&terminated=${filters.terminated}`
       );
       setJobApplications(response.data.applications);
       setPageLimit(response.data.pageData.totalPages);
@@ -128,6 +130,7 @@ const handleRest =()=>{
   setFilters("agreementSigned" , "")
   setFilters("employed" , "")
   setFilters("terminated" , "")
+  setFilters("experience" , null)
 
 }
 

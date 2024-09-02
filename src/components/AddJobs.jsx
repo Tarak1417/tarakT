@@ -141,12 +141,10 @@ function AddJob({ refresh, handleClose, selectedJob, setSelectedJob }) {
     console.log(details);
 
     const handleContentChange = (e, i) => {
-        console.log('onChange', i);
-        console.log(e);
         const newValue = e.target.value;
-        details[i].content = newValue;
-        console.log(details);
-        setDetails([...details]);
+        let tempDetails = [...details]
+        tempDetails[i].content = newValue;
+        setDetails(tempDetails);
     };
 
     const handleTagChange = (e, i) => {
@@ -371,7 +369,7 @@ function AddJob({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                 {details.map((detail, i) => (
                                     <Grid container key={i} spacing={2}>
                                         <Grid item xs>
-                                            <TextField
+                                            {/* <TextField
                                                 // name={'dtitle'}
                                                 size='small'
                                                 id='outlined-basic'
@@ -379,7 +377,16 @@ function AddJob({ refresh, handleClose, selectedJob, setSelectedJob }) {
                                                 value={detail.content}
                                                 onChange={e => handleContentChange(e, i)}
                                                 fullWidth
-                                            />
+                                            /> */}
+                                            <Input
+                                        name={'details'+i}
+                                        size='small'
+                                        id='outlined-basic'
+                                        variant='outlined'
+                                        value={detail.content}
+                                        onChange={e => handleContentChange(e, i)}
+                                        fullWidth
+                                    />
                                         </Grid>
                                         <Grid item xs={2}>
                                             <Select

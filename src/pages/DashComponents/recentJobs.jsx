@@ -28,7 +28,7 @@ const RecentJobs = ({ items }) => {
 
   return (
     <Box
-      className="rounded-lg mb-4 shadow-md pt-4 pr-4 pb-4"
+      className="rounded-lg mb-4 shadow-md h-full pt-4 pr-4 pb-4 "
       sx={{
         backgroundColor: "background.view",
       }}
@@ -39,7 +39,7 @@ const RecentJobs = ({ items }) => {
             Recent Job Application
           </Typography>
         </div>
-        <div className="w-full md:w-1/2 gap-2 flex flex-row">
+        {/* <div className="w-full md:w-1/2 gap-2 flex flex-row">
           <div className="border border-gray-600 rounded-lg p-1 w-1/2">
             <div className="w-full flex justify-between items-center">
               <Typography className="text-xl">Monthly</Typography>
@@ -112,23 +112,21 @@ const RecentJobs = ({ items }) => {
               )}
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
-      <div className="w-full">
+      <div className="w-full overflow-x-auto md:overflow-x-hidden" >
         { items && items ? items?.map((item, index) => (
           <div
             key={index}
-            className="flex flex-row mb-4 gap-1 md:gap-0"
-            style={{ overflowX: "scroll" }}
+            className="flex flex-row mb-1 min-w-[30rem]"
           >
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              <div
-                className="w-1/6 md:w-1/6 flex items-center justify-center"
+            <div className="w-[45%] flex flex-row" >
+              <div className="flex items-center justify-center"
                 style={{ marginLeft: "10px", marginRight: "10px" }}
               >
                 <AccountCircleIcon fontSize="large" />
               </div>
-              <div className="w-1/3 md:w-1/3">
+              <div className="flex-1 truncate">
                 <h1
                   className="text-sm truncate md:text-lg text-gray-400"
                   style={{ fontSize: "12px", marginBottom: "-10px" }}
@@ -136,39 +134,33 @@ const RecentJobs = ({ items }) => {
                   {item.fullName}
                 </h1>
                 <p
-                  className="w-1/3 md:w-1/3 text-sm  text-zinc-500"
+                  className=" truncate ... text-sm  text-zinc-500"
                   style={{ fontSize: "12px" }}
                 >
-                  {item.email.length > 10
-                    ? `${item.email.slice(0, 13)}...`
-                    : item.email}
+                  {item.email}
                 </p>
               </div>
             </div>
-            <div className="w-1/5 md:w-1/5 flex items-center justify-start md:items-center md:justify-center">
+            <div className="w-[5%] flex items-center justify-start ">
               <p className="text-sm text-zinc-500">{item?.experience}</p>
             </div>
-            <div className="w-1/3 md:w-1/5 flex items-center justify-start md:items-center md:justify-center">
-              <p className="text-sm text-zinc-500" style={{ whiteSpace: "nowrap" }}>
-                 {item?.jobTitle?.length > 10 
-                ? `${item?.jobTitle?.slice(0, 10)}...`
-                : item?.jobTitle
-                }
+            <div className="w-[30%] flex items-center justify-start ">
+              <p className="text-sm text-zinc-500 truncate ... " style={{ whiteSpace: "nowrap" }}>
+                 {item?.jobTitle}
               </p>
             </div>
-            <div className="w-1/4 md:w-1/4 gap-2 flex items-center justify-start md:items-center md:justify-center whitespace-nowrap">
+            <div className="w-[20%] gap-2 flex items-center justify-end  whitespace-nowrap">
               <CallIcon className="text-green-700" />
               <EmailIcon className="text-green-700" />
               <DeleteIcon className="text-red-700 " />
             </div>
           </div>
-          
-
         ))
       :
       "Loading..."
       }
       </div>
+
     </Box>
   );
 };

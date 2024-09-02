@@ -238,9 +238,12 @@ const JobApplicationDetail = () => {
        
             <div className="flex justify-start md:justify-start">
                       {jobApplication && jobApplication.photo ? (
-                            <Box maxWidth='130px'>
-                              <ServerImage src={jobApplication.photo ?? ""}    alt="Profile"  className=" w-[50%] md:w-full max-w-[200px] h-[50%]"  />
-                            </Box>
+                          <Box maxWidth='130px'>
+                          <FetchImage name={jobApplication.photo} />
+                          </Box>
+                            // <Box maxWidth='130px'>
+                            //   <ServerImage src={jobApplication.photo ?? ""}    alt="Profile"  className=" w-[50%] md:w-full max-w-[200px] h-[50%]"  />
+                            // </Box>
                         ) : (
                             <CircularProgress />
                         )}
@@ -254,7 +257,11 @@ const JobApplicationDetail = () => {
                 {jobApplication.jobTitle}
               </p>
               {jobApplication.step !== 4  &&  
-                 <Button variant="contained" sx={{ mt: 2 }} onClick={openReset}>
+                 <Button
+                 sx={{ fontSize: fsize ,  mt: 2 }}
+                 className="text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded bg-sky-500 hover:bg-sky-700"
+                 variant="contained"
+                 onClick={openReset}>
                  Reset Application
                </Button>
               }
@@ -313,10 +320,19 @@ const JobApplicationDetail = () => {
                 </h1>
               </div>
               <div className="w-1/2">
-                <p className="text-[12px] md:text-[20px]">
+                 <Button
+                     className="text-neutral-500 p-0 m-0"
+                      LinkComponent={Link}
+                      sx={{minWidth : "12px"}}
+                      to={`/receivedapplications?experience=${jobApplication.experience}`}
+                      disabled={!jobApplication.experience}
+                    >
+                         <p className="text-[12px] md:text-[20px]">
                   {" "}
                   {jobApplication.experience}
                 </p>
+                    </Button>
+            
               </div>
             </div>
             <div className="w-full flex flex-row items-center justify-start gap-10">

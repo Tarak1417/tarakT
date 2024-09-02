@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
@@ -13,31 +12,22 @@ import SidebarDrawer from './sidebarDrawer';
 import AppListToggler from './appList';
 import { useTheme } from '../atoms/theme';
 import { getCookie } from '../../utilities/cookies';
+import { useLocation } from 'react-router-dom';
 
-const Header = ({careerUser}) => {
+const Header = ({careerUser , orgName ,orgLogo}) => {
   const { theme  , toggleTheme} = useTheme();
-  
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
-  const [orgName, setOrgName] = useState('');
   const location = useLocation();
   const toggleLeftDrawer = () => setLeftDrawerOpen((prev) => !prev);
 
   const pathName = location.pathname;
 
   useEffect(() => {
-    const name = pathName.split('/')[2]; // Get the part after the first slash
-    const decodedName = decodeURIComponent(name);
     const hrTheme = getCookie('P13N');
-
     if(theme !==hrTheme){
       toggleTheme();
     }
-    if (decodedName) {
-      setOrgName(decodedName);
-    }else {
-      const orgNameTemp = localStorage.getItem('Organization');
-      setOrgName(orgNameTemp);
-    }
+
   }, []);
 
   const shouldRenderMenuIcon = !pathName.includes(`/career/${orgName}`) && orgName === 'Clikkle Technologies' ;
@@ -66,7 +56,7 @@ const Header = ({careerUser}) => {
             <MenuIcon />
           </IconButton>
           }
-        <Brand shouldRenderMenuIcon={shouldRenderMenuIcon} orgName={orgName} />
+        <Brand shouldRenderMenuIcon={shouldRenderMenuIcon} orgName={orgName} orgLogo={orgLogo} />
         <AppListToggler careerUser={careerUser} shouldRenderMenuIcon={shouldRenderMenuIcon} />  
         </Toolbar>
       </AppBar>

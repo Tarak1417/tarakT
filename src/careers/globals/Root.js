@@ -1,10 +1,12 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { useLocation } from 'react-router-dom';
 
 import { useTheme } from '../atoms/theme';
 import Header from '../components/header';
 import { RecoilRoot } from 'recoil';
+import axios from 'axios';
 
 const defaultTheme = createTheme({
   breakpoints: {
@@ -167,8 +169,9 @@ const darkThemeConfig = {
 
 const RootContainer = ({ children , careerUser ,setCareerUser }) => {
   const { theme } = useTheme();
-
-  const muiTheme = useMemo(() => {
+  const [orgName, setOrgName] = useState('');
+  const [orgLogo , setOrgLogo] = useState('');
+   const muiTheme = useMemo(() => {
     return createTheme({
       ...defaultTheme,
       palette: {
@@ -178,8 +181,38 @@ const RootContainer = ({ children , careerUser ,setCareerUser }) => {
       },
     });
   }, [theme]);
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  async function fetchOrganization(name) {
+    try {
+      const response = await axios.get(`/open/org-info?name=${name}`);
+      const organization = response.data.organization;
+        setOrgLogo(organization.logo)
+        localStorage.setItem('Organization', organization.name);
+        localStorage.setItem('OrganizationLogo', organization.logo);
+        localStorage.setItem('OrganizationLogoURL', organization.name);
+        localStorage.setItem('JobApply', true);
+   
+    } catch (error) {
+    }
+  }
+
 
    useEffect(()=>{
+    const name = pathname.split('/')[2]; // Get the part after the first slash
+    const decodedName = decodeURIComponent(name);
+
+    if (decodedName) {
+      setOrgName(decodedName)
+      fetchOrganization(decodedName);
+    }else {
+      const orgNameTemp = localStorage.getItem('Organization');
+      const orgLogoTemp = localStorage.getItem('OrganizationLogo');
+      setOrgName(orgNameTemp);
+      setOrgLogo(orgLogoTemp);
+    }
+
       (async () => {
         try {
           const queryParameters = new URLSearchParams(window.location.search);
@@ -218,7 +251,6 @@ const RootContainer = ({ children , careerUser ,setCareerUser }) => {
           // handleAxiosError(err, showError);
         }
       })();
-
    },[])
 
   return (
@@ -226,7 +258,7 @@ const RootContainer = ({ children , careerUser ,setCareerUser }) => {
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
       <div className='sticky top-0 z-50'>
-        <Header careerUser={careerUser} />
+        <Header careerUser={careerUser} orgName={orgName} orgLogo={orgLogo} />
       </div>
       <div>{children}</div>
     </ThemeProvider>

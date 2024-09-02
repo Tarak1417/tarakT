@@ -186,6 +186,15 @@ export default function Navbar(props) {
         [label]: !prevState[label]
         }));
     };
+
+
+    const closeAllCollapsesState = (label) => {
+        let tempCollapsesState = {...collapsesState};
+        for (let key in tempCollapsesState){
+              tempCollapsesState[key] = false ;
+        }
+        setCollapsesState(tempCollapsesState);
+    };
  
     const {
         modalState: feedbackState,
@@ -331,6 +340,9 @@ export default function Navbar(props) {
 
     useEffect(() => {
         setMobileOpen(false);
+        if(mobileOpen){
+            closeAllCollapsesState();
+        }
     }, [location.pathname, location.hash]);
 
     useEffect(() => {
