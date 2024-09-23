@@ -62,12 +62,20 @@ const WalkoverHeader = () => {
   };
 
   return (
-    <Box sx={{ backgroundColor: 'background.main', }} className="w-screen h-screen flex items-center justify-center overflow-x-hidden relative  ">
+    <Box
+      sx={{ backgroundColor: "background.main" }}
+      className="w-full h-full flex flex-col items-center justify-center relative  "
+    >
       <Box className="hidden sm:flex absolute w-full h-full flex items-center justify-center">
-        <div className="absolute right-0 w-full h-full scale-125 bg-[#ebfbff] rounded-full transform translate-x-[76%]"></div>
+        <div className="fixed right-0 w-full h-full scale-125 bg-[#ebfbff] rounded-full transform translate-x-[76%]"></div>
       </Box>
-      <div className="z-10 flex sm:flex-row-reverse flex-col w-full h-full sm:justify-between">
-        <div onClick={handleGoToCheckout} className="py-10 px-6 text-right text-gray-500 block">Skip</div>
+      <div className="z-10 flex sm:flex-row-reverse flex-col w-full h-full sm:justify-between md:items-start items-end">
+        <button
+          onClick={handleGoToCheckout}
+          className="h-fit w-fit mt-8 mr-4 py-2 px-6 text-right text-white-500 block bg-blue-500 rounded"
+        >
+          Skip
+        </button>
         <div className="w-full h-1/3 sm:h-full sm:w-1/2 flex items-center justify-center">
           <div className="w-4/6 sm:w-auto">
             <img
@@ -78,7 +86,7 @@ const WalkoverHeader = () => {
             />
           </div>
         </div>
-        <div className=" w-full h-1/2  sm:h-full sm:w-1/2 sm:pl-16 py-10">
+        <div className=" w-full h-1/2 flex flex-col gap-1 sm:h-full sm:w-1/2 sm:pl-16 py-10">
           {/* <div className="hidden sm:flex items-center">
             <img className={`w-14 `} src={logoSrc} alt={name} />
             <h1
@@ -96,22 +104,6 @@ const WalkoverHeader = () => {
                 {walkover[currentIndex].descriptions}
               </div>
             </div>
-
-          </div>  
-          {currentIndex === 3 && (
-              <div className=" flex justify-center mb-4 sm:hidden">
-                <Button
-                  className=" w-5/6  sm:w-2/6"
-                  onClick={handleGoToCheckout}
-                  variant="contained"
-                  sx={{ borderRadius: 3, px: 3, py: 1.5 }}
-                >
-                  Get Started
-                </Button>
-              </div>
-            )}
-         
-          <div className="h-[30%] flex flex-row-reverse sm:flex-col justify-between ">
             {currentIndex === 3 && (
               <div className="hidden sm:block">
                 <Button
@@ -124,6 +116,21 @@ const WalkoverHeader = () => {
                 </Button>
               </div>
             )}
+          </div>
+          {currentIndex === 3 && (
+            <div className=" flex justify-center mb-4 sm:hidden">
+              <Button
+                className=" w-5/6  sm:w-2/6"
+                onClick={handleGoToCheckout}
+                variant="contained"
+                sx={{ borderRadius: 3, px: 3, py: 1.5 }}
+              >
+                Get Started
+              </Button>
+            </div>
+          )}
+
+          <div className="h-[30%] flex flex-row-reverse sm:flex-col justify-between ">
             <div className="flex mt-2 gap-4">
               <div className="p-px w-fit h-fit rounded-full bg-gray-300">
                 <IconButton
@@ -132,7 +139,10 @@ const WalkoverHeader = () => {
                   color="primary"
                   className="rounded-full"
                 >
-                  <ArrowBackIos />
+                  <ArrowBackIos
+                    color={currentIndex === 0 ? "action" : ""}
+                    className="translate-x-1"
+                  />
                 </IconButton>
               </div>
               <div className="p-px w-fit h-fit rounded-full bg-gray-300">
@@ -142,7 +152,7 @@ const WalkoverHeader = () => {
                   color="primary"
                   className="rounded-full"
                 >
-                  <ArrowForwardIos />
+                  <ArrowForwardIos color={currentIndex === 3 ? "action" : ""} />
                 </IconButton>
               </div>
             </div>
