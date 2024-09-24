@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Divider from "@mui/material/Divider";
-import { Link } from "react-router-dom";
-import { Box, Button, IconButton, Typography } from "@mui/material";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import { Box, Button, IconButton, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 let walkover = [
   {
@@ -40,7 +40,6 @@ let walkover = [
 ];
 
 const WalkoverHeader = () => {
-  const location = useLocation();
   const navigate = useNavigate();
 
   let logoSrc = "https://cdn.clikkle.com/images/hr/logo/2023/hr.png",
@@ -57,17 +56,46 @@ const WalkoverHeader = () => {
     setCurrentIndex((prevIndex) => prevIndex + 1);
   };
 
+  const handleSlideChange = (swiper) => {
+    setCurrentIndex(swiper?.activeIndex ?? 0);
+  };
+
   const handleGoToCheckout = () => {
     navigate("/checkout");
   };
 
+  const skip = (
+    <button
+      onClick={handleGoToCheckout}
+      className="h-fit w-fit mt-8 mr-4 py-2 px-6 text-right text-white-500 block bg-blue-500 rounded z-10"
+    >
+      Skip
+    </button>
+  );
+
+  const slides = (
+    <Box className="flex mt-10">
+      {[0, 1, 2, 3].map((_, index) => (
+        <Box
+          key={index}
+          className={`mx-1 transition-all h-3 duration-300 ${
+            currentIndex === index ? "w-8  bg-blue-500" : "w-3  bg-gray-300"
+          } rounded-full`}
+        ></Box>
+      ))}
+    </Box>
+  );
+
   return (
-    <Box sx={{ backgroundColor: 'background.main', }} className="w-screen h-screen flex items-center justify-center overflow-x-hidden relative  ">
-      <Box className="hidden sm:flex absolute w-full h-full flex items-center justify-center">
-        <div className="absolute right-0 w-full h-full scale-125 bg-[#ebfbff] rounded-full transform translate-x-[76%]"></div>
+    <Box
+      sx={{ backgroundColor: "background.main" }}
+      className="w-full h-full flex flex-col items-center justify-center relative"
+    >
+      <Box className="hidden md:flex absolute w-full h-full items-center justify-center z-0">
+        <div className="fixed right-0 w-full h-full md:scale-125 scale-100 bg-[#ebfbff] rounded-full transform md:translate-x-[76%] translate-x-[50%]"></div>
       </Box>
-      <div className="z-10 flex sm:flex-row-reverse flex-col w-full h-full sm:justify-between">
-        <div onClick={handleGoToCheckout} className="py-10 px-6 text-right text-gray-500 block">Skip</div>
+      <div className="z-10 hidden md:flex sm:flex-row-reverse flex-col w-full h-full sm:justify-between md:items-start items-end">
+        {skip}
         <div className="w-full h-1/3 sm:h-full sm:w-1/2 flex items-center justify-center">
           <div className="w-4/6 sm:w-auto">
             <img
@@ -78,7 +106,7 @@ const WalkoverHeader = () => {
             />
           </div>
         </div>
-        <div className=" w-full h-1/2  sm:h-full sm:w-1/2 sm:pl-16 py-10">
+        <div className=" w-full h-1/2 flex flex-col gap-1 sm:h-full sm:w-1/2 sm:pl-16 py-10">
           {/* <div className="hidden sm:flex items-center">
             <img className={`w-14 `} src={logoSrc} alt={name} />
             <h1
@@ -96,22 +124,6 @@ const WalkoverHeader = () => {
                 {walkover[currentIndex].descriptions}
               </div>
             </div>
-
-          </div>  
-          {currentIndex === 3 && (
-              <div className=" flex justify-center mb-4 sm:hidden">
-                <Button
-                  className=" w-5/6  sm:w-2/6"
-                  onClick={handleGoToCheckout}
-                  variant="contained"
-                  sx={{ borderRadius: 3, px: 3, py: 1.5 }}
-                >
-                  Get Started
-                </Button>
-              </div>
-            )}
-         
-          <div className="h-[30%] flex flex-row-reverse sm:flex-col justify-between ">
             {currentIndex === 3 && (
               <div className="hidden sm:block">
                 <Button
@@ -124,6 +136,21 @@ const WalkoverHeader = () => {
                 </Button>
               </div>
             )}
+          </div>
+          {currentIndex === 3 && (
+            <div className=" flex justify-center mb-4 sm:hidden">
+              <Button
+                className=" w-5/6  sm:w-2/6"
+                onClick={handleGoToCheckout}
+                variant="contained"
+                sx={{ borderRadius: 3, px: 3, py: 1.5 }}
+              >
+                Get Started
+              </Button>
+            </div>
+          )}
+
+          <div className="h-[30%] flex flex-row-reverse sm:flex-col justify-between ">
             <div className="flex mt-2 gap-4">
               <div className="p-px w-fit h-fit rounded-full bg-gray-300">
                 <IconButton
@@ -132,7 +159,10 @@ const WalkoverHeader = () => {
                   color="primary"
                   className="rounded-full"
                 >
-                  <ArrowBackIos />
+                  <ArrowBackIos
+                    color={currentIndex === 0 ? "action" : ""}
+                    className="translate-x-1"
+                  />
                 </IconButton>
               </div>
               <div className="p-px w-fit h-fit rounded-full bg-gray-300">
@@ -142,24 +172,53 @@ const WalkoverHeader = () => {
                   color="primary"
                   className="rounded-full"
                 >
-                  <ArrowForwardIos />
+                  <ArrowForwardIos color={currentIndex === 3 ? "action" : ""} />
                 </IconButton>
               </div>
             </div>
-            <Box className="flex mt-10">
-              {[0, 1, 2, 3].map((_, index) => (
-                <Box
-                  key={index}
-                  className={`mx-1 transition-all h-3 duration-300 ${
-                    currentIndex === index
-                      ? "w-8  bg-blue-500"
-                      : "w-3  bg-gray-300"
-                  } rounded-full`}
-                ></Box>
-              ))}
-            </Box>
+            {slides}
           </div>
         </div>
+      </div>
+      <div className="md:hidden flex flex-col items-end w-full h-full mb-20">
+        {skip}
+        <Swiper className="w-full h-full" onSlideChange={handleSlideChange}>
+          {walkover.map((item, index) => (
+            <SwiperSlide
+              key={index}
+              className="w-full h-full !flex flex-col justify-center"
+            >
+              <div className="w-[80vmin] h-fit m-auto">
+                <div className="w-full sm:h-full flex items-center justify-center">
+                  <img
+                    className="origin-center w-[50vmin] h-auto max-w-full"
+                    src={"/images/ASSETS/" + item.image}
+                    alt={item.title}
+                  />
+                </div>
+                <div className="w-full flex flex-col gap-1 py-10 sm:pl-16">
+                  <div className="text-2xl sm:text-5xl">{item.title}</div>
+                  <div className="my-5">
+                    <Typography variant="body1" className="text-gray-500">
+                      {item.descriptions}
+                    </Typography>
+                  </div>
+                  {index === 3 && (
+                    <Button
+                      onClick={handleGoToCheckout}
+                      variant="contained"
+                      className="hidden sm:block !w-fit md:w-auto"
+                      sx={{ borderRadius: 3, px: 3, py: 1.5 }}
+                    >
+                      Get Started
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <div className="w-full px-8 -mt-10">{slides}</div>
       </div>
     </Box>
   );

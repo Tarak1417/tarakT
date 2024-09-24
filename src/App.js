@@ -1,97 +1,138 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState, lazy, Suspense } from "react";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import "./utilities/axios";
-import Header from "./components/Header";
-import Home from "./pages/Home";
-import JobListingHome from "./pages/JobListing/JobListingHome";
-import ReceivedApp from "./pages/ReceivedApp/ReceivedApp";
-import ShowMoreHome from "./pages/ReceivedApp/ShowMoreHome";
-import SendOfferHome from "./pages/ReceivedApp/Steps/sendOfferHome";
-import DeptHome from "./pages/Departments/DeptHome";
-import InterviewHome from "./pages/Interview/interviewHome";
-import EditHome from "./pages/JobListing/EditHome";
-import OfferHome from "./pages/ReceivedApp/Steps/OfferHome";
-import AgreementHome from "./pages/ReceivedApp/Steps/agreements/AgreementHome";
-import NoticeHome from "./pages/NoticeBoard/NoticeHome";
-import Apps from "./pages/Apps";
-import EmployeeHome from "./pages/Employee/EmployeeHome";
-import PerformanceHome from "./pages/Employee/PerformanceHome";
-import EmpDetailsHome from "./pages/Employee/EmployeeDetails/EmpDetailsHome";
-import AttendHome from "./pages/Attendance/AttendHome";
-import AttendViewHome from "./pages/Attendance/AttendView/AttendViewHome";
-import LeaveSettingsHome from "./pages/Attendance/AttendView/LeaveSetting/LeaveSettingHome";
-import LeaveAppHome from "./pages/Attendance/AttendView/LeaveAppPage.jsx/LeaveAppHome";
-import LeaveViewHome from "./pages/Attendance/AttendView/LeaveAppPage.jsx/LeaveViewHome";
-import ExpensesHome from "./pages/Expenses/ExpensesHome";
-import AwardHome from "./pages/Award/AwardHome";
-import HolidayHome from "./pages/Holiday/HolidayHome";
-import AddPayrollHome from "./pages/Payrolls/AddPayHome";
-import MorePayrollHome from "./pages/Payrolls/MorePayHome";
-import Footer from "./pages/Footer";
-import EditPayrollHome from "./pages/Payrolls/EditPayHome";
-import MoreEditPayrollHome from "./pages/Payrolls/MoreEPayHome";
-import SalaryHome from "./pages/Payrolls/SalaryHome";
-import JobApplicationDetail from "./pages/JobApplicationDetail";
-import Agreements from "./pages/Agreements";
-import OfferLetter from "./pages/OfferLatter";
-import RuleAndRegulations from "./pages/Rules&Regulations";
-import WalkoverHeader from "./pages/Walkover/Walkover";
-import Dashboard from "./pages/Projects/Dashboard";
-import NewProject from "./pages/Projects/NewProject";
-import OverTime from "./pages/Projects/OverTimeCalender";
-import ProjectList from "./pages/Projects/ProjectList";
-import OverViewCalender from "./pages/Projects/Calender";
-import DashBoard from "./pages/Support_System/UserPage/Dashboard/DashBoard";
-import TicketList from "./pages/Support_System/UserPage/Tikects/TicketList";
-import Profile from "./pages/Support_System/UserPage/profile/Profile";
-import Knowledgepage from "./pages/Support_System/LandingPages/Knowledgepage";
-import Knowledgeview from "./pages/Support_System/LandingPages/Knowledgeview";
-import Memo from "./pages/Memo/Memo";
-import MemoEdit from "./pages/Memo/MemoEdit";
-import LandingPage from "./pages/Support_System/LandingPages/LandingPage";
-import ActiveList from "./pages/Support_System/UserPage/Tikects/ActiveTicket";
-import CreateTicket from "./pages/Support_System/UserPage/Tikects/CreateTicket";
-import CloseTicket from "./pages/Support_System/UserPage/Tikects/CloseTickt";
-
-import AuthorizationProvider from "./hooks/Authorize";
-import ThemeContextProvider, { useTheme } from "./style/theme";
-import CreateOrganization from "./pages/Organization/CreateOrganization";
-import ListOrganization from "./pages/Organization/ListOrganization";
-import { setCookie } from "./utilities/cookies";
-import OnBoarding from "./pages/OnBoarding/OnBoarding";
-
-import Theme from "./pages/admin/Theme";
-import Ticket from "./pages/admin/Ticket";
-import ChatSetting from "./pages/admin/Chat";
-import Emailsetting from "./pages/admin/Emailsetting";
-import Fileupload from "./pages/admin/Fileupload";
-import Customcssjs from "./pages/admin/Customcssjs";
-import Captcha from "./pages/admin/Captcha";
-import Notifications from "./pages/admin/Notifications";
-import Generalsettings from "./pages/admin/Generalsettings";
-import Paymentsetting from "./pages/admin/Paymentsetting";
-import Othersetting from "./pages/admin/Othersetting";
-import Apisetting from "./pages/admin/Apisetting";
-import Generalsettinghome from "./pages/admin/Generalsettinghome";
-import Rollaccess from "./pages/admin/Rollaccess";
-import ViewProject from "./pages/Projects/ViewProject";
-import Newreceivedapplication from "./pages/ReceivedApp/Newreceivedapplication";
-import Newawardpage from "./pages/Award/Newawardpage";
-import RootContainer from "./careers/globals/Root";
-import CareerHome from "./careers/pages/home";
-import ApplyForJob from "./careers/pages/ApplyForJob";
-import JobDetails from "./careers/jobRolepages/jobs";
-import { RecoilRoot } from "recoil";
-import ErrorPage from "./careers/erropage/ErrorPage";
-import Docs from "./pages/Docs/Docs";
-import Layout from "./Layout";
-import ChatPage from "./pages/Chat/ChatPage";
-
-
+import Loading from "./components/Loading";
+const Header = lazy(() => import("./components/Header"));
+const Home = lazy(() => import("./pages/Home"));
+const JobListingHome = lazy(() => import("./pages/JobListing/JobListingHome"));
+const ReceivedApp = lazy(() => import("./pages/ReceivedApp/ReceivedApp"));
+const ShowMoreHome = lazy(() => import("./pages/ReceivedApp/ShowMoreHome"));
+const SendOfferHome = lazy(() =>
+  import("./pages/ReceivedApp/Steps/sendOfferHome")
+);
+const DeptHome = lazy(() => import("./pages/Departments/DeptHome"));
+const InterviewHome = lazy(() => import("./pages/Interview/interviewHome"));
+const EditHome = lazy(() => import("./pages/JobListing/EditHome"));
+const OfferHome = lazy(() => import("./pages/ReceivedApp/Steps/OfferHome"));
+const AgreementHome = lazy(() =>
+  import("./pages/ReceivedApp/Steps/agreements/AgreementHome")
+);
+const NoticeHome = lazy(() => import("./pages/NoticeBoard/NoticeHome"));
+const Apps = lazy(() => import("./pages/Apps"));
+const EmployeeHome = lazy(() => import("./pages/Employee/EmployeeHome"));
+const PerformanceHome = lazy(() => import("./pages/Employee/PerformanceHome"));
+const EmpDetailsHome = lazy(() =>
+  import("./pages/Employee/EmployeeDetails/EmpDetailsHome")
+);
+const AttendHome = lazy(() => import("./pages/Attendance/AttendHome"));
+const AttendViewHome = lazy(() =>
+  import("./pages/Attendance/AttendView/AttendViewHome")
+);
+const LeaveSettingsHome = lazy(() =>
+  import("./pages/Attendance/AttendView/LeaveSetting/LeaveSettingHome")
+);
+const LeaveAppHome = lazy(() =>
+  import("./pages/Attendance/AttendView/LeaveAppPage.jsx/LeaveAppHome")
+);
+const LeaveViewHome = lazy(() =>
+  import("./pages/Attendance/AttendView/LeaveAppPage.jsx/LeaveViewHome")
+);
+const ExpensesHome = lazy(() => import("./pages/Expenses/ExpensesHome"));
+const AwardHome = lazy(() => import("./pages/Award/AwardHome"));
+const HolidayHome = lazy(() => import("./pages/Holiday/HolidayHome"));
+const AddPayrollHome = lazy(() => import("./pages/Payrolls/AddPayHome"));
+const MorePayrollHome = lazy(() => import("./pages/Payrolls/MorePayHome"));
+const Footer = lazy(() => import("./pages/Footer"));
+const EditPayrollHome = lazy(() => import("./pages/Payrolls/EditPayHome"));
+const MoreEditPayrollHome = lazy(() => import("./pages/Payrolls/MoreEPayHome"));
+const SalaryHome = lazy(() => import("./pages/Payrolls/SalaryHome"));
+const JobApplicationDetail = lazy(() => import("./pages/JobApplicationDetail"));
+const Agreements = lazy(() => import("./pages/Agreements"));
+const OfferLetter = lazy(() => import("./pages/OfferLatter"));
+const RuleAndRegulations = lazy(() => import("./pages/Rules&Regulations"));
+const WalkoverHeader = lazy(() => import("./pages/Walkover/Walkover"));
+const Dashboard = lazy(() => import("./pages/Projects/Dashboard"));
+const NewProject = lazy(() => import("./pages/Projects/NewProject"));
+const OverTime = lazy(() => import("./pages/Projects/OverTimeCalender"));
+const ProjectList = lazy(() => import("./pages/Projects/ProjectList"));
+const OverViewCalender = lazy(() => import("./pages/Projects/Calender"));
+const DashBoard = lazy(() =>
+  import("./pages/Support_System/UserPage/Dashboard/DashBoard")
+);
+const TicketList = lazy(() =>
+  import("./pages/Support_System/UserPage/Tikects/TicketList")
+);
+const Profile = lazy(() =>
+  import("./pages/Support_System/UserPage/profile/Profile")
+);
+const Knowledgepage = lazy(() =>
+  import("./pages/Support_System/LandingPages/Knowledgepage")
+);
+const Knowledgeview = lazy(() =>
+  import("./pages/Support_System/LandingPages/Knowledgeview")
+);
+const Memo = lazy(() => import("./pages/Memo/Memo"));
+const MemoEdit = lazy(() => import("./pages/Memo/MemoEdit"));
+const LandingPage = lazy(() =>
+  import("./pages/Support_System/LandingPages/LandingPage")
+);
+const ActiveList = lazy(() =>
+  import("./pages/Support_System/UserPage/Tikects/ActiveTicket")
+);
+const CreateTicket = lazy(() =>
+  import("./pages/Support_System/UserPage/Tikects/CreateTicket")
+);
+const CloseTicket = lazy(() =>
+  import("./pages/Support_System/UserPage/Tikects/CloseTickt")
+);
+const AuthorizationProvider = lazy(() => import("./hooks/Authorize"));
+const ThemeContextProvider = lazy(() => import("./style/theme"));
+const CreateOrganization = lazy(() =>
+  import("./pages/Organization/CreateOrganization")
+);
+const ListOrganization = lazy(() =>
+  import("./pages/Organization/ListOrganization")
+);
+const OnBoarding = lazy(() => import("./pages/OnBoarding/OnBoarding"));
+const Theme = lazy(() => import("./pages/admin/Theme"));
+const Ticket = lazy(() => import("./pages/admin/Ticket"));
+const ChatSetting = lazy(() => import("./pages/admin/Chat"));
+const Emailsetting = lazy(() => import("./pages/admin/Emailsetting"));
+const Fileupload = lazy(() => import("./pages/admin/Fileupload"));
+const Customcssjs = lazy(() => import("./pages/admin/Customcssjs"));
+const Captcha = lazy(() => import("./pages/admin/Captcha"));
+const Notifications = lazy(() => import("./pages/admin/Notifications"));
+const Generalsettings = lazy(() => import("./pages/admin/Generalsettings"));
+const Paymentsetting = lazy(() => import("./pages/admin/Paymentsetting"));
+const Othersetting = lazy(() => import("./pages/admin/Othersetting"));
+const Apisetting = lazy(() => import("./pages/admin/Apisetting"));
+const Generalsettinghome = lazy(() =>
+  import("./pages/admin/Generalsettinghome")
+);
+const Rollaccess = lazy(() => import("./pages/admin/Rollaccess"));
+const ViewProject = lazy(() => import("./pages/Projects/ViewProject"));
+const Newreceivedapplication = lazy(() =>
+  import("./pages/ReceivedApp/Newreceivedapplication")
+);
+const Newawardpage = lazy(() => import("./pages/Award/Newawardpage"));
+const RootContainer = lazy(() => import("./careers/globals/Root"));
+const CareerHome = lazy(() => import("./careers/pages/home"));
+const ApplyForJob = lazy(() => import("./careers/pages/ApplyForJob"));
+const JobDetails = lazy(() => import("./careers/jobRolepages/jobs"));
+const ErrorPage = lazy(() => import("./careers/erropage/ErrorPage"));
+const Docs = lazy(() => import("./pages/Docs/Docs"));
+const Layout = lazy(() => import("./Layout"));
+const ChatPage = lazy(() => import("./pages/Chat/ChatPage"));
 
 const App = () => {
   const location = useLocation();
-  const [ careerUser , setCareerUser] =  useState(null);
+  const [careerUser, setCareerUser] = useState(null);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -104,22 +145,25 @@ const App = () => {
     if (data.amount !== null || data.period !== null) {
       localStorage.setItem("planData", JSON.stringify(data));
     }
-  }, []);
+  }, [location]);
 
-  if (location.pathname.startsWith('/career')){
+  if (location.pathname.startsWith("/career")) {
     return (
-      <RecoilRoot>
-        <RootContainer careerUser={careerUser} setCareerUser={setCareerUser} >
-           <Routes>
-          <Route path='/career/:organization'>
-          <Route index element={<CareerHome />} />
-          <Route path='apply-for-job/:id' element={<ApplyForJob setCareerUser={setCareerUser} />} />
-          <Route path='job/:id' element={<JobDetails />} />
-          </Route>
-          <Route path='/career/404' element={<ErrorPage />} />
+      <Suspense fallback={<Loading />}>
+        <RootContainer careerUser={careerUser} setCareerUser={setCareerUser}>
+          <Routes>
+            <Route path="/career/:organization">
+              <Route index element={<CareerHome />} />
+              <Route
+                path="apply-for-job/:id"
+                element={<ApplyForJob setCareerUser={setCareerUser} />}
+              />
+              <Route path="job/:id" element={<JobDetails />} />
+            </Route>
+            <Route path="/career/404" element={<ErrorPage />} />
           </Routes>
-      </RootContainer>
-      </RecoilRoot>
+        </RootContainer>
+      </Suspense>
     );
   }
 
@@ -143,101 +187,106 @@ const App = () => {
 
   return (
     <>
-      <Header>
-        <Routes>
-        <Route path="/" element={<Layout />} >
-          <Route index element={<Home />} />
-          <Route path="joblisting" element={<JobListingHome />} />
-          <Route path="department" element={<DeptHome />} />
-          <Route path="interviewquestions" element={<InterviewHome />} />
-          <Route
-            path="receivedapplications"
-            element={<Newreceivedapplication />}
-          />
-          <Route
-            path="new/receivedapplications"
-            element={<Newreceivedapplication />}
-          />
+      <Suspense fallback={<Loading />}>
+        <Header>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="joblisting" element={<JobListingHome />} />
+              <Route path="department" element={<DeptHome />} />
+              <Route path="interviewquestions" element={<InterviewHome />} />
+              <Route
+                path="receivedapplications"
+                element={<Newreceivedapplication />}
+              />
+              <Route
+                path="new/receivedapplications"
+                element={<Newreceivedapplication />}
+              />
 
-          <Route path="showmore:id" element={<ShowMoreHome />} />
-          <Route path="joblisting/edit" element={<EditHome />} />
-          <Route path="jobApplicationDetail">
-            <Route path=":id" element={<JobApplicationDetail />} />
-            <Route path="offer-letter/:id" element={<OfferLetter />} />
-            <Route path="agreements/:id" element={<Agreements />} />
-          </Route>
+              <Route path="showmore/:id" element={<ShowMoreHome />} />
+              <Route path="joblisting/edit" element={<EditHome />} />
+              <Route path="jobApplicationDetail">
+                <Route path=":id" element={<JobApplicationDetail />} />
+                <Route path="offer-letter/:id" element={<OfferLetter />} />
+                <Route path="agreements/:id" element={<Agreements />} />
+              </Route>
 
-          <Route
-            path="showmore:id/sendofferletter"
-            element={<SendOfferHome />}
-          />
-          <Route path="showmore:id/offerletter" element={<OfferHome />} />
+              <Route
+                path="showmore/:id/sendofferletter"
+                element={<SendOfferHome />}
+              />
+              <Route path="showmore/:id/offerletter" element={<OfferHome />} />
 
-          <Route
-            path="showmore:id/sendagreement"
-            element={<AgreementHome />}
-          />
+              <Route
+                path="showmore/:id/sendagreement"
+                element={<AgreementHome />}
+              />
 
-          <Route path="noticeboard" element={<NoticeHome />} />
-          <Route path="apps" element={<Apps />} />
-          <Route path="docs" element={<Docs />} />
-          <Route path="expenses" element={<ExpensesHome />} />
-          <Route path="award" element={<Newawardpage />} />
-          <Route path="holidays" element={<HolidayHome />} />
+              <Route path="noticeboard" element={<NoticeHome />} />
+              <Route path="apps" element={<Apps />} />
+              <Route path="docs" element={<Docs />} />
+              <Route path="expenses" element={<ExpensesHome />} />
+              <Route path="award" element={<Newawardpage />} />
+              <Route path="holidays" element={<HolidayHome />} />
 
-          <Route path="addpayroll" element={<AddPayrollHome />} />
-          <Route path="addpayrolls" element={<MorePayrollHome />} />
-          <Route path="editpayroll" element={<EditPayrollHome />} />
-          <Route path="editpayrolls" element={<MoreEditPayrollHome />} />
-          <Route path="employeesalary" element={<SalaryHome />} />
+              <Route path="addpayroll" element={<AddPayrollHome />} />
+              <Route path="addpayrolls" element={<MorePayrollHome />} />
+              <Route path="editpayroll" element={<EditPayrollHome />} />
+              <Route path="editpayrolls" element={<MoreEditPayrollHome />} />
+              <Route path="employeesalary" element={<SalaryHome />} />
 
-          <Route path="employees" element={<EmployeeHome />} />
-          <Route path="performance/:id" element={<PerformanceHome />} />
-          <Route path="viewemployee/:id" element={<EmpDetailsHome />} />
+              <Route path="employees" element={<EmployeeHome />} />
+              <Route path="performance/:id" element={<PerformanceHome />} />
+              <Route path="viewemployee/:id" element={<EmpDetailsHome />} />
 
-          <Route path="attendance" element={<AttendHome />} />
-          <Route path="attendanceview" element={<AttendViewHome />} />
-          <Route path="leavesettings" element={<LeaveSettingsHome />} />
-          <Route path="leaveapplication" element={<LeaveAppHome />} />
-          <Route path="leaveapplication/view" element={<LeaveViewHome />} />
+              <Route path="attendance" element={<AttendHome />} />
+              <Route path="attendanceview" element={<AttendViewHome />} />
+              <Route path="leavesettings" element={<LeaveSettingsHome />} />
+              <Route path="leaveapplication" element={<LeaveAppHome />} />
+              <Route path="leaveapplication/view" element={<LeaveViewHome />} />
+              <Route
+                path="rulesandregulations"
+                element={<RuleAndRegulations />}
+              />
 
-          <Route path="rulesandregulations" element={<RuleAndRegulations />} />
+              <Route path="dashboardproject" element={<Dashboard />} />
+              <Route path="projectlist" element={<ProjectList />} />
+              <Route path="newproject" element={<NewProject />} />
+              <Route path="overTime" element={<OverTime />} />
 
-          <Route path="dashboardproject" element={<Dashboard />} />
-          <Route path="projectlist" element={<ProjectList />} />
-          <Route path="newproject" element={<NewProject />} />
-          <Route path="overTime" element={<OverTime />} />
+              <Route path="overviewcalender" element={<OverTime />} />
+              <Route path="viewproject" element={<ViewProject />} />
 
-          <Route path="overviewcalender" element={<OverTime />} />
-          <Route path="viewproject" element={<ViewProject />} />
+              <Route path="support/ticketlist" element={<TicketList />} />
+              <Route path="support/activeticket" element={<ActiveList />} />
+              <Route path="support/createtiket" element={<CreateTicket />} />
+              <Route path="support/closeticket" element={<CloseTicket />} />
+              <Route path="support/profile" element={<Profile />} />
+              <Route path="support/Dashboard" element={<DashBoard />} />
+              <Route path="support/landing" element={<LandingPage />} />
+              <Route path="support/knowledgepage" element={<Knowledgepage />} />
+              <Route path="support/knowledgeview" element={<Knowledgeview />} />
+              <Route path="memo" element={<Memo />} />
+              <Route path="memoEdit" element={<MemoEdit />} />
+              <Route path="chat" element={<ChatPage />} />
 
-          <Route path="support/ticketlist" element={<TicketList />} />
-          <Route path="support/activeticket" element={<ActiveList />} />
-          <Route path="support/createtiket" element={<CreateTicket />} />
-          <Route path="support/closeticket" element={<CloseTicket />} />
-          <Route path="support/profile" element={<Profile />} />
-          <Route path="support/Dashboard" element={<DashBoard />} />
-          <Route path="support/landing" element={<LandingPage />} />
-          <Route path="support/knowledgepage" element={<Knowledgepage />} />
-          <Route path="support/knowledgeview" element={<Knowledgeview />} />
-          <Route path="memo" element={<Memo />} />
-          <Route path="memoEdit" element={<MemoEdit />} />
-          <Route path="chat" element={<ChatPage />} />
+              <Route path="generalsetting" element={<Generalsettinghome />} />
+              <Route path="rollaccess" element={<Rollaccess />} />
+              <Route path="apisetting" element={<Apisetting />} />
 
-          <Route path="generalsetting" element={<Generalsettinghome />} />
-          <Route path="rollaccess" element={<Rollaccess />} />
-          <Route path="apisetting" element={<Apisetting />} />
-
-
-          <Route path="walkover" element={<WalkoverHeader />} />
-          <Route path="checkout" element={<OnBoarding />} />
-          <Route path="createOrganization"  element={<CreateOrganization />} />
-          <Route path="listOrganization" element={<ListOrganization />} />
-          </Route>
-        </Routes>
-      </Header>
-
-      {/* <Footer /> */}
+              <Route path="walkover" element={<WalkoverHeader />} />
+              <Route path="checkout" element={<OnBoarding />} />
+              <Route
+                path="createOrganization"
+                element={<CreateOrganization />}
+              />
+              <Route path="listOrganization" element={<ListOrganization />} />
+            </Route>
+          </Routes>
+        </Header>
+        <Footer />
+      </Suspense>
     </>
   );
 };
