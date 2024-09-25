@@ -112,11 +112,11 @@ function Nav(props) {
       encodeURIComponent(env("DOMAIN")) +
       "&&referrer=" +
       encodeURIComponent(env("DOMAIN"));
-      window.location.replace(redirectTo);
+    window.location.replace(redirectTo);
   };
 
   const container =
-   window !== undefined ? () => window.document.body : undefined;
+    window !== undefined ? () => window.document.body : undefined;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -258,15 +258,14 @@ function Nav(props) {
             <Typography
               sx={{
                 display: { xs: "none", sm: "block" },
-                color: "text.secondary",
                 marginLeft: 1,
-                color: "#424242",
+                color: "#f2f2f2",
               }}
               textAlign="center"
             >
               {userName}
             </Typography>
-            <ArrowForwardIosIcon
+            {/* <ArrowForwardIosIcon
               sx={{ display: { xs: "none", sm: "block" } }}
               className="mx-4"
               fontSize="small"
@@ -276,7 +275,7 @@ function Nav(props) {
             <HelpCenterOutlinedIcon
               sx={{ display: { xs: "none", sm: "block" } }}
               color="action"
-            />
+            /> */}
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"

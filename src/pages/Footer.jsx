@@ -4,7 +4,7 @@ import TaskOutlinedIcon from "@mui/icons-material/TaskOutlined";
 import VideoChatOutlinedIcon from "@mui/icons-material/VideoChatOutlined";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import AtsIcon from "../services/icons/menu/ats.svg";
@@ -65,6 +65,16 @@ const Footer = () => {
   const handleIconClick = (iconName) => {
     setActiveIcon(iconName === activeIcon ? null : iconName);
   };
+
+  const location = useLocation();
+  const hideFooter = [
+    "/walkover",
+    "/listOrganization",
+    "/createOrganization",
+    "/checkout",
+  ];
+
+  if (hideFooter.includes(location.pathname)) return null;
 
   return (
     <Box

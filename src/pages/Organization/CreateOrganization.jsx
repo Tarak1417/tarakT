@@ -14,11 +14,15 @@ import {
   Snackbar,
   Alert,
   AlertTitle,
+  Modal,
+  Dialog,
+  DialogTitle,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import './organization.css';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import "./organization.css";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { Close } from "@mui/icons-material";
 
 // Tabs Section
 const CreateOrganization = () => {
@@ -141,7 +145,8 @@ const CreateOrganization = () => {
   };
 
   const validateWebsite = (website) => {
-    const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+    const urlRegex =
+      /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
     return urlRegex.test(website);
   };
 
@@ -152,7 +157,6 @@ const CreateOrganization = () => {
         message: "Invalid email address",
         severity: "error",
       });
-     
     }
   };
 
@@ -167,95 +171,98 @@ const CreateOrganization = () => {
     }
   };
 
-  const isFormValidate = organizationName == "" || (!validateEmail(email)) || (!validateWebsite(website))|| picture == "";
+  const isFormValidate =
+    organizationName == "" ||
+    !validateEmail(email) ||
+    !validateWebsite(website) ||
+    picture == "";
 
   return (
-    <Box
-      sx={{
-        backgroundColor: "background.main",
-        p: { xs: 3, sm: 8 },
-        width: "100vw",
-        minHeight: "100vh",
-      }}
-    >
-      <Snackbar
-        open={showMessage.show}
-        autoHideDuration={4000}
-        onClose={handleClose}
+    <>
+      <Box
+        sx={{
+          backgroundColor: "background.main",
+          p: { xs: 3, sm: 8 },
+          width: "100vw",
+          minHeight: "100vh",
+        }}
       >
-        <Alert
-          severity={showMessage.severity}
-          variant="filled"
-          sx={{ width: "100%" }}
-          anchorOrigin={{ vertical: "top", horizontal: "left" }}
+        <Snackbar
+          open={showMessage.show}
+          autoHideDuration={4000}
+          onClose={handleClose}
         >
-          <AlertTitle> {showMessage.severity}</AlertTitle>
-          {showMessage.message}
-        </Alert>
-      </Snackbar>
-
-      {page === 0 ? (
+          <Alert
+            severity={showMessage.severity}
+            variant="filled"
+            sx={{ width: "100%" }}
+            anchorOrigin={{ vertical: "top", horizontal: "left" }}
+          >
+            <AlertTitle> {showMessage.severity}</AlertTitle>
+            {showMessage.message}
+          </Alert>
+        </Snackbar>
         <Box
           sx={{
             marginTop: { xs: "3rem", sm: "0" },
             textAlign: { xs: "center", sm: "start" },
           }}
         >
-          
-            <Typography sx={{ fontSize: { xs: "1.6rem", sm: "2.2rem" }  }}>
-              Create an Organization to track the status of your employees
-            </Typography>
+          <Typography sx={{ fontSize: { xs: "1.6rem", sm: "2.2rem" } }}>
+            Create an Organization to track the status of your employees
+          </Typography>
 
-            <Typography
+          <Typography
             className=" text-neutral-500"
-              sx={{
-                marginTop: ".7rem",
-                paddingX: { xs: 2, sm: 0 },
-                marginRight: { xs: 0, sm: 36 },
-                fontSize: { xs: "0.7rem", sm: "1rem" },
-              }}
-            >
-              HR organization refers to the style of coordination, communication
-              and management, a team or an employee uses through out his/her
-              contract with the organization.
-            </Typography>
-            <div className="flex justify-center">
-              <img
-                className="origin-center  w-[90%] md:w-[30%]"
-                src="/images/ASSETS/createOrg.svg"
-                alt="walkover1"
-              />
-            </div>
-            <div className="flex justify-end ">
-              <Button
-                className="ml-auto"
-                variant="contained"
-                onClick={() => {
-                  setPage(1);
-                }}
-                sx={{ px: 5, py: 1 }}
-              >
-                Next
-              </Button>
-            </div>
-          
-        </Box>
-      ) : (
-        <div className="flex flex-col gap-8">
+            sx={{
+              marginTop: ".7rem",
+              paddingX: { xs: 2, sm: 0 },
+              marginRight: { xs: 0, sm: 36 },
+              fontSize: { xs: "0.7rem", sm: "1rem" },
+            }}
+          >
+            HR organization refers to the style of coordination, communication
+            and management, a team or an employee uses through out his/her
+            contract with the organization.
+          </Typography>
+          <div className="flex justify-center">
+            <img
+              className="origin-center  w-[90%] md:w-[30%]"
+              src="/images/ASSETS/createOrg.svg"
+              alt="walkover1"
+            />
+          </div>
           <div>
-            <div className="w-[13%] pb-3 flex items-center">
-              <p className="text-[20px] whitespace-nowrap">Organization Name</p>
-            </div>
             <TextField
               name="question"
               size="small"
               value={organizationName}
               variant="outlined"
               onChange={handleOrganizationChange}
-              placeholder="Enter Name"
+              placeholder="Organization Name"
               fullWidth
             />
           </div>
+          <div className="flex justify-end ">
+            <Button
+              className="ml-auto"
+              variant="contained"
+              onClick={() => {
+                setPage(1);
+              }}
+              sx={{ px: 5, py: 1 }}
+              disabled={organizationName?.length === 0}
+            >
+              Next
+            </Button>
+          </div>
+        </Box>
+      </Box>
+      <Dialog open={page == 1} onClose={() => setPage(0)} fullWidth>
+        <DialogTitle className="flex justify-end">
+          <Close onClick={() => setPage(0)} />
+        </DialogTitle>
+        <div className="w-full flex flex-col gap-8 p-8">
           <div>
             <div className="w-[13%] pb-3 flex items-center">
               <p className="text-[20px] whitespace-nowrap">
@@ -285,7 +292,7 @@ const CreateOrganization = () => {
               value={website}
               variant="outlined"
               onBlur={handleWebsiteChange}
-              onChange={(e) =>setWebsite(e.target.value)}
+              onChange={(e) => setWebsite(e.target.value)}
               placeholder=" Enter website url"
               fullWidth
             />
@@ -338,8 +345,8 @@ const CreateOrganization = () => {
             </Button>
           </div>
         </div>
-      )}
-    </Box>
+      </Dialog>
+    </>
   );
 };
 

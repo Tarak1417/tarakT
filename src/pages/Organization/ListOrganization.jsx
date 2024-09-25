@@ -50,7 +50,7 @@ const ListOrganization = () => {
       if (data.success) {
         getOrganizations();
         showSuccess("Organization Delete Successfully");
-        setDeleteOrg(null)
+        setDeleteOrg(null);
         // setShowMessage({
         //   show: true,
         //   message: ,
@@ -63,9 +63,9 @@ const ListOrganization = () => {
     }
   }
 
-  function openDeleteBox (org){
-    openModal()
-    setDeleteOrg(org)
+  function openDeleteBox(org) {
+    openModal();
+    setDeleteOrg(org);
   }
 
   function handleEdit(org) {
@@ -166,12 +166,20 @@ const ListOrganization = () => {
         <Box>
           {organizations.map((org, index) => (
             <Grid key={index} container sx={{ p: 1, minWidth: 565 }}>
-              <Grid item xs={7} sm={8}  >
+              <Grid item xs={7} sm={8}>
                 <div className="flex flex-row gap-2">
-              <Avatar sx={{ width: 30, height: 30 , fontSize:12 }}>  <ServerImage src={org?.logo ?? ""} width='30' height='30' /></Avatar>
-                <div className="px-3 py-1 mr-2 truncate rounded-lg hover:text-sky-600 active:text-blue-600 " onClick={() => handleSelect(org)}>{org.name}</div>
+                  <Avatar sx={{ width: 30, height: 30, fontSize: 12 }}>
+                    {" "}
+                    <ServerImage src={org?.logo ?? ""} width="30" height="30" />
+                  </Avatar>
+                  <div
+                    className="px-3 py-1 mr-2 truncate rounded-lg hover:text-sky-600 active:text-blue-600 "
+                    onClick={() => handleSelect(org)}
+                  >
+                    {org.name}
+                  </div>
                 </div>
-                 </Grid>
+              </Grid>
               <Grid item xs={2} sm={2}>
                 <div
                   className={`px-3 py-1 rounded-lg w-fit ${getColor(
@@ -182,18 +190,21 @@ const ListOrganization = () => {
                 </div>
               </Grid>
               <Grid item xs={3} sm={2}>
-             
-                <Tooltip title="Edit Organization" sx={{marginRight: 1.5 }}>
-                <IconButton variant='outlined' onClick={() => handleEdit(org)}>
-                  <EditIcon  sx={{ color: "blue"}}  />
+                <Tooltip title="Edit Organization" sx={{ marginRight: 1.5 }}>
+                  <IconButton
+                    variant="outlined"
+                    onClick={() => handleEdit(org)}
+                  >
+                    <EditIcon sx={{ color: "blue" }} />
                   </IconButton>
                 </Tooltip>
-                
-                <Tooltip title="Delete Organization">
-                  <IconButton variant='outlined'>
 
-                
-                  <DeleteIcon color="error" onClick={() => openDeleteBox(org)} />
+                <Tooltip title="Delete Organization">
+                  <IconButton variant="outlined">
+                    <DeleteIcon
+                      color="error"
+                      onClick={() => openDeleteBox(org)}
+                    />
                   </IconButton>
                 </Tooltip>
               </Grid>
@@ -202,16 +213,21 @@ const ListOrganization = () => {
         </Box>
       </Box>
       <Modal
-                sx={{
-                    overflowY: 'scroll',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-                open={modalState}
-                onClose={closeModal}>
-               <DeleteOrganization   onClose={closeModal} onDelete={handleDelete} org={deleteOrg}  />
-            </Modal>
+        sx={{
+          overflowY: "scroll",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        open={modalState}
+        onClose={closeModal}
+      >
+        <DeleteOrganization
+          onClose={closeModal}
+          onDelete={handleDelete}
+          org={deleteOrg}
+        />
+      </Modal>
     </Box>
   );
 };
