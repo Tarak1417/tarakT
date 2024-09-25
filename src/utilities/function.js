@@ -63,5 +63,29 @@ function basename(filePath, ext = '') {
     return baseName;
 }
 
+function formatTimestamp(timestamp) {
+    const now = new Date();
+    const time = new Date(timestamp);
+    const diffInMs = now - time;
+    const diffInMinutes = Math.floor(diffInMs / 60000); // Convert milliseconds to minutes
 
-export { link, env, handleAxiosError,dirname,isEmpty,isObject,escapeDanger,basename };
+    if (diffInMinutes < 1) {
+        return 'now';
+    } else if (diffInMinutes <= 5) {
+        return `${diffInMinutes}m ago`;
+    } else {
+        // Format time to 9:30 PM
+        const hours = time.getHours();
+        const minutes = time.getMinutes();
+        const period = hours >= 12 ? 'PM' : 'AM';
+
+        // Convert 24-hour format to 12-hour format
+        const formattedHours = hours % 12 || 12; // Convert hour '0' to '12'
+        const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+        return `${formattedHours}:${formattedMinutes} ${period}`;
+    }
+}
+
+
+export {  formatTimestamp ,link, env, handleAxiosError,dirname,isEmpty,isObject,escapeDanger,basename };

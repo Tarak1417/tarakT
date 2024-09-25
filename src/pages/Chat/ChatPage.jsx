@@ -20,6 +20,7 @@ import chatIcon from "../../services/icons/chatIcon/chat.svg";
 import callIcon from "../../services/icons/chatIcon/call.svg";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import useModal from "../../hooks/useModal";
+import useSocket from "../../hooks/useSocket";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -63,11 +64,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const ChatPage = () => {
   const [tabs, setTabs] = useState("chat");
-  const [sharedData, setSharedData] = useState([]);
+  const [currentChatUser, setCurrentChatUser] = useState([]);
   const { modalState, closeModal, openModal } = useModal();
+
+  const {   messages, sendMessage   , contacts  , chatList }   =   useSocket()
 
   const handelMobileChatOpen = (data)=>{
     openModal();
+    handelChatOpen(data)
+  }
+  const handelChatOpen = (data)=>{
+    setCurrentChatUser(data)
   }
   return (
     <Box
@@ -127,9 +134,9 @@ const ChatPage = () => {
               >
                 <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
                 {tabs === "contacts" ? (
-                  <ContactList setSharedData={setSharedData} />
+                  <ContactList setCurrentChatUser={handelChatOpen} contacts={contacts}  />
                 ) : (
-                  <ChatList setSharedData={setSharedData} />
+                  <ChatList setCurrentChatUser={handelChatOpen} chatList={chatList}  />
                 )}
               </div>
             </Box>
@@ -140,7 +147,7 @@ const ChatPage = () => {
           sx={{ backgroundColor: { sm: "background.view" } }}
           className={`w-[70vw] relative block mb-4 `}
         >
-          <ChatSection sharedData={sharedData} closeModal={closeModal} />
+          <ChatSection currentChatUser={currentChatUser} closeModal={closeModal}   messages={messages} sendMessage={sendMessage}  />
         </Box>
       </div>
 
@@ -149,7 +156,7 @@ const ChatPage = () => {
         <Box
           sx={{ backgroundColor: { sm: "background.view" } }}
           className={` ${
-            sharedData.firstName ? "hidden" : "block"
+            currentChatUser.firstName ? "hidden" : "block"
           } md:block  w-full  relative  border-r-[#3F3F3F]`}
         >
           <div className={`overflow-hidden  mt-1`}>
@@ -197,9 +204,9 @@ const ChatPage = () => {
               </div>
                 <p className="h-[1px] md:hidden bg-[#111111] w-full"></p>
                 {tabs === "contacts" ? (
-                  <ContactList setSharedData={setSharedData} />
+                  <ContactList setCurrentChatUser={handelMobileChatOpen} />
                 ) : (
-                  <ChatList setSharedData={handelMobileChatOpen} />
+                  <ChatList setCurrentChatUser={handelMobileChatOpen} />
                 )}
               </div>
           </div>
@@ -219,14 +226,14 @@ const ChatPage = () => {
         }}
 
         >
-           <ChatSection sharedData={sharedData}  closeModal={closeModal} />
+           <ChatSection currentChatUser={currentChatUser}  closeModal={closeModal} />
         </Box>
       
                 </Modal>
         {/* <Box
           sx={{ backgroundColor: { sm: "background.view" } }}
           className={` ${
-            sharedData.firstName ? "block" : "hidden"
+            currentChatUser.firstName ? "block" : "hidden"
           } w-full relative `}
         >
          

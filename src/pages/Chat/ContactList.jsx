@@ -3,11 +3,9 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Box } from "@mui/material";
 import axios from "axios";
 
-const ContactList = ({ setSharedData }) => {
+const ContactList = ({ setCurrentChatUser ,contacts }) => {
   let page = 1;
-  const [contacts, setContacts] = useState([]);
-  let img =
-    "https://images.unsplash.com/photo-1605993439219-9d09d2020fa5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHVzZXIlMjBwcm9maWxlfGVufDB8fDB8fHww";
+  let img = "https://images.unsplash.com/photo-1605993439219-9d09d2020fa5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHVzZXIlMjBwcm9maWxlfGVufDB8fDB8fHww";
   const userList = [
     {
       id: 1,
@@ -72,30 +70,13 @@ const ContactList = ({ setSharedData }) => {
     },
   ];
 
-  const fetchContactList = useCallback(async () => {
-    // setJobs(null);
-    try {
-      const response = await axios.get(
-        `/hr/message/contact?page=${page}&limit=50`
-      );
-      const data = response.data;
-      setContacts(data.contact);
-    } catch (e) {
-      console.warn(e);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchContactList();
-  }, [fetchContactList]);
-
   const handleClick = (item) => {
     console.log("first", item);
-    setSharedData(item);
+    setCurrentChatUser(item);
   };
   return (
     <>
-      {contacts.map((item, index) => (
+      {contacts?.map((item, index) => (
         <div key={index}>
           <div className="flex gap-4 items-center p-1 my-3">
             <div className="h-[31px] w-[31px] md:h-[40px]  md:w-[50px] relative">
