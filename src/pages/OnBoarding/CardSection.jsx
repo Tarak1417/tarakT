@@ -1,46 +1,37 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Card,
-  CardContent,
-  Tab,
-  CardActions,
-  ListItemIcon,
-  Button,
-  TextField,
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
-  Grid,
-  Alert,
-  AlertTitle,
-  Stack,
-  Snackbar,
-  ToggleButtonGroup,
-  ToggleButton,
-} from "@mui/material";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
-import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import MoreTimeIcon from "@mui/icons-material/MoreTime";
-import { loadStripe } from "@stripe/stripe-js";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Snackbar,
+  TextField,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from "@mui/material";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 import {
   CardCvcElement,
-  CardElement,
   CardExpiryElement,
   CardNumberElement,
-  Elements,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
-import useSnack from "../../hooks/useSnack";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../hooks/Authorize";
 // import TaskAltIcon from '@mui/icons-material/CheckCircleOutline';
@@ -76,7 +67,7 @@ const CardSection = () => {
   // const { SnackBar, showMessage } = useSnack();
   const platformUser = useUser();
   const [plan, setPlan] = useState("Private"); // Initialize with a default plan
-  const [alignment, setAlignment] = useState("mo"); //  an , mon  
+  const [alignment, setAlignment] = useState("mo"); //  an , mon
   const [name, setName] = useState("");
   const [zip, setZip] = useState(0);
   // const [planData, setPlanData] = useState({ amount: 49, period: "mon" });
@@ -147,12 +138,12 @@ const CardSection = () => {
             tokenId: token.id,
             card: token.card,
             plan: "private",
-            amount: getPlanPrice(plan)
+            amount: getPlanPrice(plan),
           });
 
           if (response.status === 200) {
             let data = response.data;
-            localStorage.setItem("subscriptionId" ,data.subscriptionId)
+            localStorage.setItem("subscriptionId", data.subscriptionId);
             setShowMessage({
               show: true,
               message: "Subscribe Successfully",
@@ -230,9 +221,9 @@ const CardSection = () => {
     let tempPlanData = localStorage.getItem("planData");
     if (tempPlanData) {
       tempPlanData = JSON.parse(tempPlanData);
-      console.log("tempPlanData " ,tempPlanData)
+      console.log("tempPlanData ", tempPlanData);
       // setPlanData(tempPlanData);
-      let amount  =  Number(tempPlanData.amount) || 49
+      let amount = Number(tempPlanData.amount) || 49;
       switch (amount) {
         case 49:
           setPlan("Private");
@@ -249,7 +240,7 @@ const CardSection = () => {
         case 99:
           setPlan("Clikkle Plus");
           setAlignment("mo");
-          break; 
+          break;
         case 294:
           setPlan("Private");
           setAlignment("an");
@@ -265,10 +256,10 @@ const CardSection = () => {
         case 594:
           setPlan("Clikkle Plus");
           setAlignment("an");
-          break;             
+          break;
         default:
           setPlan("Private");
-          setAlignment("mo");          
+          setAlignment("mo");
           break;
       }
     }
@@ -281,59 +272,58 @@ const CardSection = () => {
     !cardExpiryComplete ||
     !cardCvcComplete;
 
-    const handleSelectChange = (event) => {
-      setPlan(event.target.value);
-      console.log("plan" , plan)
-      // switch (event.target.value) {
-      //   case "Private":
-      //     setPlanData({ amount: 49, period: "mon" });
-      //     break;
-      //   case "Business":
-      //     setPlanData({ amount: 149, period: "mon" });
-      //     break;
-      //   case "Enterprise":
-      //     setPlanData({ amount: 249, period: "mon" });
-      //     break;
-      //   default:
-      //     setPlanData({ amount: 49, period: "mon" });
-      // }
-    };
+  const handleSelectChange = (event) => {
+    setPlan(event.target.value);
+    console.log("plan", plan);
+    // switch (event.target.value) {
+    //   case "Private":
+    //     setPlanData({ amount: 49, period: "mon" });
+    //     break;
+    //   case "Business":
+    //     setPlanData({ amount: 149, period: "mon" });
+    //     break;
+    //   case "Enterprise":
+    //     setPlanData({ amount: 249, period: "mon" });
+    //     break;
+    //   default:
+    //     setPlanData({ amount: 49, period: "mon" });
+    // }
+  };
 
-    const getBillingDate = () => {
-      const date = new Date();
-      date.setDate(date.getDate() + 7);
-      return date.toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-      });
-    };
+  const getBillingDate = () => {
+    const date = new Date();
+    date.setDate(date.getDate() + 7);
+    return date.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
 
-
-  const getPlanPrice =(plan)=>{
+  const getPlanPrice = (plan) => {
     let price = 49;
     switch (plan) {
       case "Private":
-        price = (alignment =="an") ? 294  : 49 ;
+        price = alignment == "an" ? 294 : 49;
         break;
       case "Business":
-        price = (alignment =="an") ? 894  : 149 ;
+        price = alignment == "an" ? 894 : 149;
         break;
       case "Enterprise":
-        price = (alignment =="an") ? 1494  : 249 ;
+        price = alignment == "an" ? 1494 : 249;
         break;
       case "Clikkle Plus":
-        price = (alignment =="an") ? 594  : 99 ;
+        price = alignment == "an" ? 594 : 99;
         break;
       default:
-        price = (alignment =="an") ? 294  : 49 ;
+        price = alignment == "an" ? 294 : 49;
         break;
     }
-    return price
-     }
+    return price;
+  };
 
   return (
-    <Box    >
+    <Box>
       <Snackbar
         open={showMessage.show}
         autoHideDuration={4000}
@@ -350,64 +340,63 @@ const CardSection = () => {
         </Alert>
       </Snackbar>
       <div className="flex flex-col justify-center  items-center my-2">
-      <div className="flex flex-row">
-        <div className="text-center m-2 text-blue-800">Save Up to 50%</div>
-        <div style={borderStyle}></div>
-      </div>
-      <ToggleButtonGroup
-        color="primary"
-        value={alignment}
-        exclusive
-        onChange={handleChange}
-        aria-label="Platform"
-      >
-        <ToggleButton
-          sx={{
-            px: {
-              xs: 2,
-              sm: 3,
-            },
-            fontSize: {
-              xs: 10,
-              sm: 14,
-            },
-            borderBottomLeftRadius: 50,
-            borderTopLeftRadius: 50,
-          }}
-          value="mo"
+        <div className="flex flex-row">
+          <div className="text-center m-2 text-blue-800">Save Up to 50%</div>
+          <div style={borderStyle}></div>
+        </div>
+        <ToggleButtonGroup
+          color="primary"
+          value={alignment}
+          exclusive
+          onChange={handleChange}
+          aria-label="Platform"
         >
-          Bill Monthly
-        </ToggleButton>
-        <ToggleButton
-          sx={{
-            px: {
-              xs: 2,
-              sm: 3,
-            },
-            fontSize: {
-              xs: 10,
-              sm: 14,
-            },
-            borderBottomRightRadius: 50,
-            borderTopRightRadius: 50,
-          }}
-        
-          value="an"
-        >
-          Bill Annually
-        </ToggleButton>
-      </ToggleButtonGroup>
+          <ToggleButton
+            sx={{
+              px: {
+                xs: 2,
+                sm: 3,
+              },
+              fontSize: {
+                xs: 10,
+                sm: 14,
+              },
+              borderBottomLeftRadius: 50,
+              borderTopLeftRadius: 50,
+            }}
+            value="mo"
+          >
+            Bill Monthly
+          </ToggleButton>
+          <ToggleButton
+            sx={{
+              px: {
+                xs: 2,
+                sm: 3,
+              },
+              fontSize: {
+                xs: 10,
+                sm: 14,
+              },
+              borderBottomRightRadius: 50,
+              borderTopRightRadius: 50,
+            }}
+            value="an"
+          >
+            Bill Annually
+          </ToggleButton>
+        </ToggleButtonGroup>
       </div>
       <Grid
         container
         sx={{
           display: "flex",
           justifyContent: "center",
-          padding:'2rem 1rem'
+          padding: "2rem 1rem",
         }}
       >
         {/* Card One */}
-        <Grid item xs={11}  md={4}>
+        <Grid item xs={11} md={4}>
           <Card
             className="p-4 "
             sx={{
@@ -416,31 +405,36 @@ const CardSection = () => {
               width: "100%",
             }}
           >
-            <CardContent  className=" w-full">
+            <CardContent className=" w-full">
               <ToggleButtonGroup
                 color="primary"
                 value={plan}
                 exclusive
                 aria-label="Platform"
                 onChange={handlePlanChange}
-              > 
-             <Box >
-                <FormControl fullWidth>
-                  <Select
-                    labelId="demo-customized-select-label"
-                    id="demo-customized-select"
-                    value={plan}
-                    onChange={handleSelectChange}
-                    style={{color:'gray' , border:'1px solid #e7e3e3' , borderRadius:'3px'}}
-                  >
-                    <MenuItem disabled value="Clikkle Plus">CURRENT PLAN </MenuItem>
-                    <MenuItem value="Private" >PRIVATE</MenuItem>
-                    <MenuItem value="Business">BUSINESS</MenuItem>
-                    <MenuItem value="Enterprise">ENTERPRISE</MenuItem>
-                   
-                  </Select>
-                </FormControl>
-              </Box>
+              >
+                <Box>
+                  <FormControl fullWidth>
+                    <Select
+                      labelId="demo-customized-select-label"
+                      id="demo-customized-select"
+                      value={plan}
+                      onChange={handleSelectChange}
+                      style={{
+                        color: "gray",
+                        border: "1px solid #e7e3e3",
+                        borderRadius: "3px",
+                      }}
+                    >
+                      <MenuItem disabled value="Clikkle Plus">
+                        CURRENT PLAN{" "}
+                      </MenuItem>
+                      <MenuItem value="Private">PRIVATE</MenuItem>
+                      <MenuItem value="Business">BUSINESS</MenuItem>
+                      <MenuItem value="Enterprise">ENTERPRISE</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
                 <ToggleButton className="py-3" value="Clikkle Plus">
                   clikkle Plus
                 </ToggleButton>
@@ -452,8 +446,8 @@ const CardSection = () => {
                 </Typography>
               </div>
               <Typography variant="body2" color="textSecondary" gutterBottom>
-              7 days free trial, then $
-              {getPlanPrice(plan)}/{alignment == "an" ? "Annually" :"Monthly"}
+                7 days free trial, then ${getPlanPrice(plan)}/
+                {alignment == "an" ? "Annually" : "Monthly"}
               </Typography>
               <Typography
                 variant="body1"
@@ -663,9 +657,11 @@ const CardSection = () => {
                       />
                     </ListItemIcon>
                     <ListItemText
-                primary="DAY 7: FREE TRIAL ENDS"
-                secondary={`You will be billed for the ${plan} plan ($${getPlanPrice(plan)}/${alignment}) on ${getBillingDate()}.`}
-              />
+                      primary="DAY 7: FREE TRIAL ENDS"
+                      secondary={`You will be billed for the ${plan} plan ($${getPlanPrice(
+                        plan
+                      )}/${alignment}) on ${getBillingDate()}.`}
+                    />
                   </ListItem>
                 </List>
               </Box>

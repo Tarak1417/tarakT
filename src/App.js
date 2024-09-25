@@ -8,6 +8,9 @@ import {
 } from "react-router-dom";
 import "./utilities/axios";
 import Loading from "./components/Loading";
+import RootContainer from "./careers/globals/Root";
+import { RecoilRoot } from "recoil";
+
 const Header = lazy(() => import("./components/Header"));
 const Home = lazy(() => import("./pages/Home"));
 const JobListingHome = lazy(() => import("./pages/JobListing/JobListingHome"));
@@ -121,7 +124,6 @@ const Newreceivedapplication = lazy(() =>
   import("./pages/ReceivedApp/Newreceivedapplication")
 );
 const Newawardpage = lazy(() => import("./pages/Award/Newawardpage"));
-const RootContainer = lazy(() => import("./careers/globals/Root"));
 const CareerHome = lazy(() => import("./careers/pages/home"));
 const ApplyForJob = lazy(() => import("./careers/pages/ApplyForJob"));
 const JobDetails = lazy(() => import("./careers/jobRolepages/jobs"));
@@ -150,144 +152,123 @@ const App = () => {
   if (location.pathname.startsWith("/career")) {
     return (
       <Suspense fallback={<Loading />}>
-        <RootContainer careerUser={careerUser} setCareerUser={setCareerUser}>
-          <Routes>
-            <Route path="/career/:organization">
-              <Route index element={<CareerHome />} />
-              <Route
-                path="apply-for-job/:id"
-                element={<ApplyForJob setCareerUser={setCareerUser} />}
-              />
-              <Route path="job/:id" element={<JobDetails />} />
-            </Route>
-            <Route path="/career/404" element={<ErrorPage />} />
-          </Routes>
-        </RootContainer>
+        <RecoilRoot>
+          <RootContainer careerUser={careerUser} setCareerUser={setCareerUser}>
+            <Routes>
+              <Route path="/career/:organization">
+                <Route index element={<CareerHome />} />
+                <Route
+                  path="apply-for-job/:id"
+                  element={<ApplyForJob setCareerUser={setCareerUser} />}
+                />
+                <Route path="job/:id" element={<JobDetails />} />
+              </Route>
+              <Route path="/career/404" element={<ErrorPage />} />
+            </Routes>
+          </RootContainer>
+        </RecoilRoot>
       </Suspense>
     );
   }
 
-  // if (shouldHideHeader) {
-  //   return (
-  //     <ThemeContextProvider>
-  //       <AuthorizationProvider>
-  //         <Routes>
-  //           <Route path="/walkover" element={<WalkoverHeader />} />
-  //           <Route path="/checkout" element={<OnBoarding />} />
-  //           <Route
-  //             path="/createOrganization"
-  //             element={<CreateOrganization />}
-  //           />
-  //           <Route path="/listOrganization" element={<ListOrganization />} />
-  //         </Routes>
-  //       </AuthorizationProvider>
-  //     </ThemeContextProvider>
-  //   );
-  // }
-
   return (
-    <>
-      <Suspense fallback={<Loading />}>
-        <Header>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="joblisting" element={<JobListingHome />} />
-              <Route path="department" element={<DeptHome />} />
-              <Route path="interviewquestions" element={<InterviewHome />} />
-              <Route
-                path="receivedapplications"
-                element={<Newreceivedapplication />}
-              />
-              <Route
-                path="new/receivedapplications"
-                element={<Newreceivedapplication />}
-              />
+    <Suspense fallback={<Loading />}>
+      <Header>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="joblisting" element={<JobListingHome />} />
+            <Route path="department" element={<DeptHome />} />
+            <Route path="interviewquestions" element={<InterviewHome />} />
+            <Route
+              path="receivedapplications"
+              element={<Newreceivedapplication />}
+            />
+            <Route
+              path="new/receivedapplications"
+              element={<Newreceivedapplication />}
+            />
 
-              <Route path="showmore/:id" element={<ShowMoreHome />} />
-              <Route path="joblisting/edit" element={<EditHome />} />
-              <Route path="jobApplicationDetail">
-                <Route path=":id" element={<JobApplicationDetail />} />
-                <Route path="offer-letter/:id" element={<OfferLetter />} />
-                <Route path="agreements/:id" element={<Agreements />} />
-              </Route>
-
-              <Route
-                path="showmore/:id/sendofferletter"
-                element={<SendOfferHome />}
-              />
-              <Route path="showmore/:id/offerletter" element={<OfferHome />} />
-
-              <Route
-                path="showmore/:id/sendagreement"
-                element={<AgreementHome />}
-              />
-
-              <Route path="noticeboard" element={<NoticeHome />} />
-              <Route path="apps" element={<Apps />} />
-              <Route path="docs" element={<Docs />} />
-              <Route path="expenses" element={<ExpensesHome />} />
-              <Route path="award" element={<Newawardpage />} />
-              <Route path="holidays" element={<HolidayHome />} />
-
-              <Route path="addpayroll" element={<AddPayrollHome />} />
-              <Route path="addpayrolls" element={<MorePayrollHome />} />
-              <Route path="editpayroll" element={<EditPayrollHome />} />
-              <Route path="editpayrolls" element={<MoreEditPayrollHome />} />
-              <Route path="employeesalary" element={<SalaryHome />} />
-
-              <Route path="employees" element={<EmployeeHome />} />
-              <Route path="performance/:id" element={<PerformanceHome />} />
-              <Route path="viewemployee/:id" element={<EmpDetailsHome />} />
-
-              <Route path="attendance" element={<AttendHome />} />
-              <Route path="attendanceview" element={<AttendViewHome />} />
-              <Route path="leavesettings" element={<LeaveSettingsHome />} />
-              <Route path="leaveapplication" element={<LeaveAppHome />} />
-              <Route path="leaveapplication/view" element={<LeaveViewHome />} />
-              <Route
-                path="rulesandregulations"
-                element={<RuleAndRegulations />}
-              />
-
-              <Route path="dashboardproject" element={<Dashboard />} />
-              <Route path="projectlist" element={<ProjectList />} />
-              <Route path="newproject" element={<NewProject />} />
-              <Route path="overTime" element={<OverTime />} />
-
-              <Route path="overviewcalender" element={<OverTime />} />
-              <Route path="viewproject" element={<ViewProject />} />
-
-              <Route path="support/ticketlist" element={<TicketList />} />
-              <Route path="support/activeticket" element={<ActiveList />} />
-              <Route path="support/createtiket" element={<CreateTicket />} />
-              <Route path="support/closeticket" element={<CloseTicket />} />
-              <Route path="support/profile" element={<Profile />} />
-              <Route path="support/Dashboard" element={<DashBoard />} />
-              <Route path="support/landing" element={<LandingPage />} />
-              <Route path="support/knowledgepage" element={<Knowledgepage />} />
-              <Route path="support/knowledgeview" element={<Knowledgeview />} />
-              <Route path="memo" element={<Memo />} />
-              <Route path="memoEdit" element={<MemoEdit />} />
-              <Route path="chat" element={<ChatPage />} />
-
-              <Route path="generalsetting" element={<Generalsettinghome />} />
-              <Route path="rollaccess" element={<Rollaccess />} />
-              <Route path="apisetting" element={<Apisetting />} />
-
-              <Route path="walkover" element={<WalkoverHeader />} />
-              <Route path="checkout" element={<OnBoarding />} />
-              <Route
-                path="createOrganization"
-                element={<CreateOrganization />}
-              />
-              <Route path="listOrganization" element={<ListOrganization />} />
+            <Route path="showmore/:id" element={<ShowMoreHome />} />
+            <Route path="joblisting/edit" element={<EditHome />} />
+            <Route path="jobApplicationDetail">
+              <Route path=":id" element={<JobApplicationDetail />} />
+              <Route path="offer-letter/:id" element={<OfferLetter />} />
+              <Route path="agreements/:id" element={<Agreements />} />
             </Route>
-          </Routes>
-        </Header>
-        <Footer />
-      </Suspense>
-    </>
+
+            <Route
+              path="showmore/:id/sendofferletter"
+              element={<SendOfferHome />}
+            />
+            <Route path="showmore/:id/offerletter" element={<OfferHome />} />
+
+            <Route
+              path="showmore/:id/sendagreement"
+              element={<AgreementHome />}
+            />
+
+            <Route path="noticeboard" element={<NoticeHome />} />
+            <Route path="apps" element={<Apps />} />
+            <Route path="docs" element={<Docs />} />
+            <Route path="expenses" element={<ExpensesHome />} />
+            <Route path="award" element={<Newawardpage />} />
+            <Route path="holidays" element={<HolidayHome />} />
+
+            <Route path="addpayroll" element={<AddPayrollHome />} />
+            <Route path="addpayrolls" element={<MorePayrollHome />} />
+            <Route path="editpayroll" element={<EditPayrollHome />} />
+            <Route path="editpayrolls" element={<MoreEditPayrollHome />} />
+            <Route path="employeesalary" element={<SalaryHome />} />
+
+            <Route path="employees" element={<EmployeeHome />} />
+            <Route path="performance/:id" element={<PerformanceHome />} />
+            <Route path="viewemployee/:id" element={<EmpDetailsHome />} />
+
+            <Route path="attendance" element={<AttendHome />} />
+            <Route path="attendanceview" element={<AttendViewHome />} />
+            <Route path="leavesettings" element={<LeaveSettingsHome />} />
+            <Route path="leaveapplication" element={<LeaveAppHome />} />
+            <Route path="leaveapplication/view" element={<LeaveViewHome />} />
+            <Route
+              path="rulesandregulations"
+              element={<RuleAndRegulations />}
+            />
+
+            <Route path="dashboardproject" element={<Dashboard />} />
+            <Route path="projectlist" element={<ProjectList />} />
+            <Route path="newproject" element={<NewProject />} />
+            <Route path="overTime" element={<OverTime />} />
+
+            <Route path="overviewcalender" element={<OverTime />} />
+            <Route path="viewproject" element={<ViewProject />} />
+
+            <Route path="support/ticketlist" element={<TicketList />} />
+            <Route path="support/activeticket" element={<ActiveList />} />
+            <Route path="support/createtiket" element={<CreateTicket />} />
+            <Route path="support/closeticket" element={<CloseTicket />} />
+            <Route path="support/profile" element={<Profile />} />
+            <Route path="support/Dashboard" element={<DashBoard />} />
+            <Route path="support/landing" element={<LandingPage />} />
+            <Route path="support/knowledgepage" element={<Knowledgepage />} />
+            <Route path="support/knowledgeview" element={<Knowledgeview />} />
+            <Route path="memo" element={<Memo />} />
+            <Route path="memoEdit" element={<MemoEdit />} />
+            <Route path="chat" element={<ChatPage />} />
+
+            <Route path="generalsetting" element={<Generalsettinghome />} />
+            <Route path="rollaccess" element={<Rollaccess />} />
+            <Route path="apisetting" element={<Apisetting />} />
+
+            <Route path="walkover" element={<WalkoverHeader />} />
+            <Route path="checkout" element={<OnBoarding />} />
+            <Route path="createOrganization" element={<CreateOrganization />} />
+            <Route path="listOrganization" element={<ListOrganization />} />
+          </Route>
+        </Routes>
+      </Header>
+      <Footer />
+    </Suspense>
   );
 };
 

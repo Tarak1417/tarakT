@@ -1,6 +1,6 @@
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { Box, Button, IconButton, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -41,6 +41,7 @@ let walkover = [
 
 const WalkoverHeader = () => {
   const navigate = useNavigate();
+  const swiperRef = useRef(null);
 
   let logoSrc = "https://cdn.clikkle.com/images/hr/logo/2023/hr.png",
     name = "Clikkle",
@@ -50,10 +51,16 @@ const WalkoverHeader = () => {
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => prevIndex - 1);
+    if (swiperRef?.current) {
+      swiperRef.current.swiper.slidePrev();
+    }
   };
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => prevIndex + 1);
+    if (swiperRef?.current) {
+      swiperRef.current.swiper.slideNext();
+    }
   };
 
   const handleSlideChange = (swiper) => {
@@ -67,14 +74,14 @@ const WalkoverHeader = () => {
   const skip = (
     <button
       onClick={handleGoToCheckout}
-      className="h-fit w-fit mt-8 mr-4 py-2 px-6 text-right text-white-500 block bg-blue-500 rounded z-10"
+      className="h-fit w-fit mt-8 mr-4 py-2 px-6 text-right block text-blue-500 rounded z-10"
     >
       Skip
     </button>
   );
 
   const slides = (
-    <Box className="flex mt-10">
+    <Box className="flex">
       {[0, 1, 2, 3].map((_, index) => (
         <Box
           key={index}
@@ -84,6 +91,34 @@ const WalkoverHeader = () => {
         ></Box>
       ))}
     </Box>
+  );
+
+  const navbuttons = (
+    <div className="flex gap-4">
+      <div className="p-px w-fit h-fit rounded-full bg-gray-300">
+        <IconButton
+          onClick={handlePrev}
+          disabled={currentIndex === 0}
+          color="primary"
+          className="rounded-full"
+        >
+          <ArrowBackIos
+            color={currentIndex === 0 ? "action" : ""}
+            className="translate-x-1"
+          />
+        </IconButton>
+      </div>
+      <div className="p-px w-fit h-fit rounded-full bg-gray-300">
+        <IconButton
+          disabled={currentIndex === 3}
+          onClick={handleNext}
+          color="primary"
+          className="rounded-full"
+        >
+          <ArrowForwardIos color={currentIndex === 3 ? "action" : ""} />
+        </IconButton>
+      </div>
+    </div>
   );
 
   return (
@@ -151,42 +186,22 @@ const WalkoverHeader = () => {
           )}
 
           <div className="h-[30%] flex flex-row-reverse sm:flex-col justify-between ">
-            <div className="flex mt-2 gap-4">
-              <div className="p-px w-fit h-fit rounded-full bg-gray-300">
-                <IconButton
-                  onClick={handlePrev}
-                  disabled={currentIndex === 0}
-                  color="primary"
-                  className="rounded-full"
-                >
-                  <ArrowBackIos
-                    color={currentIndex === 0 ? "action" : ""}
-                    className="translate-x-1"
-                  />
-                </IconButton>
-              </div>
-              <div className="p-px w-fit h-fit rounded-full bg-gray-300">
-                <IconButton
-                  disabled={currentIndex === 3}
-                  onClick={handleNext}
-                  color="primary"
-                  className="rounded-full"
-                >
-                  <ArrowForwardIos color={currentIndex === 3 ? "action" : ""} />
-                </IconButton>
-              </div>
-            </div>
+            {navbuttons}
             {slides}
           </div>
         </div>
       </div>
       <div className="md:hidden flex flex-col items-end w-full h-full mb-20">
         {skip}
-        <Swiper className="w-full h-full" onSlideChange={handleSlideChange}>
+        <Swiper
+          className="w-full h-full"
+          onSlideChange={handleSlideChange}
+          ref={swiperRef}
+        >
           {walkover.map((item, index) => (
             <SwiperSlide
-              key={index}
-              className="w-full h-full !flex flex-col justify-center"
+              key={`${item?.title}_${index}`}
+              className="w-full h-full !flex flex-col justify-center text-center"
             >
               <div className="w-[80vmin] h-fit m-auto">
                 <div className="w-full sm:h-full flex items-center justify-center">
@@ -207,7 +222,7 @@ const WalkoverHeader = () => {
                     <Button
                       onClick={handleGoToCheckout}
                       variant="contained"
-                      className="hidden sm:block !w-fit md:w-auto"
+                      className="hidden sm:block"
                       sx={{ borderRadius: 3, px: 3, py: 1.5 }}
                     >
                       Get Started
@@ -218,7 +233,10 @@ const WalkoverHeader = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="w-full px-8 -mt-10">{slides}</div>
+        <div className="w-full px-8 flex items-center justify-between">
+          {slides}
+          {navbuttons}
+        </div>
       </div>
     </Box>
   );
