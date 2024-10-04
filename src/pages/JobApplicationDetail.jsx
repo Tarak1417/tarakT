@@ -77,7 +77,7 @@ const JobApplicationDetail = () => {
       try {
         const response = await axios.get(`/hr/job-application/${id}`);
         const jobDetail = response.data.application;
-         console.log("jobDetail" ,jobDetail)
+        console.log("jobDetail", jobDetail)
         jobDetail.isOfferLetterSend = response.data.isOfferLetterSend;
         jobDetail.isInterviewCompleted = response.data.isInterviewCompleted;
         jobDetail.interviewScore = response.data.interviewScore;
@@ -162,7 +162,7 @@ const JobApplicationDetail = () => {
             {!loading ? (
               <>
                 {jobApplication.step === 0 &&
-                jobApplication.status === "Pending" ? (
+                  jobApplication.status === "Pending" ? (
                   <Grid item>
                     <Button
                       sx={{ fontSize: fsize }}
@@ -235,19 +235,19 @@ const JobApplicationDetail = () => {
         </div>
         <div className="flex flex-col md:flex-row p-4 items-start justify-start">
           <div className="w-full md:w-1/3 flex flex-col gap-2 p-4">
-       
+
             <div className="flex justify-start md:justify-start">
-                      {jobApplication && jobApplication.photo ? (
-                          <Box maxWidth='130px'>
-                          <FetchImage name={jobApplication.photo} />
-                          </Box>
-                            // <Box maxWidth='130px'>
-                            //   <ServerImage src={jobApplication.photo ?? ""}    alt="Profile"  className=" w-[50%] md:w-full max-w-[200px] h-[50%]"  />
-                            // </Box>
-                        ) : (
-                            <CircularProgress />
-                        )}
-      
+              {jobApplication && jobApplication.photo ? (
+                <Box maxWidth='130px'>
+                  <FetchImage name={jobApplication.photo} />
+                </Box>
+                // <Box maxWidth='130px'>
+                //   <ServerImage src={jobApplication.photo ?? ""}    alt="Profile"  className=" w-[50%] md:w-full max-w-[200px] h-[50%]"  />
+                // </Box>
+              ) : (
+                <CircularProgress />
+              )}
+
             </div>
             <div className="w-full">
               <h1 className="text-blue-500 text-xs md:text-[22px]">
@@ -256,14 +256,14 @@ const JobApplicationDetail = () => {
               <p className="text-[10px] md:text-[16px]">
                 {jobApplication.jobTitle}
               </p>
-              {jobApplication.step !== 4  &&  
-                 <Button
-                 sx={{ fontSize: fsize ,  mt: 2 }}
-                 className="text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded bg-sky-500 hover:bg-sky-700"
-                 variant="contained"
-                 onClick={openReset}>
-                 Reset Application
-               </Button>
+              {jobApplication.step !== 4 &&
+                <Button
+                  sx={{ fontSize: fsize, mt: 2 }}
+                  className="text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded bg-sky-500 hover:bg-sky-700"
+                  variant="contained"
+                  onClick={openReset}>
+                  Reset Application
+                </Button>
               }
               {" "}
             </div>
@@ -320,19 +320,19 @@ const JobApplicationDetail = () => {
                 </h1>
               </div>
               <div className="w-1/2">
-                 <Button
-                     className="text-neutral-500 p-0 m-0"
-                      LinkComponent={Link}
-                      sx={{minWidth : "12px"}}
-                      to={`/receivedapplications?experience=${jobApplication.experience}`}
-                      disabled={!jobApplication.experience}
-                    >
-                         <p className="text-[12px] md:text-[20px]">
-                  {" "}
-                  {jobApplication.experience}
-                </p>
-                    </Button>
-            
+                <Button
+                  className="text-neutral-500 p-0 m-0"
+                  LinkComponent={Link}
+                  sx={{ minWidth: "12px" }}
+                  to={`/receivedapplications?experience=${jobApplication.experience}`}
+                  disabled={!jobApplication.experience}
+                >
+                  <p className="text-[12px] md:text-[20px]">
+                    {" "}
+                    {jobApplication.experience}
+                  </p>
+                </Button>
+
               </div>
             </div>
             <div className="w-full flex flex-row items-center justify-start gap-10">
@@ -506,6 +506,7 @@ const JobApplicationDetail = () => {
       >
         <>
           <SendInterview
+            oid={jobApplication?._id}
             jobId={jobApplication.jobId}
             closeModal={closeSendInterview}
             userId={jobApplication.userId}
