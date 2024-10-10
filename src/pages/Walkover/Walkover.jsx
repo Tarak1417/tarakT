@@ -1,11 +1,12 @@
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { Box, Button, IconButton, Typography } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
+import axios from "axios";
 
 let walkover = [
   {
@@ -48,6 +49,7 @@ const WalkoverHeader = () => {
     smallerText = false;
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isSubscribe, setIsSubscribe] = useState(false);
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => prevIndex - 1);
@@ -67,8 +69,26 @@ const WalkoverHeader = () => {
     setCurrentIndex(swiper?.activeIndex ?? 0);
   };
 
+  const checkUserSubscription = async () => {
+    try {
+      const response = await axios.post(`/user/subscription/check`, {
+        userId: JSON.parse(localStorage.getItem("user"))._id,
+      });
+      let data = response.data;
+      if (data.success) {
+        setIsSubscribe(true)
+      } else {
+        setIsSubscribe(false)
+      }
+    } catch (e) {
+      console.log("subscription/check Error:", e);
+      setIsSubscribe(false)
+    }
+  };
+  useEffect(()=>{checkUserSubscription()},[])
+
   const handleGoToCheckout = () => {
-    navigate("/checkout");
+    navigate("/createOrganization");
   };
 
   const skip = (
@@ -159,7 +179,7 @@ const WalkoverHeader = () => {
                 {walkover[currentIndex].descriptions}
               </div>
             </div>
-            {currentIndex === 3 && (
+            {currentIndex === 3 && isSubscribe && (
               <div className="hidden sm:block">
                 <Button
                   className="mb-2 w-2/6"
@@ -172,7 +192,7 @@ const WalkoverHeader = () => {
               </div>
             )}
           </div>
-          {currentIndex === 3 && (
+          {currentIndex === 3 && isSubscribe && (
             <div className=" flex justify-center mb-4 sm:hidden">
               <Button
                 className=" w-5/6  sm:w-2/6"
@@ -218,7 +238,7 @@ const WalkoverHeader = () => {
                       {item.descriptions}
                     </Typography>
                   </div>
-                  {index === 3 && (
+                  {index === 3 && isSubscribe && (
                     <Button
                       onClick={handleGoToCheckout}
                       variant="contained"
