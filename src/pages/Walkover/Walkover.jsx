@@ -48,7 +48,7 @@ const WalkoverHeader = () => {
     smallerText = false;
 
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => prevIndex - 1);
     if (swiperRef?.current) {
@@ -68,7 +68,7 @@ const WalkoverHeader = () => {
   };
 
   const handleGoToCheckout = () => {
-    navigate("/checkout");
+    navigate("/createOrganization");
   };
 
   const skip = (
@@ -159,7 +159,7 @@ const WalkoverHeader = () => {
                 {walkover[currentIndex].descriptions}
               </div>
             </div>
-            {currentIndex === 3 && (
+            {currentIndex === 3 &&  (
               <div className="hidden sm:block">
                 <Button
                   className="mb-2 w-2/6"
@@ -172,7 +172,7 @@ const WalkoverHeader = () => {
               </div>
             )}
           </div>
-          {currentIndex === 3 && (
+          {currentIndex === 3 &&  (
             <div className=" flex justify-center mb-4 sm:hidden">
               <Button
                 className=" w-5/6  sm:w-2/6"
@@ -218,7 +218,7 @@ const WalkoverHeader = () => {
                       {item.descriptions}
                     </Typography>
                   </div>
-                  {index === 3 && (
+                  {index === 3 &&  (
                     <Button
                       onClick={handleGoToCheckout}
                       variant="contained"
