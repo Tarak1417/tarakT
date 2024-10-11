@@ -307,10 +307,10 @@ const CardSection = () => {
         price = alignment == "an" ? 294 : 49;
         break;
       case "Business":
-        price = alignment == "an" ? 894 : 149;
+        price = alignment == "an" ? 894 : 8;
         break;
       case "Enterprise":
-        price = alignment == "an" ? 1494 : 249;
+        price = alignment == "an" ? 1494 : 10;
         break;
       case "Clikkle Plus":
         price = alignment == "an" ? 594 : 99;
@@ -446,8 +446,8 @@ const CardSection = () => {
                 </Typography>
               </div>
               <Typography variant="body2" color="textSecondary" gutterBottom>
-                7 days free trial, then ${getPlanPrice(plan)}/
-                {alignment == "an" ? "Annually" : "Monthly"}
+               {plan==="Private" ? "Free upto 5 user":<>  7 days free trial, then ${getPlanPrice(plan)}/
+                {alignment == "an" ? "Annually" : "User"}</>}
               </Typography>
               <Typography
                 variant="body1"

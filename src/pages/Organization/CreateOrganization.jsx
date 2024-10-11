@@ -54,7 +54,7 @@ const CreateOrganization = () => {
     // },[2500])
     let subscriptionId = localStorage.getItem("subscriptionId");
 
-    if (subscriptionId) {
+    //if (subscriptionId) {
       try {
         const formData = new FormData();
         formData.append("photo", picture); // Ensure 'photo' matches backend field name
@@ -88,9 +88,9 @@ const CreateOrganization = () => {
           severity: "error",
         });
       }
-    } else {
-      navigate("/checkout");
-    }
+  //  } else {
+  //     navigate("/listOrganization");
+  //   } 
   };
 
   const handlePhotoChange = (e) => {
