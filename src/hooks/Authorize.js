@@ -67,11 +67,11 @@ const AuthorizationProvider = ({ children }) => {
         localStorage.setItem("subscriptionId", data.subscriptionId);
         await checkOrganization();
       } else {
-        navigate("/walkover");
+        //navigate("/walkover");
       }
     } catch (e) {
       console.log("subscription/check Error:", e);
-      navigate("/walkover");
+      //navigate("/walkover");
     }
   };
 
