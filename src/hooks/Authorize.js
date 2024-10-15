@@ -74,7 +74,21 @@ const AuthorizationProvider = ({ children }) => {
       navigate("/walkover");
     }
   };
-
+const getOrganizations = async () => {
+    try {
+      const response = await axios.get(`/hr/organization`);
+      let data = response.data;
+      if (data.success) {
+        if (data.data.length === 0) {
+          navigate("/walkover");
+        } else {
+          navigate("/listOrganization");
+        }
+      }
+    } catch (e) {
+      console.log("Error List of Organization", e);
+    }
+  };
   const checkOrganization = async () => {
     let selectedOrg = localStorage.getItem("org");
     if (selectedOrg) {
@@ -109,7 +123,8 @@ const AuthorizationProvider = ({ children }) => {
       let data = response.data;
       if (data.success) {
         setCookie("accessToken", data.token);
-        await checkUserSubscription(user.id);
+        //await checkUserSubscription(user.id);
+        await getOrganizations();
         authorize(true, (setUser) => setUser(user));
       } else {
         authorize(true, (setUser) => setUser(user));
