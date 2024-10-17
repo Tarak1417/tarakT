@@ -19,6 +19,7 @@ const SearchWrapper = styled('div')(({ theme }) => ({
     marginLeft: 0,
     width: '100%',
     maxWidth: '720px',
+    height:'40px',
     display: 'flex',
     alignItems: 'center',
     backgroundColor: theme.palette.custom.search.main,
@@ -28,7 +29,7 @@ const SearchWrapper = styled('div')(({ theme }) => ({
 
 const IconWrapperLeft = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
-    height: '100%',
+    height: '80%',
     position: 'absolute',
     pointerEvents: 'none',
     display: 'flex',
@@ -39,7 +40,7 @@ const IconWrapperLeft = styled('div')(({ theme }) => ({
 
 const IconWrapperRight = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 1),
-    height: '100%',
+    height: '80%',
     position: 'absolute',
     right: 0,
     display: 'flex',

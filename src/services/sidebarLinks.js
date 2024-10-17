@@ -211,7 +211,7 @@ const menuItems = [
         label: 'Rules & Regulations',
         to: '/rulesandregulations',
     },
-    {
+   {/* {
         icon: <HeadsetMicIcon fontSize='small' />,
         label: 'Support System',
         to: [
@@ -345,7 +345,7 @@ const menuItems = [
          
          
         ],
-    },
+    }*/},
     {
         icon: <GroupsIcon fontSize='small' />,
         label: 'Chat',

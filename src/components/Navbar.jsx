@@ -735,7 +735,7 @@ export default function Navbar(props) {
             </Grid>
 
 
-            <Grid item xs md={5} alignItems="start">
+            <Grid sx={{height:'32px'}} item xs md={5} alignItems="start">
               <SearchBar />
             </Grid>
             <Grid item xs display={{ xs: "none", sm: "block" }}>
@@ -746,7 +746,7 @@ export default function Navbar(props) {
                 spacing={0}
               >
 
-                 <Grid>
+                 <Grid sx={{marginRight:'-22px'}}>
                   <Notification/>
                  </Grid>
                 <IconButton onClick={openSettingsMenu}>
