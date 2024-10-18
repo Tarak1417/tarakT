@@ -1,6 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { Link, NavLink, useLocation } from "react-router-dom";
+import StandardFeatures from '../components/StandardFeatures';
+
+
+
+import upgradegrp from '../assets/Group 1014.png';
+import upgradestack from '../assets/Group 1015.png';
+import upgradeIssue from '../assets/Group 1019.png';
+
+
+
 
 //mui component
 import {
@@ -9,13 +19,19 @@ import {
   Stack,
   Drawer as MuiDrawer,
   IconButton,
+  DialogActions,
   List,
+  AvatarGroup,
+  Dialog,
   ListItem,
   ListItemIcon,
   ListItemText,
   Divider,
   Avatar,
+  DialogContent,
+  DialogTitle,
   Button,
+  Card,
   Grid,
   Toolbar,
   Typography,
@@ -31,6 +47,9 @@ import {
   Collapse,
   useMediaQuery,
 } from "@mui/material";
+
+import { useNavigate } from 'react-router-dom';
+
 
 //mui icons
 import AppsIcon from "@mui/icons-material/Apps";
@@ -48,6 +67,8 @@ import Image from "../components/Image";
 
 //notificationbutton
 import Notification from '../components/AnimatedBell';
+import Clikklebrand from '../assets/clikkleprobrand.png'
+
 
 //services
 import { useTheme } from "../style/theme";
@@ -78,6 +99,10 @@ import ClikkleProject from "../assets/ClikkleFavicons/Clikkle Projects-01.png";
 import ClikkleLaunch from "../assets/ClikkleFavicons/Clikkle Launch favicon.png";
 import OrganizationDropDown from "../pages/Organization/OrganizationDropDown";
 import Footer from "../pages/Footer";
+
+
+//Button
+import Upgradebutton from '../components/Button/GradientButton';
 
 const clikkleApps = [
   {
@@ -143,6 +168,11 @@ const openedMixin = (theme) => ({
   borderRight: "none",
 });
 
+
+
+
+
+
 const closedMixin = (theme) => ({
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
@@ -176,6 +206,10 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function Navbar(props) {
+  const [anchorEl, setAnchorEl] = useState(null);  // State to manage dropdown open/close
+
+  const navigate = useNavigate();
+
   const { children } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [sidebarApps, setSidebarApps] = useState(clikkleApps);
@@ -193,6 +227,31 @@ export default function Navbar(props) {
     }));
   };
 
+
+
+
+
+
+  
+const [open, setOpen] = useState(false); // 
+
+const handleOpen = () => setOpen(true);
+
+
+const [opensetting, setOpene] = useState(false); 
+
+const handleOpenset = () => {
+setOpene(true);
+};
+
+
+const taketotheSubscriptionpage =() =>{
+  navigate('/paymet-gateway')
+}
+
+const handleClose = () => {
+  setAnchorEl(null); // This will close the menu
+};
   const closeAllCollapsesState = (label) => {
     let tempCollapsesState = { ...collapsesState };
     for (let key in tempCollapsesState) {
@@ -200,6 +259,15 @@ export default function Navbar(props) {
     }
     setCollapsesState(tempCollapsesState);
   };
+
+  
+
+
+
+const handleCloseset = () => {
+  setOpene(false);
+};
+
 
   const {
     modalState: feedbackState,
@@ -745,6 +813,86 @@ export default function Navbar(props) {
                 justifyContent="flex-end"
                 spacing={0}
               >
+
+                
+
+                <Box onClick={handleOpen} sx={{marginRight:'-22px'}}>
+                <Upgradebutton/>
+
+                </Box>
+
+
+                <Dialog
+        open={open}
+        onClose={handleClose}
+        maxWidth="lg"
+        PaperProps={{
+          sx: {
+            width: '1050px',   // Custom width for popup box
+            height: '600px',  // Custom height for popup box
+            borderRadius: '12px', // Rounded corners
+            backgroundColor:'background.default',
+          },
+        }}
+      >
+        <DialogContent
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            p: 0, 
+            backgroundColor: '#1e1e1e',
+          }}
+        >
+          {/* Left section */}
+          <Box sx={{ width: '50%', padding: '24px', color: '#fff' }}>
+            <Image src={Clikklebrand} sx={{height:'38px',marginBottom:'22px',marginTop:'22px'}}/>
+            <Typography variant="h6" sx={{fontFamily:'sans-serif', mb: 2,fontSize:'22px' }}>
+              Upgrade for unlimited users
+            </Typography>
+            <Typography sx={{ mb: 2 ,fontFamily:'sans-serif',fontSize:'14px',color:'gray',width:'400px'}}>
+              With the Standard plan, you get unlimited users, 250GB of storage, free guest access and more.
+            </Typography>
+
+            {/* Users invited section */}
+            <Typography sx={{ mb: 1,fontFamily:'sans-serif',fontSize:'20px'}}>0 of 10 invited</Typography>
+            <Typography sx={{fontFamily:'sans-serif',fontSize:'15px',color:'gray'}}>Upgrade for unlimited users</Typography>
+            <AvatarGroup max={10} sx={{ mb: 2 ,marginRight:'115px',marginTop:'12px', }}>
+              {[...Array(10)].map((_, index) => (
+                <Avatar key={index} sx={{ backgroundColor: '#666' }} />
+              ))}
+            </AvatarGroup>
+
+            {/* Storage usage section */}
+            <Typography sx={{ mb: 1 }}>0 GB of 2 GB</Typography>
+            <Typography sx={{fontFamily:'sans-serif',color:'gray',fontSize:'15px',marginBottom:'12px'}}>Upgrade for 250 GB storage</Typography>
+            <LinearProgress
+              variant="determinate"
+              value={0}
+              sx={{ mb: 3, backgroundColor: '#444', '& .MuiLinearProgress-bar': { backgroundColor: '#fff' } ,height:'7px',borderRadius:'22px'}}
+            />
+
+            {/* Actions */}
+            <DialogActions sx={{  mt: 2,marginTop:'72px' }}>
+              <Button onClick={handleClose} sx={{ color: '#888', backgroundColor: '#45413C', textTransform: 'none', p: '8px 24px' }}>
+                Maybe later
+              </Button>
+              <Button onClick={handleClose} sx={{ backgroundColor: '#3767B1', color: 'black', textTransform: 'none', p: '8px 24px' }}>
+                Upgrade
+              </Button>
+            </DialogActions>
+          </Box>
+
+          {/* Right section */}
+          <Box sx={{ width: '50%', backgroundColor: 'background.default', padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+       <StandardFeatures/>
+          </Box>
+        </DialogContent>
+      </Dialog>
+      {/* Popup Dialog */}
+    
+
+
+
 
                  <Grid sx={{marginRight:'-22px'}}>
                   <Notification/>
