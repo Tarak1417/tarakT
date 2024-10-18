@@ -82,7 +82,8 @@ const getOrganizations = async () => {
         if (data.data.length === 0) {
           navigate("/walkover");
         } else {
-          navigate("/listOrganization");
+          //navigate("/listOrganization");
+          await checkOrganization();
         }
       }
     } catch (e) {
