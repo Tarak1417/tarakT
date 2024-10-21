@@ -182,7 +182,7 @@ const ListOrganization = () => {
                 </div>
               </Grid>
               <Grid item xs={2} sm={2}>
-                <div
+                <div 
                   className={`px-3 py-1 rounded-lg w-fit ${getColor(
                     org.status
                   )} `}
@@ -191,14 +191,7 @@ const ListOrganization = () => {
                 </div>
               </Grid>
               <Grid item xs={3} sm={2}>
-                <Tooltip title="Edit Organization" sx={{ marginRight: 1.5 }}>
-                  <IconButton
-                    variant="outlined"
-                    onClick={() => handleEdit(org)}
-                  >
-                    <EditIcon sx={{ color: "blue" }} />
-                  </IconButton>
-                </Tooltip>
+                
 
                 <Tooltip title="Delete Organization">
                   <IconButton variant="outlined">

@@ -152,8 +152,11 @@ const Docs = () => {
     }, [fetchDocs, currentPage]);
 
     return (
-        <Box sx={{ backgroundColor: 'background.main', px: 2, py: 3 }}>
-            <Box>
+
+        <Box  sx={{ backgroundColor: 'background.main' , px:2 , py :3, height
+            :'88vh',}}>
+            <Box >
+
                 <Grid container spacing={4} display='flex' alignItems='center' className="pb-1">
                     <Grid item xs>
                         <div>

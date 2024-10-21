@@ -5,7 +5,9 @@ import {Box} from '@mui/material';
 
 const Home = () => {
     return (
-        <Box className="h-full overflow-hidden" sx={{ backgroundColor: 'background.main', }} >
+        <Box className="h-full overflow-hidden" sx={{ backgroundColor: 'background.main',height
+            :'88vh',
+         }} >
             <div className="h-full" style={{ overflowY: 'auto', paddingRight: '1px' }}>
                 <Grid container  justifyContent='center' height='100%'>
                     <Grid item  xs={12}  sx={{ 
