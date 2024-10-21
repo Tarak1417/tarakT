@@ -18,28 +18,65 @@ const EmployeeShift = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [view, setView] = useState('Daily');
 
-  const handlePreviousDay = () => {
-    setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
+  // Handlers for Previous and Next Navigation
+  const handlePrevious = () => {
+    if (view === 'Daily') setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
+    if (view === 'Weekly') setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 7)));
+    if (view === 'Monthly') setSelectedDate(new Date(selectedDate.setMonth(selectedDate.getMonth() - 1)));
   };
 
-  const handleNextDay = () => {
-    setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + 1)));
+  const handleNext = () => {
+    if (view === 'Daily') setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + 1)));
+    if (view === 'Weekly') setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + 7)));
+    if (view === 'Monthly') setSelectedDate(new Date(selectedDate.setMonth(selectedDate.getMonth() + 1)));
   };
 
-  // Generate an array of time slots (12AM to 11AM)
+  // Generate Time Slots (Daily View)
   const timeSlots = Array.from({ length: 12 }, (_, i) => `${i % 12 || 12}${i < 12 ? 'AM' : 'PM'}`);
 
+  // Render Content Based on View
+  const renderShifts = () => {
+    if (view === 'Daily') {
+      return shifts.map((shift) => (
+        <Grid container spacing={1} key={shift.name} alignItems="center" mb={2}>
+          {Array.from({ length: shift.shift.start }).map((_, i) => (
+            <Grid item xs={1} key={i} />
+          ))}
+          <Grid item xs={shift.shift.end - shift.shift.start}>
+            <Box bgcolor={shift.color} color="white" p={1} borderRadius="5px" textAlign="center">
+              {shift.type === 'Present' ? `${shift.shift.start}AM - ${shift.shift.end}AM` : shift.type}
+            </Box>
+          </Grid>
+          {Array.from({ length: 12 - shift.shift.end }).map((_, i) => (
+            <Grid item xs={1} key={i} />
+          ))}
+        </Grid>
+      ));
+    }
+
+    if (view === 'Weekly' || view === 'Monthly') {
+      return (
+        <Typography variant="h6" align="center" mt={5}>
+          {view} Report Coming Soon...
+        </Typography>
+      );
+    }
+  };
+
   return (
-    <Box sx={{backgroundColor:'background.default'}} flex={1} p={3}>
+    <Box sx={{ backgroundColor: 'background.default' }} flex={1} p={3}>
       {/* Header Section */}
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
         <Stack direction="row" alignItems="center" spacing={1}>
-         
+          <ArrowBackIosNewIcon onClick={handlePrevious} style={{ cursor: 'pointer' }} />
           <Typography variant="h5">
-            {selectedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            {view === 'Daily'
+              ? selectedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+              : view === 'Weekly'
+              ? `Week of ${selectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+              : selectedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
           </Typography>
-          <ArrowBackIosNewIcon onClick={handlePreviousDay} style={{ cursor: 'pointer' }} />
-          <ArrowForwardIosIcon onClick={handleNextDay} style={{ cursor: 'pointer' }} />
+          <ArrowForwardIosIcon onClick={handleNext} style={{ cursor: 'pointer' }} />
         </Stack>
 
         {/* View Buttons */}
@@ -58,7 +95,7 @@ const EmployeeShift = () => {
 
       {/* Employee Shift Table */}
       <Paper elevation={3}>
-        <Grid sx={{backgroundColor:'background.default',height:'50vh'}} container>
+        <Grid sx={{ backgroundColor: 'background.default', height: '50vh' }} container>
           {/* Employee List */}
           <Grid item xs={3} p={2}>
             <Typography variant="h6" mb={2}>
@@ -77,46 +114,20 @@ const EmployeeShift = () => {
             ))}
           </Grid>
 
-          {/* Shift Time Schedule */}
+          {/* Shift Schedule */}
           <Grid item xs={9} p={2} borderLeft="1px solid rgba(0, 0, 0, 0.1)">
-            {/* Table Header with Time Slots */}
-            <Grid container spacing={1} mb={2}>
-              {timeSlots.map((time) => (
-                <Grid item xs={1} key={time}>
-                  <Typography variant="caption" align="center">
-                    {time}
-                  </Typography>
-                </Grid>
-              ))}
-            </Grid>
-
-            {/* Shift Bars Aligned with Time Slots */}
-            {shifts.map((shift) => (
-              <Grid container spacing={1} key={shift.name} alignItems="center" mb={2}>
-                {/* Empty grid cells before the shift starts */}
-                {Array.from({ length: shift.shift.start }).map((_, i) => (
-                  <Grid item xs={1} key={i} />
-                ))}
-
-                {/* Shift bar covering the shift duration */}
-                <Grid item xs={shift.shift.end - shift.shift.start}>
-                  <Box
-                    bgcolor={shift.color}
-                    color="white"
-                    p={1}
-                    borderRadius="5px"
-                    textAlign="center"
-                  >
-                    {shift.type === 'Present' ? `${shift.shift.start}AM - ${shift.shift.end}AM` : shift.type}
-                  </Box>
-                </Grid>
-
-                {/* Empty grid cells after the shift ends */}
-                {Array.from({ length: 12 - shift.shift.end }).map((_, i) => (
-                  <Grid item xs={1} key={i} />
+            {view === 'Daily' && (
+              <Grid container spacing={1} mb={2}>
+                {timeSlots.map((time) => (
+                  <Grid item xs={1} key={time}>
+                    <Typography variant="caption" align="center">
+                      {time}
+                    </Typography>
+                  </Grid>
                 ))}
               </Grid>
-            ))}
+            )}
+            {renderShifts()}
           </Grid>
         </Grid>
       </Paper>
