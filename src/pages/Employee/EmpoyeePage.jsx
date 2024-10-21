@@ -201,7 +201,7 @@ const EmployeePage = () => {
   } = useModal();
 
   return (
-    <Box sx={{ backgroundColor: "background.main" }}>
+    <Box sx={{ backgroundColor: "background.main",height:'70vh' }}>
       <div className="flex flex-col p-4">
         <div className="flex items-center justify-between md:w-full ">
           <div className="p-2">

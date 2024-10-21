@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
-import Amco from '../assets/amico.png';
-import Hand from '../assets/pana.png';
-import Hedi from '../assets/hedi.png';
+import Amco from '../assets/Upgradehrimages/bro.png';
+import Hand from '../assets/Upgradehrimages/caute1.png';
+import Hedi from '../assets/Upgradehrimages/amico.png';
+import Robo from '../assets/Upgradehrimages/cuate.png';
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 
@@ -10,24 +11,24 @@ import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 const templates = [
   {
     id: 1,
-    image: Hedi,
-    label: 'Unlimited Users',
+    image:    Amco,
+    label: 'HR analytics',
   },
   {
     id: 2,
     image: Hand,
-    label: 'Advanced Reporting',
+    label: 'Performance management',
   },
   {
     id: 3,
-    image: Amco,
-    label: 'Priority Support',
+    image: Hedi,
+    label: 'Recruiting / ATS',
   },
 
   {
     id: 4,
-    image: '/path-to-image3.png',
-    label: 'Priority Support',
+    image: Robo,
+    label: 'AI powered candidate matching',
   },
 ];
 

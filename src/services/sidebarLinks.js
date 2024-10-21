@@ -128,6 +128,27 @@ const menuItems = [
         ],
     },
     {
+        icon: <GroupsIcon fontSize='small' />,
+        label: 'Schedule',
+        to: [
+            {
+                label: 'Overview Calendar',
+                icon: <Person/>,
+                to: 'Schudle',
+            },
+            {
+                label: 'Employee Shift',
+                icon: <Person/>,
+                to: '/performance/view',
+            },
+            {
+                label: 'Schedule',
+                icon: <Person/>,
+                to: '/performance/view',
+            },
+        ],
+    },
+    {
         label: 'Projects',
         icon: <DashboardOutlined fontSize='small' />,
         to: [

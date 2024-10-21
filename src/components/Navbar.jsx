@@ -216,7 +216,7 @@ export default function Navbar(props) {
   const [isOrderChanged, setIsOrderChanged] = useState(false);
   const [editable, setEditable] = useState(false);
   const [user, setUser] = useState(null);
-  const [collapseDrawer, setCollapseDrawer] = useState(true);
+  const [collapseDrawer, setCollapseDrawer] = useState(false);
   const [drawerHover, setDrawerHover] = useState(false);
 
   const [collapsesState, setCollapsesState] = useState({});
