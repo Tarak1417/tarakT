@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, Stack, Typography, Button, Paper, Grid, Avatar } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import Sectionwisereport from '../Schedule/reports/WeekReport';
 
 // Sample shift data
 const shifts = [
@@ -10,8 +11,8 @@ const shifts = [
   { name: 'Daniel Thompson', role: 'Frontend Developer', type: 'Absent', shift: { start: 0, end: 24 }, color: 'orange' },
   { name: 'Dave Maxwell', role: 'Frontend Developer', type: 'Present', shift: { start: 1, end: 9 }, color: '#3767B1' },
   { name: 'Dwayne Graham', role: 'Backend Developer', type: 'Present', shift: { start: 4, end: 8 }, color: '#3767B1' },
-  { name: 'Rashid Ahmed', role: 'Backend Developer', type: 'Present', shift: { start: 9, end: 17 }, color: 'blue' },
-  { name: 'Yogesh Singh', role: 'QA Tester', type: 'Holiday', shift: { start: 0, end: 24 }, color: 'green' },
+  { name: 'Rashid Ahmed', role: 'Backend Developer', type: 'Present', shift: { start: 9, end: 17 }, color: '#3767B1' },
+  { name: 'Yogesh Singh', role: 'QA Tester', type: 'Holiday', shift: { start: 0, end: 24 }, color: '#44B14F' },
 ];
 
 const EmployeeShift = () => {
@@ -54,11 +55,28 @@ const EmployeeShift = () => {
       ));
     }
 
-    if (view === 'Weekly' || view === 'Monthly') {
+    if (view === 'Weekly') {
       return (
-        <Typography variant="h6" align="center" mt={5}>
-          {view} Report Coming Soon...
-        </Typography>
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography variant="h6" align="center" mt={5}>
+             
+            </Typography>
+            <Sectionwisereport />
+          </Grid>
+        </Grid>
+      );
+    }
+
+    if (view === 'Monthly') {
+      return (
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography variant="h6" align="center" mt={5}>
+              Monthly Report Coming Soon...
+            </Typography>
+          </Grid>
+        </Grid>
       );
     }
   };
@@ -68,7 +86,6 @@ const EmployeeShift = () => {
       {/* Header Section */}
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
         <Stack direction="row" alignItems="center" spacing={1}>
-          <ArrowBackIosNewIcon onClick={handlePrevious} style={{ cursor: 'pointer' }} />
           <Typography variant="h5">
             {view === 'Daily'
               ? selectedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
@@ -76,7 +93,9 @@ const EmployeeShift = () => {
               ? `Week of ${selectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
               : selectedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
           </Typography>
-          <ArrowForwardIosIcon onClick={handleNext} style={{ cursor: 'pointer' }} />
+          <ArrowBackIosNewIcon onClick={handlePrevious} style={{ cursor: 'pointer',color:'gray',fontSize:'14px' }} />
+
+          <ArrowForwardIosIcon onClick={handleNext} style={{ cursor: 'pointer',color:'gray',fontSize:'14px'  }} />
         </Stack>
 
         {/* View Buttons */}
@@ -97,16 +116,16 @@ const EmployeeShift = () => {
       <Paper elevation={3}>
         <Grid sx={{ backgroundColor: 'background.default', height: '50vh' }} container>
           {/* Employee List */}
-          <Grid item xs={3} p={2}>
+          <Grid sx={{marginLeft:'-55px'}} item xs={3} p={2}>
             <Typography variant="h6" mb={2}>
               Employees
             </Typography>
             {shifts.map((shift) => (
               <Stack direction="row" alignItems="center" spacing={2} key={shift.name} mb={2}>
-                <Avatar alt={shift.name} src={`https://i.pravatar.cc/150?u=${shift.name}`} />
+                <Avatar alt={shift.name} src={`https://i.pravatar.cc/150?u=${shift.name}`} sx={{height:'25px',width:'25px'}} />
                 <Box>
-                  <Typography>{shift.name}</Typography>
-                  <Typography variant="caption" color="textSecondary">
+                  <Typography sx={{fontSize:'14px'}}>{shift.name}</Typography>
+                  <Typography sx={{fontSize:'12px',marginTop:'-22px'}} variant="caption" color="textSecondary">
                     {shift.role}
                   </Typography>
                 </Box>

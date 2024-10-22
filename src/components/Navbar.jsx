@@ -67,7 +67,7 @@ import Image from "../components/Image";
 
 //notificationbutton
 import Notification from '../components/AnimatedBell';
-import Clikklebrand from '../assets/clikkleprobrand.png'
+import Clikklebrand from '../assets/Hrlogo.png'
 
 
 //services
@@ -236,6 +236,8 @@ export default function Navbar(props) {
 const [open, setOpen] = useState(false); // 
 
 const handleOpen = () => setOpen(true);
+const handleCloseUpgrate =()=> 
+  setOpen(false)
 
 
 const [opensetting, setOpene] = useState(false); 
@@ -551,7 +553,7 @@ const handleCloseset = () => {
         to="/"
         sx={{ textDecoration: "none", color: "text.primary", py: 1 }}
       >
-        <Image src={hrlogo} sx={{ height: "47px" }} />
+        <Image src={hrlogo} sx={{ height: "32px",marginLeft:'-123px' }} />
         {/* <Typography
                     color='text.secondary'
                     variant='body2'
@@ -574,7 +576,11 @@ const handleCloseset = () => {
         <List sx={{ px: 3, py: 1 }}>
           <SideBarLinkButton menus={menuItems} />
         </List>
+        
       </Box>
+
+     
+      
       <Box>
         <Divider variant="middle" />
         <Typography
@@ -646,6 +652,7 @@ const handleCloseset = () => {
                 primaryTypographyProps={{ fontSize: 14 }}
               />
             </ListItemButton>
+           
           </ListItem>
         </List>
 
@@ -823,6 +830,7 @@ const handleCloseset = () => {
 
 
                 <Dialog
+                
         open={open}
         onClose={handleClose}
         maxWidth="lg"
@@ -845,17 +853,16 @@ const handleCloseset = () => {
         >
           {/* Left section */}
           <Box sx={{ width: '50%', padding: '24px', color: '#fff' }}>
-            <Image src={Clikklebrand} sx={{height:'38px',marginBottom:'22px',marginTop:'22px'}}/>
+            <Image src={Clikklebrand} sx={{height:'28px',marginBottom:'22px',marginTop:'22px'}}/>
             <Typography variant="h6" sx={{fontFamily:'sans-serif', mb: 2,fontSize:'22px' }}>
-              Upgrade for unlimited users
-            </Typography>
+            Upgrade for 15 - 50 users            </Typography>
             <Typography sx={{ mb: 2 ,fontFamily:'sans-serif',fontSize:'14px',color:'gray',width:'400px'}}>
-              With the Standard plan, you get unlimited users, 250GB of storage, free guest access and more.
-            </Typography>
+            With the Business plan, you get 15 - 50 users, 100GB of 
+            storage, 3 free guest access and more.            </Typography>
 
             {/* Users invited section */}
             <Typography sx={{ mb: 1,fontFamily:'sans-serif',fontSize:'20px'}}>0 of 10 invited</Typography>
-            <Typography sx={{fontFamily:'sans-serif',fontSize:'15px',color:'gray'}}>Upgrade for unlimited users</Typography>
+            <Typography sx={{fontFamily:'sans-serif',fontSize:'15px',color:'gray'}}>Upgrade for 15 - 50 users</Typography>
             <AvatarGroup max={10} sx={{ mb: 2 ,marginRight:'115px',marginTop:'12px', }}>
               {[...Array(10)].map((_, index) => (
                 <Avatar key={index} sx={{ backgroundColor: '#666' }} />
@@ -864,7 +871,7 @@ const handleCloseset = () => {
 
             {/* Storage usage section */}
             <Typography sx={{ mb: 1 }}>0 GB of 2 GB</Typography>
-            <Typography sx={{fontFamily:'sans-serif',color:'gray',fontSize:'15px',marginBottom:'12px'}}>Upgrade for 250 GB storage</Typography>
+            <Typography sx={{fontFamily:'sans-serif',color:'gray',fontSize:'15px',marginBottom:'12px'}}>Upgrade for 100 GB storage</Typography>
             <LinearProgress
               variant="determinate"
               value={0}
@@ -873,7 +880,7 @@ const handleCloseset = () => {
 
             {/* Actions */}
             <DialogActions sx={{  mt: 2,marginTop:'72px' }}>
-              <Button onClick={handleClose} sx={{ color: '#888', backgroundColor: '#45413C', textTransform: 'none', p: '8px 24px' }}>
+              <Button  onClick={handleCloseUpgrate} sx={{ color: '#888', backgroundColor: '#45413C', textTransform: 'none', p: '8px 24px' }}>
                 Maybe later
               </Button>
               <Button onClick={handleClose} sx={{ backgroundColor: '#3767B1', color: 'black', textTransform: 'none', p: '8px 24px' }}>
