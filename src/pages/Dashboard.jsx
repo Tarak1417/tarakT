@@ -1,27 +1,35 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Button, Grid, IconButton, Tooltip, Typography } from "@mui/material";
-import { TrendingUp, TrendingDown } from "@mui/icons-material";
+import { TrendingUp, TrendingDown, Height } from "@mui/icons-material";
 import GroupIcon from "@mui/icons-material/Group";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import Charts from "./DashComponents/charts";
 import NoticeBoard from "./DashComponents/noticeboard";
 import UpcomingEvents from "./DashComponents/upcomingevents";
 import Bars from "./DashComponents/bars";
+import Calander from './Schedule/EmployeeShift';
+
 import RecentActivity from "./DashComponents/recent";
 import GenderChart from "./DashComponents/GenderChart";
 import RecentJobs from "./DashComponents/recentJobs";
 import Attendance from "./DashComponents/attend";
 import { Box } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 import { useRefresh } from "../components/Header";
 import Clock from "../components/Clock";
 
 const Dashboard = () => {
+
+  const navigate = useNavigate(); // Get the navigate function
+
   const [overview, setOverview] = useState({});
   const { refreshPage } = useRefresh();
 
+
+
+ 
   const fetchOverview = useCallback(async () => {
     try {
       const response = await axios.get(`/hr/dashboard`);
@@ -149,6 +157,9 @@ const Dashboard = () => {
         <div className="">
           <h1 className="text-2xl text-neutral-500">HR Dashboard</h1>
         </div>
+        
+     
+    
 
               <Clock />
           </Grid>
@@ -175,7 +186,7 @@ const Dashboard = () => {
                   </Grid>
                 ))}
               </div>
-              <Charts data={data} />
+            <Calander/>
             </div>
             <div className="w-full md:w-1/4">
               <NoticeBoard eventData={ overview && overview?.notices} />
@@ -193,6 +204,7 @@ const Dashboard = () => {
           <div className="w-full md:w-[30%] mb-2 md:mb-0 flex-grow">
             <GenderChart items={  overview && overview?.employees} />
           </div>
+       
         </div>
         <div className="w-full justify-items-stretch flex flex-col md:flex-row py-2 items-stretch">
           <div className="w-full md:w-1/2 mx-1 mb-2 md:mb-0 flex-grow">
@@ -203,6 +215,10 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+
+
+
     </Box>
   );
 };

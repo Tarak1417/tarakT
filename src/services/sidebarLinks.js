@@ -58,9 +58,15 @@ const menuItems = [
                 to: '/',
             },
             {
-                label: 'Job Listing',
-                icon:<JobList  className='text-zinc-500'/>,
-                to: '/joblisting',
+                label: 'Department',
+                icon: <Office/>,
+                to: '/department',
+            },
+             
+            {
+                label: 'Docs',
+                icon: <Office/>,
+                to: '/docs',
             },
             {
                 label: 'Interview Question',
@@ -68,25 +74,35 @@ const menuItems = [
                 to: '/interviewquestions',
             },
             {
-                label: 'Department',
-                icon: <Office/>,
-                to: '/department',
+                label: 'Job Listing',
+                icon:<JobList  className='text-zinc-500'/>,
+                to: '/joblisting',
+            },{
+                icon: <GroupsIcon fontSize='small' />,
+                label: 'Memos',
+                to: '/memo',
             },
+
             {
-                label: 'Docs',
-                icon: <Office/>,
-                to: '/docs',
+                icon: <GroupsIcon fontSize='small' />,
+                label: 'Notice Board',
+                to: '/noticeboard',
             },
             {
                 label: 'Received Applications',
                 icon: <Received/>,
                 to: '/receivedapplications',
             },
+            {
+                icon: <GroupsIcon fontSize='small' />,
+                label: 'Rules & Regulations',
+                to: '/rulesandregulations',
+            },
         ],
     },
     {
         icon: <GroupsIcon fontSize='small' />,
-        label: 'Employees',
+        label: 'Staff',
         to: [
             {
                 label: 'Employee List',
@@ -97,6 +113,11 @@ const menuItems = [
                 label: 'Employee View',
                 icon: <Person/>,
                 to: '/performance/view',
+            },
+            {
+                label: 'Award',
+                icon: <EmojiEventsIcon fontSize='small' />,
+                to: '/award',
             },
         ],
     },
@@ -139,57 +160,23 @@ const menuItems = [
             {
                 label: 'Employee Shift',
                 icon: <Person/>,
-                to: '/performance/view',
+                to: 'hfh',
+            },
+            {
+                label: 'Holiday',
+                icon: <HolidayVillageIcon fontSize='small' />,
+                to: '/holidays',
             },
             {
                 label: 'Schedule',
                 icon: <Person/>,
-                to: '/performance/view',
+                to: 'fnfn',
             },
         ],
     },
-    {
-        label: 'Projects',
-        icon: <DashboardOutlined fontSize='small' />,
-        to: [
-            {
-                label: 'Dashboard',
-                icon: <Attend />,
-                to: '/dashboardproject',
-            },
-            {
-                label: 'Project List',
-                icon: <Leave/>,
-                to: '/projectlist',
-            },
-            {
-                label: 'View Project',
-                icon: <Download/>,
-                to: '/viewproject',
-            },
-            {
-                label: 'Overview Calendar',
-                icon: <Person/>,
-                to: '/overviewcalender',
-            },
-            {
-                label: 'New Project',
-                icon: <Person/>,
-                to: '/newproject',
-            },
-           
-        ],
-    },
-    {
-        icon: <GroupsIcon fontSize='small' />,
-        label: 'Notice Board',
-        to: '/noticeboard',
-    },
-    {
-        icon: <GroupsIcon fontSize='small' />,
-        label: 'Expenses',
-        to: '/expenses',
-    },
+    
+   
+   
     {
         label: 'Payroll',
         icon: <DashboardOutlined fontSize='small' />,
@@ -205,6 +192,11 @@ const menuItems = [
                 to: '/addpayroll',
             },
             {
+                icon: <GroupsIcon fontSize='small' />,
+                label: 'Expenses',
+                to: '/expenses',
+            },
+            {
                 label: 'Edit Payroll',
                 icon: <Download/>,
                 to: '/editpayroll',
@@ -212,32 +204,8 @@ const menuItems = [
            
         ],
     },
-    {
-        label: 'Award',
-        icon: <EmojiEventsIcon fontSize='small' />,
-        to: '/award',
-    },
-    {
-        label: 'Holiday',
-        icon: <HolidayVillageIcon fontSize='small' />,
-        to: '/holidays',
-    },
-    {
-        icon: <GroupsIcon fontSize='small' />,
-        label: 'Memos',
-        to: '/memo',
-    },
-    {
-        icon: <GroupsIcon fontSize='small' />,
-        label: 'Rules & Regulations',
-        to: '/rulesandregulations',
-    },
-  
-    {
-        icon: <GroupsIcon fontSize='small' />,
-        label: 'Chat',
-        to: '/chat',
-    },
+    
+    
     {
         label: 'Admin',
         icon: <DashboardOutlined fontSize='small' />,

@@ -31,7 +31,7 @@ const teams = [
   { role: 'QA Tester', count: 2 },
   { role: 'Frontend Developer', count: 2 },
   { role: 'Backend Developer', count: 2 },
-  { role: 'UI/UX Designer', count: 1 },
+  
 ];
 
 export default function ShiftManagement() {
@@ -63,7 +63,8 @@ export default function ShiftManagement() {
     <Box display="flex" height="77vh" backgroundColor='background.default' margin="12px" borderRadius="8px" overflow="scroll">
       {/* Left Sidebar */}
       <Box width="300px" p={2} borderRight="1px solid rgba(255, 255, 255, 0.1)" marginTop="13px">
-        <Stack direction="row" spacing={1} mb={3}>
+        <Box sx={{display:'flex',flexDirection:'row',justifyContent:'center'}}>
+        <Stack  direction="row" spacing={1} mb={3}>
           <Button
             variant={selectedShift === 'AM Shift' ? 'contained' : 'outlined'}
             onClick={() => handleShiftChange('AM Shift')}
@@ -77,14 +78,15 @@ export default function ShiftManagement() {
             PM Shift
           </Button>
         </Stack>
-
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
+        </Box>
+        <Stack  direction="row" alignItems="center" justifyContent="space-between" mb={2}>
           <IconButton color="inherit">
-            <ArrowBackIosIcon />
+            <ArrowBackIosIcon sx={{height:'13px',marginRight:'-53px'}} />
           </IconButton>
-          <Typography variant="h6">{selectedDate.toLocaleString('default', { month: 'long' })}, {selectedDate.getFullYear()}</Typography>
+          <Typography sx={{fontSize:'15px'}} variant="h6">{selectedDate.toLocaleString('default', { month: 'long' })}, {selectedDate.getFullYear()}</Typography>
           <IconButton color="inherit">
-            <ArrowForwardIosIcon />
+            
+            <ArrowForwardIosIcon sx={{height:'13px',marginLeft:'-33px'}} />
           </IconButton>
         </Stack>
 <Box container bgcolor={"black"} color="black">
