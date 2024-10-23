@@ -82,11 +82,11 @@ const EmployeeShift = () => {
   };
 
   return (
-    <Box sx={{ backgroundColor: 'background.default' }} flex={1} p={3}>
+    <Box sx={{width:'67vw',backgroundColor:'background.default',color:'gray' }} flex={1} p={3}>
       {/* Header Section */}
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <Typography variant="h5">
+        <Stack  direction="row" alignItems="center" spacing={1}>
+          <Typography sx={{color:'gray'}} variant="h5">
             {view === 'Daily'
               ? selectedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
               : view === 'Weekly'
@@ -113,10 +113,10 @@ const EmployeeShift = () => {
       </Stack>
 
       {/* Employee Shift Table */}
-      <Paper elevation={3}>
-        <Grid sx={{ backgroundColor: 'background.default', height: '50vh' }} container>
+      <Box sx={{}} elevation={3}>
+        <Grid sx={{  height: '66vh',width:"60vw" }} container>
           {/* Employee List */}
-          <Grid sx={{marginLeft:'-55px'}} item xs={3} p={2}>
+          <Grid sx={{}} item xs={3} p={2}>
             <Typography variant="h6" mb={2}>
               Employees
             </Typography>
@@ -149,7 +149,7 @@ const EmployeeShift = () => {
             {renderShifts()}
           </Grid>
         </Grid>
-      </Paper>
+      </Box>
     </Box>
   );
 };

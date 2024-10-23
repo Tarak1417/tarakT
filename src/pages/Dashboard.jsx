@@ -4,12 +4,11 @@ import { TrendingUp, TrendingDown, Height } from "@mui/icons-material";
 import GroupIcon from "@mui/icons-material/Group";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import Charts from "./DashComponents/charts";
 import NoticeBoard from "./DashComponents/noticeboard";
 import UpcomingEvents from "./DashComponents/upcomingevents";
 import Bars from "./DashComponents/bars";
-import Image from "../components/Image";
-import BotIcon from '../assets/boticon.png';
+import Calander from './Schedule/EmployeeShift';
+
 import RecentActivity from "./DashComponents/recent";
 import GenderChart from "./DashComponents/GenderChart";
 import RecentJobs from "./DashComponents/recentJobs";
@@ -30,9 +29,7 @@ const Dashboard = () => {
 
 
 
-  const handleChatbox =()=>{
-    navigate('/chat')
-  }
+ 
   const fetchOverview = useCallback(async () => {
     try {
       const response = await axios.get(`/hr/dashboard`);
@@ -189,7 +186,7 @@ const Dashboard = () => {
                   </Grid>
                 ))}
               </div>
-              <Charts data={data} />
+            <Calander/>
             </div>
             <div className="w-full md:w-1/4">
               <NoticeBoard eventData={ overview && overview?.notices} />
@@ -207,30 +204,7 @@ const Dashboard = () => {
           <div className="w-full md:w-[30%] mb-2 md:mb-0 flex-grow">
             <GenderChart items={  overview && overview?.employees} />
           </div>
-          <Box 
-      sx={{ 
-        marginRight:'53px',
-        display: 'flex', 
-        flexDirection: 'row', 
-        justifyContent: 'flex-end', 
-         
-        position: 'fixed', // Fixed position to float in the viewport
-        bottom: '20px', // Distance from the bottom of the viewport
-        right: '20px', // Distance from the right of the viewport
-        zIndex: 1000, // Ensure it stays above other content
-       // Optional background for visibility
-        padding: '10px', // Optional padding for better appearance
-      }}
-    >
-      <Button onClick={handleChatbox}>
-<Box sx={{ display:'flex',flexDirection:"column",textAlign:'center'}}>
-      <Image src={BotIcon}  alt="Bot Icon"
-        sx={{ width: '60px', height: '60px'}} />
-
-        <Typography sx={{color:'gray'}} >Help</Typography>
-        </Box>
-        </Button>
-    </Box>
+       
         </div>
         <div className="w-full justify-items-stretch flex flex-col md:flex-row py-2 items-stretch">
           <div className="w-full md:w-1/2 mx-1 mb-2 md:mb-0 flex-grow">

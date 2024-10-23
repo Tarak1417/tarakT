@@ -68,7 +68,7 @@ import Image from "../components/Image";
 //notificationbutton
 import Notification from '../components/AnimatedBell';
 import Clikklebrand from '../assets/Hrlogo.png'
-
+import BotIcon from '../assets/boticon.png';
 
 //services
 import { useTheme } from "../style/theme";
@@ -245,6 +245,12 @@ const [opensetting, setOpene] = useState(false);
 const handleOpenset = () => {
 setOpene(true);
 };
+
+
+
+const handleChatbox =()=>{
+  navigate('/chat')
+}
 
 
 const taketotheSubscriptionpage =() =>{
@@ -1218,6 +1224,8 @@ const handleCloseset = () => {
                   </div>
                 )}
               </Droppable>
+              
+              
             </DragDropContext>
             <Divider variant="middle" sx={{ my: 2, width: "80%" }} />
             {editable ? (
@@ -1237,8 +1245,34 @@ const handleCloseset = () => {
               />
             )}
           </Stack>
+         
+          <Box 
+      sx={{ 
+        marginRight:'-37px',
+        display: 'flex', 
+        flexDirection: 'row', 
+        justifyContent: 'flex-end', 
+         
+        position: 'fixed', // Fixed position to float in the viewport
+        bottom: '20px', // Distance from the bottom of the viewport
+        right: '20px', // Distance from the right of the viewport
+        zIndex: 1000, // Ensure it stays above other content
+       // Optional background for visibility
+        padding: '10px', // Optional padding for better appearance
+      }}
+    >
+      <Button onClick={handleChatbox}>
+<Box sx={{ display:'flex',flexDirection:"column",textAlign:'center'}}>
+      <Image src={BotIcon}  alt="Bot Icon"
+        sx={{ width: '42px', height: '42px'}} />
+
+        <Typography sx={{color:'gray',fontSize:'13px',fontFamily:'sans-serif'}} >Help</Typography>
+        </Box>
+        </Button>
+    </Box>
         </Box>
       </AppBar>
+      
 
       <Box
         component="nav"

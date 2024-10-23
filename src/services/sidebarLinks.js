@@ -114,6 +114,11 @@ const menuItems = [
                 icon: <Person/>,
                 to: '/performance/view',
             },
+            {
+                label: 'Award',
+                icon: <EmojiEventsIcon fontSize='small' />,
+                to: '/award',
+            },
         ],
     },
     {
@@ -199,11 +204,7 @@ const menuItems = [
            
         ],
     },
-    {
-        label: 'Award',
-        icon: <EmojiEventsIcon fontSize='small' />,
-        to: '/award',
-    },
+    
     
     {
         label: 'Admin',

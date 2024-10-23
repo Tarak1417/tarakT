@@ -22,7 +22,7 @@ const AnimatedBell = () => {
   };
 
   return (
-    <Themeentire>
+    
     <Box
     
       sx={{
@@ -44,7 +44,7 @@ const AnimatedBell = () => {
       </IconButton>
     </Box>
 
-    </Themeentire>
+   
   );
 };
 

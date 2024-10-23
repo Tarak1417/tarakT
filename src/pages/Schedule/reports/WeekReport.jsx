@@ -105,13 +105,14 @@ const getDotColor = (status) => {
 
 const WeekReport = () => {
   return (
-    <div className="p-8" style={{ marginTop: '-76px', width: '136%', marginLeft: '-73px' }}>
+    <div className="p-8" style={{ marginTop: '-76px', width: '127%', marginLeft: '-93px' }}>
       <div className="overflow-x-auto">
         <table className="table-auto w-full border-collapse border border-gray-400">
           <thead style={{ border: '1px solid gray' }}>
-            <tr>
+            <tr >
               {weekData.map((day, index) => (
                 <th
+                style={{ fontSize: '13px', fontWeight: 'normal' }}
                   key={index}
                   className="border border-gray-300 p-2 text-lg font-semibold"
                 >
