@@ -71,9 +71,26 @@ const AuthorizationProvider = ({ children }) => {
       }
     } catch (e) {
       console.log("subscription/check Error:", e);
-      navigate("/walkover");
+    navigate("/walkover");
+    }
+   };
+   const getOrganizations = async () => {
+    try {
+      const response = await axios.get(`/hr/organization`);
+      let data = response.data;
+      if (data.success) {
+        if (data.data.length === 0) {
+          navigate("/walkover");
+        } else {
+          //navigate("/listOrganization");
+          await checkOrganization();
+        }
+      }
+    } catch (e) {
+      console.log("Error List of Organization", e);
     }
   };
+
 const getOrganizations = async () => {
     try {
       const response = await axios.get(`/hr/organization`);

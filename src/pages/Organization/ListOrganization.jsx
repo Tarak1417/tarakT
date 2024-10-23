@@ -108,7 +108,9 @@ const ListOrganization = () => {
       if (data.success) {
         if (data.data.length === 0) {
          // navigate("/createOrganization");
-           setOrganization([]);
+          
+         setOrganization([]);
+
         } else {
           setOrganization(data.data);
         }

@@ -42,6 +42,7 @@ const JobCards = ({ labels }) => {
       const response = await axios.get(
         `/hr/job-application?searchBy=${filters.searchBy}${(filters.experience == "null") ? "":'&experience='+filters.experience }&searchText=${filters.search}&sortBy=${filters.sortBy}&direction=${filters.direction}&page=${pageNo}&interviewSent=${filters.interviewSent}&interviewed=${filters.interviewed}&offerSent=${filters.offerSent}&offerSigned=${filters.offerSigned}&agreementSent=${filters.agreementSent}&agreementSigned=${filters.agreementSigned}&employed=${filters.employed}&terminated=${filters.terminated}`
       );
+      //console.log("response.data",response.data);
       setJobApplications(response.data.applications);
       setPageLimit(response.data.pageData.totalPages);
     } catch (error) {
@@ -268,7 +269,8 @@ const handleCancelDelete = () => {
                       <LabelTag label="Agreements sent" />
                     )
                   )}
-                  {application.isEmployee && <LabelTag label="Employed" />}
+                  {application.status==="Employed" && <LabelTag label="Employed" />}
+                  {application.status==="Terminated" && <LabelTag label="Terminated" />}
 
                   {application.label &&
                     labels

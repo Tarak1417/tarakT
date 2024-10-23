@@ -181,7 +181,7 @@ const JobApplicationDetail = () => {
                       sx={{ fontSize: fsize }}
                       className="text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded bg-sky-500 hover:bg-sky-700"
                       LinkComponent={Link}
-                      to={`/jobApplicationDetail/offer-letter/${jobApplication.userId}`}
+                      to={`/jobApplicationDetail/offer-letter/${jobApplication._id}`}
                       disabled={!jobApplication.isInterviewCompleted}
                       variant="contained"
                     >
@@ -491,6 +491,7 @@ const JobApplicationDetail = () => {
           <AddEmployeeByOffer
             closeModal={closeAddEmployee}
             userId={jobApplication.userId}
+            jobId={jobApplication._id}
             refetch={fetchJobApplication}
           />
         </>

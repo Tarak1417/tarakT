@@ -62,7 +62,7 @@ const Letter = () => {
     const sendOfferLetter = async () => {
         const values = {
             ...handlers.values,
-            userId: id,
+           // userId: id,
             manager: {
                 name: handlers.values.managerName,
                 jobTitle: handlers.values.managerJobTitle,

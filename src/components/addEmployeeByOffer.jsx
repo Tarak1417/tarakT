@@ -8,7 +8,7 @@ import { Input } from '../hooks/useForm/inputs';
 
 
 const AddEmployeeByOffer = props => {
-    const { closeModal, userId, refetch } = props;
+    const { closeModal, userId, refetch, jobId } = props;
     const [departments, setDepartments] = useState([]);
     const { showError, showSuccess } = useMessage();
     const errorHandler = useErrorHandler();
@@ -86,6 +86,7 @@ const AddEmployeeByOffer = props => {
                 method='post'
                 final={values => ({
                     ...values,
+                    jobId,
                     shiftStart: {
                         hour: values.shiftStartTime.split(':')[0],
                         minute: values.shiftStartTime.split(':')[1],
