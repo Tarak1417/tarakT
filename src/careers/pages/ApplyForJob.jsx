@@ -27,7 +27,7 @@ const [resume, setResume] = useState('');
 const [linkdin , setLinkdin] = useState('');
 const [twitter ,setTwitter] = useState('');
 const [exp , setExp] = useState('');
-const [mob , setmob] = useState('');
+const [mob , setmob] = useState(user.phoneNumber || "");
 const [jobIds , setJobId] = useState();
 const [adminId , setAdminId] = useState();
 const resumeInputRef = useRef(null);
@@ -248,7 +248,7 @@ const handleSubmit = async (e) => {
     formData.append('countryCode', selected);
     formData.append('linkedinAccount', linkdin);
     formData.append('jobId', jobId); 
-    formData.append('phone', user?.phoneNumber);
+    formData.append('phone', mob || user?.phoneNumber);
 
 
     //  let  url =  env('SERVER')+"/user/job-application"
@@ -378,7 +378,8 @@ const handleUrlChange = (e) => {
                             <input className="flex-1 shadow appearance-none border placeholder-gray-600 rounded-lg w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-3 dark:bg-[#141414] dark:text-white dark:border-slate-600 dark:placeholder-slate-600" id="phone" name="phone" type="text" placeholder="Enter Phone Number"
                             onChange={(e)=>setmob(e.target.value)}
                             required
-                            value={user?.phoneNumber}
+                            //value={user?.phoneNumber}
+                            defaultValue={user?.phoneNumber}
                             />
                         </div>
                     </div>
