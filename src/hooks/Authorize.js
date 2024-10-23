@@ -90,6 +90,23 @@ const AuthorizationProvider = ({ children }) => {
       console.log("Error List of Organization", e);
     }
   };
+
+const getOrganizations = async () => {
+    try {
+      const response = await axios.get(`/hr/organization`);
+      let data = response.data;
+      if (data.success) {
+        if (data.data.length === 0) {
+          navigate("/walkover");
+        } else {
+          //navigate("/listOrganization");
+          await checkOrganization();
+        }
+      }
+    } catch (e) {
+      console.log("Error List of Organization", e);
+    }
+  };
   const checkOrganization = async () => {
     let selectedOrg = localStorage.getItem("org");
     if (selectedOrg) {

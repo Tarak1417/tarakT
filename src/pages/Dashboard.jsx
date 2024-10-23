@@ -132,9 +132,10 @@ const Dashboard = () => {
   // ];
 
   return (
-    <Box sx={{ backgroundColor: "background.main" ,  maxWidth: {
+    <Box sx={{ backgroundColor: "background.main", maxWidth: {
       xs :'95vw',
-      sm :'100vw'
+      sm :'100vw',
+      
     } }}>
       <div className="flex flex-col sm:px-4 px-2 py-6">
         <div className="">

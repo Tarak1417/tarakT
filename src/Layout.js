@@ -21,9 +21,11 @@ const Layout = () => {
             navigate("/listOrganization")
         }
     }else{
+
         // if(!subscriptionId){
         //     navigate("/walkover")
         // }
+  
     }
     // console.log("shouldHideHeader" ,shouldHideHeader)
 

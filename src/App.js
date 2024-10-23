@@ -37,6 +37,11 @@ const AttendHome = lazy(() => import("./pages/Attendance/AttendHome"));
 const AttendViewHome = lazy(() =>
   import("./pages/Attendance/AttendView/AttendViewHome")
 );
+
+const Schedule = lazy(()=> import("./pages/Schedule/ShiftManagement"));
+
+
+
 const LeaveSettingsHome = lazy(() =>
   import("./pages/Attendance/AttendView/LeaveSetting/LeaveSettingHome")
 );
@@ -214,6 +219,7 @@ const App = () => {
             <Route path="expenses" element={<ExpensesHome />} />
             <Route path="award" element={<Newawardpage />} />
             <Route path="holidays" element={<HolidayHome />} />
+            <Route path="Schudle" element={<Schedule/>}/>
 
             <Route path="addpayroll" element={<AddPayrollHome />} />
             <Route path="addpayrolls" element={<MorePayrollHome />} />
