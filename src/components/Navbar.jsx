@@ -559,7 +559,7 @@ const handleCloseset = () => {
         to="/"
         sx={{ textDecoration: "none", color: "text.primary", py: 1 }}
       >
-        <Image src={hrlogo} sx={{ height: "32px",marginLeft:'-123px' }} />
+        <Image src={hrlogo} sx={{ height: "42px",marginLeft:'-93px' }} />
         {/* <Typography
                     color='text.secondary'
                     variant='body2'
