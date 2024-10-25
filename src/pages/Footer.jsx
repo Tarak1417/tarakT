@@ -9,6 +9,7 @@ import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
 import AtsIcon from "../services/icons/menu/ats.svg";
 import ActiveAtsIcon from "../services/icons/active-menu/ats.svg";
+import Tehems from '../style/theme';
 import ProjectIcon from "../services/icons/menu/project.svg";
 import ActiveProjectIcon from "../services/icons/active-menu/project.svg";
 import ChatIcon from "../services/icons/menu/chat.svg";
@@ -77,8 +78,9 @@ const Footer = () => {
   if (hideFooter.includes(location.pathname)) return null;
 
   return (
+    
     <Box
-      sx={{  backgroundColor: '#1f1e1e', height: "59px" }}
+      sx={{  backgroundColor:"background.default", height: "59px" }}
       className="fixed bottom-0 text-gray-500 w-full text-[10px] px-2 flex flex-row gap-4 items-center justify-between md:hidden"
     >
       <NavLink to="/">
