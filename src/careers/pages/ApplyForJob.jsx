@@ -27,7 +27,7 @@ const [resume, setResume] = useState('');
 const [linkdin , setLinkdin] = useState('');
 const [twitter ,setTwitter] = useState('');
 const [exp , setExp] = useState('');
-const [mob , setmob] = useState(user.phoneNumber || "");
+const [mob , setmob] = useState(user?.phoneNumber || "");
 const [jobIds , setJobId] = useState();
 const [adminId , setAdminId] = useState();
 const resumeInputRef = useRef(null);
@@ -248,7 +248,7 @@ const handleSubmit = async (e) => {
     formData.append('countryCode', selected);
     formData.append('linkedinAccount', linkdin);
     formData.append('jobId', jobId); 
-    formData.append('phone', mob || user?.phoneNumber);
+    formData.append('phone', mob||user?.phoneNumber);
 
 
     //  let  url =  env('SERVER')+"/user/job-application"
@@ -380,6 +380,7 @@ const handleUrlChange = (e) => {
                             required
                             //value={user?.phoneNumber}
                             defaultValue={user?.phoneNumber}
+                            readOnly
                             />
                         </div>
                     </div>
@@ -392,7 +393,10 @@ const handleUrlChange = (e) => {
                             D.O.B
                         </label>
                         <div className="dobGrid">
-                        <select name="month" id="month" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <input name="month" readOnly id="month" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Month" />
+                        <input name="day" readOnly id="day" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Date" />
+                        <input name="year" readOnly id="year" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Year" />
+                        {/* <select name="month" id="month" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="">Month</option>
                         <option value="1">Jan</option>
                         <option value="2">Feb</option>
@@ -407,7 +411,7 @@ const handleUrlChange = (e) => {
                         <option value="11">Nov</option>
                         <option value="12">Dec</option>
                         </select>
-                        <select name="day" id="day" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <select name="day"  id="day" className="border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#141414] dark:border-slate-600 dark:placeholder-slate-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="">Day</option>
                         {Array.from({ length: 31 }, (_, i) => (
                         <option key={i + 1} value={i + 1}>{i + 1}</option>
@@ -418,7 +422,7 @@ const handleUrlChange = (e) => {
                         {Array.from({ length: 50 }, (_, i) => (
                         <option key={i + 1960} value={i + 1960}>{i + 1960}</option>
                         ))}
-                    </select>
+                    </select> */}
                         </div>
 
                     </div>
