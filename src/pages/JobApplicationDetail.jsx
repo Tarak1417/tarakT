@@ -357,7 +357,7 @@ const JobApplicationDetail = () => {
               <div className="w-1/2">
                 <p className="text-[12px] md:text-[20px]">
                   {" "}
-                  {jobApplication.countryCode} {jobApplication.phone}
+                  {jobApplication.countryCode} <a href={`tel: ${jobApplication.phone}`}>{jobApplication.phone}</a> 
                 </p>
               </div>
             </div>
