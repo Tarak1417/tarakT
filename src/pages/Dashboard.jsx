@@ -82,7 +82,7 @@ const Dashboard = () => {
       value: (
         <Typography
           variant="body1"
-          style={{ color: "#00FF00", fontSize: "1.2em" }}
+          style={{ color: "#00FF00", fontSize: "1.5em" }}
         >
           {overview?.employees?.total || 0}
         </Typography>
@@ -165,21 +165,21 @@ const Dashboard = () => {
           </Grid>
           <div className="flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-3/4">
-              <div className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
+              <div style={{height:'120px'}} className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
                 {boxesData && boxesData.map((box, index) => (
                   <Grid
                     sx={{ backgroundColor: "background.view" }}
                     key={index}
                     className="rounded-lg p-4 shadow-md md:w-1/3"
                   >
-                    <p className="text-xl">{box.title}</p>
+                    <p style={{fontSize:'15px',marginTop:'-8px'}} className="text-xl">{box.title}</p>
                     <div className="flex items-center mb-2">
-                      <p className="w-5/6 text-xl">{box.value}</p>
-                      <div className="w-1/6">{box.icon}</div>
+                      <p style={{fontSize:'13px'}} className="w-5/6 text-xl">{box.value}</p>
+                      <div style={{}} className="w-1/6">{box.icon}</div>
                     </div>
                     <div className="flex items-center gap-2">
                       {box.trendIcon}
-                      <p variant="body2" className="ml-2">
+                      <p style={{fontSize:'13px'}} variant="body2" className="ml-2">
                         {box.description}
                       </p>
                     </div>

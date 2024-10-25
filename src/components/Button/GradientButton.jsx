@@ -15,7 +15,7 @@ const GradientButton = ({ handleOpen }) => {
           fontWeight: 'bold',
           padding: '8px 16px',
           borderRadius: '8px',
-          background: 'linear-gradient(45deg, #6a11cb, #2575fc)', // Gradient for border
+          background: 'linear-gradient(45deg, #3b84d9, #72b7f2)', // Gradient for border
           color: 'white',
           transition: 'background 0.5s, transform 0.3s',
           position: 'relative',

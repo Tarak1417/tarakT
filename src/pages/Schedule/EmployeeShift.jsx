@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Stack, Typography, Button, Paper, Grid, Avatar } from '@mui/material';
+import { Box, Stack, Typography, Button, Paper, Grid, Avatar, useMediaQuery } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Sectionwisereport from '../Schedule/reports/WeekReport';
@@ -19,6 +19,9 @@ const EmployeeShift = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [view, setView] = useState('Daily');
 
+  // Media query for small screens
+  const isMobile = useMediaQuery('(max-width:600px)');
+
   // Handlers for Previous and Next Navigation
   const handlePrevious = () => {
     if (view === 'Daily') setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
@@ -32,10 +35,8 @@ const EmployeeShift = () => {
     if (view === 'Monthly') setSelectedDate(new Date(selectedDate.setMonth(selectedDate.getMonth() + 1)));
   };
 
-  // Generate Time Slots (Daily View)
   const timeSlots = Array.from({ length: 12 }, (_, i) => `${i % 12 || 12}${i < 12 ? 'AM' : 'PM'}`);
 
-  // Render Content Based on View
   const renderShifts = () => {
     if (view === 'Daily') {
       return shifts.map((shift) => (
@@ -44,7 +45,14 @@ const EmployeeShift = () => {
             <Grid item xs={1} key={i} />
           ))}
           <Grid item xs={shift.shift.end - shift.shift.start}>
-            <Box bgcolor={shift.color} color="white" p={1} borderRadius="5px" textAlign="center">
+            <Box
+              bgcolor={shift.color}
+              color="white"
+              p={1}
+              borderRadius="5px"
+              textAlign="center"
+              sx={{ fontSize: isMobile ? '10px' : '14px' }}
+            >
               {shift.type === 'Present' ? `${shift.shift.start}AM - ${shift.shift.end}AM` : shift.type}
             </Box>
           </Grid>
@@ -59,9 +67,6 @@ const EmployeeShift = () => {
       return (
         <Grid container>
           <Grid item xs={12}>
-            <Typography variant="h6" align="center" mt={5}>
-             
-            </Typography>
             <Sectionwisereport />
           </Grid>
         </Grid>
@@ -82,24 +87,56 @@ const EmployeeShift = () => {
   };
 
   return (
-    <Box sx={{width:'67vw',backgroundColor:'background.default',color:'gray' }} flex={1} p={3}>
-      {/* Header Section */}
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
-        <Stack  direction="row" alignItems="center" spacing={1}>
-          <Typography sx={{color:'gray'}} variant="h5">
+    <Box
+      sx={{
+        width: isMobile ? '100%' : '67vw',
+        height: '57%',
+        backgroundColor: 'background.default',
+      }}
+      p={isMobile ? 1 : 3}
+    >
+      <Stack direction={isMobile ? 'column' : 'row'} justifyContent="space-between" alignItems="center" mb={3}>
+        <Typography sx={{ fontSize: isMobile ? '18px' : '22px' }}>Overview Calendar</Typography>
+
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <Typography
+            variant="h6"
+            sx={{ fontSize: isMobile ? '16px' : '20px', fontWeight: 'bold' }}
+          >
             {view === 'Daily'
               ? selectedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
               : view === 'Weekly'
               ? `Week of ${selectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
               : selectedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
           </Typography>
-          <ArrowBackIosNewIcon onClick={handlePrevious} style={{ cursor: 'pointer',color:'gray',fontSize:'14px' }} />
 
-          <ArrowForwardIosIcon onClick={handleNext} style={{ cursor: 'pointer',color:'gray',fontSize:'14px'  }} />
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              padding: '4px 12px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+            }}
+          >
+            <Typography variant="button" sx={{ fontSize: '14px' }}>
+              Today
+            </Typography>
+          </Box>
+
+          <ArrowBackIosNewIcon
+            onClick={handlePrevious}
+            sx={{ cursor: 'pointer', color: 'gray', fontSize: '16px' }}
+          />
+
+          <ArrowForwardIosIcon
+            onClick={handleNext}
+            sx={{ cursor: 'pointer', color: 'gray', fontSize: '16px' }}
+          />
         </Stack>
 
-        {/* View Buttons */}
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" spacing={1} mt={isMobile ? 2 : 0}>
           <Button variant={view === 'Daily' ? 'contained' : 'outlined'} onClick={() => setView('Daily')}>
             Daily
           </Button>
@@ -112,20 +149,31 @@ const EmployeeShift = () => {
         </Stack>
       </Stack>
 
-      {/* Employee Shift Table */}
-      <Box sx={{}} elevation={3}>
-        <Grid sx={{  height: '66vh',width:"60vw" }} container>
-          {/* Employee List */}
-          <Grid sx={{}} item xs={3} p={2}>
+      <Box sx={{ overflow: 'auto', height: '66vh' }}>
+        <Grid sx={{
+  height: '68%',
+  overflow: 'scroll',
+  '&::-webkit-scrollbar': {
+    display: 'none', // Hides scrollbar in Chrome, Safari, and Edge
+  },
+  '-ms-overflow-style': 'none',  // Hides scrollbar in Internet Explorer 10+
+  'scrollbar-width': 'none',  // Hides scrollbar in Firefox
+}}
+ container>
+          <Grid sx={{height:'1px'}} item xs={12} sm={3} p={2}>
             <Typography variant="h6" mb={2}>
               Employees
             </Typography>
             {shifts.map((shift) => (
-              <Stack direction="row" alignItems="center" spacing={2} key={shift.name} mb={2}>
-                <Avatar alt={shift.name} src={`https://i.pravatar.cc/150?u=${shift.name}`} sx={{height:'25px',width:'25px'}} />
+              <Stack  direction="row" alignItems="center" spacing={2} key={shift.name} mb={2}>
+                <Avatar
+                  alt={shift.name}
+                  src={`https://i.pravatar.cc/150?u=${shift.name}`}
+                  sx={{ height: '25px', width: '25px' }}
+                />
                 <Box>
-                  <Typography sx={{fontSize:'14px'}}>{shift.name}</Typography>
-                  <Typography sx={{fontSize:'12px',marginTop:'-22px'}} variant="caption" color="textSecondary">
+                  <Typography sx={{ fontSize: '14px' }}>{shift.name}</Typography>
+                  <Typography variant="caption" color="textSecondary">
                     {shift.role}
                   </Typography>
                 </Box>
@@ -133,8 +181,7 @@ const EmployeeShift = () => {
             ))}
           </Grid>
 
-          {/* Shift Schedule */}
-          <Grid item xs={9} p={2} borderLeft="1px solid rgba(0, 0, 0, 0.1)">
+          <Grid  item xs={12} sm={9} p={2}>
             {view === 'Daily' && (
               <Grid container spacing={1} mb={2}>
                 {timeSlots.map((time) => (
