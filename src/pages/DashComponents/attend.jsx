@@ -1,143 +1,168 @@
-import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import CallIcon from "@mui/icons-material/Call";
-import EmailIcon from "@mui/icons-material/Email";
+import React from "react";
+import { FaPhoneAlt, FaEnvelope, FaEye } from "react-icons/fa";
+import { Box } from "@mui/material";
+import { BorderColor, BorderStyle } from "@mui/icons-material";
 
-const Attendance = ({ items }) => {
-  const [dropdown1Open, setDropdown1Open] = useState(false);
-  const [setSelectedYear] = useState("2024");
+const attendanceData = [
+  {
+    id: "#193845039283",
+    name: "Richard Webber",
+    role: "UI/UX Designer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:17 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=3",
+  },
+  {
+    id: "#995830128543",
+    name: "Desmond Jakes",
+    role: "Frontend Developer",
+    date: "22/10/2024",
+    status: "Late",
+    clockIn: "09:40:17 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=8",
+  },
+  {
+    id: "#995839202395",
+    name: "Jaxson Schleifer",
+    role: "Frontend Developer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:03 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=10",
+  },
+  {
+    id: "#294857104856",
+    name: "Cynthia Eze",
+    role: "Software Engineer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:05 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=4",
+  },
+  {
+    id: "#775839203848",
+    name: "Erin Herwitz",
+    role: "Digital Marketer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:07 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=5",
+  },
+  {
+    id: "#775839205548",
+    name: "Erin Herwitz",
+    role: "Digital Marketer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:07 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=5",
+  },
+ 
+];
 
-  const toggleDropdown1 = () => {
-    setDropdown1Open(!dropdown1Open);
+
+  const StatusBadge = ({ status }) => {
+    const statusStyles =
+      status === "Present"
+        ? "bg-[#42B8240F] text-[#6FE053] border-[#6FE053]"
+        : status === "Late"
+        ? "bg-[#F13B3B0F] text-[#F13B3B] border-[#F13B3B]"
+        : "bg-gray-200 text-gray-600 border-gray-600"; // Fallback for other statuses
+  
+    return (
+      <span
+        className={`flex items-center justify-center w-24 h-8 rounded-full text-xs font-semibold border ${statusStyles}`} // Fixed width and height
+      >
+        {status}
+      </span>
+    );
   };
+  
 
-  const handleYearSelect = (year) => {
-    setSelectedYear(year);
-    setDropdown1Open(false);
-  };
 
-  // const items = [
-  //     { id: 1, name: 'John Doe', status: 'Present', clockin: '09:07:00AM', clockout: '05:00:17PM' },
-  //     { id: 2, name: 'Smith', status: 'Absent', clockin: '09:07:00AM', clockout: '05:00:17PM' },
-  //     { id: 3, name: 'Steve', status: 'Present', clockin: '09:07:00AM', clockout: '05:00:17PM' },
-  //     { id: 4, name: 'John Doe', status: 'Present', clockin: '09:07:00AM', clockout: '05:00:17PM' },
-  //     { id: 5, name: 'Smith', status: 'Absent', clockin: '09:07:00AM', clockout: '05:00:17PM' },
-
-  // ];
-
+const RecentAttendance = () => {
   return (
-    <Box
-      className="rounded-lg mb-4 shadow-md pt-4 pr-4 pb-4 h-full"
-      sx={{ backgroundColor: "background.view" }}
-    >
-      <div className="flex flex-row gap-4 mb-4 items-center justify-between">
-        <div className=" w-full md:w-1/2 flex justify-left">
-          <Typography className="w-full md:w-1/3 border-l-4 border-blue-500 pl-2 whitespace-nowrap text-xl">
-            Attendance
-          </Typography>
+    <div className="p-6 rounded-lg shadow-lg">
+      {/* Header */}
+      <Box sx={{ backgroundColor: "background.default", padding: "22px", borderRadius: "12px" }}>
+        <div className="flex items-center justify-between mb-4">
+          <h2 style={{fontSize:"19px",fontFamily:"sans-serif",fontWeight:"500"}} className="">Recent Attendance</h2>
+          <button style={{backgroundColor:"#3767B1",fontFamily:"sans-serif",fontSize:"12px"}} className=" px-4 py-2 rounded-md">
+            View All
+          </button>
         </div>
 
-        <div className="border border-gray-600 rounded-lg p-1 w-1/3 md:w-1/4 justify-end">
-          <div className="w-full flex justify-between items-center">
-            <Typography className="text-xl">Monthly</Typography>
-            <KeyboardArrowDownIcon
-              className="cursor-pointer text-9333ea"
-              onClick={toggleDropdown1}
-            />
-
-            {dropdown1Open && (
-              <div className="absolute top-10 right-0 mt-1 w-20 md:w-40 bg-neutral-900 rounded-lg border border-gray-600 z-10">
-                <div className="p-2 flex flex-col gap-2 justify-center items-center">
-                  <Typography
-                    variant="h7"
-                    className="cursor-pointer"
-                    onClick={() => handleYearSelect("2024")}
-                  >
-                    Option 1
-                  </Typography>
-                  <Typography
-                    variant="h7"
-                    className="cursor-pointer"
-                    onClick={() => handleYearSelect("2023")}
-                  >
-                    Option 2
-                  </Typography>
-                  <Typography
-                    variant="h7"
-                    className="cursor-pointer"
-                    onClick={() => handleYearSelect("2023")}
-                  >
-                    Option 3
-                  </Typography>
-                </div>
-              </div>
-            )}
-          </div>
+        {/* Table */}
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse border-spacing-0">
+            <thead>
+              <tr>
+                <th className="text-gray-400 text-sm py-2">Employee ID</th>
+                <th className="text-gray-400 text-sm py-2">Employee</th>
+                <th className="text-gray-400 text-sm py-2">Date</th>
+                <th className="text-gray-400 text-sm py-2">Status</th>
+                <th className="text-gray-400 text-sm py-2">Clock In</th>
+                <th className="text-gray-400 text-sm py-2">Clock Out</th>
+                <th className="text-gray-400 text-sm py-2">Shift</th>
+                <th className="text-gray-400 text-sm py-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {attendanceData.map((entry) => (
+                <tr key={entry.id}>
+                  <td className=" py-4">{entry.id}</td>
+                  <td className="flex items-center space-x-4 py-4">
+                    <img
+                      src={entry.avatar}
+                      alt={entry.name}
+                      className="w-8 h-8 rounded-full"
+                    />
+                    <div>
+                      <p style={{fontFamily:"sans-serif",fontSize:"14px"}} className="">
+                        {entry.name}
+                      </p>
+                      <p className="text-gray-400 text-xs">{entry.role}</p>
+                    </div>
+                  </td>
+                  <td style={{fontFamily:"sans-serif",fontSize:"13px"}} className=" py-4">{entry.date}</td>
+                  <td className="py-4">
+                    <StatusBadge sx={{fontWeight:"100",}} status={entry.status} />
+                  </td>
+                  <td  style={{fontFamily:"sans-serif",fontSize:"13px"}} className="py-4">{entry.clockIn}</td>
+                  <td style={{fontFamily:"sans-serif",fontSize:"13px"}} className=" py-4">{entry.clockOut}</td>
+                  <td style={{fontFamily:"sans-serif",fontSize:"13px"}} className=" py-4">{entry.shift}</td>
+                  <td className="flex items-center space-x-4 py-4">
+                    <button className="text-green-400">
+                      <FaPhoneAlt />
+                    </button>
+                    <button className="text-blue-400">
+                      <FaEnvelope />
+                    </button>
+                    <button className="text-gray-400">
+                      <FaEye />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      </div>
-      <div className="w-full ">
-        <div className="flex flex-row mb-4 gap-1 md:gap-0">
-          <div className="w-1/6 md:w-1/6 flex items-center justify-center">
-            <p1 className="text-xs md:text-sm">S/N</p1>
-          </div>
-          <div className="w-1/4 md:w-1/4 flex items-center justify-start">
-            <h1 className="text-xs md:text-sm ">Employee</h1>
-          </div>
-          <div className="w-1/5 md:w-1/5 flex items-center justify-start">
-            <p1 className="text-xs md:text-sm ">Status</p1>
-          </div>
-          <div className="w-1/3 md:w-1/3 flex items-center justify-start md:justify-center">
-            <p1 className="text-xs md:text-sm">ClockIn</p1>
-          </div>
-          <div className="w-1/3 md:w-1/3 flex items-center justify-start md:justify-center">
-            <p1 className="text-xs md:text-sm">ClockOut</p1>
-          </div>
-          <div className="w-1/4 md:w-1/3 flex items-center justify-start md:justify-center">
-            <p1 className="text-xs md:text-sm">Actions</p1>
-          </div>
-        </div>
-        {items?.map((item, index) => (
-          <div key={index} className="flex flex-row mb-4 gap-1 md:gap-0">
-            <div className="w-1/6 md:w-1/6 flex items-center justify-center">
-              <p1 className="text-xs md:text-sm text-gray-500">{item._id}</p1>
-            </div>
-            <div className="w-1/4 md:w-1/4 flex items-center justify-start">
-              <h1 className="text-xs md:text-sm text-gray-500">
-                {item.employeeData?.firstName +
-                  " " +
-                  item.employeeData?.lastName}
-              </h1>
-            </div>
-            <div className="w-1/5 md:w-1/5 flex items-center justify-start">
-              <p1 className="text-xs md:text-sm text-gray-500">
-                {item.status}
-              </p1>
-            </div>
-            <div className="w-1/3 md:w-1/3 flex items-center justify-start">
-              <p1 className="text-xs md:text-sm text-gray-500">
-                {item.clockin}
-              </p1>
-            </div>
-            <div className="w-1/3 md:w-1/3 flex items-center justify-start">
-              <p1 className="text-xs md:text-sm text-gray-500">
-                {item.clockout}
-              </p1>
-            </div>
-            <div className="w-1/4 md:w-1/4 flex items-center justify-start gap-2">
-              {new Date(item.clockInTime).toLocaleTimeString()}
-              {/* <CallIcon className='text-green-700'/>
-                            <EmailIcon className='text-blue-700'/> */}
-            </div>
-            <div className="w-1/4 md:w-1/4 flex items-center justify-start gap-2">
-              <CallIcon className="text-green-700" />
-              <EmailIcon className="text-blue-700" />
-            </div>
-          </div>
-        ))}
-      </div>
-    </Box>
+      </Box>
+    </div>
   );
 };
 
-export default Attendance;
+export default RecentAttendance;
