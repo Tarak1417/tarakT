@@ -467,7 +467,7 @@ const handleCloseset = () => {
 
   const SideBarLinkButton = ({ menus }) => {
     return (
-      <>
+      <> 
         {menus.map((link) => (
           <NavLink
             to={link.to}
@@ -579,7 +579,7 @@ const handleCloseset = () => {
           <OrganizationDropDown />
         </Box>
 
-        <List sx={{ px: 3, py: 1 }}>
+        <List sx={{py: 1, paddingRight:"5px",paddingLeft:"8px" }}>
           <SideBarLinkButton menus={menuItems} />
         </List>
         
@@ -1120,7 +1120,7 @@ const handleCloseset = () => {
                       component="a"
                       href={env("MY_ACCOUNT")}
                       color="primary.main"
-                      display="block"
+                      display= "block"
                     >
                       My Clikkle account
                     </Typography>
@@ -1379,3 +1379,7 @@ const handleCloseset = () => {
     </Box>
   );
 }
+
+
+
+
