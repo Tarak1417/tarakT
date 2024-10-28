@@ -8,6 +8,9 @@ import NoticeBoard from "./DashComponents/noticeboard";
 import UpcomingEvents from "./DashComponents/upcomingevents";
 import Bars from "./DashComponents/bars";
 import Calander from './Schedule/EmployeeShift';
+import Applicationleave from '../pages/DashComponents/Applicationleave';
+import Recentjobapplication from "../pages/DashComponents/RecentJobApplications";
+import Recentactivity from "../pages/DashComponents/RecentActivities";
 
 import RecentActivity from "./DashComponents/recent";
 import GenderChart from "./DashComponents/GenderChart";
@@ -165,7 +168,7 @@ const Dashboard = () => {
           </Grid>
           <div className="flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-3/4">
-              <div style={{height:'120px'}} className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
+              <div style={{height:'100px'}} className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
                 {boxesData && boxesData.map((box, index) => (
                   <Grid
                     sx={{ backgroundColor: "background.view" }}
@@ -177,7 +180,7 @@ const Dashboard = () => {
                       <p style={{fontSize:'13px'}} className="w-5/6 text-xl">{box.value}</p>
                       <div style={{}} className="w-1/6">{box.icon}</div>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div style={{marginTop:'-11px'}} className="flex items-center gap-2">
                       {box.trendIcon}
                       <p style={{fontSize:'13px'}} variant="body2" className="ml-2">
                         {box.description}
@@ -190,26 +193,22 @@ const Dashboard = () => {
             </div>
             <div className="w-full md:w-1/4">
               <NoticeBoard eventData={ overview && overview?.notices} />
-              <UpcomingEvents />
+              <Applicationleave  />
             </div>
           </div>
         </div>
         <div className="w-full  justify-items-stretch items-stretch gap-2 flex flex-col md:flex-row py-2">
           <div className="w-full md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
-            <Bars barsData={barsData} />
+           <Recentjobapplication/>
           </div>
           <div className="w-full md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
-            <RecentActivity />
+            <Recentactivity/>
           </div>
-          <div className="w-full md:w-[30%] mb-2 md:mb-0 flex-grow">
-            <GenderChart items={  overview && overview?.employees} />
-          </div>
+          
        
         </div>
         <div className="w-full justify-items-stretch flex flex-col md:flex-row py-2 items-stretch">
-          <div className="w-full md:w-1/2 mx-1 mb-2 md:mb-0 flex-grow">
-            <RecentJobs items={ overview && overview?.applications} />
-          </div>
+         
           <div className="w-full md:w-1/2 mx-1 mb-2 md:mb-0 flex-grow">
             <Attendance items={ overview && overview?.attendance} />
           </div>

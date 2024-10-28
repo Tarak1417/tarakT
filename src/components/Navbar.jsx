@@ -1266,7 +1266,7 @@ const handleCloseset = () => {
       <Image src={BotIcon}  alt="Bot Icon"
         sx={{ width: '42px', height: '42px'}} />
 
-        <Typography sx={{color:'gray',fontSize:'13px',fontFamily:'sans-serif'}} >Help</Typography>
+        <Typography sx={{color:'white',fontSize:'13px',fontFamily:'sans-serif'}} >Chat</Typography>
         </Box>
         </Button>
     </Box>
