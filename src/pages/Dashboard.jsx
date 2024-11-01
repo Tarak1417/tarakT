@@ -9,7 +9,7 @@ import UpcomingEvents from "./DashComponents/upcomingevents";
 import Bars from "./DashComponents/bars";
 import Calander from './Schedule/EmployeeShift';
 import Applicationleave from '../pages/DashComponents/Applicationleave';
-import Recentjobapplication from "../pages/DashComponents/RecentJobApplications";
+import Recentjobapplication from "../pages/DashComponents/recentJobs";
 import Recentactivity from "../pages/DashComponents/RecentActivities";
 
 import RecentActivity from "./DashComponents/recent";
