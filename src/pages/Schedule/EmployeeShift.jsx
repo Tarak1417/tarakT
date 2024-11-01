@@ -81,7 +81,7 @@ const EmployeeShift = () => {
       return (
         <Grid container>
           <Grid item xs={12}>
-            <Sectionwisereport />
+            
           </Grid>
         </Grid>
       );

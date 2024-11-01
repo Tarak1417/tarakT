@@ -1,44 +1,31 @@
 import { Box } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import axios from "axios";
+import { handleAxiosError } from "../../utilities/function";
+import useLoader from "../../hooks/useLoader";
+import useErrorHandler from "../../hooks/useErrorHandler";
 
-const NoticeBoard = ({ eventData }) => {
-  const demoEvent = [
-    {
-      date: "2024-02-03",
-      title: "Board Meeting",
-      description: "Attend board meeting with company manager.",
-      backgroundColor: "#fbbf24", // Yellow
-    },
-    {
-      date: "2024-02-09",
-      title: "Design Team Meeting",
-      description: "Attend design team meeting with teammates and HOD.",
-      backgroundColor: "#dc2626", // Red
-    },
-    {
-      date: "2024-02-15",
-      title: "Tech Conference",
-      description: "Attend conference with teammates and other departments.",
-      backgroundColor: "#ef4444", // Soft Red
-    },
-    {
-      date: "2024-02-23",
-      title: "Development Team Pitch",
-      description: "Pitch idea on new development to the company board.",
-      backgroundColor: "#3b82f6", // Blue
-    },
-  ];
+const NoticeBoard = () => {
+  const [notices, setNotices] = useState([]);
+  const { start, end } = useLoader();
+  const errorHandler = useErrorHandler();
 
-  const [datastore, setStore] = useState([{
-    date: "2024-02-23",
-    title: "Development Team Pitch",
-    description: "Pitch idea on new development to the company board.",
-    backgroundColor: "#3b82f6", // Blue
-  },]);
+  // Fetch notices from the backend
+  const fetchNotices = useCallback(async () => {
+    start(); // Start loader
+    try {
+      const response = await axios.get("/hr/notice"); // Adjust endpoint if needed
+      setNotices(response.data.notices);
+    } catch (error) {
+      errorHandler(error); // Handle errors using custom hook
+    } finally {
+      end(); // End loader
+    }
+  }, [errorHandler, start, end]);
 
   useEffect(() => {
-    setStore(eventData || demoEvent); // Use provided eventData or demo data
-  }, [eventData]);
+    fetchNotices(); // Fetch notices on component mount
+  }, [fetchNotices]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -49,36 +36,44 @@ const NoticeBoard = ({ eventData }) => {
   return (
     <Box
       sx={{
-        backgroundColor:'background.default',
+        backgroundColor: "background.default",
         borderRadius: "12px",
         padding: "20px",
-        height:'327px'
-        
+        height: "327px",
       }}
       className="shadow-lg"
     >
-      <p style={{fontSize:'18px'}} className="mb-6  text-2xl  border-l-4 pl-2 border-blue-500">
+      <p style={{ fontSize: "18px" }} className="mb-6 text-2xl border-l-4 pl-2 border-blue-500">
         Notice Board
       </p>
-      <div style={{marginTop:'-22px'}}  className="space-y-6 overflow-y-auto h-[340px] px-2 pb-4">
-        {demoEvent.map((event, index) => (
-          <div style={{marginTop:"11px"}} key={index} className="flex gap-4 items-center">
+      <div
+        style={{ marginTop: "-22px" }}
+        className="space-y-6 overflow-y-auto h-[340px] px-2 pb-4"
+      >
+        {notices.map((notice, index) => (
+          <div style={{ marginTop: "11px" }} key={notice._id} className="flex gap-4 items-center">
             {/* Date Box */}
-            <div 
-              className="w-[45px] h-[45px] rounded-lg flex items-center  justify-center"
-              style={{ backgroundColor: event.backgroundColor ,}}
+            <div
+              className="w-[45px] h-[45px] rounded-lg flex items-center justify-center"
+              style={{ backgroundColor: "#3b82f6" }} // Default color; can be dynamic
             >
-              <div  className="w-[42px] h-[42px] border-2 border-black rounded-lg flex items-center justify-center">
-                <p style={{fontSize:'11px'}} className="text-black text-sm  text-center">
-                  {formatDate(event.date)}
+              <div
+                className="w-[42px] h-[42px] border-2 border-black rounded-lg flex items-center justify-center"
+              >
+                <p style={{ fontSize: "11px" }} className="text-black text-sm text-center">
+                  {formatDate(notice.createdAt)}
                 </p>
               </div>
             </div>
 
-            {/* Event Details */}
+            {/* Notice Details */}
             <div className="flex-1">
-              <h1 style={{fontSize:'12px'}} className="text-white text-sm font-small">{event.title}</h1>
-              <p style={{fontSize:'9.8px'}} className="text-gray-400 text-sm">{event.description}</p>
+              <h1 style={{ fontSize: "12px" }} className="text-white text-sm font-small">
+                {notice.title}
+              </h1>
+              <p style={{ fontSize: "9.8px" }} className="text-gray-400 text-sm">
+                {notice.content}
+              </p>
             </div>
           </div>
         ))}
