@@ -131,7 +131,7 @@ const WalkoverHeader = () => {
       className="w-full h-full flex flex-col items-center justify-center relative"
     >
       <Box className="hidden md:flex absolute w-full h-full items-center justify-center z-0">
-        <div className="fixed right-0 w-full h-full md:scale-125 scale-100 bg-[#ebfbff] rounded-full transform md:translate-x-[76%] translate-x-[50%]"></div>
+        <div className="fixed right-0 w-full h-full md:scale-125 scale-100  rounded-full transform md:translate-x-[76%] translate-x-[50%]"></div>
       </Box>
       <div className="z-10 hidden md:flex sm:flex-row-reverse flex-col w-full h-full sm:justify-between md:items-start items-end">
         {skip}
