@@ -198,10 +198,10 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="w-full  justify-items-stretch items-stretch gap-2 flex flex-col md:flex-row py-2">
-          <div className="w-full md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
+          <div style={{marginTop:"-135px"}} className="w-full md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
            <Recentjobapplication/>
           </div>
-          <div className="w-full md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
+          <div style={{marginTop:"-135px"}} className="w-full md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
             <Recentactivity/>
           </div>
           

@@ -101,7 +101,7 @@ const EmployeeShift = () => {
   };
 
   return (
-    <Box sx={{ borderRadius: '9px', height: '60vh', backgroundColor: 'background.default' }} p={isMobile ? 1 : 3}>
+    <Box sx={{ borderRadius: '9px', height: '57%', backgroundColor: 'background.default' }} p={isMobile ? 1 : 3}>
       <Stack direction={isMobile ? 'column' : 'row'} justifyContent="space-between" alignItems="center" mb={3}>
         <Typography sx={{ fontSize: isMobile ? '18px' : '20px' }}>Overview Calendar</Typography>
 

@@ -1,5 +1,9 @@
 import React from "react";
 import { Box } from "@mui/material";
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
+import CropFreeIcon from '@mui/icons-material/CropFree';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import LinkIcon from '@mui/icons-material/Link';
 
 // Sample data for recent activities
 const activities = [
@@ -90,9 +94,22 @@ const RecentActivities = () => {
   return (
     <div style={{ marginTop: '-23px' }} className="rounded-lg p-6 shadow-lg">
       {/* Header Section */}
-      <Box sx={{ backgroundColor: "background.default", height: '64vh', padding: '22px', borderRadius: '12px' }}>
+      <Box sx={{ backgroundColor: "background.default", height: '110%', padding: '22px', borderRadius: '12px' }}>
         <div className="flex items-center justify-between mb-6">
-          <h2 style={{ fontSize: '17px' }} className="font-semibold">Recent Activities</h2>
+         
+         
+         <Box sx={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
+          <h2 style={{ fontSize: '17px',marginRight:"70px" }} className="font-semibold">Employee Project Activities</h2>
+
+          <div style={{ display: 'flex', gap: '10px', color: 'white',marginTop:"9px" }}>
+      <OpenInFullIcon sx={{height:"14px"}} />
+      <CropFreeIcon sx={{height:"16px"}} />
+      <RefreshIcon sx={{height:"20px"}} />
+      <LinkIcon sx={{height:"20px"}} />
+    </div>
+
+    </Box>
+
           <button style={{ height: "32px", fontSize: '13px', backgroundColor: "#3767B1" }} className="text-white px-4 py-2 rounded-md">
             View All
           </button>
