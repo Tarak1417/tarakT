@@ -22,6 +22,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useRefresh } from "../components/Header";
 import Clock from "../components/Clock";
+import Interduction from "./Interduction";
 
 const Dashboard = () => {
 
@@ -148,18 +149,22 @@ const Dashboard = () => {
       sm :'100vw',
       
     } }}>
+       <div>
+          <Interduction/>
+          </div>
       <div className="flex flex-col sm:px-4 px-2 py-6">
         <div className="">
           {/* <Typography variant="h5" className="text-gray-500" gutterBottom>
             HR DASHBOARD
           </Typography> */}
+                  
+        
+
           <Grid container  display='flex' justifyContent="space-between" alignItems='center'>
                     {/* <Grid item xs>
                         <Typography className="text-gray-500" variant='h5'>HR Dashboard</Typography>
                     </Grid> */}
-        <div className="">
-          <h1 className="text-2xl text-neutral-500">HR Dashboard</h1>
-        </div>
+           
         
      
     
