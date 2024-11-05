@@ -39,7 +39,7 @@ const NoticeBoard = () => {
         backgroundColor: "background.default",
         borderRadius: "12px",
         padding: "20px",
-        height: "327px",
+        height: "auto",
       }}
       className="shadow-lg"
     >

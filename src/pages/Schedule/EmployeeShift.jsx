@@ -101,7 +101,7 @@ const EmployeeShift = () => {
   };
 
   return (
-    <Box sx={{ borderRadius: '9px', height: '60vh', backgroundColor: 'background.default' }} p={isMobile ? 1 : 3}>
+    <Box sx={{ borderRadius: '9px', height: 'auto', backgroundColor: 'background.default' }} p={isMobile ? 1 : 3}>
       <Stack direction={isMobile ? 'column' : 'row'} justifyContent="space-between" alignItems="center" mb={3}>
         <Typography sx={{ fontSize: isMobile ? '18px' : '20px' }}>Overview Calendar</Typography>
 
@@ -181,15 +181,13 @@ const EmployeeShift = () => {
         </Box>
       </Stack>
 
-      <Box sx={{ overflow: 'auto', height: '66vh' }}>
+      <Box sx={{  height: 'auto' }}>
         <Grid
           container
           sx={{
-            height: '55%',
-            overflow: 'scroll',
-            '&::-webkit-scrollbar': { display: 'none' },
-            '-ms-overflow-style': 'none',
-            'scrollbar-width': 'none',
+            height: '100%',
+
+           
           }}
         >
           <Grid item xs={12} sm={3} p={2}>
@@ -225,7 +223,7 @@ const EmployeeShift = () => {
           </Grid>
         </Grid>
 
-        {/* Shift Status Indicators */}
+       
         <Box sx={{ display: 'flex', alignItems: 'center', mt: 2,marginTop:'-12px' ,}}>
           {Object.entries(shiftStatusColors).map(([status, color]) => (
             <Box key={status} sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>

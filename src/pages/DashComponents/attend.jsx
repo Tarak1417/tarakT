@@ -95,7 +95,7 @@ const attendanceData = [
 
 const RecentAttendance = () => {
   return (
-    <div className="p-6 rounded-lg shadow-lg">
+    <div className="p-6 rounded-lg shadow-lg w-92vw">
       {/* Header */}
       <Box sx={{ backgroundColor: "background.default", padding: "22px", borderRadius: "12px" }}>
         <div className="flex items-center justify-between mb-4">

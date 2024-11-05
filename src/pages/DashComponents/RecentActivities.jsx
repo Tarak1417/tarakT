@@ -90,7 +90,7 @@ const RecentActivities = () => {
   return (
     <div style={{ marginTop: '-23px' }} className="rounded-lg p-6 shadow-lg">
       {/* Header Section */}
-      <Box sx={{ backgroundColor: "background.default", height: '64vh', padding: '22px', borderRadius: '12px' }}>
+      <Box sx={{ backgroundColor: "background.view", height:"64vh", padding: '22px', borderRadius: '12px' }}>
         <div className="flex items-center justify-between mb-6">
           <h2 style={{ fontSize: '17px' }} className="font-semibold">Recent Activities</h2>
           <button style={{ height: "32px", fontSize: '13px', backgroundColor: "#3767B1" }} className="text-white px-4 py-2 rounded-md">

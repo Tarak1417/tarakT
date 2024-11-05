@@ -92,7 +92,7 @@ const Dashboard = () => {
         </Typography>
       ),
       description: "124 for last month",
-      trendIcon: <TrendingUp className="text-green-500" />,
+      trendIcon: <TrendingUp className="text-green-300" />,
     },
     {
       icon: (
@@ -111,13 +111,13 @@ const Dashboard = () => {
         </Typography>
       ),
       description: "124 for last month,",
-      trendIcon: <TrendingDown className="text-red-500" />,
+      trendIcon: <TrendingDown className="text-red-300" />,
     },
     {
       icon: (
         <AttachMoneyIcon
           fontSize="large"
-          className="text-white bg-blue-500 p-2 rounded-lg"
+          className="text-white bg-blue-300 p-2 rounded-lg"
         />
       ),
       title: "Expenses",
@@ -133,7 +133,7 @@ const Dashboard = () => {
         </Typography>
       ),
       description: "124 for last month",
-      trendIcon: <TrendingDown className="text-red-500" />,
+      trendIcon: <TrendingDown className="text-red-300" />,
     },
   ];
   // const eventData = [
@@ -144,14 +144,11 @@ const Dashboard = () => {
   // ];
 
   return (
-    <Box sx={{ backgroundColor: "background.main", maxWidth: {
-      xs :'95vw',
-      sm :'100vw',
-      
-    } }}>
-       <div>
+    <Box sx={{ backgroundColor: "background.main",
+      width:"91vw", }} >
+       <Box>
           <Interduction/>
-          </div>
+          </Box>
       <div className="flex flex-col sm:px-4 px-2 py-6">
         <div className="">
           {/* <Typography variant="h5" className="text-gray-500" gutterBottom>
@@ -160,7 +157,7 @@ const Dashboard = () => {
                   
         
 
-          <Grid container  display='flex' justifyContent="space-between" alignItems='center'>
+          <Grid container  display='flex' justifyContent="space-between" alignItems='center' >
                     {/* <Grid item xs>
                         <Typography className="text-gray-500" variant='h5'>HR Dashboard</Typography>
                     </Grid> */}
@@ -173,24 +170,24 @@ const Dashboard = () => {
           </Grid>
           <div className="flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-3/4">
-              <div style={{height:'100px'}} className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
+              <div style={{height:'70px',  }} className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
                 {boxesData && boxesData.map((box, index) => (
                   <Grid
                     sx={{ backgroundColor: "background.view" }}
                     key={index}
                     className="rounded-lg p-4 shadow-md md:w-1/3"
+                    style={{
+                      minWidth: '250px', 
+                      width: '100%', 
+                      padding:"10px"    
+                    }}
                   >
                     <p style={{fontSize:'15px',marginTop:'-8px'}} className="text-xl">{box.title}</p>
                     <div className="flex items-center mb-2">
                       <p style={{fontSize:'13px'}} className="w-5/6 text-xl">{box.value}</p>
                       <div style={{}} className="w-1/6">{box.icon}</div>
                     </div>
-                    <div style={{marginTop:'-11px'}} className="flex items-center gap-2">
-                      {box.trendIcon}
-                      <p style={{fontSize:'13px'}} variant="body2" className="ml-2">
-                        {box.description}
-                      </p>
-                    </div>
+                  
                   </Grid>
                 ))}
               </div>
@@ -202,27 +199,23 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="w-full  justify-items-stretch items-stretch gap-2 flex flex-col md:flex-row py-2">
-          <div className="w-full md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
+        <div className=" flex flex-col md:flex-row mt-1">
+          <div className=" md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
            <Recentjobapplication/>
           </div>
-          <div className="w-full md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
+          <div className=" md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
             <Recentactivity/>
           </div>
           
        
         </div>
-        <div className="w-full justify-items-stretch flex flex-col md:flex-row py-2 items-stretch">
+        <div className=" justify-items-stretch flex flex-col md:flex-row py-2 items-stretch">
          
-          <div className="w-full md:w-1/2 mx-1 mb-2 md:mb-0 flex-grow">
+          <div className=" md:w-1/2 mx-1 mb-2 md:mb-0 flex-grow">
             <Attendance items={ overview && overview?.attendance} />
           </div>
         </div>
       </div>
-
-
-
-
     </Box>
   );
 };

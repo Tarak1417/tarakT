@@ -51,9 +51,11 @@ const Applicationleave = () => {
         backgroundColor: "background.default",
         borderRadius: "16px",
         padding: "24px",
-        height: "29vh",
-        margin: "20px auto",
+        height: "320px",
+        width:"auto",
+        marginTop:"20px",
         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+        boxSizing:"border-box"
       }}
     >
       {loading ? (

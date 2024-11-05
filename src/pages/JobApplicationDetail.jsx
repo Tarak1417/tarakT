@@ -591,7 +591,6 @@ const JobApplicationDetail = () => {
           refetch={fetchJobApplication}
         />
       </Modal>
-
       {/* View Agreement */}
       <Modal
         open={viewAgreement}
