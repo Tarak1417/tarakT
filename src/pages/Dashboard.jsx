@@ -193,7 +193,7 @@ const Dashboard = () => {
             </div>
             <div className="w-full md:w-1/4">
               <NoticeBoard eventData={ overview && overview?.notices} />
-              <Applicationleave  />
+              <Applicationleave eventData={ overview && overview?.leave} fetchOverview={()=>fetchOverview()} />
             </div>
           </div>
         </div>
@@ -210,7 +210,7 @@ const Dashboard = () => {
         <div className="w-full justify-items-stretch flex flex-col md:flex-row py-2 items-stretch">
          
           <div className="w-full md:w-1/2 mx-1 mb-2 md:mb-0 flex-grow">
-            <Attendance items={ overview && overview?.attendance} />
+            <Attendance attendanceData={ overview && overview?.attendance} />
           </div>
         </div>
       </div>

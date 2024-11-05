@@ -1,9 +1,10 @@
 import React from "react";
 import { FaPhoneAlt, FaEnvelope, FaEye } from "react-icons/fa";
 import { Box } from "@mui/material";
+import dayjs from "dayjs";
 import { BorderColor, BorderStyle } from "@mui/icons-material";
 
-const attendanceData = [
+const attendanceDataf = [
   {
     id: "#193845039283",
     name: "Richard Webber",
@@ -90,10 +91,8 @@ const attendanceData = [
       </span>
     );
   };
-  
 
-
-const RecentAttendance = () => {
+const RecentAttendance = ({attendanceData}) => {
   return (
     <div className="p-6 rounded-lg shadow-lg">
       {/* Header */}
@@ -121,29 +120,29 @@ const RecentAttendance = () => {
               </tr>
             </thead>
             <tbody>
-              {attendanceData.map((entry) => (
-                <tr key={entry.id}>
-                  <td className=" py-4">{entry.id}</td>
+              {attendanceData ? attendanceData?.map((entry) => (
+                <tr key={entry._id}>
+                  <td className=" py-4">{entry.employeeId}</td>
                   <td className="flex items-center space-x-4 py-4">
                     <img
-                      src={entry.avatar}
-                      alt={entry.name}
+                      src={`https://ui-avatars.com/api/?name=${entry.employeeData.firstName} ${entry.employeeData.lastName}`}
+                      alt={entry.employeeData.firstName+" " + entry.employeeData.lastName}
                       className="w-8 h-8 rounded-full"
                     />
                     <div>
                       <p style={{fontFamily:"sans-serif",fontSize:"14px"}} className="">
-                        {entry.name}
+                        {entry.employeeData.firstName+" " + entry.employeeData.lastName}
                       </p>
-                      <p className="text-gray-400 text-xs">{entry.role}</p>
+                      <p className="text-gray-400 text-xs">{entry.employeeData.role || ""}</p>
                     </div>
                   </td>
-                  <td style={{fontFamily:"sans-serif",fontSize:"13px"}} className=" py-4">{entry.date}</td>
+                  <td style={{fontFamily:"sans-serif",fontSize:"13px"}} className=" py-4">{dayjs(entry.clockInTime).format("DD/MM/YYYY")}</td>
                   <td className="py-4">
                     <StatusBadge sx={{fontWeight:"100",}} status={entry.status} />
                   </td>
-                  <td  style={{fontFamily:"sans-serif",fontSize:"13px"}} className="py-4">{entry.clockIn}</td>
-                  <td style={{fontFamily:"sans-serif",fontSize:"13px"}} className=" py-4">{entry.clockOut}</td>
-                  <td style={{fontFamily:"sans-serif",fontSize:"13px"}} className=" py-4">{entry.shift}</td>
+                  <td  style={{fontFamily:"sans-serif",fontSize:"13px"}} className="py-4">{dayjs(entry.clockInTime).format("hh:mm:ss A")}</td>
+                  <td style={{fontFamily:"sans-serif",fontSize:"13px"}} className=" py-4">{entry.clockOutTime ? dayjs(entry.clockOutTime).format("hh:mm:ss A") : "Not yet clocked out"}</td>
+                  <td style={{fontFamily:"sans-serif",fontSize:"13px"}} className=" py-4">{dayjs(entry.clockInTime).format("A")}</td>
                   <td className="flex items-center space-x-4 py-4">
                     <button className="text-green-400">
                       <FaPhoneAlt />
@@ -156,7 +155,9 @@ const RecentAttendance = () => {
                     </button>
                   </td>
                 </tr>
-              ))}
+              )) 
+            : "Loading...."
+            }
             </tbody>
           </table>
         </div>

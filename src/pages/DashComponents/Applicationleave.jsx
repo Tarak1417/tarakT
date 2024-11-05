@@ -1,34 +1,80 @@
-import React, { useState } from "react";
+import React, { useState,useEffect, useCallback } from "react";
 import { Box, Button, Typography, Avatar, LinearProgress } from "@mui/material";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import dayjs from "dayjs";
+import { Link } from 'react-router-dom';
+import { useMessage } from "../../components/Header";
+import axios from 'axios';
 
-const Applicationleave = () => {
-  // Initial leave data
-  const initialLeaveData = {
-    name: "Isaac Graham",
-    role: "Marketing / Digital Marketer",
-    profilePic: "https://randomuser.me/api/portraits/men/32.jpg",
-    leaveDate: "19/02/2024",
-    days: 1,
-    appliedOn: "17-01-2024 / 1 week ago",
-    remainingLeaves: 12,
-    totalLeaves: 12, // Assuming the user has a total of 12 leaves
-    reason:
-      "Lorem ipsum dolor sit amet consectetur. Nisi sem tellus id id sodales gravida egestas. Est tortor tortor suspendisse .",
-  };
+const Applicationleave = (props) => {
+  //console.log("eventData",eventData);
+  //eventData=eventData.eventData
+  const {eventData,fetchOverview}=props
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  let initialLeaveData={}
+  if(eventData){
+    const dates=eventData.dates
+    const from = dates && dates[0]? dayjs(`${dates[0].year}-${dates[0].month}-${dates[0].day}`).format('DD/MM/YYYY'):"";
+ // const to = dayjs(`${dates[1].year}-${dates[1].month}-${dates[1].day}`).format('DD/MM/YYYY');
+  
+  // Calculate the difference in days
+  const daysDifference = dates && dates[1]? dayjs(`${dates[1].year}-${dates[1].month}-${dates[1].day}`).diff(dayjs(`${dates[0].year}-${dates[0].month}-${dates[0].day}`), 'day'):1;
+    // Initial leave data
+     initialLeaveData = {
+      _id:eventData._id,
+      name: eventData.fullName,
+      role: eventData.department,
+      profilePic: "https://randomuser.me/api/portraits/men/32.jpg",
+      leaveDate: from,
+      days: daysDifference,
+      appliedOn: dayjs(eventData.createdAt).format("DD-MM-YYYY"),
+      remainingLeaves: 12,
+      totalLeaves: 12, // Assuming the user has a total of 12 leaves
+      reason:eventData.reason
+    };
+  }
+  
 
   // State to manage leave data
   const [leaveData, setLeaveData] = useState(initialLeaveData);
 
-  const handleAccept = () => {
-    alert("Leave Accepted");
-    // Add any logic to update leave status here
-  };
+  useEffect(() => {setLeaveData(initialLeaveData)},[initialLeaveData])
+  const { showError, showSuccess } = useMessage();
+    const [acceptLoading, setAcceptLoading] = useState(false);
+  const acceptLeave = useCallback(
+    async function (id) {
+        setAcceptLoading(true);
+        try {
+            const res = await axios.post(`/hr/attendance/leaves/approve/${id}`);
+            fetchOverview();
+            const { success, message } = res.data;
+            if (success) return showSuccess(message);
+            showError(message);
+        } catch (e) {
+            console.log(e);
+        } finally {
+            setAcceptLoading(false);
+        }
+    },
+    [fetchOverview, showSuccess, showError]
+);
 
-  const handleReject = () => {
-    alert("Leave Rejected");
-    // Add any logic to update leave status here
-  };
+
+const rejectLeave = useCallback(
+  async function (id) {
+      try {
+          const res = await axios.post(`/hr/attendance/leaves/deny/${id}`);
+          fetchOverview();
+          const { success, message } = res.data;
+          if (success) return showSuccess(message);
+          showError(message);
+      } catch (e) {
+          showError(e);
+      }
+  },
+  [fetchOverview, showSuccess, showError]
+);
+
 
   // Calculate the progress based on remaining leaves
   const progress = ((leaveData.totalLeaves - leaveData.remainingLeaves) / leaveData.totalLeaves) * 100;
@@ -48,6 +94,7 @@ const Applicationleave = () => {
         <Typography style={{ fontSize: '15px', marginTop: '-16px' }} variant="h6">
           Recent Leave Application
         </Typography>
+        <Link to="/leaveapplication/view">
         <Button
           variant="contained"
           size="small"
@@ -62,12 +109,14 @@ const Applicationleave = () => {
         >
           View All
         </Button>
+                        </Link>
+        
       </div>
-
+{eventData ? <>
       <div style={{ marginTop: "-11px" }} className="flex items-center gap-4 mb-4">
-        <Avatar src={leaveData.profilePic} alt={leaveData.name} sx={{ width: 30, height: 30, borderRadius: '25px', marginTop: '-14px' }} />
+        <Avatar src={`https://ui-avatars.com/api/?name=${leaveData.name}`} alt={leaveData.name} sx={{ width: 30, height: 30, borderRadius: '25px', marginTop: '-14px' }} />
         <div>
-          <Typography sx={{ fontSize: '13px', marginTop: '-8px' }} variant="h6" className="text-white">
+          <Typography sx={{ fontSize: '13px', marginTop: '-8px' }} variant="h6" >
             {leaveData.name}
           </Typography>
           <Typography sx={{ fontSize: "11px" }} className="text-gray-400 text-sm">{leaveData.role}</Typography>
@@ -77,7 +126,7 @@ const Applicationleave = () => {
       <div style={{ marginTop: "-12px" }} className="flex items-center gap-4 mb-4">
         <CalendarMonthIcon sx={{ color: "#9ca3af", height: "16px", marginTop: '-5px' }} />
         <div style={{ display: 'flex' }}>
-          <Typography sx={{ fontSize: '11px' ,fontWeight:"bold"}} className="text-white">{leaveData.leaveDate}</Typography>
+          <Typography sx={{ fontSize: '11px' ,fontWeight:"bold"}} >{leaveData.leaveDate}</Typography>
           <Button
             size="small"
             sx={{
@@ -137,7 +186,8 @@ const Applicationleave = () => {
               borderColor: "#3b82f6",
             },
           }}
-          onClick={handleAccept}
+          disabled={acceptLoading}
+          onClick={() => acceptLeave(leaveData?._id)}
         >
           Accept
         </Button>
@@ -157,11 +207,14 @@ const Applicationleave = () => {
               borderColor: "#ef4444",
             },
           }}
-          onClick={handleReject}
+          onClick={() => rejectLeave(leaveData?._id)}
         >
           Reject
         </Button>
       </div>
+      </>
+      :"No leaves found"
+}
     </Box>
   );
 };
