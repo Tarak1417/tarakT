@@ -147,6 +147,10 @@ const menuItems = [
                 label: 'Attendance By User',
                 icon: <Person/>,
                 to: '/attendance',
+            },  {
+                label: 'Recent Attendence',
+                icon: <Person/>,
+                to: 'RecentAttendence',
             },
            
         ],
