@@ -1,79 +1,9 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FaPhoneAlt, FaEnvelope, FaEye } from "react-icons/fa";
 import { Box } from "@mui/material";
 import dayjs from "dayjs";
 import { BorderColor, BorderStyle } from "@mui/icons-material";
-
-const attendanceDataf = [
-  {
-    id: "#193845039283",
-    name: "Richard Webber",
-    role: "UI/UX Designer",
-    date: "22/10/2024",
-    status: "Present",
-    clockIn: "09:00:17 AM",
-    clockOut: "Not yet clocked out",
-    shift: "AM",
-    avatar: "https://i.pravatar.cc/40?img=3",
-  },
-  {
-    id: "#995830128543",
-    name: "Desmond Jakes",
-    role: "Frontend Developer",
-    date: "22/10/2024",
-    status: "Late",
-    clockIn: "09:40:17 AM",
-    clockOut: "Not yet clocked out",
-    shift: "AM",
-    avatar: "https://i.pravatar.cc/40?img=8",
-  },
-  {
-    id: "#995839202395",
-    name: "Jaxson Schleifer",
-    role: "Frontend Developer",
-    date: "22/10/2024",
-    status: "Present",
-    clockIn: "09:00:03 AM",
-    clockOut: "Not yet clocked out",
-    shift: "AM",
-    avatar: "https://i.pravatar.cc/40?img=10",
-  },
-  {
-    id: "#294857104856",
-    name: "Cynthia Eze",
-    role: "Software Engineer",
-    date: "22/10/2024",
-    status: "Present",
-    clockIn: "09:00:05 AM",
-    clockOut: "Not yet clocked out",
-    shift: "AM",
-    avatar: "https://i.pravatar.cc/40?img=4",
-  },
-  {
-    id: "#775839203848",
-    name: "Erin Herwitz",
-    role: "Digital Marketer",
-    date: "22/10/2024",
-    status: "Present",
-    clockIn: "09:00:07 AM",
-    clockOut: "Not yet clocked out",
-    shift: "AM",
-    avatar: "https://i.pravatar.cc/40?img=5",
-  },
-  {
-    id: "#775839205548",
-    name: "Erin Herwitz",
-    role: "Digital Marketer",
-    date: "22/10/2024",
-    status: "Present",
-    clockIn: "09:00:07 AM",
-    clockOut: "Not yet clocked out",
-    shift: "AM",
-    avatar: "https://i.pravatar.cc/40?img=5",
-  },
- 
-];
-
+import axios from "axios";
 
   const StatusBadge = ({ status }) => {
     const statusStyles =
@@ -92,16 +22,37 @@ const attendanceDataf = [
     );
   };
 
-const RecentAttendance = ({attendanceData}) => {
+const RecentAttendance = ({attendanceData=[],isDashboardCall}) => {
+  const [attendance, setAttendance] = useState(attendanceData);
+  const fetchAttendanceData = useCallback(async () => {
+    try {
+      const response = await axios.get(`/hr/attendance/recent`);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    setAttendance(response.data.attendance)
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
+  useEffect(() => {
+    if(!isDashboardCall)
+    fetchAttendanceData();
+  else
+  setAttendance(attendanceData)
+    
+  }, [attendanceData, fetchAttendanceData, isDashboardCall])
+  //useEffect(() => {setAttendance(attendanceData)},[attendanceData])
+
   return (
     <div className="p-6 rounded-lg shadow-lg">
       {/* Header */}
       <Box sx={{ backgroundColor: "background.default", padding: "22px", borderRadius: "12px" }}>
         <div className="flex items-center justify-between mb-4">
           <h2 style={{fontSize:"19px",fontFamily:"sans-serif",fontWeight:"500"}} className="">Recent Attendance</h2>
-          <button style={{backgroundColor:"#3767B1",fontFamily:"sans-serif",fontSize:"12px"}} className=" px-4 py-2 rounded-md">
+         {isDashboardCall && <button style={{backgroundColor:"#3767B1",fontFamily:"sans-serif",fontSize:"12px"}} className=" px-4 py-2 rounded-md">
             View All
           </button>
+}
         </div>
 
         {/* Table */}
@@ -120,7 +71,7 @@ const RecentAttendance = ({attendanceData}) => {
               </tr>
             </thead>
             <tbody>
-              {attendanceData ? attendanceData?.map((entry) => (
+              {attendance ? attendance?.map((entry) => (
                 <tr key={entry._id}>
                   <td className=" py-4">{entry.employeeId}</td>
                   <td className="flex items-center space-x-4 py-4">
