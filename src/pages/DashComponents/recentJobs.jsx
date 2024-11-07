@@ -28,7 +28,7 @@ const RecentJobs = ({ items }) => {
 
   return (
     <Box
-      className="rounded-lg mb-4 shadow-md h-full pt-4 pr-4 pb-4 "
+      className="rounded-lg mb-4 shadow-md h-full pt-4 pr-4 pb-4  "
       sx={{
         backgroundColor: "background.view",
       }}

@@ -16,12 +16,12 @@ import RecentActivity from "./DashComponents/recent";
 import GenderChart from "./DashComponents/GenderChart";
 import RecentJobs from "./DashComponents/recentJobs";
 import Attendance from "./DashComponents/attend";
-import { Box } from "@mui/material";
+import { Box,useMediaQuery, useTheme } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
 import { useRefresh } from "../components/Header";
-import Clock from "../components/Clock";
+
 import Interduction from "./Interduction";
 
 const Dashboard = () => {
@@ -78,8 +78,8 @@ const Dashboard = () => {
     {
       icon: (
         <GroupIcon
-          fontSize="large"
-          className="text-white  bg-sky-400 p-2 rounded-lg"
+          fontSize="medium"
+          className="text-white  bg-sky-500 p-1 rounded-lg"
         />
       ),
       title: "Total Employees",
@@ -97,8 +97,8 @@ const Dashboard = () => {
     {
       icon: (
         <ApartmentIcon
-          fontSize="large"
-          className="text-white bg-rose-500 p-2 rounded-lg"
+          fontSize="medium"
+          className="text-white bg-rose-500 p-1 rounded-lg items-center"
         />
       ),
       title: "Department",
@@ -116,8 +116,8 @@ const Dashboard = () => {
     {
       icon: (
         <AttachMoneyIcon
-          fontSize="large"
-          className="text-white bg-blue-300 p-2 rounded-lg"
+          fontSize="medium"
+          className="text-white bg-blue-300 p-1  rounded-lg"
         />
       ),
       title: "Expenses",
@@ -143,10 +143,14 @@ const Dashboard = () => {
   //     { date: '4 Mar', title: 'Development Team Pitch', description: 'Pitch idea on new development to the company board,', backgroundColor: '#3b82f6' },
   // ];
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
+ 
     <Box sx={{ backgroundColor: "background.main",
       width:"91vw", }} >
-       <Box>
+       <Box >
           <Interduction/>
           </Box>
       <div className="flex flex-col sm:px-4 px-2 py-6">
@@ -157,49 +161,42 @@ const Dashboard = () => {
                   
         
 
-          <Grid container  display='flex' justifyContent="space-between" alignItems='center' >
-                    {/* <Grid item xs>
-                        <Typography className="text-gray-500" variant='h5'>HR Dashboard</Typography>
-                    </Grid> */}
-           
-        
-     
-    
-
-              <Clock />
-          </Grid>
+         
           <div className="flex flex-col md:flex-row gap-4">
-            <div className="w-full md:w-3/4">
-              <div style={{height:'70px',  }} className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
+            <div className="w-full md:w-3/4 flex flex-col ">
+              <div className={`flex flex-col md:flex-row gap-4 mb-4 ${isMobile?"mt-[-20px]":""}`}>
                 {boxesData && boxesData.map((box, index) => (
                   <Grid
                     sx={{ backgroundColor: "background.view" }}
                     key={index}
                     className="rounded-lg p-4 shadow-md md:w-1/3"
                     style={{
-                      minWidth: '250px', 
-                      width: '100%', 
-                      padding:"10px"    
+                      
+                      width: '100%',
+                      padding: '8px',
+                      marginTop: isMobile ? "" : '-27px',  // Correct syntax for conditional marginTop
+                      height: '50px'
                     }}
                   >
-                    <p style={{fontSize:'15px',marginTop:'-8px'}} className="text-xl">{box.title}</p>
-                    <div className="flex items-center mb-2">
+                    
+                    <p style={{fontSize:'12px',marginTop:'-8px'}}>{box.title}</p>
+                    <div className="flex items-center justify-center mb-2">
                       <p style={{fontSize:'13px'}} className="w-5/6 text-xl">{box.value}</p>
-                      <div style={{}} className="w-1/6">{box.icon}</div>
+                      <div style={{}} className="w-1/6 ">{box.icon}</div>
                     </div>
                   
                   </Grid>
                 ))}
               </div>
-            <Calander/>
+            <Calander  />
             </div>
-            <div className="w-full md:w-1/4">
+            <div className={`w-full md:w-1/4 mt-[-25px]  ${isMobile?"mt-[1px]":" "}`}>
               <NoticeBoard eventData={ overview && overview?.notices} />
               <Applicationleave  />
             </div>
           </div>
         </div>
-        <div className=" flex flex-col md:flex-row mt-1">
+        <div className={`flex flex-col md:flex-row mt-1 ${isMobile?"":"mb-[100px] mt-[10px]"}`} >
           <div className=" md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
            <Recentjobapplication/>
           </div>

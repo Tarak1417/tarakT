@@ -24,23 +24,17 @@ export default function Clock() {
 
     return (
         <Grid item sx={{ display: { xs: 'flex' },my:1  }} alignItems='center'>
-        <Box sx={{ mr: 2, display: { lg: 'block', xs: 'none' } }}>
-            <Button variant='outlined'>{Dates}</Button>
+        <Box sx={{ mr: 2 }}>
+            <Button >{Dates}</Button>
         </Box>
-        <Button variant='outlined' sx={{ display: { lg: 'block', xs: 'none' } }}>
+        <Button  sx={{ display: { lg: 'block', xs: 'none' } }}>
             {time}
         </Button>
         {/* <Box sx={{ mx: 2 }}>
             <Button variant='contained'>Clock In</Button>
         </Box> */}
 
-        <Box>
-            <Tooltip title='info' placement='top'>
-                {/* <IconButton disableRipple variant='navIcon' sx={{ mr: 0 }}> */}
-                    <InfoOutlinedIcon sx={{ ml: 1.5 }} />
-                {/* </IconButton> */}
-            </Tooltip>
-        </Box>
+       
     </Grid>
     );
 }

@@ -1,11 +1,12 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Button, Typography, useMediaQuery, Avatar, Stack } from "@mui/material";
+import { useTheme } from "@mui/system";
 
 // Sample data for recent activities
 const activities = [
   {
     id: 1,
-    avatar: "https://i.pravatar.cc/40?img=1", // Profile Image URL
+    avatar: "https://i.pravatar.cc/40?img=1",
     name: "Daniel Thompson",
     activity: "Add list permission on the member list issue",
     type: "Issue",
@@ -46,66 +47,100 @@ const activities = [
 ];
 
 // Single activity row component
-const ActivityRow = ({ activity }) => (
-  <div className="flex items-center justify-between py-4">
-    <div className="flex items-center space-x-4">
-      {/* Profile Image */}
-      <img
-        src={activity.avatar}
-        alt={activity.name}
-        className="w-7 h-7 rounded-full"
-      />
-      <div>
-        <p style={{ fontFamily: "sans-serif", fontSize: '14px', width: '330px' }}>
+const ActivityRow = ({ activity, isMobile }) => (
+  <Stack
+    direction="row"
+    alignItems="center"
+    justifyContent="space-between"
+    spacing={2}
+    py={1.5}
+    px={1}
+  
+    sx={{
+      flexDirection: isMobile ? "row" : "row",
+      textAlign: isMobile ? "left" : "left",
+      
+    }}
+  >
+    <Stack direction="row" alignItems="center" spacing={2} flexGrow={1}>
+      <Avatar src={activity.avatar} alt={activity.name} sx={{ width: 30, height: 30 }} />
+      <Box sx={{ textAlign: isMobile ? "left" : "left", flexGrow: 1 }}>
+        <Typography sx={{ fontFamily: "sans-serif", fontSize: "14px" }}>
           {activity.activity}
-        </p>
-        <p className="text-gray-400 text-xs">{activity.name}</p>
-      </div>
-    </div>
+        </Typography>
+        <Typography variant="caption" color="textSecondary">
+          { activity.name}
+        </Typography>
+      </Box>
+    </Stack>
 
-    {/* Status Tag */}
-    <span
-      style={{
-        borderStyle: "solid",
-        borderWidth: '1px',
-        borderColor: "#06D17C",
+    <Box
+      sx={{
+        px: 2,
+        py: 0.5,
+        border: "1px solid #06D17C",
         borderRadius: "8px",
         color: "#06D17C",
         backgroundColor: "#00361F80",
-        fontFamily: 'sans-serif',
-        fontSize: '12px'
+        fontFamily: "sans-serif",
+        fontSize: "12px",
+        textAlign: "center",
+        minWidth: isMobile ? "80px" : "auto",
+        mt: isMobile ? 1 : 0,
+        
       }}
-      className="px-3 py-1"
     >
       {activity.type}
-    </span>
+    </Box>
 
-    {/* Time */}
-    <p className="text-gray-400 text-xs">{activity.time}</p>
-  </div>
+    <Typography variant="caption" color="textSecondary" sx={{ mt: isMobile ? 1 : 0 }}>
+    {isMobile ? `${activity.time.split(" ")[0]}m` : activity.time}
+    </Typography>
+  </Stack>
 );
 
 // Main Recent Activities component
 const RecentActivities = () => {
-  return (
-    <div style={{ marginTop: '-23px' }} className="rounded-lg p-6 shadow-lg">
-      {/* Header Section */}
-      <Box sx={{ backgroundColor: "background.view", height:"64vh", padding: '22px', borderRadius: '12px' }}>
-        <div className="flex items-center justify-between mb-6">
-          <h2 style={{ fontSize: '17px' }} className="font-semibold">Recent Activities</h2>
-          <button style={{ height: "32px", fontSize: '13px', backgroundColor: "#3767B1" }} className="text-white px-4 py-2 rounded-md">
-            View All
-          </button>
-        </div>
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-        {/* Activity List */}
-        <div>
-          {activities.map((activity) => (
-            <ActivityRow key={activity.id} activity={activity} />
-          ))}
-        </div>
-      </Box>
-    </div>
+  return (
+    <Box
+   
+      p={2}
+      boxShadow={3}
+      borderRadius="12px"
+      bgcolor="background.default"
+      height="70vh"
+      overflow="auto"
+     
+    >
+      {/* Header Section */}
+      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
+        <Typography variant="h6" sx={{ fontSize: "17px", fontWeight: "bold" }}>
+          Recent Activities
+        </Typography>
+        <Button
+          variant="contained"
+          size="small"
+          sx={{
+            backgroundColor: "#3767B1",
+            fontSize: "13px",
+            height: "",
+            color: "white",
+            textTransform: "none",
+           
+          }}
+        >
+          View All
+        </Button>
+      </Stack>
+
+      {/* Activity List */}
+      {activities.map((activity) => (
+        <ActivityRow key={activity.id} activity={activity} isMobile={isMobile} />
+      ))}
+    </Box>
   );
 };
 
