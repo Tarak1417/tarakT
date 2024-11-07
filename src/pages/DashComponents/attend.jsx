@@ -87,6 +87,22 @@ const StatusBadge = ({ status }) => {
     </span>
   );
 };
+const StatusBadge = ({ status }) => {
+  const statusStyles =
+    status === "Present"
+      ? "bg-[#42B8240F] text-[#6FE053] border-[#6FE053]"
+      : status === "Late"
+      ? "bg-[#F13B3B0F] text-[#F13B3B] border-[#F13B3B]"
+      : "bg-gray-200 text-gray-600 border-gray-600"; // Fallback for other statuses
+
+  return (
+    <span
+      className={`flex items-center justify-center w-24 h-8 rounded-full text-xs font-semibold border ${statusStyles}`} // Fixed width and height
+    >
+      {status}
+    </span>
+  );
+};
 
 const RecentAttendance = () => {
   return (

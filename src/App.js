@@ -136,6 +136,7 @@ const ErrorPage = lazy(() => import("./careers/erropage/ErrorPage"));
 const Docs = lazy(() => import("./pages/Docs/Docs"));
 const Layout = lazy(() => import("./Layout"));
 const ChatPage = lazy(() => import("./pages/Chat/ChatPage"));
+const RecentAttendence =lazy(()=> import("./pages/DashComponents/attend"));
 
 const App = () => {
   const location = useLocation();
@@ -193,6 +194,8 @@ const App = () => {
               path="new/receivedapplications"
               element={<Newreceivedapplication />}
             />
+
+            <Route path="RecentAttendence" element={<RecentAttendence/>}/>
 
             <Route path="showmore/:id" element={<ShowMoreHome />} />
             <Route path="joblisting/edit" element={<EditHome />} />
