@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography,Avatar } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
@@ -10,6 +10,28 @@ import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import CropFreeIcon from '@mui/icons-material/CropFree';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import LinkIcon from '@mui/icons-material/Link';
+import countries from 'i18n-iso-countries';
+import CountryFlag from 'react-country-flag';
+
+// Initialize the country names (optional: specify language)
+countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
+
+function CountryDisplay({ countryCode }) {
+  const countryName = countries.getName(countryCode, "en");
+
+  return (
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <CountryFlag
+        countryCode={countryCode}
+        svg
+        style={{ width: '20px', marginRight: '5px' }}
+        title={countryName}
+      />
+      <span>{countryName || "Unknown Country"}</span>
+    </div>
+  );
+}
+
 
 const RecentJobs = ({ items }) => {
   const [dropdown1Open, setDropdown1Open] = useState(false);
@@ -66,7 +88,8 @@ const RecentJobs = ({ items }) => {
                   className="flex items-center justify-center"
                   style={{ marginLeft: "10px", marginRight: "10px" }}
                 >
-                  <AccountCircleIcon fontSize="large" />
+                  {/* <AccountCircleIcon fontSize="large" /> */}
+                  <Avatar src={`https://ui-avatars.com/api/?name=${item.fullName}`} alt={item.fullName} sx={{ width: 30, height: 30, borderRadius: '25px', marginTop: '-14px' }} />
                 </div>
                 <div className="flex-1 truncate">
                   <h1 
@@ -76,19 +99,19 @@ const RecentJobs = ({ items }) => {
                     {item.fullName}
                   </h1>
                   <p className="truncate text-sm text-zinc-500" style={{ fontSize: "12px",marginTop:"8px",width:"140px" }}>
-                    {item.email}
+                    {item.jobTitle}
                   </p>
                 </div>
               </div>
               <div className="w-[5%] flex items-center justify-start">
-                <p style={{fontFamily:"sans-serif",fontSize:"13px",marginLeft:"-38px"}} className="">{item.experience}</p>
+                <p style={{fontFamily:"sans-serif",fontSize:"13px",marginLeft:"-38px"}} className="">{item.experience} years</p>
               </div>
               <div className="w-[30%] flex items-center justify-start">
                 <p
                   className=""
-                  style={{ whiteSpace: "nowrap" }}
+                  style={{ fontSize:"14px" }}
                 >
-                  {item.jobTitle}
+                <CountryDisplay countryCode={item.countryCode} />
                 </p>
               </div>
               <div className="w-[20%] gap-2 flex items-center justify-end whitespace-nowrap">
@@ -168,8 +191,8 @@ const dummyItems = [
   },
 ];
 
-const App = () => {
-  return <RecentJobs items={dummyItems} />;
+const App = (props) => {
+  return <RecentJobs items={props.eventData} />;
 };
 
 export default App;
