@@ -91,9 +91,9 @@ const StatusBadge = ({ status }) => {
 
 const RecentAttendance = () => {
   return (
-    <div className="p-6 rounded-lg shadow-lg w-auto">
+    <div className=" rounded-lg shadow-lg mt-5 ">
       {/* Header */}
-      <Box sx={{ backgroundColor: "background.default", padding: "22px", borderRadius: "12px" }}>
+    <Box sx={{ backgroundColor: "background.default", padding: "22px", borderRadius: "12px" ,width:"auto",height:"84vh" }}>
         <div className="flex items-center justify-between mb-4">
           <h2 style={{ fontSize: "19px", fontFamily: "sans-serif", fontWeight: "500" }} className="">
             Recent Attendance

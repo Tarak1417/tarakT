@@ -7,6 +7,7 @@ import Sectionwisereport from '../Schedule/reports/WeekReport';
 import hrimage2 from '../../assets/Interductionimages/Vector-2.png';
 import hrimage3 from '../../assets/Interductionimages/Vector-3.png';
 import hrimage4 from '../../assets/Interductionimages/Vector.png';
+import hrimage1 from '../../assets/Interductionimages/Vector-1.png';
 const roleCounts = {
   'Software-Engineer': 1,
   'QA-Tester': 2,
@@ -244,13 +245,15 @@ const EmployeeShift = () => {
         
       </div>
       
-    ):     <Stack
+    ):
+    <Stack
     direction={isMobile ? 'column' : 'row'}
     justifyContent="space-between"
     alignItems="center"
     mb={3}
+   
   >
-    <Typography sx={{ fontSize: isMobile ? '15px' : '18px', marginTop: '-30px' }}>Overview Calendar</Typography>
+    <Typography sx={{ fontSize: isMobile ? '15px' : '18px', marginTop: '-50px' }}>Overview Calendar</Typography>
   
     {/* Date Display */}
     <Stack direction="row" alignItems="center" spacing={2}>
@@ -304,7 +307,7 @@ const EmployeeShift = () => {
           borderRadius: '8px',
           cursor: 'pointer',
           height: '25px',
-          marginTop: '-20px',
+          marginTop: '-30px',
         }}
       >
         <Typography variant="button" sx={{ fontSize: '10px', fontWeight: '100' }}>
@@ -338,7 +341,7 @@ const EmployeeShift = () => {
   spacing={2}
   justifyContent="flex-start"
   mb={1.5}
-  mt={-2}
+  mt={-5}
   sx={{ display: { xs: 'none', sm: 'flex' } }} // Hide on mobile
 >
   <Button sx={{ fontSize: '10px' }} variant={shift === 'AM Shift' ? 'contained' : 'outlined'} onClick={() => setShift('AM Shift')}>
@@ -378,7 +381,7 @@ const EmployeeShift = () => {
       <Grid
   container
   sx={{
-    height: '70%',
+    height: 'auto', width:"auto"
     
   }}
 >

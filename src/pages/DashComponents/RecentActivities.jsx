@@ -111,7 +111,8 @@ const RecentActivities = () => {
       boxShadow={3}
       borderRadius="12px"
       bgcolor="background.default"
-      height="70vh"
+      height="85vh"
+     width="auto"
       overflow="auto"
      
     >

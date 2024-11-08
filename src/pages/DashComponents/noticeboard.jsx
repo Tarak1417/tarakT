@@ -45,6 +45,8 @@ const NoticeBoard = () => {
         borderRadius: "12px",
         padding: "20px",
         height: "247px",
+        width:"auto",
+        justifyItems:"stretch"
       }}
       className="shadow-lg"
     >

@@ -23,6 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRefresh } from "../components/Header";
 
 import Interduction from "./Interduction";
+import PlusIcon from "../assets/CloclIcons/Add Button (1).png"
 
 const Dashboard = () => {
 
@@ -86,13 +87,14 @@ const Dashboard = () => {
       value: (
         <Typography
           variant="body1"
-          style={{ color: "#00FF00", fontSize: "1.5em" }}
+          style={{ color: "#00FF00", fontSize: "1.2em" }}
         >
           {overview?.employees?.total || 0}
         </Typography>
       ),
       description: "124 for last month",
       trendIcon: <TrendingUp className="text-green-300" />,
+      plusicon :<img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]"/>
     },
     {
       icon: (
@@ -112,6 +114,7 @@ const Dashboard = () => {
       ),
       description: "124 for last month,",
       trendIcon: <TrendingDown className="text-red-300" />,
+      plusicon :<img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]"/>
     },
     {
       icon: (
@@ -148,11 +151,12 @@ const Dashboard = () => {
 
   return (
  
-    <Box sx={{ backgroundColor: "background.main",
-      width:"91vw", }} >
-       <Box >
-          <Interduction/>
-          </Box>
+    <Box sx={{backgroundColor: "background.main", width: "91vw" }} >
+       
+         <Interduction/>
+        
+          
+        
       <div className="flex flex-col sm:px-4 px-2 py-6">
         <div className="">
           {/* <Typography variant="h5" className="text-gray-500" gutterBottom>
@@ -164,22 +168,24 @@ const Dashboard = () => {
          
           <div className="flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-3/4 flex flex-col ">
-              <div className={`flex flex-col md:flex-row gap-4 mb-4 ${isMobile?"mt-[-20px]":""}`}>
+              <div className={`flex flex-col md:flex-row gap-3 mb-4  justify-items-stretch ${isMobile?"mt-[-20px]":""}`}>
                 {boxesData && boxesData.map((box, index) => (
                   <Grid
                     sx={{ backgroundColor: "background.view" }}
                     key={index}
-                    className="rounded-lg p-4 shadow-md md:w-1/3"
+                    className="rounded-lg p-1 shadow-md md:w-1/3"
                     style={{
                       
                       width: '100%',
-                      padding: '8px',
+                      padding: '4px',
                       marginTop: isMobile ? "" : '-27px',  // Correct syntax for conditional marginTop
                       height: '50px'
                     }}
                   >
-                    
-                    <p style={{fontSize:'12px',marginTop:'-8px'}}>{box.title}</p>
+                     <div className="flex items-center" style={{ fontSize: '12px', marginTop: '-2px' }}>
+          <p>{box.title}</p>
+          {box.plusicon } {/* Conditionally display PlusIcon if it exists */}
+        </div>
                     <div className="flex items-center justify-center mb-2">
                       <p style={{fontSize:'13px'}} className="w-5/6 text-xl">{box.value}</p>
                       <div style={{}} className="w-1/6 ">{box.icon}</div>
@@ -196,7 +202,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className={`flex flex-col md:flex-row mt-1 ${isMobile?"":"mb-[100px] mt-[10px]"}`} >
+        <div className={`flex flex-col md:flex-row mt-1 ${isMobile?"":" mt-[10px]"}`} >
           <div className=" md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
            <Recentjobapplication/>
           </div>
@@ -206,9 +212,9 @@ const Dashboard = () => {
           
        
         </div>
-        <div className=" justify-items-stretch flex flex-col md:flex-row py-2 items-stretch">
+        <div className="  flex flex-col md:flex-row  w-full">
          
-          <div className=" md:w-1/2 mx-1 mb-2 md:mb-0 flex-grow">
+          <div className=" md:w-2/2  mb-2 md:mb-0 flex-grow">
             <Attendance items={ overview && overview?.attendance} />
           </div>
         </div>
