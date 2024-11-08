@@ -85,7 +85,9 @@ const rejectLeave = useCallback(
         backgroundColor: "background.default",
         borderRadius: "16px",
         padding: "24px",
+
         height: "220px",
+
         margin: "20px auto",
         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
       }}
@@ -219,4 +221,6 @@ const rejectLeave = useCallback(
   );
 };
 
+
 export default Applicationleave;
+
