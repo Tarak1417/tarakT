@@ -61,9 +61,7 @@ const NoticeBoard = () => {
       <LinkIcon sx={{height:"20px"}} />
     </div>
     </Box>
-
-
-      <div
+<div
         style={{ marginTop: "-22px" }}
         className="space-y-6 overflow-y-auto h-[340px] px-2 pb-4"
       >
