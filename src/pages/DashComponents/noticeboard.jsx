@@ -2,33 +2,7 @@ import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 const NoticeBoard = ({ eventData }) => {
-  const demoEvent = [
-    {
-      date: "5 Mar",
-      title: "Board Meeting",
-      description: "Attend board meeting with company manager.",
-      backgroundColor: "#fbbf24",
-    },
-    {
-      date: "9 Mar",
-      title: "Design Team Meeting",
-      description: "Attend design team meeting with team mates and HOD.",
-      backgroundColor: "#dc2626",
-    },
-    {
-      date: "7 Feb",
-      title: "Tech Conference",
-      description: "Attend conference with teammates and other departments.",
-      backgroundColor: "#f97316",
-    },
-    {
-      date: "4 Mar",
-      title: "Development Team Pitch",
-      description: "Pitch idea on new development to the company board,",
-      backgroundColor: "#3b82f6",
-    },
-  ];
-
+ 
   const [datastore , setStore] = useState([]);
 
   useEffect(()=>{
@@ -58,6 +32,12 @@ const NoticeBoard = ({ eventData }) => {
       return '#f97316'; // orange
     }
   };
+  const getClassName = (dateString) => {
+    const date = new Date(dateString);
+    const shortMonth = new Intl.DateTimeFormat("en-US", { month: "short" }).format(date);
+
+    return `notice-${shortMonth.toLowerCase()}`
+  };
 
   return (
     <Box
@@ -79,9 +59,9 @@ const NoticeBoard = ({ eventData }) => {
               <div key={index} className="mb-4">
                 <div className="flex gap-4 justify-center items-center">
                   <div
-                    className="w-1/4 h-[60px] flex items-center justify-center text-white rounded-lg"
+                    className={`w-1/4 h-[60px] flex items-center justify-center text-white rounded-lg ${getClassName(event.updatedAt)}`}
                     style={{
-                      backgroundColor: event.updatedAt ? getBackgroundColor(event.updatedAt) : event.backgroundColor
+                     // backgroundColor: event.updatedAt ? getBackgroundColor(event.updatedAt) : event.backgroundColor
                     }}
                   >
                     <div className="w-[97%] h-[57px] flex items-center justify-center border-2 border-gray-900 rounded-lg p-0">
