@@ -35,7 +35,7 @@ const Interduction = () => {
         <img src={characterimage} alt="Character" className="w-24 h-24 mb-4 mr-5" />
         <div className="text-white ml-5">
           <h1 className="text-2xl font-bold">
-            Welcome to Clikkle <span className="text-[#3767B1]">HR, Rohit!</span>
+            Welcome to Clikkle <span className="text-[#3767B1]">HR, {JSON.parse(localStorage.getItem("user")).firstName}!</span>
           </h1>
           <p>
             We’re excited to have you here. Start with our <span className="text-[#3767B1]">Clikkle HR 101 guide</span> or <span className="text-[#3767B1]">training course</span> to dive right in.
