@@ -151,29 +151,30 @@ const Dashboard = () => {
 
   return (
  
-    <Box sx={{backgroundColor: "background.main", width: "91vw" }} >
+    <Box sx={{ backgroundColor: "background.main",  width: "93vw",  mx: "auto" }}>
+
        
          <Interduction/>
         
           
         
-      <div className="flex flex-col sm:px-4 px-2 py-6">
+      <div className="flex flex-col sm:px-4 p-4 pt-[20px] mt-10px">
         <div className="">
           {/* <Typography variant="h5" className="text-gray-500" gutterBottom>
-            HR DASHBOARD
+            HR DASHBOARD3
           </Typography> */}
                   
         
 
          
-          <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex flex-col md:flex-row gap-1.5">
             <div className="w-full md:w-3/4 flex flex-col ">
-              <div className={`flex flex-col md:flex-row gap-3 mb-4  justify-items-stretch ${isMobile?"mt-[-20px]":""}`}>
+              <div className={`flex flex-col md:flex-row gap-1.5 mb-3.5   justify-items-stretch ${isMobile?"mt-[-27px]":""}`}>
                 {boxesData && boxesData.map((box, index) => (
                   <Grid
                     sx={{ backgroundColor: "background.view" }}
                     key={index}
-                    className="rounded-lg p-1 shadow-md md:w-1/3"
+                    className="rounded-lg shadow-md md:w-1/3"
                     style={{
                       
                       width: '100%',
@@ -196,25 +197,25 @@ const Dashboard = () => {
               </div>
             <Calander  />
             </div>
-            <div className={`w-full md:w-1/4 mt-[-25px]  ${isMobile?"mt-[1px]":" "}`}>
+            <div className={`w-full md:w-1/4  ${isMobile?"mt-[3px]":"mt-[-27px] "}`}>
               <NoticeBoard eventData={ overview && overview?.notices} />
               <Applicationleave  />
             </div>
           </div>
         </div>
-        <div className={`flex flex-col md:flex-row mt-1 ${isMobile?"":" mt-[10px]"}`} >
-          <div className=" md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
+        <div className={`flex flex-col md:flex-row mt-1 ${isMobile?"mt-[5px]":" "} `} >
+          <div className=" md:w-[30%] mr-1  md:mb-0 flex-grow">
            <Recentjobapplication/>
           </div>
-          <div className=" md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
+          <div className=" md:w-[30%]   md:mb-0 flex-grow">
             <Recentactivity/>
           </div>
           
        
         </div>
-        <div className="  flex flex-col md:flex-row  w-full">
+        <div className=" flex flex-col md:flex-row   w-full">
          
-          <div className=" md:w-2/2  mb-2 md:mb-0 flex-grow">
+          <div className=" md:w-2/2   md:mb-0 flex-grow">
             <Attendance items={ overview && overview?.attendance} />
           </div>
         </div>

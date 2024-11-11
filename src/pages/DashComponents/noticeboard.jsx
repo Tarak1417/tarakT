@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box,useMediaQuery, useTheme } from "@mui/material";
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import Nonoticeboard from "../../pages/DashComponents/Nonoticeboard";
@@ -9,6 +9,11 @@ import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import CropFreeIcon from '@mui/icons-material/CropFree';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import LinkIcon from '@mui/icons-material/Link';
+import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
+import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
+import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
+import hrimages4 from "../../assets/Interductionimages/Vector.png"
+
 
 const NoticeBoard = () => {
   const [notices, setNotices] = useState([]);
@@ -38,15 +43,18 @@ const NoticeBoard = () => {
     return date.toLocaleDateString("en-US", options);
   };
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Box
       sx={{
         backgroundColor: "background.default",
         borderRadius: "12px",
         padding: "20px",
-        height: "247px",
+        height: "228px",
         width:"auto",
-        justifyItems:"stretch"
+        justifyItems:"stretch",
+        marginBottom:"6px"
       }}
       className="shadow-lg"
     >
@@ -57,10 +65,11 @@ const NoticeBoard = () => {
       </p>
 
       <div style={{ display: 'flex', gap: '10px', color: 'white',marginTop:"9px" }}>
-      <OpenInFullIcon sx={{height:"14px"}} />
-      <CropFreeIcon sx={{height:"16px"}} />
-      <RefreshIcon sx={{height:"20px"}} />
-      <LinkIcon sx={{height:"20px"}} />
+      {isMobile?"":<img src={hrimages1} alt="" className="h-4 w-4"/>}
+      <img src={hrimages4} alt="" className="h-4 w-4"/>
+      
+      <img src={hrimages2} alt="" className="h-4 w-4"/>
+      <img src={hrimages3} alt="" className="h-4 w-4"/>
     </div>
     </Box>
 <div

@@ -1,6 +1,11 @@
 import React from "react";
 import { Box, Button, Typography, useMediaQuery, Avatar, Stack } from "@mui/material";
-import { useTheme } from "@mui/system";
+import { display, useTheme } from "@mui/system";
+import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
+import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
+import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
+import hrimages4 from "../../assets/Interductionimages/Vector.png"
+
 
 // Sample data for recent activities
 const activities = [
@@ -111,36 +116,59 @@ const RecentActivities = () => {
       boxShadow={3}
       borderRadius="12px"
       bgcolor="background.default"
-      height="85vh"
-     width="auto"
+      height="87vh"
+     width="100%"
       overflow="auto"
+      mt={isMobile?"-10px":""}
      
     >
       {/* Header Section */}
-      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
-        <Typography variant="h6" sx={{ fontSize: "17px", fontWeight: "bold" }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2} >
+        <Typography variant="h6" sx={{ fontSize:isMobile?"14px": "17px",mr:"10px", fontWeight: "bold", whiteSpace:"nowrap" }}>
           Recent Activities
         </Typography>
-        <Button
-          variant="contained"
-          size="small"
-          sx={{
-            backgroundColor: "#3767B1",
-            fontSize: "13px",
-            height: "",
-            color: "white",
-            textTransform: "none",
-           
-          }}
-        >
-          View All
-        </Button>
+        
+        <div style={{display:"flex",gap: '20px',}}>
+      <div style={{ display: 'flex', gap: '10px', color: 'white',marginTop:"9px" }}>
+       {isMobile?"":<img src={hrimages1} alt="" className="h-4 w-4"/>}
+      <img src={hrimages4} alt="" className="h-4 w-4"/>
+      
+      <img src={hrimages2} alt="" className="h-4 w-4"/>
+      <img src={hrimages3} alt="" className="h-4 w-4"/>
+    </div>
+    <Button
+  variant="contained"
+  sx={{
+    backgroundColor: "#3767B1",
+    fontSize: "10px",
+    color: "white",
+    textTransform: "none",
+    height: "30px",
+    width: "80px",
+    display: isMobile ? "none" : "inline-flex", // Hide on mobile
+  }}
+>
+  View All
+</Button>
+
+        </div>
       </Stack>
 
       {/* Activity List */}
       {activities.map((activity) => (
         <ActivityRow key={activity.id} activity={activity} isMobile={isMobile} />
       ))}
+      
+
+      <div className=" mt-4">
+          <button
+            style={{  color: "blue" }}
+            className={`px-4 py-2 rounded-md text-sm font-medium ${isMobile?"":"hidden"}`}
+          >
+            View All
+          </button>
+        </div>
+      
     </Box>
   );
 };

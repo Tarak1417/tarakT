@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography,Avatar } from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
+
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
@@ -12,12 +14,18 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import LinkIcon from '@mui/icons-material/Link';
 import countries from 'i18n-iso-countries';
 import CountryFlag from 'react-country-flag';
+import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
+import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
+import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
+import hrimages4 from "../../assets/Interductionimages/Vector.png"
+
 
 // Initialize the country names (optional: specify language)
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
 function CountryDisplay({ countryCode }) {
   const countryName = countries.getName(countryCode, "en");
+
 
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
@@ -52,35 +60,59 @@ const RecentJobs = ({ items }) => {
     setDropdown2Open(false);
   };
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Box
-      className="rounded-lg mb-4 shadow-md h-full pt-4 pr-4 pb-4  "
+      className="rounded-lg mb-4 shadow-md h-full p-5  "
       sx={{
         backgroundColor: "background.view",
       }}
     >
-      <div className="flex flex-col md:flex-row gap-4 mb-4 items-center">
-        <div className=" md:w-1/2 flex justify-left">
+     <div className="flex flex-col md:flex-row gap-4 mb-4 items-center">
+  <div className="md:w-1/2 flex justify-start items-center">
+    {/* Title and Icons Container */}
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "100%",
+      }}
+    >
+      {/* Title */}
+      <Typography
+        className="border-l-4 border-blue-500 pl-2 whitespace-nowrap text-xl"
+        sx={{ flex: "1" }}
+      >
+        Recent Job Application
+      </Typography>
 
-        <Box sx={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
-          <Typography sx={{marginRight:"270px"}} className="w-full md:w-1/3 border-l-4 border-blue-500 pl-2 whitespace-nowrap text-xl">
-            Recent Job Application
-          </Typography>
-            
-
-          <div style={{ display: 'flex', gap: '10px', color: 'white',marginTop:"9px" }}>
-      <OpenInFullIcon sx={{height:"14px"}} />
-      <CropFreeIcon sx={{height:"16px"}} />
-      <RefreshIcon sx={{height:"20px"}} />
-      <LinkIcon sx={{height:"20px"}} />
-    </div>
+      {/* Icons */}
+      <Box
+        sx={{
+          display: "flex",
+        justifyContent:"end",
+          alignItems: "end",
+          color: "white",
+            marginLeft: isMobile?"20px":"400px",
+          mt: 0.5,
+          gap:1
+        }}
+      >
+         {isMobile?"":<img src={hrimages1} alt="" className="h-4 w-4"/>}
+      <img src={hrimages4} alt="" className="h-4 w-4"/>
+      
+      <img src={hrimages2} alt="" className="h-4 w-4"/>
+      <img src={hrimages3} alt="" className="h-4 w-4"/>
+      </Box>
     </Box>
+  </div>
+</div>
 
-
-        </div>
-      </div>
       <div className="w-full overflow-x-auto md:overflow-x-hidden">
-        {items && items.length > 0 ? (
+        {items && items.length >= 0 ? (
           items.map((item, index) => (
             <div key={index} className="flex flex-row mb-1 min-w-[30rem]">
               <div className="w-[45%] flex flex-row">

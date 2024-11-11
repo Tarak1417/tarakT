@@ -11,9 +11,9 @@ import hrimage1 from '../../assets/Interductionimages/Vector-1.png';
 const roleCounts = {
   'Software-Engineer': 1,
   'QA-Tester': 2,
-  'Frontend-Developer': 2,
-  'Backend-Developer': 2,
-  'UI/UX-Designer': 1,
+  // 'Frontend-Developer': 2,
+  // 'Backend-Developer': 2,
+  // 'UI/UX-Designer': 1,
 };
 
 // Sample shift data
@@ -68,11 +68,13 @@ const EmployeeShift = () => {
               color="white"
               p={1}
               borderRadius="5px"
-              height="26px"
+              height={isMobile?"15px":"26px"}
+              width={isMobile?"100px":"auto"}
               textAlign="center"
-              marginTop="-8px"
-              padding="5px"
-              sx={{ fontSize: isMobile ? '10px' : '14px' }}
+              marginTop={isMobile?"10px":"-8px"}
+              marginBottom={isMobile?"-12px":""}
+              padding={isMobile?"2px":"5px"}
+              sx={{ fontSize: isMobile ? '8px' : '14px' }}
             >
               {shift.type === 'Present' ? `${shift.shift.start}AM - ${shift.shift.end}AM` : shift.type}
             </Box>
@@ -218,28 +220,35 @@ const EmployeeShift = () => {
         
       </Box>
       <Box sx={{ display: 'flex', gap: 2, ml: 2 }}>
-    {Object.entries(roleCounts).map(([role, count]) => (
-      <Box key={role} sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box
-          sx={{
-            display: 'inline-flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            bgcolor: '#3767B1',
-            color: 'white',
-            borderRadius: '50%',
-            width: 10,
-            height: 10,
-            fontSize: '8px',
-            mr: 1,
-          }}
-        >
-          {count}
-        </Box>
-        <Typography sx={{ fontSize: '10px', text:"wrap"}}>{role}</Typography>
+  {Object.entries(roleCounts).map(([role, count]) => (
+    <Box key={role} sx={{ display: 'flex', alignItems: 'center' }}>
+      {/* Circle displaying the count */}
+      <Box
+        sx={{
+          display: 'inline-flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          bgcolor: '#3767B1',
+          color: 'white',
+          borderRadius: '50%',
+          width: 10,
+          height: 10,
+          fontSize: '8px',
+          mr: 1,
+
+        }}
+      >
+        
+        {count}
       </Box>
-    ))}
-  </Box>
+      {/* Role label */}
+      <Typography sx={{ fontSize: '10px', whiteSpace: 'wrap' }}>
+        {role}
+      </Typography>
+    </Box>
+  ))}
+</Box>
+
       
       </div>
         
@@ -247,16 +256,17 @@ const EmployeeShift = () => {
       
     ):
     <Stack
-    direction={isMobile ? 'column' : 'row'}
+    direction={isMobile ? 'row' : 'row'}
     justifyContent="space-between"
     alignItems="center"
-    mb={3}
+    py={3.5}
+    mb={0.8}
    
   >
-    <Typography sx={{ fontSize: isMobile ? '15px' : '18px', marginTop: '-50px' }}>Overview Calendar</Typography>
+    <Typography sx={{ fontSize: isMobile ? '15px' : '18px', marginTop: '-60px' }}>Overview Calendar</Typography>
   
     {/* Date Display */}
-    <Stack direction="row" alignItems="center" spacing={2}>
+    <Stack direction="row" alignItems="center" spacing={2} marginTop="-60px" >
       {/* Date and Day */}
       <Box display="flex" alignItems="center">
         {/* Date in blue box */}
@@ -320,7 +330,7 @@ const EmployeeShift = () => {
     </Stack>
   
     {/* View Selection Buttons */}
-    <Stack direction="row" spacing={1} mt={isMobile ? 2 : 2}>
+    <Stack direction="row" spacing={1}  mt={isMobile ? 2 : "-60px"}>
       <Button sx={{ fontSize: '10px' }} variant={view === 'Daily' ? 'contained' : ''} onClick={() => setView('Daily')}>
         Daily
       </Button>
@@ -330,6 +340,13 @@ const EmployeeShift = () => {
       <Button sx={{ fontSize: '10px' }} variant={view === 'Monthly' ? 'contained' : ''} onClick={() => setView('Monthly')}>
         Monthly
       </Button>
+    </Stack>
+
+    <Stack direction="row" spacing={2} mt="-60px">
+      <img src={hrimage4} alt="" className='h-4 w-4'/>
+      <img src={hrimage1} alt="" className='h-4 w-4'/>
+      <img src={hrimage3} alt="" className='h-4 w-4'/>
+      <img src={hrimage2} alt="" className='h-4 w-4'/>
     </Stack>
   </Stack>
   }
@@ -367,6 +384,7 @@ const EmployeeShift = () => {
             height: 16,
             fontSize: '10px',
             mr: 1,
+            flexWrap:"nowrap"
           }}
         >
           {count}
@@ -377,52 +395,101 @@ const EmployeeShift = () => {
   </Box>
 </Stack>
 
+
+
+
       <Box >
-      <Grid
-  container
+     <Box
   sx={{
-    height: 'auto', width:"auto"
-    
+    display: 'flex',
+    flexDirection: { xs: 'row', sm: 'row' },
+    width: '100%',
   }}
 >
   {/* Employee List Section */}
-  <Grid item xs={12} sm={3} p={2}>
-    <Typography sx={{ fontSize: { xs: '13px', sm: '15px' }, marginTop: '-20px' }} variant="h6" mb={2}>
-      Employees
-    </Typography>
-    {shifts.map((shift) => (
-      <Stack direction="row" alignItems="center" spacing={1} key={shift.name} mb={-0.8}>
-        <Avatar alt={shift.name} src={`https://i.pravatar.cc/150?u=${shift.name}`} sx={{ height: { xs: '18px', sm: '20px' }, width: { xs: '18px', sm: '20px' } }} />
-        <Box>
-          <Typography sx={{ fontSize: { xs: '11px', sm: '12px' }, mb: '-5px', mt: '2px' }}>{shift.name}</Typography>
-          <Typography variant="caption" color="textSecondary" sx={{ fontSize: { xs: '10px', sm: '12px' } }}>
-            {shift.role}
-          </Typography>
-        </Box>
-      </Stack>
-    ))}
-  </Grid>
+  <Box sx={{ flex: { xs: '1', sm: '0 0 25%' }, p: { xs: 0.5, sm: 2 } }}>
+  <Typography
+    sx={{
+      fontSize: { xs: '13px', sm: '15px' },
+      mt: { xs: 0, sm: '-20px' },
+      ml: { xs: '-10px', sm: 0 }
+    }}
+    variant="h6"
+    mb={1}
+  >
+    Employees
+  </Typography>
+  {shifts.map((shift) => (
+    <Stack
+      direction="row"
+      alignItems="center"
+      spacing={1}
+      key={shift.name}
+      mb={-0.5}
+      sx={{ ml: { xs: '-10px', sm: 0 } }}
+    >
+      <Avatar
+        alt={shift.name}
+        src={`https://i.pravatar.cc/150?u=${shift.name}`}
+        sx={{
+          height: { xs: '18px', sm: '20px' },
+          width: { xs: '18px', sm: '20px' }
+        }}
+      />
+      <Box>
+        <Typography
+          sx={{
+            fontSize: { xs: '11px', sm: '12px' },
+            mb: { xs: '-10px', sm: '-5px' },
+            mt: '2px',
+            flexWrap: 'nowrap'
+          }}
+        >
+          {shift.name}
+        </Typography>
+        <Typography
+          variant="caption"
+          color="textSecondary"
+          sx={{
+            fontSize: { xs: '10px', sm: '12px' },
+            flexWrap: 'nowrap'
+          }}
+        >
+          {shift.role}
+        </Typography>
+      </Box>
+    </Stack>
+  ))}
+</Box>
 
-  {/* Shift Timing Section */}
-  <Grid item xs={12} sm={9} p={2}>
-    {view === 'Daily' && (
-      <Grid container spacing={0.5} mb={2} mt={-3.5}>
-        {timeSlots.map((time) => (
-          <Grid item xs={1} key={time}>
-            <Typography variant="caption" align="center" sx={{ fontSize: { xs: '9px', sm: '10px' } }}>
-              {time}
-            </Typography>
-          </Grid>
-        ))}
-      </Grid>
-    )}
-    {renderShifts()}
-  </Grid>
-</Grid>
+{/* Shift Timing Section */}
+<Box sx={{ flex: { xs: '1', sm: '0 0 75%' }, p:{ xs: 1, sm: 2 } }}>
+  {view === 'Daily' && (
+    <Box sx={{ display: 'flex', flexWrap: 'nowrap', mb: { xs: 1, sm: 2 }, mt: { xs: -1, sm: -3.5 } }}>
+      {timeSlots.map((time) => (
+        <Box
+          key={time}
+          sx={{ flex: '1 1 8.33%', textAlign: 'center' }}
+        >
+         <Typography
+  variant="caption"
+  sx={{ fontSize: { xs: '9px', sm: '10px' } ,ml:{xs:"-20px"} }}
+>
+  {isMobile ? time.replace(/\D/g, '') : time} {/* Only shows the number in mobile mode */}
+</Typography>
+        </Box>
+      ))}
+    </Box>
+  )}
+  {renderShifts()}
+</Box>
+
+</Box>
+
 
 
        
-        <Box sx={{ display: 'flex', alignItems: 'center', marginTop:'-25px' ,}}>
+        <Box sx={{ display: 'flex', alignItems: 'center', marginTop:isMobile?"10px":'-23px' ,}}>
           {Object.entries(shiftStatusColors).map(([status, color]) => (
             <Box key={status} sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
               <Box

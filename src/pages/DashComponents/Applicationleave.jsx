@@ -1,10 +1,16 @@
 import React, { useState,useEffect, useCallback } from "react";
 import { Box, Button, Typography, Avatar, LinearProgress } from "@mui/material";
+import {  useMediaQuery, useTheme } from '@mui/material';
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import dayjs from "dayjs";
 import { Link } from 'react-router-dom';
 import { useMessage } from "../../components/Header";
 import axios from 'axios';
+import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
+import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
+import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
+import hrimages4 from "../../assets/Interductionimages/Vector.png"
+
 
 const Applicationleave = (props) => {
   //console.log("eventData",eventData);
@@ -78,8 +84,11 @@ const rejectLeave = useCallback(
 
   // Calculate the progress based on remaining leaves
   const progress = ((leaveData.totalLeaves - leaveData.remainingLeaves) / leaveData.totalLeaves) * 100;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
+  
     <Box
       sx={{
         backgroundColor: "background.default",
@@ -88,32 +97,51 @@ const rejectLeave = useCallback(
 
         height: "220px",
 
-        margin: "20px auto",
+        margin: " auto",
         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+      marginTop:"-1px"
       }}
     >
-      <div className="flex justify-between items-center mb-4">
-        <Typography style={{ fontSize: '15px', marginTop: '-16px' }} variant="h6">
-          Recent Leave Application
-        </Typography>
-        <Link to="/leaveapplication/view">
-        <Button
-          variant="contained"
-          size="small"
-          sx={{
-            height: '27px',
-            fontSize: '10px',
-            backgroundColor: "#3767B1",
-            textTransform: "none",
-            marginTop: '-13px',
-            "&:hover": { backgroundColor: "#3767B1" },
-          }}
-        >
-          View All
-        </Button>
-                        </Link>
-        
-      </div>
+    <div className="flex items-center mb-4 mr-[10px] space-x-4">
+  {/* Title */}
+  <Typography
+    style={{ fontSize: isMobile ? "15px" : "15px", marginTop: '-16px',  }}
+    variant="h6"
+  >
+    Recent Leave Application
+  </Typography>
+
+  {/* Images with spacing */}
+  <div className="flex space-x-2 mt-[-10px]">
+  {isMobile?"":<img src={hrimages1} alt="" className="h-4 w-4"/>}
+      <img src={hrimages4} alt="" className="h-4 w-4"/>
+      
+      <img src={hrimages2} alt="" className="h-4 w-4"/>
+      <img src={hrimages3} alt="" className="h-4 w-4"/>
+  </div>
+
+  {/* Link to 'View All' button */}
+  <Link to="/leaveapplication/view">
+    <Button
+      variant="contained"
+      size="small"
+      sx={{
+        height: '27px',
+        fontSize: '10px',
+        backgroundColor: "#3767B1",
+        textTransform: "none",
+        marginTop: '-15px',
+        marginLeft:"20px",
+        marginRight:"-20px",
+        "&:hover": { backgroundColor: "#3767B1" },
+      }}
+    >
+      View All
+    </Button>
+  </Link>
+</div>
+
+
 {eventData ? <>
       <div style={{ marginTop: "-11px" }} className="flex items-center gap-4 mb-4">
         <Avatar src={`https://ui-avatars.com/api/?name=${leaveData.name}`} alt={leaveData.name} sx={{ width: 30, height: 30, borderRadius: '25px', marginTop: '-14px' }} />

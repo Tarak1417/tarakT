@@ -15,14 +15,16 @@ const Interduction = ({ isSidebarOpen }) => {
 
   return (
     <Box
-      sx={{
-        backgroundColor: "background.view",
-        width: "calc(100% - 25px)",  // Reduced width by 30px
-        height: "auto",
-        borderRadius: '10px',
-        boxSizing: "border-box",
-        padding: '13px'
-      }}
+   
+    sx={{
+      width: "calc(100% - 30px)", // Adjusts to make it slightly narrower
+     // Limits width for larger screens
+      margin: "5px auto", // Centers the component
+      padding: "16px", // Adds padding within the component to avoid cramping
+      backgroundColor: "background.default",
+      marginBottom:"12px",
+    }}
+  
       className="rounded-[10px] m-2 flex flex-col items-center sm:flex-col"
     >
       {/* Header section with icons */}
