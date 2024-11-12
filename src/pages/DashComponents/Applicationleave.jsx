@@ -10,6 +10,7 @@ import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
 import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
 import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
+import Noleaveapplication from "../DashComponents/Noleaveapplication"
 
 
 const Applicationleave = (props) => {
@@ -243,7 +244,7 @@ const rejectLeave = useCallback(
         </Button>
       </div>
       </>
-      :"No leaves found"
+      :<Noleaveapplication/>
 }
     </Box>
   );

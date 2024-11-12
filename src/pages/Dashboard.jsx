@@ -151,7 +151,11 @@ const Dashboard = () => {
 
   return (
  
-    <Box sx={{ backgroundColor: "background.main",  width: "93vw",  mx: "auto" }}>
+    <Box  sx={{
+      backgroundColor: "background.main",
+      width: isMobile ? "100vw" : "93vw", // Adjust width based on `isMobile`
+      mx: "auto",
+    }}>
 
        
          <Interduction/>
@@ -178,7 +182,7 @@ const Dashboard = () => {
                     style={{
                       
                       width: '100%',
-                      padding: '4px',
+                      padding: '5px',
                       marginTop: isMobile ? "" : '-27px',  // Correct syntax for conditional marginTop
                       height: '50px'
                     }}
@@ -187,9 +191,9 @@ const Dashboard = () => {
           <p>{box.title}</p>
           {box.plusicon } {/* Conditionally display PlusIcon if it exists */}
         </div>
-                    <div className="flex items-center justify-center mb-2">
-                      <p style={{fontSize:'13px'}} className="w-5/6 text-xl">{box.value}</p>
-                      <div style={{}} className="w-1/6 ">{box.icon}</div>
+                    <div className="flex items-center justify-center mb-2 ">
+                      <p style={{fontSize:'13px'}} className="w-5/6 text-xl ">{box.value}</p>
+                      <div style={{}} className="w-1/6 mt-[-20px]">{box.icon}</div>
                     </div>
                   
                   </Grid>
@@ -204,7 +208,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className={`flex flex-col md:flex-row mt-1 ${isMobile?"mt-[5px]":" "} `} >
-          <div className=" md:w-[30%] mr-1  md:mb-0 flex-grow">
+        <div className={`md:w-[30%] ${isMobile ? "mr-0" : "mr-1"} md:mb-0 flex-grow`}>
            <Recentjobapplication/>
           </div>
           <div className=" md:w-[30%]   md:mb-0 flex-grow">

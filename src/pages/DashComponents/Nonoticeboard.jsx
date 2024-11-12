@@ -1,76 +1,85 @@
-import { Box } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
+import Noticeboard from "../../assets/Interductionimages/Board.png";
+import { blue, grey } from '@mui/material/colors';
 
 const NoticeBoard = ({ eventData }) => {
-    console.log(eventData)
-   const demoEvent =  [
-        {
-            "date": "5 Mar",
-            "title": "Board Meeting",
-            "description": "Attend board meeting with company manager.",
-            "backgroundColor": "#fbbf24"
-        },
-        {
-            "date": "9 Mar",
-            "title": "Design Team Meeting",
-            "description": "Attend design team meeting with team mates and HOD.",
-            "backgroundColor": "#dc2626"
-        },
-        {
-            "date": "7 Feb",
-            "title": "Tech Conference",
-            "description": "Attend conference with teammates and other departments.",
-            "backgroundColor": "#f97316"
-        },
-        {
-            "date": "4 Mar",
-            "title": "Development Team Pitch",
-            "description": "Pitch idea on new development to the company board,",
-            "backgroundColor": "#3b82f6"
-        }
-    ]
-    return (
-        <Box sx={{
-            backgroundColor: 'background.view', 
-           
-           }} className="rounded-lg">
-        {/* <div className="rounded-lg pt-4 mb-4 shadow-md h-96 overflow-hidden relative">
-            <p className=" mb-4 border-l-4 border-blue-500 pl-2 text-2xl" gutterBottom>
-                Notice Boards
-            </p> */}
-            {/* <div className="px-1 p-4 overflow-y-auto">
-                <div className=''>
-                    {eventData?eventData:demoEvent.map((event, index) => (
-                        <div key={index} className="mb-4">
-                            <div className="flex gap-4 justify-center items-center">
-                                <div className="w-1/4 h-[60px] flex items-center justify-center text-white rounded-lg" style={{ backgroundColor: event.backgroundColor }}>
-                                    <div className="w-[97%] h-[57px] flex items-center justify-center border-2 border-gray-900 rounded-lg p-0">
-                                        <p className='p-1 text-gray-900 font-semibold text-center gap-0'>{event.date}</p>
-                                    </div>
-                                </div>
-                                <div className="w-4/5">
-                                    <h1 className="text-sm">{event.title}</h1>
-                                    <p className="text-xs text-gray-500">{event.description}</p>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div> */}
-            {/* <style jsx>{`
-                
-                .overflow-y-auto::-webkit-scrollbar {
-                    display: none;
-                }
+  const demoEvent = [
+    {
+      date: "5 Mar",
+      title: "Board Meeting",
+      description: "Attend board meeting with company manager.",
+      backgroundColor: "#fbbf24"
+    },
+    {
+      date: "9 Mar",
+      title: "Design Team Meeting",
+      description: "Attend design team meeting with team mates and HOD.",
+      backgroundColor: "#dc2626"
+    },
+    {
+      date: "7 Feb",
+      title: "Tech Conference",
+      description: "Attend conference with teammates and other departments.",
+      backgroundColor: "#f97316"
+    },
+    {
+      date: "4 Mar",
+      title: "Development Team Pitch",
+      description: "Pitch idea on new development to the company board.",
+      backgroundColor: "#3b82f6"
+    }
+  ];
 
-                
-                .overflow-y-auto {
-                    scrollbar-width: none;
-                }
-            `}</style> */}
-        {/* </div> */}
+  return (
+    <Box className="rounded-lg" sx={{ padding: 2, backgroundColor: "Background.view", borderRadius: '12px' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          textAlign: 'center',
+          color: 'white',
+        }}
+      >
+        {/* Icon/Image Section */}
+        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <Box
+            component="img"
+            src={Noticeboard}
+            alt="No job applications"
+            sx={{ width: 80, height: 40 }}
+          />
         </Box>
-    );
+
+        {/* Main Text */}
+        <Typography variant="h6" sx={{ marginBottom: 1, fontFamily: "sans-serif", fontSize: "12px" }}>
+          No current notices!
+        </Typography>
+        <Typography variant="body2" sx={{ color: grey[300], marginBottom: 1, fontSize: "10px" }}>
+          You do not have any current notice available. Click the button below to add new notice.
+        </Typography>
+
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: blue[700],
+            color: '#fff',
+            textTransform: 'none',
+            borderRadius: '8px',
+            height: '25px',
+            width: '100px',
+            fontSize: '10px',
+            padding: '4px 8px',
+            '&:hover': { backgroundColor: blue[800] },
+          }}
+        >
+          Create Job
+        </Button>
+      </Box>
+    </Box>
+  );
 };
 
 export default NoticeBoard;

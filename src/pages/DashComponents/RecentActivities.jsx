@@ -5,50 +5,86 @@ import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
 import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
 import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
+import { blue, grey } from "@mui/material/colors";
+import graph from "../../assets/Interductionimages/graph.png"
 
 
 // Sample data for recent activities
 const activities = [
-  {
-    id: 1,
-    avatar: "https://i.pravatar.cc/40?img=1",
-    name: "Daniel Thompson",
-    activity: "Add list permission on the member list issue",
-    type: "Issue",
-    time: "38 minutes ago",
-  },
-  {
-    id: 2,
-    avatar: "https://i.pravatar.cc/40?img=1",
-    name: "Daniel Thompson",
-    activity: "Add list permission on the member list issue",
-    type: "Issue",
-    time: "40 minutes ago",
-  },
-  {
-    id: 3,
-    avatar: "https://i.pravatar.cc/40?img=1",
-    name: "Daniel Thompson",
-    activity: "New Add list permission on the member list issue",
-    type: "Issue",
-    time: "45 minutes ago",
-  },
-  {
-    id: 4,
-    avatar: "https://i.pravatar.cc/40?img=1",
-    name: "Daniel Thompson",
-    activity: "Work progress % calculation issue has been added",
-    type: "Issue",
-    time: "45 minutes ago",
-  },
-  {
-    id: 5,
-    avatar: "https://i.pravatar.cc/40?img=1",
-    name: "Daniel Thompson",
-    activity: "Work progress % calculation issue has moved",
-    type: "Issue",
-    time: "50 minutes ago",
-  },
+  // {
+  //   id: 1,
+  //   avatar: "https://i.pravatar.cc/40?img=1",
+  //   name: "Daniel Thompson",
+  //   activity: "Add list permission on the member list issue",
+  //   type: "Issue",
+  //   time: "38 minutes ago",
+  // },
+  // {
+  //   id: 2,
+  //   avatar: "https://i.pravatar.cc/40?img=1",
+  //   name: "Daniel Thompson",
+  //   activity: "Add list permission on the member list issue",
+  //   type: "Issue",
+  //   time: "40 minutes ago",
+  // },
+  // {
+  //   id: 3,
+  //   avatar: "https://i.pravatar.cc/40?img=1",
+  //   name: "Daniel Thompson",
+  //   activity: "New Add list permission on the member list issue",
+  //   type: "Issue",
+  //   time: "45 minutes ago",
+  // },
+  // {
+  //   id: 4,
+  //   avatar: "https://i.pravatar.cc/40?img=1",
+  //   name: "Daniel Thompson",
+  //   activity: "Work progress % calculation issue has been added",
+  //   type: "Issue",
+  //   time: "45 minutes ago",
+  // },
+  // {
+  //   id: 5,
+  //   avatar: "https://i.pravatar.cc/40?img=1",
+  //   name: "Daniel Thompson",
+  //   activity: "Work progress % calculation issue has moved",
+  //   type: "Issue",
+  //   time: "50 minutes ago",
+  // },
+  // {
+  //   id: 6,
+  //   avatar: "https://i.pravatar.cc/40?img=1",
+  //   name: "Daniel Thompson",
+  //   activity: "Work progress % calculation issue has moved",
+  //   type: "Issue",
+  //   time: "50 minutes ago",
+  // },
+  // {
+  //   id: 7,
+  //   avatar: "https://i.pravatar.cc/40?img=1",
+  //   name: "Daniel Thompson",
+  //   activity: "Work progress % calculation issue has moved",
+  //   type: "Issue",
+  //   time: "50 minutes ago",
+  // },
+  // {
+  //   id: 8,
+  //   avatar: "https://i.pravatar.cc/40?img=1",
+  //   name: "Daniel Thompson",
+  //   activity: "Work progress % calculation issue has moved",
+  //   type: "Issue",
+  //   time: "50 minutes ago",
+  // },
+  // {
+  //   id: 9,
+  //   avatar: "https://i.pravatar.cc/40?img=1",
+  //   name: "Daniel Thompson",
+  //   activity: "Work progress % calculation issue has moved",
+  //   type: "Issue",
+  //   time: "50 minutes ago",
+  // },
+ 
+  
 ];
 
 // Single activity row component
@@ -145,7 +181,7 @@ const RecentActivities = () => {
     textTransform: "none",
     height: "30px",
     width: "80px",
-    display: isMobile ? "none" : "inline-flex", // Hide on mobile
+    display: isMobile ? "inline-flex" : "inline-flex", // Hide on mobile
   }}
 >
   View All
@@ -154,21 +190,78 @@ const RecentActivities = () => {
         </div>
       </Stack>
 
-      {/* Activity List */}
-      {activities.map((activity) => (
-        <ActivityRow key={activity.id} activity={activity} isMobile={isMobile} />
-      ))}
-      
+      {activities.length === 0 ? (
+ <Box
+ sx={{
+   padding: { xs: 2, sm: 4 },
+   textAlign: 'center',
+   borderRadius: '12px',
+   backgroundColor: "Background.view",
+   color: 'text.primary',
+ }}
+>
+ {/* Icon/Image Section */}
+ <Box sx={{ my: { xs: 2, sm: 4 } }}>
+   <Box
+     component="img"
+     src={graph}
+     alt="No job applications"
+     sx={{
+       width: { xs: 150, sm: 200 },
+       height: { xs: 100, sm: 150 },
+       mx: 'auto',
+     }}
+   />
+ </Box>
 
-      <div className=" mt-4">
-          <button
-            style={{  color: "blue" }}
-            className={`px-4 py-2 rounded-md text-sm font-medium ${isMobile?"":"hidden"}`}
-          >
-            View All
-          </button>
-        </div>
-      
+ {/* Main Text */}
+ <Typography
+   variant="h6"
+   sx={{
+     marginBottom: 1,
+     fontFamily: 'sans-serif',
+     fontSize: { xs: '18px', sm: '23px' },
+   }}
+ >
+   No Employee Project Records!
+ </Typography>
+ <Typography
+   variant="body2"
+   sx={{
+     color: grey[500],
+     marginBottom: { xs: 3, sm: 4 },
+     fontSize: { xs: '12px', sm: '13px' },
+   }}
+ >
+ You have no current employee projects activities.
+To view employee project activities, you have to create a Clikkle Projects account.
+Click on the button below to create your projects account now and start viewing
+employees activities.
+ </Typography>
+
+ {/* Button */}
+ <Button
+   variant="contained"
+   sx={{
+     backgroundColor: blue[700],
+     color: '#fff',
+     textTransform: 'none',
+     borderRadius: '8px',
+     fontSize: { xs: '12px', sm: '14px' },
+     paddingX: { xs: 2, sm: 3 },
+     paddingY: { xs: 1, sm: 1.5 },
+     '&:hover': { backgroundColor: blue[800] },
+   }}
+ >
+   Create Clikkle Projects Account
+ </Button>
+</Box>
+) : (
+  activities.map((activity) => (
+    <ActivityRow key={activity.id} activity={activity} isMobile={isMobile} />
+  ))
+)}
+
     </Box>
   );
 };

@@ -8,6 +8,10 @@ import hrimage2 from '../../assets/Interductionimages/Vector-2.png';
 import hrimage3 from '../../assets/Interductionimages/Vector-3.png';
 import hrimage4 from '../../assets/Interductionimages/Vector.png';
 import hrimage1 from '../../assets/Interductionimages/Vector-1.png';
+import NoRecentJobApplication from '../DashComponents/NoRecentJobApplication';
+import { blue, grey } from '@mui/material/colors';
+import folder from "../../assets/Interductionimages/Folder.png"
+
 const roleCounts = {
   'Software-Engineer': 1,
   'QA-Tester': 2,
@@ -18,13 +22,13 @@ const roleCounts = {
 
 // Sample shift data
 const shifts = [
-  { name: 'Amanda Throne', role: 'Software-Engineer', type: 'Present', shift: { start: 0, end: 8 }, color: '#3767B1' , },
-  { name: 'Amina Kumar', role: 'QA Tester', type: 'Present', shift: { start: 2, end: 10 }, color: '#3767B1' },
-  { name: 'Daniel Thompson', role: 'Frontend Developer', type: 'Absent', shift: { start: 0, end: 24 }, color: 'orange' },
-  { name: 'Dave Maxwell', role: 'Frontend Developer', type: 'Present', shift: { start: 1, end: 9 }, color: '#3767B1' },
-  { name: 'Dwayne Graham', role: 'Backend Developer', type: 'Present', shift: { start: 4, end: 8 }, color: '#3767B1' },
-  { name: 'Rashid Ahmed', role: 'Backend Developer', type: 'Present', shift: { start: 9, end: 17 }, color: '#3767B1' },
-  { name: 'Yogesh Singh', role: 'UI/UX Designer', type: 'Holiday', shift: { start: 0, end: 24 }, color: '#8A2BE2' },
+  // { name: 'Amanda Throne', role: 'Software-Engineer', type: 'Present', shift: { start: 0, end: 8 }, color: '#3767B1' , },
+  // { name: 'Amina Kumar', role: 'QA Tester', type: 'Present', shift: { start: 2, end: 10 }, color: '#3767B1' },
+  // { name: 'Daniel Thompson', role: 'Frontend Developer', type: 'Absent', shift: { start: 0, end: 24 }, color: 'orange' },
+  // { name: 'Dave Maxwell', role: 'Frontend Developer', type: 'Present', shift: { start: 1, end: 9 }, color: '#3767B1' },
+  // { name: 'Dwayne Graham', role: 'Backend Developer', type: 'Present', shift: { start: 4, end: 8 }, color: '#3767B1' },
+  // { name: 'Rashid Ahmed', role: 'Backend Developer', type: 'Present', shift: { start: 9, end: 17 }, color: '#3767B1' },
+  // { name: 'Yogesh Singh', role: 'UI/UX Designer', type: 'Holiday', shift: { start: 0, end: 24 }, color: '#8A2BE2' },
 ];
 
 const shiftStatusColors = {
@@ -399,6 +403,85 @@ const EmployeeShift = () => {
 
 
       <Box >
+        {shifts.length===0?    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        mt:"-20px"
+       
+       
+      }}
+    >
+      <Box
+        sx={{
+          padding: { xs: 2, sm: 4 },
+          textAlign: 'center',
+          borderRadius: '12px',
+          backgroundColor: "Background.view",
+         
+        }}
+      >
+        {/* Icon/Image Section */}
+        <Box sx={{ my: { xs: 2, sm: 4 } }}>
+          <Box
+            component="img"
+            src={folder}
+            alt="No job applications"
+            sx={{
+              width: { xs: 150, sm: 50 },
+              height: { xs: 100, sm: 50 },
+              mx: 'auto',
+            }}
+          />
+        </Box>
+
+        {/* Main Text */}
+        <Typography
+          variant="h6"
+          sx={{
+            marginBottom: 1,
+            fontFamily: 'sans-serif',
+            fontSize: { xs: '18px', sm: '15px' },
+          }}
+        >
+         No Existing Record!
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            color: grey[500],
+            marginBottom: { xs: 3, sm: 4 },
+            fontSize: { xs: '12px', sm: '10.5px' },
+          }}
+        >
+         You do not currently have any employees to view their record here.<br/>
+Click the button below to add employees now, or click on the plus
+button beside “Total Employees”.
+        </Typography>
+
+        {/* Button */}
+        <Button
+  variant="contained"
+  sx={{
+    backgroundColor: blue[700],
+    color: '#fff',
+    textTransform: 'none',
+    borderRadius: '8px',
+    fontSize: { xs: '12px', sm: '14px' },
+    paddingX: { xs: 2, sm: 3 },
+    paddingY: { xs: 1, sm: 1.5 },
+    width: { xs: '60px', sm: '100px' }, // Adjust width here
+    height: { xs: '20px', sm: '40px' }, // Adjust height here
+    '&:hover': { backgroundColor: blue[800] },
+    whiteSpace:"nowrap"
+  }}
+>
+  Create Job
+</Button>
+
+      </Box>
+    </Box>:
      <Box
   sx={{
     display: 'flex',
@@ -485,11 +568,11 @@ const EmployeeShift = () => {
 </Box>
 
 </Box>
-
+}
 
 
        
-        <Box sx={{ display: 'flex', alignItems: 'center', marginTop:isMobile?"10px":'-23px' ,}}>
+        <Box sx={{ display: 'flex', alignItems: 'center', marginTop:isMobile?"10px":'-25px' ,}}>
           {Object.entries(shiftStatusColors).map(([status, color]) => (
             <Box key={status} sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
               <Box

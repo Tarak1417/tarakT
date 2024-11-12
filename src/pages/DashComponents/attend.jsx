@@ -6,75 +6,76 @@ import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
 import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
 import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
+import Norecentattendence from "./Norecentattendence";
 
 
 const attendanceData = [
-  {
-    id: "#193845039283",
-    name: "Richard Webber",
-    role: "UI/UX Designer",
-    date: "22/10/2024",
-    status: "Present",
-    clockIn: "09:00:17 AM",
-    clockOut: "Not yet clocked out",
-    shift: "AM",
-    avatar: "https://i.pravatar.cc/40?img=3",
-  },
-  {
-    id: "#995830128543",
-    name: "Desmond Jakes",
-    role: "Frontend Developer",
-    date: "22/10/2024",
-    status: "Late",
-    clockIn: "09:40:17 AM",
-    clockOut: "Not yet clocked out",
-    shift: "AM",
-    avatar: "https://i.pravatar.cc/40?img=8",
-  },
-  {
-    id: "#995839202395",
-    name: "Jaxson Schleifer",
-    role: "Frontend Developer",
-    date: "22/10/2024",
-    status: "Present",
-    clockIn: "09:00:03 AM",
-    clockOut: "Not yet clocked out",
-    shift: "AM",
-    avatar: "https://i.pravatar.cc/40?img=10",
-  },
-  {
-    id: "#294857104856",
-    name: "Cynthia Eze",
-    role: "Software Engineer",
-    date: "22/10/2024",
-    status: "Present",
-    clockIn: "09:00:05 AM",
-    clockOut: "Not yet clocked out",
-    shift: "AM",
-    avatar: "https://i.pravatar.cc/40?img=4",
-  },
-  {
-    id: "#775839203848",
-    name: "Erin Herwitz",
-    role: "Digital Marketer",
-    date: "22/10/2024",
-    status: "Present",
-    clockIn: "09:00:07 AM",
-    clockOut: "Not yet clocked out",
-    shift: "AM",
-    avatar: "https://i.pravatar.cc/40?img=5",
-  },
-  {
-    id: "#775839205548",
-    name: "Erin Herwitz",
-    role: "Digital Marketer",
-    date: "22/10/2024",
-    status: "Present",
-    clockIn: "09:00:07 AM",
-    clockOut: "Not yet clocked out",
-    shift: "AM",
-    avatar: "https://i.pravatar.cc/40?img=5",
-  },
+  // {
+  //   id: "#193845039283",
+  //   name: "Richard Webber",
+  //   role: "UI/UX Designer",
+  //   date: "22/10/2024",
+  //   status: "Present",
+  //   clockIn: "09:00:17 AM",
+  //   clockOut: "Not yet clocked out",
+  //   shift: "AM",
+  //   avatar: "https://i.pravatar.cc/40?img=3",
+  // },
+  // {
+  //   id: "#995830128543",
+  //   name: "Desmond Jakes",
+  //   role: "Frontend Developer",
+  //   date: "22/10/2024",
+  //   status: "Late",
+  //   clockIn: "09:40:17 AM",
+  //   clockOut: "Not yet clocked out",
+  //   shift: "AM",
+  //   avatar: "https://i.pravatar.cc/40?img=8",
+  // },
+  // {
+  //   id: "#995839202395",
+  //   name: "Jaxson Schleifer",
+  //   role: "Frontend Developer",
+  //   date: "22/10/2024",
+  //   status: "Present",
+  //   clockIn: "09:00:03 AM",
+  //   clockOut: "Not yet clocked out",
+  //   shift: "AM",
+  //   avatar: "https://i.pravatar.cc/40?img=10",
+  // },
+  // {
+  //   id: "#294857104856",
+  //   name: "Cynthia Eze",
+  //   role: "Software Engineer",
+  //   date: "22/10/2024",
+  //   status: "Present",
+  //   clockIn: "09:00:05 AM",
+  //   clockOut: "Not yet clocked out",
+  //   shift: "AM",
+  //   avatar: "https://i.pravatar.cc/40?img=4",
+  // },
+  // {
+  //   id: "#775839203848",
+  //   name: "Erin Herwitz",
+  //   role: "Digital Marketer",
+  //   date: "22/10/2024",
+  //   status: "Present",
+  //   clockIn: "09:00:07 AM",
+  //   clockOut: "Not yet clocked out",
+  //   shift: "AM",
+  //   avatar: "https://i.pravatar.cc/40?img=5",
+  // },
+  // {
+  //   id: "#775839205548",
+  //   name: "Erin Herwitz",
+  //   role: "Digital Marketer",
+  //   date: "22/10/2024",
+  //   status: "Present",
+  //   clockIn: "09:00:07 AM",
+  //   clockOut: "Not yet clocked out",
+  //   shift: "AM",
+  //   avatar: "https://i.pravatar.cc/40?img=5",
+  // },
 ];
 
 
@@ -146,6 +147,9 @@ const RecentAttendance = () => {
 </div>
         </div>
 
+
+        {attendanceData.length===0?<Norecentattendence/>:
+
         <div
   style={{
     overflow: "auto",
@@ -153,91 +157,69 @@ const RecentAttendance = () => {
     msOverflowStyle: "none", // Hides scrollbar in older Internet Explorer versions
   }}
 >
-  <table className="w-full text-left border-collapse border-spacing-0">
-    <thead>
-      <tr>
-        <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pr-[10px] text-[10px]" : ""}`}>EmployeeID</th>
-        <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pl-[50px] text-[10px]" : ""}`}>Employee</th>
-        <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pl-[50px] text-[10px]" : ""}`}>Date</th>
-        <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pl-[50px] text-[10px]" : ""}`}>Status</th>
-        <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pl-[50px] text-[10px]" : ""}`}>ClockIn</th>
-        <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pl-[50px] text-[10px]" : ""}`}>ClockOut</th>
-        <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pl-[50px] text-[10px]" : ""}`}>Shift</th>
-        <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pl-[50px] text-[10px]" : ""}`}>Actions</th>
+<table className="w-full text-left border-collapse border-spacing-0">
+  <thead>
+    <tr>
+      {!isMobile && (
+        <th className="text-gray-400 text-sm py-3">EmployeeID</th>
+      )}
+      <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pl-[10px] text-[10px]" : ""}`}>Employee</th>
+      <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pl-[50px] text-[10px]" : ""}`}>Date</th>
+      <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pl-[20px] text-[10px]" : ""}`}>Status</th>
+      <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pl-[10px] text-[10px]" : ""}`}>ClockIn</th>
+      <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pl-[10px] text-[10px]" : ""}`}>ClockOut</th>
+      <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pl-[10px] text-[10px]" : ""}`}>Shift</th>
+      <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pl-[10px] text-[10px]" : ""}`}>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {attendanceData.map((entry) => (
+      <tr key={entry.id}>
+        {!isMobile && (
+          <td className="py-5 truncate">{entry.id}</td>
+        )}
+        <td className={`flex items-center space-x-4 py-5 ${isMobile ? "pr-[-20px] text-[10px] ml-[-15px]" : ""}`}>
+          <img
+            src={entry.avatar}
+            alt={entry.name}
+            className={`${isMobile ? "w-5 h-5 rounded-full mr-[-10px] ml-[10px]" : "w-10 h-10 rounded-full"}`}
+          />
+          <div>
+            <p style={{ fontFamily: "sans-serif", fontSize: isMobile ? "10px" : "14px" }} className="truncate">
+              {entry.name}
+            </p>
+            <p className={`text-gray-400 truncate ${isMobile ? "text-[6px]" : "text-xs"}`}>
+              {entry.role}
+            </p>
+          </div>
+        </td>
+        <td style={{ fontFamily: "sans-serif", fontSize: "13px" }} className={`py-5 ${isMobile ? "pl-[30px] text-[10px] text-[10px]" : ""}`}>
+          {entry.date}
+        </td>
+        <td className={`py-5 ${isMobile ? "pl-[20px] text-[10px]" : ""}`}>
+          <StatusBadge status={entry.status} />
+        </td>
+        <td style={{ fontFamily: "sans-serif", }} className={`py-5 ${isMobile ? "pl-[10px] text-[10px]" : "text-[13px]"}`}>
+          {entry.clockIn}
+        </td>
+        <td style={{ fontFamily: "sans-serif",  }} className={`py-5 truncate ${isMobile ? "pl-[10px] text-[10px]" : "text-[13px]"}`}>
+          {entry.clockOut}
+        </td>
+        <td style={{ fontFamily: "sans-serif", }} className={`py-5 ${isMobile ? "pl-[15px] text-[10px]" : "text-[13px]"}`}>
+          {entry.shift}
+        </td>
+        <td className={`flex items-center space-x-4 py-5 ${isMobile ? "pl-[10px] text-[10px]" : ""}`}>
+          <button className="text-green-400"><FaPhoneAlt /></button>
+          <button className="text-blue-400"><FaEnvelope /></button>
+          <button className="text-gray-400"><FaEye /></button>
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      {attendanceData.map((entry) => (
-        <tr key={entry.id}>
-          <td className={`py-5 truncate ${isMobile ? "pl-[10px] text-[10px]" : ""}`}>{entry.id}</td>
-          <td className={`flex items-center space-x-4 py-5 ${isMobile ? "pl-[10px] text-[10px]" : ""}`}>
-            <img
-              src={entry.avatar}
-              alt={entry.name}
-              className={`${
-                isMobile
-                  ? "pl-[10px] ml-[10px] w-5 h-5 rounded-full"
-                  : "w-10 h-10 rounded-full"
-              }`}
-            />
-            <div>
-              <p
-                style={{
-                  fontFamily: "sans-serif",
-                  fontSize: isMobile ? "10px" : "14px",
-                }}
-                className="truncate"
-              >
-                {entry.name}
-              </p>
-              <p className={`text-gray-400 truncate ${isMobile ? "text-[6px]" : "text-xs"}`}>
-                {entry.role}
-              </p>
-            </div>
-          </td>
-          <td
-            style={{ fontFamily: "sans-serif", fontSize: "13px" }}
-            className={`py-5 ${isMobile ? "pl-[40px] text-[10px]" : ""}`}
-          >
-            {entry.date}
-          </td>
-          <td className={`py-5 ${isMobile ? "pl-[40px] text-[10px]" : ""}`}>
-            <StatusBadge status={entry.status} />
-          </td>
-          <td
-            style={{ fontFamily: "sans-serif", fontSize: "13px" }}
-            className={`py-5 ${isMobile ? "pl-[40px] text-[10px]" : ""}`}
-          >
-            {entry.clockIn}
-          </td>
-          <td
-            style={{ fontFamily: "sans-serif", fontSize: "13px" }}
-            className={`py-5 truncate ${isMobile ? "pl-[40px] text-[10px]" : ""}`}
-          >
-            {entry.clockOut}
-          </td>
-          <td
-            style={{ fontFamily: "sans-serif", fontSize: "13px" }}
-            className={`py-5 ${isMobile ? "pl-[50px] text-[10px]" : ""}`}
-          >
-            {entry.shift}
-          </td>
-          <td className={`flex items-center space-x-4 py-5 ${isMobile ? "pl-[40px] text-[10px]" : ""}`}>
-            <button className="text-green-400">
-              <FaPhoneAlt />
-            </button>
-            <button className="text-blue-400">
-              <FaEnvelope />
-            </button>
-            <button className="text-gray-400">
-              <FaEye />
-            </button>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
+    ))}
+  </tbody>
+</table>
+
 </div>
+}
 
         <div className=" mt-4">
           <button
