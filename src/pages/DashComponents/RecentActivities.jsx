@@ -1,15 +1,17 @@
 import React from "react";
-import { Box } from "@mui/material";
-import OpenInFullIcon from '@mui/icons-material/OpenInFull';
-import CropFreeIcon from '@mui/icons-material/CropFree';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import LinkIcon from '@mui/icons-material/Link';
+import { Box, Button, Typography, useMediaQuery, Avatar, Stack } from "@mui/material";
+import { display, useTheme } from "@mui/system";
+import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
+import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
+import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
+import hrimages4 from "../../assets/Interductionimages/Vector.png"
+
 
 // Sample data for recent activities
 const activities = [
   {
     id: 1,
-    avatar: "https://i.pravatar.cc/40?img=1", // Profile Image URL
+    avatar: "https://i.pravatar.cc/40?img=1",
     name: "Daniel Thompson",
     activity: "Add list permission on the member list issue",
     type: "Issue",
@@ -47,82 +49,159 @@ const activities = [
     type: "Issue",
     time: "50 minutes ago",
   },
+  {
+    id: 6,
+    avatar: "https://i.pravatar.cc/40?img=1",
+    name: "Daniel Thompson",
+    activity: "Work progress % calculation issue has moved",
+    type: "Issue",
+    time: "50 minutes ago",
+  },
+  {
+    id: 7,
+    avatar: "https://i.pravatar.cc/40?img=1",
+    name: "Daniel Thompson",
+    activity: "Work progress % calculation issue has moved",
+    type: "Issue",
+    time: "50 minutes ago",
+  },
+  {
+    id: 8,
+    avatar: "https://i.pravatar.cc/40?img=1",
+    name: "Daniel Thompson",
+    activity: "Work progress % calculation issue has moved",
+    type: "Issue",
+    time: "50 minutes ago",
+  },
+  {
+    id: 9,
+    avatar: "https://i.pravatar.cc/40?img=1",
+    name: "Daniel Thompson",
+    activity: "Work progress % calculation issue has moved",
+    type: "Issue",
+    time: "50 minutes ago",
+  },
 ];
 
 // Single activity row component
-const ActivityRow = ({ activity }) => (
-  <div className="flex items-center justify-between py-4">
-    <div className="flex items-center space-x-4">
-      {/* Profile Image */}
-      <img
-        src={activity.avatar}
-        alt={activity.name}
-        className="w-7 h-7 rounded-full"
-      />
-      <div>
-        <p style={{ fontFamily: "sans-serif", fontSize: '14px', width: '330px' }}>
-          {activity.activity}
-        </p>
-        <p className="text-gray-400 text-xs">{activity.name}</p>
-      </div>
-    </div>
+const ActivityRow = ({ activity, isMobile }) => (
+  <Stack
+    direction="row"
+    alignItems="center"
+    justifyContent="space-between"
+    spacing={2}
+    py={1.5}
+    px={1}
 
-    {/* Status Tag */}
-    <span
-      style={{
-        borderStyle: "solid",
-        borderWidth: '1px',
-        borderColor: "#06D17C",
+    sx={{
+      flexDirection: isMobile ? "row" : "row",
+      textAlign: isMobile ? "left" : "left",
+
+    }}
+  >
+    <Stack direction="row" alignItems="center" spacing={2} flexGrow={1}>
+      <Avatar src={activity.avatar} alt={activity.name} sx={{ width: 30, height: 30 }} />
+      <Box sx={{ textAlign: isMobile ? "left" : "left", flexGrow: 1 }}>
+        <Typography sx={{ fontFamily: "sans-serif", fontSize: "14px" }}>
+          {activity.activity}
+        </Typography>
+        <Typography variant="caption" color="textSecondary">
+          {activity.name}
+        </Typography>
+      </Box>
+    </Stack>
+
+    <Box
+      sx={{
+        px: 2,
+        py: 0.5,
+        border: "1px solid #06D17C",
         borderRadius: "8px",
         color: "#06D17C",
         backgroundColor: "#00361F80",
-        fontFamily: 'sans-serif',
-        fontSize: '12px'
+        fontFamily: "sans-serif",
+        fontSize: "12px",
+        textAlign: "center",
+        minWidth: isMobile ? "80px" : "auto",
+        mt: isMobile ? 1 : 0,
+
       }}
-      className="px-3 py-1"
     >
       {activity.type}
-    </span>
+    </Box>
 
-    {/* Time */}
-    <p className="text-gray-400 text-xs">{activity.time}</p>
-  </div>
+    <Typography variant="caption" color="textSecondary" sx={{ mt: isMobile ? 1 : 0 }}>
+      {isMobile ? `${activity.time.split(" ")[0]}m` : activity.time}
+    </Typography>
+  </Stack>
 );
 
 // Main Recent Activities component
 const RecentActivities = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
-    <div style={{ marginTop: '-23px' }} className="rounded-lg p-6 shadow-lg">
+    <Box
+
+      p={2}
+      boxShadow={3}
+      borderRadius="12px"
+      bgcolor="background.default"
+      //maxHeight="87vh"
+      width="100%"
+      overflow="auto"
+      mt={isMobile ? "-10px" : ""}
+
+    >
       {/* Header Section */}
-      <Box sx={{ backgroundColor: "background.default", height: '110%', padding: '22px', borderRadius: '12px' }}>
-        <div className="flex items-center justify-between mb-6">
-         
-         
-         <Box sx={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
-          <h2 style={{ fontSize: '17px',marginRight:"70px" }} className="font-semibold">Employee Project Activities</h2>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" className="collapsible-main" >
+        <Typography variant="h6" sx={{ fontSize: isMobile ? "14px" : "17px", mr: "10px", fontWeight: "bold", whiteSpace: "nowrap" }}>
+          Recent Activities
+        </Typography>
 
-          <div style={{ display: 'flex', gap: '10px', color: 'white',marginTop:"9px" }}>
-      <OpenInFullIcon sx={{height:"14px"}} />
-      <CropFreeIcon sx={{height:"16px"}} />
-      <RefreshIcon sx={{height:"20px"}} />
-      <LinkIcon sx={{height:"20px"}} />
-    </div>
+        <div style={{ display: "flex", gap: '20px', }}>
+          <div style={{ display: 'flex', gap: '10px', color: 'white', marginTop: "9px" }}>
+            {isMobile ? "" : <img src={hrimages1} alt="" className="h-4 w-4 collapse-div" />}
+            <img src={hrimages4} alt="" className="h-4 w-4" />
 
-    </Box>
-
-          <button style={{ height: "32px", fontSize: '13px', backgroundColor: "#3767B1" }} className="text-white px-4 py-2 rounded-md">
+            <img src={hrimages2} alt="" className="h-4 w-4" />
+            <img src={hrimages3} alt="" className="h-4 w-4" />
+          </div>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "#3767B1",
+              fontSize: "10px",
+              color: "white",
+              textTransform: "none",
+              height: "30px",
+              width: "80px",
+              display: isMobile ? "none" : "inline-flex", // Hide on mobile
+            }}
+          >
             View All
-          </button>
-        </div>
+          </Button>
 
-        {/* Activity List */}
-        <div>
-          {activities.map((activity) => (
-            <ActivityRow key={activity.id} activity={activity} />
-          ))}
         </div>
-      </Box>
-    </div>
+      </Stack>
+
+      {/* Activity List */}
+      <div className="collapsible-div" style={{ maxHeight: "75vh" }}>
+        {activities.map((activity) => (
+          <ActivityRow key={activity.id} activity={activity} isMobile={isMobile} />
+        ))}
+      </div>
+      {isMobile && <div className=" mt-4">
+        <button
+          style={{ color: "blue" }}
+          className={`px-4 py-2 rounded-md text-sm font-medium`}
+        >
+          View All
+        </button>
+      </div>
+      }
+    </Box>
   );
 };
 

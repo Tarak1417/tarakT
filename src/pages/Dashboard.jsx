@@ -16,14 +16,14 @@ import RecentActivity from "./DashComponents/recent";
 import GenderChart from "./DashComponents/GenderChart";
 import RecentJobs from "./DashComponents/recentJobs";
 import Attendance from "./DashComponents/attend";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
 import { useRefresh } from "../components/Header";
-import Clock from "../components/Clock";
-import Interduction from "./Interduction";
 
+import Interduction from "./Interduction";
+import PlusIcon from "../assets/CloclIcons/Add Button (1).png"
 const Dashboard = () => {
 
   const navigate = useNavigate(); // Get the navigate function
@@ -33,7 +33,7 @@ const Dashboard = () => {
 
 
 
- 
+
   const fetchOverview = useCallback(async () => {
     try {
       const response = await axios.get(`/hr/dashboard`);
@@ -45,8 +45,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchOverview();
-    console.log("page refresh" , refreshPage);
-  }, [fetchOverview , refreshPage]);
+    console.log("page refresh", refreshPage);
+  }, [fetchOverview, refreshPage]);
   // console.log(overview);
 
 
@@ -78,27 +78,28 @@ const Dashboard = () => {
     {
       icon: (
         <GroupIcon
-          fontSize="large"
-          className="text-white  bg-sky-400 p-2 rounded-lg"
+          fontSize="medium"
+          className="text-white  bg-sky-500 p-1 rounded-lg"
         />
       ),
       title: "Total Employees",
       value: (
         <Typography
           variant="body1"
-          style={{ color: "#00FF00", fontSize: "1.5em" }}
+          style={{ color: "#00FF00", fontSize: "1.2em" }}
         >
           {overview?.employees?.total || 0}
         </Typography>
       ),
       description: "124 for last month",
-      trendIcon: <TrendingUp className="text-green-500" />,
+      trendIcon: <TrendingUp className="text-green-300" />,
+      plusicon: <img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]" />
     },
     {
       icon: (
         <ApartmentIcon
-          fontSize="large"
-          className="text-white bg-rose-500 p-2 rounded-lg"
+          fontSize="medium"
+          className="text-white bg-rose-500 p-1 rounded-lg items-center"
         />
       ),
       title: "Department",
@@ -107,17 +108,18 @@ const Dashboard = () => {
           variant="body1"
           style={{ color: "#FF0000", fontSize: "1.2em" }}
         >
-          {overview?.departments  || 0}
+          {overview?.departments || 0}
         </Typography>
       ),
       description: "124 for last month,",
-      trendIcon: <TrendingDown className="text-red-500" />,
+      trendIcon: <TrendingDown className="text-red-300" />,
+      plusicon: <img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]" />
     },
     {
       icon: (
         <AttachMoneyIcon
-          fontSize="large"
-          className="text-white bg-blue-500 p-2 rounded-lg"
+          fontSize="medium"
+          className="text-white bg-blue-300 p-1 rounded-lg"
         />
       ),
       title: "Expenses",
@@ -127,13 +129,13 @@ const Dashboard = () => {
           style={{ color: "#FF0000", fontSize: "1.2em" }}
         >
           ${" "}
-          { overview && overview?.expenses
+          {overview && overview?.expenses
             ? overview.expenses.reduce((total, el) => total + el.price, 0)
             : 0}
         </Typography>
       ),
       description: "124 for last month",
-      trendIcon: <TrendingDown className="text-red-500" />,
+      trendIcon: <TrendingDown className="text-red-300" />,
     },
   ];
   // const eventData = [
@@ -143,79 +145,77 @@ const Dashboard = () => {
   //     { date: '4 Mar', title: 'Development Team Pitch', description: 'Pitch idea on new development to the company board,', backgroundColor: '#3b82f6' },
   // ];
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
-    <Box sx={{ backgroundColor: "background.main", maxWidth: {
-      xs :'95vw',
-      sm :'100vw',
-      
-    } }}>
-       <div>
-          <Interduction/>
-          </div>
-      <div className="flex flex-col sm:px-4 px-2 py-6">
+
+    <Box sx={{ backgroundColor: "background.main", width: "93vw", mx: "auto" }}>
+
+
+      <Interduction />
+
+
+
+      <div className="flex flex-col sm:px-4 p-4 pt-[20px] mt-10px">
         <div className="">
           {/* <Typography variant="h5" className="text-gray-500" gutterBottom>
-            HR DASHBOARD
+            HR DASHBOARD3
           </Typography> */}
-                  
-        
 
-          <Grid container  display='flex' justifyContent="space-between" alignItems='center'>
-                    {/* <Grid item xs>
-                        <Typography className="text-gray-500" variant='h5'>HR Dashboard</Typography>
-                    </Grid> */}
-           
-        
-     
-    
 
-              <Clock />
-          </Grid>
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="w-full md:w-3/4">
-              <div style={{height:'100px'}} className="flex flex-col gap-4 mb-4 md:flex-row md:flex-row">
+
+
+          <div className="flex flex-col md:flex-row gap-1.5">
+            <div className="w-full md:w-3/4 flex flex-col ">
+              <div className={`flex flex-col md:flex-row gap-1.5 mb-3.5   justify-items-stretch ${isMobile ? "mt-[-27px]" : ""}`}>
                 {boxesData && boxesData.map((box, index) => (
                   <Grid
                     sx={{ backgroundColor: "background.view" }}
                     key={index}
-                    className="rounded-lg p-4 shadow-md md:w-1/3"
+                    className="rounded-lg shadow-md md:w-1/3"
+                    style={{
+
+                      width: '100%',
+                      padding: '4px',
+                      marginTop: isMobile ? "" : '-27px',  // Correct syntax for conditional marginTop
+                      height: '50px'
+                    }}
                   >
-                    <p style={{fontSize:'15px',marginTop:'-8px'}} className="text-xl">{box.title}</p>
-                    <div className="flex items-center mb-2">
-                      <p style={{fontSize:'13px'}} className="w-5/6 text-xl">{box.value}</p>
-                      <div style={{}} className="w-1/6">{box.icon}</div>
+                    <div className="flex items-center" style={{ fontSize: '12px', marginTop: '-2px' }}>
+                      <p>{box.title}</p>
+                      {box.plusicon} {/* Conditionally display PlusIcon if it exists */}
                     </div>
-                    <div style={{marginTop:'-11px'}} className="flex items-center gap-2">
-                      {box.trendIcon}
-                      <p style={{fontSize:'13px'}} variant="body2" className="ml-2">
-                        {box.description}
-                      </p>
+                    <div className="flex items-center justify-center mb-2">
+                      <p style={{ fontSize: '13px' }} className="w-5/6 text-xl">{box.value}</p>
+                      <div style={{}} className="w-1/6 ">{box.icon}</div>
                     </div>
+
                   </Grid>
                 ))}
               </div>
-            <Calander/>
+              <Calander />
             </div>
-            <div className="w-full md:w-1/4">
-              <NoticeBoard eventData={ overview && overview?.notices} />
-              <Applicationleave eventData={ overview && overview?.leave} fetchOverview={()=>fetchOverview()} />
+            <div className={`w-full md:w-1/4  ${isMobile ? "mt-[3px]" : "mt-[-27px] "}`}>
+              <NoticeBoard eventData={overview && overview?.notices} />
+              <Applicationleave eventData={overview && overview?.leave} fetchOverview={() => fetchOverview()} />
             </div>
           </div>
         </div>
-        <div className="w-full  justify-items-stretch items-stretch gap-2 flex flex-col md:flex-row py-2">
-          <div style={{marginTop:"-135px"}} className="w-full md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
-           <Recentjobapplication eventData={ overview && overview?.applications}/>
+        <div className={`flex flex-col md:flex-row mt-1 ${isMobile ? "mt-[5px]" : " "} `} >
+          <div className=" md:w-[30%] mr-1  md:mb-0 flex-grow">
+            <Recentjobapplication eventData={overview && overview?.applications} />
           </div>
-          <div style={{marginTop:"-135px"}} className="w-full md:w-[30%] mx-1 mb-2 md:mb-0 flex-grow">
-            <Recentactivity/>
+          <div className=" md:w-[30%]   md:mb-0 flex-grow">
+            <Recentactivity />
           </div>
-          
-       
+
+
         </div>
-        <div className="w-full justify-items-stretch flex flex-col md:flex-row py-2 items-stretch">
-         
-          <div className="w-full md:w-1/2 mx-1 mb-2 md:mb-0 flex-grow">
-            <Attendance attendanceData={ overview && overview?.attendance} isDashboardCall />
+        <div className=" flex flex-col md:flex-row   w-full">
+
+          <div className=" md:w-2/2   md:mb-0 flex-grow">
+            <Attendance attendanceData={overview && overview?.attendance} isDashboardCall />
           </div>
         </div>
       </div>
