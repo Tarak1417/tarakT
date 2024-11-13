@@ -105,7 +105,7 @@ const Applicationleave = (props) => {
       <div className="flex items-center collapsible-main mr-[10px] space-x-4">
         {/* Title */}
         <Typography
-          style={{ fontSize: "14px" }}
+          style={{ fontSize: "15px", marginTop: '-16px', }}
           variant="h6"
         >
           Recent Leave Application
