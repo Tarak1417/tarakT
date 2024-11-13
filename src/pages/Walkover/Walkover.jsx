@@ -2,6 +2,10 @@ import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Image1 from "../../assets/walkover/rafiki.png";
+import Image2 from "../../assets/walkover/cuate.png";
+import Image3 from "../../assets/walkover/pana.png";
+import Image4 from "../../assets/walkover/thumbsup.png";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -9,7 +13,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 let walkover = [
   {
-    image: "walkover1.png",
+    image: Image1,
     title: "Effortless application Management",
     descriptions:
       "Track the progress of job applications from the issuance of offer letters to interview invitations ensuring a streamlined and organized hiring process",
@@ -17,21 +21,21 @@ let walkover = [
   },
 
   {
-    image: "walkover2.png",
+    image: Image2,
     title: "Precise Attendance Tracking",
     descriptions:
       "Clikkle HR allows you to effortlessly record daily attendance with detailed notes providing a comprehensive overview of employee activities",
     width: 500,
   },
   {
-    image: "walkover3.png",
+    image: Image3,
     title: "Dynamic Job List Creation and Editing",
     descriptions:
       "Create and edit job details effortlessly, ensuring that your team has access to the most up-to-date information for effective collaboration",
     width: 600,
   },
   {
-    image: "walkover4.png",
+    image: Image4,
     title: "  Recognition and Rewards",
     descriptions:
       " Recognize outstanding contributions and motivate your Workforce with a dedicated platform for acknowledging accomplishments",
@@ -127,7 +131,7 @@ const WalkoverHeader = () => {
       className="w-full h-full flex flex-col items-center justify-center relative"
     >
       <Box className="hidden md:flex absolute w-full h-full items-center justify-center z-0">
-        <div className="fixed right-0 w-full h-full md:scale-125 scale-100 bg-[#ebfbff] rounded-full transform md:translate-x-[76%] translate-x-[50%]"></div>
+        <div className="fixed right-0 w-full h-full md:scale-125 scale-100  rounded-full transform md:translate-x-[76%] translate-x-[50%]"></div>
       </Box>
       <div className="z-10 hidden md:flex sm:flex-row-reverse flex-col w-full h-full sm:justify-between md:items-start items-end">
         {skip}
@@ -136,7 +140,7 @@ const WalkoverHeader = () => {
             <img
               className="origin-center"
               style={{ width: walkover[currentIndex].width }}
-              src={"/images/ASSETS/" + walkover[currentIndex].image}
+              src={ walkover[currentIndex].image}
               alt={name}
             />
           </div>
@@ -207,7 +211,7 @@ const WalkoverHeader = () => {
                 <div className="w-full sm:h-full flex items-center justify-center">
                   <img
                     className="origin-center w-[50vmin] h-auto max-w-full"
-                    src={"/images/ASSETS/" + item.image}
+                    src={item.image}
                     alt={item.title}
                   />
                 </div>

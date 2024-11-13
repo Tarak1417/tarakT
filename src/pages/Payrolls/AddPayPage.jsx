@@ -84,7 +84,7 @@ const AddPayrollPage = () => {
     const submit = res => {
         const { success } = res.data;
         if (!success) return showError('payroll not added');
-        navigate('/employee-salary');
+        navigate('/employeesalary');
         showSuccess('Add payroll successfully');
     };
 

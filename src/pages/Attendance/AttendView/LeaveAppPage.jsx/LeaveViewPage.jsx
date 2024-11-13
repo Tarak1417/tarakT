@@ -24,18 +24,26 @@ const LeaveViewPage = () => {
 
 
     const getColor = (profile) => {
+        console.log("profile",profile);
+        let colorConfig={};
         switch (profile) {
             case 'Approved':
-                return { bgColor: 'bg-green-950', textColor: 'text-green-500' };
+                colorConfig= { bgColor: 'bg-green-950', textColor: 'text-green-500' };
+                break;
             case 'New':
-                return { bgColor: 'bg-sky-950', textColor: 'text-sky-500' };
+                colorConfig= { bgColor: 'bg-sky-950', textColor: 'text-sky-500' };
+                break;
             case 'Rejected':
-                return { bgColor: 'bg-red-950', textColor: 'text-red-500' };
+                colorConfig= { bgColor: 'bg-red-950', textColor: 'text-red-500' };
+                break;
             case 'Pending':
-                return { bgColor: 'bg-orange-950', textColor: 'text-orange-400' };
+                 colorConfig= { bgColor: 'bg-orange-950', textColor: 'text-orange-400' };
+                break;
             default:
-                return { bgColor: 'bg-gray-900', textColor: 'text-gray-500' };
+                colorConfig= { bgColor: 'bg-gray-900', textColor: 'text-gray-500' };
+                break;
         }
+        return colorConfig;
     };
 
     const LeaveDetails = useCallback(async () => {
@@ -196,15 +204,15 @@ const LeaveViewPage = () => {
                                     {new Date(leave?.createdAt).toLocaleDateString()}
                                 </div>
                                 <div className='w-[25%] md:w-[10%] p-3 border-r border-zinc-500'>
-                                    <div className={`px-0 py-0 rounded-lg text-sm md:text-[8px] flex justify-center items-center ${getColor(leave?.profile).bgColor} ${getColor(leave?.profile).textColor}`}>
+                                    <div className={`px-0 py-0 rounded-lg text-sm md:text-[8px] flex justify-center items-center ${getColor(leave?.status).bgColor} ${getColor(leave?.status).textColor}`}>
                                         {leave?.status}
                                     </div>
                                 </div>
                                 <div className='w-[25%] md:w-[10%] flex flex-row  justify-center items-center'>
-                                    <IconButton><EditOutlinedIcon style={{ fontSize: '10px' }} className='rounded-sm' /></IconButton>
-                                       <IconButton><DeleteOutlineOutlinedIcon style={{ fontSize: '10px' }} className='text-blue-500 rounded-sm' /></IconButton>
-                                    <IconButton      onClick={() => rejectLeave(leave?._id)}><CloseOutlinedIcon style={{ fontSize: '10px' }} className='text-blue-500 rounded-sm' /></IconButton>
-                                    <IconButton   onClick={() => acceptLeave(leave?._id)}><CheckOutlinedIcon style={{ fontSize: '10px' }} className='text-blue-500 rounded-sm' /></IconButton>
+                                    {leave?.status!=="Approved" && <IconButton color="success" style={{borderRadius:"5px",padding:"4px",margin:"2px"}}  onClick={() => acceptLeave(leave?._id)}><CheckOutlinedIcon style={{ fontSize: '15px' }}  /></IconButton>}
+                                    {leave?.status==="Pending" && <IconButton  color="error" style={{borderRadius:"5px",padding:"4px",margin:"2px"}}   onClick={() => rejectLeave(leave?._id)}><CloseOutlinedIcon style={{ fontSize: '15px' }} /></IconButton>}
+                                    <IconButton style={{borderRadius:"5px",padding:"4px",margin:"2px"}} ><EditOutlinedIcon style={{ fontSize: '15px' }}  /></IconButton>
+                                       <IconButton color="primary" style={{borderRadius:"5px",padding:"4px",margin:"2px"}} ><DeleteOutlineOutlinedIcon style={{ fontSize: '15px' }}  /></IconButton>
 
                                 </div>
                             </div>

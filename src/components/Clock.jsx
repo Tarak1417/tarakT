@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Grid, IconButton, Tooltip } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import dateIcon from "../assets/CloclIcons/ion_time-outline.png"
+import timeIcon from "../assets/CloclIcons/oui_token-date.png"
+
 
 
 export default function Clock() {
@@ -23,24 +26,31 @@ export default function Clock() {
    
 
     return (
-        <Grid item sx={{ display: { xs: 'flex' },my:1  }} alignItems='center'>
-        <Box sx={{ mr: 2, display: { lg: 'block', xs: 'none' } }}>
-            <Button variant='outlined'>{Dates}</Button>
-        </Box>
-        <Button variant='outlined' sx={{ display: { lg: 'block', xs: 'none' } }}>
-            {time}
-        </Button>
-        {/* <Box sx={{ mx: 2 }}>
-            <Button variant='contained'>Clock In</Button>
-        </Box> */}
+       
 
-        <Box>
-            <Tooltip title='info' placement='top'>
-                {/* <IconButton disableRipple variant='navIcon' sx={{ mr: 0 }}> */}
-                    <InfoOutlinedIcon sx={{ ml: 1.5 }} />
-                {/* </IconButton> */}
-            </Tooltip>
-        </Box>
-    </Grid>
+        <Grid 
+          item 
+          sx={{ 
+            display: 'flex',  // Flex on all devices
+            alignItems: 'center',
+            my: 2  // Add margin on the y-axis if needed
+          }}
+        >
+          <Box sx={{ mr: 2 }}>
+            <Button>
+              <img src={timeIcon} alt="time" className="h-4 w-4 mr-2"  /> {Dates}
+            </Button>
+          </Box>
+          
+          <Button sx={{ display: { lg: 'flex', xs: 'none' } }}> 
+            <img src={dateIcon} alt="date" className="h-4 w-4 mr-2" /> {time}
+          </Button>
+          
+          {/* Uncomment this section if you need a Clock In button */}
+          {/* <Box sx={{ mx: 2 }}>
+            <Button variant="contained">Clock In</Button>
+          </Box> */}
+        </Grid>
+        
     );
 }

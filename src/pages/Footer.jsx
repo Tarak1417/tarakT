@@ -80,7 +80,7 @@ const Footer = () => {
   return (
     
     <Box
-      sx={{  backgroundColor:"background.default", height: "59px" }}
+      sx={{  backgroundColor:"#1c1c1c", height: "59px" }}
       className="fixed bottom-0 text-gray-500 w-full text-[10px] px-2 flex flex-row gap-4 items-center justify-between md:hidden"
     >
       <NavLink to="/">

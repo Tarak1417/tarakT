@@ -8,6 +8,9 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
+import Scheduleicon from "../assets/Icons/sidebaricons/dashicons_admin-tools.png";
+import Settingsicon from "../assets/Icons/sidebaricons/iconoir_wallet-solid.png";
+import Payrolicon from "../assets/Icons/sidebaricons/material-symbols_overview-outline.png";
 import InterviewIcon from './icons/interview.png';
 import JobListIcon from './icons/joblisting.png'
 import OfficeIcon from './icons/office.svg'
@@ -144,6 +147,10 @@ const menuItems = [
                 label: 'Attendance By User',
                 icon: <Person/>,
                 to: '/attendance',
+            },  {
+                label: 'Recent Attendence',
+                icon: <Person/>,
+                to: 'RecentAttendence',
             },
            
         ],
