@@ -5,6 +5,7 @@ import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
 import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
 import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
+import { Link } from 'react-router-dom';
 
 
 // Sample data for recent activities
@@ -168,21 +169,22 @@ const RecentActivities = () => {
             <img src={hrimages2} alt="" className="h-4 w-4" />
             <img src={hrimages3} alt="" className="h-4 w-4" />
           </div>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#3767B1",
-              fontSize: "10px",
-              color: "white",
-              textTransform: "none",
-              height: "30px",
-              width: "80px",
-              display: isMobile ? "none" : "inline-flex", // Hide on mobile
-            }}
-          >
-            View All
-          </Button>
-
+          <Link to="//projects.clikkle.com/walk-through">
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#3767B1",
+                fontSize: "10px",
+                color: "white",
+                textTransform: "none",
+                height: "30px",
+                width: "80px",
+                display: isMobile ? "none" : "inline-flex", // Hide on mobile
+              }}
+            >
+              View All
+            </Button>
+          </Link>
         </div>
       </Stack>
 
