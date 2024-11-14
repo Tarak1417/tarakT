@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Box, Typography,Avatar } from "@mui/material";
+import { Box, Typography, Avatar, Button, Stack } from "@mui/material";
 import { useMediaQuery, useTheme } from "@mui/material";
-
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
@@ -14,11 +13,12 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import LinkIcon from '@mui/icons-material/Link';
 import countries from 'i18n-iso-countries';
 import CountryFlag from 'react-country-flag';
+import useExpandCollapse from "../../hooks/useExpandCollapse";
 import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
 import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
 import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
-
+import { Link } from 'react-router-dom';
 
 // Initialize the country names (optional: specify language)
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
@@ -42,6 +42,7 @@ function CountryDisplay({ countryCode }) {
 
 
 const RecentJobs = ({ items }) => {
+  useExpandCollapse();
   const [dropdown1Open, setDropdown1Open] = useState(false);
   const [dropdown2Open, setDropdown2Open] = useState(false);
   const [setSelectedYear] = useState("2024");
@@ -64,55 +65,51 @@ const RecentJobs = ({ items }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Box
-      className="rounded-lg mb-4 shadow-md h-full p-5  "
-      sx={{
-        backgroundColor: "background.view",
-      }}
-    >
-     <div className="flex flex-col md:flex-row gap-4 mb-4 items-center">
-  <div className="md:w-1/2 flex justify-start items-center">
-    {/* Title and Icons Container */}
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        width: "100%",
-      }}
-    >
-      {/* Title */}
-      <Typography
-        className="border-l-4 border-blue-500 pl-2 whitespace-nowrap text-xl"
-        sx={{ flex: "1" }}
-      >
-        Recent Job Application
-      </Typography>
 
-      {/* Icons */}
-      <Box
-        sx={{
-          display: "flex",
-        justifyContent:"end",
-          alignItems: "end",
-          color: "white",
-            marginLeft: isMobile?"20px":"400px",
-          mt: 0.5,
-          gap:1
-        }}
-      >
-         {isMobile?"":<img src={hrimages1} alt="" className="h-4 w-4"/>}
-      <img src={hrimages4} alt="" className="h-4 w-4"/>
-      
-      <img src={hrimages2} alt="" className="h-4 w-4"/>
-      <img src={hrimages3} alt="" className="h-4 w-4"/>
-      </Box>
-    </Box>
-  </div>
-</div>
+      p={2}
+      boxShadow={3}
+      borderRadius="12px"
+      bgcolor="background.default"
+      //minHeight="87vh"
+      width="100%"
+      overflow="auto"
+      mt={isMobile ? "-10px" : ""}
 
-      <div className="w-full overflow-x-auto md:overflow-x-hidden">
-        {items && items.length >= 0 ? (
+    >
+      {/* Header Section */}
+      <Stack direction="row" alignItems="center" justifyContent="space-between"  className="collapsible-main" >
+        <Typography variant="h6" sx={{ fontSize: isMobile ? "14px" : "17px", mr: "10px", fontWeight: "bold", whiteSpace: "nowrap" }}>
+          Recent Job Application
+        </Typography>
+
+        <div style={{ display: "flex", gap: '20px', }}>
+          <div style={{ display: 'flex', gap: '10px', color: 'white', marginTop: "9px" }}>
+            {isMobile ? "" : <img src={hrimages1} alt="" className="h-4 w-4 collapse-div" />}
+            <img src={hrimages4} alt="" className="h-4 w-4" />
+
+            <img src={hrimages2} alt="" className="h-4 w-4" />
+            <img src={hrimages3} alt="" className="h-4 w-4" />
+          </div>
+          <Link to="/receivedapplications">
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#3767B1",
+                fontSize: "10px",
+                color: "white",
+                textTransform: "none",
+                height: "30px",
+                width: "80px",
+                display: isMobile ? "none" : "inline-flex", // Hide on mobile
+              }}
+            >
+              View All
+            </Button>
+          </Link>
+        </div>
+      </Stack>
+      <div className="w-full overflow-x-auto md:overflow-x-hidden collapsible-div mt-4" style={{ minHeight:"75vh"}}>
+        {items && items.length > 0 ? (
           items.map((item, index) => (
             <div key={index} className="flex flex-row mb-1 min-w-[30rem]">
               <div className="w-[45%] flex flex-row">
@@ -124,72 +121,72 @@ const RecentJobs = ({ items }) => {
                   <Avatar src={`https://ui-avatars.com/api/?name=${item.fullName}`} alt={item.fullName} sx={{ width: 30, height: 30, borderRadius: '25px', marginTop: '-14px' }} />
                 </div>
                 <div className="flex-1 truncate">
-                  <h1 
+                  <h1
                     className="text-sm truncate "
                     style={{ fontSize: "15px", marginBottom: "-10px" }}
                   >
                     {item.fullName}
                   </h1>
-                  <p className="truncate text-sm text-zinc-500" style={{ fontSize: "12px",marginTop:"8px",width:"140px" }}>
+                  <p className="truncate text-sm text-zinc-500" style={{ fontSize: "12px", marginTop: "8px", width: "140px" }}>
                     {item.jobTitle}
                   </p>
                 </div>
               </div>
               <div className="w-[5%] flex items-center justify-start">
-                <p style={{fontFamily:"sans-serif",fontSize:"13px",marginLeft:"-38px"}} className="">{item.experience} years</p>
+                <p style={{ fontFamily: "sans-serif", fontSize: "13px", marginLeft: "-38px" }} className="">{item.experience} years</p>
               </div>
               <div className="w-[30%] flex items-center justify-start">
                 <p
                   className=""
-                  style={{ fontSize:"14px" }}
+                  style={{ fontSize: "14px" }}
                 >
-                <CountryDisplay countryCode={item.countryCode} />
+                  <CountryDisplay countryCode={item.countryCode} />
                 </p>
               </div>
               <div className="w-[20%] gap-2 flex items-center justify-end whitespace-nowrap">
-              <Box
-        sx={{
-          backgroundColor: '#0F1E0E', // Dark greenish background
-          width: 65,
-          height: 45,
-          borderRadius: '8px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <CallIcon style={{ color: '#42B824', fontSize: 20 }} />
-      </Box>
+                <Box
+                  sx={{
+                    backgroundColor: '#0F1E0E', // Dark greenish background
+                    width: 65,
+                    height: 45,
+                    borderRadius: '8px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <CallIcon style={{ color: '#42B824', fontSize: 20 }} />
+                </Box>
 
-      {/* Email Icon */}
-      <Box
-        sx={{
-          backgroundColor: '#0C0F18', // Dark blueish background
-          width: 65,
-          height: 45,
-          borderRadius: '8px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <EmailIcon style={{ color: '#2670E1', fontSize: 20 }} />
-      </Box>
+                {/* Email Icon */}
+                <Box
+                  sx={{
+                    backgroundColor: '#0C0F18', // Dark blueish background
+                    width: 65,
+                    height: 45,
+                    borderRadius: '8px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <EmailIcon style={{ color: '#2670E1', fontSize: 20 }} />
+                </Box>
 
-      {/* Delete Icon */}
-      <Box
-        sx={{
-          backgroundColor: '#1C0B0B', // Dark reddish background
-          width: 65,
-          height: 45,
-          borderRadius: '8px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <DeleteIcon style={{ color: '#F13B3B', fontSize: 20 }} />
-      </Box>
+                {/* Delete Icon */}
+                <Box
+                  sx={{
+                    backgroundColor: '#1C0B0B', // Dark reddish background
+                    width: 65,
+                    height: 45,
+                    borderRadius: '8px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <DeleteIcon style={{ color: '#F13B3B', fontSize: 20 }} />
+                </Box>
               </div>
             </div>
           ))
@@ -197,6 +194,16 @@ const RecentJobs = ({ items }) => {
           <NoRecentJobApplication />
         )}
       </div>
+      {isMobile && <Link to="/receivedapplications"><div className=" mt-4">
+        <button
+          style={{ color: "blue" }}
+          className={`px-4 py-2 rounded-md text-sm font-medium`}
+        >
+          View All
+        </button>
+      </div>
+      </Link>
+      }
     </Box>
   );
 };

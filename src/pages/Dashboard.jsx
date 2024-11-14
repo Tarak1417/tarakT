@@ -16,7 +16,7 @@ import RecentActivity from "./DashComponents/recent";
 import GenderChart from "./DashComponents/GenderChart";
 import RecentJobs from "./DashComponents/recentJobs";
 import Attendance from "./DashComponents/attend";
-import { Box,useMediaQuery, useTheme } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
@@ -24,7 +24,6 @@ import { useRefresh } from "../components/Header";
 
 import Interduction from "./Interduction";
 import PlusIcon from "../assets/CloclIcons/Add Button (1).png"
-
 const Dashboard = () => {
 
   const navigate = useNavigate(); // Get the navigate function
@@ -34,7 +33,7 @@ const Dashboard = () => {
 
 
 
- 
+
   const fetchOverview = useCallback(async () => {
     try {
       const response = await axios.get(`/hr/dashboard`);
@@ -46,8 +45,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchOverview();
-    console.log("page refresh" , refreshPage);
-  }, [fetchOverview , refreshPage]);
+    console.log("page refresh", refreshPage);
+  }, [fetchOverview, refreshPage]);
   // console.log(overview);
 
 
@@ -94,7 +93,7 @@ const Dashboard = () => {
       ),
       description: "124 for last month",
       trendIcon: <TrendingUp className="text-green-300" />,
-      plusicon :<img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]"/>
+      plusicon: <img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]" />
     },
     {
       icon: (
@@ -109,18 +108,18 @@ const Dashboard = () => {
           variant="body1"
           style={{ color: "#FF0000", fontSize: "1.2em" }}
         >
-          {overview?.departments  || 0}
+          {overview?.departments || 0}
         </Typography>
       ),
       description: "124 for last month,",
       trendIcon: <TrendingDown className="text-red-300" />,
-      plusicon :<img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]"/>
+      plusicon: <img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]" />
     },
     {
       icon: (
         <AttachMoneyIcon
           fontSize="medium"
-          className="text-white bg-blue-300 p-1  rounded-lg"
+          className="text-white bg-blue-300 p-1 rounded-lg"
         />
       ),
       title: "Expenses",
@@ -130,7 +129,7 @@ const Dashboard = () => {
           style={{ color: "#FF0000", fontSize: "1.2em" }}
         >
           ${" "}
-          { overview && overview?.expenses
+          {overview && overview?.expenses
             ? overview.expenses.reduce((total, el) => total + el.price, 0)
             : 0}
         </Typography>
@@ -150,77 +149,73 @@ const Dashboard = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
- 
-    <Box  sx={{
-      backgroundColor: "background.main",
-      width: isMobile ? "100vw" : "93vw", // Adjust width based on `isMobile`
-      mx: "auto",
-    }}>
 
-       
-         <Interduction/>
-        
-          
-        
+    <Box sx={{ backgroundColor: "background.main", width: "93vw", mx: "auto" }}>
+
+
+      <Interduction />
+
+
+
       <div className="flex flex-col sm:px-4 p-4 pt-[20px] mt-10px">
         <div className="">
           {/* <Typography variant="h5" className="text-gray-500" gutterBottom>
             HR DASHBOARD3
           </Typography> */}
-                  
-        
 
-         
+
+
+
           <div className="flex flex-col md:flex-row gap-1.5">
             <div className="w-full md:w-3/4 flex flex-col ">
-              <div className={`flex flex-col md:flex-row gap-1.5 mb-3.5   justify-items-stretch ${isMobile?"mt-[-27px]":""}`}>
+              <div className={`flex flex-col md:flex-row gap-1.5 mb-3.5   justify-items-stretch ${isMobile ? "mt-[-27px]" : ""}`}>
                 {boxesData && boxesData.map((box, index) => (
                   <Grid
                     sx={{ backgroundColor: "background.view" }}
                     key={index}
                     className="rounded-lg shadow-md md:w-1/3"
                     style={{
-                      
+
                       width: '100%',
-                      padding: '5px',
+                      padding: '4px',
                       marginTop: isMobile ? "" : '-27px',  // Correct syntax for conditional marginTop
                       height: '50px'
                     }}
                   >
-                     <div className="flex items-center" style={{ fontSize: '12px', marginTop: '-2px' }}>
-          <p>{box.title}</p>
-          {box.plusicon } {/* Conditionally display PlusIcon if it exists */}
-        </div>
-                    <div className="flex items-center justify-center mb-2 ">
-                      <p style={{fontSize:'13px'}} className="w-5/6 text-xl ">{box.value}</p>
-                      <div style={{}} className="w-1/6 mt-[-20px]">{box.icon}</div>
+                    <div className="flex items-center" style={{ fontSize: '12px', marginTop: '-2px' }}>
+                      <p>{box.title}</p>
+                      {box.plusicon} {/* Conditionally display PlusIcon if it exists */}
                     </div>
-                  
+                    <div className="flex items-center justify-center mb-2">
+                      <p style={{ fontSize: '13px' }} className="w-5/6 text-xl">{box.value}</p>
+                      <div style={{}} className="w-1/6 ">{box.icon}</div>
+                    </div>
+
                   </Grid>
                 ))}
               </div>
-            <Calander  />
+              <Calander />
             </div>
-            <div className={`w-full md:w-1/4  ${isMobile?"mt-[3px]":"mt-[-27px] "}`}>
-              <NoticeBoard eventData={ overview && overview?.notices} />
-              <Applicationleave  />
+            <div className={`w-full md:w-1/4  ${isMobile ? "mt-[3px]" : "mt-[-27px] "}`}>
+              <NoticeBoard eventData={overview && overview?.notices} />
+              <Applicationleave eventData={overview && overview?.leave} fetchOverview={() => fetchOverview()} />
             </div>
           </div>
         </div>
-        <div className={`flex flex-col md:flex-row mt-1 ${isMobile?"mt-[5px]":" "} `} >
-        <div className={`md:w-[30%] ${isMobile ? "mr-0" : "mr-1"} md:mb-0 flex-grow`}>
-           <Recentjobapplication/>
+        <div className={`flex flex-col md:flex-row mt-1 ${isMobile ? "mt-[5px]" : " "} `} >
+          <div className=" md:w-[30%] mr-1  md:mb-0 flex-grow">
+            <Recentjobapplication eventData={overview && overview?.applications} />
           </div>
           <div className=" md:w-[30%]   md:mb-0 flex-grow">
-            <Recentactivity/>
+            <Recentactivity />
           </div>
-          
-       
+
+
         </div>
         <div className=" flex flex-col md:flex-row   w-full">
-         
+
           <div className=" md:w-2/2   md:mb-0 flex-grow">
-            <Attendance items={ overview && overview?.attendance} />
+            <Attendance attendanceData={overview && overview?.attendance} isDashboardCall />
           </div>
         </div>
       </div>
