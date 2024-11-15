@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import {Avatar, Box, Button, Card, CardContent, Divider, FormControl, FormControlLabel, Grid, IconButton, ListItemAvatar, MenuItem, Radio, RadioGroup, TextField, Tooltip, Typography} from '@mui/material';
+import { Avatar, Box, Button, Card, CardContent, Divider, FormControl, FormControlLabel, Grid, IconButton, ListItemAvatar, MenuItem, Radio, RadioGroup, TextField, Tooltip, Typography } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,12 +9,35 @@ import axios from 'axios';
 import { useMessage } from '../../components/Header';
 import { SelectWithSearch } from '../../components/Select';
 import { Input } from '../../hooks/useForm/inputs';
+import { useTheme } from '@mui/material/styles';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Select from '@mui/material/Select';
 
 
 const AddPayrollPage = () => {
     const [employees, setEmployees] = useState({});
     const errorHandler = useErrorHandler();
     const navigate = useNavigate();
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+        PaperProps: {
+            style: {
+                maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+                width: 250,
+            },
+        },
+    };
+
+    const salaryType = [
+        'Salary',
+        'Training',
+        'Internship',
+        'Hourly'
+
+    ];
+
+    
 
     const handlers = useForm(
         useMemo(
@@ -23,6 +46,7 @@ const AddPayrollPage = () => {
                 from: { required: true },
                 to: { required: true },
                 salary: { required: true },
+                salaryType: { required: true },
                 status: { required: true, value: 'unPaid' },
                 hraAllowance: { required: true },
                 conveyance: { required: true },
@@ -45,8 +69,7 @@ const AddPayrollPage = () => {
         async (employeeSearch = '') => {
             try {
                 const response = await axios.get(
-                    `/hr/employee?pageSize=10${
-                        employeeSearch ? `&searchBy=firstName&search=${employeeSearch}` : ''
+                    `/hr/employee?pageSize=10${employeeSearch ? `&searchBy=firstName&search=${employeeSearch}` : ''
                     }`
                 );
 
@@ -57,9 +80,9 @@ const AddPayrollPage = () => {
 
                 employees.forEach(
                     employee =>
-                        (formattedEmployees[
-                            employee._id
-                        ] = `${employee.firstName} ${employee.lastName}`)
+                    (formattedEmployees[
+                        employee._id
+                    ] = `${employee.firstName} ${employee.lastName}`)
                 );
 
                 setEmployees(formattedEmployees);
@@ -102,14 +125,14 @@ const AddPayrollPage = () => {
         } = values;
         const totalAllowance =
             parseFloat(hraAllowance) +
-                parseFloat(medicalAllowance) +
-                parseFloat(conveyance) +
-                parseFloat(bonusAllowance) || 0;
+            parseFloat(medicalAllowance) +
+            parseFloat(conveyance) +
+            parseFloat(bonusAllowance) || 0;
         const totalDeduction =
             parseFloat(pf) +
-                parseFloat(professionalTax) +
-                parseFloat(tds) +
-                parseFloat(loanAndOthers) || 0;
+            parseFloat(professionalTax) +
+            parseFloat(tds) +
+            parseFloat(loanAndOthers) || 0;
         const netSalary = parseInt(salary) + totalAllowance - totalDeduction || 0;
 
         return { totalAllowance, totalDeduction, netSalary };
@@ -187,6 +210,42 @@ const AddPayrollPage = () => {
                                                 </MenuItem>
                                             ))}
                                         </SelectWithSearch>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item lg={3} xs={12}>
+                                    <Typography variant='body2'>Salary Type</Typography>
+                                </Grid>
+                                <Grid item lg={9} xs={12}>
+                                <FormControl fullWidth size='small'>
+                                        <Select
+                                            name="salaryType"
+                                            displayEmpty
+                                            value={values.salaryType}
+                                            onChange={handleChangeQuery}
+                                            input={<OutlinedInput />}
+                                            renderValue={(selected) => {
+                                                if (selected.length === 0) {
+                                                    return "--";
+                                                }
+
+                                                return selected;
+                                            }}
+                                            MenuProps={MenuProps}
+                                            inputProps={{ 'aria-label': 'Without label' }}
+                                        >
+                                            {/* <MenuItem disabled value="">
+                                                <em>Placeholder</em>
+                                            </MenuItem> */}
+                                            {salaryType.map((stype) => (
+                                                <MenuItem
+                                                    key={stype}
+                                                    value={stype}
+                                                    // style={getStyles(stype, personstype, theme)}
+                                                >
+                                                    {stype}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
                                     </FormControl>
                                 </Grid>
                                 <Grid item lg={3} xs={12}>
@@ -271,7 +330,7 @@ const AddPayrollPage = () => {
                                         name='conveyance'
                                         fullWidth
                                         type='number'
-                                        // required
+                                    // required
                                     />
                                 </Grid>
                                 <Grid item lg={3} xs={12}>
@@ -284,7 +343,7 @@ const AddPayrollPage = () => {
                                         name='medicalAllowance'
                                         fullWidth
                                         type='number'
-                                        // required
+                                    // required
                                     />
                                 </Grid>
                                 <Grid item lg={3} xs={12}>
@@ -297,7 +356,7 @@ const AddPayrollPage = () => {
                                         name='bonusAllowance'
                                         fullWidth
                                         type='number'
-                                        // required
+                                    // required
                                     />
                                 </Grid>
                             </Grid>
