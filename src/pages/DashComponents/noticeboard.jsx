@@ -9,27 +9,15 @@ import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
 import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
 import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
-
+import axios from "axios";
+import { handleAxiosError } from "../../utilities/function";
+import CropFreeIcon from '@mui/icons-material/CropFree';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import LinkIcon from '@mui/icons-material/Link';
 
 const NoticeBoard = ({ eventData }) => {
   useExpandCollapse();
   const [datastore, setStore] = useState([]);
-import { Box,useMediaQuery, useTheme } from "@mui/material";
-import React, { useEffect, useState, useCallback } from "react";
-import axios from "axios";
-import Nonoticeboard from "../../pages/DashComponents/Nonoticeboard";
-import { handleAxiosError } from "../../utilities/function";
-import useLoader from "../../hooks/useLoader";
-import useErrorHandler from "../../hooks/useErrorHandler";
-import OpenInFullIcon from '@mui/icons-material/OpenInFull';
-import CropFreeIcon from '@mui/icons-material/CropFree';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import LinkIcon from '@mui/icons-material/Link';
-import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
-import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
-import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
-import hrimages4 from "../../assets/Interductionimages/Vector.png"
-
 
 const NoticeBoard = () => {
   const [notices, setNotices] = useState([]);
