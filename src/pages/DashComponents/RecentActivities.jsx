@@ -172,6 +172,7 @@ const RecentActivities = () => {
             <img src={hrimages2} alt="" className="h-4 w-4" />
             <img src={hrimages3} alt="" className="h-4 w-4" />
           </div>
+          <Link to="//projects.clikkle.com/walk-through">
           <Button
             variant="contained"
             sx={{
@@ -186,7 +187,7 @@ const RecentActivities = () => {
           >
             View All
           </Button>
-
+         </Link>
         </div>
       </Stack>
 

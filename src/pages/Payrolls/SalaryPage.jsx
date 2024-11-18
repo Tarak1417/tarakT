@@ -23,6 +23,9 @@ import moment from 'moment';
 import { Form, Submit, useForm } from '../../hooks/useForm/useForm';
 import { Input } from '../../hooks/useForm/inputs';
 import CircularProgress from '../../hooks/useForm/components/CircularProgress';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 
 const style = {
@@ -216,6 +219,9 @@ const SalaryPage = () => {
                            To
                         </div>
                         <div className='w-[50%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-sm  flex items-center font-bold'>
+                            Salary Type
+                        </div>
+                        <div className='w-[50%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-sm  flex items-center font-bold'>
                            ($) Salary
                         </div>
                         <div className='w-[25%] md:w-[10%] p-3 border-r border-zinc-500 text-left text-sm md:text-sm flex items-center font-bold'>
@@ -249,6 +255,9 @@ const SalaryPage = () => {
                         {new Date(user.to).toDateString()}
                         </div>
                         <div className='w-[50%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
+                             {user.salaryType}
+                        </div>
+                        <div className='w-[50%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
                              ${user.salary}
                         </div>
                         <div className='w-[25%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
@@ -257,15 +266,15 @@ const SalaryPage = () => {
                         
                             <div className='w-[25%] md:w-[24%] flex flex-row gap-1 justify-center items-center'>
                                 <IconButton onClick={() => {
-                                                setSelectedPayroll(payroll);
+                                                setSelectedPayroll(user);
                                                 openModal();
                                             }}><img src={view} alt="view" className="w-4 h-4"/></IconButton>
-                                <IconButton onClick={() => handleOpen(payroll)}><EditOutlinedIcon style={{ fontSize: '12px' }}  className=' rounded-sm'/></IconButton>
+                                <IconButton onClick={() => handleOpen(user)}><EditOutlinedIcon style={{ fontSize: '12px' }}  className=' rounded-sm'/></IconButton>
                                 <IconButton><SaveAltOutlinedIcon style={{ fontSize: '14px' }}  className=' rounded-sm text-blue-500'/></IconButton>
                                 <IconButton><ShareOutlinedIcon style={{ fontSize: '14px' }}  className=' rounded-sm text-amber-500'/></IconButton>
                                 <IconButton><PrintOutlinedIcon style={{ fontSize: '14px' }}  className=' rounded-sm text-green-500'/></IconButton>
                                 <IconButton onClick={() => {
-                                                setSelectedPayroll(payroll);
+                                                setSelectedPayroll(user);
                                                 openDelete();
                                             }}><CloseOutlinedIcon style={{ fontSize: '14px' }}  className=' rounded-sm text-red-500'/></IconButton>
                              </div>
@@ -344,6 +353,7 @@ const UpdatePaySlip = ({ payrollUpdateData, handleClose, fetchEmployeeSalary }) 
     );
     const [selectEmployee, setSelectEmployee] = React.useState({
         status: payrollUpdateData.status,
+        salaryType:payrollUpdateData.salaryType,
     });
     const handleChange = e => {
         const name = e.target.name;
@@ -358,6 +368,24 @@ const UpdatePaySlip = ({ payrollUpdateData, handleClose, fetchEmployeeSalary }) 
         fetchEmployeeSalary();
         handleClose();
     };
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+        PaperProps: {
+            style: {
+                maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+                width: 250,
+            },
+        },
+    };
+
+    const salaryType = [
+        'Salary',
+        'Training',
+        'Internship',
+        'Hourly'
+
+    ];
     return (
         <Box sx={style}>
             <Form
@@ -373,6 +401,42 @@ const UpdatePaySlip = ({ payrollUpdateData, handleClose, fetchEmployeeSalary }) 
                 {/* salary */}
                 <Typography variant='h6'>Update Payslip</Typography>
                 <Grid container spacing={1} mt={3} display='flex' alignItems='center'>
+                    <Grid item xs={12}>
+                        <Typography variant='body2'>Salary Type</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                    <FormControl sx={{ display: 'flex' }}>
+                                        <Select
+                                            name="salaryType"
+                                            displayEmpty
+                                            value={selectEmployee.salaryType}
+                                            onChange={handleChange}
+                                            input={<OutlinedInput />}
+                                            // renderValue={(selected) => {
+                                            //     if (selected.length === 0) {
+                                            //         return "--";
+                                            //     }
+
+                                            //     return selected;
+                                            // }}
+                                            MenuProps={MenuProps}
+                                            inputProps={{ 'aria-label': 'Without label' }}
+                                        >
+                                            {/* <MenuItem disabled value="">
+                                                <em>Placeholder</em>
+                                            </MenuItem> */}
+                                            {salaryType.map((stype) => (
+                                                <MenuItem
+                                                    key={stype}
+                                                    value={stype}
+                                                    // style={getStyles(stype, personstype, theme)}
+                                                >
+                                                    {stype}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                    </Grid>
                     <Grid item xs={12}>
                         <Typography variant='body2'>Salary</Typography>
                     </Grid>

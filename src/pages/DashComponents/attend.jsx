@@ -223,7 +223,7 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
               <img src={hrimages2} alt="" className="h-4 w-4" />
               <img src={hrimages3} alt="" className="h-4 w-4" />
             </div>
-            {isDashboardCall && <Link to="/RecentAttendance">
+            {isDashboardCall && <Link to="/RecentAttendence">
               <Button
                 variant="contained"
                 sx={{
