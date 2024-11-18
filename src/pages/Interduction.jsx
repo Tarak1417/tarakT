@@ -30,9 +30,9 @@ const Interduction = ({ isSidebarOpen }) => {
           <Grid container display="flex" justifyContent="space-between" alignItems="center">
             <Clock />
           </Grid>
-          <img src={hrimage2} alt="Vector 2" className="w-4 h-4 text-gray-500" />
+          <img src={hrimage2} alt="Vector 2" className="w-3 h-3 text-gray-500" />
 
-          {isMobile ? <img src={hrimage3} alt="Vector 4" className="w-4 h-4 text-gray-500" />:<img src={hrimage3} alt="Vector 4" className="w-4 h-4 text-gray-500" />}
+          {isMobile ? <img src={hrimage3} alt="Vector 4" className="w-3 h-3 text-gray-500" />:<img src={hrimage3} alt="Vector 4" className="w-3 h-3 text-gray-500" />}
         </div>
       </div>
 

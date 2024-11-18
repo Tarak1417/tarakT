@@ -9,10 +9,12 @@ import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
 import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
 import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
+import useFullscreenExpand from "../../hooks/useFullscreenExpand";
 
 
 const NoticeBoard = ({ eventData }) => {
   useExpandCollapse();
+  useFullscreenExpand()
   const [datastore, setStore] = useState([]);
 
   useEffect(() => {
@@ -54,28 +56,29 @@ const NoticeBoard = ({ eventData }) => {
     <Box
       sx={{
         backgroundColor: "background.default",
-        borderRadius: "12px",
+        borderRadius: "10px",
         padding: "10px",
-        maxHeight: "240px",
+        maxHeight: "241px",
+        height:"auto",
         width: "auto",
         justifyItems: "stretch",
-        marginBottom: "6px"
+        marginBottom: "5px"
       }}
-      className="shadow-lg"
+      className="shadow-lg expandable-div"
     >
 
-      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }} className="collapsible-main">
+      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }} className="collapsible-main ">
         <p style={{ fontSize: "18px" }} className="text-2xl pl-2 border-blue-500">
           Notice Board
         </p>
 
         <div style={{ display: 'flex', gap: '10px', color: 'white', marginTop: "9px" }}>
           
-          <img src={hrimages4} alt="" className="h-4 w-4 collapse-div" />
-          {isMobile ? "" : <img src={hrimages1} alt="" className="h-4 w-4 collapse-div" />}
+          <img src={hrimages4} alt="" className="h-3 w-3 collapse-div" />
+          {isMobile ? "" : <img src={hrimages1} alt="" className="h-3 w-3 expand-button" />}
 
-          <img src={hrimages2} alt="" className="h-4 w-4" />
-          <img src={hrimages3} alt="" className="h-4 w-4" />
+          <img src={hrimages2} alt="" className="h-3 w-3" />
+          <img src={hrimages3} alt="" className="h-3 w-3" />
         </div>
       </Box>
       <div

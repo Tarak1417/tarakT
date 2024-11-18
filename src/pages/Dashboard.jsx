@@ -178,7 +178,8 @@ const Dashboard = () => {
 
                       width: '100%',
                       padding: '4px',
-                      marginTop: isMobile ? "" : '-27px',  // Correct syntax for conditional marginTop
+                      marginTop: isMobile ? "" : '-27px', 
+                      marginBottom:isMobile?"":"1px", // Correct syntax for conditional marginTop
                       height: '50px'
                     }}
                   >
@@ -196,22 +197,26 @@ const Dashboard = () => {
               </div>
               <Calander />
             </div>
-            <div className={`w-full md:w-1/4  ${isMobile ? "mt-[3px]" : "mt-[-27px] "}`}>
+            <div className={`w-full md:w-1/4  ${isMobile ? "" : "mt-[-27px]  "}`}>
               <NoticeBoard eventData={overview && overview?.notices} />
               <Applicationleave eventData={overview && overview?.leave} fetchOverview={() => fetchOverview()} />
             </div>
           </div>
         </div>
-        <div className={`flex flex-col md:flex-row mt-1 ${isMobile ? "mt-[5px]" : " "} `} >
-          <div className=" md:w-[30%] mr-1  md:mb-0 flex-grow">
-            <Recentjobapplication eventData={overview && overview?.applications} />
-          </div>
-          <div className=" md:w-[30%]   md:mb-0 flex-grow">
-            <Recentactivity />
-          </div>
-
-
-        </div>
+        <div className={`flex flex-col md:flex-row mt-1 ${isMobile ? "mt-[15px]" : ""}`}>
+  <div
+    className={`md:w-[30%] md:wh-[30%] ${isMobile ? "" : "mr-1"} md:mb-0 flex-grow flex flex-col`}
+    style={{ height: "auto" }}
+  >
+    <Recentjobapplication eventData={overview?.applications || []} />
+  </div>
+  <div
+    className="md:w-[30%] md:wh-[30%]  md:mb-0 flex-grow flex flex-col"
+    style={{ height: "auto" }}
+  >
+    <Recentactivity />
+  </div>
+</div>
         <div className=" flex flex-col md:flex-row   w-full">
 
           <div className=" md:w-2/2   md:mb-0 flex-grow">

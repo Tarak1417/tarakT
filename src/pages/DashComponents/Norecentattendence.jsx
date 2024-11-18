@@ -20,6 +20,7 @@ const Norecentattendence = () => {
       height:"auto",
       padding: 2,
     }}
+    className="collapsible-main"
   >
     <Box
       sx={{
@@ -38,7 +39,7 @@ const Norecentattendence = () => {
           alt="No job applications"
           sx={{
             width: { xs: 150, sm: 250 },
-            height: { xs: 100, sm: 200 },
+            height: { xs: 150, sm: 265 },
             mx: 'auto',
           }}
         />
@@ -56,12 +57,7 @@ const Norecentattendence = () => {
      No Employee Recent Attendance Record!
       </Typography>
       <Typography
-        variant="body2"
-        sx={{
-          color: grey[500],
-          marginBottom: { xs: 3, sm: 4 },
-          fontSize: { xs: '12px', sm: '13px' },
-        }}
+     variant="body2" sx={{ color: grey[400], marginBottom: 4,fontSize:"10px" }}
       >
        You do not currently have any employees to view their recent attendance.
        Click the button below now to add employees and start viewing their attendance records.

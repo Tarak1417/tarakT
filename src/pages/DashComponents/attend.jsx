@@ -12,6 +12,7 @@ import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
 import { Link } from 'react-router-dom';
 import useExpandCollapse from "../../hooks/useExpandCollapse";
+import Norecentattendence from "./Norecentattendence";
 
 const attendanceData = [
   {
@@ -217,11 +218,11 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
           <div style={{ display: "flex", gap: '10px', }}>
             <div style={{ display: 'flex', gap: '10px', color: 'white', marginTop: "9px" }}>
              
-              <img src={hrimages4} alt="" className="h-4 w-4 collapse-div" />
-              {isMobile ? "" : <img src={hrimages1} alt="" className="h-4 w-4 collapse-div" />}
+              <img src={hrimages4} alt="" className="h-3 w-3 collapse-div" />
+              {isMobile ? "" : <img src={hrimages1} alt="" className="h-3 w-3 collapse-div" />}
 
-              <img src={hrimages2} alt="" className="h-4 w-4" />
-              <img src={hrimages3} alt="" className="h-4 w-4" />
+              <img src={hrimages2} alt="" className="h-3 w-3" />
+              <img src={hrimages3} alt="" className="h-3 w-3" />
             </div>
             {isDashboardCall && <Link to="/RecentAttendence">
               <Button
@@ -231,7 +232,7 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
                   fontSize: "10px",
                   color: "white",
                   textTransform: "none",
-                  height: "30px",
+                  height: "25px",
                   width: "80px",
                   display: isMobile ? "none" : "inline-flex", // Hide on mobile
                 }}
@@ -251,7 +252,8 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
           }}
           className="collapsible-div"
         >
-          <table className="w-full text-left border-collapse border-spacing-0">
+          {attendance.length===0?<Norecentattendence/>:
+          <table className="w-full text-left border-collapse border-spacing-0 ">
             <thead>
               <tr>
                 <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pr-[10px] text-[10px]" : ""}`}>EmployeeID</th>
@@ -327,10 +329,11 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
                   </td>
                 </tr>
               ))
-                : "Loading...."
+                : "loading..."
               }
             </tbody>
           </table>
+}
         </div>
 
         {isMobile && <Link to="/RecentAttendance"><div className=" mt-4">

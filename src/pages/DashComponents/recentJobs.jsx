@@ -85,11 +85,11 @@ const RecentJobs = ({ items }) => {
         <div style={{ display: "flex", gap: '20px', }}>
           <div style={{ display: 'flex', gap: '10px', color: 'white', marginTop: "9px" }}>
           
-            <img src={hrimages4} alt="" className="h-4 w-4 collapse-div" />
-            {isMobile ? "" : <img src={hrimages1} alt="" className="h-4 w-4 collapse-div" />}
+            <img src={hrimages4} alt="" className="h-3 w-3 collapse-div" />
+            {isMobile ? "" : <img src={hrimages1} alt="" className="h-3 w-3 collapse-div" />}
 
-            <img src={hrimages2} alt="" className="h-4 w-4" />
-            <img src={hrimages3} alt="" className="h-4 w-4" />
+            <img src={hrimages2} alt="" className="h-3 w-3" />
+            <img src={hrimages3} alt="" className="h-3 w-3" />
           </div>
           <Link to="/receivedapplications">
             <Button
@@ -99,7 +99,7 @@ const RecentJobs = ({ items }) => {
                 fontSize: "10px",
                 color: "white",
                 textTransform: "none",
-                height: "30px",
+                height: "25px",
                 width: "80px",
                 display: isMobile ? "none" : "inline-flex", // Hide on mobile
               }}
@@ -109,7 +109,7 @@ const RecentJobs = ({ items }) => {
           </Link>
         </div>
       </Stack>
-      <div className="w-full overflow-x-auto md:overflow-x-hidden collapsible-div mt-4" style={{ minHeight:"75vh"}}>
+      <div className="w-full overflow-x-auto md:overflow-x-hidden collapsible-div mt-4" style={{ minHeight:"74.9vh"}}>
         {items && items.length > 0 ? (
           items.map((item, index) => (
             <div key={index} className="flex flex-row mb-1 min-w-[30rem]">

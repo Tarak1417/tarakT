@@ -270,9 +270,9 @@ const EmployeeShift = () => {
           <Typography sx={{ fontSize: isMobile ? '15px' : '18px', marginTop: '-60px' }}>Overview Calendar</Typography>
 
           {/* Date Display */}
-          <Stack direction="row" alignItems="center" spacing={2} marginTop="-60px" >
+          <Stack direction="row" alignItems="center" spacing={1} marginTop="-60px" >
             {/* Date and Day */}
-            <Box display="flex" alignItems="center">
+            <Box display="none" alignItems="center" >
               {/* Date in blue box */}
               <Box
                 sx={{
@@ -346,7 +346,7 @@ const EmployeeShift = () => {
             </Button>
           </Stack>
 
-          <Stack direction="row" spacing={2} mt="-60px">
+          <Stack direction="row" spacing={1} mt="-60px">
           
             <img src={hrimage4} alt="" className='h-4 w-4 collapse-div' />
             <img src={hrimage1} alt="" className='h-4 w-4 collapse-div' />

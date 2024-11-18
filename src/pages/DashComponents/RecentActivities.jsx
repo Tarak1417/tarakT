@@ -5,6 +5,7 @@ import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
 import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
 import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
+import { Link } from "react-router-dom";
 
 
 // Sample data for recent activities
@@ -74,7 +75,23 @@ const activities = [
     time: "50 minutes ago",
   },
   {
-    id: 9,
+    id: 10,
+    avatar: "https://i.pravatar.cc/40?img=1",
+    name: "Daniel Thompson",
+    activity: "Work progress % calculation issue has moved",
+    type: "Issue",
+    time: "50 minutes ago",
+  },
+  {
+    id: 11,
+    avatar: "https://i.pravatar.cc/40?img=1",
+    name: "Daniel Thompson",
+    activity: "Work progress % calculation issue has moved",
+    type: "Issue",
+    time: "50 minutes ago",
+  },
+  {
+    id: 13,
     avatar: "https://i.pravatar.cc/40?img=1",
     name: "Daniel Thompson",
     activity: "Work progress % calculation issue has moved",
@@ -151,7 +168,7 @@ const RecentActivities = () => {
       Height="auto"
       width="100%"
       overflow="auto"
-      mt={isMobile ? "-10px" : ""}
+      mt={isMobile ? "10px" : ""}
 
     >
       {/* Header Section */}
@@ -161,16 +178,16 @@ const RecentActivities = () => {
         </Typography>
 
         <div style={{ display: "flex", gap: '10px', }}>
-          <div style={{ display: 'flex', gap: '10px', color: 'white', marginTop: "9px" }}>
+          <div style={{ display: 'flex', gap: '10px' , color: 'white', marginTop: "9px" }}>
         
            
-            <img src={hrimages4} alt="" className="h-4 w-4 collapse-div" />
+            <img src={hrimages4} alt="" className="h-3 w-3 collapse-div" />
             
-            {isMobile ? "" : <img src={hrimages1} alt="" className="h-4 w-4 collapse-div" />}
+            {isMobile ? "" : <img src={hrimages1} alt="" className="h-3 w-3 collapse-div" />}
          
 
-            <img src={hrimages2} alt="" className="h-4 w-4" />
-            <img src={hrimages3} alt="" className="h-4 w-4" />
+            <img src={hrimages2} alt="" className="h-3 w-3" />
+            <img src={hrimages3} alt="" className="h-3 w-3" />
           </div>
           <Link to="//projects.clikkle.com/walk-through">
           <Button
@@ -180,7 +197,7 @@ const RecentActivities = () => {
               fontSize: "10px",
               color: "white",
               textTransform: "none",
-              height: "30px",
+              height: "25px",
               width: "80px",
               display: isMobile ? "none" : "inline-flex", // Hide on mobile
             }}
@@ -192,7 +209,8 @@ const RecentActivities = () => {
       </Stack>
 
       {/* Activity List */}
-      <div className="collapsible-div" style={{ maxHeight: "75vh" }}>
+      <div className="collapsible-div" style={{ maxHeight: "77vh" }}>
+        
         {activities.map((activity) => (
           <ActivityRow key={activity.id} activity={activity} isMobile={isMobile} />
         ))}

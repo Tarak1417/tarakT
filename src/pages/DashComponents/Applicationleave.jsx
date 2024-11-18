@@ -11,6 +11,7 @@ import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
 import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
 import Nonoticeboard from "../../pages/DashComponents/Nonoticeboard";
+import Noleaveapplication from "./Noleaveapplication";
 
 
 const Applicationleave = (props) => {
@@ -94,9 +95,10 @@ const Applicationleave = (props) => {
       sx={{
         backgroundColor: "background.default",
         borderRadius: "10px",
-        padding: "15px",
+        padding: "17px",
 
         maxHeight: "235px",
+        
 
         margin: " auto",
         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
@@ -106,20 +108,20 @@ const Applicationleave = (props) => {
       <div className="flex items-center collapsible-main  space-x-10">
         {/* Title */}
         <Typography
-          style={{ fontSize: "14px", marginTop: '-16px', }}
+          style={{ fontSize: "10px", padding:isMobile?"10px":"8px", flexWrap:"nowrap", marginTop: '-20px', marginRight:isMobile?"20px":""}}
           variant="h6"
         >
           Recent Leave Application
         </Typography>
 
         {/* Images with spacing */}
-        <div className="flex space-x-2 mt-[-10px] ">
+        <div className={`flex justify-between space-x-2 mt-[-10px]`}>
         
-          <img src={hrimages4} alt="" className="h-4 w-4 collapse-div mr-1 ml-[-10px]" />
-          {isMobile ? "" : <img src={hrimages1} alt="" className="h-4 w-4 collapse-div" />}
+          <img src={hrimages4} alt="" className="h-3 w-3 collapse-div mr-1 ml-[-10px]" />
+          {isMobile ? "" : <img src={hrimages1} alt="" className="h-3 w-3 collapse-div" />}
 
-          <img src={hrimages2} alt="" className="h-4 w-4" />
-          <img src={hrimages3} alt="" className="h-4 w-4" />
+          <img src={hrimages2} alt="" className="h-3 w-3" />
+          <img src={hrimages3} alt="" className="h-3 w-3" />
         </div>
 
         {/* Link to 'View All' button */}
@@ -131,8 +133,9 @@ const Applicationleave = (props) => {
                   fontSize: "10px",
                   color: "white",
                   textTransform: "none",
-                  height: "30px",
+                  height: "25px",
                   width: "80px",
+                  marginTop:isMobile?"-10px":"-10px",
                   display: isMobile ? "none" : "inline-flex", // Hide on mobile
                 }}
               >
@@ -242,7 +245,7 @@ const Applicationleave = (props) => {
           </Button>
         </div>
       </div>
-        :  <Nonoticeboard />
+        :  <Noleaveapplication/>
       }
       </div>
     </Box>
