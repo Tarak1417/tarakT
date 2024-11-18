@@ -148,7 +148,7 @@ const RecentActivities = () => {
       boxShadow={3}
       borderRadius="12px"
       bgcolor="background.default"
-      //maxHeight="87vh"
+      Height="auto"
       width="100%"
       overflow="auto"
       mt={isMobile ? "-10px" : ""}
@@ -160,10 +160,14 @@ const RecentActivities = () => {
           Recent Activities
         </Typography>
 
-        <div style={{ display: "flex", gap: '20px', }}>
+        <div style={{ display: "flex", gap: '10px', }}>
           <div style={{ display: 'flex', gap: '10px', color: 'white', marginTop: "9px" }}>
+        
+           
+            <img src={hrimages4} alt="" className="h-4 w-4 collapse-div" />
+            
             {isMobile ? "" : <img src={hrimages1} alt="" className="h-4 w-4 collapse-div" />}
-            <img src={hrimages4} alt="" className="h-4 w-4" />
+         
 
             <img src={hrimages2} alt="" className="h-4 w-4" />
             <img src={hrimages3} alt="" className="h-4 w-4" />

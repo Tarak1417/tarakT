@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FaPhoneAlt, FaEnvelope, FaEye } from "react-icons/fa";
 import dayjs from "dayjs";
 import { BorderColor, BorderStyle } from "@mui/icons-material";
@@ -12,6 +12,76 @@ import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
 import { Link } from 'react-router-dom';
 import useExpandCollapse from "../../hooks/useExpandCollapse";
+
+const attendanceData = [
+  {
+    id: "#193845039283",
+    name: "Richard Webber",
+    role: "UI/UX Designer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:17 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=3",
+  },
+  {
+    id: "#995830128543",
+    name: "Desmond Jakes",
+    role: "Frontend Developer",
+    date: "22/10/2024",
+    status: "Late",
+    clockIn: "09:40:17 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=8",
+  },
+  {
+    id: "#995839202395",
+    name: "Jaxson Schleifer",
+    role: "Frontend Developer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:03 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=10",
+  },
+  {
+    id: "#294857104856",
+    name: "Cynthia Eze",
+    role: "Software Engineer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:05 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=4",
+  },
+  {
+    id: "#775839203848",
+    name: "Erin Herwitz",
+    role: "Digital Marketer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:07 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=5",
+  },
+  {
+    id: "#775839205548",
+    name: "Erin Herwitz",
+    role: "Digital Marketer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:07 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=5",
+  },
+];
+
 
 const StatusBadge = ({ status }) => {
   const theme = useTheme();
@@ -144,10 +214,11 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
           <Typography variant="h6" sx={{ fontSize: isMobile ? "14px" : "17px", mr: "10px", fontWeight: "bold", whiteSpace: "nowrap" }}>
             Recent Attendance
           </Typography>
-          <div style={{ display: "flex", gap: '20px', }}>
+          <div style={{ display: "flex", gap: '10px', }}>
             <div style={{ display: 'flex', gap: '10px', color: 'white', marginTop: "9px" }}>
+             
+              <img src={hrimages4} alt="" className="h-4 w-4 collapse-div" />
               {isMobile ? "" : <img src={hrimages1} alt="" className="h-4 w-4 collapse-div" />}
-              <img src={hrimages4} alt="" className="h-4 w-4" />
 
               <img src={hrimages2} alt="" className="h-4 w-4" />
               <img src={hrimages3} alt="" className="h-4 w-4" />

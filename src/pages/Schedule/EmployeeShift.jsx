@@ -42,6 +42,7 @@ const EmployeeShift = () => {
   const [shift, setShift] = useState('AM Shift');
 
   const isMobile = useMediaQuery('(max-width:600px)');
+  
 
   const handlePrevious = () => {
     if (view === 'Daily') setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
@@ -112,7 +113,7 @@ const EmployeeShift = () => {
   };
 
   return (
-    <Box sx={{ borderRadius: '9px', height: 'auto', backgroundColor: 'background.default', marginTop: "-10px" }} p={isMobile ? 1 : 3}>
+    <Box sx={{ borderRadius: '9px', height: 'auto', backgroundColor: 'background.default', marginTop: "-10px" }} p={isMobile ? 1 : 0.5}>
       {isMobile ? (<div> <div className="flex flex-row  justify-between w-full p-3 mt-[-15px] mb-3 mt-2">
         <h6 className=" text-bold md:text-left md:mb-0">Overview Calendar</h6>
         <div className="flex gap-3 md:gap-4 items-center">
@@ -257,13 +258,14 @@ const EmployeeShift = () => {
       </div>
 
       ) :
+      <div className="collapsible-main custom-mb-[-50]">
         <Stack
           direction={isMobile ? 'row' : 'row'}
           justifyContent="space-between"
           alignItems="center"
-          pt={3.5}
-          mb={0.8}
-          className='collapsible-main'
+          pt={7}
+        
+          
         >
           <Typography sx={{ fontSize: isMobile ? '15px' : '18px', marginTop: '-60px' }}>Overview Calendar</Typography>
 
@@ -345,12 +347,14 @@ const EmployeeShift = () => {
           </Stack>
 
           <Stack direction="row" spacing={2} mt="-60px">
+          
+            <img src={hrimage4} alt="" className='h-4 w-4 collapse-div' />
             <img src={hrimage1} alt="" className='h-4 w-4 collapse-div' />
-            <img src={hrimage4} alt="" className='h-4 w-4' />
             <img src={hrimage2} alt="" className='h-4 w-4' />
             <img src={hrimage3} alt="" className='h-4 w-4' />
           </Stack>
         </Stack>
+        </div>
       }
 
       {/*above code is  written in bith mobile and desktop mode*/}
@@ -492,7 +496,7 @@ const EmployeeShift = () => {
 
 
 
-          <Box sx={{ display: 'flex', alignItems: 'center', marginTop: isMobile ? "10px" : '-23px', }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', marginTop: isMobile ? "10px" : '-5px', }}>
             {Object.entries(shiftStatusColors).map(([status, color]) => (
               <Box key={status} sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
                 <Box

@@ -10,6 +10,7 @@ import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
 import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
 import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
+import Nonoticeboard from "../../pages/DashComponents/Nonoticeboard";
 
 
 const Applicationleave = (props) => {
@@ -92,29 +93,30 @@ const Applicationleave = (props) => {
     <Box
       sx={{
         backgroundColor: "background.default",
-        borderRadius: "16px",
+        borderRadius: "10px",
         padding: "15px",
 
-        maxHeight: "220px",
+        maxHeight: "235px",
 
         margin: " auto",
         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
         //marginTop: "-1px"
       }}
     >
-      <div className="flex items-center collapsible-main mr-[10px] space-x-4">
+      <div className="flex items-center collapsible-main  space-x-10">
         {/* Title */}
         <Typography
-          style={{ fontSize: "15px", marginTop: '-16px', }}
+          style={{ fontSize: "14px", marginTop: '-16px', }}
           variant="h6"
         >
           Recent Leave Application
         </Typography>
 
         {/* Images with spacing */}
-        <div className="flex space-x-2 mt-[-10px]">
+        <div className="flex space-x-2 mt-[-10px] ">
+        
+          <img src={hrimages4} alt="" className="h-4 w-4 collapse-div mr-1 ml-[-10px]" />
           {isMobile ? "" : <img src={hrimages1} alt="" className="h-4 w-4 collapse-div" />}
-          <img src={hrimages4} alt="" className="h-4 w-4" />
 
           <img src={hrimages2} alt="" className="h-4 w-4" />
           <img src={hrimages3} alt="" className="h-4 w-4" />
@@ -122,25 +124,24 @@ const Applicationleave = (props) => {
 
         {/* Link to 'View All' button */}
         <Link to="/leaveapplication/view">
-          <Button
-            variant="contained"
-            size="small"
-            sx={{
-              height: '27px',
-              fontSize: '10px',
-              backgroundColor: "#3767B1",
-              textTransform: "none",
-              marginTop: '-15px',
-              marginLeft: "0px",
-              marginRight: "-20px",
-              "&:hover": { backgroundColor: "#3767B1" },
-            }}
-          >
-            View All
-          </Button>
+        <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "#3767B1",
+                  fontSize: "10px",
+                  color: "white",
+                  textTransform: "none",
+                  height: "30px",
+                  width: "80px",
+                  display: isMobile ? "none" : "inline-flex", // Hide on mobile
+                }}
+              >
+                View All
+              </Button>
         </Link>
       </div>
-      {eventData ? <div className="collapsible-div mt-4">
+      <div className="collapsible-div">
+      {eventData ? <div className=" mt-4">
         <div style={{ marginTop: "-11px" }} className="flex items-center gap-4 mb-4">
           <Avatar src={`https://ui-avatars.com/api/?name=${leaveData.name}`} alt={leaveData.name} sx={{ width: 30, height: 30, borderRadius: '25px', marginTop: '-14px' }} />
           <div>
@@ -241,12 +242,11 @@ const Applicationleave = (props) => {
           </Button>
         </div>
       </div>
-        : "No leaves found"
+        :  <Nonoticeboard />
       }
+      </div>
     </Box>
   );
 };
 
-
 export default Applicationleave;
-
