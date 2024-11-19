@@ -26,7 +26,7 @@ import CircularProgress from '../../hooks/useForm/components/CircularProgress';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-
+import dayjs from 'dayjs';
 
 const style = {
     position: 'absolute',
@@ -158,8 +158,17 @@ const SalaryPage = () => {
     React.useEffect(() => {
         fetchEmployeeSalary();
     }, [fetchEmployeeSalary]);
-    console.log(payroll)
+    //console.log(payroll)
     
+    const getUtcdate = (datestr) => {
+        const datetemp = new Date(datestr);
+      
+        // Adjust for a specific timezone (e.g., UTC+5:30)
+        const timezoneOffset = 5.5 * 60; // Offset in minutes
+        return new Date(datetemp.getTime() + timezoneOffset * 60 * 1000);
+      
+      }
+
     return (
         <Box sx={{backgroundColor: 'background.main',}}>
         <div className='flex flex-col'>
@@ -249,10 +258,12 @@ const SalaryPage = () => {
                             </div>
                         </div>
                         <div className='w-[25%] md:w-[11%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
-                        {new Date(user.from).toDateString()}
+                        {/* {new Date(user.from).toDateString()} */}
+                        {dayjs(getUtcdate(user.from)).format("ddd MMM DD YYYY")}
                         </div>
                         <div className='w-[25%] md:w-[13%] p-3 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
-                        {new Date(user.to).toDateString()}
+                        {/* {new Date(user.to).toDateString()} */}
+                        {dayjs(getUtcdate(user.from)).format("ddd MMM DD YYYY")}
                         </div>
                         <div className='w-[50%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
                              {user.salaryType}
