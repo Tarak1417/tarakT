@@ -9,6 +9,7 @@ import hrimage3 from '../../assets/Interductionimages/Vector-3.png';
 import hrimage4 from '../../assets/Interductionimages/Vector.png';
 import hrimage1 from '../../assets/Interductionimages/Vector-1.png';
 import useExpandCollapse from '../../hooks/useExpandCollapse';
+import useFullscreenExpand from '../../hooks/useFullscreenExpand';
 const roleCounts = {
   'Software-Engineer': 1,
   'QA-Tester': 2,
@@ -113,13 +114,14 @@ const EmployeeShift = () => {
   };
 
   return (
-    <Box sx={{ borderRadius: '9px', height: 'auto', backgroundColor: 'background.default', marginTop: "-10px" }} p={isMobile ? 1 : 0.5}>
+    <Box sx={{ borderRadius: '9px', height: 'auto', backgroundColor: 'background.default', marginTop: "-10px" }} p={isMobile ? 1 : 0.5} className="expandable-div">
       {isMobile ? (<div> <div className="flex flex-row  justify-between w-full p-3 mt-[-15px] mb-3 mt-2">
         <h6 className=" text-bold md:text-left md:mb-0">Overview Calendar</h6>
         <div className="flex gap-3 md:gap-4 items-center">
-          <img src={hrimage2} alt="Vector 2" className="w-4 h-4 text-gray-500" />
-          <img src={hrimage4} alt="Vector 4" className="w-4 h-4 text-gray-500" />
-          {isMobile && (<img src={hrimage3} alt="Vector 4" className="w-4 h-4 text-gray-500" />)}
+        <img src={hrimage4} alt="Vector 4" className="w-3 h-3 text-gray-500 " />
+          <img src={hrimage2} alt="Vector 2" className="w-3 h-3 text-gray-500" />
+        
+          {isMobile && (<img src={hrimage3} alt="Vector 4" className="w-3 h-3 text-gray-500" />)}
 
         </div>
       </div>
@@ -348,10 +350,10 @@ const EmployeeShift = () => {
 
           <Stack direction="row" spacing={1} mt="-60px">
           
-            <img src={hrimage4} alt="" className='h-4 w-4 collapse-div' />
-            <img src={hrimage1} alt="" className='h-4 w-4 collapse-div' />
-            <img src={hrimage2} alt="" className='h-4 w-4' />
-            <img src={hrimage3} alt="" className='h-4 w-4' />
+            <img src={hrimage4} alt="" className='h-3 w-3 collapse-div' />
+            <img src={hrimage1} alt="" className='h-3 w-3 expand-button' />
+            <img src={hrimage2} alt="" className='h-3 w-3' />
+            <img src={hrimage3} alt="" className='h-3 w-3' />
           </Stack>
         </Stack>
         </div>

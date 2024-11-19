@@ -44,11 +44,11 @@ const Noleaveapplication = () => {
 
         {/* Main Text */}
         <Typography variant="h6" sx={{  marginBottom: 1 ,fontFamily:"sans-serif",fontSize:"12px"}}>
-          No Recent Job Application!
+        No Recent Leave Application!
         </Typography>
-        <Typography variant="body2" sx={{ color: grey[400], marginBottom: 4,fontSize:"10px" }}>
-        You do not have any recent leave applications.
-When you add employees and they apply for
+        <Typography variant="body2" sx={{ color: grey[400], marginBottom: 4,fontSize:"7px" }}>
+        You do not have any recent leave applications.<br/>
+When you add employees and they apply for<br/>
 leaves, it will show here.
         </Typography>
 

@@ -16,6 +16,7 @@ const NoticeBoard = ({ eventData }) => {
   useExpandCollapse();
   useFullscreenExpand()
   const [datastore, setStore] = useState([]);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     setStore(eventData)
@@ -72,14 +73,122 @@ const NoticeBoard = ({ eventData }) => {
           Notice Board
         </p>
 
-        <div style={{ display: 'flex', gap: '10px', color: 'white', marginTop: "9px" }}>
-          
-          <img src={hrimages4} alt="" className="h-3 w-3 collapse-div" />
-          {isMobile ? "" : <img src={hrimages1} alt="" className="h-3 w-3 expand-button" />}
+        <div style={{ display: "flex", gap: "10px", color: "white", marginTop: "9px" }}>
+  {/* Hover effect for Minimize icon (hrimages4) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("minimize")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages4} alt="Minimize" className="h-3 w-3 collapse-div" />
+    {isHovered === "minimize" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Minimize
+      </div>
+    )}
+  </div>
 
-          <img src={hrimages2} alt="" className="h-3 w-3" />
-          <img src={hrimages3} alt="" className="h-3 w-3" />
+  {/* Hover effect for Maximize icon (hrimages1) */}
+  {!isMobile && (
+    <div
+      style={{ position: "relative", display: "inline-block" }}
+      onMouseEnter={() => setIsHovered("maximize")}
+      onMouseLeave={() => setIsHovered(null)}
+    >
+      <img src={hrimages1} alt="Maximize" className="h-3 w-3 expand-button" />
+      {isHovered === "maximize" && (
+        <div
+          style={{
+            position: "absolute",
+            top: "-28px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            backgroundColor: "#2f456c",
+            color: "#fff",
+            padding: "5px 10px",
+            borderRadius: "3px",
+            fontSize: "10px",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          Maximize
         </div>
+      )}
+    </div>
+  )}
+
+  {/* Hover effect for Refresh icon (hrimages2) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("refresh")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages2} alt="Refresh" className="h-3 w-3" />
+    {isHovered === "refresh" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Refresh
+      </div>
+    )}
+  </div>
+
+  {/* Hover effect for Settings icon (hrimages3) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("settings")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages3} alt="Settings" className="h-3 w-3" />
+    {isHovered === "settings" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "-10px",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+       copy link
+      </div>
+    )}
+  </div>
+</div>
+
       </Box>
       <div
         //style={{ marginTop: "-22px" }}

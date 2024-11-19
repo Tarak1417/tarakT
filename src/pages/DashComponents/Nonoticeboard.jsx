@@ -54,11 +54,11 @@ const NoticeBoard = ({ eventData }) => {
         </Box>
 
         {/* Main Text */}
-        <Typography variant="h6" sx={{ marginBottom: 1, fontFamily: "sans-serif", fontSize: "12px" }}>
+        <Typography variant="h6" sx={{ marginBottom: 1, fontFamily: "sans-serif", fontSize: "11px" }}>
           No current notices!
         </Typography>
-        <Typography variant="body2" sx={{ color: grey[300], marginBottom: 1, fontSize: "10px" }}>
-          You do not have any current notice available. Click the button below to add new notice.
+        <Typography variant="body2" sx={{ color: grey[300], marginBottom: 1, fontSize: "7px" }}>
+          You do not have any current notice available.<br/> Click the button below to add new notice.
         </Typography>
 
         <Button
@@ -68,10 +68,11 @@ const NoticeBoard = ({ eventData }) => {
             color: '#fff',
             textTransform: 'none',
             borderRadius: '8px',
-            height: '25px',
-            width: '100px',
+            height: '30px',
+            width: 'auto',
             fontSize: '10px',
-            padding: '4px 8px',
+            paddingX: { xs: 2, sm: 3 },
+            paddingY: { xs: 1, sm: 1.5 },
             '&:hover': { backgroundColor: blue[800] },
           }}
         >
