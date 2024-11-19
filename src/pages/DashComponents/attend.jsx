@@ -160,7 +160,7 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
     else
       setAttendance(attendanceData)
 
-  }, [attendanceData, fetchAttendanceData, isDashboardCall])
+  }, [])
   //useEffect(() => {setAttendance(attendanceData)},[attendanceData])
 
   return (<>
