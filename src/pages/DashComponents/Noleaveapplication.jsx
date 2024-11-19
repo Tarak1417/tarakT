@@ -3,6 +3,7 @@ import { Box, Card, Typography, Button, Divider } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import Norecentjob from "../../assets/offerLatter/rafiki.png";
 import SearchIcon from '@mui/icons-material/Search'; // Replace with your custom icon if needed
+import calander from "../../assets/Interductionimages/cuate.png"
 
 const Noleaveapplication = () => {
   return (
@@ -18,8 +19,12 @@ const Noleaveapplication = () => {
         sx={{
           
           
-          padding: '24px',
+          padding: '10px',
           textAlign: 'center',
+          display:"flex",
+          flexDirection:"column",
+          alignContent:"center",
+          justifyContent:"center",
          
           borderRadius: '12px',
           color: 'white',
@@ -28,37 +33,26 @@ const Noleaveapplication = () => {
        
 
         {/* Icon/Image Section */}
-        <Box sx={{ marginY: 4 }}>
+        <Box sx={{display:"flex",alignItems:"center",justifyContent:"center" }}>
           <Box
             component="img"
-            src={Norecentjob} // Replace with your actual image path
+            src={calander} // Replace with your actual image path
             alt="No job applications"
-            sx={{ width: 200, height: 150,marginLeft:"105px" }}
+            sx={{ width: 100, height: 50}}
           />
         </Box>
 
         {/* Main Text */}
-        <Typography variant="h6" sx={{  marginBottom: 1 ,fontFamily:"sans-serif",fontSize:"23px"}}>
-          No Recent Job Application!
+        <Typography variant="h6" sx={{  marginBottom: 1 ,fontFamily:"sans-serif",fontSize:"12px"}}>
+        No Recent Leave Application!
         </Typography>
-        <Typography variant="body2" sx={{ color: grey[400], marginBottom: 4,fontSize:"13px" }}>
-          You have no recent job applications yet. <br />
-          Click on the button below to create jobs for people to apply.
+        <Typography variant="body2" sx={{ color: grey[400], marginBottom: 4,fontSize:"7px" }}>
+        You do not have any recent leave applications.<br/>
+When you add employees and they apply for<br/>
+leaves, it will show here.
         </Typography>
 
-        {/* Button */}
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: blue[700],
-            color: '#fff',
-            textTransform: 'none',
-            borderRadius: '8px',
-            '&:hover': { backgroundColor: blue[800] },
-          }}
-        >
-          Create Job
-        </Button>
+        
       </Box>
     </Box>
   );

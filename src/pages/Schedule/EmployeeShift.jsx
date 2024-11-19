@@ -9,6 +9,7 @@ import hrimage3 from '../../assets/Interductionimages/Vector-3.png';
 import hrimage4 from '../../assets/Interductionimages/Vector.png';
 import hrimage1 from '../../assets/Interductionimages/Vector-1.png';
 import useExpandCollapse from '../../hooks/useExpandCollapse';
+import useFullscreenExpand from '../../hooks/useFullscreenExpand';
 const roleCounts = {
   'Software-Engineer': 1,
   'QA-Tester': 2,
@@ -42,6 +43,7 @@ const EmployeeShift = () => {
   const [shift, setShift] = useState('AM Shift');
 
   const isMobile = useMediaQuery('(max-width:600px)');
+  
 
   const handlePrevious = () => {
     if (view === 'Daily') setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() - 1)));
@@ -112,13 +114,14 @@ const EmployeeShift = () => {
   };
 
   return (
-    <Box sx={{ borderRadius: '9px', height: 'auto', backgroundColor: 'background.default', marginTop: "-10px" }} p={isMobile ? 1 : 3}>
+    <Box sx={{ borderRadius: '9px', height: 'auto', backgroundColor: 'background.default', marginTop: "-10px" }} p={isMobile ? 1 : 0.5} className="expandable-div">
       {isMobile ? (<div> <div className="flex flex-row  justify-between w-full p-3 mt-[-15px] mb-3 mt-2">
         <h6 className=" text-bold md:text-left md:mb-0">Overview Calendar</h6>
         <div className="flex gap-3 md:gap-4 items-center">
-          <img src={hrimage2} alt="Vector 2" className="w-4 h-4 text-gray-500" />
-          <img src={hrimage4} alt="Vector 4" className="w-4 h-4 text-gray-500" />
-          {isMobile && (<img src={hrimage3} alt="Vector 4" className="w-4 h-4 text-gray-500" />)}
+        <img src={hrimage4} alt="Vector 4" className="w-3 h-3 text-gray-500 " />
+          <img src={hrimage2} alt="Vector 2" className="w-3 h-3 text-gray-500" />
+        
+          {isMobile && (<img src={hrimage3} alt="Vector 4" className="w-3 h-3 text-gray-500" />)}
 
         </div>
       </div>
@@ -257,20 +260,21 @@ const EmployeeShift = () => {
       </div>
 
       ) :
+      <div className="collapsible-main custom-mb-[-50]">
         <Stack
           direction={isMobile ? 'row' : 'row'}
           justifyContent="space-between"
           alignItems="center"
-          pt={3.5}
-          mb={0.8}
-          className='collapsible-main'
+          pt={7}
+        
+          
         >
           <Typography sx={{ fontSize: isMobile ? '15px' : '18px', marginTop: '-60px' }}>Overview Calendar</Typography>
 
           {/* Date Display */}
-          <Stack direction="row" alignItems="center" spacing={2} marginTop="-60px" >
+          <Stack direction="row" alignItems="center" spacing={1} marginTop="-60px" >
             {/* Date and Day */}
-            <Box display="flex" alignItems="center">
+            <Box display="none" alignItems="center" >
               {/* Date in blue box */}
               <Box
                 sx={{
@@ -344,13 +348,15 @@ const EmployeeShift = () => {
             </Button>
           </Stack>
 
-          <Stack direction="row" spacing={2} mt="-60px">
-            <img src={hrimage1} alt="" className='h-4 w-4 collapse-div' />
-            <img src={hrimage4} alt="" className='h-4 w-4' />
-            <img src={hrimage2} alt="" className='h-4 w-4' />
-            <img src={hrimage3} alt="" className='h-4 w-4' />
+          <Stack direction="row" spacing={1} mt="-60px">
+          
+            <img src={hrimage4} alt="" className='h-3 w-3 collapse-div' />
+            <img src={hrimage1} alt="" className='h-3 w-3 expand-button' />
+            <img src={hrimage2} alt="" className='h-3 w-3' />
+            <img src={hrimage3} alt="" className='h-3 w-3' />
           </Stack>
         </Stack>
+        </div>
       }
 
       {/*above code is  written in bith mobile and desktop mode*/}
@@ -492,7 +498,7 @@ const EmployeeShift = () => {
 
 
 
-          <Box sx={{ display: 'flex', alignItems: 'center', marginTop: isMobile ? "10px" : '-23px', }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', marginTop: isMobile ? "10px" : '-5px', }}>
             {Object.entries(shiftStatusColors).map(([status, color]) => (
               <Box key={status} sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
                 <Box

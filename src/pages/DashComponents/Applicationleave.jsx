@@ -10,6 +10,8 @@ import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
 import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
 import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
+import Nonoticeboard from "../../pages/DashComponents/Nonoticeboard";
+import Noleaveapplication from "./Noleaveapplication";
 
 
 const Applicationleave = (props) => {
@@ -43,6 +45,7 @@ const Applicationleave = (props) => {
 
   // State to manage leave data
   const [leaveData, setLeaveData] = useState(initialLeaveData);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => { setLeaveData(initialLeaveData) }, [initialLeaveData])
   const { showError, showSuccess } = useMessage();
@@ -92,55 +95,166 @@ const Applicationleave = (props) => {
     <Box
       sx={{
         backgroundColor: "background.default",
-        borderRadius: "16px",
-        padding: "15px",
+        borderRadius: "10px",
+        padding: "17px",
 
-        maxHeight: "220px",
+        maxHeight: "235px",
+        
 
         margin: " auto",
         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
         //marginTop: "-1px"
       }}
     >
-      <div className="flex items-center collapsible-main mr-[10px] space-x-4">
+      <div className="flex items-center collapsible-main  space-x-10">
         {/* Title */}
         <Typography
-          style={{ fontSize: "15px", marginTop: '-16px', }}
+          style={{ fontSize: "10px", padding:isMobile?"10px":"8px", flexWrap:"nowrap", marginTop: '-20px', marginRight:isMobile?"20px":""}}
           variant="h6"
         >
           Recent Leave Application
         </Typography>
 
         {/* Images with spacing */}
-        <div className="flex space-x-2 mt-[-10px]">
-          {isMobile ? "" : <img src={hrimages1} alt="" className="h-4 w-4 collapse-div" />}
-          <img src={hrimages4} alt="" className="h-4 w-4" />
+        <div className={`flex justify-between space-x-2 mt-[-10px] mr-[50px]`}>
+        
+ 
+  {/* Hover effect for Minimize icon (hrimages4) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("minimize")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+   <img src={hrimages4} alt="" className="h-3 w-3 collapse-div  ml-[10px]" />
+    {isHovered === "minimize" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Minimize
+      </div>
+    )}
+  </div>
 
-          <img src={hrimages2} alt="" className="h-4 w-4" />
-          <img src={hrimages3} alt="" className="h-4 w-4" />
+  {/* Hover effect for Maximize icon (hrimages1) */}
+  {!isMobile && (
+    <div
+      style={{ position: "relative", display: "inline-block" }}
+      onMouseEnter={() => setIsHovered("maximize")}
+      onMouseLeave={() => setIsHovered(null)}
+    >
+      <img src={hrimages1} alt="Maximize" className="h-3 w-3 expand-button ml-[10px]" />
+      {isHovered === "maximize" && (
+        <div
+          style={{
+            position: "absolute",
+            top: "-28px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            backgroundColor: "#2f456c",
+            color: "#fff",
+            padding: "5px 10px",
+            borderRadius: "3px",
+            fontSize: "10px",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          Maximize
         </div>
+      )}
+    </div>
+  )}
+
+  {/* Hover effect for Refresh icon (hrimages2) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("refresh")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages2} alt="Refresh" className="h-3 w-3 ml-[10px]"  />
+    {isHovered === "refresh" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Refresh
+      </div>
+    )}
+  </div>
+
+  {/* Hover effect for Settings icon (hrimages3) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("settings")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages3} alt="Settings" className="h-3 w-3 ml-[10px]" />
+    {isHovered === "settings" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "-10px",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+       copy link
+      </div>
+    )}
+  </div>
+</div>
 
         {/* Link to 'View All' button */}
         <Link to="/leaveapplication/view">
-          <Button
-            variant="contained"
-            size="small"
-            sx={{
-              height: '27px',
-              fontSize: '10px',
-              backgroundColor: "#3767B1",
-              textTransform: "none",
-              marginTop: '-15px',
-              marginLeft: "0px",
-              marginRight: "-20px",
-              "&:hover": { backgroundColor: "#3767B1" },
-            }}
-          >
-            View All
-          </Button>
+        <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "#3767B1",
+                  fontSize: "10px",
+                  color: "white",
+                  textTransform: "none",
+                  height: "25px",
+                  width: "80px",
+                  marginTop:isMobile?"-10px":"-10px",
+                  display: isMobile ? "none" : "inline-flex", // Hide on mobile
+                }}
+              >
+                View All
+              </Button>
         </Link>
       </div>
-      {eventData ? <div className="collapsible-div mt-4">
+      <div className="collapsible-div">
+      {eventData ? <div className=" mt-4">
         <div style={{ marginTop: "-11px" }} className="flex items-center gap-4 mb-4">
           <Avatar src={`https://ui-avatars.com/api/?name=${leaveData.name}`} alt={leaveData.name} sx={{ width: 30, height: 30, borderRadius: '25px', marginTop: '-14px' }} />
           <div>
@@ -241,8 +355,9 @@ const Applicationleave = (props) => {
           </Button>
         </div>
       </div>
-        : "No leaves found"
+        :  <Noleaveapplication/>
       }
+      </div>
     </Box>
   );
 };

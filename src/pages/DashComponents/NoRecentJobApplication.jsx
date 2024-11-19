@@ -1,8 +1,7 @@
 import React from 'react';
-import { Box, Card, Typography, Button, Divider } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import { blue, grey } from '@mui/material/colors';
 import Norecentjob from "../../assets/offerLatter/rafiki.png";
-import SearchIcon from '@mui/icons-material/Search'; // Replace with your custom icon if needed
 
 const NoRecentJobApplication = () => {
   return (
@@ -11,38 +10,53 @@ const NoRecentJobApplication = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-      
+        height:"auto",
+        padding: 2,
       }}
     >
       <Box
         sx={{
-          
-          
-          padding: '24px',
+          padding: { xs: 2, sm: 4 },
           textAlign: 'center',
-         
           borderRadius: '12px',
-          color: 'white',
+          backgroundColor: "Background.view",
+          color: 'text.primary',
         }}
       >
-       
-
         {/* Icon/Image Section */}
-        <Box sx={{ marginY: 4 }}>
+        <Box sx={{ my: { xs: 2, sm: 4 } }}>
           <Box
             component="img"
-            src={Norecentjob} // Replace with your actual image path
+            src={Norecentjob}
             alt="No job applications"
-            sx={{ width: 200, height: 150,marginLeft:"105px" }}
+            sx={{
+              width: { xs: 150, sm: 200 },
+              height: { xs: 100, sm: 150 },
+              mx: 'auto',
+            }}
           />
         </Box>
 
         {/* Main Text */}
-        <Typography variant="h6" sx={{  marginBottom: 1 ,fontFamily:"sans-serif",fontSize:"23px"}}>
+        <Typography
+          variant="h6"
+          sx={{
+            marginBottom: 1,
+            fontFamily: 'sans-serif',
+            fontSize: { xs: '18px', sm: '23px' },
+          }}
+        >
           No Recent Job Application!
         </Typography>
-        <Typography variant="body2" sx={{ color: grey[400], marginBottom: 4,fontSize:"13px" }}>
-          You have no recent job applications yet. <br />
+        <Typography
+          variant="body2"
+          sx={{
+            color: grey[500],
+            marginBottom: { xs: 3, sm: 4 },
+            fontSize: { xs: '12px', sm: '13px' },
+          }}
+        >
+          You have no recent job applications yet.<br/>
           Click on the button below to create jobs for people to apply.
         </Typography>
 
@@ -54,6 +68,11 @@ const NoRecentJobApplication = () => {
             color: '#fff',
             textTransform: 'none',
             borderRadius: '8px',
+            height:"30px",
+            width:"auto",
+            fontSize: '10px',
+            paddingX: { xs: 2, sm: 3 },
+            paddingY: { xs: 1, sm: 1.5 },
             '&:hover': { backgroundColor: blue[800] },
           }}
         >

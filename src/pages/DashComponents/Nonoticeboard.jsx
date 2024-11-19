@@ -1,73 +1,86 @@
+import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
-import { Box, Typography, Button } from '@mui/material';
-import Image from "../../components/Image";
-import Boardimg from "../../assets/offerLatter/Board.png";
-import { height, styled } from '@mui/system';
-import NoticeIcon from '@mui/icons-material/StickyNote2'; // Placeholder for the notice image
+import Noticeboard from "../../assets/Interductionimages/Board.png";
+import { blue, grey } from '@mui/material/colors';
 
-const NoticeBoardContainer = styled(Box)({
-  width: '300px',
-  padding: '20px',
- 
-  borderRadius: '10px',
-  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  color: '#FFFFFF',
-  textAlign: 'center',
-});
+const NoticeBoard = ({ eventData }) => {
+  const demoEvent = [
+    {
+      date: "5 Mar",
+      title: "Board Meeting",
+      description: "Attend board meeting with company manager.",
+      backgroundColor: "#fbbf24"
+    },
+    {
+      date: "9 Mar",
+      title: "Design Team Meeting",
+      description: "Attend design team meeting with team mates and HOD.",
+      backgroundColor: "#dc2626"
+    },
+    {
+      date: "7 Feb",
+      title: "Tech Conference",
+      description: "Attend conference with teammates and other departments.",
+      backgroundColor: "#f97316"
+    },
+    {
+      date: "4 Mar",
+      title: "Development Team Pitch",
+      description: "Pitch idea on new development to the company board.",
+      backgroundColor: "#3b82f6"
+    }
+  ];
 
-const IconWrapper = styled(Box)({
-  width: '80px',
-  height: '80px',
-  backgroundColor: '#2e2e2e',
-  borderRadius: '10px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  marginBottom: '15px',
-});
-
-const Title = styled(Typography)({
-  fontSize: '20px',
-  fontWeight: 'bold',
-  marginBottom: '10px',
-});
-
-const Subtitle = styled(Typography)({
-  fontSize: '14px',
-  color: '#aaaaaa',
-  marginBottom: '20px',
-});
-
-const AddButton = styled(Button)({
-  backgroundColor: '#3a72f9',
-  color: '#ffffff',
-  padding: '8px 16px',
-  borderRadius: '6px',
-  textTransform: 'none',
-  '&:hover': {
-    backgroundColor: '#305ab2',
-  },
-});
-
-const Nonoticeboard = () => {
   return (
-    <NoticeBoardContainer>
-     
-     
-        <Image src={Boardimg} alt="Boarding" sx={{ml:"-29px",height:"60px"}} />
-      
-      <Typography variant="h6" style={{ fontFamily:"sans-serif", marginBottom: '10px',marginLeft:"-22px",marginTop:"33px" }}>
-        No Current Notice!
-      </Typography>
-      <Subtitle sx={{fontFamily:"sans-serif",fontSize:"13px",marginLeft:"-33px"}}>
-        You do not have any current notice available. Click the button below to add new notice.
-      </Subtitle>
-      <AddButton sx={{marginLeft:"-33px",height:"33px",backgroundColor:"#3767B1",fontSize:"13px"}} variant="contained">Add Notice</AddButton>
-    </NoticeBoardContainer>
+    <Box className="rounded-lg" sx={{ padding: 2, backgroundColor: "Background.view", borderRadius: '12px' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          textAlign: 'center',
+          color: 'white',
+        }}
+      >
+        {/* Icon/Image Section */}
+        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <Box
+            component="img"
+            src={Noticeboard}
+            alt="No job applications"
+            sx={{ width: 80, height: 40 }}
+          />
+        </Box>
+
+        {/* Main Text */}
+        <Typography variant="h6" sx={{ marginBottom: 1, fontFamily: "sans-serif", fontSize: "11px" }}>
+          No current notices!
+        </Typography>
+        <Typography variant="body2" sx={{ color: grey[300], marginBottom: 1, fontSize: "7px" }}>
+          You do not have any current notice available.<br/> Click the button below to add new notice.
+        </Typography>
+
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: blue[700],
+            color: '#fff',
+            textTransform: 'none',
+            borderRadius: '8px',
+            height: '30px',
+            width: 'auto',
+            fontSize: '10px',
+            paddingX: { xs: 2, sm: 3 },
+            paddingY: { xs: 1, sm: 1.5 },
+            '&:hover': { backgroundColor: blue[800] },
+          }}
+        >
+          Create Job
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
-export default Nonoticeboard;
+export default NoticeBoard;
