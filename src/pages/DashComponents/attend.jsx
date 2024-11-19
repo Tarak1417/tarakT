@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FaPhoneAlt, FaEnvelope, FaEye } from "react-icons/fa";
 import dayjs from "dayjs";
 import { BorderColor, BorderStyle } from "@mui/icons-material";
@@ -12,6 +12,77 @@ import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
 import { Link } from 'react-router-dom';
 import useExpandCollapse from "../../hooks/useExpandCollapse";
+import Norecentattendence from "./Norecentattendence";
+
+const attendanceData = [
+  {
+    id: "#193845039283",
+    name: "Richard Webber",
+    role: "UI/UX Designer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:17 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=3",
+  },
+  {
+    id: "#995830128543",
+    name: "Desmond Jakes",
+    role: "Frontend Developer",
+    date: "22/10/2024",
+    status: "Late",
+    clockIn: "09:40:17 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=8",
+  },
+  {
+    id: "#995839202395",
+    name: "Jaxson Schleifer",
+    role: "Frontend Developer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:03 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=10",
+  },
+  {
+    id: "#294857104856",
+    name: "Cynthia Eze",
+    role: "Software Engineer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:05 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=4",
+  },
+  {
+    id: "#775839203848",
+    name: "Erin Herwitz",
+    role: "Digital Marketer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:07 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=5",
+  },
+  {
+    id: "#775839205548",
+    name: "Erin Herwitz",
+    role: "Digital Marketer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:07 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=5",
+  },
+];
+
 
 const StatusBadge = ({ status }) => {
   const theme = useTheme();
@@ -39,6 +110,7 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [open, setOpen] = React.useState(false);
   const [selectedEmp, setSelectedEmp] = React.useState();
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
@@ -144,14 +216,122 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
           <Typography variant="h6" sx={{ fontSize: isMobile ? "14px" : "17px", mr: "10px", fontWeight: "bold", whiteSpace: "nowrap" }}>
             Recent Attendance
           </Typography>
-          <div style={{ display: "flex", gap: '20px', }}>
-            <div style={{ display: 'flex', gap: '10px', color: 'white', marginTop: "9px" }}>
-              {isMobile ? "" : <img src={hrimages1} alt="" className="h-4 w-4 collapse-div" />}
-              <img src={hrimages4} alt="" className="h-4 w-4" />
+          <div style={{ display: "flex", gap: '10px', }}>
+          <div style={{ display: "flex", gap: "10px", color: "white", marginTop: "9px" }}>
+  {/* Hover effect for Minimize icon (hrimages4) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("minimize")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages4} alt="Minimize" className="h-3 w-3 collapse-div" />
+    {isHovered === "minimize" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Minimize
+      </div>
+    )}
+  </div>
 
-              <img src={hrimages2} alt="" className="h-4 w-4" />
-              <img src={hrimages3} alt="" className="h-4 w-4" />
-            </div>
+  {/* Hover effect for Maximize icon (hrimages1) */}
+  {!isMobile && (
+    <div
+      style={{ position: "relative", display: "inline-block" }}
+      onMouseEnter={() => setIsHovered("maximize")}
+      onMouseLeave={() => setIsHovered(null)}
+    >
+      <img src={hrimages1} alt="Maximize" className="h-3 w-3 expand-button" />
+      {isHovered === "maximize" && (
+        <div
+          style={{
+            position: "absolute",
+            top: "-28px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            backgroundColor: "#2f456c",
+            color: "#fff",
+            padding: "5px 10px",
+            borderRadius: "3px",
+            fontSize: "10px",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          Maximize
+        </div>
+      )}
+    </div>
+  )}
+
+  {/* Hover effect for Refresh icon (hrimages2) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("refresh")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages2} alt="Refresh" className="h-3 w-3" />
+    {isHovered === "refresh" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Refresh
+      </div>
+    )}
+  </div>
+
+  {/* Hover effect for Settings icon (hrimages3) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("settings")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages3} alt="Settings" className="h-3 w-3" />
+    {isHovered === "settings" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "-10px",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+       copy link
+      </div>
+    )}
+  </div>
+</div>
             {isDashboardCall && <Link to="/RecentAttendence">
               <Button
                 variant="contained"
@@ -160,7 +340,7 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
                   fontSize: "10px",
                   color: "white",
                   textTransform: "none",
-                  height: "30px",
+                  height: "25px",
                   width: "80px",
                   display: isMobile ? "none" : "inline-flex", // Hide on mobile
                 }}
@@ -180,7 +360,8 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
           }}
           className="collapsible-div"
         >
-          <table className="w-full text-left border-collapse border-spacing-0">
+          {attendance.length===0?<Norecentattendence/>:
+          <table className="w-full text-left border-collapse border-spacing-0 ">
             <thead>
               <tr>
                 <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pr-[10px] text-[10px]" : ""}`}>EmployeeID</th>
@@ -256,13 +437,13 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
                   </td>
                 </tr>
               ))
-                : "Loading...."
+                : "loading..."
               }
             </tbody>
           </table>
-        </div>
+}
 
-        {isMobile && <Link to="/RecentAttendance"><div className=" mt-4">
+{isMobile && <Link to="/RecentAttendance"><div className=" mt-4">
           <button
             style={{ color: "blue" }}
             className={`px-4 py-2 rounded-md text-sm font-medium`}
@@ -272,6 +453,9 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
         </div>
         </Link>
         }
+        </div>
+
+        
       </Box>
     </div>
   </>

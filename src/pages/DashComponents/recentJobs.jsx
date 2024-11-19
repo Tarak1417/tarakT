@@ -46,6 +46,8 @@ const RecentJobs = ({ items }) => {
   const [dropdown1Open, setDropdown1Open] = useState(false);
   const [dropdown2Open, setDropdown2Open] = useState(false);
   const [setSelectedYear] = useState("2024");
+  const [isHovered, setIsHovered] = useState(false);
+
 
   const toggleDropdown1 = () => {
     setDropdown1Open(!dropdown1Open);
@@ -83,13 +85,121 @@ const RecentJobs = ({ items }) => {
         </Typography>
 
         <div style={{ display: "flex", gap: '20px', }}>
-          <div style={{ display: 'flex', gap: '10px', color: 'white', marginTop: "9px" }}>
-            {isMobile ? "" : <img src={hrimages1} alt="" className="h-4 w-4 collapse-div" />}
-            <img src={hrimages4} alt="" className="h-4 w-4" />
+        <div style={{ display: "flex", gap: "10px", color: "white", marginTop: "9px" }}>
+  {/* Hover effect for Minimize icon (hrimages4) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("minimize")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages4} alt="Minimize" className="h-3 w-3 collapse-div" />
+    {isHovered === "minimize" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Minimize
+      </div>
+    )}
+  </div>
 
-            <img src={hrimages2} alt="" className="h-4 w-4" />
-            <img src={hrimages3} alt="" className="h-4 w-4" />
-          </div>
+  {/* Hover effect for Maximize icon (hrimages1) */}
+  {!isMobile && (
+    <div
+      style={{ position: "relative", display: "inline-block" }}
+      onMouseEnter={() => setIsHovered("maximize")}
+      onMouseLeave={() => setIsHovered(null)}
+    >
+      <img src={hrimages1} alt="Maximize" className="h-3 w-3 expand-button" />
+      {isHovered === "maximize" && (
+        <div
+          style={{
+            position: "absolute",
+            top: "-28px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            backgroundColor: "#2f456c",
+            color: "#fff",
+            padding: "5px 10px",
+            borderRadius: "3px",
+            fontSize: "10px",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          Maximize
+        </div>
+      )}
+    </div>
+  )}
+
+  {/* Hover effect for Refresh icon (hrimages2) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("refresh")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages2} alt="Refresh" className="h-3 w-3" />
+    {isHovered === "refresh" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Refresh
+      </div>
+    )}
+  </div>
+
+  {/* Hover effect for Settings icon (hrimages3) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("settings")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages3} alt="Settings" className="h-3 w-3" />
+    {isHovered === "settings" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "-10px",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+       copy link
+      </div>
+    )}
+  </div>
+</div>
           <Link to="/receivedapplications">
             <Button
               variant="contained"
@@ -98,9 +208,10 @@ const RecentJobs = ({ items }) => {
                 fontSize: "10px",
                 color: "white",
                 textTransform: "none",
-                height: "30px",
+                height: "25px",
                 width: "80px",
                 display: isMobile ? "none" : "inline-flex", // Hide on mobile
+                
               }}
             >
               View All
@@ -108,7 +219,7 @@ const RecentJobs = ({ items }) => {
           </Link>
         </div>
       </Stack>
-      <div className="w-full overflow-x-auto md:overflow-x-hidden collapsible-div mt-4" style={{ minHeight:"75vh"}}>
+      <div className="w-full overflow-x-auto md:overflow-x-hidden collapsible-div mt-4" style={{ minHeight:"74.9vh"}}>
         {items && items.length > 0 ? (
           items.map((item, index) => (
             <div key={index} className="flex flex-row mb-1 min-w-[30rem]">
@@ -193,8 +304,8 @@ const RecentJobs = ({ items }) => {
         ) : (
           <NoRecentJobApplication />
         )}
-      </div>
-      {isMobile && <Link to="/receivedapplications"><div className=" mt-4">
+
+{isMobile && <Link to="/receivedapplications"><div className=" mt-4">
         <button
           style={{ color: "blue" }}
           className={`px-4 py-2 rounded-md text-sm font-medium`}
@@ -204,6 +315,8 @@ const RecentJobs = ({ items }) => {
       </div>
       </Link>
       }
+      </div>
+     
     </Box>
   );
 };
