@@ -99,7 +99,7 @@ const ModalContent = ({ selectedEmp, handleClose, open }) => {
           <Grid item xs={12} md={6}>
             <Typography variant="body2"><strong>Shift:</strong><br />{dayjs(selectedEmp.clockInTime).format("A")}</Typography>
             <Typography variant="body2"><strong>Date:</strong><br />{dayjs(selectedEmp.clockInTime).format("DD/MM/YYYY")}</Typography>
-            <Typography variant="body2"><strong>Work Status:</strong> <br />In Progress</Typography>
+            <Typography variant="body2"><strong>Work Status:</strong> <br /><div style={{background:"#3767B1",height:"5px", width:"5px", borderRadius:"2px",display:"inline-block",position:"relative",top:"7px"}}>&nbsp;</div> Present </Typography>
             <Typography variant="body2"><strong>Clock-In Time:</strong><br />{dayjs(selectedEmp.clockInTime).format("hh:mm:ss A")}</Typography>
           </Grid>
 
@@ -107,7 +107,7 @@ const ModalContent = ({ selectedEmp, handleClose, open }) => {
           <Grid item xs={12} md={6}>
             <Typography variant="body2"><strong>Shift Time:</strong><br />{`${formattedShiftStart}-${formattedShiftEnd}`}</Typography>
             <Typography variant="body2"><strong>Shift Duration:</strong><br /> {hours} hour(s) and {minutes} minute(s)</Typography>
-            <Typography variant="body2"><strong>Shift Status:</strong><br /> {selectedEmp.status}</Typography>
+            <Typography variant="body2"><strong>Shift Status:</strong><br /><div style={{background:(selectedEmp.status==="Late"?"#F13B3B":"#42b824"),height:"5px", width:"5px", borderRadius:"2px",display:"inline-block",position:"relative",top:"7px"}}>&nbsp;</div> {selectedEmp.status}</Typography>
             <Typography variant="body2"><strong>Clock-Out Time:</strong><br />{selectedEmp.clockOutTime ? dayjs(selectedEmp.clockOutTime).format("hh:mm:ss A") : "Not yet clocked out"}</Typography>
           </Grid>
           <Grid item xs={12}>
@@ -117,7 +117,8 @@ const ModalContent = ({ selectedEmp, handleClose, open }) => {
               border: "1px solid rgb(199, 198, 198)",
               padding: "5px",
               borderRadius: "5px",
-              minHeight: "100px"
+              minHeight: "80px",
+              background:"transparent"
             }}>
               {selectedEmp.note || ""}
             </textarea>
@@ -160,7 +161,8 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
     else
       setAttendance(attendanceData)
 
-  }, [])
+
+  }, [attendanceData, fetchAttendanceData, isDashboardCall])
   //useEffect(() => {setAttendance(attendanceData)},[attendanceData])
 
   return (<>

@@ -263,7 +263,7 @@ const SalaryPage = () => {
                         </div>
                         <div className='w-[25%] md:w-[13%] p-3 border-r border-zinc-500 text-left text-sm md:text-[10px]'>
                         {/* {new Date(user.to).toDateString()} */}
-                        {dayjs(getUtcdate(user.from)).format("ddd MMM DD YYYY")}
+                        {dayjs(getUtcdate(user.to)).format("ddd MMM DD YYYY")}
                         </div>
                         <div className='w-[50%] md:w-[10%] p-3 border-r border-zinc-500 text-sm md:text-[10px]'>
                              {user.salaryType}
