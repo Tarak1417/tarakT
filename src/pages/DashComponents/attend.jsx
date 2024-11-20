@@ -145,25 +145,26 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
     setOpen(true);
   }
   const [attendance, setAttendance] = useState(attendanceData);
-  const fetchAttendanceData = useCallback(async () => {
-    try {
-      const response = await axios.get(`/hr/attendance/recent`);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      setAttendance(response.data.attendance)
-    } catch (e) {
-      console.log(e);
+  const fetchAttendanceData = async () => {
+    if (!isDashboardCall && attendance.length===0) {
+      try {
+        const response = await axios.get("/hr/attendance/recent");
+        setAttendance(response.data.attendance);
+      } catch (e) {
+        console.error("Error fetching attendance:", e);
+      }
+    } else {
+      setAttendance(attendanceData);
     }
-  }, []);
-
+  }
   useEffect(() => {
-    if (!isDashboardCall)
-      fetchAttendanceData();
-    else
+    if (attendanceData.length>0) {
       setAttendance(attendanceData)
-
-
-  }, [attendanceData, fetchAttendanceData, isDashboardCall])
-  //useEffect(() => {setAttendance(attendanceData)},[attendanceData])
+    }
+  },[attendanceData])
+  useEffect(() => {
+    fetchAttendanceData();
+  }, []);
 
   return (<>
     {selectedEmp && selectedEmp.employeeData && <ModalContent selectedEmp={selectedEmp} handleClose={handleClose} open={open} /> }
