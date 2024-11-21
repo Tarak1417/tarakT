@@ -43,7 +43,7 @@ const NoRecentJobApplication = () => {
           sx={{
             marginBottom: 1,
             fontFamily: 'sans-serif',
-            fontSize: { xs: '18px', sm: '23px' },
+            fontSize: { xs: '13px', sm: '13px' },
           }}
         >
           No Recent Job Application!
@@ -53,7 +53,7 @@ const NoRecentJobApplication = () => {
           sx={{
             color: grey[500],
             marginBottom: { xs: 3, sm: 4 },
-            fontSize: { xs: '12px', sm: '13px' },
+            fontSize: { xs: '10px', sm: '10px' },
           }}
         >
           You have no recent job applications yet.<br/>

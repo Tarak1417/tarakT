@@ -12,6 +12,9 @@ import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
 import Nonoticeboard from "../../pages/DashComponents/Nonoticeboard";
 import Noleaveapplication from "./Noleaveapplication";
+import minimizeicon from "../../assets/Interductionimages/expand.png"
+import maximizeicon from "../../assets/Interductionimages/maximize.png"
+
 
 
 const Applicationleave = (props) => {
@@ -46,6 +49,14 @@ const Applicationleave = (props) => {
   // State to manage leave data
   const [leaveData, setLeaveData] = useState(initialLeaveData);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false); // For first icon
+  const [isMaximized, setIsMaximized] = useState(true);
+
+
+  const handleToggle = () => setIsMinimized(!isMinimized);
+
+
+const handleToggleMaximize = () => setIsMaximized(!isMaximized);
 
   useEffect(() => { setLeaveData(initialLeaveData) }, [initialLeaveData])
   const { showError, showSuccess } = useMessage();
@@ -98,7 +109,7 @@ const Applicationleave = (props) => {
         borderRadius: "10px",
         padding: "17px",
 
-        maxHeight: "235px",
+        maxHeight: "220px",
         
 
         margin: " auto",
@@ -106,27 +117,63 @@ const Applicationleave = (props) => {
         //marginTop: "-1px"
       }}
     >
-      <div className="flex items-center collapsible-main  space-x-10">
-        {/* Title */}
-        <Typography
-          style={{ fontSize: "10px", padding:isMobile?"10px":"8px", flexWrap:"nowrap", marginTop: '-20px', marginRight:isMobile?"20px":""}}
-          variant="h6"
-        >
+    <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", mt:"-10px" ,gap:"9px" }} className="collapsible-main ">
+        <p style={{ fontSize: "13px" }} className=" marginTop- 20px ">
           Recent Leave Application
-        </Typography>
+        </p>
 
-        {/* Images with spacing */}
-        <div className={`flex justify-between space-x-2 mt-[-10px] mr-[50px]`}>
-        
- 
+        <div style={{ display: "flex" ,flexDirection:"row", gap: "10px", color: "white", marginLeft:isMobile?"100px":"" ,marginTop: "10px "  }}>
   {/* Hover effect for Minimize icon (hrimages4) */}
   <div
+  style={{ position: "relative",cursor:"pointer" }}
+  onMouseEnter={() => setIsHovered(isMinimized ? "expand" : "minimize")}
+  onMouseLeave={() => setIsHovered(null)}
+  onClick={handleToggle} // Unique class for the toggle button
+>
+  {isMinimized ? (
+    <img src={hrimages4} alt="expand" className="h-3 w-3 collapse-div" />
+  ) : (
+    <img src={minimizeicon} alt="minimize" className="h-3 w-3 collapse-div " />
+  )}
+
+  {(isHovered === "minimize" || isHovered === "expand") && (
+    <div
+      style={{
+        position: "absolute",
+        top: "-28px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        backgroundColor: "#2f456c",
+        color: "#fff",
+        padding: "5px 10px",
+        borderRadius: "3px",
+        fontSize: "10px",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+        whiteSpace: "nowrap",
+      }}
+    >
+      {isMinimized ? "expand" : "Minimize"}
+    </div>
+  )}
+</div>
+
+
+
+  {/* Hover effect for Maximize icon (hrimages1) */}
+  {!isMobile && (
+  <div
     style={{ position: "relative", display: "inline-block" }}
-    onMouseEnter={() => setIsHovered("minimize")}
+    onMouseEnter={() => setIsHovered(isMaximized ? "maximize" : "singlecolumn")}
     onMouseLeave={() => setIsHovered(null)}
+    onClick={handleToggleMaximize}
   >
-   <img src={hrimages4} alt="" className="h-3 w-3 collapse-div  ml-[10px]" />
-    {isHovered === "minimize" && (
+    {isMaximized? (
+      <img src={hrimages1} alt="maximize" className="h-3 w-3 expand-button " />
+    ) : (
+      <img src={maximizeicon} alt="singlecolumn" className="h-3 w-3  expand-button " />
+    )}
+
+    {(isHovered === "maximize" || isHovered === "singlecolumn") && (
       <div
         style={{
           position: "absolute",
@@ -142,48 +189,18 @@ const Applicationleave = (props) => {
           whiteSpace: "nowrap",
         }}
       >
-        Minimize
+        {isMaximized ? "maximize" : "singlecolumn"}
       </div>
     )}
   </div>
-
-  {/* Hover effect for Maximize icon (hrimages1) */}
-  {!isMobile && (
-    <div
-      style={{ position: "relative", display: "inline-block" }}
-      onMouseEnter={() => setIsHovered("maximize")}
-      onMouseLeave={() => setIsHovered(null)}
-    >
-      <img src={hrimages1} alt="Maximize" className="h-3 w-3 expand-button ml-[10px]" />
-      {isHovered === "maximize" && (
-        <div
-          style={{
-            position: "absolute",
-            top: "-28px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            backgroundColor: "#2f456c",
-            color: "#fff",
-            padding: "5px 10px",
-            borderRadius: "3px",
-            fontSize: "10px",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-            whiteSpace: "nowrap",
-          }}
-        >
-          Maximize
-        </div>
-      )}
-    </div>
-  )}
-
+)}
   {/* Hover effect for Refresh icon (hrimages2) */}
   <div
     style={{ position: "relative", display: "inline-block" }}
     onMouseEnter={() => setIsHovered("refresh")}
     onMouseLeave={() => setIsHovered(null)}
   >
-    <img src={hrimages2} alt="Refresh" className="h-3 w-3 ml-[10px]"  />
+    <img src={hrimages2} alt="Refresh" className="h-3 w-3" />
     {isHovered === "refresh" && (
       <div
         style={{
@@ -211,7 +228,7 @@ const Applicationleave = (props) => {
     onMouseEnter={() => setIsHovered("settings")}
     onMouseLeave={() => setIsHovered(null)}
   >
-    <img src={hrimages3} alt="Settings" className="h-3 w-3 ml-[10px]" />
+    <img src={hrimages3} alt="Settings" className="h-3 w-3" />
     {isHovered === "settings" && (
       <div
         style={{
@@ -233,9 +250,7 @@ const Applicationleave = (props) => {
     )}
   </div>
 </div>
-
-        {/* Link to 'View All' button */}
-        <Link to="/leaveapplication/view">
+<Link to="/leaveapplication/view">
         <Button
                 variant="contained"
                 sx={{
@@ -245,14 +260,16 @@ const Applicationleave = (props) => {
                   textTransform: "none",
                   height: "25px",
                   width: "80px",
-                  marginTop:isMobile?"-10px":"-10px",
-                  display: isMobile ? "none" : "inline-flex", // Hide on mobile
+                  marginTop:isMobile?"-10px":"",
+                  display: isMobile ? "none" : "inline-flex", 
+                // Hide on mobile
                 }}
               >
                 View All
               </Button>
         </Link>
-      </div>
+
+      </Box>
       <div className="collapsible-div">
       {eventData ? <div className=" mt-4">
         <div style={{ marginTop: "-11px" }} className="flex items-center gap-4 mb-4">

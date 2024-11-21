@@ -51,7 +51,7 @@ const Norecentattendence = () => {
         sx={{
           marginBottom: 1,
           fontFamily: 'sans-serif',
-          fontSize: { xs: '18px', sm: '23px' },
+          fontSize: { xs: '13px', sm: '13px' },
         }}
       >
      No Employee Recent Attendance Record!
@@ -61,7 +61,7 @@ const Norecentattendence = () => {
           sx={{
             color: grey[500],
             marginBottom: { xs: 3, sm: 4 },
-            fontSize: { xs: '12px', sm: '13px' },
+            fontSize: { xs: '10px', sm: '10px' },
           }}
         >
        You do not currently have any employees to view their recent attendance.<br/>
