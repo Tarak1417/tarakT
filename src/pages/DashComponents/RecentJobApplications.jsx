@@ -135,7 +135,7 @@ const ApplicationRow = ({ applicant }) => (
 // Main component for recent job applications
 const RecentJobApplications = () => {
   return (
-    <div style={{ backgroundColor: "background.default", marginTop: '-24px', }} className="min-h-screen p-6">
+    <div style={{ backgroundColor: "background.default", marginTop: '-24px', }}>
       {/* Header section with title and dropdowns */}
       <Box
         sx={{ backgroundColor: "background.view", padding: '14px', borderRadius: "12px" }}

@@ -20,6 +20,7 @@ const Norecentattendence = () => {
       height:"auto",
       padding: 2,
     }}
+    className="collapsible-main"
   >
     <Box
       sx={{
@@ -38,7 +39,7 @@ const Norecentattendence = () => {
           alt="No job applications"
           sx={{
             width: { xs: 150, sm: 250 },
-            height: { xs: 100, sm: 200 },
+            height: { xs: 150, sm: 265 },
             mx: 'auto',
           }}
         />
@@ -56,33 +57,35 @@ const Norecentattendence = () => {
      No Employee Recent Attendance Record!
       </Typography>
       <Typography
-        variant="body2"
-        sx={{
-          color: grey[500],
-          marginBottom: { xs: 3, sm: 4 },
-          fontSize: { xs: '12px', sm: '13px' },
-        }}
-      >
-       You do not currently have any employees to view their recent attendance.
+          variant="body2"
+          sx={{
+            color: grey[500],
+            marginBottom: { xs: 3, sm: 4 },
+            fontSize: { xs: '12px', sm: '13px' },
+          }}
+        >
+       You do not currently have any employees to view their recent attendance.<br/>
        Click the button below now to add employees and start viewing their attendance records.
       </Typography>
 
       {/* Button */}
       <Button
-        variant="contained"
-        sx={{
-          backgroundColor: blue[700],
-          color: '#fff',
-          textTransform: 'none',
-          borderRadius: '8px',
-          fontSize: { xs: '12px', sm: '14px' },
-          paddingX: { xs: 2, sm: 3 },
-          paddingY: { xs: 1, sm: 1.5 },
-          '&:hover': { backgroundColor: blue[800] },
-        }}
-      >
-        Create Job
-      </Button>
+          variant="contained"
+          sx={{
+            backgroundColor: blue[700],
+            color: '#fff',
+            textTransform: 'none',
+            borderRadius: '8px',
+            height:"30px",
+            width:"auto",
+            fontSize: '10px',
+            paddingX: { xs: 2, sm: 3 },
+            paddingY: { xs: 1, sm: 1.5 },
+            '&:hover': { backgroundColor: blue[800] },
+          }}
+        >
+          Create Job
+        </Button>
     </Box>
   </Box>
   );

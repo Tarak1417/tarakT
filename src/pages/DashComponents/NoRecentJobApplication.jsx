@@ -56,7 +56,7 @@ const NoRecentJobApplication = () => {
             fontSize: { xs: '12px', sm: '13px' },
           }}
         >
-          You have no recent job applications yet. <br />
+          You have no recent job applications yet.<br/>
           Click on the button below to create jobs for people to apply.
         </Typography>
 
@@ -68,7 +68,9 @@ const NoRecentJobApplication = () => {
             color: '#fff',
             textTransform: 'none',
             borderRadius: '8px',
-            fontSize: { xs: '12px', sm: '14px' },
+            height:"30px",
+            width:"auto",
+            fontSize: '10px',
             paddingX: { xs: 2, sm: 3 },
             paddingY: { xs: 1, sm: 1.5 },
             '&:hover': { backgroundColor: blue[800] },

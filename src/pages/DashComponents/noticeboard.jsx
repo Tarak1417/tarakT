@@ -9,11 +9,14 @@ import hrimages1 from "../../assets/Interductionimages/Vector-1.png"
 import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
 import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
+import useFullscreenExpand from "../../hooks/useFullscreenExpand";
 
 
 const NoticeBoard = ({ eventData }) => {
   useExpandCollapse();
+  useFullscreenExpand()
   const [datastore, setStore] = useState([]);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     setStore(eventData)
@@ -54,28 +57,138 @@ const NoticeBoard = ({ eventData }) => {
     <Box
       sx={{
         backgroundColor: "background.default",
-        borderRadius: "12px",
+        borderRadius: "10px",
         padding: "10px",
-        maxHeight: "228px",
+        maxHeight: "241px",
+        height:"auto",
         width: "auto",
         justifyItems: "stretch",
-        marginBottom: "6px"
+        marginBottom: "5px"
       }}
-      className="shadow-lg"
+      className="shadow-lg expandable-div"
     >
 
-      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }} className="collapsible-main">
+      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }} className="collapsible-main ">
         <p style={{ fontSize: "18px" }} className="text-2xl pl-2 border-blue-500">
           Notice Board
         </p>
 
-        <div style={{ display: 'flex', gap: '10px', color: 'white', marginTop: "9px" }}>
-          {isMobile ? "" : <img src={hrimages1} alt="" className="h-4 w-4 collapse-div" />}
-          <img src={hrimages4} alt="" className="h-4 w-4" />
+        <div style={{ display: "flex", gap: "10px", color: "white", marginTop: "9px" }}>
+  {/* Hover effect for Minimize icon (hrimages4) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("minimize")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages4} alt="Minimize" className="h-3 w-3 collapse-div" />
+    {isHovered === "minimize" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Minimize
+      </div>
+    )}
+  </div>
 
-          <img src={hrimages2} alt="" className="h-4 w-4" />
-          <img src={hrimages3} alt="" className="h-4 w-4" />
+  {/* Hover effect for Maximize icon (hrimages1) */}
+  {!isMobile && (
+    <div
+      style={{ position: "relative", display: "inline-block" }}
+      onMouseEnter={() => setIsHovered("maximize")}
+      onMouseLeave={() => setIsHovered(null)}
+    >
+      <img src={hrimages1} alt="Maximize" className="h-3 w-3 expand-button" />
+      {isHovered === "maximize" && (
+        <div
+          style={{
+            position: "absolute",
+            top: "-28px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            backgroundColor: "#2f456c",
+            color: "#fff",
+            padding: "5px 10px",
+            borderRadius: "3px",
+            fontSize: "10px",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          Maximize
         </div>
+      )}
+    </div>
+  )}
+
+  {/* Hover effect for Refresh icon (hrimages2) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("refresh")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages2} alt="Refresh" className="h-3 w-3" />
+    {isHovered === "refresh" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Refresh
+      </div>
+    )}
+  </div>
+
+  {/* Hover effect for Settings icon (hrimages3) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("settings")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages3} alt="Settings" className="h-3 w-3" />
+    {isHovered === "settings" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "-10px",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+       copy link
+      </div>
+    )}
+  </div>
+</div>
+
       </Box>
       <div
         //style={{ marginTop: "-22px" }}
