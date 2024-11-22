@@ -29,7 +29,7 @@
 //     };
 
 //     const handleNextScreen = () => {
-        
+
 //         if (currentScreen < 2) {
 //             setCurrentScreen(currentScreen + 1);
 //         }
@@ -99,7 +99,7 @@
 //           window.open(careerPage, '_blank', 'noopener,noreferrer')
 //         //   navigate(careerPage);
 
-       
+
 //     };
 
 
@@ -181,7 +181,7 @@
 //                     <h1 className="text-2xl text-neutral-500"  >Job Listing</h1>
 //                     <a className="hidden sm:block text-lg text-neutral-500  cursor-pointer" onClick={goToCareerPage} >hr.clikkle.com/career/{org.name} </a>
 //                     <span className="hidden sm:block" onClick={handleCopy}> 
-                    
+
 //                     <IconButton sx={{height:'20px' ,  width: '20px' }} >
 //                             <ContentCopyIcon  sx={{height:'17px'}} />
 //                         </IconButton>  </span>
@@ -275,7 +275,7 @@
 //             <div><p className='mb-[50px]'> You have not listed any availble job for application Click on add job now<br /> to start creating opportunites.</p></div>
 //             </div>
 //             }
-       
+
 //             </div>
 //             <Modal sx={{ overflowY: 'scroll' }} open={modalState} onClose={closeModal}>
 //                     <AddJobs
@@ -295,8 +295,8 @@
 //         />
 
 // </div>
-            
-            
+
+
 //         </div>
 //     );
 // };
@@ -322,7 +322,7 @@ const getOrders = jobs =>
 
 const JobListing = () => {
     const [currentScreen, setCurrentScreen] = useState(1);
-    const [org , setOrg] = useState('N/A');
+    const [org, setOrg] = useState('N/A');
     const [jobs, setJobs] = useState([]);  // Change from null to []
     const [originalOrder, setOriginalOrders] = useState([]);
     const [isOrderChanged, setIsOrderChanged] = useState(false);
@@ -388,8 +388,8 @@ const JobListing = () => {
     };
 
     const handleCopy = () => {
-        let text = `https://hr.clikkle.com/career/${encodeURIComponent(org.name)}`;
-        navigator.clipboard.writeText(text).then(() => {}).catch((err) => {
+        let text = `${window.location.host}/career/${encodeURIComponent(org.name)}`;
+        navigator.clipboard.writeText(text).then(() => { }).catch((err) => {
             console.error('Failed to copy text: ', err);
         });
     };
@@ -468,7 +468,7 @@ const JobListing = () => {
                 <div className=" flex flex-row flex-wrap  gap-2">
                     <h1 className="text-2xl text-neutral-500">Job Listing</h1>
                     <a className="hidden sm:block text-lg text-neutral-500  cursor-pointer" onClick={goToCareerPage}>
-                        hr.clikkle.com/career/{org.name}
+                        {window.location.host}/career/{org.name}
                     </a>
                     <span className="hidden sm:block" onClick={handleCopy}>
                         <IconButton sx={{ height: '20px', width: '20px' }}>
@@ -490,7 +490,7 @@ const JobListing = () => {
             </div>
             <div className="sm:hidden py-1 flex flex-row  gap-2 ">
                 <a className="text-lg text-neutral-500 truncate cursor-pointer" onClick={goToCareerPage}>
-                    hr.clikkle.com/career/{org.name}
+                    {window.location.host}/career/{org.name}
                 </a>
                 <span onClick={handleCopy}>
                     <IconButton sx={{ height: '20px', width: '20px' }}>
@@ -563,8 +563,8 @@ const JobListing = () => {
                 count={pageLimit}  // Total number of pages from the backend
             />
 
-            <Modal open={modalState.isOpen} onClose={closeModal} className="overflow-y-auto">
-                <AddJobs close={closeModal} fetchJobListing={fetchJobListing} selectedJob={selectedJob} />
+            <Modal open={modalState} onClose={closeModal} className="overflow-y-auto">
+                <AddJobs handleClose={closeModal} refresh={fetchJobListing} selectedJob={selectedJob} setSelectedJob={setSelectedJob} />
             </Modal>
         </div>
     );
