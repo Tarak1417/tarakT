@@ -126,14 +126,15 @@ const Docs = () => {
 
     const fetchDocs = useCallback(async (page = 1) => {
         try {
-            const response = await axios.get(`/hr/docs?page=${page}&limit=10`); // Pagination: passing page & limit
+            const response = await axios.get(`/hr/docs?page=${currentPage}&limit=10`); // Pagination: passing page & limit
             setDocs(response.data.docs);
-            setTotalPages(response.data.totalPages); // Set total pages from response
-            setCurrentPage(response.data.currentPage); // Update current page
+            setTotalPages(response.data.pageData.totalPages); // Set total pages from response
+            setCurrentPage(response.data.pageData.currentPage); // Update current page
         } catch (e) {
             errorHandler(e);
         }
-    }, [errorHandler]);
+    }, [currentPage]);
+
 
     const editDoc = id => {
         setDoc(id);
@@ -203,7 +204,7 @@ const Docs = () => {
             <Box display="flex" justifyContent="center" mt={3}>
                 <Button 
                     disabled={currentPage === 1} 
-                    onClick={() => fetchDocs(currentPage - 1)}>
+                    onClick={() => setCurrentPage(currentPage - 1)}>
                     Previous
                 </Button>
 
@@ -213,7 +214,7 @@ const Docs = () => {
 
                 <Button 
                     disabled={currentPage === totalPages} 
-                    onClick={() => fetchDocs(currentPage + 1)}>
+                    onClick={() => setCurrentPage(currentPage + 1)}>
                     Next
                 </Button>
             </Box>
