@@ -189,9 +189,7 @@ const Agreements = props => {
                       onClick={sendAgreement}
                       className="text-white font-bold text-[8px] md:text-[14px] py-1 md:py-2 px-2 md:px-4 rounded bg-sky-500 hover:bg-sky-700"
                       variant="contained"
-                      disabled={selectedAgreements.length ==0}
-                     
-                    >
+                      disabled={selectedAgreements.length ==0}>
                       Send Agreements
                     </Button>
             </Grid>

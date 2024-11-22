@@ -124,4 +124,3 @@ const NoticeBoard = ({ eventData }) => {
 };
 
 export default NoticeBoard;
-

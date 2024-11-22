@@ -33,43 +33,28 @@ const StatusBadge = ({ status }) => {
   );
 };
 
-const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
-  useExpandCollapse();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [open, setOpen] = React.useState(false);
-  const [selectedEmp, setSelectedEmp] = React.useState();
+const ModalContent = ({ selectedEmp, handleClose, open }) => {
+  const shiftStart = dayjs()
+    .hour(selectedEmp.employeeData.shiftStart.hour)
+    .minute(selectedEmp.employeeData.shiftStart.minute);
+  let shiftEnd = dayjs()
+    .hour(selectedEmp.employeeData.shiftEnd.hour)
+    .minute(selectedEmp.employeeData.shiftEnd.minute);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-  function previewEmployee(emp) {
-    console.log("empid", emp);
-    setSelectedEmp(emp);
-    setOpen(true);
+  if (shiftEnd.isBefore(shiftStart)) {
+    shiftEnd = shiftEnd.add(1, "day");
   }
-  const [attendance, setAttendance] = useState(attendanceData);
-  const fetchAttendanceData = useCallback(async () => {
-    try {
-      const response = await axios.get(`/hr/attendance/recent`);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      setAttendance(response.data.attendance)
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
 
-  useEffect(() => {
-    if (!isDashboardCall)
-      fetchAttendanceData();
-    else
-      setAttendance(attendanceData)
+  const formattedShiftStart = shiftStart.format("h:mm A");
+  const formattedShiftEnd = shiftEnd.format("h:mm A");
+  const diffInMilliseconds = shiftEnd.diff(shiftStart);
+  const totalMinutes = Math.floor(diffInMilliseconds / (1000 * 60));
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
 
-  }, [attendanceData, fetchAttendanceData, isDashboardCall])
-  //useEffect(() => {setAttendance(attendanceData)},[attendanceData])
-
-  return (<>
-    {selectedEmp && selectedEmp.employeeData && <Modal open={open} onClose={handleClose} aria-labelledby="user-shift-modal-title">
+  return (
+    <Modal open={open} onClose={handleClose} aria-labelledby="user-shift-modal-title">
+      
       <Box
         sx={{
           position: 'absolute',
@@ -111,23 +96,78 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
         {/* Modal Body */}
         <Grid container spacing={2} className="modal-body-attendance">
           {/* First Column */}
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <Typography variant="body2"><strong>Shift:</strong><br />{dayjs(selectedEmp.clockInTime).format("A")}</Typography>
             <Typography variant="body2"><strong>Date:</strong><br />{dayjs(selectedEmp.clockInTime).format("DD/MM/YYYY")}</Typography>
-            <Typography variant="body2"><strong>Work Status:</strong> <br />In Progress</Typography>
+            <Typography variant="body2"><strong>Work Status:</strong> <br /><div style={{background:"#3767B1",height:"5px", width:"5px", borderRadius:"2px",display:"inline-block",position:"relative",top:"7px"}}>&nbsp;</div> Present </Typography>
             <Typography variant="body2"><strong>Clock-In Time:</strong><br />{dayjs(selectedEmp.clockInTime).format("hh:mm:ss A")}</Typography>
           </Grid>
 
           {/* Second Column */}
-          <Grid item xs={6}>
-            <Typography variant="body2"><strong>Shift Time:</strong><br /> 9AM - 5PM</Typography>
-            <Typography variant="body2"><strong>Shift Duration:</strong><br /> 8 hrs</Typography>
-            <Typography variant="body2"><strong>Shift Status:</strong><br /> {selectedEmp.status}</Typography>
+          <Grid item xs={12} md={6}>
+            <Typography variant="body2"><strong>Shift Time:</strong><br />{`${formattedShiftStart}-${formattedShiftEnd}`}</Typography>
+            <Typography variant="body2"><strong>Shift Duration:</strong><br /> {hours} hour(s) and {minutes} minute(s)</Typography>
+            <Typography variant="body2"><strong>Shift Status:</strong><br /><div style={{background:(selectedEmp.status==="Late"?"#F13B3B":"#42b824"),height:"5px", width:"5px", borderRadius:"2px",display:"inline-block",position:"relative",top:"7px"}}>&nbsp;</div> {selectedEmp.status}</Typography>
             <Typography variant="body2"><strong>Clock-Out Time:</strong><br />{selectedEmp.clockOutTime ? dayjs(selectedEmp.clockOutTime).format("hh:mm:ss A") : "Not yet clocked out"}</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <textarea disabled style={{
+              width: "100%",
+              resize: "none",
+              border: "1px solid rgb(199, 198, 198)",
+              padding: "5px",
+              borderRadius: "5px",
+              minHeight: "80px",
+              background:"transparent"
+            }}>
+              {selectedEmp.note || ""}
+            </textarea>
           </Grid>
         </Grid>
       </Box>
-    </Modal>}
+    </Modal>
+  );
+};
+
+const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
+  useExpandCollapse();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [open, setOpen] = React.useState(false);
+  const [selectedEmp, setSelectedEmp] = React.useState();
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  function previewEmployee(emp) {
+    // console.log("empid", emp);
+    setSelectedEmp(emp);
+    setOpen(true);
+  }
+  const [attendance, setAttendance] = useState(attendanceData);
+  const fetchAttendanceData = async () => {
+    if (!isDashboardCall && attendance.length===0) {
+      try {
+        const response = await axios.get("/hr/attendance/recent");
+        setAttendance(response.data.attendance);
+      } catch (e) {
+        console.error("Error fetching attendance:", e);
+      }
+    } else {
+      setAttendance(attendanceData);
+    }
+  }
+  useEffect(() => {
+    if (attendanceData.length>0) {
+      setAttendance(attendanceData)
+    }
+  },[attendanceData])
+  useEffect(() => {
+    fetchAttendanceData();
+  }, []);
+
+  return (<>
+    {selectedEmp && selectedEmp.employeeData && <ModalContent selectedEmp={selectedEmp} handleClose={handleClose} open={open} /> }
     <div className={`rounded-lg shadow-lg ${isMobile ? "mt-[5px]" : "mt-1"} `}>
       {/* Header */}
       <Box
@@ -152,7 +192,7 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
               <img src={hrimages2} alt="" className="h-4 w-4" />
               <img src={hrimages3} alt="" className="h-4 w-4" />
             </div>
-             {isDashboardCall && <Link to="/RecentAttendence">
+            {isDashboardCall && <Link to="/RecentAttendence">
               <Button
                 variant="contained"
                 sx={{
@@ -168,7 +208,7 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
                 View All
               </Button>
             </Link>
-}
+            }
           </div>
         </div>
 
@@ -262,7 +302,7 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
           </table>
         </div>
 
-        {isMobile && <Link to="/RecentAttendance"><div className=" mt-4">
+        {isMobile && isDashboardCall && <Link to="/RecentAttendance"><div className=" mt-4">
           <button
             style={{ color: "blue" }}
             className={`px-4 py-2 rounded-md text-sm font-medium`}
