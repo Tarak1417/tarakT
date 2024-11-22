@@ -21,6 +21,7 @@ import hrimages4 from "../../assets/Interductionimages/Vector.png"
 import minimizeicon from "../../assets/Interductionimages/expand.png"
 import maximizeicon from "../../assets/Interductionimages/maximize.png"
 import { Link } from 'react-router-dom';
+import Newreceivedapplication from "../ReceivedApp/Newreceivedapplication";
 
 // Initialize the country names (optional: specify language)
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
@@ -75,7 +76,10 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Box
+    <>
+   {isMaximized ? (
+        <Box
+          className={`expandable-div ${isMaximized ? "width:100vw height:100vh" : ""}`}
 
       p={2}
       boxShadow={3}
@@ -85,7 +89,8 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
       width="100%"
       overflow="auto"
       mt={isMobile ? "-10px" : ""}
-      className="expandable-div"
+     
+      
 
     >
       {/* Header Section */}
@@ -342,6 +347,33 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
       </div>
      
     </Box>
+    
+  ) : (
+    <>
+    {isMaximized ? (
+      <div>Content when not maximized</div>
+    ) : (
+      <div
+      className="expandable-div"
+      style={{
+        backgroundColor: "background.view",
+        height: "100vh",
+        width: "91vw",
+        zIndex:"1000",
+        position:"relative",
+        top:"0px",
+
+      }}
+    >
+    
+      <Newreceivedapplication />
+    </div>
+  )}
+   </>
+)}
+
+
+    </>
   );
 };
 

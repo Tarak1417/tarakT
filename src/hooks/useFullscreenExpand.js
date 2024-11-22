@@ -16,7 +16,7 @@ function useFullscreenExpand() {
             container.style.left = "76px";
             container.style.width = "91vw";
             container.style.height = "100vh";
-            container.style.zIndex = 100000;
+            container.style.zIndex = 10000;
             container.style.backgroundColor = "background.view";
             
              // Optional background

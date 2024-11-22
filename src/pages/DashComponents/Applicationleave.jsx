@@ -272,7 +272,7 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
       </Box>
       <div className="collapsible-div">
       {eventData ? <div className=" mt-4">
-        <div style={{ marginTop: "-11px" }} className="flex items-center gap-4 mb-4">
+        <div style={{ marginTop: "8px" }} className="flex items-center gap-4 mb-4">
           <Avatar src={`https://ui-avatars.com/api/?name=${leaveData.name}`} alt={leaveData.name} sx={{ width: 30, height: 30, borderRadius: '25px', marginTop: '-14px' }} />
           <div>
             <Typography sx={{ fontSize: '13px', marginTop: '-8px' }} variant="h6" >
@@ -327,7 +327,7 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
         </Typography>
         <Typography sx={{ fontSize: '9px' }} className="text-gray-400 text-sm mb-4">{leaveData.reason}</Typography>
 
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-2">
           <Button
             variant="outlined"
             sx={{
