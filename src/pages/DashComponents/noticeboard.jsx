@@ -10,6 +10,9 @@ import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
 import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
 import useFullscreenExpand from "../../hooks/useFullscreenExpand";
+import minimizeicon from "../../assets/Interductionimages/expand.png"
+import maximizeicon from "../../assets/Interductionimages/maximize.png"
+
 
 
 const NoticeBoard = ({ eventData }) => {
@@ -17,6 +20,14 @@ const NoticeBoard = ({ eventData }) => {
   useFullscreenExpand()
   const [datastore, setStore] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false); 
+const [isMaximized, setIsMaximized] = useState(true);
+
+
+const handleToggle = () => setIsMinimized(!isMinimized);
+
+
+const handleToggleMaximize = () => setIsMaximized(!isMaximized);
 
   useEffect(() => {
     setStore(eventData)
@@ -69,19 +80,62 @@ const NoticeBoard = ({ eventData }) => {
     >
 
       <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }} className="collapsible-main ">
-        <p style={{ fontSize: "18px" }} className="text-2xl pl-2 border-blue-500">
+        <p style={{ fontSize: "13px" }} className="text-2xl  border-blue-500">
           Notice Board
         </p>
 
-        <div style={{ display: "flex", gap: "10px", color: "white", marginTop: "9px" }}>
+        <div style={{ display: "flex", gap: "10px", color: "white", marginTop: "9px",marginRight:"20px" }}>
   {/* Hover effect for Minimize icon (hrimages4) */}
   <div
+  style={{ position: "relative", display: "inline-block" }}
+  onMouseEnter={() => setIsHovered(isMinimized ? "expand" : "minimize")}
+  onMouseLeave={() => setIsHovered(null)}
+  onClick={handleToggle} // Unique class for the toggle button
+>
+  {isMinimized ? (
+    <img src={hrimages4} alt="expand" className="h-3 w-3 collapse-div" />
+  ) : (
+    <img src={minimizeicon} alt="minimize" className="h-3 w-3 collapse-div " />
+  )}
+
+  {(isHovered === "minimize" || isHovered === "expand") && (
+    <div
+      style={{
+        position: "absolute",
+        top: "-28px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        backgroundColor: "#2f456c",
+        color: "#fff",
+        padding: "5px 10px",
+        borderRadius: "3px",
+        fontSize: "10px",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+        whiteSpace: "nowrap",
+      }}
+    >
+      {isMinimized ? "expand" : "Minimize"}
+    </div>
+  )}
+</div>
+
+
+
+  {/* Hover effect for Maximize icon (hrimages1) */}
+  {!isMobile && (
+  <div
     style={{ position: "relative", display: "inline-block" }}
-    onMouseEnter={() => setIsHovered("minimize")}
+    onMouseEnter={() => setIsHovered(isMaximized ? "maximize" : "singlecolumn")}
     onMouseLeave={() => setIsHovered(null)}
+    onClick={handleToggleMaximize}
   >
-    <img src={hrimages4} alt="Minimize" className="h-3 w-3 collapse-div" />
-    {isHovered === "minimize" && (
+    {isMaximized? (
+      <img src={hrimages1} alt="maximize" className="h-3 w-3 expand-button " />
+    ) : (
+      <img src={maximizeicon} alt="singlecolumn" className="h-3 w-3  expand-button" />
+    )}
+
+    {(isHovered === "maximize" || isHovered === "singlecolumn") && (
       <div
         style={{
           position: "absolute",
@@ -97,41 +151,11 @@ const NoticeBoard = ({ eventData }) => {
           whiteSpace: "nowrap",
         }}
       >
-        Minimize
+        {isMaximized ? "maximize" : "singlecolumn"}
       </div>
     )}
   </div>
-
-  {/* Hover effect for Maximize icon (hrimages1) */}
-  {!isMobile && (
-    <div
-      style={{ position: "relative", display: "inline-block" }}
-      onMouseEnter={() => setIsHovered("maximize")}
-      onMouseLeave={() => setIsHovered(null)}
-    >
-      <img src={hrimages1} alt="Maximize" className="h-3 w-3 expand-button" />
-      {isHovered === "maximize" && (
-        <div
-          style={{
-            position: "absolute",
-            top: "-28px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            backgroundColor: "#2f456c",
-            color: "#fff",
-            padding: "5px 10px",
-            borderRadius: "3px",
-            fontSize: "10px",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-            whiteSpace: "nowrap",
-          }}
-        >
-          Maximize
-        </div>
-      )}
-    </div>
-  )}
-
+)}
   {/* Hover effect for Refresh icon (hrimages2) */}
   <div
     style={{ position: "relative", display: "inline-block" }}
