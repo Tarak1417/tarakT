@@ -12,6 +12,7 @@ import hrimages4 from "../../assets/Interductionimages/Vector.png"
 import useFullscreenExpand from "../../hooks/useFullscreenExpand";
 import minimizeicon from "../../assets/Interductionimages/expand.png"
 import maximizeicon from "../../assets/Interductionimages/maximize.png"
+import NoticeBoardMAx from "../NoticeBoard/NoticeHome"
 
 
 
@@ -214,6 +215,7 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
 </div>
 
       </Box>
+      {isMaximized?(
       <div
         //style={{ marginTop: "-22px" }}
         className="space-y-6 overflow-y-auto h-[340px] px-2 pb-4 collapsible-div"
@@ -246,6 +248,23 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
           </>
         }
       </div>
+      ):(
+        <div
+     
+        style={{
+          backgroundColor: "background.view",
+          height: "81.3vh",
+          width: "90.5vw",
+          zIndex:"1000",
+        position:"relative",
+        left:'-5px'
+       
+  
+        }}
+      >
+      <NoticeBoardMAx />
+      </div>
+      )}
 
       {/* Hide Scrollbar */}
       <style jsx>{`

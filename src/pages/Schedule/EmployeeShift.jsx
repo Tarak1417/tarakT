@@ -12,6 +12,7 @@ import useExpandCollapse from '../../hooks/useExpandCollapse';
 import useFullscreenExpand from '../../hooks/useFullscreenExpand';
 import minimizeicon from "../../assets/Interductionimages/expand.png"
 import maximizeicon from "../../assets/Interductionimages/maximize.png"
+import ShiftManagement from "../Schedule/ShiftManagement"
 const roleCounts = {
   'Software-Engineer': 1,
   'QA-Tester': 2,
@@ -652,6 +653,7 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
       }
 
       {/*above code is  written in bith mobile and desktop mode*/}
+      {isMaximized?(
       <div className={`collapsible-div  ${isMobile?"display-none":""}`}
        style={{ display: isMobile ? "none" : "block" }}>
         <Stack
@@ -809,6 +811,25 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
           </Box>
         </Box>
       </div>
+      ):(
+        <div
+      style={{
+        backgroundColor: "background.view",
+        height: "100vh",
+        width: "auto",
+        zIndex:"1000",
+        position:"relative",
+        top:"10px",
+        bottom:"10px",
+        marginTop:"10px"
+
+      }}
+    >
+    <ShiftManagement/>
+    </div>
+      
+     
+      )}
     </Box>
   );
 };

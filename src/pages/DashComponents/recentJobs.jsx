@@ -77,9 +77,9 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <>
-   {isMaximized ? (
+
         <Box
-          className={`expandable-div ${isMaximized ? "width:100vw height:100vh" : ""}`}
+          className={`  ${isMaximized ? "expandable-div" : "expandable-div"}`}
 
       p={2}
       boxShadow={3}
@@ -173,6 +173,8 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
   </div>
 )}
 
+
+
   {/* Hover effect for Refresh icon (hrimages2) */}
   <div
     style={{ position: "relative", display: "inline-block" }}
@@ -248,6 +250,7 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
           </Link>
         </div>
       </Stack>
+      {isMaximized ? (
       <div className="w-full overflow-x-auto md:overflow-x-hidden collapsible-div mt-4" style={{ minHeight:"74.9vh"}}>
         {items && items.length > 0 ? (
           items.map((item, index) => (
@@ -345,33 +348,28 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
       </Link>
       }
       </div>
+       ) : (
+        <div
      
-    </Box>
-    
-  ) : (
-    <>
-    {isMaximized ? (
-      <div>Content when not maximized</div>
-    ) : (
-      <div
-      className="expandable-div"
       style={{
         backgroundColor: "background.view",
-        height: "100vh",
-        width: "91vw",
-        zIndex:"1000",
-        position:"relative",
-        top:"0px",
+        height: "auto",
+        width: "auto",
+      
+       
 
       }}
     >
-    
-      <Newreceivedapplication />
+    <Newreceivedapplication />
     </div>
-  )}
-   </>
-)}
-
+      )}
+    
+ 
+    
+     
+    </Box>
+    
+ 
 
     </>
   );
