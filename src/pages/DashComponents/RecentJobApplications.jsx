@@ -141,7 +141,7 @@ const RecentJobApplications = () => {
         sx={{ backgroundColor: "background.view", padding: '14px', borderRadius: "12px" }}
       >
         <div className="flex justify-between items-center mb-6">
-          <h1 style={{ fontSize: "19px" }} className="text-white text-2xl font-semibold">
+          <h1 style={{ fontSize: "13px" }} className="text-white  font-semibold">
             Recent Job Applications
           </h1>
           <div className="flex space-x-4 bg-transparent">

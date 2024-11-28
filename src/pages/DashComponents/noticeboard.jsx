@@ -81,11 +81,11 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
     >
 
       <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }} className="collapsible-main ">
-        <p style={{ fontSize: "13px" }} className="text-2xl  border-blue-500">
+        <p style={{ fontSize: "13px" }} className="text-2xl ml-[10px]  border-blue-500">
           Notice Board
         </p>
 
-        <div style={{ display: "flex", gap: "10px", color: "white", marginTop: "9px",marginRight:"20px" }}>
+        <div style={{ display: "flex", gap:isMobile? "20px":"10px", color: "white", marginTop: "9px",marginRight:"15px"  }}>
   {/* Hover effect for Minimize icon (hrimages4) */}
   <div
   style={{ position: "relative", display: "inline-block" }}

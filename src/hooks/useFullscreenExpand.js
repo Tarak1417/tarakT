@@ -12,11 +12,11 @@ function useFullscreenExpand() {
           if (!container.classList.contains("fullscreen")) {
             container.classList.add("fullscreen");
             container.style.position = "fixed";
-            container.style.top = "75px";
+            container.style.top = "90px";
             container.style.left = "76px";
             container.style.width = "91vw";
-            container.style.height = "100vh";
-            container.style.zIndex = 10000;
+            container.style.height = "86vh";
+            container.style.zIndex = 10;
             container.style.backgroundColor = "background.view";
             
              // Optional background

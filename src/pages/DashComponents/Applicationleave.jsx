@@ -118,11 +118,11 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
       }}
     >
     <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", mt:"-10px" ,gap:"9px" }} className="collapsible-main ">
-        <p style={{ fontSize: "13px" }} className=" marginTop- 20px ">
+        <p style={{ fontSize: "13px", whiteSpace:isMobile?"nowrap":"" }}  className=" marginTop- 20px   ">
           Recent Leave Application
         </p>
 
-        <div style={{ display: "flex" ,flexDirection:"row", gap: "10px", color: "white", marginLeft:isMobile?"100px":"" ,marginTop: "10px "  }}>
+        <div style={{ display: "flex" ,flexDirection:"row", gap:isMobile? "20px":"10px", color: "white", marginLeft:isMobile?"70px":"" ,marginTop: "10px "  }}>
   {/* Hover effect for Minimize icon (hrimages4) */}
   <div
   style={{ position: "relative",cursor:"pointer" }}

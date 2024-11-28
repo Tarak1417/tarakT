@@ -43,8 +43,8 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
       {/* Header section with icons */}
       <div className="flex flex-row items-center justify-between w-full p-1 mt-[-26px] mr-[10px] collapsible-main ">
         <h6 className="text-bold md:text-left md:mb-0">Introduction</h6>
-        <div className="flex gap-1 md:gap-2 items-center">
-          <Grid container display="flex" justifyContent="space-between" alignItems="center">
+        <div className={`flex ${isMobile?"gap-[20px]":"gap-1"} md:gap-3 items-center`}>
+          <Grid container display="flex" justifyContent="space-between" >
             <Clock />
           </Grid>
           <div
@@ -229,7 +229,7 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
 
       <div className={`flex items-end w-full gap-1 text-gray-500 text-[10px] mt-1 collapsible-div ${isMobile ? 'justify-end mr-10 mb-2' : 'justify-end mr-2 mt-[-15px] mb-2 '}`}>
         <img src={reload} alt="Reload Icon" className="h-3 w-3 md:h-4 md:w-4 "  />
-        <p>just now</p>
+        <p className='ml-[10px] font-size-[10px]'>Just now</p>
       </div>
    
     </Box>

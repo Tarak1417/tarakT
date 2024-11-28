@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Stack, Typography, Button, Paper, Grid, Avatar, useMediaQuery } from '@mui/material';
+import { Box, Stack, Typography, Button, Paper, Grid, Avatar, useMediaQuery,IconButton } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Sectionwisereport from '../Schedule/reports/WeekReport';
+import 'react-calendar/dist/Calendar.css';
 
 import hrimage2 from '../../assets/Interductionimages/Vector-2.png';
 import hrimage3 from '../../assets/Interductionimages/Vector-3.png';
@@ -13,6 +14,9 @@ import useFullscreenExpand from '../../hooks/useFullscreenExpand';
 import minimizeicon from "../../assets/Interductionimages/expand.png"
 import maximizeicon from "../../assets/Interductionimages/maximize.png"
 import ShiftManagement from "../Schedule/ShiftManagement"
+import Mycalander from './Mycalander';
+import CircleIcon from '@mui/icons-material/Circle'; 
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 const roleCounts = {
   'Software-Engineer': 1,
   'QA-Tester': 2,
@@ -41,6 +45,21 @@ const shiftStatusColors = {
   Holiday: '#8A2BE2',
 };
 
+const categories = [
+  { label: 'Present', color: 'blue' },
+  { label: 'Absent', color: 'orange' },
+  { label: 'Leave', color: 'green' },
+  { label: 'Holiday', color: 'red' },
+];
+
+const teams = [
+  { role: 'Software Engineer', count: 1 },
+  { role: 'QA Tester', count: 2 },
+  { role: 'Frontend Developer', count: 2 },
+  { role: 'Backend Developer', count: 2 },
+  
+];
+
 const EmployeeShift = () => {
   //useExpandCollapse();
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -49,6 +68,10 @@ const EmployeeShift = () => {
   const [isHovered, setIsHovered] = useState(null);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isMaximized, setIsMaximized] = useState(true);
+ 
+  const [selectedShift, setSelectedShift] = useState('AM Shift');
+
+const handleShiftChange = (shift) => setSelectedShift(shift);
 
   const isMobile = useMediaQuery('(max-width:600px)');
 
@@ -80,19 +103,39 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
             <Grid item xs={1} key={i} />
           ))}
           <Grid item xs={shift.shift.end - shift.shift.start}>
-            <Box
-              bgcolor={shift.color}
-              color="white"
-              p={1}
-              borderRadius="5px"
-              height={isMobile ? "15px" : "26px"}
-              width={isMobile ? "100px" : "auto"}
-              textAlign="center"
-              marginTop={isMobile ? "10px" : "-8px"}
-              marginBottom={isMobile ? "-12px" : ""}
-              padding={isMobile ? "2px" : "5px"}
-              sx={{ fontSize: isMobile ? '10px' : '10px' }}
-            >
+          <Box
+  bgcolor={shift.color}
+  color="white"
+  borderRadius="5px"
+  textAlign="start"
+  marginTop={isMobile ? "10px" : isMaximized? "-8px":"1px"}
+  marginBottom={isMobile ? "-12px" : ""}
+  padding={isMobile ? "2px" : "5px"}
+  height={
+    isMobile
+      ? "15px" // Height for mobile
+      : isMaximized
+      ? "26px" // Height for desktop maximized
+      : "35px" // Height for desktop not maximized
+  }
+  width={
+    isMobile
+      ? "100px" // Width for mobile
+      : isMaximized
+      ? "auto" // Width for desktop maximized
+      : "auto" // Width for desktop not maximized
+  }
+  sx={{
+    fontSize: isMobile
+      ? "10px" // Font size for mobile
+      : isMaximized
+      ? "10px" // Font size for desktop maximized
+      : "14px", // Font size for desktop not maximized
+  }}
+>
+
+
+
               {shift.type === 'Present' ? `${shift.shift.start}AM - ${shift.shift.end}AM` : shift.type}
             </Box>
           </Grid>
@@ -130,8 +173,39 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
     <Box sx={{ borderRadius: '9px', height: 'auto', backgroundColor: 'background.default', marginTop: "-10px" }} p={isMobile ? 1.5 : 0.5} className="expandable-div">
       {isMobile ? (<div> <div className="flex flex-row  justify-between w-full p-3 mt-[-10px] mb-1 mt-2 collapsible-main">
         <h6 className=" text-[13px] md:text-left md:mb-0 ml-[-10px]">Overview Calendar</h6>
-        <div className="flex gap-3 md:gap-4 items-center">
-        <img src={hrimage4} alt="Vector 4" className="w-3 h-3 text-gray-500 collapse-div" />
+        <div className={`flex  gap-[20px] md:gap-4 items-center ml-10px `}>
+        <div
+  style={{ position: "relative", display: "inline-block" }}
+  onMouseEnter={() => setIsHovered(isMinimized ? "expand" : "minimize")}
+  onMouseLeave={() => setIsHovered(null)}
+  onClick={handleToggle} // Unique class for the toggle button
+>
+  {isMinimized ? (
+    <img src={hrimage4} alt="expand" className="h-3 w-3 collapse-div" />
+  ) : (
+    <img src={minimizeicon} alt="minimize" className="h-3 w-3 collapse-div " />
+  )}
+
+  {(isHovered === "minimize" || isHovered === "expand") && (
+    <div
+      style={{
+        position: "absolute",
+        top: "-28px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        backgroundColor: "#2f456c",
+        color: "#fff",
+        padding: "5px 10px",
+        borderRadius: "3px",
+        fontSize: "10px",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+        whiteSpace: "nowrap",
+      }}
+    >
+      {isMinimized ? "expand" : "Minimize"}
+    </div>
+  )}
+</div>
           <img src={hrimage2} alt="Vector 2" className="w-3 h-3 text-gray-500" />
         
           {isMobile && (<img src={hrimage3} alt="Vector 4" className="w-3 h-3 text-gray-500" />)}
@@ -288,7 +362,7 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
           </Button>
 
           {/* Role Indicators */}
-          <Box sx={{ display: 'flex', gap: 2, ml: 2 }}>
+          <Box sx={{ display: 'flex', gap: 2, ml: 5 }}>
             {Object.entries(roleCounts).map(([role, count]) => (
               <Box key={role} sx={{ display: 'flex', alignItems: 'center' }}>
                 <Box
@@ -326,7 +400,7 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
             }}
           >
             {/* Employee List Section */}
-            <Box sx={{ flex: { xs: '1', sm: '0 0 25%' }, p: { xs: 0.5, sm: 2 } }}>
+            <Box sx={{ flex: { xs: '1', sm: '0 0 25%' }, p: { xs: 2, sm: 2 } }}>
               <Typography
                 sx={{
                   fontSize: { xs: '13px', sm: '13px' },
@@ -812,22 +886,173 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
         </Box>
       </div>
       ):(
-        <div
-      style={{
-        backgroundColor: "background.view",
-        height: "100vh",
-        width: "auto",
-        zIndex:"1000",
-        position:"relative",
-        top:"10px",
-        bottom:"10px",
-        marginTop:"10px"
-
-      }}
-    >
-    <ShiftManagement/>
-    </div>
+        <Box >
+            <Box display="flex"  margin="12px" borderRadius="8px" overflow="scroll">
+              {/* Left Sidebar */}
+              <Box width="300px" p={2} borderRight="1px solid rgba(255, 255, 255, 0.1)" marginLeft="-30px">
+        <Box sx={{display:'flex',flexDirection:'row',justifyContent:'center' }}>
+        <Stack  direction="row" spacing={1} mb={3}>
+          <Button
+          className='h-[30px] w-[auto] 'style={{ fontSize: '10px' }}
+            variant={selectedShift === 'AM Shift' ? 'contained' : 'outlined'}
+            onClick={() => handleShiftChange('AM Shift')}
+          >
+            AM Shift
+          </Button>
+          <Button
+          className='h-[30px] w-[auto]' style={{ fontSize: '10px' }}
+            variant={selectedShift === 'PM Shift' ? 'contained' : 'outlined'}
+            onClick={() => handleShiftChange('PM Shift')}
+          >
+            PM Shift
+          </Button>
+        </Stack>
+        </Box>
+        <Stack  direction="row" alignItems="center" justifyContent="space-between" mb={2}>
+          <IconButton onClick={handlePrevious} color="inherit">
+            <ArrowBackIosIcon sx={{height:'13px',marginRight:'-53px'}} />
+          </IconButton>
+          <Typography sx={{fontSize:'15px'}} variant="h6">{selectedDate.toLocaleString('default', { month: 'long' })}, {selectedDate.getFullYear()}</Typography>
+          <IconButton  onClick={handleNext} color="inherit">
+            
+            <ArrowForwardIosIcon sx={{height:'13px',marginLeft:'-33px'}} />
+          </IconButton>
+        </Stack>
+<Box container bgcolor={"black"} color="black">
+        <Mycalander  bgcolor={"black"} value={selectedDate} onChange={setSelectedDate} />
       
+        </Box>
+      
+       <Box sx={{display:'flex', justifyContent:'space-around', mt:"-20px"}}>
+        <Box mt={4}>
+          <Typography sx={{fontSize:"15px"}} variant="h6" gutterBottom>Categories</Typography>
+          {categories.map((category) => (
+            <Stack direction="row" alignItems="center" spacing={1} key={category.label} mb={1}>
+              <CircleIcon style={{ color: category.color, fontSize: '12px' }} />
+              <Typography sx={{fontSize:'11px'}}>{category.label}</Typography>
+            </Stack>
+          ))}
+        </Box>
+
+        <Box mt={4}>
+          <Typography sx={{fontSize:"15px"}} variant="h6" gutterBottom>Team</Typography>
+          {teams.map((team) => (
+            <Stack sx={{textAlign:'right'}} direction="row" justifyContent="space-between" key={team.role} mb={1}>
+              <Typography sx={{fontSize:'11px',textAlign:'right'}}>{team.role}</Typography>
+              <Typography sx={{fontSize:'11px',marginLeft:'12px'}}>{team.count}</Typography>
+            </Stack>
+          ))}
+        </Box>
+        </Box>
+      
+                <Box sx={{ display: 'flex', alignItems: 'center', fontSize:"10px", marginTop: isMobile ? "10px" : '5px', }}>
+            {Object.entries(shiftStatusColors).map(([status, color]) => (
+              <Box key={status} sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
+                <Box
+                  sx={{
+                    backgroundColor: color,
+                    borderRadius: '50%',
+                    width: 10,
+                    height: 10,
+                    mr: 1,
+                  }}
+                />
+                <Typography variant="caption">{status}</Typography>
+              </Box>
+            ))}
+          </Box>
+              </Box>
+        
+              {/* Right Content */}
+              <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'row', sm: 'row' },
+              width: '100%',
+              marginTop:"100px"
+            }}
+          >
+            {/* Employee List Section */}
+            <Box sx={{ flex: { xs: '1', sm: '0 0 25%' }, p: { xs: 0.5, sm: 2 } }}>
+              <Typography
+                sx={{
+                  fontSize: { xs: '13px', sm: '14px' },
+                  mt: { xs: 0, sm: '-20px' },
+                  ml: { xs: '-10px', sm: 0 }
+                }}
+                variant="h6"
+                mb={2}
+              >
+                Employees
+              </Typography>
+              {shifts.map((shift) => (
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  spacing={1}
+                  key={shift.name}
+                  mb={2}
+                  sx={{ ml: { xs: '-10px', sm: 0 } }}
+                >
+                  <Avatar
+                    alt={shift.name}
+                    src={`https://i.pravatar.cc/150?u=${shift.name}`}
+                    sx={{
+                      height: { xs: '18px', sm: '30px' },
+                      width: { xs: '18px', sm: '30px' }
+                    }}
+                  />
+                  <Box>
+                    <Typography
+                      sx={{
+                        fontSize: { xs: '10px', sm: '10px' },
+                        mb: { xs: '-10px', sm: '-5px' },
+                        mt: '2px',
+                        flexWrap: 'nowrap'
+                      }}
+                    >
+                      {shift.name}
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      color="textSecondary"
+                      sx={{
+                        fontSize: { xs: '10px', sm: '10px' },
+                        flexWrap: 'nowrap'
+                      }}
+                    >
+                      {shift.role}
+                    </Typography>
+                  </Box>
+                </Stack>
+              ))}
+            </Box>
+
+            {/* Shift Timing Section */}
+            <Box sx={{ flex: { xs: '1', sm: '0 0 75%' }, p: { xs: 1, sm: 2 } }}>
+              {view === 'Daily' && (
+                <Box sx={{ display: 'flex', flexWrap: 'nowrap', mb: { xs: 1, sm: 2 }, mt: { xs: -1, sm: -3.5 } }}>
+                  {timeSlots.map((time) => (
+                    <Box
+                      key={time}
+                      sx={{ flex: '1 1 8.33%', textAlign: 'center' }}
+                    >
+                      <Typography
+                        variant="caption"
+                        sx={{ fontSize: { xs: '10px', sm: '12px' }, ml: { xs: "-20px" } }}
+                      >
+                        {isMobile ? time.replace(/\D/g, '') : time} {/* Only shows the number in mobile mode */}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
+              )}
+              {renderShifts()}
+            </Box>
+
+          </Box>
+            </Box>
+            </Box>
      
       )}
     </Box>

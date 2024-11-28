@@ -79,7 +79,7 @@ const Dashboard = () => {
       icon: (
         <GroupIcon
           fontSize="medium"
-          className="text-white  bg-sky-500 p-1 rounded-lg"
+          className="text-white  bg-[#878ECE] p-1 rounded-lg"
         />
       ),
       title: "Total Employees",
@@ -99,14 +99,13 @@ const Dashboard = () => {
       icon: (
         <ApartmentIcon
           fontSize="medium"
-          className="text-white bg-rose-500 p-1 rounded-lg items-center"
-        />
+          className="text-white bg-[#E05353] p-1 rounded-lg items-center"        />
       ),
       title: "Department",
       value: (
         <Typography
           variant="body1"
-          style={{ color: "#FF0000", fontSize: "1.2em" }}
+          style={{ color: "#407BFF", fontSize: "1.2em" }}
         >
           {overview?.departments || 0}
         </Typography>
@@ -119,14 +118,13 @@ const Dashboard = () => {
       icon: (
         <AttachMoneyIcon
           fontSize="medium"
-          className="text-white bg-blue-300 p-1 rounded-lg"
-        />
+          className="text-white bg-[#3E80E5] p-1 rounded-lg"/>
       ),
       title: "Expenses",
       value: (
         <Typography
           variant="body1"
-          style={{ color: "#FF0000", fontSize: "1.2em" }}
+          style={{ color: "#E05353", fontSize: "1.2em" }}
         >
           ${" "}
           {overview && overview?.expenses
@@ -150,7 +148,7 @@ const Dashboard = () => {
 
   return (
 
-    <Box sx={{ backgroundColor: "background.main", width: "93vw", mx: "auto" }}>
+    <Box sx={{ backgroundColor: "background.main", width: isMobile?"100vw":"93vw", mx: "auto" }}>
 
 
       <Interduction />
@@ -183,13 +181,13 @@ const Dashboard = () => {
                       height: '50px'
                     }}
                   >
-                    <div className="flex items-center" style={{ fontSize: '12px', marginTop: '-2px' }}>
-                      <p>{box.title}</p>
+                    <div className="flex items-center" style={{ fontSize: '12px', marginTop: 'px' }}>
+                      <p className="mr-[20px]">{box.title}</p>
                       {box.plusicon} {/* Conditionally display PlusIcon if it exists */}
                     </div>
-                    <div className="flex items-center justify-center mb-2">
-                      <p style={{ fontSize: '13px' }} className="w-5/6 text-xl">{box.value}</p>
-                      <div style={{}} className="w-1/6 ">{box.icon}</div>
+                    <div className="flex items-center justify-between ">
+                      <p style={{ fontSize: '13px' }} className="w-5/6 text-xl ">{box.value}</p>
+                      <div style={{ }} className="w-1/6  mt-[-15px] mr-[-20px]">{box.icon}</div>
                     </div>
 
                   </Grid>
