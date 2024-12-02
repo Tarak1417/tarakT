@@ -20,7 +20,7 @@ import maximizeicon from "../assets/Interductionimages/maximize.png"
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [isMinimized, setIsMinimized] = useState(false); // For first icon
-  const [isMaximized, setIsMaximized] = useState(true);
+  const [isMaximized, setIsMaximized] = useState(false);
   const [isHovered, setIsHovered] = useState(null);
 
 const handleToggle = () => setIsMinimized(!isMinimized);
@@ -30,15 +30,19 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
 
   return (
     <Box
-      sx={{
-        width: "calc(100% - 30px)",
-       
-        margin: "5px auto", // Centers the component
-        padding: "10px", 
-        backgroundColor: "background.default",
-        marginBottom: "11px",
-      }}
-      className="rounded-[10px] m-2 flex flex-col items-center sm:flex-col expandable-div"
+    sx={{
+      width: isMaximized ? "100%" : "calc(100%)",
+      height: isMaximized ? "100vh" : "auto",
+      position: isMaximized ? "fixed" : "relative",
+      top: isMaximized ? "0" : "auto",
+      left: isMaximized ? "0" : "auto",
+      zIndex: isMaximized ? "2000" : "",
+      backgroundColor: "background.default",
+      padding: "10px",
+      margin: "5px auto",
+      marginBottom: "11px",
+    }}
+      className="rounded-[10px] m-2 flex flex-col items-center sm:flex-col expandable-div shadow-md"
     >
       {/* Header section with icons */}
       <div className="flex flex-row items-center justify-between w-full p-1 mt-[-26px] mr-[10px] collapsible-main ">
