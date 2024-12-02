@@ -24,6 +24,7 @@ import { Link } from "react-router-dom";
 import useModal from "../../hooks/useModal";
 import noRecord from "../../assets/initalScreen/employeeList.svg";
 import TerminationModal from "./TerminationModal";
+import { useLocation } from 'react-router-dom';
 const EmployeePage = () => {
   const {
     modalState: viewOfferLetter,
@@ -43,6 +44,7 @@ const EmployeePage = () => {
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState("Active");
   const employees = useEmployees();
+  const location = useLocation();
 
   console.log(employees);
 
@@ -199,6 +201,14 @@ const EmployeePage = () => {
     closeModal: closeAddEmployee,
     openModal: openAddEmployee,
   } = useModal();
+
+  useEffect(() => {
+   
+    if (location.state?.openModal) {
+        
+        openAddEmployee();
+    }
+}, [location.state]);
 
   return (
     <Box sx={{ backgroundColor: "background.main",height:'70vh' }}>

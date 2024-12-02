@@ -29,6 +29,7 @@ import { useMessage } from '../../components/Header';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { useLocation } from 'react-router-dom';
 
 const DeptPage = () => {
     const [id, setId] = useState(null);
@@ -36,6 +37,7 @@ const DeptPage = () => {
     const [departments, setDepartments] = useState([]);
     const [search, setSearch] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
+    const location = useLocation();
 
     const itemsPerPage = 10;
 
@@ -96,6 +98,14 @@ const DeptPage = () => {
     useEffect(() => {
         fetchDepartment();
     }, [fetchDepartment]);
+
+    useEffect(() => {
+   
+        if (location.state?.openModal) {
+            setId(null); // Reset ID to indicate "Add" mode
+            handleOpen();
+        }
+    }, [location.state]);
 
     return (
         <div className="container mx-auto py-2 px-4">

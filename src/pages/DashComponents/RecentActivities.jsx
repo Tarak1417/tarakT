@@ -191,12 +191,12 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
     >
       {/* Header Section */}
       <Stack direction="row" alignItems="center" justifyContent="space-between" className="collapsible-main" >
-        <Typography variant="h6" sx={{ fontSize: isMobile ? "14px" : "13px", mr: "10px", fontWeight: "bold", whiteSpace: "nowrap" }}>
+        <Typography variant="h6" sx={{ fontSize: isMobile ? "13px" : "13px", mr: "10px", whiteSpace: "nowrap" }}>
           Recent Activities
         </Typography>
 
         <div style={{ display: "flex", gap: '10px', }}>
-        <div style={{ display: "flex", gap: "10px", color: "white", marginTop: "9px" }}>
+        <div style={{ display: "flex", gap:isMobile? "20px":"10px", color: "white", marginTop: "9px" }}>
   {/* Hover effect for Minimize icon (hrimages4) */}
   <div
   style={{ position: "relative", display: "inline-block" }}

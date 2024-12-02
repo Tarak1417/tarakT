@@ -86,7 +86,7 @@ const Dashboard = () => {
       icon: (
         <GroupIcon
           fontSize="medium"
-          className="text-white  bg-sky-500 p-1 rounded-lg"
+          className="text-white  bg-[#878ECE] p-1 rounded-lg"
         />
       ),
       title: "Total Employees",
@@ -108,14 +108,13 @@ const Dashboard = () => {
       icon: (
         <ApartmentIcon
           fontSize="medium"
-          className="text-white bg-rose-500 p-1 rounded-lg items-center"
-        />
+          className="text-white bg-[#E05353] p-1 rounded-lg items-center"        />
       ),
       title: "Department",
       value: (
         <Typography
           variant="body1"
-          style={{ color: "#FF0000", fontSize: "1.2em" }}
+          style={{ color: "#407BFF", fontSize: "1.2em" }}
         >
           {overview?.departments || 0}
         </Typography>
@@ -130,14 +129,13 @@ const Dashboard = () => {
       icon: (
         <AttachMoneyIcon
           fontSize="medium"
-          className="text-white bg-blue-300 p-1 rounded-lg"
-        />
+          className="text-white bg-[#3E80E5] p-1 rounded-lg"/>
       ),
       title: "Expenses",
       value: (
         <Typography
           variant="body1"
-          style={{ color: "#FF0000", fontSize: "1.2em" }}
+          style={{ color: "#E05353", fontSize: "1.2em" }}
         >
           ${" "}
           {overview && overview?.expenses
