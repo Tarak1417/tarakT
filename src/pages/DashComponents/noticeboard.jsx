@@ -16,12 +16,12 @@ import maximizeicon from "../../assets/Interductionimages/maximize.png"
 
 
 const NoticeBoard = ({ eventData }) => {
-  useExpandCollapse();
-  useFullscreenExpand()
+  // useExpandCollapse();
+  // useFullscreenExpand()
   const [datastore, setStore] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false); 
-const [isMaximized, setIsMaximized] = useState(true);
+const [isMaximized, setIsMaximized] = useState(false);
 
 
 const handleToggle = () => setIsMinimized(!isMinimized);
@@ -66,16 +66,19 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
 
   return (
     <Box
-      sx={{
-        backgroundColor: "background.default",
-        borderRadius: "10px",
-        padding: "10px",
-        maxHeight: "241px",
-        height:"auto",
-        width: "auto",
-        justifyItems: "stretch",
-        marginBottom: "5px"
-      }}
+    sx={{
+      width: isMaximized ? "100%" : "calc(100%)",
+      height: isMaximized ? "100vh" : "auto",
+      maxHeight: isMaximized ? "auto" : "241px",
+      position: isMaximized ? "fixed" : "relative",
+      top: isMaximized ? "0" : "auto",
+      left: isMaximized ? "0" : "auto",
+      zIndex: isMaximized ? "2000" : "",
+      backgroundColor: "background.default",
+      padding: "10px",
+      margin: "5px auto",
+      marginBottom: "11px",
+    }}
       className="shadow-lg expandable-div"
     >
 
