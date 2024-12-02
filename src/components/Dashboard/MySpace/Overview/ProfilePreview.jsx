@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button, Avatar } from "@mui/material";
+import { useUser } from "../../../../hooks/Authorize";
 
 export default function ProfilePreview() {
+  const platformUser = useUser();
   return (
     <div className="w-full flex gap-3 p-3 flex-col justify-center items-center ">
       <div className="flex flex-col justify-center items-center">
@@ -10,7 +12,7 @@ export default function ProfilePreview() {
           sx={{ height: "7rem", width: "7rem" }}
           src="/static/images/avatar/1.jpg"
         />
-        <h1>Steward Graham</h1>
+        {platformUser?.firstName + " " + platformUser?.lastName}
         <h1>CEO</h1>
       </div>
       <div className="flex flex-col justify-center items-center">

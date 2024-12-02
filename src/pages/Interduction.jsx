@@ -42,7 +42,7 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
       margin: "5px auto",
       marginBottom: "11px",
     }}
-      className="rounded-[10px] m-2 flex flex-col items-center sm:flex-col expandable-div shadow-md"
+      className="rounded-[10px] m-2 flex flex-col items-center sm:flex-col expandable-div shadow-md border border-gray-800"
     >
       {/* Header section with icons */}
       <div className="flex flex-row items-center justify-between w-full p-1 mt-[-26px] mr-[10px] collapsible-main ">

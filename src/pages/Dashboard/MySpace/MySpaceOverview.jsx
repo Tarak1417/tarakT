@@ -212,7 +212,7 @@ export default function MySpaceOverview() {
           justifyContent: "center",
           justifyItems: "center",
         }}
-        className="h-fit w-[30%] flex flex-col justify-center items-center rounded-lg shadow-md"
+        className="h-fit w-[30%] flex flex-col justify-center items-center rounded-lg shadow-md border border-gray-800"
       >
         <ProfilePreview />
         <Divider
@@ -244,7 +244,7 @@ export default function MySpaceOverview() {
         {switchScreen.first === "home" ? (
           <>
             <Interduction />
-            <div className="w-full flex gap-3 justify-evenly items-center">
+            <div className="w-full flex gap-3 justify-evenly items-center rounded-lg border border-gray-800">
               {boxesData &&
                 boxesData.map((box, index) => (
                   <Grid
@@ -270,10 +270,10 @@ export default function MySpaceOverview() {
                 ))}
             </div>
             <Grid
-              className="w-full flex gap-3 px-2 py-4 justify-between items-center rounded-lg shadow-md"
+              className="w-full flex gap-3 px-2 py-4 justify-between items-center rounded-lg shadow-md border border-gray-800"
               sx={{ backgroundColor: "background.default" }}
             >
-              <div className="w-full flex gap-3 justify-start items-center">
+              <div className="w-full flex gap-3 justify-start items-center ">
                 <div>
                   <CalendarMonthOutlinedIcon sx={{ fontSize: "2rem" }} />
                 </div>
@@ -315,7 +315,7 @@ export default function MySpaceOverview() {
           <div className="w-full flex flex-col gap-3">
             <Grid
               sx={{ backgroundColor: "background.default" }}
-              className="w-full grid grid-flow-row gap-5 rounded-lg shadow-md p-3"
+              className="w-full grid grid-flow-row gap-5 rounded-lg p-3 border border-gray-800"
             >
               <div>
                 <h1 className="text-2xl">Work Information</h1>
@@ -359,7 +359,7 @@ export default function MySpaceOverview() {
             </Grid>
             <Grid
               sx={{ backgroundColor: "background.default" }}
-              className="w-full grid grid-flow-row gap-5 rounded-lg shadow-md p-3"
+              className="w-full grid grid-flow-row gap-5 rounded-lg border border-gray-800 p-3"
             >
               <div>
                 <h1 className="text-2xl">About</h1>
@@ -376,7 +376,7 @@ export default function MySpaceOverview() {
             </Grid>
             <Grid
               sx={{ backgroundColor: "background.default" }}
-              className="w-full grid grid-flow-row gap-5 rounded-lg shadow-md p-3"
+              className="w-full grid grid-flow-row gap-5 rounded-lg border border-gray-800 p-3"
             >
               <div>
                 <h1 className="text-2xl">Basic Information</h1>

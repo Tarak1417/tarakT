@@ -5,7 +5,7 @@ export default function Favorites() {
   return (
     <Grid
       sx={{ height: "20rem", backgroundColor: "background.default" }}
-      className="min-h-80 w-96 px-2 rounded-lg bg-slate-400"
+      className="min-h-80 w-80 px-2 rounded-lg bg-slate-400 border border-gray-800"
     >
       <div className="py-2">
         <h1>Favorites</h1>
