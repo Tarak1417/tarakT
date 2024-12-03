@@ -37,7 +37,7 @@ const HolidayBoard = ({ isSidebarOpen }) => {
         margin: "5px auto",
         marginBottom: "11px",
       }}
-      className="rounded-md shadow-lg expandable-div"
+      className="rounded-lg border border-gray-800 expandable-div"
     >
       <Box
         sx={{

@@ -125,6 +125,9 @@ const Applicationleave = (props) => {
         boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
         //marginTop: "-1px"
       }}
+      
+      className="border border-gray-800"
+
     >
       <Box
         sx={{

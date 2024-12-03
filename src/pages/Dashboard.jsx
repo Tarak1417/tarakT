@@ -26,8 +26,10 @@ import {
   Avatar,
 } from "@mui/material";
 import MySpaceOverview from "./Dashboard/MySpace/MySpaceOverview";
-import MySpaceCalendar from "./Dashboard/MySpace/MySpaceCalendar"
-import MySpaceDashboard from "./Dashboard/MySpace/MySpaceDashboard"
+import MySpaceCalendar from "./Dashboard/MySpace/MySpaceCalendar";
+import MySpaceDashboard from "./Dashboard/MySpace/MySpaceDashboard";
+import TeamSpace from "./Dashboard/Team/TeamSpace";
+import Reportees from "./Dashboard/Team/Reportees";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -158,8 +160,8 @@ const Dashboard = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [switchScreen, setSwitchScreen] = useState({
-    first: "mySpace",
-    second: "overview",
+    first: "team",
+    second: "reportees",
   });
 
   const handleSwitchScreen = (screen) => {
@@ -234,7 +236,7 @@ const Dashboard = () => {
   };
 
   return (
-    <Box sx={{ backgroundColor: "background.main", width: "93vw", mx: "auto" }}>
+    <Box sx={{ backgroundColor: "background.default", width: "93vw", mx: "auto" }}>
       <div className="flex flex-col gap-5 py-2 px-6">
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
@@ -278,6 +280,23 @@ const Dashboard = () => {
         switchScreen.second === "calendar" ? (
           <>
             <MySpaceCalendar />
+          </>
+        ) : (
+          <></>
+        )}
+        {switchScreen.first === "team" &&
+        switchScreen.second === "teamSpace" ? (
+          <>
+            <TeamSpace />
+          </>
+        ) : (
+          <></>
+        )}
+
+        {switchScreen.first === "team" &&
+        switchScreen.second === "reportees" ? (
+          <>
+            <Reportees />
           </>
         ) : (
           <></>

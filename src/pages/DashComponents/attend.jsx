@@ -211,7 +211,7 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
         </Grid>
       </Box>
     </Modal>}
-    <div className={`w-full h-full rounded-lg shadow-lg  expandable-div ${isMobile ? "mt-[5px]" : "mt-1"} `}>
+    <div className={`w-full h-full rounded-lg expandable-div ${isMobile ? "mt-[5px]" : "mt-1"} border border-gray-800`}>
       {/* Header */}
       <Box
         p={2}
