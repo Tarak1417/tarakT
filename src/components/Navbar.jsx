@@ -1246,7 +1246,7 @@ const handleCloseset = () => {
             )}
           </Stack>
          
-          <Box 
+          {/* <Box 
       sx={{ 
         marginRight:'-37px',
         display: 'flex', 
@@ -1269,7 +1269,7 @@ const handleCloseset = () => {
         <Typography sx={{color:'white',fontSize:'13px',fontFamily:'sans-serif'}} >Chat</Typography>
         </Box>
         </Button>
-    </Box>
+    </Box> */}
         </Box>
       </AppBar>
       
