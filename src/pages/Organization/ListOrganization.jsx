@@ -152,7 +152,7 @@ const ListOrganization = () => {
         </Typography>
       </Box>
 
-      <Box className="px-2" sx={{ overflowX: "auto" }}>
+      <Box className="px-2" sx={{ overflowX: "auto", }}>
         <Grid container sx={{ p: 1, minWidth: 525 }}>
           <Grid item xs={8}>
             Organization
@@ -164,7 +164,7 @@ const ListOrganization = () => {
             Action
           </Grid>
         </Grid>
-        <Divider sx={{ minWidth: 525 }} />
+        <Divider sx={{ minWidth: 525, marginBottom:"30px" }} />
         <Box>
           {organizations.map((org, index) => (
             <Grid key={index} container sx={{ p: 1, minWidth: 565 }}>
@@ -182,12 +182,13 @@ const ListOrganization = () => {
                   </div>
                 </div>
               </Grid>
-              <Grid item xs={2} sm={2}>
+              <Grid item xs={2} sm={2} ml={-1}>
                <div
-  className={`px-3 py-1 rounded-lg w-fit`}
+  className={`px-3 py-1 w-fit `}
   style={{
     backgroundColor: org.status ? "#003300" : "#330000", // Dark green for active, dark red for inactive
-    color: org.status ? "lime" : "tomato", // Text color: Lime for active, tomato for inactive
+    color: org.status ? "lime" : "tomato",
+    borderRadius:'5px', // Text color: Lime for active, tomato for inactive
   }}
 >
   {org.status ? "Active" : "In-active"}

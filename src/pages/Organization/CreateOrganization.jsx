@@ -23,6 +23,7 @@ import axios from "axios";
 import "./organization.css";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { Close } from "@mui/icons-material";
+import createOrg from "../../assets/createOrganization image.png"
 
 // Tabs Section
 const CreateOrganization = () => {
@@ -221,14 +222,12 @@ const CreateOrganization = () => {
               fontSize: { xs: "0.7rem", sm: "1rem" },
             }}
           >
-            HR organization refers to the style of coordination, communication
-            and management, a team or an employee uses through out his/her
-            contract with the organization.
+            HR organization refers to the style of coordination, communication and management, a team or an employee uses through<br/> out his/her contract with the organization.
           </Typography>
           <div className="flex justify-center">
             <img
-              className="origin-center  w-[90%] md:w-[30%]"
-              src="/images/ASSETS/createOrg.svg"
+              className="origin-center h-[55vh] w-[auto] md:w-[30%] mb-[20px]"
+              src={createOrg}
               alt="walkover1"
             />
           </div>
