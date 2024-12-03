@@ -80,7 +80,7 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
       margin: "5px auto",
       marginBottom: "11px",
     }}
-      className="shadow-lg expandable-div"
+      className="shadow-lg expandable-div rounded-lg border border-gray-800"
     >
 
       <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }} className="collapsible-main ">
