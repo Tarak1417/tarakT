@@ -8,6 +8,8 @@ import hrimages4 from "../../assets/Interductionimages/Vector.png"
 import { Link } from "react-router-dom";
 import { blue, grey } from "@mui/material/colors";
 import graph from "../../assets/Interductionimages/graph.png"
+import minimizeicon from "../../assets/Interductionimages/expand.png"
+import maximizeicon from "../../assets/Interductionimages/maximize.png"
 
 
 // Sample data for recent activities
@@ -122,12 +124,12 @@ const ActivityRow = ({ activity, isMobile }) => (
     }}
   >
     <Stack direction="row" alignItems="center" spacing={2} flexGrow={1}>
-      <Avatar src={activity.avatar} alt={activity.name} sx={{ width: 30, height: 30 }} />
+      <Avatar src={activity.avatar} alt={activity.name} sx={{ width: 25, height: 25 }} />
       <Box sx={{ textAlign: isMobile ? "left" : "left", flexGrow: 1 }}>
-        <Typography sx={{ fontFamily: "sans-serif", fontSize: "14px" }}>
+        <Typography sx={{ fontFamily: "sans-serif", fontSize: "10px" }}>
           {activity.activity}
         </Typography>
-        <Typography variant="caption" color="textSecondary">
+        <Typography variant="caption" color="textSecondary" fontSize= "10px" >
           {activity.name}
         </Typography>
       </Box>
@@ -142,7 +144,7 @@ const ActivityRow = ({ activity, isMobile }) => (
         color: "#06D17C",
         backgroundColor: "#00361F80",
         fontFamily: "sans-serif",
-        fontSize: "12px",
+        fontSize: "10px",
         textAlign: "center",
         minWidth: isMobile ? "80px" : "auto",
         mt: isMobile ? 1 : 0,
@@ -152,7 +154,7 @@ const ActivityRow = ({ activity, isMobile }) => (
       {activity.type}
     </Box>
 
-    <Typography variant="caption" color="textSecondary" sx={{ mt: isMobile ? 1 : 0 }}>
+    <Typography variant="caption" color="textSecondary" fontSize="10px" sx={{ mt: isMobile ? 1 : 0 }}>
       {isMobile ? `${activity.time.split(" ")[0]}m` : activity.time}
     </Typography>
   </Stack>
@@ -162,8 +164,16 @@ const ActivityRow = ({ activity, isMobile }) => (
 const RecentActivities = () => {
 
   const [isHovered, setIsHovered] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false); // For first icon
+  const [isMaximized, setIsMaximized] = useState(true);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+
+  const handleToggle = () => setIsMinimized(!isMinimized);
+
+
+const handleToggleMaximize = () => setIsMaximized(!isMaximized);
 
   return (
     <Box
@@ -176,24 +186,68 @@ const RecentActivities = () => {
       width="100%"
       overflow="auto"
       mt={isMobile ? "5px" : ""}
+      className="expandable-div"
 
     >
       {/* Header Section */}
       <Stack direction="row" alignItems="center" justifyContent="space-between" className="collapsible-main" >
-        <Typography variant="h6" sx={{ fontSize: isMobile ? "14px" : "17px", mr: "10px", fontWeight: "bold", whiteSpace: "nowrap" }}>
+        <Typography variant="h6" sx={{ fontSize: isMobile ? "13px" : "13px", mr: "10px", whiteSpace: "nowrap" }}>
           Recent Activities
         </Typography>
 
         <div style={{ display: "flex", gap: '10px', }}>
-        <div style={{ display: "flex", gap: "10px", color: "white", marginTop: "9px" }}>
+        <div style={{ display: "flex", gap:isMobile? "20px":"10px", color: "white", marginTop: "9px" }}>
   {/* Hover effect for Minimize icon (hrimages4) */}
   <div
+  style={{ position: "relative", display: "inline-block" }}
+  onMouseEnter={() => setIsHovered(isMinimized ? "expand" : "minimize")}
+  onMouseLeave={() => setIsHovered(null)}
+  onClick={handleToggle} // Unique class for the toggle button
+>
+  {isMinimized ? (
+    <img src={hrimages4} alt="expand" className="h-3 w-3 collapse-div" />
+  ) : (
+    <img src={minimizeicon} alt="minimize" className="h-3 w-3 collapse-div " />
+  )}
+
+  {(isHovered === "minimize" || isHovered === "expand") && (
+    <div
+      style={{
+        position: "absolute",
+        top: "-28px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        backgroundColor: "#2f456c",
+        color: "#fff",
+        padding: "5px 10px",
+        borderRadius: "3px",
+        fontSize: "10px",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+        whiteSpace: "nowrap",
+      }}
+    >
+      {isMinimized ? "expand" : "Minimize"}
+    </div>
+  )}
+</div>
+
+
+
+  {/* Hover effect for Maximize icon (hrimages1) */}
+  {!isMobile && (
+  <div
     style={{ position: "relative", display: "inline-block" }}
-    onMouseEnter={() => setIsHovered("minimize")}
+    onMouseEnter={() => setIsHovered(isMaximized ? "maximize" : "singlecolumn")}
     onMouseLeave={() => setIsHovered(null)}
+    onClick={handleToggleMaximize}
   >
-    <img src={hrimages4} alt="Minimize" className="h-3 w-3 collapse-div" />
-    {isHovered === "minimize" && (
+    {isMaximized? (
+      <img src={hrimages1} alt="maximize" className="h-3 w-3 expand-button " />
+    ) : (
+      <img src={maximizeicon} alt="singlecolumn" className="h-3 w-3  expand-button " />
+    )}
+
+    {(isHovered === "maximize" || isHovered === "singlecolumn") && (
       <div
         style={{
           position: "absolute",
@@ -209,40 +263,11 @@ const RecentActivities = () => {
           whiteSpace: "nowrap",
         }}
       >
-        Minimize
+        {isMaximized ? "maximize" : "singlecolumn"}
       </div>
     )}
   </div>
-
-  {/* Hover effect for Maximize icon (hrimages1) */}
-  {!isMobile && (
-    <div
-      style={{ position: "relative", display: "inline-block" }}
-      onMouseEnter={() => setIsHovered("maximize")}
-      onMouseLeave={() => setIsHovered(null)}
-    >
-      <img src={hrimages1} alt="Maximize" className="h-3 w-3 expand-button" />
-      {isHovered === "maximize" && (
-        <div
-          style={{
-            position: "absolute",
-            top: "-28px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            backgroundColor: "#2f456c",
-            color: "#fff",
-            padding: "5px 10px",
-            borderRadius: "3px",
-            fontSize: "10px",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-            whiteSpace: "nowrap",
-          }}
-        >
-          Maximize
-        </div>
-      )}
-    </div>
-  )}
+)}
 
   {/* Hover effect for Refresh icon (hrimages2) */}
   <div
@@ -299,6 +324,7 @@ const RecentActivities = () => {
       </div>
     )}
   </div>
+
 </div>
           <Link to="//projects.clikkle.com/walk-through">
           <Button
@@ -353,7 +379,7 @@ const RecentActivities = () => {
    sx={{
      marginBottom: 1,
      fontFamily: 'sans-serif',
-     fontSize: { xs: '18px', sm: '23px' },
+     fontSize: { xs: '13px', sm: '23px' },
    }}
  >
    No Employee Project Records!
@@ -363,7 +389,7 @@ const RecentActivities = () => {
    sx={{
      color: grey[500],
      marginBottom: { xs: 3, sm: 4 },
-     fontSize: { xs: '12px', sm: '13px' },
+     fontSize: { xs: '10px', sm: '10px' },
    }}
  >
  You have no current employee projects activities.

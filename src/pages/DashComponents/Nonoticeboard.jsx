@@ -54,10 +54,10 @@ const NoticeBoard = ({ eventData }) => {
         </Box>
 
         {/* Main Text */}
-        <Typography variant="h6" sx={{ marginBottom: 1, fontFamily: "sans-serif", fontSize: "11px" }}>
+        <Typography variant="h6" sx={{ marginBottom: 1, fontFamily: "sans-serif", fontSize: "13px" }}>
           No current notices!
         </Typography>
-        <Typography variant="body2" sx={{ color: grey[300], marginBottom: 1, fontSize: "7px" }}>
+        <Typography variant="body2" sx={{ color: grey[400], marginBottom: 1, fontSize: "10px" }}>
           You do not have any current notice available.<br/> Click the button below to add new notice.
         </Typography>
 
@@ -76,7 +76,7 @@ const NoticeBoard = ({ eventData }) => {
             '&:hover': { backgroundColor: blue[800] },
           }}
         >
-          Create Job
+          Add Job
         </Button>
       </Box>
     </Box>

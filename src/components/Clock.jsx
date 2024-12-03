@@ -36,7 +36,7 @@ export default function Clock() {
             my: 2  // Add margin on the y-axis if needed
           }}
         >
-          <Box sx={{ mr: 2 }}>
+          <Box sx={{ mr: 2  }}>
             <Button>
               <img src={timeIcon} alt="time" className="h-4 w-4 mr-2"  /> {Dates}
             </Button>

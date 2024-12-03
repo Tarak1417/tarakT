@@ -10,13 +10,25 @@ import hrimages2 from "../../assets/Interductionimages/Vector-2.png"
 import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
 import useFullscreenExpand from "../../hooks/useFullscreenExpand";
+import minimizeicon from "../../assets/Interductionimages/expand.png"
+import maximizeicon from "../../assets/Interductionimages/maximize.png"
+import NoticeBoardMAx from "../NoticeBoard/NoticeHome"
+
 
 
 const NoticeBoard = ({ eventData }) => {
-  useExpandCollapse();
-  useFullscreenExpand()
+  // useExpandCollapse();
+  // useFullscreenExpand()
   const [datastore, setStore] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false); 
+const [isMaximized, setIsMaximized] = useState(false);
+
+
+const handleToggle = () => setIsMinimized(!isMinimized);
+
+
+const handleToggleMaximize = () => setIsMaximized(!isMaximized);
 
   useEffect(() => {
     setStore(eventData)
@@ -55,33 +67,79 @@ const NoticeBoard = ({ eventData }) => {
 
   return (
     <Box
-      sx={{
-        backgroundColor: "background.default",
-        borderRadius: "10px",
-        padding: "10px",
-        maxHeight: "241px",
-        height:"auto",
-        width: "auto",
-        justifyItems: "stretch",
-        marginBottom: "5px"
-      }}
-      className="shadow-lg expandable-div"
+    sx={{
+      width: isMaximized ? "100%" : "calc(100%)",
+      height: isMaximized ? "100vh" : "auto",
+      maxHeight: isMaximized ? "auto" : "241px",
+      position: isMaximized ? "fixed" : "relative",
+      top: isMaximized ? "0" : "auto",
+      left: isMaximized ? "0" : "auto",
+      zIndex: isMaximized ? "2000" : "",
+      backgroundColor: "background.default",
+      padding: "10px",
+      margin: "5px auto",
+      marginBottom: "11px",
+    }}
+      className="shadow-lg expandable-div rounded-lg border border-gray-800"
     >
 
       <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }} className="collapsible-main ">
-        <p style={{ fontSize: "18px" }} className="text-2xl pl-2 border-blue-500">
+        <p style={{ fontSize: "13px" }} className="text-2xl ml-[10px]  border-blue-500">
           Notice Board
         </p>
 
-        <div style={{ display: "flex", gap: "10px", color: "white", marginTop: "9px" }}>
+        <div style={{ display: "flex", gap:isMobile? "20px":"10px", color: "white", marginTop: "9px",marginRight:"15px"  }}>
   {/* Hover effect for Minimize icon (hrimages4) */}
   <div
+  style={{ position: "relative", display: "inline-block" }}
+  onMouseEnter={() => setIsHovered(isMinimized ? "expand" : "minimize")}
+  onMouseLeave={() => setIsHovered(null)}
+  onClick={handleToggle} // Unique class for the toggle button
+>
+  {isMinimized ? (
+    <img src={hrimages4} alt="expand" className="h-3 w-3 collapse-div" />
+  ) : (
+    <img src={minimizeicon} alt="minimize" className="h-3 w-3 collapse-div " />
+  )}
+
+  {(isHovered === "minimize" || isHovered === "expand") && (
+    <div
+      style={{
+        position: "absolute",
+        top: "-28px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        backgroundColor: "#2f456c",
+        color: "#fff",
+        padding: "5px 10px",
+        borderRadius: "3px",
+        fontSize: "10px",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+        whiteSpace: "nowrap",
+      }}
+    >
+      {isMinimized ? "expand" : "Minimize"}
+    </div>
+  )}
+</div>
+
+
+
+  {/* Hover effect for Maximize icon (hrimages1) */}
+  {!isMobile && (
+  <div
     style={{ position: "relative", display: "inline-block" }}
-    onMouseEnter={() => setIsHovered("minimize")}
+    onMouseEnter={() => setIsHovered(isMaximized ? "maximize" : "singlecolumn")}
     onMouseLeave={() => setIsHovered(null)}
+    onClick={handleToggleMaximize}
   >
-    <img src={hrimages4} alt="Minimize" className="h-3 w-3 collapse-div" />
-    {isHovered === "minimize" && (
+    {isMaximized? (
+      <img src={hrimages1} alt="maximize" className="h-3 w-3 expand-button " />
+    ) : (
+      <img src={maximizeicon} alt="singlecolumn" className="h-3 w-3  expand-button" />
+    )}
+
+    {(isHovered === "maximize" || isHovered === "singlecolumn") && (
       <div
         style={{
           position: "absolute",
@@ -97,41 +155,11 @@ const NoticeBoard = ({ eventData }) => {
           whiteSpace: "nowrap",
         }}
       >
-        Minimize
+        {isMaximized ? "maximize" : "singlecolumn"}
       </div>
     )}
   </div>
-
-  {/* Hover effect for Maximize icon (hrimages1) */}
-  {!isMobile && (
-    <div
-      style={{ position: "relative", display: "inline-block" }}
-      onMouseEnter={() => setIsHovered("maximize")}
-      onMouseLeave={() => setIsHovered(null)}
-    >
-      <img src={hrimages1} alt="Maximize" className="h-3 w-3 expand-button" />
-      {isHovered === "maximize" && (
-        <div
-          style={{
-            position: "absolute",
-            top: "-28px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            backgroundColor: "#2f456c",
-            color: "#fff",
-            padding: "5px 10px",
-            borderRadius: "3px",
-            fontSize: "10px",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-            whiteSpace: "nowrap",
-          }}
-        >
-          Maximize
-        </div>
-      )}
-    </div>
-  )}
-
+)}
   {/* Hover effect for Refresh icon (hrimages2) */}
   <div
     style={{ position: "relative", display: "inline-block" }}
@@ -190,6 +218,7 @@ const NoticeBoard = ({ eventData }) => {
 </div>
 
       </Box>
+      {isMaximized?(
       <div
         //style={{ marginTop: "-22px" }}
         className="space-y-6 overflow-y-auto h-[340px] px-2 pb-4 collapsible-div"
@@ -222,6 +251,23 @@ const NoticeBoard = ({ eventData }) => {
           </>
         }
       </div>
+      ):(
+        <div
+     
+        style={{
+          backgroundColor: "background.view",
+          height: "81.3vh",
+          width: "90.5vw",
+          zIndex:"1000",
+        position:"relative",
+        left:'-5px'
+       
+  
+        }}
+      >
+      <NoticeBoardMAx />
+      </div>
+      )}
 
       {/* Hide Scrollbar */}
       <style jsx>{`

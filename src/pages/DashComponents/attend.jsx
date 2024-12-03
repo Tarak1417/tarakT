@@ -12,6 +12,79 @@ import hrimages3 from "../../assets/Interductionimages/Vector-3.png"
 import hrimages4 from "../../assets/Interductionimages/Vector.png"
 import { Link } from 'react-router-dom';
 import useExpandCollapse from "../../hooks/useExpandCollapse";
+import Norecentattendence from "./Norecentattendence";
+import minimizeicon from "../../assets/Interductionimages/expand.png"
+import maximizeicon from "../../assets/Interductionimages/maximize.png"
+
+const attendanceData = [
+  {
+    id: "#193845039283",
+    name: "Richard Webber",
+    role: "UI/UX Designer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:17 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=3",
+  },
+  {
+    id: "#995830128543",
+    name: "Desmond Jakes",
+    role: "Frontend Developer",
+    date: "22/10/2024",
+    status: "Late",
+    clockIn: "09:40:17 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=8",
+  },
+  {
+    id: "#995839202395",
+    name: "Jaxson Schleifer",
+    role: "Frontend Developer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:03 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=10",
+  },
+  {
+    id: "#294857104856",
+    name: "Cynthia Eze",
+    role: "Software Engineer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:05 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=4",
+  },
+  {
+    id: "#775839203848",
+    name: "Erin Herwitz",
+    role: "Digital Marketer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:07 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=5",
+  },
+  {
+    id: "#775839205548",
+    name: "Erin Herwitz",
+    role: "Digital Marketer",
+    date: "22/10/2024",
+    status: "Present",
+    clockIn: "09:00:07 AM",
+    clockOut: "Not yet clocked out",
+    shift: "AM",
+    avatar: "https://i.pravatar.cc/40?img=5",
+  },
+];
+
 
 const StatusBadge = ({ status }) => {
   const theme = useTheme();
@@ -33,28 +106,52 @@ const StatusBadge = ({ status }) => {
   );
 };
 
-const ModalContent = ({ selectedEmp, handleClose, open }) => {
-  const shiftStart = dayjs()
-    .hour(selectedEmp.employeeData.shiftStart.hour)
-    .minute(selectedEmp.employeeData.shiftStart.minute);
-  let shiftEnd = dayjs()
-    .hour(selectedEmp.employeeData.shiftEnd.hour)
-    .minute(selectedEmp.employeeData.shiftEnd.minute);
+const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
+  useExpandCollapse();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [open, setOpen] = React.useState(false);
+  const [selectedEmp, setSelectedEmp] = React.useState();
+  const [isHovered, setIsHovered] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false); // For first icon
+  const [isMaximized, setIsMaximized] = useState(true);
 
-  if (shiftEnd.isBefore(shiftStart)) {
-    shiftEnd = shiftEnd.add(1, "day");
+
+  const handleToggle = () => setIsMinimized(!isMinimized);
+
+
+const handleToggleMaximize = () => setIsMaximized(!isMaximized);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  function previewEmployee(emp) {
+    console.log("empid", emp);
+    setSelectedEmp(emp);
+    setOpen(true);
   }
+  const [attendance, setAttendance] = useState(attendanceData);
+  const fetchAttendanceData = useCallback(async () => {
+    try {
+      const response = await axios.get(`/hr/attendance/recent`);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      setAttendance(response.data.attendance)
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
 
-  const formattedShiftStart = shiftStart.format("h:mm A");
-  const formattedShiftEnd = shiftEnd.format("h:mm A");
-  const diffInMilliseconds = shiftEnd.diff(shiftStart);
-  const totalMinutes = Math.floor(diffInMilliseconds / (1000 * 60));
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
+  useEffect(() => {
+    if (!isDashboardCall)
+      fetchAttendanceData();
+    else
+      setAttendance(attendanceData)
 
-  return (
-    <Modal open={open} onClose={handleClose} aria-labelledby="user-shift-modal-title">
-      
+  }, [attendanceData, fetchAttendanceData, isDashboardCall])
+  //useEffect(() => {setAttendance(attendanceData)},[attendanceData])
+
+  return (<>
+    {selectedEmp && selectedEmp.employeeData && <Modal open={open} onClose={handleClose} aria-labelledby="user-shift-modal-title">
       <Box
         sx={{
           position: 'absolute',
@@ -67,6 +164,7 @@ const ModalContent = ({ selectedEmp, handleClose, open }) => {
           p: 2,
           borderRadius: 2
         }}
+     
       >
         {/* Modal Header */}
         <Box
@@ -96,79 +194,24 @@ const ModalContent = ({ selectedEmp, handleClose, open }) => {
         {/* Modal Body */}
         <Grid container spacing={2} className="modal-body-attendance">
           {/* First Column */}
-          <Grid item xs={12} md={6}>
+          <Grid item xs={6}>
             <Typography variant="body2"><strong>Shift:</strong><br />{dayjs(selectedEmp.clockInTime).format("A")}</Typography>
             <Typography variant="body2"><strong>Date:</strong><br />{dayjs(selectedEmp.clockInTime).format("DD/MM/YYYY")}</Typography>
-            <Typography variant="body2"><strong>Work Status:</strong> <br /><div style={{background:"#3767B1",height:"5px", width:"5px", borderRadius:"2px",display:"inline-block",position:"relative",top:"7px"}}>&nbsp;</div> Present </Typography>
+            <Typography variant="body2"><strong>Work Status:</strong> <br />In Progress</Typography>
             <Typography variant="body2"><strong>Clock-In Time:</strong><br />{dayjs(selectedEmp.clockInTime).format("hh:mm:ss A")}</Typography>
           </Grid>
 
           {/* Second Column */}
-          <Grid item xs={12} md={6}>
-            <Typography variant="body2"><strong>Shift Time:</strong><br />{`${formattedShiftStart}-${formattedShiftEnd}`}</Typography>
-            <Typography variant="body2"><strong>Shift Duration:</strong><br /> {hours} hour(s) and {minutes} minute(s)</Typography>
-            <Typography variant="body2"><strong>Shift Status:</strong><br /><div style={{background:(selectedEmp.status==="Late"?"#F13B3B":"#42b824"),height:"5px", width:"5px", borderRadius:"2px",display:"inline-block",position:"relative",top:"7px"}}>&nbsp;</div> {selectedEmp.status}</Typography>
+          <Grid item xs={6}>
+            <Typography variant="body2"><strong>Shift Time:</strong><br /> 9AM - 5PM</Typography>
+            <Typography variant="body2"><strong>Shift Duration:</strong><br /> 8 hrs</Typography>
+            <Typography variant="body2"><strong>Shift Status:</strong><br /> {selectedEmp.status}</Typography>
             <Typography variant="body2"><strong>Clock-Out Time:</strong><br />{selectedEmp.clockOutTime ? dayjs(selectedEmp.clockOutTime).format("hh:mm:ss A") : "Not yet clocked out"}</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <textarea disabled style={{
-              width: "100%",
-              resize: "none",
-              border: "1px solid rgb(199, 198, 198)",
-              padding: "5px",
-              borderRadius: "5px",
-              minHeight: "80px",
-              background:"transparent"
-            }}>
-              {selectedEmp.note || ""}
-            </textarea>
           </Grid>
         </Grid>
       </Box>
-    </Modal>
-  );
-};
-
-const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
-  useExpandCollapse();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [open, setOpen] = React.useState(false);
-  const [selectedEmp, setSelectedEmp] = React.useState();
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-  function previewEmployee(emp) {
-    // console.log("empid", emp);
-    setSelectedEmp(emp);
-    setOpen(true);
-  }
-  const [attendance, setAttendance] = useState(attendanceData);
-  const fetchAttendanceData = async () => {
-    if (!isDashboardCall && attendance.length===0) {
-      try {
-        const response = await axios.get("/hr/attendance/recent");
-        setAttendance(response.data.attendance);
-      } catch (e) {
-        console.error("Error fetching attendance:", e);
-      }
-    } else {
-      setAttendance(attendanceData);
-    }
-  }
-  useEffect(() => {
-    if (attendanceData.length>0) {
-      setAttendance(attendanceData)
-    }
-  },[attendanceData])
-  useEffect(() => {
-    fetchAttendanceData();
-  }, []);
-
-  return (<>
-    {selectedEmp && selectedEmp.employeeData && <ModalContent selectedEmp={selectedEmp} handleClose={handleClose} open={open} /> }
-    <div className={`rounded-lg shadow-lg ${isMobile ? "mt-[5px]" : "mt-1"} `}>
+    </Modal>}
+    <div className={`w-full h-full rounded-lg expandable-div ${isMobile ? "mt-[5px]" : "mt-1"} border border-gray-800`}>
       {/* Header */}
       <Box
         p={2}
@@ -180,18 +223,140 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
           height: { xs: "auto" },
         }}
       >
-        <div className="flex items-center justify-between collapsible-main">
-          <Typography variant="h6" sx={{ fontSize: isMobile ? "14px" : "17px", mr: "10px", fontWeight: "bold", whiteSpace: "nowrap" }}>
+        <div className="flex items-center justify-between collapsible-main ">
+          <Typography variant="h6" sx={{ fontSize: isMobile ? "13px" : "13px", mr: "10px", whiteSpace: "nowrap" }}>
             Recent Attendance
           </Typography>
-          <div style={{ display: "flex", gap: '20px', }}>
-            <div style={{ display: 'flex', gap: '10px', color: 'white', marginTop: "9px" }}>
-              {isMobile ? "" : <img src={hrimages1} alt="" className="h-4 w-4 collapse-div" />}
-              <img src={hrimages4} alt="" className="h-4 w-4" />
+          <div style={{ display: "flex", gap: '10px', }}>
+          <div style={{ display: "flex",gap:isMobile? "20px":"10px", color: "white", marginTop: "9px" }}>
+  {/* Hover effect for Minimize icon (hrimages4) */}
+  <div
+  style={{ position: "relative", display: "inline-block" }}
+  onMouseEnter={() => setIsHovered(isMinimized ? "expand" : "minimize")}
+  onMouseLeave={() => setIsHovered(null)}
+  onClick={handleToggle} // Unique class for the toggle button
+>
+  {isMinimized ? (
+    <img src={hrimages4} alt="expand" className="h-3 w-3 collapse-div" />
+  ) : (
+    <img src={minimizeicon} alt="minimize" className="h-3 w-3 collapse-div " />
+  )}
 
-              <img src={hrimages2} alt="" className="h-4 w-4" />
-              <img src={hrimages3} alt="" className="h-4 w-4" />
-            </div>
+  {(isHovered === "minimize" || isHovered === "expand") && (
+    <div
+      style={{
+        position: "absolute",
+        top: "-28px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        backgroundColor: "#2f456c",
+        color: "#fff",
+        padding: "5px 10px",
+        borderRadius: "3px",
+        fontSize: "10px",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+        whiteSpace: "nowrap",
+      }}
+    >
+      {isMinimized ? "expand" : "Minimize"}
+    </div>
+  )}
+</div>
+
+
+
+  {/* Hover effect for Maximize icon (hrimages1) */}
+  {!isMobile && (
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered(isMaximized ? "maximize" : "singlecolumn")}
+    onMouseLeave={() => setIsHovered(null)}
+    onClick={handleToggleMaximize}
+  >
+    {isMaximized? (
+      <img src={hrimages1} alt="maximize" className="h-3 w-3 expand-button " />
+    ) : (
+      <img src={maximizeicon} alt="singlecolumn" className="h-3 w-3  expand-button " />
+    )}
+
+    {(isHovered === "maximize" || isHovered === "singlecolumn") && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+        {isMaximized ? "maximize" : "singlecolumn"}
+      </div>
+    )}
+  </div>
+)}
+
+  {/* Hover effect for Refresh icon (hrimages2) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("refresh")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages2} alt="Refresh" className="h-3 w-3" />
+    {isHovered === "refresh" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Refresh
+      </div>
+    )}
+  </div>
+
+  {/* Hover effect for Settings icon (hrimages3) */}
+  <div
+    style={{ position: "relative", display: "inline-block" }}
+    onMouseEnter={() => setIsHovered("settings")}
+    onMouseLeave={() => setIsHovered(null)}
+  >
+    <img src={hrimages3} alt="Settings" className="h-3 w-3" />
+    {isHovered === "settings" && (
+      <div
+        style={{
+          position: "absolute",
+          top: "-28px",
+          left: "-10px",
+          transform: "translateX(-50%)",
+          backgroundColor: "#2f456c",
+          color: "#fff",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          fontSize: "10px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+          whiteSpace: "nowrap",
+        }}
+      >
+       copy link
+      </div>
+    )}
+  </div>
+</div>
             {isDashboardCall && <Link to="/RecentAttendence">
               <Button
                 variant="contained"
@@ -200,7 +365,7 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
                   fontSize: "10px",
                   color: "white",
                   textTransform: "none",
-                  height: "30px",
+                  height: "25px",
                   width: "80px",
                   display: isMobile ? "none" : "inline-flex", // Hide on mobile
                 }}
@@ -220,7 +385,8 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
           }}
           className="collapsible-div"
         >
-          <table className="w-full text-left border-collapse border-spacing-0">
+          {attendance.length===0?<Norecentattendence/>:
+          <table className="w-full text-left border-collapse border-spacing-0 ">
             <thead>
               <tr>
                 <th className={`text-gray-400 text-sm py-3 ${isMobile ? "pr-[10px] text-[10px]" : ""}`}>EmployeeID</th>
@@ -296,13 +462,13 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
                   </td>
                 </tr>
               ))
-                : "Loading...."
+                : "loading..."
               }
             </tbody>
           </table>
-        </div>
+}
 
-        {isMobile && isDashboardCall && <Link to="/RecentAttendance"><div className=" mt-4">
+{isMobile && <Link to="/RecentAttendance"><div className=" mt-4">
           <button
             style={{ color: "blue" }}
             className={`px-4 py-2 rounded-md text-sm font-medium`}
@@ -312,6 +478,9 @@ const RecentAttendance = ({ attendanceData = [], isDashboardCall }) => {
         </div>
         </Link>
         }
+        </div>
+
+        
       </Box>
     </div>
   </>

@@ -95,9 +95,9 @@ const ListOrganization = () => {
 
   const getColor = (status = false) => {
     if (status) {
-      return "bg-green-300 text-green-700";
+      return "text-green-500 bg-green-900 bg-opacity-30";
     } else {
-      return "bg-red-300 text-red-700";
+      return "text-red-500 bg-red-900 bg-opacity-30";
     }
   };
 
@@ -107,10 +107,9 @@ const ListOrganization = () => {
       let data = response.data;
       if (data.success) {
         if (data.data.length === 0) {
-         // navigate("/createOrganization");
-          
-         setOrganization([]);
+          // navigate("/createOrganization");
 
+          setOrganization([]);
         } else {
           setOrganization(data.data);
         }
@@ -184,24 +183,27 @@ const ListOrganization = () => {
                 </div>
               </Grid>
               <Grid item xs={2} sm={2}>
-                <div 
-                  className={`px-3 py-1 rounded-lg w-fit ${getColor(
-                    org.status
-                  )} `}
-                >
-                  {org.status ? "Active" : "In-active"}
-                </div>
+               <div
+  className={`px-3 py-1 rounded-lg w-fit`}
+  style={{
+    backgroundColor: org.status ? "#003300" : "#330000", // Dark green for active, dark red for inactive
+    color: org.status ? "lime" : "tomato", // Text color: Lime for active, tomato for inactive
+  }}
+>
+  {org.status ? "Active" : "In-active"}
+</div>
               </Grid>
               <Grid item xs={3} sm={2}>
-                
-
-                <Tooltip title="Delete Organization">
-                  <IconButton variant="outlined">
+                <Tooltip className="flex gap-3" title="Delete Organization">
+                  <button>
+                    <EditIcon className="text-blue-700" />
+                  </button>
+                  <button>
                     <DeleteIcon
                       color="error"
                       onClick={() => openDeleteBox(org)}
                     />
-                  </IconButton>
+                  </button>
                 </Tooltip>
               </Grid>
             </Grid>

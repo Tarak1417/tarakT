@@ -7,8 +7,8 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import NoticeBoard from "./DashComponents/noticeboard";
 import UpcomingEvents from "./DashComponents/upcomingevents";
 import Bars from "./DashComponents/bars";
-import Calander from './Schedule/EmployeeShift';
-import Applicationleave from '../pages/DashComponents/Applicationleave';
+import Calander from "./Schedule/EmployeeShift";
+import Applicationleave from "../pages/DashComponents/Applicationleave";
 import Recentjobapplication from "../pages/DashComponents/recentJobs";
 import Recentactivity from "../pages/DashComponents/RecentActivities";
 
@@ -16,23 +16,33 @@ import RecentActivity from "./DashComponents/recent";
 import GenderChart from "./DashComponents/GenderChart";
 import RecentJobs from "./DashComponents/recentJobs";
 import Attendance from "./DashComponents/attend";
-import { Box, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  useMediaQuery,
+  useTheme,
+  Tab,
+  Tabs,
+  Divider,
+  Avatar,
+} from "@mui/material";
+import MySpaceOverview from "./Dashboard/MySpace/MySpaceOverview";
+import MySpaceCalendar from "./Dashboard/MySpace/MySpaceCalendar";
+import MySpaceDashboard from "./Dashboard/MySpace/MySpaceDashboard";
+import TeamSpace from "./Dashboard/Team/TeamSpace";
+import Reportees from "./Dashboard/Team/Reportees";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import { useRefresh } from "../components/Header";
 
 import Interduction from "./Interduction";
-import PlusIcon from "../assets/CloclIcons/Add Button (1).png"
+import PlusIcon from "../assets/CloclIcons/Add Button (1).png";
 const Dashboard = () => {
-
   const navigate = useNavigate(); // Get the navigate function
 
   const [overview, setOverview] = useState({});
   const { refreshPage } = useRefresh();
-
-
-
 
   const fetchOverview = useCallback(async () => {
     try {
@@ -48,7 +58,6 @@ const Dashboard = () => {
     console.log("page refresh", refreshPage);
   }, [fetchOverview, refreshPage]);
   // console.log(overview);
-
 
   const data = [
     { name: "Jan", employees: 100, budget: 200, year: 2024 },
@@ -79,7 +88,7 @@ const Dashboard = () => {
       icon: (
         <GroupIcon
           fontSize="medium"
-          className="text-white  bg-sky-500 p-1 rounded-lg"
+          className="text-white  bg-[#878ECE] p-1 rounded-lg"
         />
       ),
       title: "Total Employees",
@@ -93,40 +102,42 @@ const Dashboard = () => {
       ),
       description: "124 for last month",
       trendIcon: <TrendingUp className="text-green-300" />,
-      plusicon: <img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]" />
+      plusicon: (
+        <img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]" />
+      ),
     },
     {
       icon: (
         <ApartmentIcon
           fontSize="medium"
-          className="text-white bg-rose-500 p-1 rounded-lg items-center"
-        />
+          className="text-white bg-[#E05353] p-1 rounded-lg items-center"        />
       ),
       title: "Department",
       value: (
         <Typography
           variant="body1"
-          style={{ color: "#FF0000", fontSize: "1.2em" }}
+          style={{ color: "#407BFF", fontSize: "1.2em" }}
         >
           {overview?.departments || 0}
         </Typography>
       ),
       description: "124 for last month,",
       trendIcon: <TrendingDown className="text-red-300" />,
-      plusicon: <img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]" />
+      plusicon: (
+        <img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]" />
+      ),
     },
     {
       icon: (
         <AttachMoneyIcon
           fontSize="medium"
-          className="text-white bg-blue-300 p-1 rounded-lg"
-        />
+          className="text-white bg-[#3E80E5] p-1 rounded-lg"/>
       ),
       title: "Expenses",
       value: (
         <Typography
           variant="body1"
-          style={{ color: "#FF0000", fontSize: "1.2em" }}
+          style={{ color: "#E05353", fontSize: "1.2em" }}
         >
           ${" "}
           {overview && overview?.expenses
@@ -146,83 +157,150 @@ const Dashboard = () => {
   // ];
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const [switchScreen, setSwitchScreen] = useState({
+    first: "team",
+    second: "reportees",
+  });
+
+  const handleSwitchScreen = (screen) => {
+    setSwitchScreen(screen);
+  };
+
+  const tabs = [
+    { label: "My Space", value: "mySpace", second: "overview" },
+    { label: "Team", value: "team", second: "teamSpace" },
+    { label: "Organization", value: "organization", second: "overview" },
+  ];
+
+  // Define button mappings based on `first` and `second` values
+  const buttonMappings = {
+    mySpace: [
+      { label: "Overview", second: "overview" },
+      { label: "Dashboard", second: "dashboard" },
+      { label: "Calendar", second: "calendar" },
+    ],
+    team: [
+      { label: "Team Space", second: "teamSpace" },
+      { label: "Reportees", second: "reportees" },
+      { label: "Department", second: "department" },
+      { label: "Team List", second: "teamList" },
+      { label: "HR Process", second: "hrProcess" },
+    ],
+    organization: [
+      { label: "Overview", first: "organization", second: "overview" },
+      {
+        label: "Announcements",
+        first: "organization",
+        second: "announcements",
+      },
+      { label: "Policies", first: "organization", second: "policies" },
+      { label: "Employee Tree", first: "organization", second: "employeeTree" },
+      {
+        label: "Department Tree",
+        first: "organization",
+        second: "departmentTree",
+      },
+      {
+        label: "Department Directory",
+        first: "organization",
+        second: "departmentDirectory",
+      },
+      {
+        label: "Birthday Folks",
+        first: "organization",
+        second: "birthdayFolks",
+      },
+      { label: "New Hires", first: "organization", second: "newHires" },
+      { label: "Calendar", first: "organization", second: "calendar" },
+    ],
+  };
+
+  // Dynamically render buttons
+  const renderButtons = () => {
+    const currentButtons = buttonMappings[switchScreen.first] || [];
+    return currentButtons.map((btn) => (
+      <Button
+        key={btn.second}
+        variant={switchScreen.second === btn.second ? "contained" : "text"}
+        onClick={() =>
+          handleSwitchScreen({ first: switchScreen.first, second: btn.second })
+        }
+        color="primary"
+        sx={{ ml: "1rem" }}
+      >
+        {btn.label}
+      </Button>
+    ));
+  };
 
   return (
+    <Box sx={{ backgroundColor: "background.default", width: "93vw", mx: "auto" }}>
+      <div className="flex flex-col gap-5 py-2 px-6">
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            value={tabs.findIndex((tab) => tab.value === switchScreen.first)}
+            onChange={(event, newValue) => {
+              const selectedTab = tabs[newValue];
+              handleSwitchScreen({
+                first: selectedTab.value,
+                second: selectedTab.second,
+              });
+            }}
+            textColor="primary"
+            indicatorColor="primary"
+            aria-label="Navigation Tabs"
+          >
+            {tabs.map((tab, index) => (
+              <Tab key={index} label={tab.label} />
+            ))}
+          </Tabs>
+        </Box>
+        <div>{renderButtons()}</div>
+      </div>
+      <div className="w-full flex flex-col gap-2 py-2 px-6 md:flex-row">
+        {switchScreen.first === "mySpace" &&
+        switchScreen.second === "overview" ? (
+          <>
+            <MySpaceOverview />
+          </>
+        ) : (
+          <></>
+        )}
+        {switchScreen.first === "mySpace" &&
+        switchScreen.second === "dashboard" ? (
+          <>
+            <MySpaceDashboard />
+          </>
+        ) : (
+          <></>
+        )}
+        {switchScreen.first === "mySpace" &&
+        switchScreen.second === "calendar" ? (
+          <>
+            <MySpaceCalendar />
+          </>
+        ) : (
+          <></>
+        )}
+        {switchScreen.first === "team" &&
+        switchScreen.second === "teamSpace" ? (
+          <>
+            <TeamSpace />
+          </>
+        ) : (
+          <></>
+        )}
 
-    <Box sx={{ backgroundColor: "background.main", width: "93vw", mx: "auto" }}>
-
-
-      <Interduction />
-
-
-
-      <div className="flex flex-col sm:px-4 p-4 pt-[20px] mt-10px">
-        <div className="">
-          {/* <Typography variant="h5" className="text-gray-500" gutterBottom>
-            HR DASHBOARD3
-          </Typography> */}
-
-
-
-
-          <div className="flex flex-col md:flex-row gap-1.5">
-            <div className="w-full md:w-3/4 flex flex-col ">
-              <div className={`flex flex-col md:flex-row gap-1.5 mb-3.5   justify-items-stretch ${isMobile ? "mt-[-27px]" : ""}`}>
-                {boxesData && boxesData.map((box, index) => (
-                  <Grid
-                    sx={{ backgroundColor: "background.view" }}
-                    key={index}
-                    className="rounded-lg shadow-md md:w-1/3"
-                    style={{
-
-                      width: '100%',
-                      padding: '4px',
-                      marginTop: isMobile ? "" : '-27px', 
-                      marginBottom:isMobile?"":"1px", // Correct syntax for conditional marginTop
-                      height: '50px'
-                    }}
-                  >
-                    <div className="flex items-center" style={{ fontSize: '12px', marginTop: '-2px' }}>
-                      <p>{box.title}</p>
-                      {box.plusicon} {/* Conditionally display PlusIcon if it exists */}
-                    </div>
-                    <div className="flex items-center justify-center mb-2">
-                      <p style={{ fontSize: '13px' }} className="w-5/6 text-xl">{box.value}</p>
-                      <div style={{}} className="w-1/6 ">{box.icon}</div>
-                    </div>
-
-                  </Grid>
-                ))}
-              </div>
-              <Calander />
-            </div>
-            <div className={`w-full md:w-1/4  ${isMobile ? "" : "mt-[-27px]  "}`}>
-              <NoticeBoard eventData={overview && overview?.notices} />
-              <Applicationleave eventData={overview && overview?.leave} fetchOverview={() => fetchOverview()} />
-            </div>
-          </div>
-        </div>
-        <div className={`flex flex-col md:flex-row mt-1 ${isMobile ? "mt-[15px]" : ""}`}>
-  <div
-    className={`md:w-[30%] md:wh-[30%] ${isMobile ? "" : "mr-1"} md:mb-0 flex-grow flex flex-col`}
-    style={{ height: "auto" }}
-  >
-    <Recentjobapplication eventData={overview?.applications || []} />
-  </div>
-  <div
-    className="md:w-[30%] md:wh-[30%]  md:mb-0 flex-grow flex flex-col"
-    style={{ height: "auto" }}
-  >
-    <Recentactivity />
-  </div>
-</div>
-        <div className=" flex flex-col md:flex-row   w-full">
-
-          <div className=" md:w-2/2   md:mb-0 flex-grow">
-            <Attendance attendanceData={overview && overview?.attendance} isDashboardCall />
-          </div>
-        </div>
+        {switchScreen.first === "team" &&
+        switchScreen.second === "reportees" ? (
+          <>
+            <Reportees />
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </Box>
   );
