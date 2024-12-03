@@ -2,7 +2,7 @@ import {
     DashboardOutlined,
     Settings,
 } from '@mui/icons-material';
-import HomeIcon from '@mui/icons-material/Home';
+
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import GroupsIcon from '@mui/icons-material/Groups';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
@@ -21,7 +21,10 @@ import PersonIcon from './icons/person.png';
 import DownloadIcon from './icons/download.svg';
 import SettingsIcon from '@mui/icons-material/Settings';
 import TripOriginIcon from '@mui/icons-material/TripOrigin';
-
+import Home from "../assets/SidebarIcons/Dashboard.png"
+import staf from "../assets/SidebarIcons/Staff.png"
+const StaffIcon=()=>< img src={staf} alt="staf" style={{ width: '24px', height: '24px' }}/>
+const HomeIcon=()=><img src={Home} alt="dashboard" style={{ width: '24px', height: '24px' }} />;
 const InterviewQuestionIcon = () => <img src={InterviewIcon} alt="Interview Icon" style={{ width: '24px', height: '24px' }} />;
 const JobList = () => <img src={JobListIcon} alt="Interview Icon" style={{ width: '20px', height: '20px' }} />;
 const Office = () => <img src={OfficeIcon} alt="Interview Icon" style={{ width: '20px', height: '20px' }} />;
@@ -53,7 +56,7 @@ const TagSupport10 = () => <span style={{fontSize:'12px' , position:'relative' ,
 const menuItems = [
     {
         icon: <HomeIcon fontSize='small' />,
-        label: 'Dashboard',
+        label: 'Home',
         to: [
             {
                 label: 'Dashboard',
@@ -104,7 +107,7 @@ const menuItems = [
         ],
     },
     {
-        icon: <GroupsIcon fontSize='small' />,
+        icon: <StaffIcon fontSize='small' />,
         label: 'Staff',
         to: [
             {
@@ -213,28 +216,28 @@ const menuItems = [
     },
     
     
-    {
-        label: 'Admin',
-        icon: <DashboardOutlined fontSize='small' />,
-        to: [
-            {
-                label: 'General Settings',
-                icon: <Attend />,
-                to: '/generalsetting',
-            },
-            {
-                label: 'API Settings',
-                icon: <Leave/>,
-                to: '/apisetting',
-            },
-            {
-                label: 'Role Access',
-                icon: <Download/>,
-                to: '/rollaccess',
-            },
+    // {
+    //     label: 'Admin',
+    //     icon: <DashboardOutlined fontSize='small' />,
+    //     to: [
+    //         {
+    //             label: 'General Settings',
+    //             icon: <Attend /> ,
+    //             to: '/generalsetting',
+    //         },
+    //         {
+    //             label: 'API Settings',
+    //             icon: <Leave/>,
+    //             to: '/apisetting',
+    //         },
+    //         {
+    //             label: 'Role Access',
+    //             icon: <Download/>,
+    //             to: '/rollaccess',
+    //         },
            
-        ],
-    },
+    //     ],
+    // },
 ];
 
 export { menuItems };

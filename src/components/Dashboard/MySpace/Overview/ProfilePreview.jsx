@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Button, Avatar, Typography, IconButton, Box } from "@mui/material";
+import { Button, Typography, IconButton, Box } from "@mui/material";
 import { useUser } from "../../../../hooks/Authorize";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import camera from "../../../../assets/Interductionimages/camera.png"
+import camera from "../../../../assets/Interductionimages/camera.png";
 
 export default function ProfilePreview() {
   const platformUser = useUser();
@@ -20,13 +19,8 @@ export default function ProfilePreview() {
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      // Create an object URL to show the uploaded image
       const imageUrl = URL.createObjectURL(file);
       setImage(imageUrl);
-
-      // Optionally, here you can upload the image to your server
-      // using something like `fetch` or `axios` to POST the image
-      // to your backend and store it in the database.
     }
   };
 
@@ -37,17 +31,18 @@ export default function ProfilePreview() {
         <Box
           sx={{
             position: "relative",
-            width:image?"150px": "200px",
-            height:image? "170px":"200px",
-            borderRadius: image ? "10px" : "50%", // Change to square if image is uploaded
+            width: image ? "150px" : "200px",
+            height: image ? "170px" : "200px",
+            borderRadius: image ? "10px" : "50%",
             overflow: "hidden",
-            border: image?"":"2px solid blue",
+            border: image ? "" : "2px solid blue",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             backgroundColor: image ? "transparent" : "background.view",
-          
-           
+            "&:hover .camera-icon": {
+              opacity: 1,
+            },
           }}
         >
           {/* Profile Image or Fallback */}
@@ -55,7 +50,12 @@ export default function ProfilePreview() {
             <img
               src={image}
               alt="User"
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover", // Ensures the image covers the container
+                objectPosition: "center", // Centers the image
+              }}
             />
           ) : (
             <Typography
@@ -66,7 +66,6 @@ export default function ProfilePreview() {
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 fontSize: 36,
-               
               }}
             >
               {getInitials()}
@@ -75,26 +74,35 @@ export default function ProfilePreview() {
 
           {/* Camera Icon */}
           <IconButton
-  sx={{
-    position: "absolute",
-    top: image?3:5,
-    right: image ? 1 : 50,
-    backgroundColor: "transparent", 
-    boxShadow: "none", 
-  }}
-  size="small"
-  component="label"
->
-  <img src={camera} alt="Camera" style={{fontSize:'small'}} />
-  {/* File input for image upload */}
-  <input
-    type="file"
-    accept="image/*"
-    hidden
-    onChange={handleImageUpload}
-  />
-</IconButton>
-
+            className="camera-icon"
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)", // Center the icon
+              backgroundColor: "transparent",
+              boxShadow: "none",
+              opacity: 0, // Hidden by default
+              transition: "opacity 0.3s ease", // Smooth transition
+            }}
+            size="small"
+            component="label"
+          >
+            <img
+              src={camera}
+              alt="Camera"
+              style={{
+                width: "20px",
+                height: "20px",
+              }}
+            />
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handleImageUpload}
+            />
+          </IconButton>
         </Box>
 
         {/* User Info */}

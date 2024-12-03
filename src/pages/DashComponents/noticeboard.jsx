@@ -218,7 +218,7 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
 </div>
 
       </Box>
-      {isMaximized?(
+     
       <div
         //style={{ marginTop: "-22px" }}
         className="space-y-6 overflow-y-auto h-[340px] px-2 pb-4 collapsible-div"
@@ -251,23 +251,23 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
           </>
         }
       </div>
-      ):(
-        <div
+      {/* ):( ""
+      //   <div
      
-        style={{
-          backgroundColor: "background.view",
-          height: "81.3vh",
-          width: "90.5vw",
-          zIndex:"1000",
-        position:"relative",
-        left:'-5px'
+      //   style={{
+      //     backgroundColor: "background.view",
+      //     height: "81.3vh",
+      //     width: "90.5vw",
+      //     zIndex:"1000",
+      //   position:"relative",
+      //   left:'-5px'
        
   
-        }}
-      >
-      <NoticeBoardMAx />
-      </div>
-      )}
+      //   }}
+      // >
+      // <NoticeBoardMAx />
+      // </div>
+      )} */}
 
       {/* Hide Scrollbar */}
       <style jsx>{`
