@@ -137,6 +137,8 @@ const Docs = lazy(() => import("./pages/Docs/Docs"));
 const Layout = lazy(() => import("./Layout"));
 const ChatPage = lazy(() => import("./pages/Chat/ChatPage"));
 const RecentAttendence =lazy(()=> import("./pages/DashComponents/attend"));
+const DeptPage=lazy(()=>import("./pages/Departments/DeptHome"))
+const Employeelist=lazy(()=>import("./pages/Employee/EmployeeHome"))
 
 const App = () => {
   const location = useLocation();
@@ -239,6 +241,8 @@ const App = () => {
             <Route path="leavesettings" element={<LeaveSettingsHome />} />
             <Route path="leaveapplication" element={<LeaveAppHome />} />
             <Route path="leaveapplication/view" element={<LeaveViewHome />} />
+            <Route path="DeptHome" element={<DeptPage/>}/>
+            <Route path="EmployeeHome" element={<Employeelist/>}/>
             <Route
               path="rulesandregulations"
               element={<RuleAndRegulations />}

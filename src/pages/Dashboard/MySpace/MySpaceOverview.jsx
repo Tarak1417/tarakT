@@ -32,6 +32,7 @@ import { useRefresh } from "../../../components/Header";
 import Interduction from "../../Interduction";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import PlusIcon from "../../../assets/CloclIcons/Add Button (1).png";
+import { Link } from "react-router-dom";
 
 export default function MySpaceOverview() {
   const navigate = useNavigate(); // Get the navigate function
@@ -98,7 +99,12 @@ export default function MySpaceOverview() {
       description: "124 for last month",
       trendIcon: <TrendingUp className="text-green-300" />,
       plusicon: (
+        <Link to={{
+          pathname: "/EmployeeHome",
+      }}
+      state={{ openModal: true }}>
         <img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]" />
+        </Link>
       ),
     },
     {
@@ -120,7 +126,12 @@ export default function MySpaceOverview() {
       description: "124 for last month,",
       trendIcon: <TrendingDown className="text-red-300" />,
       plusicon: (
+        <Link to={{
+          pathname: "/DeptHome",
+      }}
+      state={{ openModal: true }}>
         <img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]" />
+        </Link>
       ),
     },
     {
@@ -257,7 +268,11 @@ export default function MySpaceOverview() {
                         <div className="flex flex-row justify-center items-center">
                           <h1>{box.title}</h1>
                           <span className="flex flex-row justify-center items-center">
+
+                    
                             {box.plusicon}
+                            
+                            
                           </span>
                         </div>
                         <h1 className="text-sm">{box.value}</h1>

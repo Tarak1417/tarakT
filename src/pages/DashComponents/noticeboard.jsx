@@ -12,6 +12,7 @@ import hrimages4 from "../../assets/Interductionimages/Vector.png"
 import useFullscreenExpand from "../../hooks/useFullscreenExpand";
 import minimizeicon from "../../assets/Interductionimages/expand.png"
 import maximizeicon from "../../assets/Interductionimages/maximize.png"
+import NoticeBoardMAx from "../NoticeBoard/NoticeHome"
 
 
 
@@ -83,11 +84,11 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
     >
 
       <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }} className="collapsible-main ">
-        <p style={{ fontSize: "13px" }} className="text-2xl  border-blue-500">
+        <p style={{ fontSize: "13px" }} className="text-2xl ml-[10px]  border-blue-500">
           Notice Board
         </p>
 
-        <div style={{ display: "flex", gap: "10px", color: "white", marginTop: "9px",marginRight:"20px" }}>
+        <div style={{ display: "flex", gap:isMobile? "20px":"10px", color: "white", marginTop: "9px",marginRight:"15px"  }}>
   {/* Hover effect for Minimize icon (hrimages4) */}
   <div
   style={{ position: "relative", display: "inline-block" }}
@@ -217,6 +218,7 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
 </div>
 
       </Box>
+      {isMaximized?(
       <div
         //style={{ marginTop: "-22px" }}
         className="space-y-6 overflow-y-auto h-[340px] px-2 pb-4 collapsible-div"
@@ -249,6 +251,23 @@ const handleToggleMaximize = () => setIsMaximized(!isMaximized);
           </>
         }
       </div>
+      ):(
+        <div
+     
+        style={{
+          backgroundColor: "background.view",
+          height: "81.3vh",
+          width: "90.5vw",
+          zIndex:"1000",
+        position:"relative",
+        left:'-5px'
+       
+  
+        }}
+      >
+      <NoticeBoardMAx />
+      </div>
+      )}
 
       {/* Hide Scrollbar */}
       <style jsx>{`

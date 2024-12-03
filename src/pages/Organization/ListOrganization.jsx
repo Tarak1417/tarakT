@@ -183,13 +183,15 @@ const ListOrganization = () => {
                 </div>
               </Grid>
               <Grid item xs={2} sm={2}>
-                <div
-                  className={`px-3 py-1 rounded-md w-fit ${getColor(
-                    org.status
-                  )} `}
-                >
-                  {org.status ? "Active" : "In-active"}
-                </div>
+               <div
+  className={`px-3 py-1 rounded-lg w-fit`}
+  style={{
+    backgroundColor: org.status ? "#003300" : "#330000", // Dark green for active, dark red for inactive
+    color: org.status ? "lime" : "tomato", // Text color: Lime for active, tomato for inactive
+  }}
+>
+  {org.status ? "Active" : "In-active"}
+</div>
               </Grid>
               <Grid item xs={3} sm={2}>
                 <Tooltip className="flex gap-3" title="Delete Organization">

@@ -248,9 +248,9 @@ setOpene(true);
 
 
 
-const handleChatbox =()=>{
-  navigate('/chat')
-}
+// const handleChatbox =()=>{
+//   navigate('/chat')
+// }
 
 
 const taketotheSubscriptionpage =() =>{
@@ -559,7 +559,7 @@ const handleCloseset = () => {
         to="/"
         sx={{ textDecoration: "none", color: "text.primary", py: 1 }}
       >
-        <Image src={hrlogo} sx={{ height: "42px",marginLeft:'-93px' }} />
+        <Image src={hrlogo} sx={{ height: "42px"}} />
         {/* <Typography
                     color='text.secondary'
                     variant='body2'
@@ -1261,14 +1261,14 @@ const handleCloseset = () => {
         padding: '10px', // Optional padding for better appearance
       }}
     >
-      <Button onClick={handleChatbox}>
+      {/* <Button onClick={handleChatbox}>
 <Box sx={{ display:'flex',flexDirection:"column",textAlign:'center'}}>
       <Image src={BotIcon}  alt="Bot Icon"
         sx={{ width: '42px', height: '42px'}} />
 
         <Typography sx={{color:'white',fontSize:'13px',fontFamily:'sans-serif'}} >Chat</Typography>
         </Box>
-        </Button>
+        </Button> */}
     </Box>
         </Box>
       </AppBar>
