@@ -38,6 +38,7 @@ import { useRefresh } from "../components/Header";
 
 import Interduction from "./Interduction";
 import PlusIcon from "../assets/CloclIcons/Add Button (1).png";
+import Department from "./Dashboard/Team/Department";
 const Dashboard = () => {
   const navigate = useNavigate(); // Get the navigate function
 
@@ -160,8 +161,8 @@ const Dashboard = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [switchScreen, setSwitchScreen] = useState({
-    first: "team",
-    second: "reportees",
+    first: "mySpace",
+    second: "overview",
   });
 
   const handleSwitchScreen = (screen) => {
@@ -297,6 +298,14 @@ const Dashboard = () => {
         switchScreen.second === "reportees" ? (
           <>
             <Reportees />
+          </>
+        ) : (
+          <></>
+        )}
+        {switchScreen.first === "team" &&
+        switchScreen.second === "department" ? (
+          <>
+            <Department />
           </>
         ) : (
           <></>
