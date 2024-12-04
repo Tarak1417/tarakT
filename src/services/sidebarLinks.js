@@ -1,4 +1,4 @@
-import {
+import {    
     DashboardOutlined,
     Settings,
 } from '@mui/icons-material';
@@ -23,6 +23,40 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import TripOriginIcon from '@mui/icons-material/TripOrigin';
 import Home from "../assets/SidebarIcons/Dashboard.png"
 import staf from "../assets/SidebarIcons/Staff.png"
+
+import { BsGridFill   } from "react-icons/bs";
+import { CiGrid41 } from "react-icons/ci";
+import { TbBuilding } from "react-icons/tb";
+
+import { FaHandshake } from "react-icons/fa";
+import { BiServer } from "react-icons/bi";
+import { TbShoppingBagPlus } from "react-icons/tb";
+import { PiChatTeardropText } from "react-icons/pi";
+
+import { HiSpeakerWave } from "react-icons/hi2";
+import { IoCalendarOutline } from "react-icons/io5";
+import { RiContactsBook3Line } from "react-icons/ri";
+import { IoMdClipboard } from "react-icons/io";
+import { BiBookContent } from "react-icons/bi";
+
+import { FaUserGroup } from "react-icons/fa6";
+import { GoPeople } from "react-icons/go";
+import { CiBoxList } from "react-icons/ci";
+
+import { FaAddressCard } from "react-icons/fa6";
+import { FaRegAddressCard } from "react-icons/fa6";
+import { LuUserCog } from "react-icons/lu";
+import { RiUser3Line } from "react-icons/ri";
+
+import { IoCalendar } from "react-icons/io5";
+import { AiOutlineUser } from "react-icons/ai";
+import { RiTimer2Line  } from "react-icons/ri";
+
+import { BsCreditCardFill } from "react-icons/bs";
+import { MdAddCard } from "react-icons/md";
+import { MdMovieEdit } from "react-icons/md";
+
+
 const StaffIcon=()=>< img src={staf} alt="staf" style={{ width: '24px', height: '24px' }}/>
 const HomeIcon=()=><img src={Home} alt="dashboard" style={{ width: '24px', height: '24px' }} />;
 const InterviewQuestionIcon = () => <img src={InterviewIcon} alt="Interview Icon" style={{ width: '24px', height: '24px' }} />;
@@ -55,165 +89,304 @@ const TagSupport10 = () => <span style={{fontSize:'12px' , position:'relative' ,
 
 const menuItems = [
     {
-        icon: <HomeIcon fontSize='small' />,
+        icon: <BsGridFill className='text-2xl' />,
         label: 'Home',
         to: [
             {
                 label: 'Dashboard',
-                icon: <HomeOutlinedIcon fontSize='small' className='text-zinc-500' />,
+                icon: <CiGrid41 className='text-2xl' />,
                 to: '/',
             },
             {
                 label: 'Department',
-                icon: <Office/>,
+                icon: <TbBuilding className='text-2xl'/>,
                 to: '/department',
             },
              
-            {
-                label: 'Docs',
-                icon: <Office/>,
-                to: '/docs',
-            },
-            {
-                label: 'Interview Question',
-                icon:  <InterviewQuestionIcon  className='text-zinc-500' />,
-                to: '/interviewquestions',
-            },
-            {
-                label: 'Job Listing',
-                icon:<JobList  className='text-zinc-500'/>,
-                to: '/joblisting',
-            },{
-                icon: <GroupsIcon fontSize='small' />,
-                label: 'Memos',
-                to: '/memo',
-            },
+            // {
+            //     label: 'Docs',
+            //     icon: <Office/>,
+            //     to: '/docs',
+            // },
+            // {
+            //     label: 'Interview Question',
+            //     icon:  <InterviewQuestionIcon  className='text-zinc-500' />,
+            //     to: '/interviewquestions',
+            // },
+            // {
+            //     label: 'Job Listing',
+            //     icon:<JobList  className='text-zinc-500'/>,
+            //     to: '/joblisting',
+            // },{
+            //     icon: <GroupsIcon fontSize='small' />,
+            //     label: 'Memos',
+            //     to: '/memo',
+            // },
 
-            {
-                icon: <GroupsIcon fontSize='small' />,
-                label: 'Notice Board',
-                to: '/noticeboard',
-            },
-            {
-                label: 'Received Applications',
-                icon: <Received/>,
-                to: '/receivedapplications',
-            },
-            {
-                icon: <GroupsIcon fontSize='small' />,
-                label: 'Rules & Regulations',
-                to: '/rulesandregulations',
-            },
+            // {
+            //     icon: <GroupsIcon fontSize='small' />,
+            //     label: 'Notice Board',
+            //     to: '/noticeboard',
+            // },
+            // {
+            //     label: 'Received Applications',
+            //     icon: <Received/>,
+            //     to: '/receivedapplications',
+            // },
+            // {
+            //     icon: <GroupsIcon fontSize='small' />,
+            //     label: 'Rules & Regulations',
+            //     to: '/rulesandregulations',
+            // },
         ],
     },
     {
-        icon: <StaffIcon fontSize='small' />,
-        label: 'Staff',
+        label: 'Onbording',
+        icon: <FaHandshake className='text-2xl' />,
         to: [
             {
-                label: 'Employee List',
-                icon: <Person/>,
+                label: 'Received Application',
+                icon: <BiServer  className='text-2xl'/>,
+                to: '/receivedapplications',
+            },
+            {
+                label: 'Job Listing',
+                icon: <TbShoppingBagPlus className='text-2xl'/>,
+                to: '/joblisting',
+            },
+            {
+                label: 'Interview Question',
+                icon: <PiChatTeardropText className='text-2xl'/>,
+                to: '/interviewquestions',
+            }
+           
+        ],
+    },
+    {
+        label: 'Announcement',
+        icon: <HiSpeakerWave className='text-2xl' />,
+        to: [
+            {
+                label: 'Holiday',
+                icon: <IoCalendarOutline  className='text-2xl'/>,
+                to: '/holidays',
+            },
+            {
+                label: 'Memo',
+                icon: <RiContactsBook3Line className='text-2xl'/>,
+                to: '/memo',
+            },
+            {
+                label: 'Notice Board',
+                icon: <IoMdClipboard className='text-2xl'/>,
+                to: '/noticeboard',
+            },
+            {
+                label: 'Rules & Regulations',
+                icon: <BiBookContent className='text-2xl'/>,
+                to: '/rulesandregulations',
+            }
+            
+        ],
+    },
+    {
+        label: 'Staff',
+        icon: <FaUserGroup className='text-2xl' />,
+        to: [
+            {
+                label: 'Staff List',
+                icon: <CiBoxList  className='text-2xl'/>,
                 to: '/employees',
             },
             {
-                label: 'Employee View',
-                icon: <Person/>,
+                label: 'Staf People',
+                icon: <AiOutlineUser className='text-2xl'/>,
                 to: '/performance/view',
             },
-            {
-                label: 'Award',
-                icon: <EmojiEventsIcon fontSize='small' />,
-                to: '/award',
-            },
+            
         ],
     },
     {
         label: 'Attendance',
-        icon: <DashboardOutlined fontSize='small' />,
+        icon: <FaAddressCard className='text-2xl' />,
         to: [
             {
+                label: 'Recent Attendance',
+                icon: <RiTimer2Line  className='text-2xl'/>,
+                to: '/recentAttendence',
+            },
+            {
                 label: 'Attendance View',
-                icon: <Attend />,
+                icon: <FaRegAddressCard className='text-2xl'/>,
                 to: '/attendanceview',
             },
             {
                 label: 'Leave Setting',
-                icon: <Leave/>,
+                icon: <LuUserCog className='text-2xl'/>,
                 to: '/leavesettings',
             },
             {
                 label: 'Leave Application',
-                icon: <Download/>,
+                icon: <RiUser3Line className='text-2xl'/>,
                 to: '/leaveapplication',
-            },
-            {
-                label: 'Attendance By User',
-                icon: <Person/>,
-                to: '/attendance',
-            },  {
-                label: 'Recent Attendence',
-                icon: <Person/>,
-                to: 'RecentAttendence',
-            },
-           
+            }
+            
         ],
     },
     {
-        icon: <GroupsIcon fontSize='small' />,
         label: 'Schedule',
+        icon: <IoCalendar  className='text-2xl' />,
         to: [
             {
                 label: 'Overview Calendar',
-                icon: <Person/>,
-                to: 'Schudle',
+                icon: <RiTimer2Line  className='text-2xl'/>,
+                to: '/schudle',
             },
             {
-                label: 'Employee Shift',
-                icon: <Person/>,
-                to: 'hfh',
-            },
-            {
-                label: 'Holiday',
-                icon: <HolidayVillageIcon fontSize='small' />,
-                to: '/holidays',
+                label: 'Staff Shift',
+                icon: <GoPeople className='text-2xl'/>,
+                to: '/hfh',
             },
             {
                 label: 'Schedule',
-                icon: <Person/>,
-                to: 'fnfn',
+                icon: <IoCalendarOutline className='text-2xl'/>,
+                to: '/fnfn',
             },
+            
         ],
     },
-    
-   
-   
     {
         label: 'Payroll',
-        icon: <DashboardOutlined fontSize='small' />,
+        icon: <BsCreditCardFill  className='text-2xl' />,
         to: [
             {
-                label: 'Employee Salary',
-                icon: <Attend />,
+                label: 'Staff Salary',
+                icon: <GoPeople className='text-2xl'/>,
                 to: '/employeesalary',
             },
             {
                 label: 'Add Payroll',
-                icon: <Leave/>,
+                icon: <MdAddCard  className='text-2xl'/>,
                 to: '/addpayroll',
             },
             {
-                icon: <GroupsIcon fontSize='small' />,
-                label: 'Expenses',
-                to: '/expenses',
-            },
-            {
                 label: 'Edit Payroll',
-                icon: <Download/>,
+                icon: <MdMovieEdit className='text-2xl'/>,
                 to: '/editpayroll',
             },
-           
+            
         ],
     },
+
+
+    // {
+    //     icon: <StaffIcon fontSize='small' />,
+    //     label: 'Staff',
+    //     to: [
+    //         {
+    //             label: 'Employee List',
+    //             icon: <Person/>,
+    //             to: '/employees',
+    //         },
+    //         {
+    //             label: 'Employee View',
+    //             icon: <Person/>,
+    //             to: '/performance/view',
+    //         },
+    //         {
+    //             label: 'Award',
+    //             icon: <EmojiEventsIcon fontSize='small' />,
+    //             to: '/award',
+    //         },
+    //     ],
+    // },
+    // {
+    //     label: 'Attendance',
+    //     icon: <DashboardOutlined fontSize='small' />,
+    //     to: [
+    //         {
+    //             label: 'Attendance View',
+    //             icon: <Attend />,
+    //             to: '/attendanceview',
+    //         },
+    //         {
+    //             label: 'Leave Setting',
+    //             icon: <Leave/>,
+    //             to: '/leavesettings',
+    //         },
+    //         {
+    //             label: 'Leave Application',
+    //             icon: <Download/>,
+    //             to: '/leaveapplication',
+    //         },
+    //         {
+    //             label: 'Attendance By User',
+    //             icon: <Person/>,
+    //             to: '/attendance',
+    //         },  {
+    //             label: 'Recent Attendence',
+    //             icon: <Person/>,
+    //             to: 'RecentAttendence',
+    //         },
+           
+    //     ],
+    // },
+    // {
+    //     icon: <GroupsIcon fontSize='small' />,
+    //     label: 'Schedule',
+    //     to: [
+    //         {
+    //             label: 'Overview Calendar',
+    //             icon: <Person/>,
+    //             to: 'Schudle',
+    //         },
+    //         {
+    //             label: 'Employee Shift',
+    //             icon: <Person/>,
+    //             to: 'hfh',
+    //         },
+    //         {
+    //             label: 'Holiday',
+    //             icon: <HolidayVillageIcon fontSize='small' />,
+    //             to: '/holidays',
+    //         },
+    //         {
+    //             label: 'Schedule',
+    //             icon: <Person/>,
+    //             to: 'fnfn',
+    //         },
+    //     ],
+    // },
+    
+   
+   
+    // {
+    //     label: 'Payroll',
+    //     icon: <DashboardOutlined fontSize='small' />,
+    //     to: [
+    //         {
+    //             label: 'Employee Salary',
+    //             icon: <Attend />,
+    //             to: '/employeesalary',
+    //         },
+    //         {
+    //             label: 'Add Payroll',
+    //             icon: <Leave/>,
+    //             to: '/addpayroll',
+    //         },
+    //         {
+    //             icon: <GroupsIcon fontSize='small' />,
+    //             label: 'Expenses',
+    //             to: '/expenses',
+    //         },
+    //         {
+    //             label: 'Edit Payroll',
+    //             icon: <Download/>,
+    //             to: '/editpayroll',
+    //         },
+           
+    //     ],
+    // },
     
     
     // {
