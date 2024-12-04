@@ -10,9 +10,15 @@ import {
 import {
   ProfilePreview,
   EmployeesShift,
+  GreetingBackground,
+  Greeting,
+  LogTime,
+  WorkSchedule,
+  ClockInReminder,
   // Attendance,
 } from "../../../components";
 import { Button, Grid, IconButton, Tooltip, Typography } from "@mui/material";
+import TuneIcon from '@mui/icons-material/Tune';
 import { TrendingUp, TrendingDown, Height } from "@mui/icons-material";
 import GroupIcon from "@mui/icons-material/Group";
 import ApartmentIcon from "@mui/icons-material/Apartment";
@@ -33,6 +39,8 @@ import Interduction from "../../Interduction";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import PlusIcon from "../../../assets/CloclIcons/Add Button (1).png";
 import { Link } from "react-router-dom";
+import { IoCalendarOutline } from "react-icons/io5";
+import { LuSettings2 } from "react-icons/lu";
 
 export default function MySpaceOverview() {
   const navigate = useNavigate(); // Get the navigate function
@@ -99,11 +107,13 @@ export default function MySpaceOverview() {
       description: "124 for last month",
       trendIcon: <TrendingUp className="text-green-300" />,
       plusicon: (
-        <Link to={{
-          pathname: "/EmployeeHome",
-      }}
-      state={{ openModal: true }}>
-        <img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]" />
+        <Link
+          to={{
+            pathname: "/EmployeeHome",
+          }}
+          state={{ openModal: true }}
+        >
+          <img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]" />
         </Link>
       ),
     },
@@ -126,11 +136,13 @@ export default function MySpaceOverview() {
       description: "124 for last month,",
       trendIcon: <TrendingDown className="text-red-300" />,
       plusicon: (
-        <Link to={{
-          pathname: "/DeptHome",
-      }}
-      state={{ openModal: true }}>
-        <img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]" />
+        <Link
+          to={{
+            pathname: "/DeptHome",
+          }}
+          state={{ openModal: true }}
+        >
+          <img src={PlusIcon} alt="addicon" className="h-4 w-4 ml-[10px]" />
         </Link>
       ),
     },
@@ -168,7 +180,7 @@ export default function MySpaceOverview() {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [switchScreen, setSwitchScreen] = useState({
-    first: "home",
+    first: "activities",
   });
 
   const handleSwitchScreen = (screen) => {
@@ -176,7 +188,7 @@ export default function MySpaceOverview() {
   };
 
   const tabs = [
-    { label: "Home", value: "home" },
+    { label: "Activities", value: "activities" },
     { label: "Announcements", value: "announcements" },
     { label: "Profile", value: "profile" },
     { label: "Attendance", value: "attendance" },
@@ -236,9 +248,10 @@ export default function MySpaceOverview() {
         />
         <EmployeesShift />
       </Grid>
-      <div className="min-h-full w-full flex gap-3 p-3 flex-col justify-start items-start rounded-lg ">
-        <div>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <div className="min-h-full w-full flex gap-3 p-2 flex-col justify-start items-start rounded-lg ">
+        <div className="h-fit w-full">
+          <GreetingBackground />
+          <div className="flex flex-row justify-between items-center">
             <Tabs
               value={currentTabIndex}
               onChange={handleTabChange}
@@ -250,12 +263,16 @@ export default function MySpaceOverview() {
                 <Tab key={index} label={tab.label} />
               ))}
             </Tabs>
-          </Box>
+            <Button>
+              <TuneIcon className="text-2xl" />
+            </Button>
+          </div>
         </div>
-        {switchScreen.first === "home" ? (
+
+        {switchScreen.first === "activities" ? (
           <>
-            <Interduction />
-            <div className="w-full flex gap-3 justify-evenly items-center rounded-lg border border-gray-800">
+            <Greeting />
+            {/* <div className="w-full flex gap-3 justify-evenly items-center rounded-lg border border-gray-800">
               {boxesData &&
                 boxesData.map((box, index) => (
                   <Grid
@@ -268,11 +285,7 @@ export default function MySpaceOverview() {
                         <div className="flex flex-row justify-center items-center">
                           <h1>{box.title}</h1>
                           <span className="flex flex-row justify-center items-center">
-
-                    
                             {box.plusicon}
-                            
-                            
                           </span>
                         </div>
                         <h1 className="text-sm">{box.value}</h1>
@@ -283,35 +296,10 @@ export default function MySpaceOverview() {
                     </div>
                   </Grid>
                 ))}
-            </div>
-            <Grid
-              className="w-full flex gap-3 px-2 py-4 justify-between items-center rounded-lg shadow-md border border-gray-800"
-              sx={{ backgroundColor: "background.default" }}
-            >
-              <div className="w-full flex gap-3 justify-start items-center ">
-                <div>
-                  <CalendarMonthOutlinedIcon sx={{ fontSize: "2rem" }} />
-                </div>
-                <div>
-                  <h1>Clock-in reminder</h1>
-                  <h1 className="text-xs">Your shift has already started</h1>
-                </div>
-              </div>
-              <div className="w-full flex gap-10 justify-end items-center">
-                <div>
-                  <h1>General</h1>
-                  <h1 className="text-xs">09:00AM - 05:00PM</h1>
-                </div>
-                <div>
-                  <Button
-                    variant="contained"
-                    sx={{ px: "1.6rem", py: "0.2rem" }}
-                  >
-                    Clock-in
-                  </Button>
-                </div>
-              </div>
-            </Grid>
+            </div> */}
+            <ClockInReminder />
+            <LogTime />
+            <WorkSchedule />
           </>
         ) : (
           <></>

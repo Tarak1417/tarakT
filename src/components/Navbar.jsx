@@ -575,9 +575,9 @@ const handleCloseset = () => {
         {/* <Typography variant='body2' pl={3} mt={1.5} fontSize='16px' fontWeight={500}>
                     Hr Manager
                 </Typography> */}
-        <Box sx={{ px: 3 }}>
+        {/* <Box sx={{ px: 3 }}>
           <OrganizationDropDown />
-        </Box>
+        </Box> */}
 
         <List sx={{py: 1, paddingRight:"5px",paddingLeft:"8px" }}>
           <SideBarLinkButton menus={menuItems} />

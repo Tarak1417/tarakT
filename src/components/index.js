@@ -32,6 +32,12 @@ import DirectDepartment from "./Dashboard/Team/Reportees/DirectDepartment";
 import AllDesignation from "./Dashboard/Team/Reportees/AllDesignation";
 import DirectDesignation from "./Dashboard/Team/Reportees/DirectDesignation";
 
+import GreetingBackground from "./Dashboard/MySpace/Overview/GreetingBackground";
+import Greeting from "./Dashboard/MySpace/Overview/Greeting";
+import ClockInReminder from "./Dashboard/MySpace/Overview/ClockInReminder";
+import LogTime from "./Dashboard/MySpace/Overview/LogTime";
+import WorkSchedule from "./Dashboard/MySpace/Overview/WorkSchedule";
+
 export {
   ProfilePreview,
   EmployeesShift,
@@ -65,4 +71,9 @@ export {
   DirectDepartment,
   AllDesignation,
   DirectDesignation,
+  GreetingBackground,
+  Greeting,
+  ClockInReminder,
+  LogTime,
+  WorkSchedule,
 };
