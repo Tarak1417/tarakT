@@ -747,9 +747,9 @@ const handleCloseset = () => {
         {/* <Typography variant='body2' pl={3} mt={1.5} fontSize='16px' fontWeight={500}>
                     Hr Manager
                 </Typography> */}
-        <Box sx={{ px: 3 }}>
+        {/* <Box sx={{ px: 3 }}>
           <OrganizationDropDown />
-        </Box>
+        </Box> */}
 
         <List sx={{py: 1, paddingRight:"5px",paddingLeft:"8px" }}>
           <SideBarLinkButton menus={menuItems} chats={ChatItems}/>
@@ -1507,7 +1507,7 @@ const handleCloseset = () => {
             )}
           </Stack>
          
-          <Box 
+          {/* <Box 
       sx={{ 
         marginRight:'-37px',
         display: 'flex', 
@@ -1522,15 +1522,17 @@ const handleCloseset = () => {
         padding: '10px', // Optional padding for better appearance
       }}
     >
-      {/* <Button onClick={handleChatbox}>
+       <Button onClick={handleChatbox}>
 <Box sx={{ display:'flex',flexDirection:"column",textAlign:'center'}}>
       <Image src={BotIcon}  alt="Bot Icon"
         sx={{ width: '42px', height: '42px'}} />
 
         <Typography sx={{color:'white',fontSize:'13px',fontFamily:'sans-serif'}} >Chat</Typography>
         </Box>
-        </Button> */}
-    </Box>
+        
+        </Button>
+    </Box> */}
+
         </Box>
       </AppBar>
       
