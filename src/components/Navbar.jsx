@@ -58,7 +58,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import CloudOutlinedIcon from "@mui/icons-material/CloudOutlined";
-import { menuItems } from "../services/sidebarLinks";
+import { menuItems,ChatItems } from "../services/sidebarLinks";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import If from "./If";
@@ -99,10 +99,12 @@ import ClikkleProject from "../assets/ClikkleFavicons/Clikkle Projects-01.png";
 import ClikkleLaunch from "../assets/ClikkleFavicons/Clikkle Launch favicon.png";
 import OrganizationDropDown from "../pages/Organization/OrganizationDropDown";
 import Footer from "../pages/Footer";
+import callTag from "../assets/SidebarIcons/Group 1555.png"
 
 
 //Button
 import Upgradebutton from '../components/Button/GradientButton';
+const CallTagiCon =()=>< img src={callTag} alt="callTag" style={{height:"20px", width:"20px"}}/>
 
 const clikkleApps = [
   {
@@ -465,10 +467,10 @@ const handleCloseset = () => {
     };
   }, []);
 
-  const SideBarLinkButton = ({ menus }) => {
+  const SideBarLinkButton = ({ menus, chats }) => {
     return (
-      <> 
-        {menus.map((link) => (
+      <>
+       {menus.map((link) => (
           <NavLink
             to={link.to}
             key={link.label}
@@ -539,9 +541,179 @@ const handleCloseset = () => {
             )}
           </NavLink>
         ))}
+        
+{Array.isArray(chats) &&
+  chats.map((chat, index) => (
+  <NavLink
+  key={index} // Assign a unique key
+  to={chat.to} 
+  style={{
+    textDecoration: "none",
+    color: "inherit",
+  }}
+>
+    <div key={index} style={{ marginTop: "16px" }}>
+      <ListItemText
+        primary={
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <ListItemText
+              primary={
+                <div style={{ display: "flex", alignItems: "center", gap:"8px"}}>
+                  <span>{chat.label}</span>
+                  {chat.betaTag && (
+                    <span
+                      style={{
+                        backgroundColor: "#1a1a1a",
+                        color: "#3767B1",
+                        border: "1px solid #3767B1",
+                        borderRadius: "12px",
+                        padding: "2px 6px",
+                        fontSize: "9px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Beta
+                    </span>
+                  )}
+                </div>
+              }
+            />
+          </div>
+        }
+        sx={{ color: "text.secondary",  }}
+      />
+      <Divider variant="start" />
+      {chat.subItems && (
+        <List sx={{}}>
+          {chat.subItems.map((subItem, subIndex) => (
+            <NavLink
+            key={`${index}-${subIndex}`}
+            to={subItem.to}
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+            }}
+          >
+            <ListItemButton key={subIndex}>
+            <div style={{ position: "relative", display: "inline-block" }}>
+  {/* Icon */}
+  <ListItemIcon sx={{ minWidth: "35px", color: "text.secondary" ,marginLeft:"-10px",marginTop:"-40px",marginBottom:"-50px" }}>
+    {subItem.icon}
+  </ListItemIcon>
+
+  {/* Badge Count */}
+  {subItem.badgeCount > 0 && (
+    <span
+      style={{
+        position: "absolute",
+        top: "15px", // Adjust to place badge above the icon
+        right: "5px", // Adjust to position at the corner
+        backgroundColor: "#3767B1",
+        color: "#fff",
+        borderRadius: "50%",
+        width: "20px",
+        height: "20px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: "9px",
+        fontWeight: "bold",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)", 
+      }}
+    >
+      {subItem.badgeCount}
+    </span>
+  )}
+</div>
+              <ListItemText
+                primary={
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span>{subItem.label}</span>
+                    
+                    {subItem.betaTag && (
+                      <span
+                        style={{
+                          backgroundColor: "#1a1a1a",
+                          color: "#3767B1",
+                          border: "1px solid #3767B1",
+                          borderRadius: "12px",
+                          padding: "2px 6px",
+                          fontSize: "9px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Beta
+                      </span>
+                    )}
+                    {subItem.batacount > 0 && (
+                      <span
+                        style={{
+                          backgroundColor: "#3767B1",
+                          color: "#fff",
+                          borderRadius: "50%",
+                          width: "20px",
+                          height: "20px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: "9px",
+                          fontWeight: "bold",
+                          marginLeft:"15px"
+                        }}
+                      >
+                        {subItem.batacount}
+                      </span>
+                    )}
+                    {subItem.newTag && (
+                      <span
+                        style={{
+                          backgroundColor: "transperent",
+                          color: "green",
+                          border:"1.5px solid green",
+                          borderRadius: " 5px",
+                          padding: "2px 6px",
+                          fontSize: "9px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        New
+                      </span>
+                    )}
+                    {subItem.callTag && (
+                      <span
+                        style={{
+                      
+                           marginLeft:"15px"
+                        }}
+                      >
+                      <CallTagiCon/>
+                      </span>
+                    )}
+                    
+                  </div>
+                }
+              />
+            </ListItemButton>
+
+            </NavLink>
+          ))}
+        </List>
+      )}
+    </div>
+    </NavLink>
+  ))}
+
+        
       </>
     );
   };
+  
 
   const drawer = (
     <Box
@@ -580,7 +752,8 @@ const handleCloseset = () => {
         </Box> */}
 
         <List sx={{py: 1, paddingRight:"5px",paddingLeft:"8px" }}>
-          <SideBarLinkButton menus={menuItems} />
+          <SideBarLinkButton menus={menuItems} chats={ChatItems}/>
+          
         </List>
         
       </Box>
@@ -696,7 +869,7 @@ const handleCloseset = () => {
         alignItems="center"
         justifyContent="center"
         component={Link}
-        mb={1.5}
+        mb={1}
         to="/"
         sx={{ textDecoration: "none", color: "text.primary", py: 1 }}
       >
@@ -707,7 +880,7 @@ const handleCloseset = () => {
         sx={{
           overflowY: "auto",
           overflowX: "hidden",
-          height: "calc(100dvh - 90px)",
+          height: "calc(100dvh - 80px)",
           flexGrow: 1,
         }}
       >
@@ -733,22 +906,110 @@ const handleCloseset = () => {
                           to: link.to,
                           selected: isActive,
                         })}
-                    sx={{ height: "45px", my: "2px" }}
+                    sx={{ height: "45px", my: "-1.5px", }}
                   >
                     <ListItemIcon
                       sx={{
                         // minWidth: '35px',
                         color: "text.secondary",
+                        display:"flex",
+                        flexDirection:"column",
+                        alignItems:"center",
+                        marginLeft:"-15px  ",
+                        
+                       
+                      
                       }}
                     >
                       {link.icon}
+                      <p className="text-[8.5px] text-center">{link.label}</p>
                     </ListItemIcon>
                   </ListItemButton>
                 </ListItem>
               )}
             </NavLink>
           ))}
+
         </List>
+       
+        {ChatItems.map((chat, index) => (
+  <div key={index}>
+    <ListItemText
+      sx={{
+        color: "text.secondary",
+      
+        display: "flex",
+        flexDirection: "column",
+        marginTop:'-25px'
+      }}
+    />
+    {chat. mainItem && (
+      <List>
+        {chat. mainItem.map(( mainItem, subIndex) => (
+          <ListItemButton
+            key={subIndex}
+            sx={{
+              display: "flex",
+              flexDirection: "column", // Arrange icon and label vertically
+              alignItems: "center",   // Center align
+                  // Add spacing between icon and label
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                color: "text.secondary",
+                display: "flex",
+                justifyContent: "center", // Center align icon
+              }}
+            >
+              { mainItem.icon}
+            </ListItemIcon>
+            <ListItemText
+              primary={
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row", // Badge and label in a row
+                    alignItems: "center",
+                           // Add spacing between label and badge
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "9px",  // Adjust font size for label
+                    }}
+                  >
+                    { mainItem.label}
+                  </span>
+                  { mainItem.badgeCount > 0 && (
+                    <span
+                      style={{
+                        backgroundColor: "#3767B1",
+                        color: "#fff",
+                        borderRadius: "50%",
+                        width: "20px",
+                        height: "20px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      { mainItem.badgeCount}
+                    </span>
+                  )}
+                </div>
+              }
+            />
+          </ListItemButton>
+        ))}
+      </List>
+    )}
+  </div>
+))}
+
+
       </Box>
     </Box>
   );
