@@ -12,6 +12,7 @@ import Scheduleicon from "../assets/Icons/sidebaricons/dashicons_admin-tools.png
 import Settingsicon from "../assets/Icons/sidebaricons/iconoir_wallet-solid.png";
 import Payrolicon from "../assets/Icons/sidebaricons/material-symbols_overview-outline.png";
 import InterviewIcon from './icons/interview.png';
+import { HiSpeakerWave } from "react-icons/hi2";
 
 import OfficeIcon from './icons/office.svg'
 import ReceivedIcon from './icons/recieved.svg';
@@ -172,7 +173,7 @@ const menuItems = [
     },
 
     {
-        icon: <AnnouncementIcon className='text-2xl'  />,
+        icon: <HiSpeakerWave className='text-2xl'  />,
         label: 'Announcement',
         to: [
             {
