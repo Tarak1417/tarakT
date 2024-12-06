@@ -39,6 +39,8 @@ import { useRefresh } from "../components/Header";
 import Interduction from "./Interduction";
 import PlusIcon from "../assets/CloclIcons/Add Button (1).png";
 import Department from "./Dashboard/Team/Department";
+import TeamList from "./Dashboard/TeamList/TeamList";
+import HRProcess from "./Dashboard/TeamList/HRProcess";
 const Dashboard = () => {
   const navigate = useNavigate(); // Get the navigate function
 
@@ -262,7 +264,7 @@ const Dashboard = () => {
             ))}
           </Tabs>
         </Box>
-        <div className="flex flex-row gap-3 p-2 bg-zinc-800 bg-opacity-40 rounded-lg">
+        <div className="flex flex-row gap-3 p-2 rounded-lg">
           {renderButtons()}
         </div>
       </div>
@@ -299,7 +301,6 @@ const Dashboard = () => {
         ) : (
           <></>
         )}
-
         {switchScreen.first === "team" &&
         switchScreen.second === "reportees" ? (
           <>
@@ -312,6 +313,21 @@ const Dashboard = () => {
         switchScreen.second === "department" ? (
           <>
             <Department />
+          </>
+        ) : (
+          <></>
+        )}
+        {switchScreen.first === "team" && switchScreen.second === "teamList" ? (
+          <>
+            <TeamList />
+          </>
+        ) : (
+          <></>
+        )}
+        {switchScreen.first === "team" &&
+        switchScreen.second === "hrProcess" ? (
+          <>
+            <HRProcess />
           </>
         ) : (
           <></>

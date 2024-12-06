@@ -18,7 +18,7 @@ import {
   // Attendance,
 } from "../../../components";
 import { Button, Grid, IconButton, Tooltip, Typography } from "@mui/material";
-import TuneIcon from '@mui/icons-material/Tune';
+import TuneIcon from "@mui/icons-material/Tune";
 import { TrendingUp, TrendingDown, Height } from "@mui/icons-material";
 import GroupIcon from "@mui/icons-material/Group";
 import ApartmentIcon from "@mui/icons-material/Apartment";
@@ -225,54 +225,62 @@ export default function MySpaceOverview() {
 
   return (
     <>
-      <Grid
-        sx={{
-          backgroundColor: "background.default",
-          height: "",
-          width: "30%",
-          display: "flex",
-          flexFlow: "column",
-          justifyContent: "center",
-          justifyItems: "center",
-        }}
-        className="h-fit w-[30%] flex flex-col justify-center items-center rounded-lg shadow-md border border-gray-800"
-      >
-        <ProfilePreview />
-        <Divider
-          sx={{
-            width: "92%",
-            borderColor: "gray",
-            pt: "0.8rem",
-            mb: "0.4rem",
-          }}
-        />
-        <EmployeesShift />
-      </Grid>
-      <div className="min-h-full w-full flex gap-3 p-2 flex-col justify-start items-start rounded-lg ">
-        <div className="h-fit w-full">
+      <div className="w-full h-fit flex flex-col gap-2">
+        <div>
           <GreetingBackground />
-          <div className="flex flex-row justify-between items-center">
-            <Tabs
-              value={currentTabIndex}
-              onChange={handleTabChange}
-              textColor="primary"
-              indicatorColor="primary"
-              aria-label="Navigation Tabs"
-            >
-              {tabs.map((tab, index) => (
-                <Tab key={index} label={tab.label} />
-              ))}
-            </Tabs>
-            <Button>
-              <TuneIcon className="text-2xl" />
-            </Button>
-          </div>
         </div>
+        <div className="flex flex-row justify-center items-start">
+          <Grid
+            sx={{
+              backgroundColor: "background.default",
+              height: "",
+              // width: "20%",
+              display: "flex",
+              flexFlow: "column",
+              justifyContent: "center",
+              justifyItems: "center",
+            }}
+            className="h-fit min-w-fit flex flex-col justify-center items-center rounded-lg shadow-md border border-gray-800"
+          >
+            <ProfilePreview />
+            <Divider
+              sx={{
+                width: "92%",
+                borderColor: "gray",
+                pt: "0.8rem",
+                mb: "0.4rem",
+              }}
+            />
+            <EmployeesShift />
+          </Grid>
+          <div className="min-h-full w-full flex gap-3 p-2 flex-col justify-start items-start rounded-lg ">
+            {/* <GreetingBackground /> */}
+            <Grid
+              sx={{
+                backgroundColor: "background.default",
+              }}
+              className="w-full flex flex-row justify-between items-center rounded-lg"
+            >
+              <Tabs
+                value={currentTabIndex}
+                onChange={handleTabChange}
+                textColor="primary"
+                indicatorColor="primary"
+                aria-label="Navigation Tabs"
+              >
+                {tabs.map((tab, index) => (
+                  <Tab key={index} label={tab.label} />
+                ))}
+              </Tabs>
+              <Button>
+                <TuneIcon className="text-2xl" />
+              </Button>
+            </Grid>
 
-        {switchScreen.first === "activities" ? (
-          <>
-            <Greeting />
-            {/* <div className="w-full flex gap-3 justify-evenly items-center rounded-lg border border-gray-800">
+            {switchScreen.first === "activities" ? (
+              <>
+                <Greeting />
+                {/* <div className="w-full flex gap-3 justify-evenly items-center rounded-lg border border-gray-800">
               {boxesData &&
                 boxesData.map((box, index) => (
                   <Grid
@@ -297,188 +305,192 @@ export default function MySpaceOverview() {
                   </Grid>
                 ))}
             </div> */}
-            <ClockInReminder />
-            <LogTime />
-            <WorkSchedule />
-          </>
-        ) : (
-          <></>
-        )}
-        {switchScreen.first === "announcements" ? (
-          <div className="h-full w-full grid grid-cols-2 gap-3">
-            <NoticeBoard eventData={overview && overview?.notices} />
-            <MemoBoard />
-            <HolidayBoard />
-            <RulesAndRegulations />
-          </div>
-        ) : (
-          <></>
-        )}
-        {switchScreen.first === "profile" ? (
-          <div className="w-full flex flex-col gap-3">
-            <Grid
-              sx={{ backgroundColor: "background.default" }}
-              className="w-full grid grid-flow-row gap-5 rounded-lg p-3 border border-gray-800"
-            >
-              <div>
-                <h1 className="text-2xl">Work Information</h1>
+                <ClockInReminder />
+                <LogTime />
+                <WorkSchedule />
+              </>
+            ) : (
+              <></>
+            )}
+            {switchScreen.first === "announcements" ? (
+              <div className="h-full w-full grid grid-cols-2 gap-3">
+                <NoticeBoard eventData={overview && overview?.notices} />
+                <MemoBoard />
+                <HolidayBoard />
+                <RulesAndRegulations />
               </div>
-              <div className="grid grid-cols-4 gap-4">
-                <div>
-                  <h1 className="text-lg">Department</h1>
-                  <h2 className="text-sm text-gray-500">Management</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Location</h1>
-                  <h2 className="text-sm text-gray-500">London</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Designation</h1>
-                  <h2 className="text-sm text-gray-500">CEO</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Role</h1>
-                  <h2 className="text-sm text-gray-500">Admin</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Employment Type</h1>
-                  <h2 className="text-sm text-gray-500">Full Time</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Employment Status</h1>
-                  <h2 className="text-sm text-gray-500">Active</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Date OF Joining</h1>
-                  <h2 className="text-sm text-gray-500">12 - 10 - 2024</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Year of Experience</h1>
-                  <h2 className="text-sm text-gray-500">
-                    3 year(s) 9 month(s)
-                  </h2>
-                </div>
-              </div>
-            </Grid>
-            <Grid
-              sx={{ backgroundColor: "background.default" }}
-              className="w-full grid grid-flow-row gap-5 rounded-lg border border-gray-800 p-3"
-            >
-              <div>
-                <h1 className="text-2xl">About</h1>
-              </div>
-              <div className="flex flex-col justify-center items-center gap-4">
-                <h1>Click on "add" button to add an about statement</h1>
-                <Button
-                  sx={{ width: "", px: "1.6rem", py: "0.2rem" }}
-                  variant="contained"
+            ) : (
+              <></>
+            )}
+            {switchScreen.first === "profile" ? (
+              <div className="w-full flex flex-col gap-3">
+                <Grid
+                  sx={{ backgroundColor: "background.default" }}
+                  className="w-full grid grid-flow-row gap-5 rounded-lg p-3 border border-gray-800"
                 >
-                  Add
-                </Button>
+                  <div>
+                    <h1 className="text-2xl">Work Information</h1>
+                  </div>
+                  <div className="grid grid-cols-4 gap-4">
+                    <div>
+                      <h1 className="text-lg">Department</h1>
+                      <h2 className="text-sm text-gray-500">Management</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Location</h1>
+                      <h2 className="text-sm text-gray-500">London</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Designation</h1>
+                      <h2 className="text-sm text-gray-500">CEO</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Role</h1>
+                      <h2 className="text-sm text-gray-500">Admin</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Employment Type</h1>
+                      <h2 className="text-sm text-gray-500">Full Time</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Employment Status</h1>
+                      <h2 className="text-sm text-gray-500">Active</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Date OF Joining</h1>
+                      <h2 className="text-sm text-gray-500">12 - 10 - 2024</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Year of Experience</h1>
+                      <h2 className="text-sm text-gray-500">
+                        3 year(s) 9 month(s)
+                      </h2>
+                    </div>
+                  </div>
+                </Grid>
+                <Grid
+                  sx={{ backgroundColor: "background.default" }}
+                  className="w-full grid grid-flow-row gap-5 rounded-lg border border-gray-800 p-3"
+                >
+                  <div>
+                    <h1 className="text-2xl">About</h1>
+                  </div>
+                  <div className="flex flex-col justify-center items-center gap-4">
+                    <h1>Click on "add" button to add an about statement</h1>
+                    <Button
+                      sx={{ width: "", px: "1.6rem", py: "0.2rem" }}
+                      variant="contained"
+                    >
+                      Add
+                    </Button>
+                  </div>
+                </Grid>
+                <Grid
+                  sx={{ backgroundColor: "background.default" }}
+                  className="w-full grid grid-flow-row gap-5 rounded-lg border border-gray-800 p-3"
+                >
+                  <div>
+                    <h1 className="text-2xl">Basic Information</h1>
+                  </div>
+                  <div className="grid grid-cols-4 gap-4">
+                    <div>
+                      <h1 className="text-lg">Staff ID</h1>
+                      <h2 className="text-sm text-gray-500">#9999999999</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">First Name</h1>
+                      <h2 className="text-sm text-gray-500">Jonathan</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Last Name</h1>
+                      <h2 className="text-sm text-gray-500">Snow</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Email</h1>
+                      <h2 className="text-sm text-gray-500">
+                        jonathansnow@clikkle.com
+                      </h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Username</h1>
+                      <h2 className="text-sm text-gray-500">j.snow</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Date Of Birth</h1>
+                      <h2 className="text-sm text-gray-500">19 - 04 - 1990</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Designation</h1>
+                      <h2 className="text-sm text-gray-500">CEO</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Role</h1>
+                      <h2 className="text-sm text-gray-500">Admin</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Emergency Contact</h1>
+                      <h2 className="text-sm text-gray-500">
+                        +44 954 184 4427
+                      </h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Blood Group</h1>
+                      <h2 className="text-sm text-gray-500">O+</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Address</h1>
+                      <h2 className="text-sm text-gray-500">
+                        5 Cherry Tree Avenue, Balerno, EH14,5AN,GBR
+                      </h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Employment Type</h1>
+                      <h2 className="text-sm text-gray-500">Full Time</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Employment Status</h1>
+                      <h2 className="text-sm text-gray-500">Active</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Date OF Joining</h1>
+                      <h2 className="text-sm text-gray-500">12 - 10 - 2024</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Year of Experience</h1>
+                      <h2 className="text-sm text-gray-500">
+                        3 year(s) 9 month(s)
+                      </h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Material Status</h1>
+                      <h2 className="text-sm text-gray-500">Married</h2>
+                    </div>
+                    <div>
+                      <h1 className="text-lg">Gender</h1>
+                      <h2 className="text-sm text-gray-500">Male</h2>
+                    </div>
+                  </div>
+                </Grid>
               </div>
-            </Grid>
-            <Grid
-              sx={{ backgroundColor: "background.default" }}
-              className="w-full grid grid-flow-row gap-5 rounded-lg border border-gray-800 p-3"
-            >
-              <div>
-                <h1 className="text-2xl">Basic Information</h1>
-              </div>
-              <div className="grid grid-cols-4 gap-4">
-                <div>
-                  <h1 className="text-lg">Staff ID</h1>
-                  <h2 className="text-sm text-gray-500">#9999999999</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">First Name</h1>
-                  <h2 className="text-sm text-gray-500">Jonathan</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Last Name</h1>
-                  <h2 className="text-sm text-gray-500">Snow</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Email</h1>
-                  <h2 className="text-sm text-gray-500">
-                    jonathansnow@clikkle.com
-                  </h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Username</h1>
-                  <h2 className="text-sm text-gray-500">j.snow</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Date Of Birth</h1>
-                  <h2 className="text-sm text-gray-500">19 - 04 - 1990</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Designation</h1>
-                  <h2 className="text-sm text-gray-500">CEO</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Role</h1>
-                  <h2 className="text-sm text-gray-500">Admin</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Emergency Contact</h1>
-                  <h2 className="text-sm text-gray-500">+44 954 184 4427</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Blood Group</h1>
-                  <h2 className="text-sm text-gray-500">O+</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Address</h1>
-                  <h2 className="text-sm text-gray-500">
-                    5 Cherry Tree Avenue, Balerno, EH14,5AN,GBR
-                  </h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Employment Type</h1>
-                  <h2 className="text-sm text-gray-500">Full Time</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Employment Status</h1>
-                  <h2 className="text-sm text-gray-500">Active</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Date OF Joining</h1>
-                  <h2 className="text-sm text-gray-500">12 - 10 - 2024</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Year of Experience</h1>
-                  <h2 className="text-sm text-gray-500">
-                    3 year(s) 9 month(s)
-                  </h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Material Status</h1>
-                  <h2 className="text-sm text-gray-500">Married</h2>
-                </div>
-                <div>
-                  <h1 className="text-lg">Gender</h1>
-                  <h2 className="text-sm text-gray-500">Male</h2>
-                </div>
-              </div>
-            </Grid>
+            ) : (
+              <></>
+            )}
+            {switchScreen.first === "attendance" ? (
+              <>
+                <Attendance />
+              </>
+            ) : (
+              <></>
+            )}
+            {switchScreen.first === "leave" ? (
+              <>
+                <Applicationleave />
+              </>
+            ) : (
+              <></>
+            )}
           </div>
-        ) : (
-          <></>
-        )}
-        {switchScreen.first === "attendance" ? (
-          <>
-            <Attendance />
-          </>
-        ) : (
-          <></>
-        )}
-        {switchScreen.first === "leave" ? (
-          <>
-            <Applicationleave />
-          </>
-        ) : (
-          <></>
-        )}
+        </div>
       </div>
     </>
   );

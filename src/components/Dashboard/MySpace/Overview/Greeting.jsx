@@ -19,17 +19,17 @@ export default function Greeting() {
         greetMessage: "Early Morning",
         greetImage: morning,
       });
-    } else if (time >= 5 && time < 11) {
+    } else if (time >= 5 && time <= 11) {
       setGreet({
         greetMessage: "Good Morning",
         greetImage: morning,
       });
-    } else if (time >= 12 && time < 16) {
+    } else if (time >= 12 && time <= 16) {
       setGreet({
         greetMessage: "Good Afternoon",
         greetImage: afternoon,
       });
-    } else if (time >= 17 && time < 21) {
+    } else if (time >= 17 && time <= 21) {
       setGreet({
         greetMessage: "Good Evening",
         greetImage: evening,
