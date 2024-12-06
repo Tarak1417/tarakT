@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Typography, IconButton, Box } from "@mui/material";
 import { useUser } from "../../../../hooks/Authorize";
-import camera from "../../../../assets/Interductionimages/camera.png";
+import camera from "../../../../assets/Interductionimages/cameraaicon2.png";
 
 export default function ProfilePreview() {
   const platformUser = useUser();
@@ -35,29 +35,36 @@ export default function ProfilePreview() {
             height: image ? "170px" : "200px",
             borderRadius: image ? "10px" : "50%",
             overflow: "hidden",
-            border: image ? "" : "2px solid blue",
+            border: image ? "" : "2px solid #3B84D9",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             backgroundColor: image ? "transparent" : "background.view",
+            backgroundImage: image ? `url(${image})` : "none", // Show image as background if available
+            backgroundSize: "cover", // Ensure image covers the area
+            backgroundPosition: "center", // Center the background image
+            transition: "all 0.3s ease", // Smooth transition for hover effect
+            "&:hover": {
+              backgroundColor: "rgba(0, 0, 0, 0.6)", // Darkens the background on hover
+            },
+            "&:hover::after": {
+              content: '""',
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: "inherit", // Inherit background properties from the box
+              filter: "blur(5px)", // Apply blur only to the background
+              zIndex: 1,
+            },
             "&:hover .camera-icon": {
-              opacity: 1,
+              opacity: 1, 
             },
           }}
         >
-          {/* Profile Image or Fallback */}
-          {image ? (
-            <img
-              src={image}
-              alt="User"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover", // Ensures the image covers the container
-                objectPosition: "center", // Centers the image
-              }}
-            />
-          ) : (
+          {/* Initials Fallback */}
+          {!image && (
             <Typography
               variant="subtitle1"
               fontWeight={600}
@@ -65,7 +72,7 @@ export default function ProfilePreview() {
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
-                fontSize: 36,
+                fontSize: 80,
               }}
             >
               {getInitials()}
@@ -83,7 +90,8 @@ export default function ProfilePreview() {
               backgroundColor: "transparent",
               boxShadow: "none",
               opacity: 0, // Hidden by default
-              transition: "opacity 0.3s ease", // Smooth transition
+              transition: "opacity 0.3s ease", // Smooth transition for icon appearance
+              zIndex: 2, // Ensure the icon is above the blurred background
             }}
             size="small"
             component="label"
@@ -92,8 +100,8 @@ export default function ProfilePreview() {
               src={camera}
               alt="Camera"
               style={{
-                width: "20px",
-                height: "20px",
+                width: "30px",
+                height: "30px",
               }}
             />
             <input

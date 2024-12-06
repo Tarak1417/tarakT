@@ -146,6 +146,7 @@ const clikkleApps = [
     name: "Pitch",
     url: "https://pitch.clikkle.com/",
     logo: ClikklePitch,
+
   },
 
   {
@@ -552,7 +553,7 @@ const handleCloseset = () => {
     color: "inherit",
   }}
 >
-    <div key={index} style={{ marginTop: "16px" }}>
+    <div key={index} style={{ marginTop: "-5px" }}>
       <ListItemText
         primary={
           <div
@@ -600,106 +601,120 @@ const handleCloseset = () => {
               color: "inherit",
             }}
           >
-            <ListItemButton key={subIndex}>
-            <div style={{ position: "relative", display: "inline-block" }}>
-  {/* Icon */}
-  <ListItemIcon sx={{ minWidth: "35px", color: "text.secondary" ,marginLeft:"-10px",marginTop:"-40px",marginBottom:"-50px" }}>
-    {subItem.icon}
-  </ListItemIcon>
-
-  {/* Badge Count */}
-  {subItem.badgeCount > 0 && (
-    <span
-      style={{
-        position: "absolute",
-        top: "15px", // Adjust to place badge above the icon
-        right: "5px", // Adjust to position at the corner
-        backgroundColor: "#3767B1",
-        color: "#fff",
-        borderRadius: "50%",
-        width: "20px",
-        height: "20px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: "9px",
-        fontWeight: "bold",
-        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)", 
+           <ListItemButton
+  key={subIndex}
+  sx={{
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
+  }}
+>
+  <div style={{ position: "relative", display: "inline-block" }}>
+    {/* Icon */}
+    <ListItemIcon
+      sx={{
+        minWidth: "35px",
+        color: "text.secondary",
+        marginLeft: "-10px",
+        marginTop: "-40px",
+        marginBottom: "-50px",
       }}
     >
-      {subItem.badgeCount}
-    </span>
-  )}
-</div>
-              <ListItemText
-                primary={
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <span>{subItem.label}</span>
-                    
-                    {subItem.betaTag && (
-                      <span
-                        style={{
-                          backgroundColor: "#1a1a1a",
-                          color: "#3767B1",
-                          border: "1px solid #3767B1",
-                          borderRadius: "12px",
-                          padding: "2px 6px",
-                          fontSize: "9px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        Beta
-                      </span>
-                    )}
-                    {subItem.batacount > 0 && (
-                      <span
-                        style={{
-                          backgroundColor: "#3767B1",
-                          color: "#fff",
-                          borderRadius: "50%",
-                          width: "20px",
-                          height: "20px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: "9px",
-                          fontWeight: "bold",
-                          marginLeft:"15px"
-                        }}
-                      >
-                        {subItem.batacount}
-                      </span>
-                    )}
-                    {subItem.newTag && (
-                      <span
-                        style={{
-                          backgroundColor: "transperent",
-                          color: "green",
-                          border:"1.5px solid green",
-                          borderRadius: " 5px",
-                          padding: "2px 6px",
-                          fontSize: "9px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        New
-                      </span>
-                    )}
-                    {subItem.callTag && (
-                      <span
-                        style={{
-                      
-                           marginLeft:"15px"
-                        }}
-                      >
-                      <CallTagiCon/>
-                      </span>
-                    )}
-                    
-                  </div>
-                }
-              />
-            </ListItemButton>
+      {subItem.icon}
+    </ListItemIcon>
+
+    {/* Badge Count */}
+    {subItem.badgeCount > 0 && (
+      <span
+        style={{
+          position: "absolute",
+          top: "15px",
+          right: "5px",
+          backgroundColor: "#3767B1",
+          color: "#fff",
+          borderRadius: "50%",
+          width: "20px",
+          height: "20px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "9px",
+          fontWeight: "bold",
+          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
+        }}
+      >
+        {subItem.badgeCount}
+      </span>
+    )}
+  </div>
+  <ListItemText
+    primary={
+      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+        <span>{subItem.label}</span>
+
+        {subItem.betaTag && (
+          <span
+            style={{
+              backgroundColor: "#1a1a1a",
+              color: "#3767B1",
+              border: "1px solid #3767B1",
+              borderRadius: "12px",
+              padding: "2px 6px",
+              fontSize: "9px",
+              fontWeight: "bold",
+            }}
+          >
+            Beta
+          </span>
+        )}
+        {subItem.batacount > 0 && (
+          <span
+            style={{
+              backgroundColor: "#3767B1",
+              color: "#fff",
+              borderRadius: "50%",
+              width: "20px",
+              height: "20px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "9px",
+              fontWeight: "bold",
+              marginLeft: "80px",
+            }}
+          >
+            {subItem.batacount}
+          </span>
+        )}
+        {subItem.newTag && (
+          <span
+            style={{
+              backgroundColor: "transparent",
+              color: "green",
+              border: "1.5px solid green",
+              borderRadius: "5px",
+              padding: "2px 6px",
+              fontSize: "9px",
+            
+            }}
+          >
+            New
+          </span>
+        )}
+        {subItem.callTag && (
+          <span
+            style={{
+              marginLeft: "80px",
+            }}
+          >
+            <CallTagiCon />
+          </span>
+        )}
+      </div>
+    }
+  />
+</ListItemButton>
+
 
             </NavLink>
           ))}
@@ -742,14 +757,22 @@ const handleCloseset = () => {
       </Box>
 
       <Box
-        sx={{ overflowY: "auto", height: "calc(100dvh - 90px)", flexGrow: 1 }}
-      >
+  sx={{
+    overflowY: "auto",
+    height: "calc(100dvh - 90px)",
+    flexGrow: 1,
+    overflow: "scroll", 
+    "&::-webkit-scrollbar": { display: "none" }, 
+    "-ms-overflow-style": "none",
+    "scrollbar-width": "none", 
+  }}
+>
         {/* <Typography variant='body2' pl={3} mt={1.5} fontSize='16px' fontWeight={500}>
                     Hr Manager
                 </Typography> */}
-        {/* <Box sx={{ px: 3 }}>
+        <Box sx={{ px: 3 }}>
           <OrganizationDropDown />
-        </Box> */}
+        </Box>
 
         <List sx={{py: 1, paddingRight:"5px",paddingLeft:"8px" }}>
           <SideBarLinkButton menus={menuItems} chats={ChatItems}/>
@@ -869,67 +892,79 @@ const handleCloseset = () => {
         alignItems="center"
         justifyContent="center"
         component={Link}
-        mb={1}
+        mb={1.5}
         to="/"
         sx={{ textDecoration: "none", color: "text.primary", py: 1 }}
       >
-        <Image cdn="hr/logo/2023/hr.png" sx={{ height: "50px" }} />
+        <Image cdn="hr/logo/2023/hr.png" sx={{ height: "36px" }} />
       </Box>
 
       <Box
-        sx={{
-          overflowY: "auto",
-          overflowX: "hidden",
-          height: "calc(100dvh - 80px)",
-          flexGrow: 1,
-        }}
-      >
+  sx={{
+    overflowY: "auto",
+    height: "calc(100dvh - 90px)",
+    flexGrow: 1,
+    overflow: "scroll", // Enables scrolling
+    "&::-webkit-scrollbar": { display: "none" }, // Hides scrollbar in Chrome, Safari
+    "-ms-overflow-style": "none", // Hides scrollbar in Internet Explorer and Edge
+    "scrollbar-width": "none", // Hides scrollbar in Firefox
+  }}
+>
         <List sx={{ px: 1 }}>
-          {menuItems.map((link) => (
-            <NavLink
-              to={link.to}
-              key={link.to}
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              {({ isActive }) => (
-                <ListItem disablePadding>
-                  <ListItemButton
-                    disableRipple
-                    disableTouchRipple
-                    variant="sidebarButton"
-                    {...(Array.isArray(link.to)
-                      ? {
-                          selected: collapsesState[link.name],
-                          onClick: () => modifyCollapsesState(link.name),
-                        }
-                      : {
-                          to: link.to,
-                          selected: isActive,
-                        })}
-                    sx={{ height: "45px", my: "-1.5px", }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        // minWidth: '35px',
-                        color: "text.secondary",
-                        display:"flex",
-                        flexDirection:"column",
-                        alignItems:"center",
-                        marginLeft:"-15px  ",
-                        
-                       
+        {menuItems.map((link) => (
+          <NavLink
+            to={link.to}
+            key={link.label}
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+            }}
+          >
+            {({ isActive }) => (
+              <>
+                <ListItemButton
+                  disableRipple
+                  disableTouchRipple
+                  variant="sidebarButton"
+                  {...(Array.isArray(link.to)
+                    ? {
+                        selected: collapsesState[link.label],
+                        variant: "sidebarDropDown",
+                        onClick: () => modifyCollapsesState(link.label),
+                        sx: { pr: 0 },
+                      }
+                    : {
+                        to: link.to,
+                        selected: isActive,
+                      })}
+                >
+                  <ListItemIcon
+                    sx={{
+                      // minWidth: "35px",
+                      color: "text.secondary",
+                      display:"flex",
+                      flexDirection:"column",
+                      alignItems:"center",
+                      marginLeft:"-15px",
+                      gap:"3px",
+                      mb:"1"
                       
-                      }}
-                    >
-                      {link.icon}
-                      <p className="text-[8.5px] text-center">{link.label}</p>
-                    </ListItemIcon>
-                  </ListItemButton>
-                </ListItem>
-              )}
-            </NavLink>
-          ))}
-
+         
+                    }}
+                  >
+                    {link.icon}
+                  
+                  <p className="text-[9px] ">{link.label}</p> 
+                  </ListItemIcon>
+                
+                   
+                </ListItemButton>
+               
+              </>
+            )}
+          </NavLink>
+        ))}
+        
         </List>
        
         {ChatItems.map((chat, index) => (
@@ -940,7 +975,6 @@ const handleCloseset = () => {
       
         display: "flex",
         flexDirection: "column",
-        marginTop:'-25px'
       }}
     />
     {chat. mainItem && (
@@ -952,7 +986,7 @@ const handleCloseset = () => {
               display: "flex",
               flexDirection: "column", // Arrange icon and label vertically
               alignItems: "center",   // Center align
-                  // Add spacing between icon and label
+            gap:"3"         // Add spacing between icon and label
             }}
           >
             <ListItemIcon
@@ -1452,8 +1486,8 @@ const handleCloseset = () => {
                                 src={app.logo}
                                 key={app.order}
                                 sx={{
-                                  mt: 0.8,
-                                  width: "auto",
+                                
+                                  width: "30px",
                                 }}
                                 imageSx={{
                                   filter:
@@ -1507,7 +1541,7 @@ const handleCloseset = () => {
             )}
           </Stack>
          
-          {/* <Box 
+          <Box 
       sx={{ 
         marginRight:'-37px',
         display: 'flex', 
@@ -1522,17 +1556,15 @@ const handleCloseset = () => {
         padding: '10px', // Optional padding for better appearance
       }}
     >
-       <Button onClick={handleChatbox}>
+      {/* <Button onClick={handleChatbox}>
 <Box sx={{ display:'flex',flexDirection:"column",textAlign:'center'}}>
       <Image src={BotIcon}  alt="Bot Icon"
         sx={{ width: '42px', height: '42px'}} />
 
         <Typography sx={{color:'white',fontSize:'13px',fontFamily:'sans-serif'}} >Chat</Typography>
         </Box>
-        
-        </Button>
-    </Box> */}
-
+        </Button> */}
+    </Box>
         </Box>
       </AppBar>
       
