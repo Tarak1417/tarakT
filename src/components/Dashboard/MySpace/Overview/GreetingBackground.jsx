@@ -11,11 +11,11 @@ export default function GreetingBackground() {
   useEffect(() => {
     if (time >= 1 && time <= 4) {
       setGreetImage(morning);
-    } else if (time >= 5 && time < 11) {
+    } else if (time >= 5 && time <= 11) {
       setGreetImage(morning);
-    } else if (time >= 12 && time < 16) {
+    } else if (time >= 12 && time <= 16) {
       setGreetImage(afternoon);
-    } else if (time >= 17 && time < 21) {
+    } else if (time >= 17 && time <= 21) {
       setGreetImage(evening);
     } else {
       setGreetImage(night);
