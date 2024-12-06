@@ -39,8 +39,8 @@ import { useRefresh } from "../components/Header";
 import Interduction from "./Interduction";
 import PlusIcon from "../assets/CloclIcons/Add Button (1).png";
 import Department from "./Dashboard/Team/Department";
-import TeamList from "./Dashboard/TeamList/TeamList";
-import HRProcess from "./Dashboard/TeamList/HRProcess";
+import TeamList from "./Dashboard/Team/TeamList";
+import HRProcess from "./Dashboard/Team/HRProcess";
 const Dashboard = () => {
   const navigate = useNavigate(); // Get the navigate function
 
