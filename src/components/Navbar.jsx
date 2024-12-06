@@ -897,7 +897,7 @@ export default function Navbar(props) {
                         storage, 3 free guest access and more.            </Typography>
 
                       {/* Users invited section */}
-                      <Typography sx={{ mb: 1, fontFamily: 'sans-serif', fontSize: '20px' }}>0 of 10 invited</Typography>
+                      <Typography sx={{ mb: 1, fontFamily: 'sans-serif', fontSize: '20px' }}>{employLists ? employLists.length : 0} of 10 invited</Typography>
                       <Typography sx={{ fontFamily: 'sans-serif', fontSize: '15px', color: 'gray' }}>Upgrade for 15 - 50 users</Typography>
                       {employLists && (
                         <AvatarGroup max={10} sx={{ mb: 2, marginRight: '115px', marginTop: '12px', }}>
