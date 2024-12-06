@@ -369,28 +369,31 @@ const EmployeePage = () => {
                           <Tooltip title="Suspend Employee">
                             <IconButton
                               onClick={() =>
-                                handleChangeTermination(employee._id)
-                              }
-                            >
-                              <DeleteOutlineOutlinedIcon
-                                style={{ fontSize: "12px" }}
-                                className="text-blue-500 rounded-sm"
-                              />
-                            </IconButton>
-                          </Tooltip>
-                          <Tooltip title="Remove Employee">
-                            <IconButton
-                              onClick={() =>
                                 removeRecord(employee._id)
                               }
                             >
                               <CloseIcon
                                 style={{ fontSize: "12px" }}
-                                className="text-blue-500 rounded-sm"
+                                className=" rounded-sm"
+                                color="error"
                               />
                             </IconButton>
                           </Tooltip>
-                          
+                          <Tooltip title="Terminate Employee">
+                            <IconButton
+                              onClick={() =>
+                                handleChangeTermination(employee._id)
+                              }
+                            >
+                              <DeleteOutlineOutlinedIcon
+                                style={{ fontSize: "12px" }}
+                                className=" rounded-sm"
+                                color="warning"
+                              />
+                            </IconButton>
+                          </Tooltip>
+
+
                         </div>
                       </div>
                     </Grid>
