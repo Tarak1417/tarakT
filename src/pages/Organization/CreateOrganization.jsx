@@ -23,6 +23,8 @@ import axios from "axios";
 import "./organization.css";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { Close } from "@mui/icons-material";
+import createOrg from "../../assets/createOrganization image.png"
+import {  useMediaQuery, useTheme } from '@mui/material';
 
 // Tabs Section
 const CreateOrganization = () => {
@@ -38,6 +40,8 @@ const CreateOrganization = () => {
     severity: "",
   });
   const [page, setPage] = useState(0);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleOrganizationChange = (event) => {
     setOrganizationName(event.target.value);
@@ -221,14 +225,12 @@ const CreateOrganization = () => {
               fontSize: { xs: "0.7rem", sm: "1rem" },
             }}
           >
-            HR organization refers to the style of coordination, communication
-            and management, a team or an employee uses through out his/her
-            contract with the organization.
+            HR organization refers to the style of coordination, communication and management, a team or an employee uses through out his/her contract with the organization.
           </Typography>
-          <div className="flex justify-center">
+          <div className="flex justify-center items-center">
             <img
-              className="origin-center  w-[90%] md:w-[30%]"
-              src="/images/ASSETS/createOrg.svg"
+              className={`origin-center  ${isMobile? "h-[30vh] md:w-[15%] mt-[15%] mb-[11%]":"h-[40vh] md:w-[20%] mb-20% mt-[5%] mb-[4%] "} `}
+              src={createOrg}
               alt="walkover1"
             />
           </div>

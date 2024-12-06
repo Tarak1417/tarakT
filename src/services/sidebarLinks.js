@@ -2,17 +2,18 @@ import {
     DashboardOutlined,
     Settings,
 } from '@mui/icons-material';
-import HomeIcon from '@mui/icons-material/Home';
+
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import GroupsIcon from '@mui/icons-material/Groups';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
+
 import Scheduleicon from "../assets/Icons/sidebaricons/dashicons_admin-tools.png";
 import Settingsicon from "../assets/Icons/sidebaricons/iconoir_wallet-solid.png";
 import Payrolicon from "../assets/Icons/sidebaricons/material-symbols_overview-outline.png";
 import InterviewIcon from './icons/interview.png';
-import JobListIcon from './icons/joblisting.png'
+import { HiSpeakerWave } from "react-icons/hi2";
+
 import OfficeIcon from './icons/office.svg'
 import ReceivedIcon from './icons/recieved.svg';
 import AttendIcon from './icons/attend.svg';
@@ -21,8 +22,81 @@ import PersonIcon from './icons/person.png';
 import DownloadIcon from './icons/download.svg';
 import SettingsIcon from '@mui/icons-material/Settings';
 import TripOriginIcon from '@mui/icons-material/TripOrigin';
+import Home from "../assets/SidebarIcons/Dashboard.png"
+import staf from "../assets/SidebarIcons/Staff.png"
+import SubDashboard from "../assets/SidebarIcons/SubSidebar.png"
+import Department from "../assets/SidebarIcons/Department.png"
+import ONboaeding from "../assets/SidebarIcons/Onboarding.png"
+import RecievedAppliaction from "../assets/SidebarIcons/Received Application.png"
+import JobListico from "../assets/SidebarIcons/Job Listing.png"
+import InterviewQuestions from "../assets/SidebarIcons/Interview Question.png"
+import Announcement from "../assets/SidebarIcons/Announcement.png"
+import HolidayVillage from '../assets/SidebarIcons/Holiday.png';
+import memo from "../assets/SidebarIcons/Memo.png"
+import NoticeBoard from "../assets/SidebarIcons/Notice Board.png"
+import Rules from '../assets/SidebarIcons/Rules and Regulations.png'
+import StafList from "../assets/SidebarIcons/Staff List.png"
+import Stafview from "../assets/SidebarIcons/Staff profile.png"
+import Attendence from "../assets/SidebarIcons/Attendance.png"
+import RecentAttendence from "../assets/SidebarIcons/Recent attendance.png"
+import AttendenceView from "../assets/SidebarIcons/Attendance view.png"
+import LeaveSettings from '../assets/SidebarIcons/Leave setting.png'
+import LeaveApplication from "../assets/SidebarIcons/Leave application.png"
+import Schedule from "../assets/SidebarIcons/Schedule (1).png"
+import OverviewCalander from "../assets/SidebarIcons/OverviewCalander.png"
+import StaffShift from "../assets/SidebarIcons/Employee Shift.png"
+import Sheduletwo from '../assets/SidebarIcons/Group (1).png'
+import PayRoll from "../assets/SidebarIcons/Payroll.png"
+import StaffSalary from "../assets/SidebarIcons/Staff Salary.png"
+import AddPayRoll from "../assets/SidebarIcons/Add Payroll.png"
+import EditPayrol from "../assets/SidebarIcons/Edit Payroll.png"
+import Chat from "../assets/SidebarIcons/Group 1221.png"
+import Chattwo from "../assets/SidebarIcons/chatAPp.png"
+import Crew from "../assets/SidebarIcons/Clikkle Crew Logo-01 1.png"
+import Call from "../assets/SidebarIcons/Clikkle sms-01 1.png"
+import Operaation from "../assets/SidebarIcons/Operations.png"
+import Report from "../assets/SidebarIcons/report-pie.png"
+import performance from "../assets/SidebarIcons/performance.png"
+import Apps from "../assets/SidebarIcons/Apps.png"
+const AppIcon =()=>< img src={Apps} alt="Apps" style={{height:"20px",width:"20px"}}/>
+const PerformanceIcon =()=>< img src={performance} alt="performance" style={{height:"20px",width:"20px"}}/>
+const ReportIcon =()=>< img src={Report} alt="Report" style={{height:"20px",width:"20px"}}/>
+const OperationIcon =()=>< img src={Operaation} alt="Operation" style={{height:"20px",width:"20px"}}/>
+const SmSICon=()=><img src={Call} alt='Call' style={{ width: '20px', height: 'auto' }}/>
+const CrewIcon =()=><img src={Crew} alt='Crew' style={{ width: '20px', height: 'auto' }}/>
+const ChattwoIcon =()=><img src={Chattwo} alt='Chattwo' style={{ width: '20px', height: 'auto' }}/>
+const ChatIcon =()=><img src={Chat} alt='Chat' style={{ width: '250px', height: 'auto' }}/>
+const EditPayrollIcon =()=><img src={EditPayrol} alt='payroll' style={{ width: '20px', height: '20px' }}/>
+const AddPayrollIcon =()=><img src={AddPayRoll} alt='addpayroll' style={{ width: '20px', height: '20px' }}/>
+const StaffSalaryIcon =()=>< img src={StaffSalary} alt="StaffSalary" style={{ width: '20px', height: '20px' }}/>
+const PayRollIcon =()=><img src={PayRoll} alt='payroll' style={{ width: '20px', height: '20px' }}/>
+const ScheduleTwoIcon =()=>< img src={Sheduletwo} alt="Sheduletwo" style={{ width: '20px', height: '20px' }}/>
+const StaffShiftIcon =()=>< img src={StaffShift} alt="staffshift" style={{ width: '20px', height: '20px' }}/>
+const OverviewCalanderIcon =()=><img src={OverviewCalander} alt='OverviewCalander' style={{ width: '20px', height: '20px' }}/>
+const ScheduleIcon=()=><img src={Schedule} alt='Schedule' style={{ width: '24px', height: '20px' }}/>
+const LeaveApplicationIcon=()=>< img src={LeaveApplication} alt="leaveApplication" style={{ width: '20px', height: '20px' }} />
+const LeaveSettingsicon =()=>< img src={LeaveSettings} alt='LeaveSettings' style={{ width: '20px', height: '20px' }}/>
+const AttendenceviewIcon =()=>< img src={AttendenceView} alt="attendenceview" style={{ width: '20px', height: '20px' }}/>
+const RecentAttdenceIcon =()=>< img src={RecentAttendence} alt="recentAttendence" style={{ width: '20px', height: '20px' }}/>
+const AttendenceIcon =()=>< img src={Attendence} alt="attendence" style={{ width: '20px', height: '20px' }}/>
+const StafviewIcon =()=><img src={Stafview} alt='stafprofile' style={{ width: '20px', height: '20px' }}/>
+const StaffListIcon =()=><img src={StafList} alt='StafList' style={{ width: '20px', height: '20px' }}/>
+const RulesIcon =()=><img src={Rules} alt='Rules' style={{ width: '20px', height: '20px' }}/>
+const NoticeBoardIcon=()=><img src={NoticeBoard} alt='NoticBoard' style={{ width: '20px', height: '20px' }}/>
+const MemoIcon =()=><img src={memo} alt='memo' style={{ width: '20px', height: '20px' }}/>
+const  HolidayVillageIcon=()=><img src={HolidayVillage} alt='Holidays' style={{ width: '20px', height: '20px' }}/>
+const AnnouncementIcon =()=><img src={Announcement} alt="Announcement" style={{ width: '20px', height: '20px' }}/>
+const  Interview =()=><img src={InterviewQuestions} alt='Interview'style={{ width: '20px', height: '20px' }}/>
+const JobListIcon=()=><img src={JobListico} alt="JobListin" style={{ width: '20px', height: '20px' }}/>
+const ReceivedApplicationIcon=()=>< img src={RecievedAppliaction} alt="recievedApplication" style={{ width: '20px', height: '20px' }}/>
+const OnbaordingIcon =()=><img src={ONboaeding} alt="onboarding" style={{ width: '20px', height: '20px' }}/>
+const DepartementIcon=()=><img src={Department} alt='Departement' style={{ width: '20px', height: '20px' }}/>
+const SubDashBoard=()=>< img src={SubDashboard} alt='subSidebar' style={{ width: '20px', height: '20px' }}/>
+const StaffIcon=()=>< img src={staf} alt="staf" style={{ width: '20px', height: '20px' }}/>
+const HomeIcon=()=><img src={Home} alt="dashboard" style={{ width: '20px', height: '20px' }} />;
 
-const InterviewQuestionIcon = () => <img src={InterviewIcon} alt="Interview Icon" style={{ width: '24px', height: '24px' }} />;
+
+const InterviewQuestionIcon = () => <img src={InterviewIcon} alt="Interview Icon" style={{ width: '20px', height: '20px' }} />;
 const JobList = () => <img src={JobListIcon} alt="Interview Icon" style={{ width: '20px', height: '20px' }} />;
 const Office = () => <img src={OfficeIcon} alt="Interview Icon" style={{ width: '20px', height: '20px' }} />;
 const Received = () => <img src={ReceivedIcon} alt="Interview Icon" style={{ width: '20px', height: '20px' }} />;
@@ -52,17 +126,17 @@ const TagSupport10 = () => <span style={{fontSize:'12px' , position:'relative' ,
 
 const menuItems = [
     {
-        icon: <HomeIcon fontSize='small' />,
-        label: 'Dashboard',
+        icon: <HomeIcon className='text-2xl'  />,
+        label: 'Home',
         to: [
             {
                 label: 'Dashboard',
-                icon: <HomeOutlinedIcon fontSize='small' className='text-zinc-500' />,
+                icon: <SubDashBoard />,
                 to: '/',
             },
             {
                 label: 'Department',
-                icon: <Office/>,
+                icon: <DepartementIcon/>,
                 to: '/department',
             },
              
@@ -71,50 +145,72 @@ const menuItems = [
                 icon: <Office/>,
                 to: '/docs',
             },
+            
+          
+        ],
+    },
+
+    {
+        icon: <OnbaordingIcon  className='text-2xl' />,
+        label: 'Onboarding',
+        to: [
             {
-                label: 'Interview Question',
-                icon:  <InterviewQuestionIcon  className='text-zinc-500' />,
-                to: '/interviewquestions',
+                label: 'Received Applications',
+                icon: <ReceivedApplicationIcon/>,
+                to: '/receivedapplications',
             },
             {
                 label: 'Job Listing',
-                icon:<JobList  className='text-zinc-500'/>,
+                icon:<JobListIcon  />,
                 to: '/joblisting',
-            },{
-                icon: <GroupsIcon fontSize='small' />,
+            },
+            {
+                label: 'Interview Question',
+                icon:  <Interview  className='text-zinc-500' />,
+                to: '/interviewquestions',
+            },
+        ],
+    },
+
+    {
+        icon: <HiSpeakerWave className='text-2xl'  />,
+        label: 'Announcement',
+        to: [
+            {
+                label: 'Holiday',
+                icon: <HolidayVillageIcon fontSize='small' />,
+                to: '/holidays',
+            },
+            {
+                icon: <MemoIcon fontSize='small' />,
                 label: 'Memos',
                 to: '/memo',
             },
-
             {
-                icon: <GroupsIcon fontSize='small' />,
+                icon: <NoticeBoardIcon fontSize='small' />,
                 label: 'Notice Board',
                 to: '/noticeboard',
             },
             {
-                label: 'Received Applications',
-                icon: <Received/>,
-                to: '/receivedapplications',
-            },
-            {
-                icon: <GroupsIcon fontSize='small' />,
+                icon: <RulesIcon fontSize='small' />,
                 label: 'Rules & Regulations',
                 to: '/rulesandregulations',
             },
         ],
     },
+
     {
-        icon: <GroupsIcon fontSize='small' />,
+        icon: <StaffIcon className='text-2xl'  />,
         label: 'Staff',
         to: [
             {
-                label: 'Employee List',
-                icon: <Person/>,
+                label: 'Staff List',
+                icon: <StaffListIcon/>,
                 to: '/employees',
             },
             {
-                label: 'Employee View',
-                icon: <Person/>,
+                label: 'Staff Profile',
+                icon: <StafviewIcon/>,
                 to: '/performance/view',
             },
             {
@@ -126,57 +222,55 @@ const menuItems = [
     },
     {
         label: 'Attendance',
-        icon: <DashboardOutlined fontSize='small' />,
+        icon: <AttendenceIcon  className='text-2xl'  />,
         to: [
             {
+                label: 'Recent Attendence',
+                icon: <RecentAttdenceIcon/>,
+                to: 'RecentAttendence',
+            },
+           
+            {
                 label: 'Attendance View',
-                icon: <Attend />,
+                icon: <AttendenceviewIcon />,
                 to: '/attendanceview',
             },
             {
                 label: 'Leave Setting',
-                icon: <Leave/>,
+                icon: <LeaveSettingsicon/>,
                 to: '/leavesettings',
             },
             {
                 label: 'Leave Application',
-                icon: <Download/>,
+                icon: <LeaveApplicationIcon/>,
                 to: '/leaveapplication',
             },
             {
                 label: 'Attendance By User',
                 icon: <Person/>,
                 to: '/attendance',
-            },  {
-                label: 'Recent Attendence',
-                icon: <Person/>,
-                to: 'RecentAttendence',
             },
-           
         ],
     },
     {
-        icon: <GroupsIcon fontSize='small' />,
+        icon: <ScheduleIcon className='text-2xl'  /> ,
         label: 'Schedule',
+        betaTag: true,
         to: [
             {
                 label: 'Overview Calendar',
-                icon: <Person/>,
+                icon: <OverviewCalanderIcon/>,
                 to: 'Schudle',
             },
             {
-                label: 'Employee Shift',
-                icon: <Person/>,
+                label: 'Staff Shift',
+                icon: <StaffShiftIcon/>,
                 to: 'hfh',
             },
-            {
-                label: 'Holiday',
-                icon: <HolidayVillageIcon fontSize='small' />,
-                to: '/holidays',
-            },
+           
             {
                 label: 'Schedule',
-                icon: <Person/>,
+                icon: <ScheduleTwoIcon/>,
                 to: 'fnfn',
             },
         ],
@@ -186,16 +280,17 @@ const menuItems = [
    
     {
         label: 'Payroll',
-        icon: <DashboardOutlined fontSize='small' />,
+        icon: <PayRollIcon className='text-2xl'  />,
+        betaTag: true,
         to: [
             {
-                label: 'Employee Salary',
-                icon: <Attend />,
+                label: 'Staff Salary',
+                icon: <StaffSalaryIcon />,
                 to: '/employeesalary',
             },
             {
                 label: 'Add Payroll',
-                icon: <Leave/>,
+                icon: <AddPayrollIcon/>,
                 to: '/addpayroll',
             },
             {
@@ -205,36 +300,129 @@ const menuItems = [
             },
             {
                 label: 'Edit Payroll',
-                icon: <Download/>,
+                icon: <EditPayrollIcon/>,
                 to: '/editpayroll',
             },
            
         ],
     },
-    
-    
+
     {
-        label: 'Admin',
-        icon: <DashboardOutlined fontSize='small' />,
-        to: [
-            {
-                label: 'General Settings',
-                icon: <Attend />,
-                to: '/generalsetting',
-            },
-            {
-                label: 'API Settings',
-                icon: <Leave/>,
-                to: '/apisetting',
-            },
-            {
-                label: 'Role Access',
-                icon: <Download/>,
-                to: '/rollaccess',
-            },
-           
-        ],
+        label:"Operation",
+        icon:< OperationIcon />,
+        to:[
+            // {
+                
+            //                   label: 'General Settings',
+            //                   icon: <Attend /> ,
+            //                   to: '/generalsetting',
+                          
+            // }
+        ]
     },
+     {
+        label:"Reports",
+        icon:< ReportIcon  />,
+        to:[
+            // {
+                
+            //                   label: 'General Settings',
+            //                   icon: <Attend /> ,
+            //                   to: '/generalsetting',
+                          
+            // }
+        ]
+    },
+    {
+        label:"Performance",
+        icon:< PerformanceIcon />,
+        to:[
+            // {
+                
+            //                   label: 'General Settings',
+            //                   icon: <Attend /> ,
+            //                   to: '/generalsetting',
+                          
+            // }
+        ]
+
+    },
+    {
+        label:"Apps",
+        icon:< AppIcon/>,
+        to:[
+            // {
+                
+            //                   label: 'General Settings',
+            //                   icon: <Attend /> ,
+            //                   to: '/generalsetting',
+                          
+            // }
+        ]
+    }
+
+
+
+   
+    
+    // {
+    //     label: 'Admin',
+    //     icon: <DashboardOutlined fontSize='small' />,
+    //     to: [
+    //         {
+    //             label: 'General Settings',
+    //             icon: <Attend /> ,
+    //             to: '/generalsetting',
+    //         },
+    //         {
+    //             label: 'API Settings',
+    //             icon: <Leave/>,
+    //             to: '/apisetting',
+    //         },
+    //         {
+    //             label: 'Role Access',
+    //             icon: <Download/>,
+    //             to: '/rollaccess',
+    //         },
+           
+    //     ],
+    // },
 ];
 
-export { menuItems };
+
+const ChatItems = [
+    {
+      label: "Teams Chat",
+     
+     betaTag:true, // Optional: badge count for unread messages
+     subItems:[
+        { icon: <ChatIcon />, badgeCount: 5,to:"/chat" },
+     ],
+     mainItem:[
+       ""
+     ]
+    },
+    {
+      label: "Social Apps",
+      subItems: [
+        { label: "Crew", icon: <CrewIcon/>, newTag: true ,callTag:true },
+        { label: "Chat", icon: <SmSICon />,betaTag:true,  batacount : 5 },
+      ],
+      mainItem:[
+        {
+            label: "Teams Chat", icon: <ChattwoIcon />, badgeCount: 0 
+       },
+        {
+             label: "Crew", icon: <CrewIcon/>, badgeCount: 0 
+            
+        },
+        {
+            label: "Chat", icon: <SmSICon/>, badgeCount: 0 
+           
+       }
+     ]
+    },
+  ];
+
+
+export { menuItems, ChatItems };

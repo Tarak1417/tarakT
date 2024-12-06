@@ -38,6 +38,7 @@ import { useRefresh } from "../components/Header";
 
 import Interduction from "./Interduction";
 import PlusIcon from "../assets/CloclIcons/Add Button (1).png";
+import Department from "./Dashboard/Team/Department";
 const Dashboard = () => {
   const navigate = useNavigate(); // Get the navigate function
 
@@ -110,7 +111,8 @@ const Dashboard = () => {
       icon: (
         <ApartmentIcon
           fontSize="medium"
-          className="text-white bg-[#E05353] p-1 rounded-lg items-center"        />
+          className="text-white bg-[#E05353] p-1 rounded-lg items-center"
+        />
       ),
       title: "Department",
       value: (
@@ -131,7 +133,8 @@ const Dashboard = () => {
       icon: (
         <AttachMoneyIcon
           fontSize="medium"
-          className="text-white bg-[#3E80E5] p-1 rounded-lg"/>
+          className="text-white bg-[#3E80E5] p-1 rounded-lg"
+        />
       ),
       title: "Expenses",
       value: (
@@ -160,8 +163,8 @@ const Dashboard = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [switchScreen, setSwitchScreen] = useState({
-    first: "team",
-    second: "reportees",
+    first: "mySpace",
+    second: "overview",
   });
 
   const handleSwitchScreen = (screen) => {
@@ -228,7 +231,7 @@ const Dashboard = () => {
           handleSwitchScreen({ first: switchScreen.first, second: btn.second })
         }
         color="primary"
-        sx={{ ml: "1rem" }}
+        // sx={{ ml: "1rem" }}
       >
         {btn.label}
       </Button>
@@ -236,9 +239,11 @@ const Dashboard = () => {
   };
 
   return (
-    <Box sx={{ backgroundColor: "background.default", width: "93vw", mx: "auto" }}>
-      <div className="flex flex-col gap-5 py-2 px-6">
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+    <Box
+      sx={{ backgroundColor: "background.default", width: "93vw", mx: "auto" }}
+    >
+      <div className="flex flex-col gap-3 px-7">
+        <Box>
           <Tabs
             value={tabs.findIndex((tab) => tab.value === switchScreen.first)}
             onChange={(event, newValue) => {
@@ -257,9 +262,11 @@ const Dashboard = () => {
             ))}
           </Tabs>
         </Box>
-        <div>{renderButtons()}</div>
+        <div className="flex flex-row gap-3 p-2 bg-zinc-800 bg-opacity-40 rounded-lg">
+          {renderButtons()}
+        </div>
       </div>
-      <div className="w-full flex flex-col gap-2 py-2 px-6 md:flex-row">
+      <div className="w-full flex flex-col gap-1 py-3 px-7 md:flex-row">
         {switchScreen.first === "mySpace" &&
         switchScreen.second === "overview" ? (
           <>
@@ -297,6 +304,14 @@ const Dashboard = () => {
         switchScreen.second === "reportees" ? (
           <>
             <Reportees />
+          </>
+        ) : (
+          <></>
+        )}
+        {switchScreen.first === "team" &&
+        switchScreen.second === "department" ? (
+          <>
+            <Department />
           </>
         ) : (
           <></>
