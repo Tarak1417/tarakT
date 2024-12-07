@@ -31,8 +31,8 @@ export default function ProfilePreview() {
         <Box
           sx={{
             position: "relative",
-            width: image ? "150px" : "200px",
-            height: image ? "170px" : "200px",
+            width: image ? "130px" : "130px",
+            height: image ? "130px" : "130px",
             borderRadius: image ? "10px" : "50%",
             overflow: "hidden",
             border: image ? "" : "2px solid #3B84D9",
