@@ -24,7 +24,8 @@ import { Link } from "react-router-dom";
 import useModal from "../../hooks/useModal";
 import noRecord from "../../assets/initalScreen/employeeList.svg";
 import TerminationModal from "./TerminationModal";
-import { useLocation } from 'react-router-dom';
+import CloseIcon from '@mui/icons-material/Close';
+
 const EmployeePage = () => {
   const {
     modalState: viewOfferLetter,
@@ -44,15 +45,14 @@ const EmployeePage = () => {
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState("Active");
   const employees = useEmployees();
-  const location = useLocation();
 
   console.log(employees);
 
-  const  fetchEmploees = useCallback(
+  const fetchEmploees = useCallback(
     async (search = "") => {
       try {
         const response = await axios.get(
-          `/hr/employee?searchBy=firstName&search=${search}&sortBy=order&status=${status}&page=${page}`
+          `/hr/employee?searchBy=firstName&search=${search}&sortBy=order&status=&page=${page}`
         );
         setEmployLists(response?.data?.employees);
         setPageLimit(response?.data?.pageData.totalPages);
@@ -72,19 +72,26 @@ const EmployeePage = () => {
     [setEmployLists, page, status]
   );
 
+  const removeRecord = useCallback(async (id) => {
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm("Are you sure to remove employee records")) {
+      const response = await axios.delete(`/hr/employee/remove-records/${id}`);
+      fetchEmploees();
+    }
+  }, [fetchEmploees]);
   const filterNewEmployee = (items) => {
     const today = new Date();
     const next7Days = new Date(today);
     next7Days.setDate(today.getDate() - 7);
 
-    let NewEmployee  = items.filter(item => {
-        const itemDate = new Date(item.dateOfJoining);
-        return itemDate >= next7Days;
+    let NewEmployee = items.filter(item => {
+      const itemDate = new Date(item.dateOfJoining);
+      return itemDate >= next7Days;
     });
- 
-    console.log("NewEmployee " , NewEmployee) 
-    setNewEmployee(NewEmployee?.length || 0 );
-};
+
+    console.log("NewEmployee ", NewEmployee)
+    setNewEmployee(NewEmployee?.length || 0);
+  };
 
   const fetchDepartment = useCallback(
     async function () {
@@ -202,16 +209,8 @@ const EmployeePage = () => {
     openModal: openAddEmployee,
   } = useModal();
 
-  useEffect(() => {
-   
-    if (location.state?.openModal) {
-        
-        openAddEmployee();
-    }
-}, [location.state]);
-
   return (
-    <Box sx={{ backgroundColor: "background.main",height:'70vh' }}>
+    <Box sx={{ backgroundColor: "background.main", height: '70vh' }}>
       <div className="flex flex-col p-4">
         <div className="flex items-center justify-between md:w-full ">
           <div className="p-2">
@@ -370,15 +369,31 @@ const EmployeePage = () => {
                           <Tooltip title="Suspend Employee">
                             <IconButton
                               onClick={() =>
+                                removeRecord(employee._id)
+                              }
+                            >
+                              <CloseIcon
+                                style={{ fontSize: "12px" }}
+                                className=" rounded-sm"
+                                color="error"
+                              />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title="Terminate Employee">
+                            <IconButton
+                              onClick={() =>
                                 handleChangeTermination(employee._id)
                               }
                             >
                               <DeleteOutlineOutlinedIcon
                                 style={{ fontSize: "12px" }}
-                                className="text-blue-500 rounded-sm"
+                                className=" rounded-sm"
+                                color="warning"
                               />
                             </IconButton>
                           </Tooltip>
+
+
                         </div>
                       </div>
                     </Grid>
