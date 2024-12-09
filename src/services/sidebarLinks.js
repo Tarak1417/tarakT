@@ -65,15 +65,15 @@ import { MdOutlineBarChart } from "react-icons/md";
 import Chat from "../assets/SidebarIcons/Group 1221.png"
 import Chattwo from "../assets/SidebarIcons/chatAPp.png"
 import Crew from "../assets/SidebarIcons/Clikkle Crew Logo-01 1.png"
-import Call from "../assets/SidebarIcons/Clikkle sms-01 1.png"
+import Call from "../assets/SidebarIcons/Clikkle sms-01 1 (3).png"
 import Operaation from "../assets/SidebarIcons/Operations.png"
 import Apps from "../assets/SidebarIcons/Apps.png"
-const OperationIcon =()=>< img src={Operaation} alt="Operation" style={{height:"24px",width:"24px"}}/>
-const AppIcon =()=>< img src={Apps} alt="Apps" style={{height:"24px",width:"24px"}}/>
+const OperationIcon =()=>< img src={Operaation} alt="Operation" style={{height:"20px",width:"20px"}}/>
+const AppIcon =()=>< img src={Apps} alt="Apps" style={{height:"20px",width:"20px"}}/>
 
-const SmSICon=()=><img src={Call} alt='Call' style={{ width: '28px', height: 'auto' }}/>
-const CrewIcon =()=><img src={Crew} alt='Crew' style={{ width: '28px', height: 'auto' }}/>
-const ChattwoIcon =()=><img src={Chattwo} alt='Chattwo' style={{ width: '28px', height: 'auto' }}/>
+const SmSICon=()=><img src={Call} alt='Call' style={{ width: '25px', height: 'auto' }}/>
+const CrewIcon =()=><img src={Crew} alt='Crew' style={{ width: '25px', height: 'auto' }}/>
+const ChattwoIcon =()=><img src={Chattwo} alt='Chattwo' style={{ width: '25px', height: 'auto' }}/>
 const ChatIcon =()=><img src={Chat} alt='Chat' style={{ width: '250px', height: 'auto' }}/>
 
 
@@ -111,20 +111,20 @@ const TagSupport10 = () => <span style={{fontSize:'12px' , position:'relative' ,
 const menuItems = [
     {
 
-        icon: <BsGridFill className='text-2xl' />,
+        icon: <BsGridFill style={{height:"20px",width:"20px"}}/>,
 
         label: 'Home',
         to: [
             {
                 label: 'Dashboard',
-                icon: <CiGrid41 className='text-2xl' />,
+                icon: <CiGrid41 style={{height:"20px",width:"20px"}} />,
 
                 to: '/',
             },
             {
                 label: 'Department',
 
-                icon: <TbBuilding className='text-2xl'/>,
+                icon: <TbBuilding style={{height:"20px",width:"20px"}}/>,
 
                 to: '/department',
             },
@@ -168,16 +168,16 @@ const menuItems = [
     },
     {
         label: 'Onbording',
-        icon: <FaHandshake className='text-2xl' />,
+        icon: <FaHandshake style={{height:"20px",width:"20px"}} />,
         to: [
             {
                 label: 'Received Application',
-                icon: <BiServer  className='text-2xl'/>,
+                icon: <BiServer style={{height:"20px",width:"20px"}}/>,
                 to: '/receivedapplications',
             },
             {
                 label: 'Job Listing',
-                icon: <TbShoppingBagPlus className='text-2xl'/>,
+                icon: <TbShoppingBagPlus style={{height:"20px",width:"20px"}}/>,
                 to: '/joblisting',
             },
             
@@ -200,28 +200,28 @@ const menuItems = [
     // },
     {
         label: 'Announcement',
-        icon: <HiSpeakerWave className='text-2xl' />,
+        icon: <HiSpeakerWave style={{height:"20px",width:"20px"}} />,
         to: [
             {
                 label: 'Holiday',
-                icon: <IoCalendarOutline  className='text-2xl'/>,
+                icon: <IoCalendarOutline  style={{height:"20px",width:"20px"}}/>,
                 to: '/holidays',
             },
             {
                 label: 'Memo',
-                icon: <RiContactsBook3Line className='text-2xl'/>,
+                icon: <RiContactsBook3Line style={{height:"20px",width:"20px"}}/>,
                 to: '/memo',
             },
             {
 
                 label: 'Notice Board',
-                icon: <IoMdClipboard className='text-2xl'/>,
+                icon: <IoMdClipboard style={{height:"20px",width:"20px"}}/>,
                 to: '/noticeboard',
             },
             {
 
                 label: 'Rules & Regulations',
-                icon: <BiBookContent className='text-2xl'/>,
+                icon: <BiBookContent style={{height:"20px",width:"20px"}}/>,
                 to: '/rulesandregulations',
             }
             
@@ -232,17 +232,17 @@ const menuItems = [
 
 
         label: 'Staff',
-        icon: <FaUserGroup className='text-2xl' />,
+        icon: <FaUserGroup style={{height:"20px",width:"20px"}} />,
         to: [
             {
                 label: 'Staff List',
 
-                icon: <CiBoxList  className='text-2xl'/>,
+                icon: <CiBoxList  style={{height:"20px",width:"20px"}}/>,
                 to: '/employees',
             },
             {
                 label: 'Staf People',
-                icon: <AiOutlineUser className='text-2xl'/>,
+                icon: <AiOutlineUser style={{height:"20px",width:"20px"}}/>,
 
                 to: '/performance/view',
             },
@@ -251,30 +251,30 @@ const menuItems = [
     },
     {
         label: 'Attendance',
-        icon: <FaAddressCard className='text-2xl' />,
+        icon: <FaAddressCard style={{height:"20px",width:"20px"}}/>,
         to: [
             {
                 label: 'Recent Attendance',
-                icon: <RiTimer2Line  className='text-2xl'/>,
+                icon: <RiTimer2Line  style={{height:"20px",width:"20px"}}/>,
                 to: '/recentAttendence',
             },
             {
                 label: 'Attendance View',
-                icon: <FaRegAddressCard className='text-2xl'/>,
+                icon: <FaRegAddressCard style={{height:"20px",width:"20px"}}/>,
 
                 to: '/attendanceview',
             },
             {
                 label: 'Leave Setting',
 
-                icon: <LuUserCog className='text-2xl'/>,
+                icon: <LuUserCog style={{height:"20px",width:"20px"}}/>,
 
                 to: '/leavesettings',
             },
             {
                 label: 'Leave Application',
 
-                icon: <RiUser3Line className='text-2xl'/>,
+                icon: <RiUser3Line style={{height:"20px",width:"20px"}}/>,
                 to: '/leaveapplication',
             }
             
@@ -282,21 +282,21 @@ const menuItems = [
     },
     {
         label: 'Schedule',
-        icon: <IoCalendar  className='text-2xl' />,
+        icon: <IoCalendar style={{height:"20px",width:"20px"}} />,
         to: [
             {
                 label: 'Overview Calendar',
-                icon: <RiTimer2Line  className='text-2xl'/>,
+                icon: <RiTimer2Line  style={{height:"20px",width:"20px"}}/>,
                 to: '/schudle',
             },
             {
                 label: 'Staff Shift',
-                icon: <GoPeople className='text-2xl'/>,
+                icon: <GoPeople style={{height:"20px",width:"20px"}}/>,
                 to: '/hfh',
             },
             {
                 label: 'Schedule',
-                icon: <IoCalendarOutline className='text-2xl'/>,
+                icon: <IoCalendarOutline style={{height:"20px",width:"20px"}}/>,
                 to: '/fnfn',
 
             },
@@ -306,25 +306,25 @@ const menuItems = [
     {
         label: 'Payroll',
 
-        icon: <BsCreditCardFill  className='text-2xl' />,
+        icon: <BsCreditCardFill  style={{height:"20px",width:"20px"}} />,
         to: [
             {
                 label: 'Staff Salary',
-                icon: <GoPeople className='text-2xl'/>,
+                icon: <GoPeople style={{height:"20px",width:"20px"}}/>,
 
                 to: '/employeesalary',
             },
             {
                 label: 'Add Payroll',
 
-                icon: <MdAddCard  className='text-2xl'/>,
+                icon: <MdAddCard style={{height:"20px",width:"20px"}}/>,
 
                 to: '/addpayroll',
             },
             {
                 label: 'Edit Payroll',
 
-                icon: <MdMovieEdit className='text-2xl'/>,
+                icon: <MdMovieEdit style={{height:"20px",width:"20px"}}/>,
 
                 to: '/editpayroll',
             },
@@ -350,7 +350,7 @@ const menuItems = [
     
     {
         label:"Reports",
-        icon:< MdPieChart className='text-2xl'/> ,
+        icon:< MdPieChart style={{height:"20px",width:"20px"}}/> ,
         to:[
             // {
             //     label: 'Edit Payroll',
@@ -366,7 +366,7 @@ const menuItems = [
     
     {
         label:"Performance",
-        icon:<MdOutlineBarChart  className='text-2xl'/> ,
+        icon:<MdOutlineBarChart  style={{height:"20px",width:"20px"}}/> ,
         to:[
             // {
             //     label: 'Edit Payroll',
@@ -552,14 +552,14 @@ const ChatItems = [
       ],
       mainItem:[
         {
-            label: "Teams Chat", icon: <ChattwoIcon className="text-2xl" />, badgeCount: 0 
+            label: "Teams Chat", icon: <ChattwoIcon  />, badgeCount: 0 
        },
         {
-             label: "Crew", icon: <CrewIcon className="text-2xl" />, badgeCount: 0 
+             label: "Crew", icon: <CrewIcon />, badgeCount: 0 
             
         },
         {
-            label: "Chat", icon: <SmSICon className="text-2xl" />, badgeCount: 0 
+            label: "Chat", icon: <SmSICon />, badgeCount: 0 
            
        }
      ]

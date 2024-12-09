@@ -146,6 +146,7 @@ const clikkleApps = [
     name: "Pitch",
     url: "https://pitch.clikkle.com/",
     logo: ClikklePitch,
+
   },
 
   {
@@ -467,7 +468,7 @@ const handleCloseset = () => {
     };
   }, []);
 
-  const SideBarLinkButton = ({ menus, chats }) => {
+ const SideBarLinkButton = ({ menus, chats }) => {
     return (
       <>
        {menus.map((link) => (
@@ -542,6 +543,7 @@ const handleCloseset = () => {
           </NavLink>
         ))}
         
+        
 {Array.isArray(chats) &&
   chats.map((chat, index) => (
   <NavLink
@@ -598,6 +600,11 @@ const handleCloseset = () => {
             style={{
               textDecoration: "none",
               color: "inherit",
+              display: "flex",
+        alignItems: "center", 
+        justifyContent: "flex-start", 
+     
+              
             }}
           >
            <ListItemButton
@@ -608,7 +615,13 @@ const handleCloseset = () => {
     },
   }}
 >
-  <div style={{ position: "relative", display: "inline-block" }}>
+  <div style={{
+        display: "flex",
+        alignItems: "center", 
+        justifyContent: "flex-start", 
+     
+      }}>
+  <div style={{ position: "relative"  }}>
     {/* Icon */}
     <ListItemIcon
       sx={{
@@ -616,7 +629,7 @@ const handleCloseset = () => {
         color: "text.secondary",
         marginLeft: "-10px",
         marginTop: "-40px",
-        marginBottom: "-50px",
+        marginBottom: "-60px",
       }}
     >
       {subItem.icon}
@@ -648,7 +661,7 @@ const handleCloseset = () => {
   </div>
   <ListItemText
     primary={
-      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "8px" ,marginTop:"-5px" }}>
         <span>{subItem.label}</span>
 
         {subItem.betaTag && (
@@ -675,11 +688,12 @@ const handleCloseset = () => {
               width: "20px",
               height: "20px",
               display: "flex",
+              padding: "10px 10px",
               alignItems: "center",
               justifyContent: "center",
               fontSize: "9px",
               fontWeight: "bold",
-              marginLeft: "80px",
+              marginLeft: "60px",
             }}
           >
             {subItem.batacount}
@@ -692,7 +706,9 @@ const handleCloseset = () => {
               color: "green",
               border: "1.5px solid green",
               borderRadius: "5px",
-              padding: "2px 6px",
+              padding: "3px 6px",
+              width: "auto",
+              height: "20px",
               fontSize: "9px",
             
             }}
@@ -703,7 +719,11 @@ const handleCloseset = () => {
         {subItem.callTag && (
           <span
             style={{
-              marginLeft: "80px",
+              height:"20px",
+              width:"20px",
+
+
+              marginLeft: "60px",
             }}
           >
             <CallTagiCon />
@@ -712,6 +732,7 @@ const handleCloseset = () => {
       </div>
     }
   />
+  </div>
 </ListItemButton>
 
 
@@ -756,8 +777,16 @@ const handleCloseset = () => {
       </Box>
 
       <Box
-        sx={{ overflowY: "auto", height: "calc(100dvh - 90px)", flexGrow: 1 }}
-      >
+  sx={{
+    overflowY: "auto",
+    height: "calc(100dvh - 90px)",
+    flexGrow: 1,
+    overflow: "scroll", 
+    "&::-webkit-scrollbar": { display: "none" }, 
+    "-ms-overflow-style": "none",
+    "scrollbar-width": "none", 
+  }}
+>
         {/* <Typography variant='body2' pl={3} mt={1.5} fontSize='16px' fontWeight={500}>
                     Hr Manager
                 </Typography> */}
@@ -887,55 +916,10 @@ const handleCloseset = () => {
         to="/"
         sx={{ textDecoration: "none", color: "text.primary", py: 1 }}
       >
-        <Image cdn="hr/logo/2023/hr.png" sx={{ height: "50px" }} />
+        <Image cdn="hr/logo/2023/hr.png" sx={{ height: "36px" }} />
       </Box>
 
       <Box
-        sx={{
-          overflowY: "auto",
-          overflowX: "hidden",
-          height: "calc(100dvh - 90px)",
-          flexGrow: 1,
-        }}
-      >
-        <List sx={{ px: 1 }}>
-          {menuItems.map((link) => (
-            <NavLink
-              to={link.to}
-              key={link.to}
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              {({ isActive }) => (
-                <ListItem disablePadding>
-                  <ListItemButton
-                    disableRipple
-                    disableTouchRipple
-                    variant="sidebarButton"
-                    {...(Array.isArray(link.to)
-                      ? {
-                        selected: collapsesState[link.name],
-                        onClick: () => modifyCollapsesState(link.name),
-                      }
-                      : {
-                        to: link.to,
-                        selected: isActive,
-                      })}
-                    sx={{ height: "45px", my: "2px" }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        // minWidth: '35px',
-                        color: "text.secondary",
-                      }}
-                    >
-                      {link.icon}
-                    </ListItemIcon>
-                  </ListItemButton>
-                </ListItem>
-              )}
-            </NavLink>
-          ))}
-        </List>
   sx={{
     overflowY: "auto",
     height: "calc(100dvh - 90px)",
@@ -983,7 +967,7 @@ const handleCloseset = () => {
                       alignItems:"center",
                       marginLeft:"-15px",
                       gap:"3px",
-                      mb:"1"
+                  
                       
          
                     }}
@@ -1011,6 +995,7 @@ const handleCloseset = () => {
       
         display: "flex",
         flexDirection: "column",
+
       }}
     />
     {chat. mainItem && (
@@ -1021,15 +1006,17 @@ const handleCloseset = () => {
             sx={{
               display: "flex",
               flexDirection: "column", // Arrange icon and label vertically
-              alignItems: "center",   // Center align
-            gap:"3"         // Add spacing between icon and label
+              alignItems: "center", 
+        // Center align
+                 // Add spacing between icon and label
             }}
           >
             <ListItemIcon
               sx={{
                 color: "text.secondary",
                 display: "flex",
-                justifyContent: "center", // Center align icon
+                justifyContent: "center",
+                 // Center align icon
               }}
             >
               { mainItem.icon}
@@ -1041,6 +1028,7 @@ const handleCloseset = () => {
                     display: "flex",
                     flexDirection: "row", // Badge and label in a row
                     alignItems: "center",
+                    marginBottom:"-10px" ,
                            // Add spacing between label and badge
                   }}
                 >
@@ -1120,6 +1108,7 @@ const handleCloseset = () => {
           transition: "ease-in-out 225ms, background-color 0s",
         }}
       >
+        
         <Toolbar
           sx={{
             flexDirection: "column",
@@ -1144,6 +1133,7 @@ const handleCloseset = () => {
               >
                 <MenuIcon sx={{ fontSize: "30px" }} />
               </IconButton>
+              
             </Grid>
 
 
@@ -1522,8 +1512,8 @@ const handleCloseset = () => {
                                 src={app.logo}
                                 key={app.order}
                                 sx={{
-                                  mt: 0.8,
-                                  width: "auto",
+                                
+                                  width: "30px",
                                 }}
                                 imageSx={{
                                   filter:
@@ -1576,8 +1566,6 @@ const handleCloseset = () => {
               />
             )}
           </Stack>
-
-          {/* <Box 
          
           <Box 
       sx={{ 
@@ -1594,7 +1582,6 @@ const handleCloseset = () => {
         padding: '10px', // Optional padding for better appearance
       }}
     >
-      <Button onClick={handleChatbox}>
       {/* <Button onClick={handleChatbox}>
 <Box sx={{ display:'flex',flexDirection:"column",textAlign:'center'}}>
       <Image src={BotIcon}  alt="Bot Icon"
@@ -1602,8 +1589,6 @@ const handleCloseset = () => {
 
         <Typography sx={{color:'white',fontSize:'13px',fontFamily:'sans-serif'}} >Chat</Typography>
         </Box>
-        </Button>
-    </Box> */}
         </Button> */}
     </Box>
         </Box>

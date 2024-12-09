@@ -41,7 +41,7 @@ import PlusIcon from "../assets/CloclIcons/Add Button (1).png";
 import Department from "./Dashboard/Team/Department";
 import TeamList from "./Dashboard/Team/TeamList";
 import HRProcess from "./Dashboard/Team/HRProcess";
-const Dashboard = () => {
+const Dashboard = ({collapseDrawer, drawerHover }) => {
   const navigate = useNavigate(); // Get the navigate function
 
   const [overview, setOverview] = useState({});
@@ -242,8 +242,11 @@ const Dashboard = () => {
 
   return (
     <Box
-      sx={{ backgroundColor: "background.default", width: "93vw", mx: "auto" }}
-    >
+    sx={{
+      backgroundColor: "background.default",
+      width: collapseDrawer ? "91vw" : "82vw", 
+    }}
+  >
       <div className="flex flex-col gap-3 px-7">
         <Box>
           <Tabs
