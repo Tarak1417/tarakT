@@ -105,7 +105,7 @@ export default function Overview() {
           sx={{
             backgroundColor: "background.default",
           }}
-          className="w-full flex flex-row  justify-between items-center rounded-lg border border-gray-800"
+          className="w-full flex flex-row  justify-between items-center"
         >
           <Tabs
             value={currentTabIndex}
