@@ -41,6 +41,8 @@ import PlusIcon from "../assets/CloclIcons/Add Button (1).png";
 import Department from "./Dashboard/Team/Department";
 import TeamList from "./Dashboard/Team/TeamList";
 import HRProcess from "./Dashboard/Team/HRProcess";
+import OrganizationOverview from "./Dashboard/Organization/OrganizationOverview";
+
 const Dashboard = () => {
   const navigate = useNavigate(); // Get the navigate function
 
@@ -328,6 +330,14 @@ const Dashboard = () => {
         switchScreen.second === "hrProcess" ? (
           <>
             <HRProcess />
+          </>
+        ) : (
+          <></>
+        )}
+        {switchScreen.first === "organization" &&
+        switchScreen.second === "overview" ? (
+          <>
+            <OrganizationOverview />
           </>
         ) : (
           <></>
