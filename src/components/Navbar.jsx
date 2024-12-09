@@ -58,7 +58,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import CloudOutlinedIcon from "@mui/icons-material/CloudOutlined";
-import { menuItems,ChatItems } from "../services/sidebarLinks";
+import { menuItems } from "../services/sidebarLinks";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import If from "./If";
@@ -99,12 +99,11 @@ import ClikkleProject from "../assets/ClikkleFavicons/Clikkle Projects-01.png";
 import ClikkleLaunch from "../assets/ClikkleFavicons/Clikkle Launch favicon.png";
 import OrganizationDropDown from "../pages/Organization/OrganizationDropDown";
 import Footer from "../pages/Footer";
-import callTag from "../assets/SidebarIcons/Group 1555.png"
 
 
 //Button
 import Upgradebutton from '../components/Button/GradientButton';
-const CallTagiCon =()=>< img src={callTag} alt="callTag" style={{height:"20px", width:"20px"}}/>
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 const clikkleApps = [
   {
@@ -235,34 +234,36 @@ export default function Navbar(props) {
 
 
 
-  
-const [open, setOpen] = useState(false); // 
 
-const handleOpen = () => setOpen(true);
-const handleCloseUpgrate =()=> 
-  setOpen(false)
+  const [open, setOpen] = useState(false); // 
 
+  const handleOpen = () => {
+    fetchEmploees();
+    setOpen(true);
+  };
+  const handleCloseUpgrate = () =>
+    setOpen(false)
 
-const [opensetting, setOpene] = useState(false); 
+  const [opensetting, setOpene] = useState(false);
 
-const handleOpenset = () => {
-setOpene(true);
-};
-
-
-
-// const handleChatbox =()=>{
-//   navigate('/chat')
-// }
+  const handleOpenset = () => {
+    setOpene(true);
+  };
 
 
-const taketotheSubscriptionpage =() =>{
-  navigate('/paymet-gateway')
-}
 
-const handleClose = () => {
-  setAnchorEl(null); // This will close the menu
-};
+  const handleChatbox = () => {
+    navigate('/chat')
+  }
+
+
+  const taketotheSubscriptionpage = () => {
+    navigate('/paymet-gateway')
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null); // This will close the menu
+  };
   const closeAllCollapsesState = (label) => {
     let tempCollapsesState = { ...collapsesState };
     for (let key in tempCollapsesState) {
@@ -271,13 +272,13 @@ const handleClose = () => {
     setCollapsesState(tempCollapsesState);
   };
 
-  
 
 
 
-const handleCloseset = () => {
-  setOpene(false);
-};
+
+  const handleCloseset = () => {
+    setOpene(false);
+  };
 
 
   const {
@@ -435,6 +436,26 @@ const handleCloseset = () => {
       encodeURIComponent(env("DOMAIN"));
     window.location.replace(redirectTo);
   };
+  const [employLists, setEmployLists] = useState(null);
+  const fetchEmploees = useCallback(
+    async () => {
+      try {
+        const response = await axios.get(
+          `/hr/employee?searchBy=firstName&search=&sortBy=order&status=&page=1`
+        );
+        setEmployLists(response?.data?.employees);
+
+        // console.log(Date.now())
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    [setEmployLists]
+  );
+  useEffect(() => {
+    fetchEmploees();
+
+  }, [fetchEmploees]);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -468,10 +489,10 @@ const handleCloseset = () => {
     };
   }, []);
 
-  const SideBarLinkButton = ({ menus, chats }) => {
+  const SideBarLinkButton = ({ menus }) => {
     return (
       <>
-       {menus.map((link) => (
+        {menus.map((link) => (
           <NavLink
             to={link.to}
             key={link.label}
@@ -488,15 +509,15 @@ const handleCloseset = () => {
                   variant="sidebarButton"
                   {...(Array.isArray(link.to)
                     ? {
-                        selected: collapsesState[link.label],
-                        variant: "sidebarDropDown",
-                        onClick: () => modifyCollapsesState(link.label),
-                        sx: { pr: 0 },
-                      }
+                      selected: collapsesState[link.label],
+                      variant: "sidebarDropDown",
+                      onClick: () => modifyCollapsesState(link.label),
+                      sx: { pr: 0 },
+                    }
                     : {
-                        to: link.to,
-                        selected: isActive,
-                      })}
+                      to: link.to,
+                      selected: isActive,
+                    })}
                 >
                   <ListItemIcon
                     sx={{
@@ -542,193 +563,9 @@ const handleCloseset = () => {
             )}
           </NavLink>
         ))}
-        
-{Array.isArray(chats) &&
-  chats.map((chat, index) => (
-  <NavLink
-  key={index} // Assign a unique key
-  to={chat.to} 
-  style={{
-    textDecoration: "none",
-    color: "inherit",
-  }}
->
-    <div key={index} style={{ marginTop: "-5px" }}>
-      <ListItemText
-        primary={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <ListItemText
-              primary={
-                <div style={{ display: "flex", alignItems: "center", gap:"8px"}}>
-                  <span>{chat.label}</span>
-                  {chat.betaTag && (
-                    <span
-                      style={{
-                        backgroundColor: "#1a1a1a",
-                        color: "#3767B1",
-                        border: "1px solid #3767B1",
-                        borderRadius: "12px",
-                        padding: "2px 6px",
-                        fontSize: "9px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Beta
-                    </span>
-                  )}
-                </div>
-              }
-            />
-          </div>
-        }
-        sx={{ color: "text.secondary",  }}
-      />
-      <Divider variant="start" />
-      {chat.subItems && (
-        <List sx={{}}>
-          {chat.subItems.map((subItem, subIndex) => (
-            <NavLink
-            key={`${index}-${subIndex}`}
-            to={subItem.to}
-            style={{
-              textDecoration: "none",
-              color: "inherit",
-            }}
-          >
-           <ListItemButton
-  key={subIndex}
-  sx={{
-    "&:hover": {
-      backgroundColor: "transparent",
-    },
-  }}
->
-  <div style={{ position: "relative", display: "inline-block" }}>
-    {/* Icon */}
-    <ListItemIcon
-      sx={{
-        minWidth: "35px",
-        color: "text.secondary",
-        marginLeft: "-10px",
-        marginTop: "-40px",
-        marginBottom: "-50px",
-      }}
-    >
-      {subItem.icon}
-    </ListItemIcon>
-
-    {/* Badge Count */}
-    {subItem.badgeCount > 0 && (
-      <span
-        style={{
-          position: "absolute",
-          top: "15px",
-          right: "5px",
-          backgroundColor: "#3767B1",
-          color: "#fff",
-          borderRadius: "50%",
-          width: "20px",
-          height: "20px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "9px",
-          fontWeight: "bold",
-          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-        }}
-      >
-        {subItem.badgeCount}
-      </span>
-    )}
-  </div>
-  <ListItemText
-    primary={
-      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-        <span>{subItem.label}</span>
-
-        {subItem.betaTag && (
-          <span
-            style={{
-              backgroundColor: "#1a1a1a",
-              color: "#3767B1",
-              border: "1px solid #3767B1",
-              borderRadius: "12px",
-              padding: "2px 6px",
-              fontSize: "9px",
-              fontWeight: "bold",
-            }}
-          >
-            Beta
-          </span>
-        )}
-        {subItem.batacount > 0 && (
-          <span
-            style={{
-              backgroundColor: "#3767B1",
-              color: "#fff",
-              borderRadius: "50%",
-              width: "20px",
-              height: "20px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "9px",
-              fontWeight: "bold",
-              marginLeft: "80px",
-            }}
-          >
-            {subItem.batacount}
-          </span>
-        )}
-        {subItem.newTag && (
-          <span
-            style={{
-              backgroundColor: "transparent",
-              color: "green",
-              border: "1.5px solid green",
-              borderRadius: "5px",
-              padding: "2px 6px",
-              fontSize: "9px",
-            
-            }}
-          >
-            New
-          </span>
-        )}
-        {subItem.callTag && (
-          <span
-            style={{
-              marginLeft: "80px",
-            }}
-          >
-            <CallTagiCon />
-          </span>
-        )}
-      </div>
-    }
-  />
-</ListItemButton>
-
-
-            </NavLink>
-          ))}
-        </List>
-      )}
-    </div>
-    </NavLink>
-  ))}
-
-        
       </>
     );
   };
-  
 
   const drawer = (
     <Box
@@ -746,7 +583,7 @@ const handleCloseset = () => {
         to="/"
         sx={{ textDecoration: "none", color: "text.primary", py: 1 }}
       >
-        <Image src={hrlogo} sx={{ height: "42px"}} />
+        <Image src={hrlogo} sx={{ height: "42px", marginLeft: '-93px' }} />
         {/* <Typography
                     color='text.secondary'
                     variant='body2'
@@ -774,15 +611,14 @@ const handleCloseset = () => {
           <OrganizationDropDown />
         </Box>
 
-        <List sx={{py: 1, paddingRight:"5px",paddingLeft:"8px" }}>
-          <SideBarLinkButton menus={menuItems} chats={ChatItems}/>
-          
+        <List sx={{ py: 1, paddingRight: "5px", paddingLeft: "8px" }}>
+          <SideBarLinkButton menus={menuItems} />
         </List>
-        
+
       </Box>
 
-     
-      
+
+
       <Box>
         <Divider variant="middle" />
         <Typography
@@ -854,7 +690,7 @@ const handleCloseset = () => {
                 primaryTypographyProps={{ fontSize: 14 }}
               />
             </ListItemButton>
-           
+
           </ListItem>
         </List>
 
@@ -900,150 +736,51 @@ const handleCloseset = () => {
       </Box>
 
       <Box
-  sx={{
-    overflowY: "auto",
-    height: "calc(100dvh - 90px)",
-    flexGrow: 1,
-    overflow: "scroll", // Enables scrolling
-    "&::-webkit-scrollbar": { display: "none" }, // Hides scrollbar in Chrome, Safari
-    "-ms-overflow-style": "none", // Hides scrollbar in Internet Explorer and Edge
-    "scrollbar-width": "none", // Hides scrollbar in Firefox
-  }}
->
+        sx={{
+          overflowY: "auto",
+          overflowX: "hidden",
+          height: "calc(100dvh - 90px)",
+          flexGrow: 1,
+        }}
+      >
         <List sx={{ px: 1 }}>
-        {menuItems.map((link) => (
-          <NavLink
-            to={link.to}
-            key={link.label}
-            style={{
-              textDecoration: "none",
-              color: "inherit",
-            }}
-          >
-            {({ isActive }) => (
-              <>
-                <ListItemButton
-                  disableRipple
-                  disableTouchRipple
-                  variant="sidebarButton"
-                  {...(Array.isArray(link.to)
-                    ? {
-                        selected: collapsesState[link.label],
-                        variant: "sidebarDropDown",
-                        onClick: () => modifyCollapsesState(link.label),
-                        sx: { pr: 0 },
+          {menuItems.map((link) => (
+            <NavLink
+              to={link.to}
+              key={link.to}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              {({ isActive }) => (
+                <ListItem disablePadding>
+                  <ListItemButton
+                    disableRipple
+                    disableTouchRipple
+                    variant="sidebarButton"
+                    {...(Array.isArray(link.to)
+                      ? {
+                        selected: collapsesState[link.name],
+                        onClick: () => modifyCollapsesState(link.name),
                       }
-                    : {
+                      : {
                         to: link.to,
                         selected: isActive,
                       })}
-                >
-                  <ListItemIcon
-                    sx={{
-                      // minWidth: "35px",
-                      color: "text.secondary",
-                      display:"flex",
-                      flexDirection:"column",
-                      alignItems:"center",
-                      marginLeft:"-15px",
-                      gap:"3px",
-                      mb:"1"
-                      
-         
-                    }}
+                    sx={{ height: "45px", my: "2px" }}
                   >
-                    {link.icon}
-                  
-                  <p className="text-[9px] ">{link.label}</p> 
-                  </ListItemIcon>
-                
-                   
-                </ListItemButton>
-               
-              </>
-            )}
-          </NavLink>
-        ))}
-        
-        </List>
-       
-        {ChatItems.map((chat, index) => (
-  <div key={index}>
-    <ListItemText
-      sx={{
-        color: "text.secondary",
-      
-        display: "flex",
-        flexDirection: "column",
-      }}
-    />
-    {chat. mainItem && (
-      <List>
-        {chat. mainItem.map(( mainItem, subIndex) => (
-          <ListItemButton
-            key={subIndex}
-            sx={{
-              display: "flex",
-              flexDirection: "column", // Arrange icon and label vertically
-              alignItems: "center",   // Center align
-            gap:"3"         // Add spacing between icon and label
-            }}
-          >
-            <ListItemIcon
-              sx={{
-                color: "text.secondary",
-                display: "flex",
-                justifyContent: "center", // Center align icon
-              }}
-            >
-              { mainItem.icon}
-            </ListItemIcon>
-            <ListItemText
-              primary={
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row", // Badge and label in a row
-                    alignItems: "center",
-                           // Add spacing between label and badge
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "9px",  // Adjust font size for label
-                    }}
-                  >
-                    { mainItem.label}
-                  </span>
-                  { mainItem.badgeCount > 0 && (
-                    <span
-                      style={{
-                        backgroundColor: "#3767B1",
-                        color: "#fff",
-                        borderRadius: "50%",
-                        width: "20px",
-                        height: "20px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "10px",
-                        fontWeight: "bold",
+                    <ListItemIcon
+                      sx={{
+                        // minWidth: '35px',
+                        color: "text.secondary",
                       }}
                     >
-                      { mainItem.badgeCount}
-                    </span>
-                  )}
-                </div>
-              }
-            />
-          </ListItemButton>
-        ))}
-      </List>
-    )}
-  </div>
-))}
-
-
+                      {link.icon}
+                    </ListItemIcon>
+                  </ListItemButton>
+                </ListItem>
+              )}
+            </NavLink>
+          ))}
+        </List>
       </Box>
     </Box>
   );
@@ -1095,7 +832,7 @@ const handleCloseset = () => {
             },
           }}
         >
-          
+
           <Grid container alignItems="center" columnSpacing={1}>
             <Grid item>
               <IconButton
@@ -1111,7 +848,7 @@ const handleCloseset = () => {
             </Grid>
 
 
-            <Grid sx={{height:'32px'}} item xs md={5} alignItems="start">
+            <Grid sx={{ height: '32px' }} item xs md={5} alignItems="start">
               <SearchBar />
             </Grid>
             <Grid item xs display={{ xs: "none", sm: "block" }}>
@@ -1122,89 +859,106 @@ const handleCloseset = () => {
                 spacing={0}
               >
 
-                
 
-                <Box onClick={handleOpen} sx={{marginRight:'-22px'}}>
-                <Upgradebutton/>
 
+                <Box onClick={handleOpen} sx={{ marginRight: '-22px' }}>
+                  {employLists && employLists.length < 5 && <Upgradebutton />}
+
+                  {employLists && employLists.length >= 5 && employLists.length < 10 && <Button variant="outlined" startIcon={<WarningAmberIcon />} color="warning">
+                    Limited users left
+                  </Button>}
+
+                  {employLists && employLists.length == 10 && <Button variant="outlined" startIcon={<WarningAmberIcon />} color="warning">
+                    No users left
+                  </Button>}
                 </Box>
 
 
                 <Dialog
-                
-        open={open}
-        onClose={handleClose}
-        maxWidth="lg"
-        PaperProps={{
-          sx: {
-            width: '1050px',   // Custom width for popup box
-            height: '600px',  // Custom height for popup box
-            borderRadius: '12px', // Rounded corners
-            backgroundColor:'background.default',
-          },
-        }}
-      >
-        <DialogContent
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            p: 0, 
-            backgroundColor: '#1e1e1e',
-          }}
-        >
-          {/* Left section */}
-          <Box sx={{ width: '50%', padding: '24px', color: '#fff' }}>
-            <Image src={Clikklebrand} sx={{height:'28px',marginBottom:'22px',marginTop:'22px'}}/>
-            <Typography variant="h6" sx={{fontFamily:'sans-serif', mb: 2,fontSize:'22px' }}>
-            Upgrade for 15 - 50 users            </Typography>
-            <Typography sx={{ mb: 2 ,fontFamily:'sans-serif',fontSize:'14px',color:'gray',width:'400px'}}>
-            With the Business plan, you get 15 - 50 users, 100GB of 
-            storage, 3 free guest access and more.            </Typography>
 
-            {/* Users invited section */}
-            <Typography sx={{ mb: 1,fontFamily:'sans-serif',fontSize:'20px'}}>0 of 10 invited</Typography>
-            <Typography sx={{fontFamily:'sans-serif',fontSize:'15px',color:'gray'}}>Upgrade for 15 - 50 users</Typography>
-            <AvatarGroup max={10} sx={{ mb: 2 ,marginRight:'115px',marginTop:'12px', }}>
-              {[...Array(10)].map((_, index) => (
-                <Avatar key={index} sx={{ backgroundColor: '#666' }} />
-              ))}
-            </AvatarGroup>
+                  open={open}
+                  onClose={handleClose}
+                  maxWidth="lg"
+                  PaperProps={{
+                    sx: {
+                      width: '1050px',   // Custom width for popup box
+                      height: '550px',  // Custom height for popup box
+                      borderRadius: '12px', // Rounded corners
+                      backgroundColor: 'background.default',
+                    },
+                  }}
+                >
+                  <DialogContent
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      p: 0,
+                      backgroundColor: '#1e1e1e',
+                    }}
+                  >
+                    {/* Left section */}
+                    <Box sx={{ width: '50%', padding: '24px', color: '#fff' }}>
+                      <Image src={Clikklebrand} sx={{ height: '28px', marginBottom: '22px', marginTop: '22px' }} />
+                      <Typography variant="h6" sx={{ fontFamily: 'sans-serif', mb: 2, fontSize: '22px' }}>
+                        Upgrade for 15 - 50 users            </Typography>
+                      <Typography sx={{ mb: 2, fontFamily: 'sans-serif', fontSize: '14px', color: 'gray', width: '400px' }}>
+                        With the Business plan, you get 15 - 50 users, 100GB of
+                        storage, 3 free guest access and more.            </Typography>
 
-            {/* Storage usage section */}
-            <Typography sx={{ mb: 1 }}>0 GB of 2 GB</Typography>
-            <Typography sx={{fontFamily:'sans-serif',color:'gray',fontSize:'15px',marginBottom:'12px'}}>Upgrade for 100 GB storage</Typography>
-            <LinearProgress
-              variant="determinate"
-              value={0}
-              sx={{ mb: 3, backgroundColor: '#444', '& .MuiLinearProgress-bar': { backgroundColor: '#fff' } ,height:'7px',borderRadius:'22px'}}
-            />
+                      {/* Users invited section */}
+                      <Typography sx={{ mb: 1, fontFamily: 'sans-serif', fontSize: '20px' }}>{employLists ? employLists.length : 0} of 10 invited</Typography>
+                      <Typography sx={{ fontFamily: 'sans-serif', fontSize: '15px', color: 'gray' }}>Upgrade for 15 - 50 users</Typography>
+                      {employLists && (
+                        <AvatarGroup max={10} sx={{ mb: 2, marginRight: '115px', marginTop: '12px', }}>
+                          {[...Array(10)].map((_, index) => (
+                            <Avatar
+                              key={index}
+                              src={
+                                employLists[index]
+                                  ? `https://ui-avatars.com/api/?name=${employLists[index].firstName} ${employLists[index].lastName}`
+                                  : undefined
+                              }
+                              sx={!employLists[index] ? { backgroundColor: '#666' } : undefined}
+                            />
+                          ))}
+                        </AvatarGroup>
+                      )}
 
-            {/* Actions */}
-            <DialogActions sx={{  mt: 2,marginTop:'72px' }}>
-              <Button  onClick={handleCloseUpgrate} sx={{ color: '#888', backgroundColor: '#45413C', textTransform: 'none', p: '8px 24px' }}>
-                Maybe later
-              </Button>
-              <Button onClick={handleClose} sx={{ backgroundColor: '#3767B1', color: 'black', textTransform: 'none', p: '8px 24px' }}>
-                Upgrade
-              </Button>
-            </DialogActions>
-          </Box>
+                      {/* Storage usage section */}
+                      <Typography sx={{ mb: 1 }}>0 GB of 2 GB</Typography>
+                      <Typography sx={{ fontFamily: 'sans-serif', color: 'gray', fontSize: '15px', marginBottom: '12px' }}>Upgrade for 100 GB storage</Typography>
+                      <LinearProgress
+                        variant="determinate"
+                        value={0}
+                        sx={{ mb: 3, backgroundColor: '#444', '& .MuiLinearProgress-bar': { backgroundColor: '#fff' }, height: '7px', borderRadius: '22px' }}
+                      />
 
-          {/* Right section */}
-          <Box sx={{ width: '50%', backgroundColor: 'background.default', padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-       <StandardFeatures/>
-          </Box>
-        </DialogContent>
-      </Dialog>
-      {/* Popup Dialog */}
-    
+                      {/* Actions */}
+                      <DialogActions sx={{ mt: 2, marginTop: '72px' }}>
+                        <Button onClick={handleCloseUpgrate} sx={{ color: '#888', backgroundColor: '#45413C', textTransform: 'none', p: '8px 24px' }}>
+                          Maybe later
+                        </Button>
+                        <Button onClick={handleClose} sx={{ backgroundColor: '#3767B1', color: 'black', textTransform: 'none', p: '8px 24px' }}>
+                          Upgrade
+                        </Button>
+                      </DialogActions>
+                    </Box>
+
+                    {/* Right section */}
+                    <Box sx={{ width: '50%', backgroundColor: 'background.default', padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                      <StandardFeatures />
+                    </Box>
+                  </DialogContent>
+                </Dialog>
+                {/* Popup Dialog */}
 
 
 
 
-                 <Grid sx={{marginRight:'-22px'}}>
-                  <Notification/>
-                 </Grid>
+
+                <Grid sx={{ marginRight: '-22px' }}>
+                  <Notification />
+                </Grid>
                 <IconButton onClick={openSettingsMenu}>
                   <SettingsIcon />
                 </IconButton>
@@ -1315,25 +1069,25 @@ const handleCloseset = () => {
                 sx={{
                   borderWidth: "2px",
                   width
-                  :'45px',
+                    : '45px',
                   borderStyle: "solid",
                   borderColor: "primary.main",
                   p: "3px",
                 }}
               >
-                   <Typography
-    variant='subtitle1' // Corrected 'substitle1' to 'subtitle1'
-    component='div'
-    fontWeight={600}
-    sx={{
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-    }}>
-    {platformUser && platformUser.firstName && platformUser.lastName
-        ? platformUser.firstName.charAt(0).toUpperCase() + platformUser.lastName.charAt(0).toUpperCase()
-        : '?'}
-</Typography>
+                <Typography
+                  variant='subtitle1' // Corrected 'substitle1' to 'subtitle1'
+                  component='div'
+                  fontWeight={600}
+                  sx={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}>
+                  {platformUser && platformUser.firstName && platformUser.lastName
+                    ? platformUser.firstName.charAt(0).toUpperCase() + platformUser.lastName.charAt(0).toUpperCase()
+                    : '?'}
+                </Typography>
               </IconButton>
 
               <Menu
@@ -1358,33 +1112,35 @@ const handleCloseset = () => {
                   alignItems="center"
                   flexWrap="nowrap"
                 >
-                  <Grid sx={{ borderWidth: "2px",
-                  width
-                  :'145px',
-                  marginLeft:'22px',
-                  height
-                  :'85px',
-                  borderRadius:'60px',
-                  textAlign:'center',
-                  borderStyle: "solid",
-                  borderColor: "primary.main",
-                  p: "3px",}} item>
-                  <Typography
-    variant='subtitle1' // Corrected 'substitle1' to 'subtitle1'
-    component='div'
-    fontWeight={600}
-    sx={{
-      fontSize:'30px',
-      fontFamily:'sans-serif',
-      marginLeft:'-12px',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-    }}>
-    {platformUser && platformUser.firstName && platformUser.lastName
-        ? platformUser.firstName.charAt(0).toUpperCase() + platformUser.lastName.charAt(0).toUpperCase()
-        : '?'}
-</Typography>
+                  <Grid sx={{
+                    borderWidth: "2px",
+                    width
+                      : '145px',
+                    marginLeft: '22px',
+                    height
+                      : '85px',
+                    borderRadius: '60px',
+                    textAlign: 'center',
+                    borderStyle: "solid",
+                    borderColor: "primary.main",
+                    p: "3px",
+                  }} item>
+                    <Typography
+                      variant='subtitle1' // Corrected 'substitle1' to 'subtitle1'
+                      component='div'
+                      fontWeight={600}
+                      sx={{
+                        fontSize: '30px',
+                        fontFamily: 'sans-serif',
+                        marginLeft: '-12px',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}>
+                      {platformUser && platformUser.firstName && platformUser.lastName
+                        ? platformUser.firstName.charAt(0).toUpperCase() + platformUser.lastName.charAt(0).toUpperCase()
+                        : '?'}
+                    </Typography>
                   </Grid>
                   <Grid item xs={8}>
                     <Typography
@@ -1415,7 +1171,7 @@ const handleCloseset = () => {
                       component="a"
                       href={env("MY_ACCOUNT")}
                       color="primary.main"
-                      display= "block"
+                      display="block"
                     >
                       My Clikkle account
                     </Typography>
@@ -1519,8 +1275,8 @@ const handleCloseset = () => {
                   </div>
                 )}
               </Droppable>
-              
-              
+
+
             </DragDropContext>
             <Divider variant="middle" sx={{ my: 2, width: "80%" }} />
             {editable ? (
@@ -1540,8 +1296,8 @@ const handleCloseset = () => {
               />
             )}
           </Stack>
-         
-          <Box 
+
+          {/* <Box 
       sx={{ 
         marginRight:'-37px',
         display: 'flex', 
@@ -1556,18 +1312,18 @@ const handleCloseset = () => {
         padding: '10px', // Optional padding for better appearance
       }}
     >
-      {/* <Button onClick={handleChatbox}>
+      <Button onClick={handleChatbox}>
 <Box sx={{ display:'flex',flexDirection:"column",textAlign:'center'}}>
       <Image src={BotIcon}  alt="Bot Icon"
         sx={{ width: '42px', height: '42px'}} />
 
         <Typography sx={{color:'white',fontSize:'13px',fontFamily:'sans-serif'}} >Chat</Typography>
         </Box>
-        </Button> */}
-    </Box>
+        </Button>
+    </Box> */}
         </Box>
       </AppBar>
-      
+
 
       <Box
         component="nav"
