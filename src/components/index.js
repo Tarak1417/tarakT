@@ -38,6 +38,9 @@ import ClockInReminder from "./Dashboard/MySpace/Overview/ClockInReminder";
 import LogTime from "./Dashboard/MySpace/Overview/LogTime";
 import WorkSchedule from "./Dashboard/MySpace/Overview/WorkSchedule";
 
+import CompanyPreview from "./Dashboard/Organization/Overview/CompanyPreview";
+import OrganizationQuickLinks from "./Dashboard/Organization/Overview/OrganizationQuickLinks";
+
 export {
   ProfilePreview,
   EmployeesShift,
@@ -76,4 +79,6 @@ export {
   ClockInReminder,
   LogTime,
   WorkSchedule,
+  CompanyPreview,
+  OrganizationQuickLinks,
 };
