@@ -73,6 +73,8 @@ const CreateOrganization = () => {
         });
 
         let data = response.data;
+        console.log(data)
+        
 
         if (data.success) {
           setShowMessage({

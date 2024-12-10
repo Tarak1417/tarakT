@@ -41,7 +41,7 @@ import PlusIcon from "../assets/CloclIcons/Add Button (1).png";
 import Department from "./Dashboard/Team/Department";
 import TeamList from "./Dashboard/Team/TeamList";
 import HRProcess from "./Dashboard/Team/HRProcess";
-const Dashboard = ({collapseDrawer, drawerHover }) => {
+const Dashboard = ({collapseDrawer}) => {
   const navigate = useNavigate(); // Get the navigate function
 
   const [overview, setOverview] = useState({});

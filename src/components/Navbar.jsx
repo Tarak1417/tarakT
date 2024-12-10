@@ -688,12 +688,12 @@ const handleCloseset = () => {
               width: "20px",
               height: "20px",
               display: "flex",
-              padding: "10px 10px",
+              padding: "2px 6px",
               alignItems: "center",
               justifyContent: "center",
               fontSize: "9px",
               fontWeight: "bold",
-              marginLeft: "60px",
+              marginLeft: "80px",
             }}
           >
             {subItem.batacount}
@@ -723,7 +723,7 @@ const handleCloseset = () => {
               width:"20px",
 
 
-              marginLeft: "60px",
+              marginLeft: "80px",
             }}
           >
             <CallTagiCon />

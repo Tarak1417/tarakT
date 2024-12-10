@@ -1,32 +1,19 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  Tab,
-  TabList,
-  TabContext,
-  TabPanel,
-  Card,
-  CardContent,
   Typography,
-  Button,
-  Input,
-  TextField,
-  TableContainer,
-  Paper,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
   Grid,
   Divider,
-  IconButton,
-  Tooltip,
   Avatar,
+  Tooltip,
   Modal,
+  Button,
+  Menu,
+  MenuItem,
+  TextField,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useMessage } from "../../components/Header";
@@ -34,32 +21,64 @@ import { ServerImage } from "../../components/Images";
 import useModal from "../../hooks/useModal";
 import DeleteOrganization from "./DeleteOrganization";
 import { setCookie } from "../../utilities/cookies";
-// Tabs Section
+import edit from "../../assets/SidebarIcons/tabler_edit.png";
+import delet from "../../assets/SidebarIcons/Vector.png";
+import { useMediaQuery, useTheme } from '@mui/material';
+import dotsIcon from "../../assets/SidebarIcons/proicons_more.png"
+
+const EditIcon = () => <img src={edit} alt="edit" />;
+const DeleteIcon = () => <img src={delet} alt="delete" />;
+const Dot = () => <img src={dotsIcon} alt="..." />;
+
 const ListOrganization = () => {
   const navigate = useNavigate();
-  const [organizations, setOrganization] = useState([]);
+  const [organizations, setOrganizations] = useState([]);
   const [deleteOrg, setDeleteOrg] = useState(null);
+  const [editOrg, setEditOrg] = useState(null); // State for editing organization
   const { showError, showSuccess } = useMessage();
   const { modalState, openModal, closeModal } = useModal();
+  const [editModalState, setEditModalState] = useState(false); // Separate state for the edit modal
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedOrg, setSelectedOrg] = useState(null);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const openMenu = (event, org) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedOrg(org);
+  };
+
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setEditOrg((prev) => ({ ...prev, logo: file }));
+    }
+  };
+  
+  const closeMenu = () => {
+    setAnchorEl(null);
+    setSelectedOrg(null);
+  };
+
+  // Handle Delete Organization
   async function handleDelete(org) {
     try {
       const response = await axios.delete(`/hr/organization/${org._id}`);
-
-      let data = response.data;
+      const data = response.data;
       if (data.success) {
-        getOrganizations();
-        showSuccess("Organization Delete Successfully");
+        setOrganizations((prevOrganizations) =>
+          prevOrganizations.filter((o) => o._id !== org._id)
+        );
+        showSuccess("Organization deleted successfully");
+        closeModal();
         setDeleteOrg(null);
-        // setShowMessage({
-        //   show: true,
-        //   message: ,
-        //   severity: "success",
-        // });
+      } else {
+        showError("Failed to delete the organization");
       }
-    } catch (e) {
-      console.log("Error Deleting Organization ", e);
-      showError("Error Deleting Organization ");
+    } catch (error) {
+      console.error("Error deleting organization", error);
+      showError("Error deleting organization");
     }
   }
 
@@ -68,55 +87,77 @@ const ListOrganization = () => {
     setDeleteOrg(org);
   }
 
-  function handleEdit(org) {
-    return { name: "" };
-  }
-
+  // Handle Organization Selection
   async function handleSelect(org) {
     if (org.status) {
       try {
         const response = await axios.post(`/hr/organization/select`, {
           organizationId: org._id,
         });
-        let data = response.data;
+        const data = response.data;
         if (data.success) {
           setCookie("orgToken", data.data);
           localStorage.setItem("org", JSON.stringify(org));
           setTimeout(() => {
             navigate("/");
-          }, [1000]);
+          }, 1000);
         }
-      } catch (e) {
-        console.log("Error select of Organization", e);
-        showError("Error select of Organization");
+      } catch (error) {
+        console.error("Error selecting organization", error);
+        showError("Error selecting organization");
       }
     }
   }
 
-  const getColor = (status = false) => {
-    if (status) {
-      return "text-green-500 bg-green-900 bg-opacity-30";
-    } else {
-      return "text-red-500 bg-red-900 bg-opacity-30";
-    }
-  };
-
+  // Fetch Organizations
   const getOrganizations = async () => {
     try {
       const response = await axios.get(`/hr/organization`);
-      let data = response.data;
+      const data = response.data;
       if (data.success) {
-        if (data.data.length === 0) {
-          // navigate("/createOrganization");
-
-          setOrganization([]);
-        } else {
-          setOrganization(data.data);
-        }
+        setOrganizations(data.data);
       }
-    } catch (e) {
-      console.log("Error List of Organization", e);
+    } catch (error) {
+      console.error("Error fetching organizations", error);
     }
+  };
+
+  // Handle Edit Organization
+  const handleEditChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setEditOrg((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleEditSubmit = async () => {
+    try {
+      const response = await axios.put(`/hr/organization/${editOrg._id}`, editOrg);
+      const data = response.data;
+      if (data.success) {
+        setOrganizations((prev) =>
+          prev.map((org) =>
+            org._id === editOrg._id ? { ...org, ...editOrg } : org
+          )
+        );
+        showSuccess("Organization updated successfully");
+        closeEditModal(); // Close the edit modal
+      } else {
+        showError("Failed to update the organization");
+      }
+    } catch (error) {
+      console.error("Error updating organization", error);
+      showError("Error updating organization");
+    }
+  };
+
+  const openEditModal = () => {
+    setEditModalState(true); // Open the edit modal
+  };
+
+  const closeEditModal = () => {
+    setEditModalState(false); // Close the edit modal
   };
 
   useEffect(() => {
@@ -125,7 +166,6 @@ const ListOrganization = () => {
 
   return (
     <Box
-      className="h-screen"
       sx={{
         backgroundColor: "background.main",
         paddingX: { xs: 3, sm: 5 },
@@ -136,13 +176,11 @@ const ListOrganization = () => {
     >
       <Box sx={{ paddingRight: { xs: 0, sm: 25 } }}>
         <Typography variant="h4">Organization List</Typography>
-        <Typography sx={{ marginTop: ".7rem", color: "text.three" }}>
-          HR organization refers to the style of coordination, communication and
-          management, a team or an employee uses through out his/her contract
-          with the organization.
+        <Typography sx={{ marginTop: ".7rem", color: "text.three", fontSize:isMobile?"13px":"" }}>
+          HR organization refers to the style of coordination, communication and management, a team or an employee uses throughout his/her contract with the organization.
         </Typography>
         <Typography sx={{ marginTop: 5, color: "text.three" }}>
-          Total Organization
+          Total Organizations
         </Typography>
         <Typography
           variant="h4"
@@ -152,9 +190,9 @@ const ListOrganization = () => {
         </Typography>
       </Box>
 
-      <Box className="px-2" sx={{ overflowX: "auto", }}>
+      <Box sx={{ overflowX: "hidden" }}>
         <Grid container sx={{ p: 1, minWidth: 525 }}>
-          <Grid item xs={8}>
+          <Grid item xs={4} sm={8}>
             Organization
           </Grid>
           <Grid item xs={2}>
@@ -164,61 +202,86 @@ const ListOrganization = () => {
             Action
           </Grid>
         </Grid>
-        <Divider sx={{ minWidth: 525, marginBottom:"30px" }} />
+        <Divider sx={{ minWidth: 525, marginBottom: "30px" }} />
         <Box>
-          {organizations.map((org, index) => (
-            <Grid key={index} container sx={{ p: 1, minWidth: 565 }}>
-              <Grid item xs={7} sm={8}>
+          {organizations.map((org) => (
+            <Grid key={org._id} container sx={{ p: 1, minWidth: 565 }}>
+              <Grid item xs={4} sm={8}>
                 <div className="flex flex-row gap-2">
-                  <Avatar sx={{ width: 30, height: 30, fontSize: 12 }}>
-                    {" "}
+                  <Avatar sx={{ width: 30, height: 30, fontSize: 10 }}>
                     <ServerImage src={org?.logo ?? ""} width="30" height="30" />
                   </Avatar>
                   <div
-                    className="px-3 py-1 mr-2 truncate rounded-lg hover:text-sky-600 active:text-blue-600 "
+                    className="px-3 py-1 mr-2 truncate rounded-lg hover:text-sky-600 active:text-blue-600"
                     onClick={() => handleSelect(org)}
                   >
                     {org.name}
                   </div>
                 </div>
               </Grid>
-              <Grid item xs={2} sm={2} ml={-1}>
-               <div
-  className={`px-3 py-1 w-fit `}
-  style={{
-    backgroundColor: org.status ? "#003300" : "#330000", // Dark green for active, dark red for inactive
-    color: org.status ? "lime" : "tomato",
-    borderRadius:'5px', // Text color: Lime for active, tomato for inactive
-  }}
->
-  {org.status ? "Active" : "In-active"}
-</div>
+              <Grid item xs={2} sm={2} marginLeft={isMobile?-3:-1}>
+                <div
+                  className="px-3 py-1 w-fit"
+                  style={{
+                    backgroundColor: org.status ? "#42B82433" : "#B8242433",
+                    color: org.status ? "#32FC00" : " #FF0000",
+                    borderRadius: "5px",
+                  }}
+                >
+                  {org.status ? "Active" : "In-Active"}
+                </div>
               </Grid>
-              <Grid item xs={3} sm={2}>
-                <Tooltip className="flex gap-3" title="Delete Organization">
-                  <button>
-                    <EditIcon className="text-blue-700" />
-                  </button>
-                  <button>
-                    <DeleteIcon
-                      color="error"
-                      onClick={() => openDeleteBox(org)}
-                    />
-                  </button>
+              <Grid item xs={-3} sm={2}>
+                <Tooltip>
+                <div className="flex justify-between items-center" style={{ borderRadius: "20px" }}>
+                    <Button
+                      onClick={(e) => openMenu(e, org)}
+                      sx={{ color: "text.primary" }}
+                    >
+                     <span className={`text-3xl ${isMobile ? "mt-[-15px] ml-[-10px]" : "mt-[-20px]"}`} >...</span>
+
+                    </Button>
+                    <Menu
+                      anchorEl={anchorEl}
+                      open={Boolean(anchorEl)}
+                      onClose={closeMenu}
+                    >
+                      <MenuItem
+                        onClick={() => {
+                          setEditOrg(org); // Set the organization to be edited
+                          openEditModal(); // Open the edit modal
+                          closeMenu();
+                        }}
+                        sx={{ gap: "8px" }}
+                      >
+                        <EditIcon /> Edit
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          openDeleteBox(selectedOrg); // Open the delete modal
+                          closeMenu();
+                        }}
+                        sx={{ gap: "8px" }}
+                      >
+                        <DeleteIcon /> Delete
+                      </MenuItem>
+                    </Menu>
+                  </div>
                 </Tooltip>
               </Grid>
             </Grid>
           ))}
         </Box>
       </Box>
+
+      {/* Delete Modal */}
       <Modal
         sx={{
-          overflowY: "scroll",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
-        open={modalState}
+        open={modalState} // Use the delete modal state
         onClose={closeModal}
       >
         <DeleteOrganization
@@ -226,6 +289,67 @@ const ListOrganization = () => {
           onDelete={handleDelete}
           org={deleteOrg}
         />
+      </Modal>
+
+      {/* Edit Modal */}
+      <Modal
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        open={editModalState && editOrg !== null} // Check if the edit modal should be open
+        onClose={closeEditModal} // Close the edit modal
+      >
+        <Box sx={{ backgroundColor: "background.view", padding: 4, borderRadius: 2 }}>
+          <Typography variant="h6">Edit Organization</Typography>
+          <form>
+            <TextField
+              label="Organization Email"
+              name="name"
+              value={editOrg?.name || ""}
+              onChange={handleEditChange}
+              fullWidth
+              margin="normal"
+            />
+
+<TextField
+              label="Organization Email"
+              name="Email"
+              value={editOrg?.email || ""}
+              onChange={handleEditChange}
+              fullWidth
+              margin="normal"
+            />
+            
+<TextField
+              label="Organization Website url"
+              name="Email"
+              value={editOrg?.website || ""}
+              onChange={handleEditChange}
+              fullWidth
+              margin="normal"
+            />
+
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={editOrg?.status || false}
+                  onChange={handleEditChange}
+                  name="status"
+                />
+              }
+              label="Active"
+            />
+            <Button
+              onClick={handleEditSubmit}
+              variant="contained"
+              sx={{ marginTop: 2 }}
+            >
+              Save Changes
+            </Button>
+          </form>
+        </Box>
       </Modal>
     </Box>
   );

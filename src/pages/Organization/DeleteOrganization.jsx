@@ -1,9 +1,12 @@
 // DeleteOrganization.js
 import React, { useState } from "react";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
+import {  useMediaQuery, useTheme } from '@mui/material';
 
 const DeleteOrganization = ({ onClose, onDelete, org }) => {
   const [inputValue, setInputValue] = useState("");
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleDelete = () => {
     // let inputValueLower = String(inputValue).toLocaleLowerCase();
@@ -28,9 +31,9 @@ const DeleteOrganization = ({ onClose, onDelete, org }) => {
         overflowY: "auto",
         position: "absolute",
         top: "50%",
-        left: "50%",
+        left:isMobile?"46%":"50%",
         transform: "translate(-50%, -50%)",
-        width: 400,
+        width:isMobile?350: 500,
         bgcolor: "background.paper",
         p: 4,
         display: "flex",
@@ -38,22 +41,22 @@ const DeleteOrganization = ({ onClose, onDelete, org }) => {
         gap: 2,
       }}
     >
-      <Typography variant="h6" component="h2">
+      <Typography variant="h6" component="h2" >
         Delete {org.name}
       </Typography>
-      <Typography variant="body1">
-        Are you sure you want to delete the organization  <span className="text-blue-500 font-bold"  > {org.name}  </span> ?
+      <Typography variant="body1" fontSize={13} marginBottom={3}>
+        Are you sure you want to delete the organization <br/> <span className="text-blue-500 font-bold"  > {org.name}  </span> ?
         
         
       </Typography>
-      <Typography variant="body2" sx={{color : "red"}}>
+      <Typography variant="body2" sx={{color : "red"}}  marginBottom={3}>
          This action cannot be undone.
       </Typography>
-      <Typography   variant="body2">
+      <Typography   variant="body2" fontSize={13}>
         Please type the organization name to confirm:
       </Typography>
       <TextField
-        
+        placeholder="Enter organization name"
         variant="outlined"
         fullWidth
         value={inputValue}
@@ -65,12 +68,16 @@ const DeleteOrganization = ({ onClose, onDelete, org }) => {
           variant="outlined"
           sx={{
             mx: 2,
+            width:"100px"
           }}
         >
           Close
         </Button>
 
-        <Button onClick={handleDelete} variant="contained">
+        <Button onClick={handleDelete} variant="contained" sx={{
+         
+            width:"100px"
+          }}>
           Delete
         </Button>
       </Box>
