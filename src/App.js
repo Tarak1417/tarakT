@@ -107,6 +107,7 @@ const CreateOrganization = lazy(() =>
 const ListOrganization = lazy(() =>
   import("./pages/Organization/ListOrganization")
 );
+const EditOrganization=lazy(()=>import("./pages/Organization/EditOrganization"))
 const OnBoarding = lazy(() => import("./pages/OnBoarding/OnBoarding"));
 const Theme = lazy(() => import("./pages/admin/Theme"));
 const Ticket = lazy(() => import("./pages/admin/Ticket"));
@@ -139,6 +140,7 @@ const ChatPage = lazy(() => import("./pages/Chat/ChatPage"));
 const RecentAttendence =lazy(()=> import("./pages/DashComponents/attend"));
 const DeptPage=lazy(()=>import("./pages/Departments/DeptHome"))
 const Employeelist=lazy(()=>import("./pages/Employee/EmployeeHome"))
+
 
 const App = () => {
   const location = useLocation();
@@ -268,6 +270,7 @@ const App = () => {
             <Route path="memo" element={<Memo />} />
             <Route path="memoEdit" element={<MemoEdit />} />
             <Route path="chat" element={<ChatPage />} />
+           
 
             <Route path="generalsetting" element={<Generalsettinghome />} />
             <Route path="rollaccess" element={<Rollaccess />} />
@@ -277,6 +280,7 @@ const App = () => {
             <Route path="checkout" element={<OnBoarding />} />
             <Route path="createOrganization" element={<CreateOrganization />} />
             <Route path="listOrganization" element={<ListOrganization />} />
+            <Route path="EditOrganization/:id"element={<EditOrganization/>}/>
           </Route>
         </Routes>
       </Header>

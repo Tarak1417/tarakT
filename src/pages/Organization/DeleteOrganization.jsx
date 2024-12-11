@@ -56,12 +56,16 @@ const DeleteOrganization = ({ onClose, onDelete, org }) => {
         Please type the organization name to confirm:
       </Typography>
       <TextField
-        placeholder="Enter organization name"
-        variant="outlined"
-        fullWidth
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-      />
+      placeholder="Enter organization name"
+      variant="outlined"
+      fullWidth
+      value={inputValue}
+      onChange={(e) => setInputValue(e.target.value)}
+     
+      inputProps={{
+        style: { fontSize: '13px',  }, 
+      }}
+    />
       <Box textAlign="right">
         <Button
           onClick={onClose}

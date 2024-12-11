@@ -114,6 +114,7 @@ const ListOrganization = () => {
     try {
       const response = await axios.get(`/hr/organization`);
       const data = response.data;
+      console.log(data)
       if (data.success) {
         setOrganizations(data.data);
       }
@@ -135,6 +136,7 @@ const ListOrganization = () => {
     try {
       const response = await axios.put(`/hr/organization/${editOrg._id}`, editOrg);
       const data = response.data;
+
       if (data.success) {
         setOrganizations((prev) =>
           prev.map((org) =>
@@ -163,6 +165,10 @@ const ListOrganization = () => {
   useEffect(() => {
     getOrganizations();
   }, []);
+
+ const editClick=(org)=>{
+  navigate(`/EditOrganization/${org._id}`)
+  }
 
   return (
     <Box
@@ -247,14 +253,12 @@ const ListOrganization = () => {
                       onClose={closeMenu}
                     >
                       <MenuItem
-                        onClick={() => {
-                          setEditOrg(org); // Set the organization to be edited
-                          openEditModal(); // Open the edit modal
-                          closeMenu();
-                        }}
+                        onClick={() => editClick(selectedOrg)}
+                        
+                      
                         sx={{ gap: "8px" }}
                       >
-                        <EditIcon /> Edit
+                        <EditIcon  /> Edit
                       </MenuItem>
                       <MenuItem
                         onClick={() => {
@@ -302,34 +306,72 @@ const ListOrganization = () => {
         onClose={closeEditModal} // Close the edit modal
       >
         <Box sx={{ backgroundColor: "background.view", padding: 4, borderRadius: 2 }}>
-          <Typography variant="h6">Edit Organization</Typography>
+          
           <form>
+           
+
+           <div className="w-[13%] pb-3 flex items-center">
+              <p className="text-[20px] whitespace-nowrap">
+                Organization Name
+              </p>
+            </div>
             <TextField
-              label="Organization Email"
               name="name"
+              size="small"
               value={editOrg?.name || ""}
+              variant="outlined"
               onChange={handleEditChange}
+              placeholder="Enter Name"
               fullWidth
-              margin="normal"
             />
 
-<TextField
-              label="Organization Email"
-              name="Email"
+
+
+            <div className="w-[13%] pb-3 flex items-center">
+              <p className="text-[20px] whitespace-nowrap">
+                Organization Email
+              </p>
+            </div>
+            <TextField
+              name="email"
+              size="small"
               value={editOrg?.email || ""}
+              variant="outlined"
+             
               onChange={handleEditChange}
+              placeholder="Enter Email"
               fullWidth
-              margin="normal"
             />
-            
-<TextField
-              label="Organization Website url"
-              name="Email"
+          
+          <div className="w-[13%] pb-3 flex items-center">
+              <p className="text-[20px] whitespace-nowrap">
+                Organization Website url
+              </p>
+            </div>
+            <TextField
+              name="Website"
+              size="small"
               value={editOrg?.website || ""}
+              variant="outlined"
+             
               onChange={handleEditChange}
+              placeholder="Enter Email"
               fullWidth
-              margin="normal"
             />
+
+<input
+  type="file"
+  accept="image/*"
+  onChange={(e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setEditOrg((prev) => ({
+        ...prev,
+        logo: file, // Store the file object for upload
+      }));
+    }
+  }}
+/>
 
             <FormControlLabel
               control={
@@ -341,6 +383,7 @@ const ListOrganization = () => {
               }
               label="Active"
             />
+            
             <Button
               onClick={handleEditSubmit}
               variant="contained"
