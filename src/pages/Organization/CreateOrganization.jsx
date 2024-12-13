@@ -284,7 +284,26 @@ const CreateOrganization = () => {
               fullWidth
             />{" "}
           </div>
+
           <div>
+            <div className="w-[13%] pb-3 flex items-center">
+              <p className="text-[20px] whitespace-nowrap">
+                Organization Website url
+              </p>
+            </div>
+            <TextField
+              name="question"
+              size="small"
+              value={website}
+              variant="outlined"
+              onBlur={handleWebsiteChange }
+              onChange={(e) => setWebsite(e.target.value)}
+              placeholder="Enter website"
+              fullWidth
+            />{" "}
+          </div>
+          <div>
+            
             <div className="w-[13%] pb-3 flex items-center">
               <p className="text-[20px] whitespace-nowrap">
                 {" "}

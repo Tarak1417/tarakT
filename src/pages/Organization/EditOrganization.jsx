@@ -11,14 +11,16 @@ import {
   Typography,
 } from "@mui/material";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import createOrg from "../../assets/createOrganization image.png";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { Close } from "@mui/icons-material";
 
+
 // EditOrganization Component
 const EditOrganization = () => {
+  const location = useLocation();
   const { id } = useParams(); // Get the organization ID from the URL
   const [organizationName, setOrganizationName] = useState("");
   const [email, setEmail] = useState("");
@@ -35,6 +37,7 @@ const EditOrganization = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [openPopup, setOpenPopup] = useState(location.state?.openPopup || false);
 
   // Handle form submission (update organization)
   const handelSubmit = async () => {
@@ -44,7 +47,9 @@ const EditOrganization = () => {
       email,
       website,
       logo: setImage(image), // Assuming you want to update the logo as base64
+      
     };
+   
   
     try {
       const response = await axios.put(`/hr/organization/${updatedOrg._id}`, updatedOrg);
@@ -75,6 +80,11 @@ const EditOrganization = () => {
       });
     }
   };
+  useEffect(() => {
+    if (location.state?.Dialog) {
+      setPage(1); // Set page to 1 if Dialog state is true
+    }
+  }, [location.state?.Dialog]);
   
   // Fetch organization data on component mount or ID change
   useEffect(() => {
@@ -157,6 +167,7 @@ const EditOrganization = () => {
     organizationName == "" ||
     picture == "";
 
+   
   return (
     <>
       <Box
@@ -277,30 +288,32 @@ const EditOrganization = () => {
             />
           </div>
 
-          <div>
-            <div className="w-[13%] pb-3 flex items-center">
-              <p className="text-[20px] whitespace-nowrap">Organization Logo</p>
-            </div>
+          <div className="w-full flex flex-col items-start">
+  <div className="pb-3">
+    <p className="text-[20px] text-white">Organization Logo</p>
+  </div>
 
-            <div className="mb-4 flex flex-row">
-              <div className="image-input-wrapper">
-                <input
-                  type="file"
-                  accept="*"
-                  required
-                  onChange={handlePhotoChange}
-                  className="image-input"
-                />
-                {image ? (
-                  <img src={image} alt="Selected" className="image-preview" />
-                ) : (
-                  <div className="plus-icon">
-                    <AddOutlinedIcon />
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+  <div className="flex items-center">
+    <div className="relative w-[50px] h-[50px] rounded-full  border-2 border-gray-600 flex items-center justify-center cursor-pointer hover:bg-gray-700">
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handlePhotoChange}
+        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+      />
+      {image ? (
+        <img
+          src={image}
+          alt="Selected"
+          className="w-100 h-100 object-cover rounded-full"
+        />
+      ) : (
+        <div className="text-gray-400 text-5xl font-bold">+</div>
+      )}
+    </div>
+  </div>
+</div>
+
 
           <div className="flex justify-end">
             <Button

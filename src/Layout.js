@@ -8,22 +8,22 @@ const Layout = () => {
     const subscriptionId = localStorage.getItem("subscriptionId");
     const path = location.pathname;
 
-    // Define paths where the header should be hidden
+    // Paths where the header should be hidden
     const hideHeaderPaths = [
         "/walkover",
         "/checkout",
         "/createOrganization",
         "/listOrganization",
-    ]; 
+    ];
 
-    // Check if current path includes dynamic segments (e.g., /EditOrganization/:id)
+    // Check if the path is "/EditOrganization" or starts with it (dynamic segments)
     const isEditOrganization = path.startsWith("/EditOrganization");
 
-    // Determine if the header should be hidden based on the current path
+    // Determine if the header should be hidden
     const shouldHideHeader = hideHeaderPaths.includes(path) || isEditOrganization;
 
     useEffect(() => {
-        // If subscriptionId exists and the current path is "/walkover" or "/checkout", navigate to "/listOrganization"
+        // Navigate to "/listOrganization" if subscriptionId exists and the path is "/walkover" or "/checkout"
         if (subscriptionId && (path === "/walkover" || path === "/checkout")) {
             navigate("/listOrganization");
         }
@@ -32,13 +32,13 @@ const Layout = () => {
     return (
         <>
             {shouldHideHeader ? (
-                // When header is hidden, render the Outlet without Navbar
                 <Outlet />
             ) : (
-                // When header is not hidden, render the Navbar along with the Outlet
-                <Navbar>
+                <>
+                    <Navbar>
                     <Outlet />
-                </Navbar>
+                    </Navbar>
+                </>
             )}
         </>
     );

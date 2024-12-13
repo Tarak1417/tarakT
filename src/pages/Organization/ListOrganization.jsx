@@ -167,7 +167,7 @@ const ListOrganization = () => {
   }, []);
 
  const editClick=(org)=>{
-  navigate(`/EditOrganization/${org._id}`)
+  navigate(`/EditOrganization/${org._id}`,{ state: { Dialog: true } })
   }
 
   return (
